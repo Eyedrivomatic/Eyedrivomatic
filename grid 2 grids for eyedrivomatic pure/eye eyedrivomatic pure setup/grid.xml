@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<sensorygrid>
+<grid>
+<rows>12</rows>
+<cols>9</cols>
+<selfclosing>0</selfclosing>
+<titlebartext></titlebartext>
+<customblockscan>0</customblockscan>
+<predictionsource>0</predictionsource>
+<oskcellratio>0</oskcellratio>
+<background style="0">
+<backcolour>0</backcolour>
+<backcolour2>13139839</backcolour2>
+</background>
+<commands>
+<command>
+<id>workspace.osk</id>
+</command>
+</commands>
+<cells>
+<cell x="1" y="1">
+<picture>[GRID2X]jump.back.wmf</picture>
+<magnifyy>6</magnifyy>
+<scanblock>10</scanblock>
+<directactivate>2</directactivate>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>workspace.chat</id>
+</command>
+<command>
+<id>jump.back</id>
+</command>
+</commands>
+</cell>
+<cell x="2" y="1">
+<caption><![CDATA[AUX 1]]></caption>
+<tooltip><![CDATA[AUX 1]]></tooltip>
+<magnifyy>12</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyeDoDir</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[66]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="1">
+<caption><![CDATA[AUX 2]]></caption>
+<tooltip><![CDATA[AUX 2]]></tooltip>
+<magnifyy>12</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyeDoDir</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[79]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="4" y="1">
+<caption><![CDATA[MODE]]></caption>
+<tooltip><![CDATA[MODE]]></tooltip>
+<magnifyy>12</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyeDoDir</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[66]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="5" y="1">
+<caption><![CDATA[MODE
+X 5]]></caption>
+<tooltip><![CDATA[MODE X 5]]></tooltip>
+<magnifyy>12</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>eyeDoDir</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[67]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="6" y="1">
+<caption><![CDATA[Driving Grid]]></caption>
+<tooltip><![CDATA[Driving Grid]]></tooltip>
+<picture>png</picture>
+<magnifyx>3</magnifyx>
+<magnifyy>6</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyedO aux button</stylepreset>
+<commands>
+<command>
+<id>jump.to</id>
+<parameter index="1"><![CDATA[eye eyedrivomatic pure]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="7" y="1">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="1">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="1">
+<caption><![CDATA[Save Settings and Exit]]></caption>
+<tooltip><![CDATA[Save Settings and Exit]]></tooltip>
+<picture>[GRID2X]osk.closewindow.wmf</picture>
+<magnifyy>6</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyedO aux button</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[219]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="7">
+<picture>[GRID2X]mouse.restdwell.wmf</picture>
+<magnifyy>6</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+<commands>
+<command>
+<id>mouse.restdwell</id>
+<parameter index="1"><![CDATA[0]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="2" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="7">
+<caption><![CDATA[DANGER
+safety bypass]]></caption>
+<tooltip><![CDATA[DANGER safety bypass]]></tooltip>
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>6</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>settings controls</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[76]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="7" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="7">
+<caption><![CDATA[Trim]]></caption>
+<tooltip><![CDATA[Trim]]></tooltip>
+<magnifyx>2</magnifyx>
+<magnifyy>6</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>eyedO aux button</stylepreset>
+<commands>
+<command>
+<id>jump.to</id>
+<parameter index="1"><![CDATA[eyedrivomatic trim]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="9" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="8">
+<magnifyy>4</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="11">
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="11">
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="12">
+<scanblock>8</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+</cells>
+</grid>
+</sensorygrid>

@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<sensorygrid>
+<grid>
+<rows>12</rows>
+<cols>10</cols>
+<selfclosing>0</selfclosing>
+<titlebartext></titlebartext>
+<customblockscan>0</customblockscan>
+<predictionsource>0</predictionsource>
+<oskcellratio>0</oskcellratio>
+<background style="0">
+<backcolour>0</backcolour>
+<backcolour2>13139839</backcolour2>
+</background>
+<cells>
+<cell x="1" y="1">
+<picture>[GRID2X]jump.back.wmf</picture>
+<magnifyy>5</magnifyy>
+<scanblock>2</scanblock>
+<directactivate>2</directactivate>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>jump.back</id>
+</command>
+</commands>
+</cell>
+<cell x="2" y="1">
+<caption><![CDATA[Half]]></caption>
+<tooltip><![CDATA[Half]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[55]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="1">
+<caption><![CDATA[Left
+Nudge]]></caption>
+<tooltip><![CDATA[Left Nudge]]></tooltip>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[77]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="4" y="1">
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="1">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[78]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="6" y="1">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="1">
+<caption><![CDATA[Right
+Nudge]]></caption>
+<tooltip><![CDATA[Right Nudge]]></tooltip>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keydown</id>
+<parameter index="1"><![CDATA[16]]></parameter>
+</command>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[187]]></parameter>
+</command>
+<command>
+<id>type.keyup</id>
+<parameter index="1"><![CDATA[16]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="8" y="1">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="1">
+<caption><![CDATA[Half]]></caption>
+<tooltip><![CDATA[Half]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>16</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[49]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="1">
+<caption><![CDATA[Slow]]></caption>
+<tooltip><![CDATA[Slow]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[86]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="2">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="3">
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="3">
+<caption><![CDATA[1]]></caption>
+<tooltip><![CDATA[1]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[56]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="3">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="3">
+<caption><![CDATA[1]]></caption>
+<tooltip><![CDATA[1]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[50]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="3">
+<caption><![CDATA[Walk]]></caption>
+<tooltip><![CDATA[Walk]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<directactivate>6</directactivate>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[87]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="4">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<directactivate>4</directactivate>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[68]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="4" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="4">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Calibri</fontname>
+<fontsize>18</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>90</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[69]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="6" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="4">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<directactivate>5</directactivate>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[70]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="8" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="4">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="5">
+<scanblock>2</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="5">
+<caption><![CDATA[1.5]]></caption>
+<tooltip><![CDATA[1.5]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[57]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="5">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="5">
+<caption><![CDATA[2]]></caption>
+<tooltip><![CDATA[2]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[51]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="5">
+<caption><![CDATA[Fast]]></caption>
+<tooltip><![CDATA[Fast]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[88]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="6">
+<picture>[GRID2X]mouse.restdwell.wmf</picture>
+<magnifyy>7</magnifyy>
+<scanblock>10</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+<commands>
+<command>
+<id>mouse.restdwell</id>
+<parameter index="1"><![CDATA[0]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="2" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="6">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="7">
+<caption><![CDATA[2]]></caption>
+<tooltip><![CDATA[2]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[48]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="7">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<directactivate>7</directactivate>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[75]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="4" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="7">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[80]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="6" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="7">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[71]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="8" y="7">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="7">
+<caption><![CDATA[3]]></caption>
+<tooltip><![CDATA[3]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[52]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="7">
+<caption><![CDATA[MANIC]]></caption>
+<tooltip><![CDATA[MANIC]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[89]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="8">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="9">
+<caption><![CDATA[3]]></caption>
+<tooltip><![CDATA[3]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[190]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="9">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="9">
+<caption><![CDATA[4]]></caption>
+<tooltip><![CDATA[4]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[53]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="9">
+<picture>png</picture>
+<magnifyy>4</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[65]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="1" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="10">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[74]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="4" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="10">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Calibri</fontname>
+<fontsize>18</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>90</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[73]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="6" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="10">
+<picture>png</picture>
+<magnifyx>2</magnifyx>
+<magnifyy>3</magnifyy>
+<scanblock>2</scanblock>
+<stylepreset>homeBack</stylepreset>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[72]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="8" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="10">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="11">
+<caption><![CDATA[4]]></caption>
+<tooltip><![CDATA[4]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>10679027</backcolour>
+<backcolour2>821903</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>65</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[188]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="3" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="11">
+<caption><![CDATA[5]]></caption>
+<tooltip><![CDATA[5]]></tooltip>
+<magnifyy>2</magnifyy>
+<scanblock>2</scanblock>
+<style>
+<backcolour>6674775</backcolour>
+<backcolour2>3104550</backcolour2>
+<bordercolour>0</bordercolour>
+<fontcolour>0</fontcolour>
+<fontname>Tahoma</fontname>
+<fontsize>20</fontsize>
+<fontbold>1</fontbold>
+<fontitalic>0</fontitalic>
+<picturesize>60</picturesize>
+<backgroundshape>8</backgroundshape>
+</style>
+<commands>
+<command>
+<id>type.keypress</id>
+<parameter index="1"><![CDATA[85]]></parameter>
+</command>
+</commands>
+</cell>
+<cell x="10" y="11">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="1" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="2" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="3" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="4" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="5" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="6" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="7" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="8" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="9" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+<cell x="10" y="12">
+<scanblock>1</scanblock>
+<stylepreset>Blank cell (no style)</stylepreset>
+</cell>
+</cells>
+</grid>
+</sensorygrid>
