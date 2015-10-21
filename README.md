@@ -1,5 +1,4 @@
 # Eyedrivomatic-github
-All the stuff necessary to build your own eyedrivomatic system.
 Eyedrivomatic is a low cost system to enable quadraplegics to drive an electric wheelchair using only their eyes. In this repository are all the files needed to build an eyedrivomatic system yourself. An eyedrivomatic system is made up of two parts; a 'brain box', and an 'electronic hand'. The electronic hand physicaly pushes the wheelchair's joystick, and the brain box controls it. Software on the users computer, controlled by eyegaze equipment, sends commands to the brain box.
 
 All the software for the eyedrivomatic project is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3.For more info see http://www.gnu.org/licenses/
