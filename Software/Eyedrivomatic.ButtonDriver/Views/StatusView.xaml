@@ -1,0 +1,162 @@
+﻿<!--
+ Copyright (c) 2016 Eyedrivomatic Authors
+
+ This file is part of the 'Eyedrivomatic' PC application.
+
+    This program is intended for use as part of the 'Eyedrivomatic System' for 
+    controlling an electric wheelchair using soley the user's eyes. 
+
+    Eyedrivomatic is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Eyedrivomaticis distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<UserControl x:Class="Eyedrivomatic.ButtonDriver.Views.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
+             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             mc:Ignorable="d" 
+             MaxHeight="200"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="SubStatusPanelStyle" TargetType="Border">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="CornerRadius" Value="3"/>
+                <Setter Property="BorderThickness" Value="5"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="2"/>
+            </Style>
+
+            <Style x:Key="DirectionStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
+                <Setter Property="Background" Value="{StaticResource DirectionStatusBackgroundBrush}"/>
+            </Style>
+
+            <Style x:Key="XServoStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
+                <Setter Property="Background" Value="{StaticResource LeftRightStatusBackgroundBrush}"/>
+            </Style>
+
+            <Style x:Key="YServoStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
+                <Setter Property="Background" Value="{StaticResource ForwardBackwardStatusBackgroundBrush}"/>
+            </Style>
+
+            <Style x:Key="ServoStatusLabelStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
+
+            <Style x:Key="ServoStatusValueStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
+                <Style.Setters>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                </Style.Setters>
+            </Style>
+
+            <Style x:Key="ServoStatusUnitStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
+                <Style.Setters>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                </Style.Setters>
+            </Style>
+
+            <Style x:Key="SpeedStatusValueStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
+                <Style.Setters>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                    <Setter Property="FontWeight" Value="Heavy"/>
+                    <Setter Property="FontSize" Value="18"/>
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="190"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition MinWidth="360" Width="360*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="DiagonalSpeedReduction"  Grid.Row="0" Grid.Column="0" Source="{Binding Path=DiagonalSpeedReduction, Converter={StaticResource DiagonalSpeedReductionStatusImageConverter}}" Margin="5"/>
+        <Label Content="Safety Bypass Status: " Grid.Row="0" Grid.Column="1" Style="{StaticResource SubStatusLabelStyle}" HorizontalAlignment="Right"/>
+        <Image x:Name="SafetyBypassStatus"  Grid.Row="0" Grid.Column="2" Source="{Binding Path=SafetyBypassStatus, Converter={StaticResource SafetyBypassStateImageConverter}}" Margin="5"/>
+        <Border x:Name="XServoStatusPanel" Grid.Row="0" Grid.Column="3" Style="{StaticResource XServoStatusPanelStyle}">
+            <Grid>
+                <Image x:Name="XJoystickState" Source="{Binding Path=JoystickState, Converter={StaticResource XDirectionToImageConverter}}" Margin="0" Opacity="0.6"/>
+                <Label x:Name="XDuration" Content="{Binding Path=XDuration}" ContentStringFormat="{}{0:F1}" Style="{StaticResource ServoStatusValueStyle}" VerticalAlignment="Top"/>
+                <Label Content="seconds" Style="{StaticResource ServoStatusUnitStyle}" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource DirectionStatusPanelStyle}">
+            <DockPanel>
+                <Label x:Name="Speed" Content="{Binding Speed}"  Style="{StaticResource SpeedStatusValueStyle}" DockPanel.Dock="Top"/>
+                <Image x:Name="LastDirection" Source="{Binding Path=LastDirection, Converter={StaticResource DirectionToImageConverter}}" Margin="0"/>
+            </DockPanel>
+        </Border>
+
+        <Border x:Name="YServoStatusPanel" Grid.Row="0" Grid.Column="5" Style="{StaticResource YServoStatusPanelStyle}">
+            <Grid>
+                <Image x:Name="YJoystickState" Source="{Binding Path=JoystickState, Converter={StaticResource YDirectionToImageConverter}}" Margin="0" Opacity="0.6"/>
+                <Label x:Name="YDuration" Content="{Binding Path=YDuration}" ContentStringFormat="{}{0:F1}" Style="{StaticResource ServoStatusValueStyle}" VerticalAlignment="Top"/>
+                <Label Content="seconds"  Style="{StaticResource ServoStatusUnitStyle}" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
+
+        <Label Content="X Servo" Grid.Row="1" Grid.Column="3" Style="{StaticResource ServoStatusLabelStyle}"/>
+
+        <Image Source="{Binding Path=ReadyState, Converter={StaticResource ReadyStateStatusImageConverter}}" Grid.Row="1" Grid.Column="4" Margin="5"/>
+
+        <Label Content="Y Servo" Grid.Row="1" Grid.Column="5" Style="{StaticResource ServoStatusLabelStyle}"/>
+
+        <Grid Grid.Row="0" Grid.Column="6" Grid.RowSpan="2" Margin="10" Height="auto" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Style="{StaticResource StatusLabelStyle}" Content="X Servo Centere Point:" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="XServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=XServoCenter}" ContentStringFormat="{}{0} Degrees" Grid.Row="0" Grid.Column="1" />
+
+
+            <Label Style="{StaticResource StatusLabelStyle}" Content="Nudge Speed:" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeSpeed}" Grid.Row="1" Grid.Column="1" />
+
+            <Label Style="{StaticResource StatusLabelStyle}" Content="Nudge Duration:" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="NudgeDuration" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeDuration}" ContentStringFormat="{}{0:F1} seconds"  Grid.Row="2" Grid.Column="1" />
+
+            <Label Style="{StaticResource StatusLabelStyle}" Content="Y Servo Centere Point:" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="YServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=YServoCenter}" ContentStringFormat="{}{0} Degrees" Grid.Row="3" Grid.Column="1" />
+
+        </Grid>
+    </Grid>
+
+</UserControl>
