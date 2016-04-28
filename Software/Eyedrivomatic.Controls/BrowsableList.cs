@@ -1,54 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Commands;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Eyedrivomatic.Controls
 {
-    /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:Eyedrivomatic.Controls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:BrowsableList/>
-    ///
-    /// </summary>
-    public class BrowsableList : ListView
+    public class BrowsableList : ListBox
     {
         static BrowsableList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BrowsableList), new FrameworkPropertyMetadata(typeof(BrowsableList)));
         }
+
+        public BrowsableList()
+        {
+            _prevItemCommand = new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0);
+            _nextItemCommand = new DelegateCommand(() => SelectedIndex++, () => SelectedIndex < Items.Count - 1);
+        }
+
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            base.OnSelectionChanged(e);
+            _prevItemCommand.RaiseCanExecuteChanged();
+            _nextItemCommand.RaiseCanExecuteChanged();
+        }
+
+        private DelegateCommand _prevItemCommand;
+        public ICommand PrevItemCommand => _prevItemCommand;
+
+        private DelegateCommand _nextItemCommand;
+        public ICommand NextItemCommand => _nextItemCommand;
     }
 }

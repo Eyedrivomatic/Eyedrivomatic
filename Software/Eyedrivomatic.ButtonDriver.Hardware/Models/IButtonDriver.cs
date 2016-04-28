@@ -56,6 +56,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
     {
         #region Connection
         /// <summary>
+        /// The connection string that was used to start the connection.
+        /// This is the auto-detected configuration is none was supplied to the Connect method.
+        /// </summary>
+        string ConnectionString { get; }
+
+        /// <summary>
         /// Fired when the device updates its status.
         /// All status values are refreshed befor this event fires.
         /// </summary>
@@ -69,14 +75,19 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         IList<string> GetAvailableDevices();
 
         /// <summary>
+        /// Attempt to automatically detect the device.
+        /// </summary>
+        /// <returns>The connection string of the device, or null if the device could be found.</returns>
+        Task<string> AutoDetectDeviceAsync();
+
+        /// <summary>
         /// Connect to the device.
-        /// For the current Arduino platform, the configuration should be either null or "COM#" where # is the COM port number
+        /// For the current Arduino platform, the configuration "COM#" where # is the COM port number
         /// assigned to the device.
-        /// If configuration is null or empty, the driver will attempt to auto-discover the device.
         /// </summary>
         /// <param name="connectionString">The platform specific connection string.</param>
         /// <returns>True if the connection was established. False otherwise.</returns>
-        Task<bool> ConnectAsync(string connectionString = null);
+        Task<bool> ConnectAsync(string connectionString);
 
         /// <summary>
         /// Disconnect from the device.
@@ -91,6 +102,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         #endregion DeviceInfo
 
         #region Status
+
+        /// <summary>
+        /// True while attempting to connect.
+        /// </summary>
+        bool IsConnecting { get; }
+
         /// <summary>
         /// True when a connection to the device has been established.
         /// </summary>
@@ -100,12 +117,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         /// The device is currently sending valid status messages.
         /// </summary>
         bool HardwareReady { get; }
-
-        /// <summary>
-        /// The connection string that was used to start the connection.
-        /// This is the auto-detected configuration is none was supplied to the Connect method.
-        /// </summary>
-        string ConnectionString { get; }
 
         /// <summary>
         /// Indicates which next actions are valid.
@@ -142,7 +153,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         /// </summary>
         bool DiagonalSpeedReduction { get; set; }
 
-
         #region Trim
         /// <summary>
         /// The center position of the Left/Right servo
@@ -175,17 +185,16 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         void TrimBackward();
         #endregion Trim
 
-
         #region Duration
-        /// <summary>
-        /// The duration of forward/backward movements.
-        /// </summary>
-        ulong YDuration { get; set; }
-
         /// <summary>
         /// The duration of left/right movements.
         /// </summary>
         ulong XDuration { get; set; }
+
+        /// <summary>
+        /// The duration of forward/backward movements.
+        /// </summary>
+        ulong YDuration { get; set; }
 
         /// <summary>
         /// The duration of nudge movements.
@@ -280,13 +289,59 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         [ContractClassFor(typeof(IButtonDriver))]
         public abstract class DriverContract : IButtonDriver
         {
+
+            #region Connection
             public abstract string ConnectionString { get; }
-            public ContinueState ContinueState 
+
+            public abstract event EventHandler StatusChanged;
+
+            public IList<string> GetAvailableDevices()
+            {
+                Contract.Ensures(Contract.Result<IList<string>>() != null);
+                throw new NotImplementedException();
+            }
+
+            public Task<string> AutoDetectDeviceAsync()
+            {
+                Contract.Ensures(Contract.Result<Task>() != null);
+                throw new NotImplementedException();
+            }
+
+            public Task<bool> ConnectAsync(string connectionString)
+            {
+                Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(connectionString), nameof(connectionString));
+                Contract.Ensures(Contract.Result<Task>() != null);
+                throw new NotImplementedException();
+            }
+
+            public abstract void Disconnect();
+            #endregion Connection
+
+            #region DeviceInfo
+            public uint RelayCount
             {
                 get
                 {
-                    Contract.Ensures(Enum.IsDefined(typeof(ContinueState), Contract.Result<ContinueState>()));
-                    return default(ContinueState);
+                    //This may change in the future. But his makes sure that implementations dont break current expectations.
+                    Contract.Ensures(Contract.Result<uint>() > 0);
+                    return default(uint);
+                }
+            }
+            #endregion DeviceInfo
+
+            #region Status
+            public abstract bool IsConnecting { get; }
+
+            public abstract bool IsConnected { get; }
+
+            public abstract bool HardwareReady { get; }
+
+            public ReadyState ReadyState
+            {
+                get
+                {
+                    Contract.Ensures(Enum.IsDefined(typeof(ReadyState), Contract.Result<ReadyState>()));
+                    return default(ReadyState);
                 }
             }
 
@@ -299,15 +354,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 }
             }
 
-            public abstract bool DiagonalSpeedReduction { get; set; }
-
-            public abstract ulong YDuration { get; set; }
-
-            public abstract bool HardwareReady { get; }
-
-            public abstract bool IsConnected { get; }
-
-            public Direction LastDirection 
+            public Direction LastDirection
             {
                 get
                 {
@@ -316,43 +363,17 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 }
             }
 
-            public abstract ulong XDuration { get; set; }
-
-            public abstract ulong NudgeDuration { get; set; }
-
-            public Speed NudgeSpeed
+            public ContinueState ContinueState
             {
                 get
                 {
-                    Contract.Ensures(Enum.IsDefined(typeof(Speed), Contract.Result<Speed>()));
-                    return default(Speed);
-                }
-
-                set
-                {
-                    Contract.Requires(Enum.IsDefined(typeof(Speed), value));
+                    Contract.Ensures(Enum.IsDefined(typeof(ContinueState), Contract.Result<ContinueState>()));
+                    return default(ContinueState);
                 }
             }
+            #endregion Status
 
-            public ReadyState ReadyState
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(ReadyState), Contract.Result<ReadyState>()));
-                    return default(ReadyState);
-                }
-            }
-
-            public uint RelayCount
-            {
-                get
-                {
-                    //This may change in the future. But his makes sure that implementations dont break current expectations.
-                    Contract.Ensures(Contract.Result<uint>() > 0);
-                    return default(uint);
-                }
-            }
-
+            #region Settings
             public SafetyBypassState SafetyBypassStatus
             {
                 get
@@ -367,20 +388,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 }
             }
 
-            public Speed Speed
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(Speed), Contract.Result<Speed>()));
-                    return default(Speed);
-                }
+            public abstract bool DiagonalSpeedReduction { get; set; }
 
-                set
-                {
-                    Contract.Requires(Enum.IsDefined(typeof(Speed), value));
-                }
-            }
-
+            #region Trim
             public int XServoCenter
             {
                 get
@@ -413,39 +423,67 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 }
             }
 
-            public abstract event EventHandler StatusChanged;
+            public abstract void TrimRight();
 
-            public bool CanMove(Direction direction)
-            {
-                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
-                throw new NotImplementedException();
-            }
+            public abstract void TrimLeft();
 
-            public abstract Task<bool> ConnectAsync(string connectionString = null);
+            public abstract void TrimForward();
 
-            public abstract void Continue();
+            public abstract void TrimBackward();
+            #endregion Trim
 
-            public abstract void DecreaseNudgeDuration();
+            #region Duration
+            public abstract ulong XDuration { get; set; }
 
-            public abstract void DecreaseNudgeSpeed();
+            public abstract ulong YDuration { get; set; }
 
-            public abstract void Disconnect();
-
-            public IList<string> GetAvailableDevices()
-            {
-                Contract.Ensures(Contract.Result<IList<string>>() != null);
-                throw new NotImplementedException();
-            }
+            public abstract ulong NudgeDuration { get; set; }
 
             public abstract void IncreaseNudgeDuration();
 
+            public abstract void DecreaseNudgeDuration();
+            #endregion Duration
+
+            #region Speed
+            public Speed Speed
+            {
+                get
+                {
+                    Contract.Ensures(Enum.IsDefined(typeof(Speed), Contract.Result<Speed>()));
+                    return default(Speed);
+                }
+
+                set
+                {
+                    Contract.Requires(Enum.IsDefined(typeof(Speed), value));
+                }
+            }
+
+            public Speed NudgeSpeed
+            {
+                get
+                {
+                    Contract.Ensures(Enum.IsDefined(typeof(Speed), Contract.Result<Speed>()));
+                    return default(Speed);
+                }
+
+                set
+                {
+                    Contract.Requires(Enum.IsDefined(typeof(Speed), value));
+                }
+            }
+
             public abstract void IncreaseNudgeSpeed();
 
-            public void Move(Direction direction)
-            {
-                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
-                throw new NotImplementedException();
-            }
+            public abstract void DecreaseNudgeSpeed();
+            #endregion Speed
+
+            #endregion Settings
+
+            #region Control
+            public abstract void Continue();
+
+            public abstract void Reset();
 
             public void Nudge(XDirection direction)
             {
@@ -453,7 +491,17 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 throw new NotImplementedException();
             }
 
-            public abstract void Reset();
+            public bool CanMove(Direction direction)
+            {
+                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
+                throw new NotImplementedException();
+            }
+
+            public void Move(Direction direction)
+            {
+                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
+                throw new NotImplementedException();
+            }
 
             public Task ToggleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
             {
@@ -461,14 +509,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 Contract.Requires<ArgumentOutOfRangeException>(repeat > 0, nameof(repeat));
                 throw new NotImplementedException();
             }
-
-            public abstract void TrimBackward();
-
-            public abstract void TrimForward();
-
-            public abstract void TrimLeft();
-
-            public abstract void TrimRight();
+            #endregion Control
         }
     }
 }

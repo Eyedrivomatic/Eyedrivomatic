@@ -79,6 +79,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string CommandText_Save {
+            get {
+                return ResourceManager.GetString("CommandText_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically Connect at Startup.
+        /// </summary>
+        public static string SettingsName_AutoConnect {
+            get {
+                return ResourceManager.GetString("SettingsName_AutoConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setup.
         /// </summary>
         public static string ViewName_Configuration {

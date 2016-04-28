@@ -59,7 +59,10 @@ namespace Eyedrivomatic.Startup
         {
             base.ConfigureModuleCatalog();
 
-            var type = typeof(ButtonDriverHardwareModule);
+            var type = typeof(ApplicationSettingsModule);
+            ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
+
+            type = typeof(ButtonDriverHardwareModule);
             ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
 
             type = typeof(ButtonDriverModule);
@@ -69,8 +72,6 @@ namespace Eyedrivomatic.Startup
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
-            Container.ComposeExportedValue("DeviceConnectionString", Settings.Default.BrainBoxConnection);
         }
 
         protected override void ConfigureAggregateCatalog()

@@ -211,4 +211,45 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type controls:BrowsableList}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:BrowsableList}">
+                    <Grid x:Name="LayoutGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="PrevDevice"
+                                Style="{StaticResource TextButtonStyle}"
+                                Content="{x:Static controls:Strings.CommandText_PrevDevice}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=controls:BrowsableList}, Path=PrevItemCommand}"
+                                Grid.Column="0"
+                                MinHeight="75"/>
+
+                        <ListBox x:Name="AvailableDevices" 
+                                 Grid.Column="1" 
+                                 VerticalAlignment="Stretch" 
+                                 VerticalContentAlignment="Center"
+                                 FontFamily="Ariel"
+                                 FontWeight="Bold"
+                                 FontSize="20"                            
+                                 ItemsSource="{Binding AvailableDevices}"
+                                 SelectedItem="{Binding SelectedDevice}">
+                        </ListBox>
+
+                        <Button x:Name="NextDevice" 
+                                Style="{StaticResource TextButtonStyle}"
+                                Content="{x:Static controls:Strings.CommandText_NextDevice}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=controls:BrowsableList}, Path=NextItemCommand}"
+                                Grid.Column="2"
+                                MinHeight="75"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

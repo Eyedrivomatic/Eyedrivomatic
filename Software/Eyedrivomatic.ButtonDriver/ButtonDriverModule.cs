@@ -23,8 +23,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 
-using Microsoft.Practices.ServiceLocation;
-
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -36,15 +34,18 @@ using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver
 {
-    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule) }, InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), "ApplicationSettingsModule" }, InitializationMode = InitializationMode.WhenAvailable)]
     public class ButtonDriverModule : IModule
     {
         private readonly IHardwareService HardwareService;
         private readonly IRegionManager RegionManager;
         private readonly ILoggerFacade Logger;
 
-        [Import("DeviceConnectionString", AllowDefault = true)]
+        [Import("DeviceConnectionString", AllowDefault = true, AllowRecomposition = true)]
         public string ConnectionString { get; set; }
+
+        [Import("AutoConnect", AllowDefault = true, AllowRecomposition = true)]
+        public bool AutoConnect { get; set; }
 
         [ImportingConstructor]
         public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, ILoggerFacade logger)
@@ -72,7 +73,11 @@ namespace Eyedrivomatic.ButtonDriver
             try
             {
                 await HardwareService.InitializeAsync();
-                await HardwareService.CurrentDriver?.ConnectAsync(ConnectionString);
+
+                if (AutoConnect && !string.IsNullOrWhiteSpace(ConnectionString))
+                {
+                    await HardwareService.CurrentDriver?.ConnectAsync(ConnectionString);
+                }
 
                 var mainView = HardwareService.CurrentDriver?.IsConnected ?? false
                     ? nameof(OutdoorDrivingView)

@@ -33,33 +33,33 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     {
         protected IHardwareService HardwareService { get; }
 
-        public ButtonDriverViewModelBase(IHardwareService hardware)
+        public ButtonDriverViewModelBase(IHardwareService hardwareService)
         {
-            Contract.Requires<ArgumentNullException>(hardware != null, nameof(hardware));
-            HardwareService = hardware;
+            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
 
-            hardware.CurrentDriverChanged += Hardware_CurrentDriverChanged;
+            HardwareService = hardwareService;
+
+            hardwareService.CurrentDriverChanged += Hardware_CurrentDriverChanged;
             Hardware_CurrentDriverChanged(this, EventArgs.Empty); //force an update.
         }
 
-        private void Hardware_CurrentDriverChanged(object sender, EventArgs e)
+        protected virtual void Hardware_CurrentDriverChanged(object sender, EventArgs e)
         {
             if (HardwareService.CurrentDriver != null)
-                HardwareService.CurrentDriver.StatusChanged += CurrentDriver_StatusChanged;
+                HardwareService.CurrentDriver.StatusChanged += OnDriverStatusChanged;
             OnPropertyChanged(string.Empty);
         }
 
-        private void CurrentDriver_StatusChanged(object sender, EventArgs e)
+        protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
         {
             if (sender is IHardwareService && sender != HardwareService.CurrentDriver)
             {
                 //a status change from a driver that is not active. Unsubscribe from events.
-                ((IHardwareService)sender).CurrentDriverChanged -= CurrentDriver_StatusChanged;
+                ((IHardwareService)sender).CurrentDriverChanged -= OnDriverStatusChanged;
                 return;
             }
 
             OnPropertyChanged(string.Empty);
         }
-
     }
 }

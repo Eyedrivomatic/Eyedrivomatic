@@ -26,10 +26,7 @@
 
     <BitmapImage x:Key="MainIcon" UriSource="Images\Logo.png" CacheOption="OnLoad"/>
 
-    <BitmapImage x:Key="Back" UriSource="Images\Back.png"/>
     <BitmapImage x:Key="Danger" UriSource="Images\SkullAndCrossbones.png"/>
-    <!--Image x:Key="DrivingIcon" UriSource="Images\\esources\DrivingIcon.png" /-->
-    <!--Image x:Key="Exit" UriSource="Images\Exit.png" /-->
     <BitmapImage x:Key="Full" UriSource="Images\Full.png"/>
     <BitmapImage x:Key="Reduced" UriSource="Images\Reduced.png"/>
     <BitmapImage x:Key="Ready" UriSource="Images\Ready.png"/>
