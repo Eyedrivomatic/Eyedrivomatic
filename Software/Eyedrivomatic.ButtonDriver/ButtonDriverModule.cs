@@ -23,41 +23,39 @@ using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 
+using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
 
+using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.ButtonDriver.Views;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
 {
-    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), "ApplicationSettingsModule" }, InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule) }, InitializationMode = InitializationMode.WhenAvailable)]
     public class ButtonDriverModule : IModule
     {
         private readonly IHardwareService HardwareService;
+        private readonly IButtonDriverConfigurationService ConfigurationService;
         private readonly IRegionManager RegionManager;
         private readonly ILoggerFacade Logger;
 
-        [Import("DeviceConnectionString", AllowDefault = true, AllowRecomposition = true)]
-        public string ConnectionString { get; set; }
-
-        [Import("AutoConnect", AllowDefault = true, AllowRecomposition = true)]
-        public bool AutoConnect { get; set; }
-
         [ImportingConstructor]
-        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, ILoggerFacade logger)
+        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
         {
             Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
             Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
+            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
             Logger = logger;
             Logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Info, Priority.None);
 
             RegionManager = regionManager;
             HardwareService = hardwareService;
+            ConfigurationService = configurationService;
         }
 
         public async void Initialize()
@@ -74,9 +72,9 @@ namespace Eyedrivomatic.ButtonDriver
             {
                 await HardwareService.InitializeAsync();
 
-                if (AutoConnect && !string.IsNullOrWhiteSpace(ConnectionString))
+                if (ConfigurationService.AutoConnect && !string.IsNullOrWhiteSpace(ConfigurationService.ConnectionString))
                 {
-                    await HardwareService.CurrentDriver?.ConnectAsync(ConnectionString);
+                    await HardwareService.CurrentDriver?.ConnectAsync(ConfigurationService.ConnectionString);
                 }
 
                 var mainView = HardwareService.CurrentDriver?.IsConnected ?? false

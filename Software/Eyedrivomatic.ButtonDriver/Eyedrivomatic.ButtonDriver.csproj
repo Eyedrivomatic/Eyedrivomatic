@@ -159,7 +159,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ArduinoConfigViewModel.cs" />
     <Compile Include="ViewModels\ButtonDriverViewModelBase.cs" />
     <Compile Include="ViewModels\DeviceConfigViewModel.cs" />
     <Compile Include="ViewModels\DrivingViewModel.cs" />
@@ -185,6 +184,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Configuration\Eyedrivomatic.ButtonDriver.Configuration.csproj">
+      <Project>{c22ce76f-b9bb-441c-982e-5859e7ef531b}</Project>
+      <Name>Eyedrivomatic.ButtonDriver.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Hardware.csproj">
       <Project>{9985222b-9bb5-4b68-9342-764c295d7fa9}</Project>
       <Name>Eyedrivomatic.ButtonDriver.Hardware</Name>

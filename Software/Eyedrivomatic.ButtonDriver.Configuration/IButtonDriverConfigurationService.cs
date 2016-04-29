@@ -19,26 +19,18 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System.ComponentModel.Composition;
+using System.ComponentModel;
 
-using Eyedrivomatic.ButtonDriver.ViewModels;
-
-
-namespace Eyedrivomatic.ButtonDriver.Views
+namespace Eyedrivomatic.ButtonDriver.Configuration
 {
-    [Export]
-    public partial class ConfigurationView
+    public interface IButtonDriverConfigurationService : INotifyPropertyChanged
     {
-        public ConfigurationView()
-        {
-            InitializeComponent();
-        }
+        bool AutoConnect { get; set; }
+        string ConnectionString { get; set; }
 
-        [Import]
-        public DeviceConfigViewModel ViewModel
-        {
-            get { return (DeviceConfigViewModel)DataContext; }
-            set { DataContext = value; }
-        }
+        bool AutoSaveDeviceSettingsOnExit { get; set; }
+
+        void Save();
+        bool HasChanges { get; }
     }
 }

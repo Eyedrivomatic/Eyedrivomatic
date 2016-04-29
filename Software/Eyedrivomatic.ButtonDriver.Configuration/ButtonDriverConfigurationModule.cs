@@ -18,11 +18,23 @@
 //    You should have received a copy of the GNU General Public License
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
-using Prism.Events;
 
-namespace Eyedrivomatic.Infrastructure.Events
+using System.ComponentModel.Composition;
+
+using Prism.Mef.Modularity;
+using Prism.Modularity;
+
+
+namespace Eyedrivomatic.ButtonDriver.Configuration
 {
-    public class SaveDeviceConnectionStringEvent : PubSubEvent<string>
+    [ModuleExport(typeof(ButtonDriverConfigurationModule), InitializationMode = InitializationMode.WhenAvailable)]
+    public class ButtonDriverConfigurationModule : IModule
     {
+        [Export]
+        internal ButtonDriverConfiguration Configuration => ButtonDriverConfiguration.Default;
+
+        public void Initialize()
+        {
+        }
     }
 }

@@ -144,6 +144,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 
         #region Settings
         /// <summary>
+        /// Save the current configuration to EEPROM
+        /// </summary>
+        void SaveSettings();
+
+        /// <summary>
         /// The state of the SafetyBypass
         /// </summary>
         SafetyBypassState SafetyBypassStatus { get; set; }
@@ -374,6 +379,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             #endregion Status
 
             #region Settings
+            public abstract void SaveSettings();
+
             public SafetyBypassState SafetyBypassStatus
             {
                 get

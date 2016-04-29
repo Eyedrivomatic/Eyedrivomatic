@@ -287,6 +287,18 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         #endregion Status
 
         #region Settings
+        public void SaveSettings()
+        {
+            if (!IsConnected)
+            {
+                Logger?.Log($"Unable to save BrainBox settings to EEPROM. Not connected to device.", Category.Warn, Priority.None);
+                return;
+            }
+
+            Logger?.Log($"Saving BrainBox settings to EEPROM.", Category.Info, Priority.None);
+            ExecuteCommand(BrainBoxCommand.SaveSettings);
+        }
+
         public SafetyBypassState SafetyBypassStatus
         {
             get { lock (_statusLock) { return _lastStatusMessage.SafetyBypass; } }

@@ -26,30 +26,43 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Prism.Commands;
-using Prism.Events;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.Controls;
-using Eyedrivomatic.Infrastructure.Events;
+using System.ComponentModel.Composition;
+using Eyedrivomatic.ButtonDriver.Configuration;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    public abstract class DeviceConfigViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
+    [Export]
+    public class DeviceConfigViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
     {
-        protected IEventAggregator EventAggregator { get; }
+        private readonly IButtonDriverConfigurationService _configurationService;
 
-        public DeviceConfigViewModel(IHardwareService hardwareService, IEventAggregator eventAggregator)
+        [ImportingConstructor]
+        public DeviceConfigViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
             : base(hardwareService)
         {
             Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-            Contract.Requires<ArgumentNullException>(eventAggregator != null, nameof(eventAggregator));
+            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
-            EventAggregator = eventAggregator;
+            _configurationService = configurationService;
+            _configurationService.PropertyChanged += _configurationService_PropertyChanged;
             SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
             AutoDetectDeviceCommand = DelegateCommand.FromAsyncHandler(AutoDetectDeviceAsync, CanAutoDetectDevice);
             ConnectCommand = DelegateCommand.FromAsyncHandler(ConnectAsync, CanConnect);
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
+        }
+
+        private void _configurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged();
+
+            ConnectCommand.RaiseCanExecuteChanged();
+            DisconnectCommand.RaiseCanExecuteChanged();
+            AutoDetectDeviceCommand.RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         public string HeaderInfo => Strings.ViewName_Setup;
@@ -62,21 +75,25 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public DelegateCommand SaveCommand { get; }
 
-        public virtual bool Connecting => HardwareService.CurrentDriver?.IsConnecting ?? false;
-        public virtual bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
-        public virtual bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
+        public bool Connecting => HardwareService.CurrentDriver?.IsConnecting ?? false;
+        public bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
+        public bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
 
-        public virtual IList<string> AvailableDevices => HardwareService.CurrentDriver?.GetAvailableDevices();
-        public abstract string SelectedDevice { get; set; }
+        public IList<string> AvailableDevices => HardwareService.CurrentDriver?.GetAvailableDevices();
 
-        private bool _autoConnect;
-        public virtual bool AutoConnect
+        public string SelectedDevice
         {
-            get { return _autoConnect; }
-            set { SetProperty(ref _autoConnect, value); }
+            get { return _configurationService.ConnectionString; }
+            set { _configurationService.ConnectionString = value; }
         }
 
-        public virtual void RefreshAvailableDeviceList()
+        public bool AutoConnect
+        {
+            get { return _configurationService.AutoConnect; }
+            set { _configurationService.AutoConnect = value; }
+        }
+
+        public void RefreshAvailableDeviceList()
         {
             HardwareService.CurrentDriver?.GetAvailableDevices();
             OnPropertyChanged(nameof(AvailableDevices));
@@ -86,29 +103,45 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             AutoDetectDeviceCommand.RaiseCanExecuteChanged();
         }
 
-        public virtual bool CanRefreshAvailableDeviceList()
+        public bool CanRefreshAvailableDeviceList()
         {
             return true;
         }
 
-        protected virtual void SaveChanges()
+        protected void SaveChanges()
         {
-            EventAggregator.GetEvent<SaveAutoConnectEvent>().Publish(_autoConnect);
+            _configurationService.Save();
+            HardwareService.CurrentDriver?.SaveSettings();
         }
 
-        protected virtual bool CanSaveChanges() { return false; }
-
-        protected abstract Task AutoDetectDeviceAsync();
-        protected virtual bool CanAutoDetectDevice() { return !Connected && !Connecting; }
-
-        protected abstract Task ConnectAsync();
-        protected virtual bool CanConnect()
+        protected bool CanSaveChanges()
         {
-            return !Connected && !Connecting;
+            return (HardwareService.CurrentDriver?.IsConnected ?? false) || _configurationService.HasChanges;
         }
 
-        protected abstract void Disconnect();
-        protected virtual bool CanDisconnect()
+        protected async Task AutoDetectDeviceAsync()
+        {
+            SelectedDevice = await HardwareService.CurrentDriver?.AutoDetectDeviceAsync();
+        }
+
+        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
+
+        protected Task ConnectAsync()
+        {
+            return HardwareService.CurrentDriver?.ConnectAsync(SelectedDevice);
+        }
+
+        protected bool CanConnect()
+        {
+            return !string.IsNullOrEmpty(SelectedDevice) && !Connected && !Connecting;
+        }
+
+        protected void Disconnect()
+        {
+            HardwareService.CurrentDriver?.Disconnect();
+        }
+
+        protected bool CanDisconnect()
         {
             return Connected;
         }

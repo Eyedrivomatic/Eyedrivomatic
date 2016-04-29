@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic", "Eyedrivomatic\Eyedrivomatic.csproj", "{AA2D68EC-A910-4260-A0A3-036755F1DEFB}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Eyedrivomatic.ButtonDriver.Hardware.Arduino", "Eyedrivomatic.ButtonDriver.Hardware.Arduino\Eyedrivomatic.ButtonDriver.Hardware.Arduino.vcxproj", "{803E2A3D-1C15-4492-8ABB-AB6772A5B78B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Hardware", "Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Hardware.csproj", "{9985222B-9BB5-4B68-9342-764C295D7FA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Configuration", "Eyedrivomatic.ButtonDriver.Configuration\Eyedrivomatic.ButtonDriver.Configuration.csproj", "{C22CE76F-B9BB-441C-982E-5859E7EF531B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,18 @@ Global
 		{9985222B-9BB5-4B68-9342-764C295D7FA9}.Release|x64.Build.0 = Release|Any CPU
 		{9985222B-9BB5-4B68-9342-764C295D7FA9}.Release|x86.ActiveCfg = Release|Any CPU
 		{9985222B-9BB5-4B68-9342-764C295D7FA9}.Release|x86.Build.0 = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|x64.Build.0 = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|x64.ActiveCfg = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|x64.Build.0 = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C22CE76F-B9BB-441C-982E-5859E7EF531B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

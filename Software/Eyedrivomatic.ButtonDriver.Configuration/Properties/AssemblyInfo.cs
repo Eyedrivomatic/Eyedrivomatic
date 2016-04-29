@@ -18,11 +18,19 @@
 //    You should have received a copy of the GNU General Public License
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
-using Prism.Events;
 
-namespace Eyedrivomatic.Infrastructure.Events
-{
-    public class SaveAutoConnectEvent : PubSubEvent<bool>
-    {
-    }
-}
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+[assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver.Configuration")]
+[assembly: AssemblyDescription("Handles the configuration for the Eyedrivomatic system hardware.")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Eyedrivomatic")]
+[assembly: AssemblyProduct("Eyedrivomatic")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+
+[assembly: ComVisible(false)]
+
+[assembly: AssemblyVersion("1.0.*")]

@@ -31,7 +31,7 @@ using Prism.Logging;
 
 using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Properties;
+using Eyedrivomatic.ButtonDriver.Configuration;
 
 namespace Eyedrivomatic.Startup
 {
@@ -59,7 +59,7 @@ namespace Eyedrivomatic.Startup
         {
             base.ConfigureModuleCatalog();
 
-            var type = typeof(ApplicationSettingsModule);
+            var type = typeof(ButtonDriverConfigurationModule);
             ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
 
             type = typeof(ButtonDriverHardwareModule);
@@ -81,6 +81,7 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
         }
 
     }
