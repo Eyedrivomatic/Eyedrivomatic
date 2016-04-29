@@ -27,6 +27,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Ports;
 using System.Reactive.Concurrency;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
 
@@ -186,7 +187,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 .Repeat()
                 .Publish()
                 .RefCount()
-                .SubscribeOn(TaskPoolScheduler.Default);
+                .SubscribeOn(TaskPoolScheduler.Default)
+                .ObserveOn(new SynchronizationContextScheduler(SynchronizationContext.Current));
 
             _statusFeed = status.Subscribe(OnDeviceStatusChanged);
 
