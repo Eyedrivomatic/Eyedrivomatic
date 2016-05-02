@@ -35,6 +35,6 @@ namespace Eyedrivomatic.Controls
 
         // Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconSourceProperty =
-            DependencyProperty.Register(nameof(IconSource), typeof(ImageSource), typeof(ButtonWithIcon), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconSource), typeof(ImageSource), typeof(ButtonWithIcon), new FrameworkPropertyMetadata(null));
     }
 }

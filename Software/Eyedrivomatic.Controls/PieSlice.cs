@@ -19,67 +19,49 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+// Most of this class is borrowed from https://wpf.2000things.com/2014/09/05/1152-a-custom-pie-slice-shape/
+
 using System;
-using System.Diagnostics.Contracts;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Eyedrivomatic.Controls
 {
-    public abstract class DwellProgress
-    {
-
-
-        public void Report(double value)
-        {
-            Contract.Requires(value >= 0);
-            Contract.Requires(value <= 1);
-        }
-    }
-
-
     public class PieSlice : Shape
     {
-        // Angle that arc starts at
+        private static PropertyMetadata startAngleMetadata = new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, null, CoerceAngle);
+        public static readonly DependencyProperty StartAngleProperty =
+            DependencyProperty.Register(nameof(StartAngle), typeof(double), typeof(PieSlice), startAngleMetadata);
+
+        /// <summary>
+        /// The angle of the leading clockwise edge of the pie slice.
+        /// </summary>
         public double StartAngle
         {
             get { return (double)GetValue(StartAngleProperty); }
             set { SetValue(StartAngleProperty, value); }
         }
 
-        // DependencyProperty - StartAngle
-        private static PropertyMetadata startAngleMetadata =
-                new PropertyMetadata(
-                    0.0,     // Default value
-                    null,    // Property changed callback
-                    new CoerceValueCallback(CoerceAngle));   // Coerce value callback
 
-        public static readonly DependencyProperty StartAngleProperty =
-            DependencyProperty.Register("StartAngle", typeof(double), typeof(PieSlice), startAngleMetadata);
-
-        // Angle that arc ends at
+        /// <summary>
+        /// The angle of the leading counter-clockwise edge of the pie slice.
+        /// </summary>
         public double EndAngle
         {
             get { return (double)GetValue(EndAngleProperty); }
             set { SetValue(EndAngleProperty, value); }
         }
 
-        // DependencyProperty - EndAngle
-        private static PropertyMetadata endAngleMetadata =
-                new PropertyMetadata(
-                    90.0,     // Default value
-                    null,    // Property changed callback
-                    new CoerceValueCallback(CoerceAngle));   // Coerce value callback
-
+        private static PropertyMetadata endAngleMetadata = new FrameworkPropertyMetadata(90.0, FrameworkPropertyMetadataOptions.AffectsRender, null, CoerceAngle);
         public static readonly DependencyProperty EndAngleProperty =
-            DependencyProperty.Register("EndAngle", typeof(double), typeof(PieSlice), endAngleMetadata);
+            DependencyProperty.Register(nameof(EndAngle), typeof(double), typeof(PieSlice), endAngleMetadata);
 
         private static object CoerceAngle(DependencyObject depObj, object baseVal)
         {
-            double angle = (double)baseVal;
-            angle = Math.Min(angle, 359.9);
-            angle = Math.Max(angle, 0.0);
+            double angle = (double)baseVal * 360d;
+            angle = Math.Abs(angle % 360d);
+            
             return angle;
         }
 
@@ -87,15 +69,14 @@ namespace Eyedrivomatic.Controls
         {
             get
             {
-                double maxWidth = Math.Max(0.0, RenderSize.Width - StrokeThickness);
-                double maxHeight = Math.Max(0.0, RenderSize.Height - StrokeThickness);
-                //Console.WriteLine(string.Format("* maxWidth={0}, maxHeight={1}", maxWidth, maxHeight));
+                var maxWidth = Math.Max(0.0, RenderSize.Width - StrokeThickness);
+                var maxHeight = Math.Max(0.0, RenderSize.Height - StrokeThickness);
 
-                double xStart = maxWidth / 2.0 * Math.Cos(StartAngle * Math.PI / 180.0);
-                double yStart = maxHeight / 2.0 * Math.Sin(StartAngle * Math.PI / 180.0);
+                var xStart = maxWidth / 2.0 * Math.Cos(StartAngle * Math.PI / 180.0);
+                var yStart = maxHeight / 2.0 * Math.Sin(StartAngle * Math.PI / 180.0);
 
-                double xEnd = maxWidth / 2.0 * Math.Cos(EndAngle * Math.PI / 180.0);
-                double yEnd = maxHeight / 2.0 * Math.Sin(EndAngle * Math.PI / 180.0);
+                var xEnd = maxWidth / 2.0 * Math.Cos(EndAngle * Math.PI / 180.0);
+                var yEnd = maxHeight / 2.0 * Math.Sin(EndAngle * Math.PI / 180.0);
 
                 StreamGeometry geom = new StreamGeometry();
                 using (StreamGeometryContext ctx = geom.Open())

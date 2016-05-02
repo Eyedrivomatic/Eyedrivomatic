@@ -25,7 +25,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Eyedrivomatic.Themes">
 
-    <FrameworkElement x:Key="SmallCursor" Cursor="\Resources\SmallCursor.cur"/>
+    <FrameworkElement x:Key="SmallCursor" Cursor="pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"/>
     
     <SolidColorBrush x:Key="MainBackgroundBrush" Color="#FFF3F2A2"/>
 
@@ -101,13 +101,15 @@
                                 </Rectangle>
                             </Grid>
                         </Border>
-                        <ContentPresenter
+                        <AdornerDecorator>
+                            <ContentPresenter
                               x:Name="contentPresenter"
                               Content="{TemplateBinding Content}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               Margin="{TemplateBinding Padding}"/>
+                        </AdornerDecorator>
                         <Rectangle x:Name="DisabledVisualElement" RadiusX="3" RadiusY="3" Fill="#FFFFFFFF" Opacity="0" IsHitTestVisible="false" />
                         <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
                     </Grid>

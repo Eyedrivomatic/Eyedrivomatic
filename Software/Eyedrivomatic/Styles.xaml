@@ -31,6 +31,14 @@
         <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="DwellClickAdornerStyle" TargetType="{x:Type controls:DwellClickAdorner}">
+        <Setter Property="ProgressIndicatorRadius" Value="40"/>
+        <Setter Property="ProgressIndicatorFill">
+            <Setter.Value>
+                <SolidColorBrush Color="#BFA36AF5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type Grid}">
         <Setter Property="SnapsToDevicePixels" Value="False"/>
@@ -43,6 +51,8 @@
         <Setter Property="Padding" Value="10"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="controls:DwellClickBehavior.Enabled" Value="True"/>
+        <Setter Property="controls:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
     </Style>
 
     <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">

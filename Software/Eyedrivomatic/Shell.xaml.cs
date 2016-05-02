@@ -19,13 +19,10 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
 
-using Prism.Modularity;
-using Prism.Regions;
 
 namespace Eyedrivomatic
 {
@@ -35,7 +32,7 @@ namespace Eyedrivomatic
         public Shell()
         {
             InitializeComponent();
-            //Mouse.OverrideCursor = ((FrameworkElement)Resources["SmallCursor"]).Cursor;
+            Mouse.OverrideCursor = ((FrameworkElement)App.Current.Resources["SmallCursor"]).Cursor;
         }
 
         public void OnImportsSatisfied()
@@ -46,7 +43,7 @@ namespace Eyedrivomatic
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = ((FrameworkElement)Resources["SmallCursor"]).Cursor;
+                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = ((FrameworkElement)App.Current.Resources["SmallCursor"]).Cursor;
                 else Mouse.OverrideCursor = null;
                 e.Handled = true;
             }

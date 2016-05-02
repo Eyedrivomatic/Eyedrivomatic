@@ -152,6 +152,8 @@
   <ItemGroup>
     <Compile Include="BrowsableList.cs" />
     <Compile Include="ButtonWithIcon.cs" />
+    <Compile Include="DwellClickAdorner.cs" />
+    <Compile Include="DwellClickBehavior.cs" />
     <Compile Include="IHeaderInfoProvider.cs" />
     <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
