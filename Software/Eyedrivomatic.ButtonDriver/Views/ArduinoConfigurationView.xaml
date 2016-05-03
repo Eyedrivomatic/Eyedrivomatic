@@ -93,10 +93,10 @@
 
             <CheckBox x:Name="AutoConnectCheckBox"
                       Content="{x:Static resources:Strings.SettingsName_AutoConnect}"
-                      IsChecked="{Binding AutoConnect}"
                       Grid.Row="3"
                       Grid.ColumnSpan="2"
-                      Height="50"/>
+                      IsChecked="{Binding AutoConnect}"
+                      Margin="0,10,0,0"/>
         </Grid>
 
         <Button x:Name="SaveButton"

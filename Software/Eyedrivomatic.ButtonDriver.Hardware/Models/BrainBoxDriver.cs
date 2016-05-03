@@ -174,6 +174,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 
         private async Task<bool>OnAfterConnected()
         {
+            if (_serialPort == null) return false;
+
             var reader = new StreamReader(_serialPort.BaseStream); //Don't dispose. It will close the underlying stream.
             await reader.ReadLineAsync();
 

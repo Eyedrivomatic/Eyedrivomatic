@@ -50,5 +50,7 @@
     <BitmapImage x:Key="TrimLeft" UriSource="Images\TrimLeft.png"/>
     <BitmapImage x:Key="TrimRight" UriSource="Images\TrimRight.png"/>
     <BitmapImage x:Key="TrimUp" UriSource="Images\TrimUp.png"/>
-   
+
+    <BitmapImage x:Key="Check" UriSource="Images\Check.png"/>
+
 </ResourceDictionary>

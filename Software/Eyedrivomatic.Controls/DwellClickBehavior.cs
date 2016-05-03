@@ -24,19 +24,17 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Media.Animation;
 
 using Prism.Logging;
-using System.Threading.Tasks;
+
 
 namespace Eyedrivomatic.Controls
 {
-    public class DwellClickBehavior : Behavior<Button>
+    public class DwellClickBehavior : Behavior<ButtonBase>
     {
         private Storyboard _dwellStoryboard;
         private IDisposable _dwellCancellation;
