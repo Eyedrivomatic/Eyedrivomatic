@@ -19,40 +19,22 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-using log4net;
-using System.Reflection;
+using System.ComponentModel.Composition;
 
-namespace Eyedrivomatic.Common
+using Prism.Mef.Modularity;
+using Prism.Modularity;
+
+namespace Eyedrivomatic.Controls
 {
-    public class Logger
+    [ModuleExport(typeof(ControlsModule), InitializationMode = InitializationMode.WhenAvailable, DependsOnModuleNames = new[] { "InfrastructureModule" })]
+    public class ControlsModule : IModule
     {
-        public static ILog BaseLogger = LogManager.GetLogger(Assembly.GetEntryAssembly().GetName().Name);
+        [Import]
+        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
 
-        public static void Debug(string message)
+        public void Initialize()
         {
-            BaseLogger?.Debug(message);
+            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
         }
-
-        public static void Info(string message)
-        {
-            BaseLogger?.Info(message);
-        }
-
-        public static void Warning(string message)
-        {
-            BaseLogger?.Warn(message);
-        }
-
-        public static void Error(string message)
-        {
-            BaseLogger?.Error(message);
-        }
-
-        public static void Fatal(string message)
-        {
-            BaseLogger?.Fatal(message);
-        }
-
     }
 }

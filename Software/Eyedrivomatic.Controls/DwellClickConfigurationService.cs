@@ -27,20 +27,25 @@ using System.Diagnostics.Contracts;
 using Prism.Logging;
 using Prism.Mvvm;
 
-
-namespace Eyedrivomatic.ButtonDriver.Configuration
+namespace Eyedrivomatic.Controls
 {
-    [InheritedExport(typeof(IButtonDriverConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
-    public class ButtonDriverConfigurationService : BindableBase, IButtonDriverConfigurationService
+    public static class DefaultConfigurationProvider
     {
-        private ButtonDriverConfiguration _configuration;
+        [Export]
+        internal static DwellClickConfiguration DefaultConfiguration => DwellClickConfiguration.Default;
+    }
+
+    [InheritedExport(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
+    public class DwellClickConfigurationService : BindableBase, IDwellClickConfigurationService
+    {
+        private readonly DwellClickConfiguration _configuration;
         private bool _hasChanges;
 
         [Import]
         public ILoggerFacade Logger { get; set; }
 
         [ImportingConstructor]
-        internal ButtonDriverConfigurationService(ButtonDriverConfiguration configuration)
+        internal DwellClickConfigurationService(DwellClickConfiguration configuration)
         {
             Contract.Requires<ArgumentNullException>(configuration != null, nameof(configuration));
 
@@ -51,31 +56,31 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AutoConnect) ||
-                e.PropertyName == nameof(AutoSaveDeviceSettingsOnExit) ||
-                e.PropertyName == nameof(ConnectionString))
+            if (e.PropertyName == nameof(EnableDwellClick) ||
+                e.PropertyName == nameof(DwellTime) ||
+                e.PropertyName == nameof(DwellTimeout))
             {
                 _hasChanges = true;
                 OnPropertyChanged(e.PropertyName);
             }
         }
 
-        public bool AutoConnect
+        public bool EnableDwellClick
         {
-            get { return _configuration.AutoConnect; }
-            set { _configuration.AutoConnect = value; }
+            get { return _configuration.EnableDwellClick; }
+            set { _configuration.EnableDwellClick = value; }
         }
 
-        public bool AutoSaveDeviceSettingsOnExit
+        public TimeSpan DwellTime
         {
-            get { return _configuration.AutoSaveDeviceSettingsOnExit; }
-            set { _configuration.AutoSaveDeviceSettingsOnExit = value; }
+            get { return _configuration.DwellTime; }
+            set { _configuration.DwellTime = value; }
         }
 
-        public string ConnectionString
+        public TimeSpan DwellTimeout
         {
-            get { return _configuration.ConnectionString; }
-            set { _configuration.ConnectionString = value; }
+            get { return _configuration.DwellTimeout; }
+            set { _configuration.DwellTimeout = value; }
         }
 
         public bool HasChanges => _hasChanges;

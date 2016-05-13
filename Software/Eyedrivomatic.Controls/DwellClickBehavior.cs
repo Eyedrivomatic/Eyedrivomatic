@@ -24,18 +24,40 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Media.Animation;
 
 using Prism.Logging;
-
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Eyedrivomatic.Controls
 {
-    public class DwellClickBehavior : Behavior<ButtonBase>
+    public class DwellClickBehavior : Behavior<UIElement>
     {
+        #region DefaultConfiguration
+        private static IDwellClickConfigurationService _defaultConfiguration = null; //off.
+        public static IDwellClickConfigurationService DefaultConfiguration
+        {
+            get { return _defaultConfiguration; }
+            set
+            {
+                if (Object.ReferenceEquals(_defaultConfiguration, value)) return;
+
+                _defaultConfiguration = value;
+                DefaultConfigurationChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
+        public static event EventHandler DefaultConfigurationChanged;
+
+        #endregion DefaultConfiguration
+
+
+
         private Storyboard _dwellStoryboard;
         private IDisposable _dwellCancellation;
         public DwellClickAdorner Adorner { get; set; }
@@ -46,41 +68,40 @@ namespace Eyedrivomatic.Controls
         {
         }
 
-        public static bool GetEnabled(DependencyObject obj)
+        public static IDwellClickConfigurationService GetConfiguration(DependencyObject obj)
         {
             Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
-            return (bool)obj.GetValue(EnabledProperty);
+            return (IDwellClickConfigurationService)obj.GetValue(ConfigurationProperty);
         }
 
-        public static void SetEnabled(DependencyObject obj, bool value)
+        public static void SetConfiguration(DependencyObject obj, IDwellClickConfigurationService value)
         {
             Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
-            obj.SetValue(EnabledProperty, value);
+            obj.SetValue(ConfigurationProperty, value);
         }
 
-        public static readonly DependencyProperty EnabledProperty =
-            DependencyProperty.RegisterAttached("Enabled", typeof(bool), typeof(DwellClickBehavior), new FrameworkPropertyMetadata(false, OnEnabledChanged));
+        public static readonly DependencyProperty ConfigurationProperty =
+            DependencyProperty.RegisterAttached("Configuration", typeof(IDwellClickConfigurationService), typeof(DwellClickBehavior), new PropertyMetadata(OnConfigurationChanged));
 
-        private static void OnEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnConfigurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behaviors = Interaction.GetBehaviors(d);
+            //verify that the dwell click behavior has been created.
+            GetDwellClickBehavior(d);
+        }
+
+        private static DwellClickBehavior GetDwellClickBehavior(DependencyObject obj)
+        {
+            var behaviors = Interaction.GetBehaviors(obj);
             var dwellClickBehavior = behaviors.OfType<DwellClickBehavior>().SingleOrDefault();
 
-            if ((bool)e.NewValue)
+            if (dwellClickBehavior == null)
             {
-                if (dwellClickBehavior == null)
-                {
-                    dwellClickBehavior = new DwellClickBehavior();
-                    behaviors.Add(dwellClickBehavior);
-                }
+                dwellClickBehavior = new DwellClickBehavior();
+                behaviors.Add(dwellClickBehavior);
             }
-            else
-            {
-                if (dwellClickBehavior != null) behaviors.Remove(dwellClickBehavior);
-            }
+
+            return dwellClickBehavior;
         }
-
-
 
         public static Style GetAdornerStyle(DependencyObject obj)
         {
@@ -95,41 +116,16 @@ namespace Eyedrivomatic.Controls
         }
 
         public static readonly DependencyProperty AdornerStyleProperty =
-            DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new FrameworkPropertyMetadata(null, OnAdornerStyleChanged));
+            DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new PropertyMetadata(OnAdornerStyleChanged));
 
         private static void OnAdornerStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behaviors = Interaction.GetBehaviors(d);
-            var dwellClickBehavior = behaviors.OfType<DwellClickBehavior>().SingleOrDefault();
-            if (dwellClickBehavior == null) return;
+            //verify that the dwell click behavior has been created.
+            var dwellClickBehavior = GetDwellClickBehavior(d);
 
             var style = (Style)e.NewValue;
             if (dwellClickBehavior.Adorner != null) dwellClickBehavior.Adorner.Style = style;
         }
-
-
-
-
-
-        /// <summary>
-        /// After this amount of time passes expressed in milliseconds, a mouse click will be simulated.
-        /// </summary>
-        public Duration DwellTime
-        {
-            get { return (Duration)GetValue(DwellTimeProperty); }
-            set { SetValue(DwellTimeProperty, value); }
-        }
-        public static readonly DependencyProperty DwellTimeProperty =
-            DependencyProperty.Register(nameof(DwellTime), typeof(Duration), typeof(DwellClickBehavior), new FrameworkPropertyMetadata(new Duration(TimeSpan.FromMilliseconds(1000))));
-
-        public Duration DwellCancelTimeout
-        {
-            get { return (Duration)GetValue(DwellCancelTimeoutProperty); }
-            set { SetValue(DwellCancelTimeoutProperty, value); }
-        }
-        public static readonly DependencyProperty DwellCancelTimeoutProperty =
-            DependencyProperty.Register(nameof(DwellCancelTimeout), typeof(Duration), typeof(DwellClickBehavior), new FrameworkPropertyMetadata(new Duration(TimeSpan.FromMilliseconds(500))));
-
 
         protected override void OnAttached()
         {
@@ -137,13 +133,20 @@ namespace Eyedrivomatic.Controls
 
             AssociatedObject.MouseEnter += AssociatedObject_MouseEnter;
             AssociatedObject.MouseLeave += AssociatedObject_MouseLeave;
+            AssociatedObject.MouseDown += AssociatedObject_MouseDown;
+        }
+
+        private void AssociatedObject_MouseDown(object sender, RoutedEventArgs e)
+        {
+            StopAnimation();
+            RemoveAdorner();
         }
 
         private void AssociatedObject_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Logger?.Log("MouseEnter", Category.Debug, Priority.None);
+            var configruation = GetConfiguration(AssociatedObject);
 
-            e.Handled = true;
+            if (configruation == null || !configruation.EnableDwellClick) return;
 
             _dwellCancellation?.Dispose();
             _dwellCancellation = null;
@@ -151,30 +154,33 @@ namespace Eyedrivomatic.Controls
             if (_dwellStoryboard == null)
             {
                 CreateAdorner();
-                CreateAnimation();
+                CreateAnimation(configruation.DwellTime);
 
                 StartAnimation();
-
-                Adorner.Visibility = Visibility.Visible;
             }
             else
             {
                 ResumeAnimation();
             }
+
+            if(Adorner != null) Adorner.Visibility = Visibility.Visible;
         }
 
-        private void CreateAnimation()
+        private void CreateAnimation(TimeSpan dwellTime)
         {
             Logger?.Log("Creating dwell click animation.", Category.Debug, Priority.None);
             _dwellStoryboard = new Storyboard();
 
-            var dwellAnimation = new DoubleAnimation(0.0, 1.0, DwellTime);
+            var dwellAnimation = new DoubleAnimation(0.0, 1.0, dwellTime);
             dwellAnimation.Completed += (s, a) =>
             {
                 Logger?.Log("Performing dwell click!", Category.Debug, Priority.None);
 
-                AssociatedObject.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-                if (AssociatedObject.Command?.CanExecute(AssociatedObject.CommandParameter) ?? false) AssociatedObject.Command.Execute(AssociatedObject.CommandParameter);
+                var peer = UIElementAutomationPeer.FromElement(AssociatedObject);
+                if (peer == null) peer = UIElementAutomationPeer.CreatePeerForElement(AssociatedObject);
+                var clicked = InvokeElement(peer) || ToggleElement(peer) || SelectElement(peer) || SelectTabElement();
+
+                if (!clicked) Logger?.Log("Failed to perform dwell click.", Category.Warn, Priority.None);
 
                 RemoveAdorner();
                 _dwellStoryboard = null;
@@ -184,6 +190,40 @@ namespace Eyedrivomatic.Controls
             Storyboard.SetTargetProperty(dwellAnimation, new PropertyPath(DwellClickAdorner.DwellProgressProperty));
 
             _dwellStoryboard.Children.Add(dwellAnimation);
+        }
+
+        private bool InvokeElement(AutomationPeer peer)
+        {
+            var invokePattern = peer?.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            if (invokePattern == null) return false;
+            invokePattern.Invoke();
+            return true;
+        }
+
+        private bool ToggleElement(AutomationPeer peer)
+        {
+            var togglePattern = peer?.GetPattern(PatternInterface.Toggle) as IToggleProvider;
+            if (togglePattern == null) return false;
+            togglePattern.Toggle();
+            return true;
+        }
+
+        private bool SelectElement(AutomationPeer peer)
+        {
+            var selectionPattern = peer?.GetPattern(PatternInterface.SelectionItem) as ISelectionItemProvider;
+            if (selectionPattern == null) return false;
+            selectionPattern.Select();
+            return true;
+        }
+
+        private bool SelectTabElement()
+        {
+            //The AutomationPeer returned by UIElementAutomationPeer.CreatePeerForElement to a TabItem is stupid and cannot select the tab.
+            //The "correct" approach is apparently to create a custom tab item adn a custom automation provider. This however works just as well.
+            // It's just not as elegant as it requires down-casting... yuck!
+            var tabItem = AssociatedObject as TabItem;
+            if (tabItem == null) return false;
+            return (tabItem.IsSelected = true);
         }
 
         private void StartAnimation()
@@ -235,6 +275,14 @@ namespace Eyedrivomatic.Controls
             adornerLayer.Update(AssociatedObject);
         }
 
+        private void HideAdorner()
+        {
+            if (Adorner != null)
+            {
+                Adorner.Visibility = Visibility.Hidden;
+            }
+        }
+
         private void RemoveAdorner()
         {
             if (Adorner != null)
@@ -254,23 +302,19 @@ namespace Eyedrivomatic.Controls
 
         private void AssociatedObject_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Logger?.Log("MouseLeave", Category.Debug, Priority.None);
-
-            e.Handled = true;
-
-            AssociatedObject.ReleaseMouseCapture();
-
             if (_dwellStoryboard != null)
             {
+                var configruation = GetConfiguration(AssociatedObject);
+
                 PauseAnimation();
-                StartCancelTimer();
+                StartCancelTimer(configruation.DwellTimeout);
+                HideAdorner();
             }
         }
 
-        private void StartCancelTimer()
+        private void StartCancelTimer(TimeSpan cancelTimeout)
         {
             //Set a timer that resets the dwell to 0.
-            var cancelTimeout = DwellCancelTimeout.HasTimeSpan ? DwellCancelTimeout.TimeSpan : TimeSpan.FromMilliseconds(250);
             var cancelation = new CancellationTokenSource(cancelTimeout);
             _dwellCancellation = cancelation.Token.Register(() =>
             {

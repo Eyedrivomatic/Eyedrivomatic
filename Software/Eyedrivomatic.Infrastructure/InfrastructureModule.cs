@@ -19,25 +19,19 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-using System.Diagnostics.Contracts;
-using System.Windows.Input;
+using System.ComponentModel.Composition;
+
+using Prism.Mef.Modularity;
+using Prism.Modularity;
+
 
 namespace Eyedrivomatic.Infrastructure
 {
-    public class NavigationCommandViewModel
+    [ModuleExport(typeof(InfrastructureModule), InitializationMode = InitializationMode.WhenAvailable)]
+    public class InfrastructureModule : IModule
     {
-        public NavigationCommandViewModel(string displayName, ICommand command)
+        public void Initialize()
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(displayName));
-            Contract.Requires<ArgumentNullException>(command != null, nameof(command));
-
-            DisplayName = displayName;
-            Command = command;
         }
-
-        public string DisplayName { get; }
-
-        public ICommand Command { get; }
     }
 }

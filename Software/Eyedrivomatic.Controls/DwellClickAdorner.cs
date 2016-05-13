@@ -98,7 +98,6 @@ namespace Eyedrivomatic.Controls
         }
 
 
-
         /// <summary>
         /// A number between 0 and 1 representign the dwell progress.
         /// </summary>
@@ -136,7 +135,7 @@ namespace Eyedrivomatic.Controls
             set { SetValue(ProgressIndicatorVisibleProperty, value); }
         }
         public static readonly DependencyProperty ProgressIndicatorVisibleProperty =
-            DependencyProperty.Register(nameof(ProgressIndicatorVisible), typeof(Visibility), typeof(DwellClickAdorner), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(ProgressIndicatorVisible), typeof(Visibility), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(Visibility.Visible));
 
 
         public Brush ProgressIndicatorOutline

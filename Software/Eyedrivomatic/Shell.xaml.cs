@@ -23,6 +23,7 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
 
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic
 {

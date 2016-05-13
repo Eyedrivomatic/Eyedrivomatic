@@ -47,7 +47,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
             _configurationService = configurationService;
-            _configurationService.PropertyChanged += _configurationService_PropertyChanged;
+            _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
             SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
             AutoDetectDeviceCommand = DelegateCommand.FromAsyncHandler(AutoDetectDeviceAsync, CanAutoDetectDevice);
@@ -55,7 +55,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
         }
 
-        private void _configurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             OnPropertyChanged();
 

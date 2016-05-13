@@ -20,6 +20,7 @@
 
 
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition;
 using System.Windows;
 
 using Microsoft.Practices.ServiceLocation;
@@ -32,6 +33,7 @@ using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Startup
 {
@@ -62,7 +64,13 @@ namespace Eyedrivomatic.Startup
         {
             base.ConfigureModuleCatalog();
 
-            var type = typeof(ButtonDriverConfigurationModule);
+            var type = typeof(InfrastructureModule);
+            ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
+
+            type = typeof(ControlsModule);
+            ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
+
+            type = typeof(ButtonDriverConfigurationModule);
             ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
 
             type = typeof(ButtonDriverHardwareModule);
@@ -82,10 +90,11 @@ namespace Eyedrivomatic.Startup
             base.ConfigureAggregateCatalog();
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DwellClickBehavior).Assembly));
         }
 
     }

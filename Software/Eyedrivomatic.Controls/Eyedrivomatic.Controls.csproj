@@ -136,6 +136,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
@@ -145,6 +148,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationClientsideProviders" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -152,8 +159,16 @@
   <ItemGroup>
     <Compile Include="BrowsableList.cs" />
     <Compile Include="ButtonWithIcon.cs" />
+    <Compile Include="ControlsModule.cs" />
     <Compile Include="DwellClickAdorner.cs" />
     <Compile Include="DwellClickBehavior.cs" />
+    <Compile Include="DwellClickConfiguration.Designer.cs">
+      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="DwellClickConfigurationService.cs" />
+    <Compile Include="IDwellClickConfigurationService.cs" />
     <Compile Include="IHeaderInfoProvider.cs" />
     <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +181,11 @@
   <ItemGroup>
     <None Include="..\Eyedrivomatic.licenseheader">
       <Link>Eyedrivomatic.licenseheader</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="DwellClickConfiguration.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

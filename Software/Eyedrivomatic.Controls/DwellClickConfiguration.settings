@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Controls" GeneratedClassName="DwellClickConfiguration">
+  <Profiles />
+  <Settings>
+    <Setting Name="EnableDwellClick" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DwellTime" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.2000000</Value>
+    </Setting>
+    <Setting Name="DwellTimeout" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.2000000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

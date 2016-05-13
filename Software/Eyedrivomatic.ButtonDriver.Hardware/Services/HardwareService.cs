@@ -28,12 +28,10 @@ using System.Threading.Tasks;
 using Prism.Logging;
 using System.Diagnostics.Contracts;
 using System;
-using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
-    [Export(typeof(IHardwareService))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof(IHardwareService)), PartCreationPolicy(CreationPolicy.Shared)]
     public class HardwareService : IHardwareService
     {
         private IServiceLocator ServiceLocator { get; }
