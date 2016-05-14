@@ -37,25 +37,37 @@ namespace Eyedrivomatic.Controls {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00.2000000")]
-        public global::System.TimeSpan DwellTime {
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public int DwellTimeMilliseconds {
             get {
-                return ((global::System.TimeSpan)(this["DwellTime"]));
+                return ((int)(this["DwellTimeMilliseconds"]));
             }
             set {
-                this["DwellTime"] = value;
+                this["DwellTimeMilliseconds"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00.2000000")]
-        public global::System.TimeSpan DwellTimeout {
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int DwellTimeoutMilliseconds {
             get {
-                return ((global::System.TimeSpan)(this["DwellTimeout"]));
+                return ((int)(this["DwellTimeoutMilliseconds"]));
             }
             set {
-                this["DwellTimeout"] = value;
+                this["DwellTimeoutMilliseconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("250")]
+        public int RepeatDelayMilliseconds {
+            get {
+                return ((int)(this["RepeatDelayMilliseconds"]));
+            }
+            set {
+                this["RepeatDelayMilliseconds"] = value;
             }
         }
     }

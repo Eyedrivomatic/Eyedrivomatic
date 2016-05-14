@@ -163,9 +163,9 @@
     <Compile Include="DwellClickAdorner.cs" />
     <Compile Include="DwellClickBehavior.cs" />
     <Compile Include="DwellClickConfiguration.Designer.cs">
-      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
     </Compile>
     <Compile Include="DwellClickConfigurationService.cs" />
     <Compile Include="IDwellClickConfigurationService.cs" />
@@ -186,6 +186,7 @@
     <None Include="DwellClickConfiguration.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

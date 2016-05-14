@@ -26,8 +26,9 @@ namespace Eyedrivomatic.Controls
     public interface IDwellClickConfigurationService : INotifyPropertyChanged
     {
         bool EnableDwellClick { get; set; }
-        TimeSpan DwellTime { get; set; }
-        TimeSpan DwellTimeout { get; set; }
+        int DwellTimeMilliseconds { get; set; }
+        int DwellTimeoutMilliseconds { get; set; }
+        int RepeatDelayMilliseconds { get; set; }
 
         void Save();
         bool HasChanges { get; }

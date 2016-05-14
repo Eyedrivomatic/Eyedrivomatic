@@ -32,7 +32,7 @@ using Prism.Logging;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace Eyedrivomatic.Controls
 {
@@ -56,18 +56,7 @@ namespace Eyedrivomatic.Controls
 
         #endregion DefaultConfiguration
 
-
-
-        private Storyboard _dwellStoryboard;
-        private IDisposable _dwellCancellation;
-        public DwellClickAdorner Adorner { get; set; }
-
-        public static ILoggerFacade Logger { get; set; }
-
-        public DwellClickBehavior() : base()
-        {
-        }
-
+        #region Attached Properties
         public static IDwellClickConfigurationService GetConfiguration(DependencyObject obj)
         {
             Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
@@ -126,6 +115,21 @@ namespace Eyedrivomatic.Controls
             var style = (Style)e.NewValue;
             if (dwellClickBehavior.Adorner != null) dwellClickBehavior.Adorner.Style = style;
         }
+        #endregion Attached Properties
+
+        public static ILoggerFacade Logger { get; set; }
+
+
+        private Storyboard _dwellStoryboard;
+        private IDisposable _dwellCancelRegistration;
+        private CancellationTokenSource _repeatCancelSource = null;
+
+        public DwellClickAdorner Adorner { get; set; }
+
+        public DwellClickBehavior() : base()
+        {
+        }
+
 
         protected override void OnAttached()
         {
@@ -148,13 +152,15 @@ namespace Eyedrivomatic.Controls
 
             if (configruation == null || !configruation.EnableDwellClick) return;
 
-            _dwellCancellation?.Dispose();
-            _dwellCancellation = null;
+            _dwellCancelRegistration?.Dispose();
+            _dwellCancelRegistration = null;
 
             if (_dwellStoryboard == null)
             {
                 CreateAdorner();
-                CreateAnimation(configruation.DwellTime);
+                CreateAnimation(
+                    TimeSpan.FromMilliseconds(configruation.DwellTimeMilliseconds),
+                    TimeSpan.FromMilliseconds(configruation.RepeatDelayMilliseconds));
 
                 StartAnimation();
             }
@@ -166,13 +172,13 @@ namespace Eyedrivomatic.Controls
             if(Adorner != null) Adorner.Visibility = Visibility.Visible;
         }
 
-        private void CreateAnimation(TimeSpan dwellTime)
+        private void CreateAnimation(TimeSpan dwellTime, TimeSpan repeatDelay)
         {
             Logger?.Log("Creating dwell click animation.", Category.Debug, Priority.None);
             _dwellStoryboard = new Storyboard();
 
             var dwellAnimation = new DoubleAnimation(0.0, 1.0, dwellTime);
-            dwellAnimation.Completed += (s, a) =>
+            dwellAnimation.Completed += async (s, a) =>
             {
                 Logger?.Log("Performing dwell click!", Category.Debug, Priority.None);
 
@@ -182,8 +188,20 @@ namespace Eyedrivomatic.Controls
 
                 if (!clicked) Logger?.Log("Failed to perform dwell click.", Category.Warn, Priority.None);
 
-                RemoveAdorner();
-                _dwellStoryboard = null;
+                _repeatCancelSource?.Cancel();
+
+                try
+                {
+                    _repeatCancelSource = new CancellationTokenSource();
+                    await Task.Delay(repeatDelay, _repeatCancelSource.Token);
+
+                    StartAnimation();
+                }
+                catch (OperationCanceledException)
+                {
+                    //click repeat cancelled.
+                    RemoveAdorner();
+                }
             };
 
             Storyboard.SetTarget(dwellAnimation, Adorner);
@@ -229,19 +247,19 @@ namespace Eyedrivomatic.Controls
         private void StartAnimation()
         {
             Logger?.Log("Starting dwell click animation.", Category.Debug, Priority.None);
-            _dwellStoryboard.Begin();
+            _dwellStoryboard?.Begin();
         }
 
         private void PauseAnimation()
         {
             Logger?.Log("Pausing dwell click animation.", Category.Debug, Priority.None);
-            _dwellStoryboard.Pause();
+            _dwellStoryboard?.Pause();
         }
 
         private void ResumeAnimation()
         {
             Logger?.Log("Resuming the dwell click animation.", Category.Debug, Priority.None);
-            _dwellStoryboard.Resume();
+            _dwellStoryboard?.Resume();
         }
 
         private void StopAnimation()
@@ -307,8 +325,8 @@ namespace Eyedrivomatic.Controls
                 var configruation = GetConfiguration(AssociatedObject);
 
                 PauseAnimation();
-                StartCancelTimer(configruation.DwellTimeout);
                 HideAdorner();
+                StartCancelTimer(TimeSpan.FromMilliseconds(configruation.DwellTimeoutMilliseconds));
             }
         }
 
@@ -316,11 +334,11 @@ namespace Eyedrivomatic.Controls
         {
             //Set a timer that resets the dwell to 0.
             var cancelation = new CancellationTokenSource(cancelTimeout);
-            _dwellCancellation = cancelation.Token.Register(() =>
+            _dwellCancelRegistration = cancelation.Token.Register(() =>
             {
                 StopAnimation();
                 RemoveAdorner();
-            });
+            }, true);
         }
     }
 }

@@ -57,8 +57,8 @@ namespace Eyedrivomatic.Controls
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(EnableDwellClick) ||
-                e.PropertyName == nameof(DwellTime) ||
-                e.PropertyName == nameof(DwellTimeout))
+                e.PropertyName == nameof(DwellTimeMilliseconds) ||
+                e.PropertyName == nameof(DwellTimeoutMilliseconds))
             {
                 _hasChanges = true;
                 OnPropertyChanged(e.PropertyName);
@@ -71,16 +71,22 @@ namespace Eyedrivomatic.Controls
             set { _configuration.EnableDwellClick = value; }
         }
 
-        public TimeSpan DwellTime
+        public int DwellTimeMilliseconds
         {
-            get { return _configuration.DwellTime; }
-            set { _configuration.DwellTime = value; }
+            get { return _configuration.DwellTimeMilliseconds; }
+            set { _configuration.DwellTimeMilliseconds = value; }
         }
 
-        public TimeSpan DwellTimeout
+        public int DwellTimeoutMilliseconds
         {
-            get { return _configuration.DwellTimeout; }
-            set { _configuration.DwellTimeout = value; }
+            get { return _configuration.DwellTimeoutMilliseconds; }
+            set { _configuration.DwellTimeoutMilliseconds = value; }
+        }
+
+        public int RepeatDelayMilliseconds
+        {
+            get { return _configuration.RepeatDelayMilliseconds; }
+            set { _configuration.RepeatDelayMilliseconds = value; }
         }
 
         public bool HasChanges => _hasChanges;
