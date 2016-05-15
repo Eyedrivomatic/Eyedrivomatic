@@ -26,6 +26,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 
 namespace Eyedrivomatic.Controls
@@ -45,6 +46,8 @@ namespace Eyedrivomatic.Controls
             _progressIndicator.HorizontalAlignment = HorizontalAlignment.Center;
             _progressIndicator.VerticalAlignment = VerticalAlignment.Center;
             _progressIndicator.Visibility = Visibility.Visible;
+
+            _progressIndicator.Effect = new DropShadowEffect();
 
             var binding = new Binding(nameof(DwellProgress));
             binding.Source = this;
