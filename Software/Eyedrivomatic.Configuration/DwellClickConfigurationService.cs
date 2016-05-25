@@ -27,7 +27,9 @@ using System.Diagnostics.Contracts;
 using Prism.Logging;
 using Prism.Mvvm;
 
-namespace Eyedrivomatic.Controls
+using Eyedrivomatic.Controls;
+
+namespace Eyedrivomatic.Configuration
 {
     public static class DefaultConfigurationProvider
     {
@@ -58,7 +60,8 @@ namespace Eyedrivomatic.Controls
         {
             if (e.PropertyName == nameof(EnableDwellClick) ||
                 e.PropertyName == nameof(DwellTimeMilliseconds) ||
-                e.PropertyName == nameof(DwellTimeoutMilliseconds))
+                e.PropertyName == nameof(DwellTimeoutMilliseconds) ||
+                e.PropertyName == nameof(RepeatDelayMilliseconds) )
             {
                 _hasChanges = true;
                 OnPropertyChanged(e.PropertyName);

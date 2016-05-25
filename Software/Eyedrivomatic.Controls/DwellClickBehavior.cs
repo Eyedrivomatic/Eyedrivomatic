@@ -56,7 +56,30 @@ namespace Eyedrivomatic.Controls
 
         #endregion DefaultConfiguration
 
+        #region Pause (static)
+
+        private static bool _pause;
+        public static bool Pause
+        {
+            get { return _pause; }
+            set
+            {
+                if (Object.ReferenceEquals(_pause, value)) return;
+
+                _pause = value;
+                PauseChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
+        public static event EventHandler PauseChanged;
+
+        #endregion Pause (static)
+
         #region Attached Properties
+        #region Configuration
+        public static readonly DependencyProperty ConfigurationProperty =
+            DependencyProperty.RegisterAttached("Configuration", typeof(IDwellClickConfigurationService), typeof(DwellClickBehavior), new PropertyMetadata(OnConfigurationChanged));
+
         public static IDwellClickConfigurationService GetConfiguration(DependencyObject obj)
         {
             Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
@@ -68,9 +91,6 @@ namespace Eyedrivomatic.Controls
             Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
             obj.SetValue(ConfigurationProperty, value);
         }
-
-        public static readonly DependencyProperty ConfigurationProperty =
-            DependencyProperty.RegisterAttached("Configuration", typeof(IDwellClickConfigurationService), typeof(DwellClickBehavior), new PropertyMetadata(OnConfigurationChanged));
 
         private static void OnConfigurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -91,6 +111,11 @@ namespace Eyedrivomatic.Controls
 
             return dwellClickBehavior;
         }
+        #endregion Configuration
+
+        #region AdornerStyle
+        public static readonly DependencyProperty AdornerStyleProperty =
+            DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new PropertyMetadata(OnAdornerStyleChanged));
 
         public static Style GetAdornerStyle(DependencyObject obj)
         {
@@ -104,9 +129,6 @@ namespace Eyedrivomatic.Controls
             obj.SetValue(AdornerStyleProperty, value);
         }
 
-        public static readonly DependencyProperty AdornerStyleProperty =
-            DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new PropertyMetadata(OnAdornerStyleChanged));
-
         private static void OnAdornerStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //verify that the dwell click behavior has been created.
@@ -115,6 +137,22 @@ namespace Eyedrivomatic.Controls
             var style = (Style)e.NewValue;
             if (dwellClickBehavior.Adorner != null) dwellClickBehavior.Adorner.Style = style;
         }
+        #endregion AdornerStyle
+
+        #region IgnorePause
+        public static readonly DependencyProperty IgnorePauseProperty =
+            DependencyProperty.RegisterAttached("IgnorePause", typeof(bool), typeof(DwellClickBehavior), new PropertyMetadata(false));
+
+        public static bool GetIgnorePause(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IgnorePauseProperty);
+        }
+
+        public static void SetIgnorePause(DependencyObject obj, bool  value)
+        {
+            obj.SetValue(IgnorePauseProperty, value);
+        }
+        #endregion IgnorePause
         #endregion Attached Properties
 
         public static ILoggerFacade Logger { get; set; }
@@ -129,7 +167,6 @@ namespace Eyedrivomatic.Controls
         public DwellClickBehavior() : base()
         {
         }
-
 
         protected override void OnAttached()
         {
@@ -150,7 +187,7 @@ namespace Eyedrivomatic.Controls
         {
             var configruation = GetConfiguration(AssociatedObject);
 
-            if (configruation == null || !configruation.EnableDwellClick) return;
+            if (configruation == null || !configruation.EnableDwellClick || Paused) return;
 
             _dwellCancelRegistration?.Dispose();
             _dwellCancelRegistration = null;
@@ -340,5 +377,7 @@ namespace Eyedrivomatic.Controls
                 RemoveAdorner();
             }, true);
         }
+
+        private bool Paused => Pause && !GetIgnorePause(AssociatedObject);
     }
 }

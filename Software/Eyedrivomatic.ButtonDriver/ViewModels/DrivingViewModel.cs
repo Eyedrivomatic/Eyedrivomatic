@@ -19,14 +19,13 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 
 using Prism.Commands;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Controls;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {

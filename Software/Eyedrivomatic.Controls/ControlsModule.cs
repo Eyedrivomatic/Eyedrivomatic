@@ -19,22 +19,19 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System.ComponentModel.Composition;
-
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
 namespace Eyedrivomatic.Controls
 {
-    [ModuleExport(typeof(ControlsModule), InitializationMode = InitializationMode.WhenAvailable, DependsOnModuleNames = new[] { "InfrastructureModule" })]
+    /// <summary>
+    /// The purpose of this module is mostly to make the assembly available to the Bootloader container.
+    /// </summary>
+    [ModuleExport(typeof(ControlsModule))]
     public class ControlsModule : IModule
     {
-        [Import]
-        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
-
         public void Initialize()
         {
-            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
         }
     }
 }

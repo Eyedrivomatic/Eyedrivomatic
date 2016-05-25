@@ -20,6 +20,7 @@
 
 
 using System;
+
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 
@@ -28,27 +29,39 @@ using Prism.Modularity;
 using Prism.Logging;
 using Prism.Regions;
 
-namespace Eyedrivomatic.Infrastructure
+using Eyedrivomatic.Configuration.Views;
+using Eyedrivomatic.Controls;
+using Eyedrivomatic.Infrastructure;
+
+namespace Eyedrivomatic.Configuration
 {
-    [ModuleExport(typeof(InfrastructureModule), InitializationMode = InitializationMode.WhenAvailable)]
-    public class InfrastructureModule : IModule
+    [ModuleExport(typeof(ConfigurationModule), InitializationMode = InitializationMode.WhenAvailable, DependsOnModuleNames = new[] { nameof(InfrastructureModule) })]
+    public class ConfigurationModule : IModule
     {
         private readonly IRegionManager RegionManager;
         private readonly ILoggerFacade Logger;
 
         [ImportingConstructor]
-        public InfrastructureModule(IRegionManager regionManager, ILoggerFacade logger)
+        public ConfigurationModule(IRegionManager regionManager, ILoggerFacade logger)
         {
             Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
 
             Logger = logger;
-            Logger?.Log($"Creating Module {nameof(InfrastructureModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Creating Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
 
             RegionManager = regionManager;
         }
 
+        [Import]
+        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
+
         public void Initialize()
         {
+            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
+
+            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ConfigurationView));
+            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
+            RegionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
         }
     }
 }

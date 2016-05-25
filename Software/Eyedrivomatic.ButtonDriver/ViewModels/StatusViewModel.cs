@@ -22,7 +22,7 @@
 using System.ComponentModel.Composition;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Controls;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {

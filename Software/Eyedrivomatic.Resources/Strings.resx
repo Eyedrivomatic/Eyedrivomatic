@@ -126,10 +126,25 @@
   <data name="CommandText_Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="MillisecondsLong" xml:space="preserve">
+    <value>milliseconds</value>
+  </data>
+  <data name="MillisecondsShort" xml:space="preserve">
+    <value>ms</value>
+  </data>
   <data name="SettingsName_AutoConnect" xml:space="preserve">
     <value>Automatically Connect at Startup</value>
   </data>
-  <data name="ViewName_Configuration" xml:space="preserve">
-    <value>Setup</value>
+  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Dwell Repeat Delay:</value>
+  </data>
+  <data name="SettingsName_DwellClickTime" xml:space="preserve">
+    <value>Dwell Time:</value>
+  </data>
+  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
+    <value>Dwell Timeout:</value>
   </data>
 </root>

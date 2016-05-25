@@ -19,14 +19,24 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-namespace Eyedrivomatic.Infrastructure
+using Eyedrivomatic.Configuration.ViewModels;
+using System.ComponentModel.Composition;
+
+namespace Eyedrivomatic.Configuration.Views
 {
-    public class RegionNames
+    [Export]
+    public partial class GeneralConfigurationView
     {
-        public const string StatusRegion = nameof(StatusRegion);
-        public const string GridRegion = nameof(GridRegion);
-        //public const string MainNavigationRegion = nameof(MainNavigationRegion);
-        public const string ConfigurationRegion = nameof(ConfigurationRegion);
-        public const string SleepButtonRegion = nameof(SleepButtonRegion);
+        public GeneralConfigurationView()
+        {
+            InitializeComponent();
+        }
+
+        [Import]
+        public GeneralConfigurationViewModel ViewModel
+        {
+            get { return (GeneralConfigurationViewModel)DataContext; }
+            set { DataContext = value; }
+        }
     }
 }

@@ -19,10 +19,26 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-namespace Eyedrivomatic.Controls
-{
-    public interface IHeaderInfoProvider<T>
-    {
-        T HeaderInfo { get; }
-    }
-}
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows;
+
+[assembly: AssemblyTitle("Eyedrivomatic.Configuration")]
+[assembly: AssemblyDescription("Configuration for the Eyedrivomatic system.")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Eyedrivomatic")]
+[assembly: AssemblyProduct("Eyedrivomatic")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+
+[assembly: ComVisible(false)]
+
+//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.ExternalAssembly,
+    ResourceDictionaryLocation.SourceAssembly
+)]
+
+[assembly: AssemblyVersion("1.0.*")]

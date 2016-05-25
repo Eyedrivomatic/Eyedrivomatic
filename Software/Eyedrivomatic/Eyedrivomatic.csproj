@@ -259,6 +259,10 @@
       <Project>{ba183b57-b10f-43f8-b6c7-5b362f1666ac}</Project>
       <Name>Eyedrivomatic.ButtonDriver</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj">
+      <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
+      <Name>Eyedrivomatic.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
       <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
       <Name>Eyedrivomatic.Controls</Name>

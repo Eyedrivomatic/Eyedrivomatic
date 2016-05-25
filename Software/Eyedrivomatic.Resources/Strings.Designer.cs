@@ -88,6 +88,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to milliseconds.
+        /// </summary>
+        public static string MillisecondsLong {
+            get {
+                return ResourceManager.GetString("MillisecondsLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ms.
+        /// </summary>
+        public static string MillisecondsShort {
+            get {
+                return ResourceManager.GetString("MillisecondsShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically Connect at Startup.
         /// </summary>
         public static string SettingsName_AutoConnect {
@@ -97,11 +115,38 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setup.
+        ///   Looks up a localized string similar to Enabled.
         /// </summary>
-        public static string ViewName_Configuration {
+        public static string SettingsName_DwellClickEnabled {
             get {
-                return ResourceManager.GetString("ViewName_Configuration", resourceCulture);
+                return ResourceManager.GetString("SettingsName_DwellClickEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dwell Repeat Delay:.
+        /// </summary>
+        public static string SettingsName_DwellClickRepeatDelay {
+            get {
+                return ResourceManager.GetString("SettingsName_DwellClickRepeatDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dwell Time:.
+        /// </summary>
+        public static string SettingsName_DwellClickTime {
+            get {
+                return ResourceManager.GetString("SettingsName_DwellClickTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dwell Timeout:.
+        /// </summary>
+        public static string SettingsName_DwellClickTimeout {
+            get {
+                return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Controls" GeneratedClassName="DwellClickConfiguration">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Configuration" GeneratedClassName="DwellClickConfiguration">
   <Profiles />
   <Settings>
     <Setting Name="EnableDwellClick" Type="System.Boolean" Scope="User">

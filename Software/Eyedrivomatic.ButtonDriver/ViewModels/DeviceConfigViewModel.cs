@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -28,9 +29,8 @@ using System.Windows.Input;
 using Prism.Commands;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Controls;
-using System.ComponentModel.Composition;
 using Eyedrivomatic.ButtonDriver.Configuration;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
@@ -65,7 +65,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             SaveCommand.RaiseCanExecuteChanged();
         }
 
-        public string HeaderInfo => Strings.ViewName_Setup;
+        public string HeaderInfo => Strings.ViewName_DeviceConfig;
 
         public ICommand RefreshAvailableDeviceListCommand { get; }
 
@@ -112,6 +112,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             _configurationService.Save();
             HardwareService.CurrentDriver?.SaveSettings();
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         protected bool CanSaveChanges()

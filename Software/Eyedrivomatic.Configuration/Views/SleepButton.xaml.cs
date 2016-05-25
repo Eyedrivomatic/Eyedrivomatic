@@ -19,14 +19,24 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-namespace Eyedrivomatic.Infrastructure
+using System.ComponentModel.Composition;
+using System.Windows;
+
+using Eyedrivomatic.Controls;
+
+namespace Eyedrivomatic.Configuration.Views
 {
-    public class RegionNames
+    [Export]
+    public partial class SleepButton
     {
-        public const string StatusRegion = nameof(StatusRegion);
-        public const string GridRegion = nameof(GridRegion);
-        //public const string MainNavigationRegion = nameof(MainNavigationRegion);
-        public const string ConfigurationRegion = nameof(ConfigurationRegion);
-        public const string SleepButtonRegion = nameof(SleepButtonRegion);
+        public SleepButton()
+        {
+            InitializeComponent();
+        }
+
+        private void SleepButton_Click(object sender, RoutedEventArgs e)
+        {
+            DwellClickBehavior.Pause = !DwellClickBehavior.Pause;
+        }
     }
 }

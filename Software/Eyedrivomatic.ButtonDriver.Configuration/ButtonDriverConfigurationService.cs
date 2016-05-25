@@ -33,7 +33,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
     [InheritedExport(typeof(IButtonDriverConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
     public class ButtonDriverConfigurationService : BindableBase, IButtonDriverConfigurationService
     {
-        private ButtonDriverConfiguration _configuration;
+        private readonly ButtonDriverConfiguration _configuration;
         private bool _hasChanges;
 
         [Import]

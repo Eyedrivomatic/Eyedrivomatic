@@ -35,7 +35,7 @@ using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
 {
-    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule) }, InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule) }, InitializationMode = InitializationMode.WhenAvailable)]
     public class ButtonDriverModule : IModule
     {
         private readonly IHardwareService HardwareService;
@@ -66,7 +66,7 @@ namespace Eyedrivomatic.ButtonDriver
 
             RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(OutdoorDrivingView));
             RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(TrimView));
-            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ConfigurationView));
+            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ConfigurationView));
 
             try
             {
@@ -74,15 +74,19 @@ namespace Eyedrivomatic.ButtonDriver
 
                 if (ConfigurationService.AutoConnect && !string.IsNullOrWhiteSpace(ConfigurationService.ConnectionString))
                 {
+                    Logger?.Log($"Navigating to \"{nameof(OutdoorDrivingView)}\".", Category.Debug, Priority.None);
+                    RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(OutdoorDrivingView));
+
                     await HardwareService.CurrentDriver?.ConnectAsync(ConfigurationService.ConnectionString);
                 }
 
-                var mainView = HardwareService.CurrentDriver?.IsConnected ?? false
-                    ? nameof(OutdoorDrivingView)
-                    : nameof(ConfigurationView);
+                if (!HardwareService.CurrentDriver?.IsConnected ?? false)
+                {
+                    Logger?.Log($"Navigating to \"{nameof(ConfigurationView)}\".", Category.Debug, Priority.None);
+                    RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(ConfigurationView));
 
-                Logger?.Log($"Navigating to \"{mainView}\".", Category.Debug, Priority.None);
-                RegionManager.RequestNavigate(RegionNames.GridRegion, mainView);
+                }
+
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eyedrivomatic.ButtonDriver {
+namespace Eyedrivomatic.Configuration {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Eyedrivomatic.ButtonDriver {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Eyedrivomatic.ButtonDriver.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Eyedrivomatic.Configuration.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,29 @@ namespace Eyedrivomatic.ButtonDriver {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BrainBox.
+        ///   Looks up a localized string similar to Setup.
         /// </summary>
-        public static string ViewName_DeviceConfig {
+        public static string ViewName_Configuration {
             get {
-                return ResourceManager.GetString("ViewName_DeviceConfig", resourceCulture);
+                return ResourceManager.GetString("ViewName_Configuration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indoor Driving.
+        ///   Looks up a localized string similar to Dwell Click.
         /// </summary>
-        public static string ViewName_IndoorDriving {
+        public static string ViewName_DwellClickConfiguration {
             get {
-                return ResourceManager.GetString("ViewName_IndoorDriving", resourceCulture);
+                return ResourceManager.GetString("ViewName_DwellClickConfiguration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Actions.
+        ///   Looks up a localized string similar to General.
         /// </summary>
-        public static string ViewName_Macros {
+        public static string ViewName_GeneralConfiguration {
             get {
-                return ResourceManager.GetString("ViewName_Macros", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Actions.
-        /// </summary>
-        public static string ViewName_MacrosSettings {
-            get {
-                return ResourceManager.GetString("ViewName_MacrosSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Driving.
-        /// </summary>
-        public static string ViewName_OutdoorDriving {
-            get {
-                return ResourceManager.GetString("ViewName_OutdoorDriving", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string ViewName_Status {
-            get {
-                return ResourceManager.GetString("ViewName_Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trim.
-        /// </summary>
-        public static string ViewName_Trim {
-            get {
-                return ResourceManager.GetString("ViewName_Trim", resourceCulture);
+                return ResourceManager.GetString("ViewName_GeneralConfiguration", resourceCulture);
             }
         }
     }

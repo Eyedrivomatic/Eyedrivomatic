@@ -117,25 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ViewName_DeviceConfig" xml:space="preserve">
-    <value>BrainBox</value>
+  <data name="ViewName_Configuration" xml:space="preserve">
+    <value>Setup</value>
   </data>
-  <data name="ViewName_IndoorDriving" xml:space="preserve">
-    <value>Indoor Driving</value>
+  <data name="ViewName_DwellClickConfiguration" xml:space="preserve">
+    <value>Dwell Click</value>
   </data>
-  <data name="ViewName_Macros" xml:space="preserve">
-    <value>Actions</value>
-  </data>
-  <data name="ViewName_MacrosSettings" xml:space="preserve">
-    <value>Edit Actions</value>
-  </data>
-  <data name="ViewName_OutdoorDriving" xml:space="preserve">
-    <value>Driving</value>
-  </data>
-  <data name="ViewName_Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="ViewName_Trim" xml:space="preserve">
-    <value>Trim</value>
+  <data name="ViewName_GeneralConfiguration" xml:space="preserve">
+    <value>General</value>
   </data>
 </root>
