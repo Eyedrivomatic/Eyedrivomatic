@@ -57,12 +57,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0FB5FB77E29575F3845734D7BF523234"
         "OwnerKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_19DD8675F53D87E2E76DB66650436E95"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -105,20 +99,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2196AFC18FD03FDEF773C0B7AF2E9EBE"
         "OwnerKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
+        "MsmKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
+        "MsmKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,12 +130,6 @@
         "Entry"
         {
         "MsmKey" = "8:_29406239B1B002AB1DDC74B0D21A0EFE"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -207,26 +201,14 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3FD4EEA078444E6DBE8E923718278107"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_454D60F47BAAF6009988CB425A6F817C"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -250,6 +232,12 @@
         "Entry"
         {
         "MsmKey" = "8:_516E9D392A5375A9E2122C83577106C8"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_516E9D392A5375A9E2122C83577106C8"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -267,12 +255,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_516E9D392A5375A9E2122C83577106C8"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_54094FD1E7946F1FE45A92A306D2DC35"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
@@ -280,7 +262,7 @@
         "Entry"
         {
         "MsmKey" = "8:_572FFD27FC786D822570014EA9AB4B03"
-        "OwnerKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
+        "OwnerKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -310,43 +292,43 @@
         "Entry"
         {
         "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
+        "OwnerKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
+        "OwnerKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
+        "OwnerKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -375,8 +357,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_71459A229DD48A1076394C185B1EB2B5"
+        "MsmKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -430,7 +418,7 @@
         "Entry"
         {
         "MsmKey" = "8:_7D260B29B28D099EE2C2195235FE9755"
-        "OwnerKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
+        "OwnerKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -453,25 +441,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
+        "MsmKey" = "8:_944B300AA07BB22B20EDD8BC59EEFFE0"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_944B300AA07BB22B20EDD8BC59EEFFE0"
+        "MsmKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -483,7 +459,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_996C90BFF0624041B622726FF6A59511"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9C2A58F081EE8128CE8D2346FC2A27F2"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F2E6C93BF54A3BA46801DD05930E448"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -567,6 +555,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
         "OwnerKey" = "8:_62CC04197C9B2D2FC31DF647E2525F6A"
         "MsmSig" = "8:_UNDEFINED"
@@ -574,61 +580,49 @@
         "Entry"
         {
         "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
+        "OwnerKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C2BF2283D6EDEFF967A549558E44CEF5"
-        "OwnerKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_C3200FB8DD1DBE58E6E159286162C7F0"
         "OwnerKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -652,43 +646,43 @@
         "Entry"
         {
         "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
+        "OwnerKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
+        "OwnerKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
+        "OwnerKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D0077E97F3A4E9E91CA36C4BF56F4A98"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -712,13 +706,13 @@
         "Entry"
         {
         "MsmKey" = "8:_D21028046B98691CDDB3E516CD1A5824"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D21028046B98691CDDB3E516CD1A5824"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -730,7 +724,7 @@
         "Entry"
         {
         "MsmKey" = "8:_D541E4C7B851BD1131696FEB46DE5D88"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -743,6 +737,12 @@
         {
         "MsmKey" = "8:_D76DA8946924D4183425BC224B0E2F75"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D91CB9EF71EB4E2CAE66792F608DE319"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -765,6 +765,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E220426E0FA34DD9BDA91982748BA064"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E627AC3004C472E942A261205BB07CD5"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
@@ -777,8 +783,14 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EBCD80AAB9724A128C57EF411E7F5200"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EE8E2A2B804123C1B17F48438B40FBB5"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -813,8 +825,68 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9F2E6C93BF54A3BA46801DD05930E448"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_97514FF12C50586F96E0DB4772FA8DDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1D81883DDA2097C263279D1E4D54CE1F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FFACFA79EE8A004B0829402A1C765D5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C16C36A0D491F102EC1345AFEC4250B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_25A30F93D17B0216BDDEF9C4FA82C2FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -826,43 +898,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_71459A229DD48A1076394C185B1EB2B5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_29B74A3B79964870DCB5070FFFE2D2B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_90EEE56AFD34856E9E7AB2C514E88783"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_572FFD27FC786D822570014EA9AB4B03"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4B150747C24CCCB931A33CB0BABED792"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C3552BBAE2874AAA9E0BBA7DA8332624"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -887,12 +923,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_516E9D392A5375A9E2122C83577106C8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E8850E8B3618FB21CC0A17D5675CC8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1372,6 +1402,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -1588,37 +1626,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0C8BF09678BC53F044DF7A8C65E0B7F8"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Configuration, Version=1.0.5989.37656, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0C8BF09678BC53F044DF7A8C65E0B7F8"
-                    {
-                    "Name" = "8:Eyedrivomatic.Configuration.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Eyedrivomatic.Configuration.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0FB5FB77E29575F3845734D7BF523234"
             {
             "AssemblyRegister" = "3:1"
@@ -1743,6 +1750,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1D81883DDA2097C263279D1E4D54CE1F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.5989.38954, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1D81883DDA2097C263279D1E4D54CE1F"
+                    {
+                    "Name" = "8:Eyedrivomatic.ButtonDriver.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Eyedrivomatic.ButtonDriver.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2196AFC18FD03FDEF773C0B7AF2E9EBE"
             {
             "AssemblyRegister" = "3:1"
@@ -1774,14 +1812,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23E8850E8B3618FB21CC0A17D5675CC8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_25A30F93D17B0216BDDEF9C4FA82C2FE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Configuration, Version=1.0.5989.37602, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Configuration, Version=1.0.5989.38947, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_23E8850E8B3618FB21CC0A17D5675CC8"
+                    "_25A30F93D17B0216BDDEF9C4FA82C2FE"
                     {
                     "Name" = "8:Eyedrivomatic.ButtonDriver.Configuration.dll"
                     "Attributes" = "3:512"
@@ -1850,37 +1888,6 @@
                     }
                 }
             "SourcePath" = "8:System.Runtime.Serialization.Json.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_29B74A3B79964870DCB5070FFFE2D2B7"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.5989.37656, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_29B74A3B79964870DCB5070FFFE2D2B7"
-                    {
-                    "Name" = "8:Eyedrivomatic.ButtonDriver.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Eyedrivomatic.ButtonDriver.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -2208,6 +2215,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FD4EEA078444E6DBE8E923718278107"
+            {
+            "SourcePath" = "8:..\\Eyedrivomatic.ButtonDriver.Hardware.Arduino\\Eyedrivomatic.ButtonDriver.Hardware.Arduino.ino"
+            "TargetName" = "8:Eyedrivomatic.ButtonDriver.Hardware.Arduino.ino"
+            "Tag" = "8:"
+            "Folder" = "8:_2EFAD07033124DB3BB43261FDDC13CC1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_454D60F47BAAF6009988CB425A6F817C"
             {
             "AssemblyRegister" = "3:1"
@@ -2222,37 +2249,6 @@
                     }
                 }
             "SourcePath" = "8:System.Runtime.Numerics.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B150747C24CCCB931A33CB0BABED792"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Controls, Version=1.0.5989.37653, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4B150747C24CCCB931A33CB0BABED792"
-                    {
-                    "Name" = "8:Eyedrivomatic.Controls.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Eyedrivomatic.Controls.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -2662,20 +2658,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_71459A229DD48A1076394C185B1EB2B5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6B7BCBC8DB72CEA93C4CEA637103D6B8"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Resources, Version=1.0.5989.37602, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Hardware, Version=1.0.5989.38947, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_71459A229DD48A1076394C185B1EB2B5"
+                    "_6B7BCBC8DB72CEA93C4CEA637103D6B8"
                     {
-                    "Name" = "8:Eyedrivomatic.Resources.dll"
+                    "Name" = "8:Eyedrivomatic.ButtonDriver.Hardware.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Eyedrivomatic.Resources.dll"
+            "SourcePath" = "8:Eyedrivomatic.ButtonDriver.Hardware.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -2941,20 +2937,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_90EEE56AFD34856E9E7AB2C514E88783"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_944B300AA07BB22B20EDD8BC59EEFFE0"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Infrastructure, Version=1.0.5989.37603, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Runtime.InteropServices.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_90EEE56AFD34856E9E7AB2C514E88783"
+                    "_944B300AA07BB22B20EDD8BC59EEFFE0"
                     {
-                    "Name" = "8:Eyedrivomatic.Infrastructure.dll"
+                    "Name" = "8:System.Runtime.InteropServices.WindowsRuntime.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Eyedrivomatic.Infrastructure.dll"
+            "SourcePath" = "8:System.Runtime.InteropServices.WindowsRuntime.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -2972,20 +2968,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_944B300AA07BB22B20EDD8BC59EEFFE0"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_97514FF12C50586F96E0DB4772FA8DDA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Runtime.InteropServices.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Configuration, Version=1.0.5989.38953, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_944B300AA07BB22B20EDD8BC59EEFFE0"
+                    "_97514FF12C50586F96E0DB4772FA8DDA"
                     {
-                    "Name" = "8:System.Runtime.InteropServices.WindowsRuntime.dll"
+                    "Name" = "8:Eyedrivomatic.Configuration.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Runtime.InteropServices.WindowsRuntime.dll"
+            "SourcePath" = "8:Eyedrivomatic.Configuration.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -3034,6 +3030,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_996C90BFF0624041B622726FF6A59511"
+            {
+            "SourcePath" = "8:..\\..\\Eyedrivomatic getting started guide.pdf"
+            "TargetName" = "8:Eyedrivomatic getting started guide.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_CA744948A015489A929510C505CDDFCC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9C2A58F081EE8128CE8D2346FC2A27F2"
             {
             "AssemblyRegister" = "3:1"
@@ -3048,6 +3064,37 @@
                     }
                 }
             "SourcePath" = "8:System.Text.Encoding.Extensions.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F2E6C93BF54A3BA46801DD05930E448"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Resources, Version=1.0.5989.38947, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9F2E6C93BF54A3BA46801DD05930E448"
+                    {
+                    "Name" = "8:Eyedrivomatic.Resources.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Eyedrivomatic.Resources.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -3437,6 +3484,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C16C36A0D491F102EC1345AFEC4250B9"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Controls, Version=1.0.5989.38951, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C16C36A0D491F102EC1345AFEC4250B9"
+                    {
+                    "Name" = "8:Eyedrivomatic.Controls.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Eyedrivomatic.Controls.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C2BF2283D6EDEFF967A549558E44CEF5"
             {
             "AssemblyRegister" = "3:1"
@@ -3482,37 +3560,6 @@
                     }
                 }
             "SourcePath" = "8:System.Threading.Tasks.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C3552BBAE2874AAA9E0BBA7DA8332624"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Hardware, Version=1.0.5989.37602, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C3552BBAE2874AAA9E0BBA7DA8332624"
-                    {
-                    "Name" = "8:Eyedrivomatic.ButtonDriver.Hardware.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Eyedrivomatic.ButtonDriver.Hardware.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
@@ -3747,6 +3794,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D91CB9EF71EB4E2CAE66792F608DE319"
+            {
+            "SourcePath" = "8:..\\..\\Eyedrivomatic component list.pdf"
+            "TargetName" = "8:Eyedrivomatic component list.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_CA744948A015489A929510C505CDDFCC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DF6A3165F699D8F6065C81C396B7F38D"
             {
             "AssemblyRegister" = "3:1"
@@ -3840,6 +3907,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E220426E0FA34DD9BDA91982748BA064"
+            {
+            "SourcePath" = "8:..\\..\\Eyedrivomatic Build Instructions.pdf"
+            "TargetName" = "8:Eyedrivomatic Build Instructions.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_CA744948A015489A929510C505CDDFCC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E627AC3004C472E942A261205BB07CD5"
             {
             "AssemblyRegister" = "3:1"
@@ -3900,6 +3987,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EBCD80AAB9724A128C57EF411E7F5200"
+            {
+            "SourcePath" = "8:..\\..\\README.md"
+            "TargetName" = "8:README.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EE8E2A2B804123C1B17F48438B40FBB5"
@@ -4026,6 +4133,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FFACFA79EE8A004B0829402A1C765D5F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Infrastructure, Version=1.0.5989.38948, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FFACFA79EE8A004B0829402A1C765D5F"
+                    {
+                    "Name" = "8:Eyedrivomatic.Infrastructure.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Eyedrivomatic.Infrastructure.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -4053,6 +4191,28 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2EFAD07033124DB3BB43261FDDC13CC1"
+                    {
+                    "Name" = "8:Firmware"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_0FFCB519F0EF412499BAF0BE871E1299"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_CA744948A015489A929510C505CDDFCC"
+                    {
+                    "Name" = "8:Documentation"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_FA4A4BBF7CD64AE59EECAF19A1EB4E35"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_AEF6B4D7C50A430EAA8E1474BB9118CD"
@@ -4083,7 +4243,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Eyedrivomatic"
         "ProductCode" = "8:{912868C9-A874-45A6-8FB1-80D7020B5249}"
-        "PackageCode" = "8:{846929CA-00C4-433E-ABF7-CB0FB37BA397}"
+        "PackageCode" = "8:{2E995DAA-824D-4530-A0BC-D640162A1403}"
         "UpgradeCode" = "8:{60A2BFED-C726-408B-80A1-6340DFFB4DEE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -4205,7 +4365,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_10C813D6782C4F1884F5B5750A497902"
             {
-            "Name" = "8:Shortcut to Primary output from Eyedrivomatic (Active)"
+            "Name" = "8:Eyedrivomatic"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -4786,7 +4946,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7CFA8AB0B41B4546996A876E7A38F8B2"
             {
-            "SourcePath" = "8:..\\Eyedrivomatic\\obj\\Debug\\Eyedrivomatic.exe"
+            "SourcePath" = "8:..\\Eyedrivomatic\\obj\\Release\\Eyedrivomatic.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94E7CDC7173741D4B935CBF968CECA5E"
