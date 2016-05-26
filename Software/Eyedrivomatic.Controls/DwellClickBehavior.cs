@@ -145,11 +145,15 @@ namespace Eyedrivomatic.Controls
 
         public static bool GetIgnorePause(DependencyObject obj)
         {
+            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
+
             return (bool)obj.GetValue(IgnorePauseProperty);
         }
 
         public static void SetIgnorePause(DependencyObject obj, bool  value)
         {
+            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
+
             obj.SetValue(IgnorePauseProperty, value);
         }
         #endregion IgnorePause

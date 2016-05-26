@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Configuration", "Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj", "{3F7B0B08-3953-4B33-A223-FAF5497634F1}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Eyedrivomatic.Setup", "Eyedrivomatic.Setup\Eyedrivomatic.Setup.vdproj", "{89977239-E7BB-4FFD-ACBF-EE723948952A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,12 @@ Global
 		{3F7B0B08-3953-4B33-A223-FAF5497634F1}.Release|x64.Build.0 = Release|Any CPU
 		{3F7B0B08-3953-4B33-A223-FAF5497634F1}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F7B0B08-3953-4B33-A223-FAF5497634F1}.Release|x86.Build.0 = Release|Any CPU
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Debug|Any CPU.ActiveCfg = Debug
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Debug|x64.ActiveCfg = Debug
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Debug|x86.ActiveCfg = Debug
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Release|Any CPU.ActiveCfg = Release
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Release|x64.ActiveCfg = Release
+		{89977239-E7BB-4FFD-ACBF-EE723948952A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
