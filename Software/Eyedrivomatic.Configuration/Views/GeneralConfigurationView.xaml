@@ -47,7 +47,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="DwellClickSettings" Grid.Column="1" VerticalAlignment="Center" Width="400">
+        <GroupBox x:Name="DwellClickSettings" Grid.Column="1" VerticalAlignment="Center" Width="400"
+                  Header="{x:Static resources:Strings.SettingsGroupName_DwellClick}">
+            <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -79,7 +81,8 @@
             <TextBox x:Name="DwellClickRepeatDelayValue" Grid.Row="3" Grid.Column="1" Text="{Binding DwellRepeatDelayMilliseconds}" Style="{StaticResource SettingValueStyle}" Margin="10"/>
             <Label x:Name="DwellClickRepeatDelayMs" Grid.Row="3" Grid.Column="2" Content="{x:Static resources:Strings.MillisecondsShort}" Style="{StaticResource SettingLabelStyle}"/>
         </Grid>
-
+        </GroupBox>
+        
         <Button x:Name="SaveButton"
                 Style="{StaticResource TextButtonStyle}" 
                 Content="{x:Static resources:Strings.CommandText_Save}"

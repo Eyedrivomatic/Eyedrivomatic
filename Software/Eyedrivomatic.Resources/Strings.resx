@@ -132,6 +132,12 @@
   <data name="MillisecondsShort" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+    <value>Connection Settings</value>
+  </data>
+  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+    <value>Dwell Click Settings</value>
+  </data>
   <data name="SettingsName_AutoConnect" xml:space="preserve">
     <value>Automatically Connect at Startup</value>
   </data>
@@ -146,5 +152,26 @@
   </data>
   <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
     <value>Dwell Timeout:</value>
+  </data>
+  <data name="ViewName_DeviceConfig" xml:space="preserve">
+    <value>BrainBox</value>
+  </data>
+  <data name="ViewName_IndoorDriving" xml:space="preserve">
+    <value>Indoor Driving</value>
+  </data>
+  <data name="ViewName_Macros" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ViewName_MacrosSettings" xml:space="preserve">
+    <value>Edit Actions</value>
+  </data>
+  <data name="ViewName_OutdoorDriving" xml:space="preserve">
+    <value>Driving</value>
+  </data>
+  <data name="ViewName_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ViewName_Trim" xml:space="preserve">
+    <value>Trim</value>
   </data>
 </root>

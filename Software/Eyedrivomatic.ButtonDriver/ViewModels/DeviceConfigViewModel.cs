@@ -31,6 +31,7 @@ using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {

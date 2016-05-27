@@ -22,6 +22,7 @@
 using System.ComponentModel.Composition;
 
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.Configuration.ViewModels
 {

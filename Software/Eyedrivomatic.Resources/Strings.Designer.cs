@@ -106,6 +106,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection Settings.
+        /// </summary>
+        public static string SettingsGroupName_DeviceConnection {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_DeviceConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dwell Click Settings.
+        /// </summary>
+        public static string SettingsGroupName_DwellClick {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_DwellClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically Connect at Startup.
         /// </summary>
         public static string SettingsName_AutoConnect {
@@ -147,6 +165,69 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsName_DwellClickTimeout {
             get {
                 return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BrainBox.
+        /// </summary>
+        public static string ViewName_DeviceConfig {
+            get {
+                return ResourceManager.GetString("ViewName_DeviceConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indoor Driving.
+        /// </summary>
+        public static string ViewName_IndoorDriving {
+            get {
+                return ResourceManager.GetString("ViewName_IndoorDriving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string ViewName_Macros {
+            get {
+                return ResourceManager.GetString("ViewName_Macros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Actions.
+        /// </summary>
+        public static string ViewName_MacrosSettings {
+            get {
+                return ResourceManager.GetString("ViewName_MacrosSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driving.
+        /// </summary>
+        public static string ViewName_OutdoorDriving {
+            get {
+                return ResourceManager.GetString("ViewName_OutdoorDriving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string ViewName_Status {
+            get {
+                return ResourceManager.GetString("ViewName_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trim.
+        /// </summary>
+        public static string ViewName_Trim {
+            get {
+                return ResourceManager.GetString("ViewName_Trim", resourceCulture);
             }
         }
     }

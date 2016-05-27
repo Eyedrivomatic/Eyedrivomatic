@@ -22,14 +22,29 @@
 
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Eyedrivomatic.Themes">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <FrameworkElement x:Key="SmallCursor" Cursor="pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"/>
     
     <SolidColorBrush x:Key="MainBackgroundBrush" Color="#FFF3F2A2"/>
 
     <SolidColorBrush x:Key="MainButtonBrush" Color="#FFF3F2A2"/>
+
+    <Style TargetType="{x:Type GroupBox}">
+        <Setter Property="BorderBrush" Value="#FF303030"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="FontFamily" Value="Ariel"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="4" ShadowDepth="5" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <ControlTemplate x:Key="ButtonBaseTemplate" TargetType="{x:Type ButtonBase}">
         <Grid>
@@ -97,7 +112,6 @@
             <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
         </Grid>
     </ControlTemplate>
-
 
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource MainButtonBrush}"/>
