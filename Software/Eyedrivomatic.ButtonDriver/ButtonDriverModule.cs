@@ -79,22 +79,20 @@ namespace Eyedrivomatic.ButtonDriver
 
                     await HardwareService.CurrentDriver?.ConnectAsync(ConfigurationService.ConnectionString);
                 }
-
-                if (!HardwareService.CurrentDriver?.IsConnected ?? false)
-                {
-                    Logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
-                    RegionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
-                    RegionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
-
-                }
-
             }
             catch (Exception ex)
             {
                 Logger?.Log($"Hardware Initialization Failed - {ex}", Category.Exception, Priority.None);
-                //TODO: Open the configuration page.
             }
 
+            if (!HardwareService.CurrentDriver?.IsConnected ?? false) NavigateToConfiguration();
+        }
+
+        private void NavigateToConfiguration()
+        {
+            Logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
+            RegionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
+            RegionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
         }
     }
 }
