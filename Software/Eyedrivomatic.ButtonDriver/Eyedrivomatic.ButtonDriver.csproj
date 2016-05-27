@@ -164,8 +164,8 @@
     <Compile Include="ViewModels\DrivingViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\TrimViewModel.cs" />
-    <Compile Include="Views\ArduinoConfigurationView.xaml.cs">
-      <DependentUpon>ArduinoConfigurationView.xaml</DependentUpon>
+    <Compile Include="Views\DeviceConfigurationView.xaml.cs">
+      <DependentUpon>DeviceConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OutdoorDrivingView.xaml.cs">
       <DependentUpon>OutdoorDrivingView.xaml</DependentUpon>
@@ -210,7 +210,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ArduinoConfigurationView.xaml">
+    <Page Include="Views\DeviceConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

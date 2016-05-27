@@ -66,7 +66,7 @@ namespace Eyedrivomatic.ButtonDriver
 
             RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(OutdoorDrivingView));
             RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(TrimView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ConfigurationView));
+            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
 
             try
             {
@@ -74,7 +74,7 @@ namespace Eyedrivomatic.ButtonDriver
 
                 if (ConfigurationService.AutoConnect && !string.IsNullOrWhiteSpace(ConfigurationService.ConnectionString))
                 {
-                    Logger?.Log($"Navigating to \"{nameof(OutdoorDrivingView)}\".", Category.Debug, Priority.None);
+                    Logger?.Log($"Navigating to [{nameof(OutdoorDrivingView)}].", Category.Debug, Priority.None);
                     RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(OutdoorDrivingView));
 
                     await HardwareService.CurrentDriver?.ConnectAsync(ConfigurationService.ConnectionString);
@@ -82,8 +82,9 @@ namespace Eyedrivomatic.ButtonDriver
 
                 if (!HardwareService.CurrentDriver?.IsConnected ?? false)
                 {
-                    Logger?.Log($"Navigating to \"{nameof(ConfigurationView)}\".", Category.Debug, Priority.None);
-                    RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(ConfigurationView));
+                    Logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
+                    RegionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
+                    RegionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
 
                 }
 

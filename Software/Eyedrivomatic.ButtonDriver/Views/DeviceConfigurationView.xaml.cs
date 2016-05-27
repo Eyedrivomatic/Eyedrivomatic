@@ -27,9 +27,9 @@ using Eyedrivomatic.ButtonDriver.ViewModels;
 namespace Eyedrivomatic.ButtonDriver.Views
 {
     [Export]
-    public partial class ConfigurationView
+    public partial class DeviceConfigurationView
     {
-        public ConfigurationView()
+        public DeviceConfigurationView()
         {
             InitializeComponent();
         }
