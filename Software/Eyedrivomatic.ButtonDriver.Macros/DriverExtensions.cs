@@ -22,29 +22,31 @@
 using System;
 using System.Threading.Tasks;
 
-using Eyedrivomatic.Hardware;
-using Eyedrivomatic.Model.Macro;
+using Prism.Logging;
 
-namespace Eyedrivomatic
+using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
+
+namespace Eyedrivomatic.ButtonDriver.Macros
 {
     public static class DriverExtensions
     {
-        internal static bool CanExecuteTask(this IDriver driver, MacroTask task)
+        internal static bool CanExecuteTask(this IButtonDriver driver, MacroTask task)
         {
-            var driverTask = task as IDriverMacroAsyncTask;
+            var driverTask = task as IButtonDriverMacroAsyncTask;
             if (driverTask == null) return true;
 
             return driverTask.CanExecute(driver);
         }
 
-        internal static Task ExecuteTaskAsync(this IDriver driver, MacroTask task)
+        internal static Task ExecuteTaskAsync(this IButtonDriver driver, MacroTask task)
         {
-            var driverTask = task as IDriverMacroAsyncTask;
+            var driverTask = task as IButtonDriverMacroAsyncTask;
             if (driverTask == null) return Task.FromResult(0);
 
             if (!driverTask.CanExecute(driver))
             {
-                Logger?.Log($"Unable to execute task - task unavailable.", Category.Exception, Priority.None);
+                MacrosModule.Logger?.Log($"Unable to execute task - task unavailable.", Category.Exception, Priority.None);
                 return Task.FromException(new InvalidOperationException("task unavailable"));
             }
 

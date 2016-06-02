@@ -22,9 +22,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Resources;
 
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
     public class ToggleRelayTaskViewModel : EditMacroTaskViewModel
     {

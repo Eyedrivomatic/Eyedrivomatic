@@ -23,10 +23,10 @@ using Prism.Mvvm;
 
 using System.Diagnostics.Contracts;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
 
 
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
     public abstract class EditMacroTaskViewModel : BindableBase
     {

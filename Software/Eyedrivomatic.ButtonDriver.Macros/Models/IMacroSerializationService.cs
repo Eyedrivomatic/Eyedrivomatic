@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     public interface IMacroSerializationService
     {

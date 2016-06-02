@@ -126,11 +126,29 @@
   <data name="CommandText_Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
+    <value>Delay {0:0.00}s</value>
+  </data>
+  <data name="DelayTask_InvalidDelay" xml:space="preserve">
+    <value>Delay must be greater than 0.</value>
+  </data>
+  <data name="DelayTask_ToStringFormat" xml:space="preserve">
+    <value>Pause for {0:0.00} seconds.</value>
+  </data>
+  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
+    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
+  </data>
+  <data name="Macro_InvalidDisplayName" xml:space="preserve">
+    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
+  </data>
   <data name="MillisecondsLong" xml:space="preserve">
     <value>milliseconds</value>
   </data>
   <data name="MillisecondsShort" xml:space="preserve">
     <value>ms</value>
+  </data>
+  <data name="NewTaskViewModelName" xml:space="preserve">
+    <value>New Task</value>
   </data>
   <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
     <value>Connection Settings</value>
@@ -152,6 +170,21 @@
   </data>
   <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
     <value>Dwell Timeout:</value>
+  </data>
+  <data name="ToggleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
+    <value>Toggle Relay {0}</value>
+  </data>
+  <data name="ToggleRelayMacroTask_Description" xml:space="preserve">
+    <value>Toggle a relay. This changes the state of the relay from on to off, or off to on. For a momentary toggle, use a repeat of 2. Typically a delay of 500 milliseconds or more will be required.</value>
+  </data>
+  <data name="ToggleRelayMacroTask_InvalidRelay" xml:space="preserve">
+    <value>Must be a value between 1 and {0}.</value>
+  </data>
+  <data name="ToggleRelayMacroTask_InvalidRepeat" xml:space="preserve">
+    <value>Must be greater than 0.</value>
+  </data>
+  <data name="ToggleRelayMacroTask_ToStringFormat" xml:space="preserve">
+    <value>Toggle Relay {0}, repeat {1} times with a delay of {2} ms between repeats.</value>
   </data>
   <data name="ViewName_DeviceConfig" xml:space="preserve">
     <value>BrainBox</value>

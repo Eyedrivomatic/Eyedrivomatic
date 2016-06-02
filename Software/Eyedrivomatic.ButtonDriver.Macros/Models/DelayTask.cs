@@ -19,15 +19,20 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using Eyedrivomatic.Hardware;
 using System;
 using System.Threading.Tasks;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+using System.ComponentModel.Composition;
+
+using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.Resources;
+using Prism.Logging;
+
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     public class DelayTask : MacroTask, IMacroAsyncTask
     {
-        public static DelayTask CreateNew(IDriver driver)
+        public static DelayTask CreateNew(IButtonDriver driver)
         {
             return new DelayTask
             {

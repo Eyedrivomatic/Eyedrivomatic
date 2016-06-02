@@ -20,15 +20,18 @@
 
 
 using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Diagnostics.Contracts;
-using System.ComponentModel;
-
-using Eyedrivomatic.Hardware;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics.Contracts;
+using System.Threading.Tasks;
+using System.Linq;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+using Prism.Logging;
+
+using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.Resources;
+
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     public class UserMacro : IMacro
     {
@@ -38,31 +41,28 @@ namespace Eyedrivomatic.Modules.Macros.Models
 
         public ObservableCollection<MacroTask> Tasks { get; } = new ObservableCollection<MacroTask>();
 
-        public async Task ExecuteAsync(IDriver driver)
+        public async Task ExecuteAsync(IButtonDriver driver)
         {
-            Contract.Requires<ArgumentNullException>(driver != null, nameof(driver));
-            Contract.Ensures(Contract.Result<Task>() != null);
-
             if (IsExecuting)
             {
-                Logger?.Log($"Unable to execute macro '{DisplayName}'. Macro is currently running.", Category.Warn, Priority.None);
+                MacrosModule.Logger?.Log($"Unable to execute macro '{DisplayName}'. Macro is currently running.", Category.Warn, Priority.None);
             }
 
             try
             {
                 IsExecuting = true;
-                Logger?.Log($"Executing macro '{DisplayName}'", Category.Info, Priority.None);
+                MacrosModule.Logger?.Log($"Executing macro '{DisplayName}'", Category.Info, Priority.None);
 
                 foreach (var task in Tasks)
                 {
                     await driver.ExecuteTaskAsync(task);
                 }
 
-                Logger?.Log($"Macro '{DisplayName}' complete.", Category.Info, Priority.None);
+                MacrosModule.Logger?.Log($"Macro '{DisplayName}' complete.", Category.Info, Priority.None);
             }
             catch (Exception ex)
             {
-                Logger?.Log($"Macro '{DisplayName}' Failed - {ex}", Category.Exception, Priority.None);
+                MacrosModule.Logger?.Log($"Macro '{DisplayName}' Failed - {ex}", Category.Exception, Priority.None);
             }
             finally
             {
@@ -70,7 +70,7 @@ namespace Eyedrivomatic.Modules.Macros.Models
             }
         }
 
-        public bool CanExecute(IDriver driver)
+        public bool CanExecute(IButtonDriver driver)
         {
             return driver != null && !IsExecuting && Tasks.All(task => driver.CanExecuteTask(task));
         }

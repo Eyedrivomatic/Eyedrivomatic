@@ -25,9 +25,9 @@ using System.Windows.Input;
 using Prism.Mvvm;
 using Prism.Commands;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
 
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
     public class EditMacrosViewModel : BindableBase
     {

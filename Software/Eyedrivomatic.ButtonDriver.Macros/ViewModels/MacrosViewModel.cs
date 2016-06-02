@@ -20,19 +20,21 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 using System.Windows.Input;
 
 using Prism.Mvvm;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
 
-
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
+    [Export]
     public class MacrosViewModel : BindableBase
     {
-        public MacrosViewModel(ICommand executeMacroCommand)
+        [ImportingConstructor]
+        public MacrosViewModel([Import("ExecuteMacroCommand")]ICommand executeMacroCommand)
         {
             Contract.Requires<ArgumentNullException>(executeMacroCommand != null, nameof(executeMacroCommand));
             ExecuteMacroCommand = executeMacroCommand;

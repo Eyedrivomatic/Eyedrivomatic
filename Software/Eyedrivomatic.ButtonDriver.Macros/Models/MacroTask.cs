@@ -23,8 +23,10 @@ using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
+using Eyedrivomatic.Resources;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     /// <summary>
     /// The base class for an Eyedrivomatic macro.

@@ -20,17 +20,19 @@
 
 
 using System;
+using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
-using Eyedrivomatic.Hardware;
-using System.Diagnostics.Contracts;
 using Prism.Logging;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.Resources;
+
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
-    public class ToggleRelayTask : MacroTask, IDriverMacroAsyncTask
+    public class ToggleRelayTask : MacroTask, IButtonDriverMacroAsyncTask
     {
-        public static ToggleRelayTask CreateNew(IDriver driver)
+        public static ToggleRelayTask CreateNew(IButtonDriver driver)
         {
             Contract.Requires<ArgumentNullException>(driver != null, nameof(driver));
             return new ToggleRelayTask(1, 1, 0, driver.RelayCount);
@@ -66,21 +68,21 @@ namespace Eyedrivomatic.Modules.Macros.Models
         /// </summary>
         public uint DelayMs { get; set; }
 
-        #region IDriverMacroTask
-        public virtual async Task ExecuteAsync(IDriver driver)
+        #region IButtonDriverMacroTask
+        public virtual async Task ExecuteAsync(IButtonDriver driver)
         {
-            Logger?.Log($"Executing step '{ToString()}'", Category.Info, Priority.None);
+            MacrosModule.Logger?.Log($"Executing step '{ToString()}'", Category.Info, Priority.None);
 
             await driver.ToggleRelayAsync(Relay, Repeat, DelayMs);
 
-            Logger?.Log($"Step '{ToString()}' completed", Category.Debug, Priority.None);
+            MacrosModule.Logger?.Log($"Step '{ToString()}' completed", Category.Debug, Priority.None);
         }
 
-        public virtual bool CanExecute(IDriver driver)
+        public virtual bool CanExecute(IButtonDriver driver)
         {
             return driver?.ReadyState == ReadyState.Any && Relay <= driver.RelayCount;
         }
-        #endregion IDriverMacroTask
+        #endregion IButtonDriverMacroTask
 
         public override string ToString()
         {

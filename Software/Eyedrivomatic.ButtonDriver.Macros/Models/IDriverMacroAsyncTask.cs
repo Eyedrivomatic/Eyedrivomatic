@@ -23,25 +23,25 @@ using System;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
-using Eyedrivomatic.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     [ContractClass(typeof(Contracts.DriverMacroAsyncTaskContract))]
-    public interface IDriverMacroAsyncTask
+    public interface IButtonDriverMacroAsyncTask
     {
-        bool CanExecute(IDriver driver);
-        Task ExecuteAsync(IDriver driver);
+        bool CanExecute(IButtonDriver driver);
+        Task ExecuteAsync(IButtonDriver driver);
     }
 
     namespace Contracts
     {
-        [ContractClassFor(typeof(IDriverMacroAsyncTask))]
-        public abstract class DriverMacroAsyncTaskContract : IDriverMacroAsyncTask
+        [ContractClassFor(typeof(IButtonDriverMacroAsyncTask))]
+        public abstract class DriverMacroAsyncTaskContract : IButtonDriverMacroAsyncTask
         {
-            public abstract bool CanExecute(IDriver driver);
+            public abstract bool CanExecute(IButtonDriver driver);
 
-            public Task ExecuteAsync(IDriver driver)
+            public Task ExecuteAsync(IButtonDriver driver)
             {
                 Contract.Requires<ArgumentNullException>(driver != null, nameof(driver));
                 Contract.Ensures(Contract.Result<Task>() != null);

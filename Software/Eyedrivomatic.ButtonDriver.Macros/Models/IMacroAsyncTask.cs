@@ -23,7 +23,7 @@ using System;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
-namespace Eyedrivomatic.Modules.Macros.Models
+namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     [ContractClass(typeof(Contracts.MacroAsyncTaskContract))]
     public interface IMacroAsyncTask

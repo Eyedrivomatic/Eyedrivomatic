@@ -19,7 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-namespace Eyedrivomatic.Modules.Macros.Views
+namespace Eyedrivomatic.ButtonDriver.Macros.Views
 {
     public partial class ToggleRelayTaskView
     {

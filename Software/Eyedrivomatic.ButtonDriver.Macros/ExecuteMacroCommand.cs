@@ -20,20 +20,25 @@
 
 
 using System;
+using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using Eyedrivomatic.Hardware;
-using Eyedrivomatic.Model.Macro;
+using Prism.Logging;
 
-namespace Eyedrivomatic.Modules.Macros
+using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
+
+namespace Eyedrivomatic.ButtonDriver.Macros
 {
+    [Export("ExecuteMacroCommand")]
     public class ExecuteMacroCommand : ICommand
     {
-        private IDriver _driver;
+        private IButtonDriver _driver;
         private Task _currentTask;
 
-        public IDriver Driver
+        [Import]
+        public IButtonDriver Driver
         {
             get { return _driver; }
             set
@@ -69,7 +74,7 @@ namespace Eyedrivomatic.Modules.Macros
             }
             catch (Exception ex)
             {
-                Logger?.Log($"Failed to execute macro - {ex}", Category.Exception, Priority.None);
+                MacrosModule.Logger?.Log($"Failed to execute macro - {ex}", Category.Exception, Priority.None);
             }
             finally
             {

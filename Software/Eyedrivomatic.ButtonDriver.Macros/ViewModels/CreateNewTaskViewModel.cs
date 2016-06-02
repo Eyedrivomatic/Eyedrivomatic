@@ -19,15 +19,17 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 
 using Prism.Mvvm;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Resources;
 
-
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
+    [Export]
     public class CreateNewTaskViewModel : BindableBase
     {
         private readonly TaskCompletionSource<MacroTask> _createTask = new TaskCompletionSource<MacroTask>();

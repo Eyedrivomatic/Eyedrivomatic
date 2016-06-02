@@ -22,11 +22,13 @@ using System;
 
 using Prism.Mvvm;
 
-using Eyedrivomatic.Modules.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Resources;
+using System.ComponentModel.Composition;
 
-
-namespace Eyedrivomatic.Modules.Macros.ViewModels
+namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
+    [Export]
     public class DelayTaskViewModel : EditMacroTaskViewModel
     {
         private DelayTask DelayTask => (DelayTask)Task;

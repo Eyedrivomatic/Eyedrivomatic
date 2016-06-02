@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver")]
-[assembly: AssemblyDescription("Handles the UI and logic for the Eyedrivomatic system.")]
+[assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver.Macros")]
+[assembly: AssemblyDescription("Implements macros in Eyedrivomatic.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Eyedrivomatic")]
 [assembly: AssemblyProduct("Eyedrivomatic")]

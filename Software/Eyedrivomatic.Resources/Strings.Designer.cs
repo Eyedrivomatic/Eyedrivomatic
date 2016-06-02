@@ -88,6 +88,51 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay {0:0.00}s.
+        /// </summary>
+        public static string DelayTask_DefaultNameFormat {
+            get {
+                return ResourceManager.GetString("DelayTask_DefaultNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delay must be greater than 0..
+        /// </summary>
+        public static string DelayTask_InvalidDelay {
+            get {
+                return ResourceManager.GetString("DelayTask_InvalidDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause for {0:0.00} seconds..
+        /// </summary>
+        public static string DelayTask_ToStringFormat {
+            get {
+                return ResourceManager.GetString("DelayTask_ToStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Display Name. The cannot be empty or only whitespace characters..
+        /// </summary>
+        public static string Macro_InvalidDisplayName {
+            get {
+                return ResourceManager.GetString("Macro_InvalidDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Display Name. The cannot be empty or only whitespace characters..
+        /// </summary>
+        public static string MacroTask_InvalidDisplayName {
+            get {
+                return ResourceManager.GetString("MacroTask_InvalidDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to milliseconds.
         /// </summary>
         public static string MillisecondsLong {
@@ -102,6 +147,15 @@ namespace Eyedrivomatic.Resources {
         public static string MillisecondsShort {
             get {
                 return ResourceManager.GetString("MillisecondsShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Task.
+        /// </summary>
+        public static string NewTaskViewModelName {
+            get {
+                return ResourceManager.GetString("NewTaskViewModelName", resourceCulture);
             }
         }
         
@@ -165,6 +219,51 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsName_DwellClickTimeout {
             get {
                 return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Relay {0}.
+        /// </summary>
+        public static string ToggleRelayMacroTask_DefaultNameFormat {
+            get {
+                return ResourceManager.GetString("ToggleRelayMacroTask_DefaultNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle a relay. This changes the state of the relay from on to off, or off to on. For a momentary toggle, use a repeat of 2. Typically a delay of 500 milliseconds or more will be required..
+        /// </summary>
+        public static string ToggleRelayMacroTask_Description {
+            get {
+                return ResourceManager.GetString("ToggleRelayMacroTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be a value between 1 and {0}..
+        /// </summary>
+        public static string ToggleRelayMacroTask_InvalidRelay {
+            get {
+                return ResourceManager.GetString("ToggleRelayMacroTask_InvalidRelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be greater than 0..
+        /// </summary>
+        public static string ToggleRelayMacroTask_InvalidRepeat {
+            get {
+                return ResourceManager.GetString("ToggleRelayMacroTask_InvalidRepeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Relay {0}, repeat {1} times with a delay of {2} ms between repeats..
+        /// </summary>
+        public static string ToggleRelayMacroTask_ToStringFormat {
+            get {
+                return ResourceManager.GetString("ToggleRelayMacroTask_ToStringFormat", resourceCulture);
             }
         }
         
