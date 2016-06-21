@@ -123,6 +123,12 @@
   <data name="CommandText_Disconnect" xml:space="preserve">
     <value>Disconnect</value>
   </data>
+  <data name="CommandText_NextDevice" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="CommandText_PrevDevice" xml:space="preserve">
+    <value>Prev</value>
+  </data>
   <data name="CommandText_Save" xml:space="preserve">
     <value>Save</value>
   </data>

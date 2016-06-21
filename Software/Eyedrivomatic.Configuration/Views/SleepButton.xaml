@@ -27,7 +27,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Eyedrivomatic.Configuration.Views"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="150" Height="200">
     <UserControl.Resources>
@@ -38,8 +38,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Button Content="{Binding Path=(controls:DwellClickBehavior.Pause), Converter={StaticResource BoolToSleepStateImageConverter}}"
+    <Button Content="{Binding Path=(dwellclick:DwellClickBehavior.Pause), Converter={StaticResource BoolToSleepStateImageConverter}}"
             Style="{StaticResource ImageButtonStyle}"
-            controls:DwellClickBehavior.IgnorePause="True" Click="SleepButton_Click"/>
+            dwellclick:DwellClickBehavior.IgnorePause="True" Click="SleepButton_Click"/>
 
 </UserControl>

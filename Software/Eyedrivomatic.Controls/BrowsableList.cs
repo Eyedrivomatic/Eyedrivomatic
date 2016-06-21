@@ -19,21 +19,24 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using Prism.Commands;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using Prism.Commands;
+
 namespace Eyedrivomatic.Controls
 {
+    /// <summary>
+    /// Interaction logic for BrowsableList.xaml
+    /// </summary>
     public class BrowsableList : ListBox
     {
         static BrowsableList()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BrowsableList), new FrameworkPropertyMetadata(typeof(BrowsableList)));
         }
 
-        public BrowsableList()
+        public BrowsableList() 
         {
             _prevItemCommand = new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0);
             _nextItemCommand = new DelegateCommand(() => SelectedIndex++, () => SelectedIndex < Items.Count - 1);
@@ -51,5 +54,23 @@ namespace Eyedrivomatic.Controls
 
         private readonly DelegateCommand _nextItemCommand;
         public ICommand NextItemCommand => _nextItemCommand;
+
+        public string PrevLabel
+        {
+            get { return (string)GetValue(PrevLabelProperty); }
+            set { SetValue(PrevLabelProperty, value); }
+        }
+        public static readonly DependencyProperty PrevLabelProperty =
+            DependencyProperty.Register("PrevLabel", typeof(string), typeof(BrowsableList), new PropertyMetadata("Prev"));
+
+
+        public string NextLabel
+        {
+            get { return (string)GetValue(NextLabelProperty); }
+            set { SetValue(NextLabelProperty, value); }
+        }
+        public static readonly DependencyProperty NextLabelProperty =
+            DependencyProperty.Register("NextLabel", typeof(string), typeof(BrowsableList), new PropertyMetadata("Next"));
     }
 }
+

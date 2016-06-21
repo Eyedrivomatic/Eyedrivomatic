@@ -59,23 +59,5 @@ namespace Eyedrivomatic.Controls {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Next.
-        /// </summary>
-        public static string CommandText_NextDevice {
-            get {
-                return ResourceManager.GetString("CommandText_NextDevice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prev.
-        /// </summary>
-        public static string CommandText_PrevDevice {
-            get {
-                return ResourceManager.GetString("CommandText_PrevDevice", resourceCulture);
-            }
-        }
     }
 }

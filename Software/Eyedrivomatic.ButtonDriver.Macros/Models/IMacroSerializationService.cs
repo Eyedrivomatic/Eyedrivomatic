@@ -10,7 +10,7 @@
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//    Eyedrivomaticis distributed in the hope that it will be useful,
+//    Eyedrivomatic is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
@@ -19,15 +19,37 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
+    [ContractClass(typeof(Contracts.MacroSerializationServiceContract))]
     public interface IMacroSerializationService
     {
-        ObservableCollection<IMacro> LoadMacros();
+        IEnumerable<IMacro> LoadMacros();
 
         void SaveMacros(IEnumerable<IMacro> macros);
     }
+
+    namespace Contracts
+    {
+        [ContractClassFor(typeof(IMacroSerializationService))]
+        internal abstract class MacroSerializationServiceContract : IMacroSerializationService
+        {
+            public IEnumerable<IMacro> LoadMacros()
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<IMacro>>() != null);
+                throw new NotImplementedException();
+            }
+
+            public void SaveMacros(IEnumerable<IMacro> macros)
+            {
+                Contract.Requires<ArgumentNullException>(macros != null, nameof(macros));
+                throw new NotImplementedException();
+            }
+        }
+    }
+
 }

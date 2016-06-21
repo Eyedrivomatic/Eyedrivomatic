@@ -26,6 +26,7 @@
                     xmlns:prism="http://www.codeplex.com/prism"
                     xmlns:local="clr-namespace:Eyedrivomatic"
                     xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+                    xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure">
 
     <ResourceDictionary.MergedDictionaries>
@@ -33,8 +34,8 @@
         <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="DwellClickAdornerStyle" TargetType="{x:Type controls:DwellClickAdorner}">
-        <Setter Property="ProgressIndicatorRadius" Value="40"/>
+    <Style x:Key="DwellClickAdornerStyle" TargetType="{x:Type dwellclick:DwellClickAdorner}">
+        <Setter Property="ProgressIndicatorSize" Value="40"/>
         <Setter Property="ProgressIndicatorFill">
             <Setter.Value>
                 <SolidColorBrush Color="#99A36AF5"/>
@@ -51,8 +52,8 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="10"/>
-        <Setter Property="controls:DwellClickBehavior.Configuration" Value="{Binding Path=(controls:DwellClickBehavior.DefaultConfiguration)}"/>
-        <Setter Property="controls:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
     </Style>
 
     <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource StandardButtonStyle}">
@@ -104,8 +105,8 @@
         <Setter Property="FontFamily" Value="Ariel"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="controls:DwellClickBehavior.Configuration" Value="{Binding Path=(controls:DwellClickBehavior.DefaultConfiguration)}"/>
-        <Setter Property="controls:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate DataType="{x:Type TabItem}">
@@ -258,47 +259,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:BrowsableList}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:BrowsableList}">
-                    <Grid x:Name="LayoutGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button x:Name="PrevDevice"
-                                Style="{StaticResource TextButtonStyle}"
-                                Content="{x:Static controls:Strings.CommandText_PrevDevice}"
-                                Command="{Binding RelativeSource={RelativeSource AncestorType=controls:BrowsableList}, Path=PrevItemCommand}"
-                                Grid.Column="0"
-                                MinHeight="75"/>
-
-                        <ListBox x:Name="AvailableDevices" 
-                                 Grid.Column="1" 
-                                 VerticalAlignment="Stretch" 
-                                 VerticalContentAlignment="Center"
-                                 FontFamily="Ariel"
-                                 FontWeight="Bold"
-                                 FontSize="20"                            
-                                 ItemsSource="{Binding AvailableDevices}"
-                                 SelectedItem="{Binding SelectedDevice}">
-                        </ListBox>
-
-                        <Button x:Name="NextDevice" 
-                                Style="{StaticResource TextButtonStyle}"
-                                Content="{x:Static controls:Strings.CommandText_NextDevice}"
-                                Command="{Binding RelativeSource={RelativeSource AncestorType=controls:BrowsableList}, Path=NextItemCommand}"
-                                Grid.Column="2"
-                                MinHeight="75"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style TargetType="{x:Type CheckBox}">
         <Setter Property="Background" Value="{StaticResource MainButtonBrush}"/>
         <Setter Property="Foreground" Value="#FF000000"/>
@@ -319,8 +279,8 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderThickness" Value="3"/>
-        <Setter Property="controls:DwellClickBehavior.Configuration" Value="{Binding Path=(controls:DwellClickBehavior.DefaultConfiguration)}"/>
-        <Setter Property="controls:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
 
         <Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}"/>
         <Setter Property="ContentTemplate">
@@ -363,4 +323,46 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type controls:BrowsableList}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid x:Name="LayoutRoot">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="PrevItem"
+                            Style="{StaticResource TextButtonStyle}"
+                            Content="{TemplateBinding controls:BrowsableList.PrevLabel}"
+                            Command="{Binding TemplateBinding controls:BrowsableList.PrevItemCommand}"
+                            Grid.Column="0"
+                            MinHeight="75"/>
+
+                        <ListBox x:Name="ItemsList" 
+                                 Grid.Column="1" 
+                                 VerticalAlignment="Stretch" 
+                                 VerticalContentAlignment="Center"
+                                 FontFamily="Ariel"
+                                 FontWeight="Bold"
+                                 FontSize="20"                            
+                                 ItemsSource="{TemplateBinding controls:BrowsableList.ItemsSource}"
+                                 SelectedItem="{TemplateBinding controls:BrowsableList.SelectedItem}"/>
+
+
+                            <Button x:Name="NextItem" 
+                            Style="{StaticResource TextButtonStyle}"
+                            Content="{TemplateBinding controls:BrowsableList.NextLabel}"
+                            Command="{Binding TemplateBinding controls:BrowsableList.NextItemCommand}"
+                            Grid.Column="2"
+                            MinHeight="75"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

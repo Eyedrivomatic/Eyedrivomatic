@@ -31,11 +31,14 @@ using Prism.Regions;
 
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Controls.DwellClick;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Configuration
 {
-    [ModuleExport(typeof(ConfigurationModule), InitializationMode = InitializationMode.WhenAvailable, DependsOnModuleNames = new[] { nameof(InfrastructureModule) })]
+    [ModuleExport(typeof(ConfigurationModule), 
+        InitializationMode = InitializationMode.WhenAvailable, 
+        DependsOnModuleNames = new[] { nameof(InfrastructureModule), nameof(ControlsModule) })]
     public class ConfigurationModule : IModule
     {
         private readonly IRegionManager RegionManager;
@@ -57,6 +60,8 @@ namespace Eyedrivomatic.Configuration
 
         public void Initialize()
         {
+            Logger?.Log($"Initializing Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
+
             DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
 
             RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ConfigurationView));

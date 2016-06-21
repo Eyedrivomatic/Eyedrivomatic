@@ -32,6 +32,7 @@ using Prism.Regions;
 using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
+//using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
@@ -42,10 +43,7 @@ namespace Eyedrivomatic.Startup
     { 
         protected override ILoggerFacade CreateLogger()
         {
-            var logger = new Log4NetLogger();
-            DwellClickAdorner.Logger = logger;
-            DwellClickBehavior.Logger = logger;
-            return logger;
+            return new Log4NetLogger();
         }
 
         protected override DependencyObject CreateShell()
@@ -66,11 +64,12 @@ namespace Eyedrivomatic.Startup
             base.ConfigureModuleCatalog();
 
             AddModule<InfrastructureModule>();
-            AddModule<ConfigurationModule>();
             AddModule<ControlsModule>();
+            AddModule<ConfigurationModule>();
             AddModule<ButtonDriverConfigurationModule>();
             AddModule<ButtonDriverHardwareModule>();
             AddModule<ButtonDriverModule>();
+            //AddModule<MacrosModule>();
         }
 
         private void AddModule<T>()
@@ -90,11 +89,12 @@ namespace Eyedrivomatic.Startup
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
+            //AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()

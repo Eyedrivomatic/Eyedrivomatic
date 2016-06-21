@@ -22,7 +22,7 @@
 using System.ComponentModel.Composition;
 using System.Windows;
 
-using Eyedrivomatic.Controls;
+using Eyedrivomatic.Controls.DwellClick;
 
 namespace Eyedrivomatic.Configuration.Views
 {

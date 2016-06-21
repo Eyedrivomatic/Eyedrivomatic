@@ -59,10 +59,8 @@ namespace Eyedrivomatic.Controls
 
         private static object CoerceAngle(DependencyObject depObj, object baseVal)
         {
-            double angle = (double)baseVal * 360d;
-            angle = Math.Abs(angle % 360d);
-            
-            return angle;
+            double angle = (double)baseVal;
+            return Math.Min(angle, 360d);
         }
 
         protected override Geometry DefiningGeometry

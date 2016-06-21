@@ -35,7 +35,9 @@ using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
 {
-    [ModuleExport(typeof(ButtonDriverModule), DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule) }, InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(ButtonDriverModule), 
+        InitializationMode = InitializationMode.WhenAvailable,
+        DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule) })]
     public class ButtonDriverModule : IModule
     {
         private readonly IHardwareService HardwareService;

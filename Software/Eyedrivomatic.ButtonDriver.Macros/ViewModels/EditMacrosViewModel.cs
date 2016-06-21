@@ -10,7 +10,7 @@
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//    Eyedrivomaticis distributed in the hope that it will be useful,
+//    Eyedrivomatic is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
@@ -19,26 +19,52 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Windows.Input;
 
 using Prism.Mvvm;
 using Prism.Commands;
 
 using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Resources;
+using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
+    [Export]
     public class EditMacrosViewModel : BindableBase
     {
-        public string DisplayName => Eyedrivomatic.Resources.Strings.ViewName_Macros;
+        private IMacroService _macroService;
 
-        public ObservableCollection<IMacro> Macros { get; } = new ObservableCollection<IMacro>();
+        public string DisplayName => Strings.ViewName_Macros;
+
+        public ObservableCollection<IMacro> Macros => _macroService.Macros;
+        public bool HasChanges => _macroService.HasChanges;
 
         public ICommand AddMacroCommand => new DelegateCommand(AddMacro, () => true);
-        public ICommand DeleteMacroCommand => new DelegateCommand<IMacro>(macro => Macros.Remove(macro), macro => Macros.Contains(macro));
+        public ICommand DeleteMacroCommand => new DelegateCommand<IMacro>(DeleteMacro, macro => Macros.Contains(macro));
 
-        public ICommand SaveMacrosCommand => new DelegateCommand(SaveMacros, () => true);
+        public ICommand ResetMacrosCommand => new DelegateCommand(ResetMacros, () => _macroService.HasChanges);
+        public ICommand SaveMacrosCommand => new DelegateCommand(SaveMacros, () => _macroService.HasChanges);
+
+        [ImportingConstructor]
+        public EditMacrosViewModel(IMacroService macroService)
+        {
+            Contract.Requires<ArgumentNullException>(macroService != null, nameof(macroService));
+
+            _macroService = macroService;
+            _macroService.PropertyChanged += MacroService_PropertyChanged; ;
+
+            ResetMacros();
+        }
+
+        private void MacroService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_macroService.HasChanges))
+                OnPropertyChanged(nameof(HasChanges));
+        }
 
         private void AddMacro()
         {
@@ -46,12 +72,19 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
             Macros.Add(macro);
         }
 
+        private void DeleteMacro(IMacro macro)
+        {
+            Macros.Remove(macro);
+        }
+
         private void SaveMacros()
         {
+            _macroService.Save();
         }
 
         private void ResetMacros()
         {
+            _macroService.Reset();
         }
     }
 }

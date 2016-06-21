@@ -54,6 +54,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             AutoDetectDeviceCommand = DelegateCommand.FromAsyncHandler(AutoDetectDeviceAsync, CanAutoDetectDevice);
             ConnectCommand = DelegateCommand.FromAsyncHandler(ConnectAsync, CanConnect);
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
+
+            RefreshAvailableDeviceList();
         }
 
         private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -80,7 +82,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
         public bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
 
-        public IList<string> AvailableDevices => HardwareService.CurrentDriver?.GetAvailableDevices();
+        private IList<string> _availableDevices;
+        public IList<string> AvailableDevices
+        {
+            get { return _availableDevices; }
+            set { SetProperty(ref _availableDevices, value); }
+        }
 
         public string SelectedDevice
         {
@@ -96,8 +103,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public void RefreshAvailableDeviceList()
         {
-            HardwareService.CurrentDriver?.GetAvailableDevices();
-            OnPropertyChanged(nameof(AvailableDevices));
+            AvailableDevices = HardwareService.CurrentDriver?.GetAvailableDevices();
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -123,6 +129,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected async Task AutoDetectDeviceAsync()
         {
+            RefreshAvailableDeviceList();
             SelectedDevice = await HardwareService.CurrentDriver?.AutoDetectDeviceAsync();
         }
 

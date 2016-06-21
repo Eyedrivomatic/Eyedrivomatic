@@ -160,10 +160,12 @@
     <Compile Include="BrowsableList.cs" />
     <Compile Include="ButtonWithIcon.cs" />
     <Compile Include="ControlsModule.cs" />
-    <Compile Include="DwellClickAdorner.cs" />
-    <Compile Include="DwellClickBehavior.cs" />
+    <Compile Include="DwellClick\DwellClickAdorner.cs" />
+    <Compile Include="DwellClick\DwellClickAnimator.cs" />
+    <Compile Include="DwellClick\DwellClickBehavior.cs" />
+    <Compile Include="DwellClick\DwellClicker.cs" />
+    <Compile Include="DwellClick\DwellClickPieAdorner.cs" />
     <Compile Include="IDwellClickConfigurationService.cs" />
-    <Compile Include="NumericUpDown.cs" />
     <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">

@@ -139,6 +139,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.Registration" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
@@ -159,9 +160,9 @@
   <ItemGroup>
     <Compile Include="ConfigurationModule.cs" />
     <Compile Include="DwellClickConfiguration.Designer.cs">
-      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
     </Compile>
     <Compile Include="DwellClickConfigurationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -189,8 +190,8 @@
     <None Include="app.config" />
     <None Include="DwellClickConfiguration.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

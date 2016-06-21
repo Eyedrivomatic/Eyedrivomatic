@@ -1,5 +1,5 @@
 /*
-Eyedrivomatic for Arduino - Version 4
+Eyedrivomatic for Arduino - Version 4.1
 This program is intended for use as part of the 'Eyedrivomatic System' for
 controlling an electric wheelchair using soley the user's eyes.
 
@@ -39,6 +39,9 @@ int output1 = 7; //these initialise the output pins on the arduino that control 
 int output2 = 6;
 int output3 = 5;
 int output4 = 4;
+
+int outputServoX = 8;
+int outputServoY = 9;
 
 int lastDirButtPress = 0; // a variable for the most recent direction button to be pressed
 						  //  0=nothing 1=nw 2=n 3=ne 4=e 5=se 6=s 7=sw 8=w
@@ -102,8 +105,8 @@ void setup() {
 
 	pinMode(output3, OUTPUT);
 	pinMode(output4, OUTPUT);
-	digitalWrite(8, LOW);
-	digitalWrite(9, LOW);
+	digitalWrite(outputServoX, LOW);
+	digitalWrite(outputServoY, LOW);
 
 	if (eyedrive != EYEDRIVE) {
 		reinitialize();
@@ -126,6 +129,13 @@ void setup() {
 		nudgeSpeed = EEPROM.read(15);
 		nudgeDuration = EEPROM.read(16);
 	}
+
+	//Don't attach until xMIDPos and yMIDPos are known to prevent servo glitch during startup.
+	xservo.attach(outputServoX);  // attaches the servo on pin 8 to the servo object
+	yservo.attach(outputServoY);  // attaches the servo on pin 9 to the servo object
+	xservo.write(xMIDpos);//sends the x servo to it's mid position
+	yservo.write(yMIDpos);// sends the y servo to it's mid position
+
 	if ((nudgeSpeed == 0) || (nudgeSpeed == 4) || (nudgeSpeed == 8) || (nudgeSpeed == 12)) {
 	}
 	else {
@@ -238,13 +248,6 @@ void loop() {
 				delay(300);
 				Serial.println();
 				Serial.println("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");   // send an initial string (6 ZEROS)
-
-				//wait for the serial connection to complete before starting the servos back up.
-				//hopefully this will prevent "glitch".
-				xservo.attach(8);  // attaches the servo on pin 7 to the servo object
-				yservo.attach(9);  // attaches the servo on pin 7 to the servo object
-				xservo.write(xMIDpos);//sends the x servo to it's mid position
-				yservo.write(yMIDpos);// sends the y servo to it's mid position
 
 				isConnected = true;
 			}
