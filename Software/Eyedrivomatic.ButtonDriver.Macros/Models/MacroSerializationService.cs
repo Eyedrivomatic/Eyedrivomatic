@@ -19,23 +19,43 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+
+using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     [Export(typeof(IMacroSerializationService))]
     public class MacroSerializationService : IMacroSerializationService
     {
+        [Import("MacrosPath")]
+        public string MacrosPath { get; set; }
+
         public IEnumerable<IMacro> LoadMacros()
         {
-            throw new NotImplementedException();
+            MacrosModule.Logger?.Log($"Loading Macros from [{MacrosPath}].", Category.Debug, Priority.None);
+
+            using (var reader = new StreamReader(MacrosPath))
+            {
+                var serializer = new XmlSerializer(typeof(UserMacro[]), new XmlRootAttribute("Macros"));
+                return serializer.Deserialize(reader) as UserMacro[];
+            }
         }
 
         public void SaveMacros(IEnumerable<IMacro> macros)
         {
-            throw new NotImplementedException();
+            MacrosModule.Logger?.Log($"Saving Macros to [{MacrosPath}].", Category.Debug, Priority.None);
+
+            var serializer = new XmlSerializer(typeof(UserMacro[]), new XmlRootAttribute("Macros"));
+
+            using (var writer = new StreamWriter(MacrosPath))
+            {
+                serializer.Serialize(writer, macros.OfType<UserMacro>().ToArray());
+            }
         }
     }
 }

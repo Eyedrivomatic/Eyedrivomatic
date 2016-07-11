@@ -233,6 +233,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\Eyedrivomatic.ButtonDriver.Macros\Macros.config">
+      <Link>Macros.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\Eyedrivomatic.licenseheader">
       <Link>Eyedrivomatic.licenseheader</Link>
     </None>
@@ -282,6 +286,9 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /i /y $(SolutionDir)Eyedrivomatic.Resources\$(OutDir)Images $(SolutionDir)$(OutDir)Images</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -179,7 +179,9 @@
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Off.png" />
+    <Content Include="Images\Off.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ready.png" />
@@ -203,7 +205,9 @@
     <Resource Include="Images\SmallCursor.cur" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Stop.png" />
+    <Content Include="Images\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\TrimDown.png" />

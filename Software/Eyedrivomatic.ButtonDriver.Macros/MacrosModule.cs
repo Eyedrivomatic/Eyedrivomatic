@@ -22,6 +22,8 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
+using System.IO;
+using System.Reflection;
 
 using Prism.Logging;
 using Prism.Mef.Modularity;
@@ -43,6 +45,18 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         [Import]
         public static ILoggerFacade Logger { get; set; }
 
+        [Export("MacrosPath")]
+        public string MacrosPath
+        {
+            get
+            {
+                var uri = new Uri(Assembly.GetExecutingAssembly().CodeBase);
+                var appPath = Path.GetDirectoryName(uri.LocalPath);
+                return Path.Combine(appPath, "Macros.config");
+            }
+        }
+
+        [ImportingConstructor]
         public MacrosModule(IRegionManager regionManager, IHardwareService hardwareService)
         {
             Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
@@ -58,8 +72,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         {
             Logger?.Log($"Initializing Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
 
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
-            //_regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
+            //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
+            _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
         }
     }
 }

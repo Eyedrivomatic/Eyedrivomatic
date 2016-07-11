@@ -20,6 +20,7 @@
 
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver.Macros")]
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: AssemblyVersion("1.0.*")]
+
+[assembly: InternalsVisibleTo("Eyedrivomatic.ButtonDriver.Macros.UnitTests")]

@@ -22,9 +22,9 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Xml.Serialization;
 
 using Prism.Logging;
 
@@ -33,13 +33,21 @@ using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
-    public class UserMacro : IMacro
+    [XmlType(TypeName = "Macro")]
+    public class UserMacro : IMacro, IEquatable<IMacro>
     {
+        [XmlAttribute(AttributeName ="Icon")]
+        public string IconPath { get; set; }
+
+        [XmlAttribute(AttributeName ="DisplayName")]
         public string DisplayName { get; set; }
 
+        [XmlIgnore]
         public bool IsExecuting { get; private set; }
 
-        public ObservableCollection<MacroTask> Tasks { get; } = new ObservableCollection<MacroTask>();
+        [XmlArrayItem(Type = typeof(ToggleRelayTask), ElementName = "ToggleRelay")]
+        [XmlArrayItem(Type = typeof(DelayTask), ElementName = "Delay")]
+        public ObservableCollection<MacroTask> Tasks { get; internal set; } = new ObservableCollection<MacroTask>();
 
         public async Task ExecuteAsync(IButtonDriver driver)
         {
@@ -72,7 +80,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public bool CanExecute(IButtonDriver driver)
         {
-            return driver != null && !IsExecuting && Tasks.All(task => driver.CanExecuteTask(task));
+            return !IsExecuting && Tasks.All(task => driver.CanExecuteTask(task));
         }
 
         #region IDataErrorInfo
@@ -80,6 +88,17 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string IDataErrorInfo.this[string propertyName] => GetValidationError(propertyName);
         #endregion IDataErrorInfo
+
+        #region IEquatable 
+        /// <summary>
+        /// This is intended to assist with testing.
+        /// </summary>
+        public bool Equals(IMacro other)
+        {
+            return DisplayName == other.DisplayName &&
+                Tasks.SequenceEqual<MacroTask>(other.Tasks);
+        }
+        #endregion IEquatable
 
         #region Validation
 
@@ -102,7 +121,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
             if (string.IsNullOrWhiteSpace(DisplayName)) return Strings.Macro_InvalidDisplayName;
             return null;
         }
-
 
         /// <summary>
         /// Returns true if this object has no validation errors.

@@ -39,6 +39,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
     [Export(typeof(IButtonDriver))]
     public class BrainBoxDriver : IButtonDriver
     {
+        public static uint AvailableRelays = 3;
+
         private enum BrainBoxCommand
         {
             GetStatus = 33,                      // Get the current status

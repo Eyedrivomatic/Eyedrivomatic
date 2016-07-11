@@ -36,7 +36,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
     [Export]
     public class EditMacrosViewModel : BindableBase
     {
-        private IMacroService _macroService;
+        private readonly IMacroService _macroService;
 
         public string DisplayName => Strings.ViewName_Macros;
 

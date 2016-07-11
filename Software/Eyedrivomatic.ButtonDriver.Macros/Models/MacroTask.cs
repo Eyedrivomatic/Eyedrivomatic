@@ -25,7 +25,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 using Eyedrivomatic.Resources;
-
+using System.Xml.Serialization;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -33,7 +33,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     /// The base class for an Eyedrivomatic macro.
     /// </summary>
     [ContractClass(typeof(Contracts.MacroTaskContract))]
-    public abstract class MacroTask : IDataErrorInfo
+    public abstract class MacroTask : IDataErrorInfo, IEquatable<MacroTask>
     {
         protected MacroTask()
         {
@@ -42,6 +42,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         /// <summary>
         /// The name of the node as it should be seen by the user.
         /// </summary>
+        [XmlAttribute("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -55,6 +56,10 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string IDataErrorInfo.this[string propertyName] => GetValidationError(propertyName);
         #endregion IDataErrorInfo
+
+        #region IEquatable
+        public abstract bool Equals(MacroTask other);
+        #endregion IEquatable
 
         #region Validation
 

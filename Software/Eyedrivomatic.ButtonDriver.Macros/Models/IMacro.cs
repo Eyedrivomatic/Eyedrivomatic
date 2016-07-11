@@ -26,14 +26,21 @@ using System.Threading.Tasks;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
 using System.Diagnostics.Contracts;
+using System.Xml.Serialization;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
+    [XmlInclude(typeof(UserMacro))]
     [ContractClass(typeof(Contracts.MacroContract))]
     public interface IMacro : IDataErrorInfo
     {
         /// <summary>
-        /// The name of the macro as it should be seen by the user.
+        /// An icon to display on the button. May be null.
+        /// </summary>
+        string IconPath { get; set; }
+        
+        /// <summary>
+        /// The name of the macro as it should be seen by the user. May be null or empty.
         /// </summary>
         string DisplayName { get; set; }
 
@@ -69,6 +76,19 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
             public string this[string columnName]
             {
                 get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public string IconPath
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+
+                set
                 {
                     throw new NotImplementedException();
                 }

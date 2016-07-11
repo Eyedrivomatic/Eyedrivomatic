@@ -25,6 +25,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=system"
                     xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver"
+                    xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
                     xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware">
 
@@ -103,5 +104,5 @@
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Padding" Value="0"/>
     </Style>
-    
+
 </ResourceDictionary>

@@ -27,45 +27,29 @@ using Prism.Logging;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.Resources;
+using System.Xml.Serialization;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
+    [XmlType("ToggleRelay")]
     public class ToggleRelayTask : MacroTask, IButtonDriverMacroAsyncTask
     {
-        public static ToggleRelayTask CreateNew(IButtonDriver driver)
-        {
-            Contract.Requires<ArgumentNullException>(driver != null, nameof(driver));
-            return new ToggleRelayTask(1, 1, 0, driver.RelayCount);
-        }
-
-        private readonly uint _deviceRelays;
-
-        private ToggleRelayTask(uint relay, uint repeat, uint delayMs, uint deviceRelays)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(deviceRelays > 0, nameof(deviceRelays));
-            Contract.Requires<ArgumentOutOfRangeException>(repeat > 0, nameof(repeat));
-            Contract.Requires<ArgumentOutOfRangeException>(deviceRelays > 0, nameof(deviceRelays));
-            Contract.Requires<ArgumentOutOfRangeException>(deviceRelays >= relay, "relay must be less than or equal to deviceRelays");
-
-            Relay = relay;
-            Repeat = repeat;
-            DelayMs = delayMs;
-            _deviceRelays = deviceRelays;
-        }
-
         /// <summary>
         /// The relay to toggle
         /// </summary>
+        [XmlAttribute("Relay")]
         public uint Relay { get; set; }
 
         /// <summary>
         /// The number of times to toggle the relay.
         /// </summary>
+        [XmlAttribute("Repeat")]
         public uint Repeat { get; set; }
 
         /// <summary>
         /// The delay between toggle repeats in milliseconds.
         /// </summary>
+        [XmlAttribute("Delay")]
         public uint DelayMs { get; set; }
 
         #region IButtonDriverMacroTask
@@ -88,6 +72,18 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         {
             return string.Format(Strings.ToggleRelayMacroTask_ToStringFormat, Relay, Repeat, DelayMs);
         }
+
+        #region IComparable
+        public override bool Equals(MacroTask other)
+        {
+            var that = other as ToggleRelayTask;
+
+            return that != null
+                && this.Relay == that.Relay
+                && this.Repeat == that.Repeat
+                && this.DelayMs == that.DelayMs;
+        }
+        #endregion IComparable
 
         #region Validation
 
@@ -112,7 +108,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string ValidateRelay()
         {
-            if (Relay == 0 || Relay > _deviceRelays) return string.Format(Strings.ToggleRelayMacroTask_InvalidRelay, _deviceRelays);
+            if (Relay == 0 || Relay > BrainBoxDriver.AvailableRelays) return string.Format(Strings.ToggleRelayMacroTask_InvalidRelay, BrainBoxDriver.AvailableRelays);
             return null;
         }
 

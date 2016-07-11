@@ -21,47 +21,45 @@
 
 using System;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-using System.ComponentModel.Composition;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.Resources;
-using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
     public class DelayTask : MacroTask, IMacroAsyncTask
     {
-        public static DelayTask CreateNew(IButtonDriver driver)
-        {
-            return new DelayTask
-            {
-                DelayTime = TimeSpan.FromSeconds(1)
-            };
-        }
-
-        private DelayTask() {} //Hide the constructor.
-
-        public TimeSpan DelayTime { get; set; }
+        [XmlAttribute("Time")]
+        public double DelayMs { get; set; }
 
         public bool CanExecute()
         {
-            return DelayTime > TimeSpan.Zero;
+            return DelayMs > 0;
         }
 
         public Task ExecuteAsync()
         {
-            return Task.Delay(DelayTime);
+            return Task.Delay(TimeSpan.FromMilliseconds(DelayMs));
         }
 
         public override string ToString()
         {
-            return string.Format(Strings.DelayTask_ToStringFormat, DelayTime.TotalSeconds);
+            return string.Format(Strings.DelayTask_ToStringFormat, DelayMs/1000d);
         }
+
+        #region IComparable
+        public override bool Equals(MacroTask other)
+        {
+            var that = other as DelayTask;
+
+            return that != null
+                && this.DelayMs == that.DelayMs;
+        }
+        #endregion IComparable
 
         #region Validation
 
-        protected override string[] ValidatedProperties => new[] { nameof(DelayTime) };
+        protected override string[] ValidatedProperties => new[] { nameof(DelayMs) };
 
         protected override string GetValidationError(string propertyName)
         {
@@ -69,7 +67,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
             switch (propertyName)
             {
-                case nameof(DelayTime):
+                case nameof(DelayMs):
                     return ValidateDelayTime();
             }
 
@@ -78,7 +76,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string ValidateDelayTime()
         {
-            if (DelayTime <= TimeSpan.Zero) return string.Format(Strings.ToggleRelayMacroTask_InvalidRelay, DelayTime);
+            if (DelayMs <= 0) return string.Format(Strings.ToggleRelayMacroTask_InvalidRelay, DelayMs);
             return null;
         }
 

@@ -31,7 +31,7 @@ using Eyedrivomatic.ButtonDriver.Macros.Models;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
-    [Export("ExecuteMacroCommand")]
+    [Export("ExecuteMacroCommand", typeof(ICommand))]
     public class ExecuteMacroCommand : ICommand
     {
         private IButtonDriver _driver;

@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{FC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ButtonDriver", "ButtonDriver", "{218E3895-CB1A-45BD-BE89-E611952455A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Macros.UnitTests", "Eyedrivomatic.ButtonDriver.Macros.UnitTests\Eyedrivomatic.ButtonDriver.Macros.UnitTests.csproj", "{10B01908-1866-4AC0-A143-308E1FA854FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,18 @@ Global
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|x64.Build.0 = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|x86.ActiveCfg = Release|Any CPU
 		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|x86.Build.0 = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|x64.Build.0 = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{10B01908-1866-4AC0-A143-308E1FA854FC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,5 +210,6 @@ Global
 		{3F7B0B08-3953-4B33-A223-FAF5497634F1} = {EB5871DA-77DD-492D-A53A-F9D580CA570A}
 		{09A69359-7AD0-47B0-B6F5-AB6A2A1ED1B8} = {218E3895-CB1A-45BD-BE89-E611952455A0}
 		{8EDF4429-251A-416D-BB68-93F227191BCF} = {FC2583DF-47F5-40C5-8F32-3CBD38F9C177}
+		{10B01908-1866-4AC0-A143-308E1FA854FC} = {218E3895-CB1A-45BD-BE89-E611952455A0}
 	EndGlobalSection
 EndGlobal

@@ -32,7 +32,7 @@ using Prism.Regions;
 using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
-//using Eyedrivomatic.ButtonDriver.Macros;
+using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
@@ -69,7 +69,7 @@ namespace Eyedrivomatic.Startup
             AddModule<ButtonDriverConfigurationModule>();
             AddModule<ButtonDriverHardwareModule>();
             AddModule<ButtonDriverModule>();
-            //AddModule<MacrosModule>();
+            AddModule<MacrosModule>();
         }
 
         private void AddModule<T>()
@@ -94,7 +94,7 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
-            //AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
