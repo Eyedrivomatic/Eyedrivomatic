@@ -43,10 +43,19 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             get { return _driver; }
             set
             {
-                if (object.ReferenceEquals(_driver, value)) return;
+                if (ReferenceEquals(_driver, value)) return;
+
+                if (_driver != null) _driver.StatusChanged -= Driver_StatusChanged;
+
                 _driver = value;
+                _driver.StatusChanged += Driver_StatusChanged;
                 CanExecuteChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void Driver_StatusChanged(object sender, EventArgs e)
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler CanExecuteChanged;
