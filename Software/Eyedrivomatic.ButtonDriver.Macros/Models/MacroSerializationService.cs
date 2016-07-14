@@ -19,6 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -32,14 +33,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     [Export(typeof(IMacroSerializationService))]
     public class MacroSerializationService : IMacroSerializationService
     {
-        [Import("MacrosPath")]
-        public string MacrosPath { get; set; }
+        public string ConfigurationFilePath { get; set; }
 
         public IEnumerable<IMacro> LoadMacros()
         {
-            MacrosModule.Logger?.Log($"Loading Macros from [{MacrosPath}].", Category.Debug, Priority.None);
+            MacrosModule.Logger?.Log($"Loading Macros from [{ConfigurationFilePath}].", Category.Debug, Priority.None);
 
-            using (var reader = new StreamReader(MacrosPath))
+            using (var reader = new StreamReader(ConfigurationFilePath))
             {
                 var serializer = new XmlSerializer(typeof(UserMacro[]), new XmlRootAttribute("Macros"));
                 return serializer.Deserialize(reader) as UserMacro[];
@@ -48,11 +48,11 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public void SaveMacros(IEnumerable<IMacro> macros)
         {
-            MacrosModule.Logger?.Log($"Saving Macros to [{MacrosPath}].", Category.Debug, Priority.None);
+            MacrosModule.Logger?.Log($"Saving Macros to [{ConfigurationFilePath}].", Category.Debug, Priority.None);
 
             var serializer = new XmlSerializer(typeof(UserMacro[]), new XmlRootAttribute("Macros"));
 
-            using (var writer = new StreamWriter(MacrosPath))
+            using (var writer = new StreamWriter(ConfigurationFilePath))
             {
                 serializer.Serialize(writer, macros.OfType<UserMacro>().ToArray());
             }

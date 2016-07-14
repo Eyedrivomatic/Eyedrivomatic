@@ -27,6 +27,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
+             xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
              xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              mc:Ignorable="d" 
@@ -200,7 +201,15 @@
             <Button Content="Walk" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Walk}" />
             <Button Content="Fast" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Fast}" />
             <Button Content="MANIC" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Manic}" />
-            <Button x:Name="Macro1Button" Grid.Row="4"  Grid.RowSpan="2" Style="{StaticResource PowerButtonStyle}" Command="{Binding Path=TogglePower}"/>
+
+            <Button Grid.Row="4" Grid.RowSpan="2"
+                    Style="{StaticResource StandardButtonStyle}" 
+                    Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">
+                <Button.Resources>
+                    <infrastructure:PathToImageConverter x:Key="LocalPathConverter"/>
+                </Button.Resources>
+                <Image Source="{Binding Path=DrivingPageMacro.IconPath, Converter={StaticResource LocalPathConverter}}" Margin="20"/>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

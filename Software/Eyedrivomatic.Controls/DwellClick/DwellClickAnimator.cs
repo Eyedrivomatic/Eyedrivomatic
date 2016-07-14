@@ -61,7 +61,7 @@ namespace Eyedrivomatic.Controls.DwellClick
             _dwellStoryboard.Children.Add(dwellAnimation);
 
             Logger?.Log("Starting dwell click animation.", Category.Debug, Priority.None);
-            _dwellStoryboard?.Begin();
+            _dwellStoryboard.Begin();
         }
 
         public void PauseAnimation()

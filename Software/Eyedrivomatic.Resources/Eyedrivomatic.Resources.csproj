@@ -182,6 +182,7 @@
     <Content Include="Images\Off.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Sleep.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ready.png" />

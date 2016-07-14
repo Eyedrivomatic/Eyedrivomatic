@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using Prism.Logging;
@@ -31,6 +32,7 @@ using Prism.Modularity;
 using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.ButtonDriver.Macros.Views;
 using Eyedrivomatic.Infrastructure;
 
@@ -41,39 +43,43 @@ namespace Eyedrivomatic.ButtonDriver.Macros
     {
         private readonly IHardwareService _hardwareService;
         private readonly IRegionManager _regionManager;
+        private readonly IMacroSerializationService _serializationService;
 
         [Import]
         public static ILoggerFacade Logger { get; set; }
 
-        [Export("MacrosPath")]
-        public string MacrosPath
-        {
-            get
-            {
-                var uri = new Uri(Assembly.GetExecutingAssembly().CodeBase);
-                var appPath = Path.GetDirectoryName(uri.LocalPath);
-                return Path.Combine(appPath, "Macros.config");
-            }
-        }
+        [Export("DrivingPageMacro")]
+        public IMacro DrivingPageMacro => _serializationService.LoadMacros().FirstOrDefault();
 
         [ImportingConstructor]
-        public MacrosModule(IRegionManager regionManager, IHardwareService hardwareService)
+        public MacrosModule(IRegionManager regionManager, IHardwareService hardwareService, IMacroSerializationService serializationService)
         {
             Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
             Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
+            Contract.Requires<ArgumentNullException>(serializationService != null, nameof(serializationService));
 
             Logger?.Log($"Creating Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
 
             _regionManager = regionManager;
             _hardwareService = hardwareService;
+            _serializationService = serializationService;
         }
 
         public void Initialize()
         {
             Logger?.Log($"Initializing Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
 
+            SetSerializationPath();
+
             //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
             _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
+        }
+
+        private void SetSerializationPath()
+        {
+            var uri = new Uri(Assembly.GetExecutingAssembly().CodeBase);
+            var appPath = Path.GetDirectoryName(uri.LocalPath);
+            _serializationService.ConfigurationFilePath = Path.Combine(appPath, "Macros.config");
         }
     }
 }

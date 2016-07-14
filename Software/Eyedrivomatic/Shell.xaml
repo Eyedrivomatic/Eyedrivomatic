@@ -29,6 +29,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Eyedrivomatic"
         xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+        xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized" 
         Icon="{StaticResource MainIcon}"
@@ -37,7 +38,31 @@
     <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
         <DockPanel>
             <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}" HorizontalContentAlignment="Stretch" Height="Auto"/>
-            <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.GridRegion}" Style="{StaticResource GridRegionStyle}"/>
+            <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.GridRegion}" Style="{StaticResource GridRegionStyle}">
+                <TabControl.Template>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*" MinHeight="160"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel IsItemsHost="True" Grid.Column="0" Grid.Row="0"/>
+                            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}" MinHeight="160" Grid.Column="0" Grid.Row="1" 
+                                            BorderBrush="Green" BorderThickness="5"
+                                            VerticalAlignment="Stretch"
+                                            VerticalContentAlignment="Stretch"
+                                            Visibility="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration).EnableDwellClick, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                            <ContentPresenter Grid.Column="1" Grid.RowSpan="2" ContentSource="SelectedContent"/>
+                        </Grid>
+                    </ControlTemplate>
+
+                </TabControl.Template>
+            </TabControl>
         </DockPanel>
     </Grid>
 </Window>

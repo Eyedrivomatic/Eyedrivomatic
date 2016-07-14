@@ -34,6 +34,8 @@
         <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
+    <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
+
     <Style x:Key="DwellClickAdornerStyle" TargetType="{x:Type dwellclick:DwellClickAdorner}">
         <Setter Property="ProgressIndicatorSize" Value="40"/>
         <Setter Property="ProgressIndicatorFill">
@@ -89,7 +91,7 @@
     </Style>
 
     <Style x:Key="ImportantTextButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TextButtonStyle}">
-        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Background" Value="{StaticResource ImportantButtonBrush}"/>
     </Style>
 
     <Style x:Key="EasyTextButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TextButtonStyle}">
@@ -185,7 +187,7 @@
                                 VerticalAlignment="Stretch"
                                 HorizontalAlignment="Center"
                                 Margin="{TemplateBinding Padding}"
-                                MinHeight="100"/>
+                                MinHeight="90"/>
                         <Rectangle x:Name="DisabledVisualElement" RadiusX="3" RadiusY="3" Fill="#FFFFFFFF" Opacity="0" IsHitTestVisible="false" />
                         <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
                     </Grid>
@@ -207,34 +209,13 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource StandardTabItemStyle}" />
         <Setter Property="Background" Value="{StaticResource MainBackgroundBrush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TabControl}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <DockPanel Grid.Column="0" >
-                            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}" Height="200" Margin="0,10,0,0" DockPanel.Dock="Bottom"/>
-                            <StackPanel IsItemsHost="True"/>
-                        </DockPanel>
-
-
-                        <ContentPresenter Grid.Column="1" ContentSource="SelectedContent" Margin="0"/>
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="HorizontalTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource StandardTabItemStyle}">
         <Setter Property="Margin" Value="5,0,5,0"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
-    
+
     <Style x:Key="ConfigurationRegionStyle" TargetType="{x:Type TabControl}">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
@@ -353,7 +334,7 @@
                                  SelectedItem="{TemplateBinding controls:BrowsableList.SelectedItem}"/>
 
 
-                            <Button x:Name="NextItem" 
+                        <Button x:Name="NextItem" 
                             Style="{StaticResource TextButtonStyle}"
                             Content="{TemplateBinding controls:BrowsableList.NextLabel}"
                             Command="{Binding TemplateBinding controls:BrowsableList.NextItemCommand}"

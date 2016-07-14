@@ -63,7 +63,7 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         #region Pause (static)
 
-        private static bool _pause;
+        private static bool _pause = true;
         /// <summary>
         /// Pause is used to suspend DwellClick on all controls for which IgnorePause is set.
         /// The idea is that IgnorePause would be set on the Pause button, but nowhere else.
@@ -73,7 +73,7 @@ namespace Eyedrivomatic.Controls.DwellClick
             get { return _pause; }
             set
             {
-                if (Object.ReferenceEquals(_pause, value)) return;
+                if (_pause == value) return;
 
                 _pause = value;
                 PauseChanged?.Invoke(null, EventArgs.Empty);

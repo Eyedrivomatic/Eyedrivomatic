@@ -25,6 +25,7 @@ using System.Windows.Input;
 using Prism.Commands;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -55,6 +56,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public ICommand Move => new DelegateCommand<Direction?>(direction => HardwareService.CurrentDriver?.Move(direction.Value), direction => direction.HasValue && IsOnline && HardwareService.CurrentDriver.CanMove(direction.Value));
 
         public ICommand SetSpeed => new DelegateCommand<Speed?>(speed => HardwareService.CurrentDriver.Speed = speed.Value, speed => speed.HasValue && IsOnline );
+
+        [Import("ExecuteMacroCommand")]
+        public ICommand ExecuteMacroCommand { get; internal set; }
+
+        [Import("DrivingPageMacro")]
+        public IMacro DrivingPageMacro { get; internal set; }
 
         public bool DiagnalSpeedReduction => IsOnline && HardwareService.CurrentDriver.DiagonalSpeedReduction;
 

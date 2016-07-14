@@ -187,6 +187,10 @@
       <Project>{9985222b-9bb5-4b68-9342-764c295d7fa9}</Project>
       <Name>Eyedrivomatic.ButtonDriver.Hardware</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Macros\Eyedrivomatic.ButtonDriver.Macros.csproj">
+      <Project>{09a69359-7ad0-47b0-b6f5-ab6a2a1ed1b8}</Project>
+      <Name>Eyedrivomatic.ButtonDriver.Macros</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
       <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
       <Name>Eyedrivomatic.Controls</Name>

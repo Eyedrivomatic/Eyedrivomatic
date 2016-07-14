@@ -29,7 +29,7 @@
              xmlns:local="clr-namespace:Eyedrivomatic.Configuration.Views"
              xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="150" Height="200">
+             d:DesignHeight="200" d:DesignWidth="150">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -38,8 +38,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Button Content="{Binding Path=(dwellclick:DwellClickBehavior.Pause), Converter={StaticResource BoolToSleepStateImageConverter}}"
-            Style="{StaticResource ImageButtonStyle}"
-            dwellclick:DwellClickBehavior.IgnorePause="True" Click="SleepButton_Click"/>
+    <ToggleButton IsChecked="{Binding Path=(dwellclick:DwellClickBehavior.Pause)}"
+                  dwellclick:DwellClickBehavior.IgnorePause="True">
+        <Image Source="{StaticResource Sleep}" Stretch="Fill"/>
+    </ToggleButton>
 
 </UserControl>

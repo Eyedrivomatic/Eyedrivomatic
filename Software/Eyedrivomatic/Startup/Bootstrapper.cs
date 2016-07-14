@@ -59,19 +59,6 @@ namespace Eyedrivomatic.Startup
             Application.Current.MainWindow.Show();
         }
 
-        protected override void ConfigureModuleCatalog()
-        {
-            base.ConfigureModuleCatalog();
-
-            AddModule<InfrastructureModule>();
-            AddModule<ControlsModule>();
-            AddModule<ConfigurationModule>();
-            AddModule<ButtonDriverConfigurationModule>();
-            AddModule<ButtonDriverHardwareModule>();
-            AddModule<ButtonDriverModule>();
-            AddModule<MacrosModule>();
-        }
-
         private void AddModule<T>()
         {
             var type = typeof(T);

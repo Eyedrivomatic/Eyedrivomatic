@@ -20,9 +20,6 @@
 
 
 using System.ComponentModel.Composition;
-using System.Windows;
-
-using Eyedrivomatic.Controls.DwellClick;
 
 namespace Eyedrivomatic.Configuration.Views
 {
@@ -32,11 +29,6 @@ namespace Eyedrivomatic.Configuration.Views
         public SleepButton()
         {
             InitializeComponent();
-        }
-
-        private void SleepButton_Click(object sender, RoutedEventArgs e)
-        {
-            DwellClickBehavior.Pause = !DwellClickBehavior.Pause;
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     [ContractClass(typeof(Contracts.MacroSerializationServiceContract))]
     public interface IMacroSerializationService
     {
+        string ConfigurationFilePath { get; set; }
+
         IEnumerable<IMacro> LoadMacros();
 
         void SaveMacros(IEnumerable<IMacro> macros);
@@ -38,6 +40,19 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [ContractClassFor(typeof(IMacroSerializationService))]
         internal abstract class MacroSerializationServiceContract : IMacroSerializationService
         {
+            public string ConfigurationFilePath
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
             public IEnumerable<IMacro> LoadMacros()
             {
                 Contract.Ensures(Contract.Result<IEnumerable<IMacro>>() != null);

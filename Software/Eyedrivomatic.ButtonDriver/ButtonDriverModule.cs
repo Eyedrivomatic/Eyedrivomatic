@@ -30,6 +30,7 @@ using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Infrastructure;
 
@@ -37,7 +38,7 @@ namespace Eyedrivomatic.ButtonDriver
 {
     [ModuleExport(typeof(ButtonDriverModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames = new [] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule) })]
+        DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule), nameof(MacrosModule) })]
     public class ButtonDriverModule : IModule
     {
         private readonly IHardwareService HardwareService;

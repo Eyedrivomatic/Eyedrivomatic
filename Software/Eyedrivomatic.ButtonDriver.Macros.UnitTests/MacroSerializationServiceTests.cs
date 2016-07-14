@@ -38,7 +38,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.UnitTests
 
             var basePath = new Uri(Assembly.GetExecutingAssembly().CodeBase);
             var filename = Path.Combine(Path.GetDirectoryName(basePath.LocalPath), "TestMacros.config");
-            var serializer = new MacroSerializationService { MacrosPath = filename };
+            var serializer = new MacroSerializationService { ConfigurationFilePath = filename };
             serializer.SaveMacros(macros);
 
             Approvals.VerifyFile(filename);
@@ -50,7 +50,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.UnitTests
 
             var basePath = new Uri(Assembly.GetExecutingAssembly().CodeBase);
             var filename = Path.Combine(Path.GetDirectoryName(basePath.LocalPath), @"..\..\MacroSerializationServiceTests.TestSerialize.approved.config");
-            var serializer = new MacroSerializationService { MacrosPath = filename };
+            var serializer = new MacroSerializationService { ConfigurationFilePath = filename };
 
             var macros = serializer.LoadMacros().ToArray();
 
