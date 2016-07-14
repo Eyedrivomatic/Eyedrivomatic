@@ -232,10 +232,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\Eyedrivomatic.ButtonDriver.Macros\Macros.config">
+    <Content Include="..\Eyedrivomatic.ButtonDriver.Macros\Macros.config">
       <Link>Macros.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="..\Eyedrivomatic.licenseheader">
       <Link>Eyedrivomatic.licenseheader</Link>
     </None>
