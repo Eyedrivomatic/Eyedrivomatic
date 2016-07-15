@@ -47,10 +47,8 @@
                         <Image x:Key="IconImage" Source="{StaticResource resources:Off}"/>
                     </DataTemplate.Resources>-->
                     <Button Style="{StaticResource TextButtonStyle}" 
-                            Content="{Binding DisplayName}" Margin="20" Padding="20"
+                            Content="{Binding DisplayName}" Margin="20" Padding="10"
                             MaxHeight="400" MaxWidth="400"
-                            MinHeight="200" MinWidth="200"
-                            
                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ExecuteMacrosView}}, Path=ViewModel.ExecuteMacroCommand}" 
                             CommandParameter="{Binding}"/>
                 </DataTemplate>

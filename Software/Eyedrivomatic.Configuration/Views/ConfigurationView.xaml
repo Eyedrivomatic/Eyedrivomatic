@@ -29,8 +29,7 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}" Style="{StaticResource ConfigurationRegionStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                 BorderBrush="Red" BorderThickness="1"/>

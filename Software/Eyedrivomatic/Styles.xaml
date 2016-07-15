@@ -51,8 +51,8 @@
 
     <Style x:Key="StandardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="{StaticResource MainButtonBrush}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="dwellclick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"/>
         <Setter Property="dwellclick:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
@@ -78,13 +78,17 @@
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{TemplateBinding Content}" 
-                                   TextAlignment="Center"
-                                   FontFamily="{TemplateBinding Button.FontFamily}" 
-                                   FontWeight="{TemplateBinding Button.FontWeight}" 
-                                   FontSize="{TemplateBinding Button.FontSize}" 
-                                   TextWrapping="Wrap"
-                                   HorizontalAlignment="Center"/>
+                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                        <TextBlock Text="{TemplateBinding Content}" 
+                                       TextAlignment="Center"
+                                       FontFamily="{TemplateBinding Button.FontFamily}" 
+                                       FontWeight="{TemplateBinding Button.FontWeight}" 
+                                       FontSize="{TemplateBinding Button.FontSize}" 
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=ActualWidth}"/>
+                    </Viewbox>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -112,14 +116,16 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate DataType="{x:Type TabItem}">
-                    <TextBlock Text="{Binding}" 
-                               TextAlignment="Center"
-                               FontFamily="{TemplateBinding TabItem.FontFamily}" 
-                               FontWeight="{TemplateBinding TabItem.FontWeight}" 
-                               FontSize="{TemplateBinding TabItem.FontSize}" 
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
+                    <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
+                        <TextBlock Text="{Binding}" 
+                                   TextAlignment="Center"
+                                   FontFamily="{TemplateBinding TabItem.FontFamily}" 
+                                   FontWeight="{TemplateBinding TabItem.FontWeight}" 
+                                   FontSize="{TemplateBinding TabItem.FontSize}" 
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Center"/>
+                    </Viewbox>
                 </DataTemplate>
 
             </Setter.Value>
@@ -184,10 +190,9 @@
                                 Name="PART_SelectedContentHost"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Center"
                                 Margin="{TemplateBinding Padding}"
-                                MinHeight="90"/>
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"/>
                         <Rectangle x:Name="DisabledVisualElement" RadiusX="3" RadiusY="3" Fill="#FFFFFFFF" Opacity="0" IsHitTestVisible="false" />
                         <Rectangle x:Name="FocusVisualElement" RadiusX="2" RadiusY="2" Margin="1" Stroke="#FF6DBDD1" StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
                     </Grid>
@@ -226,8 +231,8 @@
                 <ControlTemplate TargetType="{x:Type TabControl}">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="110"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="15*" MaxHeight="100"/>
+                            <RowDefinition Height="85*"/>
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Center"/>

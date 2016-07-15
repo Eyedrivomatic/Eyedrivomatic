@@ -31,31 +31,34 @@
         xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
         xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
         mc:Ignorable="d"
-        Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized" 
+        Title="Eyedrivomatic" Height="500" Width="1024" WindowState="Maximized" 
         Icon="{StaticResource MainIcon}"
         KeyDown="Window_KeyDown">
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
-        <DockPanel>
-            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}" HorizontalContentAlignment="Stretch" Height="Auto"/>
-            <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.GridRegion}" Style="{StaticResource GridRegionStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*" MaxHeight="150"/>
+            <RowDefinition Height="75*" />
+        </Grid.RowDefinitions>
+        <Viewbox Grid.Row="0" Stretch="Uniform" StretchDirection="DownOnly">
+            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}" Width="{Binding ElementName=LayoutRoot, Path=RenderWidth}"/>
+        </Viewbox>
+        <TabControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.GridRegion}" Style="{StaticResource GridRegionStyle}">
                 <TabControl.Template>
                     <ControlTemplate TargetType="{x:Type TabControl}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="140"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1*" MaxWidth="150"/>
+                                <ColumnDefinition Width="9*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*" MinHeight="160"/>
+                                <RowDefinition />
+                                <RowDefinition MinHeight="150"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel IsItemsHost="True" Grid.Column="0" Grid.Row="0"/>
-                            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}" MinHeight="160" Grid.Column="0" Grid.Row="1" 
+                            <UniformGrid IsItemsHost="True" Grid.Column="0" Grid.Row="0" Columns="1"/>
+                            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}" Grid.Column="0" Grid.Row="1" 
                                             BorderBrush="Green" BorderThickness="5"
-                                            VerticalAlignment="Stretch"
-                                            VerticalContentAlignment="Stretch"
                                             Visibility="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration).EnableDwellClick, Converter={StaticResource BoolToCollapsedConverter}}"/>
                             <ContentPresenter Grid.Column="1" Grid.RowSpan="2" ContentSource="SelectedContent"/>
                         </Grid>
@@ -63,6 +66,5 @@
 
                 </TabControl.Template>
             </TabControl>
-        </DockPanel>
     </Grid>
 </Window>

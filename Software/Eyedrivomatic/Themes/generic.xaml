@@ -22,8 +22,7 @@
 
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vsm="clr-namespace:System.Windows;assembly=System.Windows">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <FrameworkElement x:Key="SmallCursor" Cursor="pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"/>
     

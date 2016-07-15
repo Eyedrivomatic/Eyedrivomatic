@@ -39,7 +39,9 @@
     </UserControl.Resources>
 
     <ToggleButton IsChecked="{Binding Path=(dwellclick:DwellClickBehavior.Pause)}"
-                  dwellclick:DwellClickBehavior.IgnorePause="True">
+                  dwellclick:DwellClickBehavior.IgnorePause="True"
+                  dwellclick:DwellClickBehavior.Configuration="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"
+                  dwellclick:DwellClickBehavior.AdornerStyle="{StaticResource DwellClickAdornerStyle}">
         <Image Source="{StaticResource Sleep}" Stretch="Fill"/>
     </ToggleButton>
 
