@@ -32,23 +32,26 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 {
     public class BrainBoxPortFinder
     {
+        private static readonly string[] DeviceUsbVids = new[] { "2341", "2A03" }; //The Arduino (2341) and Genuino (2A03) Vid's
+        private static readonly string[] DeviceUsbPids = new[] { "0001", "0043", "0243" }; //The known Arduino Uno Pid's
+
         private static string StartupMessage = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
         private static ILoggerFacade Logger => ServiceLocator.Current.GetInstance<ILoggerFacade>();
 
         public static async Task<SerialPort> DetectDeviceAsync()
         {
-            var devices = GetAvailableDevices();
+            var devices = UsbSerialDeviceEnumerator.EnumerateDevices();
 
             if (!devices.Any()) return null;
 
-            var tasks = (from device in devices
+            var tasks = (from device in devices where DeviceUsbVids.Contains(device.Vid) && DeviceUsbPids.Contains(device.Pid)
                          select Task.Run(() =>
                          {
                              try
                              {
                                  //Open the port and wait for the first message.
-                                 var serialPort = OpenSerialPort(device);
+                                 var serialPort = OpenSerialPort(device.Port);
                                  if (serialPort == null) return null;
 
                                  serialPort.ReadLine();
@@ -82,9 +85,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             return null;
         }
 
-        public static IList<string> GetAvailableDevices()
+        public static IEnumerable<Tuple<string, string>> GetAvailableDevices()
         {
-            return new List<string>(SerialPort.GetPortNames());
+            return from device in UsbSerialDeviceEnumerator.EnumerateDevices()
+            select new Tuple<string, string>(device.FriendlyName, device.Port);
         }
 
         public static SerialPort OpenSerialPort(string port)

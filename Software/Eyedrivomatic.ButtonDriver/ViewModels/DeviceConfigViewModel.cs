@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -82,17 +83,28 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
         public bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
 
-        private IList<string> _availableDevices;
-        public IList<string> AvailableDevices
+        public class Device
+        {
+            public string Name;
+            public string Port;
+
+            public override string ToString()
+            {
+                return $"{Port} - {Name}";
+            }
+        };
+
+        private IList<Device> _availableDevices;
+        public IList<Device> AvailableDevices
         {
             get { return _availableDevices; }
             set { SetProperty(ref _availableDevices, value); }
         }
 
-        public string SelectedDevice
+        public Device SelectedDevice
         {
-            get { return _configurationService.ConnectionString; }
-            set { _configurationService.ConnectionString = value; }
+            get { return AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString);  }
+            set { _configurationService.ConnectionString = (value?.Port ?? string.Empty); }
         }
 
         public bool AutoConnect
@@ -103,7 +115,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public void RefreshAvailableDeviceList()
         {
-            AvailableDevices = HardwareService.CurrentDriver?.GetAvailableDevices();
+
+            AvailableDevices = (from dev in HardwareService.CurrentDriver?.GetAvailableDevices() orderby dev.Item2 select new Device { Name = dev.Item1, Port = dev.Item2 }).ToList();
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -130,19 +143,20 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         protected async Task AutoDetectDeviceAsync()
         {
             RefreshAvailableDeviceList();
-            SelectedDevice = await HardwareService.CurrentDriver?.AutoDetectDeviceAsync();
+            var port = await HardwareService.CurrentDriver?.AutoDetectDeviceAsync();
+            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.Port == port);
         }
 
         protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
 
         protected Task ConnectAsync()
         {
-            return HardwareService.CurrentDriver?.ConnectAsync(SelectedDevice);
+            return HardwareService.CurrentDriver?.ConnectAsync(SelectedDevice.Port);
         }
 
         protected bool CanConnect()
         {
-            return !string.IsNullOrEmpty(SelectedDevice) && !Connected && !Connecting;
+            return SelectedDevice != null && !Connected && !Connecting;
         }
 
         protected void Disconnect()

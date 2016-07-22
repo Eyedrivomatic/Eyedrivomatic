@@ -26,30 +26,26 @@ using System.Diagnostics.Contracts;
 using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware
 {
     [ModuleExport(typeof(ButtonDriverHardwareModule))]
     public class ButtonDriverHardwareModule : IModule
     {
-        private readonly IServiceLocator ServiceLocator;
-        private readonly ILoggerFacade Logger;
+        public static ILoggerFacade Logger;
 
         [ImportingConstructor]
-        public ButtonDriverHardwareModule(IServiceLocator serviceLocator, ILoggerFacade logger)
+        public ButtonDriverHardwareModule(ILoggerFacade logger)
         {
-            Contract.Requires<ArgumentNullException>(serviceLocator != null, nameof(serviceLocator));
+            Contract.Requires<ArgumentNullException>(logger != null, nameof(logger));
 
             Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
-
-            ServiceLocator = serviceLocator;
+            Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
+            Logger.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
         }
     }
 }

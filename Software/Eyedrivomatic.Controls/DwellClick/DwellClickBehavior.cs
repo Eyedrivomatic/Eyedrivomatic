@@ -197,7 +197,6 @@ namespace Eyedrivomatic.Controls.DwellClick
             _dwellCancelRegistration = null;
 
             _mouseMoves = 0;
-            Console.WriteLine($"Mouse Enter: {_mouseMoves}");
         }
 
         private void AssociatedObject_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -205,22 +204,16 @@ namespace Eyedrivomatic.Controls.DwellClick
             var configruation = GetConfiguration(AssociatedObject);
             if (configruation == null || !configruation.EnableDwellClick || Paused) return;
 
-            Console.WriteLine($"Mouse Move: {_mouseMoves}");
-
             //Only start the animation when the mouse has moved a specified number of times after MouseEnter or the last click.
             //This prevents unintended double-clicks if the gaze tracking is lost.
             if (_mouseMoves < 0 || ++_mouseMoves < RequiredMouseMoves) return;
             _mouseMoves = -1;
-
-            Console.WriteLine($"MouseMoves Reset: {_mouseMoves}");
 
             StartDwellClick(TimeSpan.FromMilliseconds(configruation.DwellTimeMilliseconds));
         }
 
         private void StartDwellClick(TimeSpan dwellTime)
         {
-            Console.WriteLine($"StartDwellClick: {_mouseMoves}");
-
             if (_adorner == null)
             {
                 CreateAdorner();
@@ -235,7 +228,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void CancelDwellClick()
         {
-            Console.WriteLine($"Canceling Dwell Click.");
             _animator?.StopAnimation();
             RemoveAdorner();
         }
@@ -244,8 +236,6 @@ namespace Eyedrivomatic.Controls.DwellClick
         {
             _mouseMoves = -1;
             _repeatCancelSource?.Cancel();
-
-            Console.WriteLine($"Mouse Leave: {_mouseMoves}");
 
             _animator.PauseAnimation();
             HideAdorner();
@@ -273,7 +263,6 @@ namespace Eyedrivomatic.Controls.DwellClick
             _repeatCancelSource?.Cancel();
             _repeatCancelSource = new CancellationTokenSource();
 
-            Console.WriteLine($"Starting Repeat Delay: {_mouseMoves}");
             try
             {
                 await Task.Delay(repeatDelay, _repeatCancelSource.Token);
@@ -282,7 +271,6 @@ namespace Eyedrivomatic.Controls.DwellClick
                 _mouseMoves = 0;
 
                 Logger?.Log("Repeat-click.", Category.Info, Priority.None);
-                Console.WriteLine($"RepeatDelay Complete: {_mouseMoves}");
             }
             catch (OperationCanceledException)
             {
@@ -294,9 +282,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void CreateAdorner()
         {
-            Console.WriteLine($"CreateAdorner: {_mouseMoves}");
-            Logger?.Log("Creating dwell click adorner.", Category.Debug, Priority.None);
-
             _adorner = DwellClickAdorner.CreateAndAdd(AssociatedObject);
             var style = GetAdornerStyle(AssociatedObject);
             if (style != null) _adorner.Style = style;
@@ -305,7 +290,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void HideAdorner()
         {
-            Console.WriteLine($"HideAdorner: {_mouseMoves}");
             if (_adorner != null)
             {
                 _adorner.Visibility = Visibility.Hidden;
@@ -314,15 +298,11 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void RemoveAdorner()
         {
-            Console.WriteLine($"RemoveAdorner: {_mouseMoves}");
-
             var tmp = _adorner;
             _adorner = null;
 
             if (tmp != null)
             {
-                Logger?.Log("Removing dwell click adorner.", Category.Debug, Priority.None);
-
                 tmp.Visibility = Visibility.Collapsed;
 
                 var adornerLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
@@ -333,8 +313,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void StartCancelTimer()
         {
-            Console.WriteLine($"StartCancelTimer: {_mouseMoves}");
-
             var configruation = GetConfiguration(AssociatedObject);
             var cancelTimeout = TimeSpan.FromMilliseconds(configruation.DwellTimeoutMilliseconds);
 

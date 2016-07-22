@@ -69,10 +69,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 
         /// <summary>
         /// Get a list of potential devices that are connected to the computer.
+        /// The first part is the device friendly name, the second part is the port.
         /// For the Arduino platform, this is a list of all COM ports.
         /// </summary>
         /// <returns></returns>
-        IList<string> GetAvailableDevices();
+        IEnumerable<Tuple<string, string>> GetAvailableDevices();
 
         /// <summary>
         /// Attempt to automatically detect the device.
@@ -300,9 +301,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 
             public abstract event EventHandler StatusChanged;
 
-            public IList<string> GetAvailableDevices()
+            public IEnumerable<Tuple<string, string>> GetAvailableDevices()
             {
-                Contract.Ensures(Contract.Result<IList<string>>() != null);
+                Contract.Ensures(Contract.Result<IEnumerable<Tuple<string, string>>>() != null);
                 throw new NotImplementedException();
             }
 

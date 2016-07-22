@@ -311,9 +311,28 @@
     </Style>
 
     <Style TargetType="{x:Type controls:BrowsableList}">
+        <Setter Property="FontFamily" Value="Ariel"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                    <GradientStop Color="#FF718597" Offset="0.375"/>
+                    <GradientStop Color="#FF617584" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
+                <ControlTemplate TargetType="{x:Type controls:BrowsableList}">
                     <Grid x:Name="LayoutRoot">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="75"/>
@@ -323,26 +342,25 @@
 
                         <Button x:Name="PrevItem"
                             Style="{StaticResource TextButtonStyle}"
-                            Content="{TemplateBinding controls:BrowsableList.PrevLabel}"
-                            Command="{Binding TemplateBinding controls:BrowsableList.PrevItemCommand}"
+                            Content="{TemplateBinding PrevLabel}"
+                            Command="{TemplateBinding PrevItemCommand}"
                             Grid.Column="0"
                             MinHeight="75"/>
 
-                        <ListBox x:Name="ItemsList" 
-                                 Grid.Column="1" 
-                                 VerticalAlignment="Stretch" 
-                                 VerticalContentAlignment="Center"
-                                 FontFamily="Ariel"
-                                 FontWeight="Bold"
-                                 FontSize="20"                            
-                                 ItemsSource="{TemplateBinding controls:BrowsableList.ItemsSource}"
-                                 SelectedItem="{TemplateBinding controls:BrowsableList.SelectedItem}"/>
 
+                        <Border CornerRadius="2" Grid.Column="1"
+			                BorderBrush="{TemplateBinding BorderBrush}"
+			                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                                <ItemsPresenter x:Name="ItemsList"/>
+                            </ScrollViewer>
+                        </Border>
+                        
 
                         <Button x:Name="NextItem" 
                             Style="{StaticResource TextButtonStyle}"
-                            Content="{TemplateBinding controls:BrowsableList.NextLabel}"
-                            Command="{Binding TemplateBinding controls:BrowsableList.NextItemCommand}"
+                            Content="{TemplateBinding NextLabel}"
+                            Command="{TemplateBinding NextItemCommand}"
                             Grid.Column="2"
                             MinHeight="75"/>
                     </Grid>

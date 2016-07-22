@@ -169,6 +169,7 @@
     <Compile Include="Services\HardwareService.cs" />
     <Compile Include="Services\IHardwareService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsbSerialDeviceEnumerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Eyedrivomatic.licenseheader">

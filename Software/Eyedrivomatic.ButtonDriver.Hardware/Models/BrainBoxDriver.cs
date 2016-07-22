@@ -116,7 +116,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             StatusChanged?.Invoke(this, new EventArgs());
         }
 
-        public IList<string> GetAvailableDevices()
+        public IEnumerable<Tuple<string, string>> GetAvailableDevices()
         {
             return BrainBoxPortFinder.GetAvailableDevices();
         }

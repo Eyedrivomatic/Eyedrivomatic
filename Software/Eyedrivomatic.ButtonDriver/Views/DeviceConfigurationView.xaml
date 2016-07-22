@@ -58,8 +58,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="AutoDiscoverButton" 
@@ -70,13 +70,14 @@
                         Grid.ColumnSpan="2" Margin="0,0,0,10"/>
 
                     <controls:BrowsableList  x:Name="DeviceSelectionList"
-                                         PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
-                                         NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
-                                         Grid.Row="1" Grid.Column="0"
-                                         Grid.ColumnSpan="2"
-                                         ItemsSource="{Binding AvailableDevices}"
-                                         SelectedItem="{Binding SelectedDevice}"
-                                         IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}"/>
+                                             PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
+                                             NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
+                                             Grid.Row="1" Grid.Column="0"
+                                             Grid.ColumnSpan="2"
+                                             ItemsSource="{Binding AvailableDevices}"
+                                             SelectedValue="{Binding SelectedDevice}"
+                                             IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}">
+                    </controls:BrowsableList>
 
 
                     <Button x:Name="DisconnectButton"

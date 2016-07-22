@@ -32,28 +32,28 @@ namespace Eyedrivomatic.Controls
     /// </summary>
     public class BrowsableList : ListBox
     {
-        static BrowsableList()
-        {
-        }
-
         public BrowsableList() 
         {
-            _prevItemCommand = new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0);
-            _nextItemCommand = new DelegateCommand(() => SelectedIndex++, () => SelectedIndex < Items.Count - 1);
+            SetValue(PrevItemCommandProperty, new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0));
+            SetValue(NextItemCommandProperty, new DelegateCommand(() => SelectedIndex++, () => SelectedIndex < Items.Count - 1));
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
-            _prevItemCommand.RaiseCanExecuteChanged();
-            _nextItemCommand.RaiseCanExecuteChanged();
+            ((DelegateCommand)PrevItemCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)NextItemCommand).RaiseCanExecuteChanged();
         }
 
-        private readonly DelegateCommand _prevItemCommand;
-        public ICommand PrevItemCommand => _prevItemCommand;
 
-        private readonly DelegateCommand _nextItemCommand;
-        public ICommand NextItemCommand => _nextItemCommand;
+        public ICommand PrevItemCommand => (ICommand)GetValue(PrevItemCommandProperty); 
+        public static readonly DependencyProperty PrevItemCommandProperty =
+            DependencyProperty.Register(nameof(PrevItemCommand), typeof(ICommand), typeof(BrowsableList), new PropertyMetadata());
+
+
+        public ICommand NextItemCommand => (ICommand)GetValue(NextItemCommandProperty);
+        public static readonly DependencyProperty NextItemCommandProperty =
+            DependencyProperty.Register(nameof(NextItemCommand), typeof(ICommand), typeof(BrowsableList), new PropertyMetadata());
 
         public string PrevLabel
         {
