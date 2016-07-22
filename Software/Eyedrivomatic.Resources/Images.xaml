@@ -36,6 +36,7 @@
     <BitmapImage x:Key="Unsafe" UriSource="Images\SkullAndCrossbones.png"/>
     <BitmapImage x:Key="Sleep" UriSource="Images\Sleep.png"/>
     <BitmapImage x:Key="Off" UriSource="Images\Off.png"/>
+    <BitmapImage x:Key="Tilt" UriSource="Images\Tilt.png"/>
 
     <BitmapImage x:Key="Down" UriSource="Images\Down.png"/>
     <BitmapImage x:Key="DownLeft" UriSource="Images\DownLeft.png"/>
