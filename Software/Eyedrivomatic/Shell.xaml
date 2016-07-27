@@ -34,8 +34,9 @@
         Title="Eyedrivomatic" Height="500" Width="1024" WindowState="Maximized" 
         Icon="{StaticResource MainIcon}"
         KeyDown="Window_KeyDown">
-    
     <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
+        <AdornerDecorator IsHitTestVisible="False"/>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25*" MaxHeight="150"/>
             <RowDefinition Height="75*" />
@@ -66,5 +67,6 @@
 
                 </TabControl.Template>
             </TabControl>
+        </Grid>
     </Grid>
 </Window>

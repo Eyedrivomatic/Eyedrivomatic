@@ -133,6 +133,37 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I Understand and Agree.
+        /// </summary>
+        public static string Disclaimer_Button {
+            get {
+                return ResourceManager.GetString("Disclaimer_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
+        /// 
+        ///To ensure safe operation, the following guidelines MUST be adhered to at all times;
+        /// 
+        ///Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Disclaimer_Text {
+            get {
+                return ResourceManager.GetString("Disclaimer_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DISCLAIMER.
+        /// </summary>
+        public static string Disclaimer_Title {
+            get {
+                return ResourceManager.GetString("Disclaimer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Display Name. The cannot be empty or only whitespace characters..
         /// </summary>
         public static string Macro_InvalidDisplayName {

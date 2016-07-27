@@ -141,6 +141,19 @@
   <data name="DelayTask_ToStringFormat" xml:space="preserve">
     <value>Pause for {0:0.00} seconds.</value>
   </data>
+  <data name="Disclaimer_Button" xml:space="preserve">
+    <value>I Understand and Agree</value>
+  </data>
+  <data name="Disclaimer_Text" xml:space="preserve">
+    <value>The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
+ 
+To ensure safe operation, the following guidelines MUST be adhered to at all times;
+ 
+Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards. The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.</value>
+  </data>
+  <data name="Disclaimer_Title" xml:space="preserve">
+    <value>DISCLAIMER</value>
+  </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
     <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
   </data>
