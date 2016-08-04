@@ -24,12 +24,10 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
 
-using Eyedrivomatic.Infrastructure;
-
 namespace Eyedrivomatic
 {
     [Export]
-    public partial class Shell : Window, IPartImportsSatisfiedNotification
+    public partial class Shell : Window
     {
         public Shell()
         {
@@ -44,11 +42,7 @@ namespace Eyedrivomatic
             disclaimer.ShowDialog();
         }
 
-        public void OnImportsSatisfied()
-        {
-        }
-
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {

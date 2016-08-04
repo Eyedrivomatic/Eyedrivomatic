@@ -35,7 +35,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid x:Name="LayoutRoot">
-        <ItemsControl x:Name="MacrosList" ItemsSource="{Binding Macros}" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ItemsControl x:Name="MacrosList" ItemsSource="{Binding Macros}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid/>
@@ -43,11 +43,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:IMacro}">
-                    <!--<DataTemplate.Resources>
-                        <Image x:Key="IconImage" Source="{StaticResource resources:Off}"/>
-                    </DataTemplate.Resources>-->
                     <Button Style="{StaticResource TextButtonStyle}" 
-                            Content="{Binding DisplayName}" Margin="20" Padding="10"
+                            Content="{Binding DisplayName}" Margin="10" Padding="10"
                             MaxHeight="400" MaxWidth="400"
                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ExecuteMacrosView}}, Path=ViewModel.ExecuteMacroCommand}" 
                             CommandParameter="{Binding}"/>
