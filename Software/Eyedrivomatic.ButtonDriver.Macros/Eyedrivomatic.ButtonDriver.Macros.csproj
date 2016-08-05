@@ -220,9 +220,10 @@
     <None Include="..\Eyedrivomatic.licenseheader">
       <Link>Eyedrivomatic.licenseheader</Link>
     </None>
-    <None Include="Macros.config">
+    <Content Include="Macros.config">
       <SubType>Designer</SubType>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
