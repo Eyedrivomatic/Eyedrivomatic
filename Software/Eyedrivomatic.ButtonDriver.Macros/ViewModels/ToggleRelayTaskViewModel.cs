@@ -27,18 +27,18 @@ using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
-    public class ToggleRelayTaskViewModel : EditMacroTaskViewModel
+    public class CycleRelayTaskViewModel : EditMacroTaskViewModel
     {
-        private ToggleRelayTask ToggleRelayTask => (ToggleRelayTask)base.Task;
+        private CycleRelayTask ToggleRelayTask => (CycleRelayTask)base.Task;
         private readonly uint _deviceRelayCount;
 
-        public ToggleRelayTaskViewModel(ToggleRelayTask task, uint deviceRelayCount)
+        public CycleRelayTaskViewModel(CycleRelayTask task, uint deviceRelayCount)
             : base(task)
         {
             _deviceRelayCount = deviceRelayCount;
         }
 
-        public override string Description => Strings.ToggleRelayMacroTask_Description;
+        public override string Description => Strings.CycleRelayMacroTask_Description;
 
         public uint Relay
         {

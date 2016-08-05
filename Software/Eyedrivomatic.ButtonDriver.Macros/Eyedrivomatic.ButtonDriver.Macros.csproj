@@ -164,7 +164,7 @@
     <Compile Include="Models\IMacroSerializationService.cs" />
     <Compile Include="Models\MacroService.cs" />
     <Compile Include="Models\MacroTask.cs" />
-    <Compile Include="Models\ToggleRelayTask.cs" />
+    <Compile Include="Models\CycleRelayTask.cs" />
     <Compile Include="Models\UserMacro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreateNewTaskViewModel.cs" />
@@ -180,8 +180,8 @@
     <Compile Include="Views\EditMacrosView.xaml.cs">
       <DependentUpon>EditMacrosView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ToggleRelayTaskView.xaml.cs">
-      <DependentUpon>ToggleRelayTaskView.xaml</DependentUpon>
+    <Compile Include="Views\CycleRelayTaskView.xaml.cs">
+      <DependentUpon>CycleRelayTaskView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +211,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ToggleRelayTaskView.xaml">
+    <Page Include="Views\CycleRelayTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

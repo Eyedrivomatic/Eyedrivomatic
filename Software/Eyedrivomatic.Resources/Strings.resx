@@ -190,20 +190,20 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
   <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
     <value>Dwell Timeout:</value>
   </data>
-  <data name="ToggleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
-    <value>Toggle Relay {0}</value>
+  <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
+    <value>Toggle Relay {0} on-off.</value>
   </data>
-  <data name="ToggleRelayMacroTask_Description" xml:space="preserve">
-    <value>Toggle a relay. This changes the state of the relay from on to off, or off to on. For a momentary toggle, use a repeat of 2. Typically a delay of 500 milliseconds or more will be required.</value>
+  <data name="CycleRelayMacroTask_Description" xml:space="preserve">
+    <value>Cycle a relay. This changes the state of the relay off->on->off with a 200ms delay.</value>
   </data>
-  <data name="ToggleRelayMacroTask_InvalidRelay" xml:space="preserve">
+  <data name="CycleRelayMacroTask_InvalidRelay" xml:space="preserve">
     <value>Must be a value between 1 and {0}.</value>
   </data>
-  <data name="ToggleRelayMacroTask_InvalidRepeat" xml:space="preserve">
+  <data name="CycleRelayMacroTask_InvalidRepeat" xml:space="preserve">
     <value>Must be greater than 0.</value>
   </data>
-  <data name="ToggleRelayMacroTask_ToStringFormat" xml:space="preserve">
-    <value>Toggle Relay {0}, repeat {1} times with a delay of {2} ms between repeats.</value>
+  <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
+    <value>Cycle Relay {0}, repeat {1} times with a delay of {2} ms between repeats.</value>
   </data>
   <data name="ViewName_DeviceConfig" xml:space="preserve">
     <value>BrainBox</value>

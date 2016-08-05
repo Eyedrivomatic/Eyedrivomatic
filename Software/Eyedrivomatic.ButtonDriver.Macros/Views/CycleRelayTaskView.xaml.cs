@@ -21,9 +21,9 @@
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Views
 {
-    public partial class ToggleRelayTaskView
+    public partial class CycleRelayTaskView
     {
-        public ToggleRelayTaskView()
+        public CycleRelayTaskView()
         {
             InitializeComponent();
         }

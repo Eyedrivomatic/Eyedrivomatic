@@ -106,6 +106,51 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle Relay {0} on-off..
+        /// </summary>
+        public static string CycleRelayMacroTask_DefaultNameFormat {
+            get {
+                return ResourceManager.GetString("CycleRelayMacroTask_DefaultNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cycle a relay. This changes the state of the relay off-&gt;on-&gt;off with a 200ms delay..
+        /// </summary>
+        public static string CycleRelayMacroTask_Description {
+            get {
+                return ResourceManager.GetString("CycleRelayMacroTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be a value between 1 and {0}..
+        /// </summary>
+        public static string CycleRelayMacroTask_InvalidRelay {
+            get {
+                return ResourceManager.GetString("CycleRelayMacroTask_InvalidRelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be greater than 0..
+        /// </summary>
+        public static string CycleRelayMacroTask_InvalidRepeat {
+            get {
+                return ResourceManager.GetString("CycleRelayMacroTask_InvalidRepeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cycle Relay {0}, repeat {1} times with a delay of {2} ms between repeats..
+        /// </summary>
+        public static string CycleRelayMacroTask_ToStringFormat {
+            get {
+                return ResourceManager.GetString("CycleRelayMacroTask_ToStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delay {0:0.00}s.
         /// </summary>
         public static string DelayTask_DefaultNameFormat {
@@ -268,51 +313,6 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsName_DwellClickTimeout {
             get {
                 return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle Relay {0}.
-        /// </summary>
-        public static string ToggleRelayMacroTask_DefaultNameFormat {
-            get {
-                return ResourceManager.GetString("ToggleRelayMacroTask_DefaultNameFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle a relay. This changes the state of the relay from on to off, or off to on. For a momentary toggle, use a repeat of 2. Typically a delay of 500 milliseconds or more will be required..
-        /// </summary>
-        public static string ToggleRelayMacroTask_Description {
-            get {
-                return ResourceManager.GetString("ToggleRelayMacroTask_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Must be a value between 1 and {0}..
-        /// </summary>
-        public static string ToggleRelayMacroTask_InvalidRelay {
-            get {
-                return ResourceManager.GetString("ToggleRelayMacroTask_InvalidRelay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Must be greater than 0..
-        /// </summary>
-        public static string ToggleRelayMacroTask_InvalidRepeat {
-            get {
-                return ResourceManager.GetString("ToggleRelayMacroTask_InvalidRepeat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle Relay {0}, repeat {1} times with a delay of {2} ms between repeats..
-        /// </summary>
-        public static string ToggleRelayMacroTask_ToStringFormat {
-            get {
-                return ResourceManager.GetString("ToggleRelayMacroTask_ToStringFormat", resourceCulture);
             }
         }
         

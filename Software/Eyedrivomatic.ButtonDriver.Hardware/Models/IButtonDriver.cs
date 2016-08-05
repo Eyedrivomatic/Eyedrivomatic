@@ -284,9 +284,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">If the relay does not exist.</exception>
         /// <param name="relay">The relay to toggle.</param>
-        /// <param name="repeat">The number of times to repeat the toggle. If 0, the relay will not be activated.</param>
-        /// <param name="repeatDelayMs">The delay between repeated relay toggles.</param>
-        Task ToggleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0);
+        /// <param name="repeat">The number of times to repeat the cycle. If 0, the relay will not be activated.</param>
+        /// <param name="repeatDelayMs">The delay between repeated relay cycles.</param>
+        Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0);
         #endregion Control
     }
 
@@ -511,7 +511,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 throw new NotImplementedException();
             }
 
-            public Task ToggleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
+            public Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
             {
                 Contract.Requires<ArgumentOutOfRangeException>(relay > 0 && relay <= RelayCount, nameof(relay));
                 Contract.Requires<ArgumentOutOfRangeException>(repeat > 0, nameof(repeat));

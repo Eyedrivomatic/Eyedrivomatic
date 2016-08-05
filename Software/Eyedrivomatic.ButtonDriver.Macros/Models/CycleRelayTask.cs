@@ -20,7 +20,6 @@
 
 
 using System;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
 using Prism.Logging;
@@ -31,8 +30,8 @@ using System.Xml.Serialization;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
-    [XmlType("ToggleRelay")]
-    public class ToggleRelayTask : MacroTask, IButtonDriverMacroAsyncTask
+    [XmlType("CycleeRelay")]
+    public class CycleRelayTask : MacroTask, IButtonDriverMacroAsyncTask
     {
         /// <summary>
         /// The relay to toggle
@@ -57,7 +56,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         {
             MacrosModule.Logger?.Log($"Executing step '{ToString()}'", Category.Info, Priority.None);
 
-            await driver.ToggleRelayAsync(Relay, Repeat, DelayMs);
+            await driver.CycleRelayAsync(Relay, Repeat, DelayMs);
 
             MacrosModule.Logger?.Log($"Step '{ToString()}' completed", Category.Debug, Priority.None);
         }
@@ -70,13 +69,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public override string ToString()
         {
-            return string.Format(Strings.ToggleRelayMacroTask_ToStringFormat, Relay, Repeat, DelayMs);
+            return string.Format(Strings.CycleRelayMacroTask_ToStringFormat, Relay, Repeat, DelayMs);
         }
 
         #region IComparable
         public override bool Equals(MacroTask other)
         {
-            var that = other as ToggleRelayTask;
+            var that = other as CycleRelayTask;
 
             return that != null
                 && this.Relay == that.Relay
@@ -108,13 +107,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string ValidateRelay()
         {
-            if (Relay == 0 || Relay > BrainBoxDriver.AvailableRelays) return string.Format(Strings.ToggleRelayMacroTask_InvalidRelay, BrainBoxDriver.AvailableRelays);
+            if (Relay == 0 || Relay > BrainBoxDriver.AvailableRelays) return string.Format(Strings.CycleRelayMacroTask_InvalidRelay, BrainBoxDriver.AvailableRelays);
             return null;
         }
 
         string ValidateRepeat()
         {
-            if (Repeat == 0) return string.Format(Strings.ToggleRelayMacroTask_InvalidRepeat);
+            if (Repeat == 0) return string.Format(Strings.CycleRelayMacroTask_InvalidRepeat);
             return null;
         }
 

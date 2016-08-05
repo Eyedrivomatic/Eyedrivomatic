@@ -45,7 +45,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [XmlIgnore]
         public bool IsExecuting { get; private set; }
 
-        [XmlArrayItem(Type = typeof(ToggleRelayTask), ElementName = "ToggleRelay")]
+        [XmlArrayItem(Type = typeof(CycleRelayTask), ElementName = "CycleRelay")]
         [XmlArrayItem(Type = typeof(DelayTask), ElementName = "Delay")]
         public ObservableCollection<MacroTask> Tasks { get; internal set; } = new ObservableCollection<MacroTask>();
 

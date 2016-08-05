@@ -39,7 +39,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         //public IEnumerable<ICommand> CreateTaskMethods => new
         //{
-        //    new DelegateCommand(()=>ToggleRelayTask.CreateNew, () => _driver != null );
+        //    new DelegateCommand(()=>CycleRelayTask.CreateNew, () => _driver != null );
         //}
 
         public Task<MacroTask> CreateTask(IMacro macro)

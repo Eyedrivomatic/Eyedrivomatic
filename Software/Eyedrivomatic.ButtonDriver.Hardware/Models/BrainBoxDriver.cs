@@ -44,10 +44,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         private enum BrainBoxCommand
         {
             GetStatus = 33,                      // Get the current status
-            ToggleRelay1 = 34,                   // Toggle the relay for output socket 1 for two tenths of a second - wheelchair on / off button
-            ToggleRelay2 = 35,                   // Toggle the relay for output socket 2 (mode) for two tenths of a second
-            ToggleRelay2Repeat5x = 36,           // Toggle the relay for output socket 2 for two tenths of a second five times
-            ToggleRelay3 = 48,                   // Toggle the relay for output socket 3 for two tenths of a second 
+            CycleRelay1 = 34,                   // Cycle the relay for output socket 1 for two tenths of a second - wheelchair on / off button
+            CycleRelay2 = 35,                   // Cycle the relay for output socket 2 (mode) for two tenths of a second
+            CycleRelay2Repeat5x = 36,           // Cycle the relay for output socket 2 for two tenths of a second five times
+            CycleRelay3 = 48,                   // Cycle the relay for output socket 3 for two tenths of a second 
             MoveForwardLeft = 37,                // Forward-Left (NW) direction button press
             MoveForward = 38,                    // Forward (N) direction button press 
             MoveForwardRight = 39,               // Forward-Right (NE) direction button press
@@ -558,7 +558,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             }
         }
 
-        public async Task ToggleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
+        public async Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
         {
             Logger?.Log($"Toggling relay {relay} {repeat} times with a delay of {repeatDelayMs}.", Category.Info, Priority.None);
             _isTogglingRelays = true;
@@ -566,9 +566,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             try
             {
                 BrainBoxCommand relayCommand;
-                if (relay == 1) relayCommand = BrainBoxCommand.ToggleRelay1;
-                else if (relay == 2) relayCommand = BrainBoxCommand.ToggleRelay2;
-                else if (relay == 3) relayCommand = BrainBoxCommand.ToggleRelay3;
+                if (relay == 1) relayCommand = BrainBoxCommand.CycleRelay1;
+                else if (relay == 2) relayCommand = BrainBoxCommand.CycleRelay2;
+                else if (relay == 3) relayCommand = BrainBoxCommand.CycleRelay3;
                 else throw new ArgumentOutOfRangeException(nameof(relay));
 
                 for (int i = 0; i < repeat; i++)

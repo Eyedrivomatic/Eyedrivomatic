@@ -30,7 +30,7 @@
 
     <SolidColorBrush x:Key="MainButtonBrush" Color="#FFF3F2A2"/>
 
-    <SolidColorBrush x:Key="ImportantButtonBrush" Color="#FFFF4243"/>
+    <SolidColorBrush x:Key="ImportantButtonBrush" Color="#FFFF2223"/>
 
     <Style TargetType="{x:Type GroupBox}">
         <Setter Property="BorderBrush" Value="#FF303030"/>

@@ -42,8 +42,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public string HeaderInfo { get; } = Strings.ViewName_OutdoorDriving;
 
-        public ICommand TogglePower => new DelegateCommand(async () => await HardwareService.CurrentDriver?.ToggleRelayAsync(1), () => { return IsOnline; });
-
         public ICommand SetXDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.XDuration = ulong.Parse(duration); }, duration => { ulong tmp;  return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
         public ICommand SetYDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.YDuration = ulong.Parse(duration); }, duration => { ulong tmp; return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
         public ICommand DiagonalSpeedReductionToggle => new DelegateCommand(() => { HardwareService.CurrentDriver.DiagonalSpeedReduction = !HardwareService.CurrentDriver.DiagonalSpeedReduction; }, ()=> IsOnline);
