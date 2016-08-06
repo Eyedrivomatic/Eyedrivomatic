@@ -55,7 +55,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 IntPtr.Zero,
                 NativeMethods.DiGetClassFlags.DIGCF_PRESENT );
 
-            if (hDevInfoSet.ToInt32() == NativeMethods.INVALID_HANDLE_VALUE)
+            if (hDevInfoSet.ToInt64() == NativeMethods.INVALID_HANDLE_VALUE)
             {
                 yield break;
             }
@@ -162,7 +162,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             public static Guid GUID_DEVINTERFACE_COMPORT = new Guid(0x86e0d1e0, 0x8089, 0x11d0, 0x9c, 0xe4, 0x08, 0x00, 0x3e, 0x30, 0x1f, 0x73);
             public static Guid GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR = new Guid(0x4D36E978, 0xE325, 0x11CE, 0xBF, 0xC1, 0x08, 0x00, 0x2B, 0xE1, 0x03, 0x18);
             public const int NO_ERROR = 0;
-            public const int INVALID_HANDLE_VALUE = -1;
+            public const long INVALID_HANDLE_VALUE = -1;
             public const int ERROR_NO_MORE_ITEMS = 259;
 
             [Flags]
