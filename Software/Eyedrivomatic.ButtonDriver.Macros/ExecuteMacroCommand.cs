@@ -62,7 +62,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
 
         public virtual bool CanExecute(object parameter)
         {
-            if (_currentTask == null && !_currentTask.IsCompleted) return false;
+            if (_currentTask != null && !_currentTask.IsCompleted) return false;
             if (_driver == null) return false;
 
             var macro = parameter as IMacro;
