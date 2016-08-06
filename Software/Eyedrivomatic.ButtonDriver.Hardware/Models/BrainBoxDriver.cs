@@ -560,7 +560,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
 
         public async Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
         {
-            Logger?.Log($"Toggling relay {relay} {repeat} times with a delay of {repeatDelayMs}.", Category.Info, Priority.None);
+            Logger?.Log($"Cycling relay {relay} {repeat} times with a delay of {repeatDelayMs}.", Category.Info, Priority.None);
             _isTogglingRelays = true;
 
             try
@@ -575,9 +575,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 {
                     if (i > 0) await Task.Delay(TimeSpan.FromMilliseconds(repeatDelayMs));
 
-                    Logger?.Log($"Toggling relay {relay}.", Category.Info, Priority.None);
+                    Logger?.Log($"Cycling relay {relay}.", Category.Info, Priority.None);
                     ExecuteCommand(relayCommand);
+                    await Task.Delay(220); //the relay cycles over 200ms. Add a few ms to allow for communication.
                 }
+                Logger?.Log($"Cycling relay {relay} done.", Category.Info, Priority.None);
             }
             finally
             {

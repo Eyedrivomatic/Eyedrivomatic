@@ -29,7 +29,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
     public class CycleRelayTaskViewModel : EditMacroTaskViewModel
     {
-        private CycleRelayTask ToggleRelayTask => (CycleRelayTask)base.Task;
+        private CycleRelayTask CycleRelayTask => (CycleRelayTask)base.Task;
         private readonly uint _deviceRelayCount;
 
         public CycleRelayTaskViewModel(CycleRelayTask task, uint deviceRelayCount)
@@ -42,11 +42,11 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public uint Relay
         {
-            get { return ToggleRelayTask.Relay; }
+            get { return CycleRelayTask.Relay; }
             set
             {
-                if (ToggleRelayTask.Relay == value) return;
-                ToggleRelayTask.Relay = value;
+                if (CycleRelayTask.Relay == value) return;
+                CycleRelayTask.Relay = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Info));
             }
@@ -54,11 +54,11 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public uint Repeat
         {
-            get { return ToggleRelayTask.Repeat; }
+            get { return CycleRelayTask.Repeat; }
             set
             {
-                if (ToggleRelayTask.Repeat == value) return;
-                ToggleRelayTask.Repeat = value;
+                if (CycleRelayTask.Repeat == value) return;
+                CycleRelayTask.Repeat = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Info));
             }
@@ -66,11 +66,11 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public uint DelayMs
         {
-            get { return ToggleRelayTask.DelayMs; }
+            get { return CycleRelayTask.DelayMs; }
             set
             {
-                if (ToggleRelayTask.DelayMs == value) return;
-                ToggleRelayTask.DelayMs = value;
+                if (CycleRelayTask.DelayMs == value) return;
+                CycleRelayTask.DelayMs = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Info));
             }

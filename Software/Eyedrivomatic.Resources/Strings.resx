@@ -191,7 +191,7 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>Dwell Timeout:</value>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
-    <value>Toggle Relay {0} on-off.</value>
+    <value>Cycle Relay {0} on-off.</value>
   </data>
   <data name="CycleRelayMacroTask_Description" xml:space="preserve">
     <value>Cycle a relay. This changes the state of the relay off->on->off with a 200ms delay.</value>

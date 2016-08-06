@@ -34,19 +34,19 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     public class CycleRelayTask : MacroTask, IButtonDriverMacroAsyncTask
     {
         /// <summary>
-        /// The relay to toggle
+        /// The relay to cycle
         /// </summary>
         [XmlAttribute("Relay")]
         public uint Relay { get; set; }
 
         /// <summary>
-        /// The number of times to toggle the relay.
+        /// The number of times to cycle the relay.
         /// </summary>
         [XmlAttribute("Repeat")]
-        public uint Repeat { get; set; }
+        public uint Repeat { get; set; } = 1;
 
         /// <summary>
-        /// The delay between toggle repeats in milliseconds.
+        /// The delay between cycle repeats in milliseconds.
         /// </summary>
         [XmlAttribute("Delay")]
         public uint DelayMs { get; set; }
@@ -54,11 +54,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         #region IButtonDriverMacroTask
         public virtual async Task ExecuteAsync(IButtonDriver driver)
         {
-            MacrosModule.Logger?.Log($"Executing step '{ToString()}'", Category.Info, Priority.None);
-
             await driver.CycleRelayAsync(Relay, Repeat, DelayMs);
-
-            MacrosModule.Logger?.Log($"Step '{ToString()}' completed", Category.Debug, Priority.None);
         }
 
         public virtual bool CanExecute(IButtonDriver driver)

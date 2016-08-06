@@ -106,7 +106,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Relay {0} on-off..
+        ///   Looks up a localized string similar to Cycle Relay {0} on-off..
         /// </summary>
         public static string CycleRelayMacroTask_DefaultNameFormat {
             get {
