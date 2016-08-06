@@ -2367,7 +2367,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Controls, Version=1.0.6060.37645, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Controls, Version=1.0.6061.37418, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_4D2E12A202A880CE294759E2577171C3"
@@ -2573,7 +2573,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Macros, Version=1.0.6060.38776, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Macros, Version=1.0.6061.37420, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5D3FE960991891B473CA7246F3FA2C6F"
@@ -2697,7 +2697,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Resources, Version=1.0.6060.37644, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Resources, Version=1.0.6061.37417, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_70E11CDBAF33C4089D5E95A66A1D3978"
@@ -2728,7 +2728,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Hardware, Version=1.0.6060.37644, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver.Hardware, Version=1.0.6061.37417, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_714398806992385B14263CCC375363C7"
@@ -3151,7 +3151,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Infrastructure, Version=1.0.6060.37645, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Infrastructure, Version=1.0.6061.37417, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9A4C2B9C6B38C725D224C2A650CF67BB"
@@ -3244,7 +3244,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Configuration, Version=1.0.6060.38368, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.Configuration, Version=1.0.6061.37421, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A372280D917087F044F8F2E72CE583E4"
@@ -4110,7 +4110,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.6060.38778, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.6061.37421, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F052BD89D63828AAD428EA9C94F2083C"
@@ -4339,15 +4339,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Eyedrivomatic"
-        "ProductCode" = "8:{98B464AF-4279-46CE-B168-D7BA15121AE6}"
-        "PackageCode" = "8:{11C12B86-E6DF-4D02-A601-4F1701F3CD30}"
+        "ProductCode" = "8:{4ED04330-69EC-4FD6-A448-493D576E4908}"
+        "PackageCode" = "8:{D0E14F90-59E8-4DB5-B774-367159A73D08}"
         "UpgradeCode" = "8:{60A2BFED-C726-408B-80A1-6340DFFB4DEE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0804"
+        "ProductVersion" = "8:1.0.0805"
         "Manufacturer" = "8:Eyedrivomatic"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://www.eyedrivomatic.org/"
