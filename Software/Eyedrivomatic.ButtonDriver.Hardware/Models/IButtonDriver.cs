@@ -52,7 +52,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
     /// This it the interface to the device hardware.
     /// </summary>
     [ContractClass(typeof(DriverContract))]
-    public interface IButtonDriver
+    public interface IButtonDriver : IDisposable
     {
         #region Connection
         /// <summary>
@@ -518,6 +518,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 throw new NotImplementedException();
             }
             #endregion Control
+
+            #region IDisposable
+            public abstract void Dispose();
+            #endregion IDisposable
         }
     }
 }

@@ -19,7 +19,9 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.Windows;
 
 using Microsoft.Practices.ServiceLocation;
@@ -39,7 +41,7 @@ using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Startup
 {
-    public class Bootstrapper : MefBootstrapper
+    public class Bootstrapper : MefBootstrapper, IDisposable
     { 
         protected override ILoggerFacade CreateLogger()
         {
@@ -86,9 +88,16 @@ namespace Eyedrivomatic.Startup
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
         {
-
             return base.ConfigureDefaultRegionBehaviors();
         }
 
+        public void Dispose()
+        {
+            var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
+            foreach (var module in modules)
+            {
+                module.Dispose();
+            }
+        }
     }
 }

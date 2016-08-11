@@ -39,7 +39,7 @@ namespace Eyedrivomatic.ButtonDriver
     [ModuleExport(typeof(ButtonDriverModule), 
         InitializationMode = InitializationMode.WhenAvailable,
         DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule), nameof(MacrosModule) })]
-    public class ButtonDriverModule : IModule
+    public class ButtonDriverModule : IModule, IDisposable
     {
         private readonly IHardwareService HardwareService;
         private readonly IButtonDriverConfigurationService ConfigurationService;
@@ -75,12 +75,20 @@ namespace Eyedrivomatic.ButtonDriver
             {
                 await HardwareService.InitializeAsync();
 
-                if (ConfigurationService.AutoConnect && !string.IsNullOrWhiteSpace(ConfigurationService.ConnectionString))
+                if (ConfigurationService.AutoConnect)
                 {
-                    Logger?.Log($"Navigating to [{nameof(OutdoorDrivingView)}].", Category.Debug, Priority.None);
-                    RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(OutdoorDrivingView));
+                    NavigateToDriver();
 
-                    await HardwareService.CurrentDriver?.ConnectAsync(ConfigurationService.ConnectionString);
+                    var connectionString = ConfigurationService.ConnectionString;
+                    if (!string.IsNullOrWhiteSpace(connectionString))
+                    {
+                        await HardwareService.CurrentDriver?.ConnectAsync(connectionString);
+                    }
+                    else
+                    {
+                        Logger?.Log("Connection string not specified. Attempting to auto-detect.", Category.Warn, Priority.None);
+                        await HardwareService?.CurrentDriver.AutoDetectDeviceAsync();
+                    }
                 }
             }
             catch (Exception ex)
@@ -96,6 +104,17 @@ namespace Eyedrivomatic.ButtonDriver
             Logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
             RegionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
             RegionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
+        }
+
+        private void NavigateToDriver()
+        {
+            Logger?.Log($"Navigating to [{nameof(OutdoorDrivingView)}].", Category.Debug, Priority.None);
+            RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(OutdoorDrivingView));
+        }
+
+        public void Dispose()
+        {
+            HardwareService?.Dispose();
         }
     }
 }

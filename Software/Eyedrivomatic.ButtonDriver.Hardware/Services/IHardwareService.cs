@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 namespace Eyedrivomatic.ButtonDriver.Hardware
 {
     [ContractClass(typeof(Contracts.HardwareServiceContract))]
-    public interface IHardwareService
+    public interface IHardwareService : IDisposable
     {
         Task InitializeAsync();
 
@@ -60,6 +60,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
                 Contract.Ensures(Contract.Result<Task>() != null);
                 throw new NotImplementedException();
             }
+
+            public abstract void Dispose();
         }
     }
 }

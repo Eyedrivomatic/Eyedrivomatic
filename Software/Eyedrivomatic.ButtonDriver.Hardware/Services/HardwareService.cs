@@ -77,5 +77,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             return Task.FromResult(true);
         }
 
+        public void Dispose()
+        {
+            CurrentDriver?.Dispose();
+        }
     }
 }

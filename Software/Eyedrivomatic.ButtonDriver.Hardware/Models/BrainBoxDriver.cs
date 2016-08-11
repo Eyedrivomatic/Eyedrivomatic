@@ -588,6 +588,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         }
         #endregion Control
 
+        #region IDisposable
+        public void Dispose()
+        {
+            Disconnect();
+        }
+        #endregion IDisposable
+
         private void OnDeviceStatusChanged(BrainBoxStatusMessage message)
         {
             if (!IsConnected || _lastStatusMessage.Equals(message)) return; //This and the Disconnect method are the only setters of _lastStatusMessage. So no need to put the equality test in a lock.

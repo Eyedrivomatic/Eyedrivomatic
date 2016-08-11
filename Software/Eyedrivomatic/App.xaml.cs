@@ -34,6 +34,8 @@ namespace Eyedrivomatic
     /// </summary>
     public partial class App : Application
     {
+        private readonly Bootstrapper _bootstrapper = new Bootstrapper();
+
         protected override void OnStartup(StartupEventArgs e)
         {
             Log.Initialize();
@@ -43,8 +45,7 @@ namespace Eyedrivomatic
             currentDomain.UnhandledException += OnUnhandledException;
 
             base.OnStartup(e);
-            Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
+            _bootstrapper.Run();
         }
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -55,6 +56,7 @@ namespace Eyedrivomatic
         protected override void OnExit(ExitEventArgs e)
         {
             Log.Info(this, "Application Exit");
+            _bootstrapper.Dispose();
             base.OnExit(e);
         }
     }
