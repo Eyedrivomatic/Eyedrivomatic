@@ -41,7 +41,7 @@ using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Startup
 {
-    public class Bootstrapper : MefBootstrapper, IDisposable
+    public sealed class Bootstrapper : MefBootstrapper, IDisposable
     { 
         protected override ILoggerFacade CreateLogger()
         {
@@ -91,13 +91,31 @@ namespace Eyedrivomatic.Startup
             return base.ConfigureDefaultRegionBehaviors();
         }
 
-        public void Dispose()
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        void Dispose(bool disposing)
         {
-            var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
-            foreach (var module in modules)
+            if (!disposedValue)
             {
-                module.Dispose();
+                if (disposing)
+                {
+                    var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
+                    foreach (var module in modules)
+                    {
+                        module.Dispose();
+                    }
+                }
+
+                disposedValue = true;
             }
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

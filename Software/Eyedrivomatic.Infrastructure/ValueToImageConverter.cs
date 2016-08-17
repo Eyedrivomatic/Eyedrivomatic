@@ -22,13 +22,27 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Eyedrivomatic.Infrastructure
 {
+    [Serializable]
     public class ValueToImageConverter<T> : Dictionary<T, ImageSource>, IValueConverter
     {
+        protected ValueToImageConverter() { }
+
+        protected ValueToImageConverter(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
+
         public ImageSource ImageIfNone { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

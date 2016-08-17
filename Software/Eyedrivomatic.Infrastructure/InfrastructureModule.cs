@@ -42,7 +42,7 @@ namespace Eyedrivomatic.Infrastructure
             Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
 
             Logger = logger;
-            Logger?.Log($"Creating Module {nameof(InfrastructureModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Creating Module {nameof(InfrastructureModule)}.", Category.Debug, Priority.None);
 
             RegionManager = regionManager;
         }
