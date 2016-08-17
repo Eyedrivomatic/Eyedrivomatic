@@ -55,14 +55,14 @@ namespace Eyedrivomatic.Controls
             Contract.Requires<ArgumentNullException>(serviceLocator != null, nameof(serviceLocator));
 
             Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ControlsModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Creating Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
 
             ServiceLocator = serviceLocator;
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ControlsModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Initializing Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
 
             DwellClickBehaviorFactory.Create = ServiceLocator.GetInstance<DwellClickBehavior>;
             DwellClickAdornerFactory.Create = adornedElement => new DwellClickPieAdorner(adornedElement);

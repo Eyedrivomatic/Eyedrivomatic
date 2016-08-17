@@ -19,17 +19,36 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System.Runtime.Serialization;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
 {
-    public class ReadyStateStatusImageConverter : ValueToImageConverter<ReadyState>
-    { }
+    public sealed class ReadyStateStatusImageConverter : ValueToImageConverter<ReadyState>
+    {
+        public ReadyStateStatusImageConverter() {}
 
-    public class SafetyBypassStateImageConverter : ValueToImageConverter<SafetyBypassState>
-    { }
+        private ReadyStateStatusImageConverter(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {}
+    }
 
-    public class DirectionToImageConverter : ValueToImageConverter<Direction>
-    { }
+    public sealed class SafetyBypassStateImageConverter : ValueToImageConverter<SafetyBypassState>
+    {
+        public SafetyBypassStateImageConverter() {}
+
+        private SafetyBypassStateImageConverter(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {}
+    }
+
+    public sealed class DirectionToImageConverter : ValueToImageConverter<Direction>
+    {
+        public DirectionToImageConverter() {}
+
+        private DirectionToImageConverter(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {}
+    }
 }

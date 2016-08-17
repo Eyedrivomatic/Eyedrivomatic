@@ -244,7 +244,7 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void DoClick()
         {
-            Logger?.Log("Performing dwell click!", Category.Info, Priority.None);
+            Logger?.Log($"Performing dwell click on [{AssociatedObject}]", Category.Info, Priority.None);
 
             _animator.StopAnimation(); //should already be stopped.
 

@@ -40,12 +40,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             Contract.Requires<ArgumentNullException>(logger != null, nameof(logger));
 
             Logger = logger;
-            Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
+            Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
         }
 
         public void Initialize()
         {
-            Logger.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Info, Priority.None);
+            Logger.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
         }
     }
 }
