@@ -54,7 +54,7 @@ namespace Eyedrivomatic.ButtonDriver
             Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
             Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
             RegionManager = regionManager;
             HardwareService = hardwareService;
@@ -63,7 +63,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         public async void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Info, Priority.None);
+            Logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
             RegionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
 
@@ -75,6 +75,7 @@ namespace Eyedrivomatic.ButtonDriver
             {
                 await HardwareService.InitializeAsync();
 
+                Logger?.Log($"HardwareService Initialized. AutoConnect: [{ConfigurationService.AutoConnect}]", Category.Debug, Priority.None);
                 if (ConfigurationService.AutoConnect)
                 {
                     NavigateToDriver();
@@ -82,6 +83,7 @@ namespace Eyedrivomatic.ButtonDriver
                     var connectionString = ConfigurationService.ConnectionString;
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
+                        Logger.Log($"Connection string: [{connectionString}]", Category.Info, Priority.None);
                         await HardwareService.CurrentDriver?.ConnectAsync(connectionString);
                     }
                     else
@@ -114,6 +116,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         public void Dispose()
         {
+            if (ConfigurationService.AutoSaveDeviceSettingsOnExit) HardwareService.CurrentDriver?.SaveSettings();
             HardwareService?.Dispose();
         }
     }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic", "Eyedrivomatic\Eyedrivomatic.csproj", "{AA2D68EC-A910-4260-A0A3-036755F1DEFB}"
 EndProject
@@ -36,6 +36,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Macros.UnitTests", "Eyedrivomatic.ButtonDriver.Macros.UnitTests\Eyedrivomatic.ButtonDriver.Macros.UnitTests.csproj", "{10B01908-1866-4AC0-A143-308E1FA854FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeDrivomatic.ButtonDriver.Hardware.UnitTests", "EyeDrivomatic.ButtonDriver.Hardware.UnitTests\EyeDrivomatic.ButtonDriver.Hardware.UnitTests.csproj", "{F2BEBACC-B1A4-4710-BA71-811432687B50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Setup.Actions", "Eyedrivomatic.Setup.Actions\Eyedrivomatic.Setup.Actions.csproj", "{94D4EBBC-1522-468F-9BFE-2708531AC073}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -208,6 +210,18 @@ Global
 		{F2BEBACC-B1A4-4710-BA71-811432687B50}.Release|x64.Build.0 = Release|Any CPU
 		{F2BEBACC-B1A4-4710-BA71-811432687B50}.Release|x86.ActiveCfg = Release|Any CPU
 		{F2BEBACC-B1A4-4710-BA71-811432687B50}.Release|x86.Build.0 = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|x64.Build.0 = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Debug|x86.Build.0 = Debug|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|x64.ActiveCfg = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|x64.Build.0 = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|x86.ActiveCfg = Release|Any CPU
+		{94D4EBBC-1522-468F-9BFE-2708531AC073}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
