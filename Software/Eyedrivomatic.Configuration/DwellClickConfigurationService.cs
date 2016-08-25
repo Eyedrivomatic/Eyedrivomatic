@@ -53,7 +53,11 @@ namespace Eyedrivomatic.Configuration
 
             _configuration = configuration;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
-            _configuration.Upgrade();
+            if (_configuration.SettingsVersion < 1)
+            {
+                _configuration.Upgrade();
+                _configuration.SettingsVersion = 1;
+            }
         }
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
