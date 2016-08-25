@@ -116,7 +116,11 @@ namespace Eyedrivomatic.ButtonDriver
 
         public void Dispose()
         {
-            if (ConfigurationService.AutoSaveDeviceSettingsOnExit) HardwareService.CurrentDriver?.SaveSettings();
+            if (ConfigurationService.AutoSaveDeviceSettingsOnExit)
+            {
+                Logger?.Log("Auto saving device settings.", Category.Debug, Priority.None);
+                HardwareService.CurrentDriver?.SaveSettings();
+            }
             HardwareService?.Dispose();
         }
     }

@@ -104,6 +104,7 @@ namespace Eyedrivomatic.Startup
                     var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
                     foreach (var module in modules)
                     {
+                        Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
                         module.Dispose();
                     }
                 }

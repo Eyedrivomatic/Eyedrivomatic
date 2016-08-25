@@ -32,7 +32,7 @@ namespace Eyedrivomatic
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public sealed partial class App : Application, IDisposable
+    public sealed partial class App : Application
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
 
@@ -55,14 +55,13 @@ namespace Eyedrivomatic
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Info(this, "Application Exit");
+            Log.Info(this, "Application Exiting");
+
+            _bootstrapper.Dispose();
 
             base.OnExit(e);
-        }
 
-        public void Dispose()
-        {
-            _bootstrapper.Dispose();
+            Log.Info(this, "Application Exit");
         }
     }
    
