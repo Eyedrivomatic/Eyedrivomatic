@@ -37,8 +37,8 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 [assembly: ThemeInfo(
-    ResourceDictionaryLocation.ExternalAssembly,
-    ResourceDictionaryLocation.SourceAssembly
+    ResourceDictionaryLocation.None,
+    ResourceDictionaryLocation.ExternalAssembly
 )]
 
 [assembly: AssemblyVersion("1.0.*")]

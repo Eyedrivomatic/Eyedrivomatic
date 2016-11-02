@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowsableList_Next" xml:space="preserve">
+    <value>Nächste</value>
+    <comment>Navigate to the next item in a list.</comment>
+  </data>
+  <data name="BrowsableList_Prev" xml:space="preserve">
+    <value>Zurück</value>
+    <comment>Navigate to the previous item in a list.</comment>
+  </data>
+  <data name="CommandImage_Sleep" xml:space="preserve">
+    <value>Sleep</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="CommandText_AutoDiscover" xml:space="preserve">
+    <value>Automatische Erkennung </value>
+    <comment>Discover and connect to the device.</comment>
+  </data>
+  <data name="CommandText_Connect" xml:space="preserve">
+    <value>Verbunden</value>
+    <comment>Connect to the device.</comment>
+  </data>
+  <data name="CommandText_Disconnect" xml:space="preserve">
+    <value>Unterbrochen</value>
+    <comment>Disconnect from the device.</comment>
+  </data>
+  <data name="CommandText_NextDevice" xml:space="preserve">
+    <value>Next</value>
+    <comment>Select the next device in the list.</comment>
+  </data>
+  <data name="CommandText_PrevDevice" xml:space="preserve">
+    <value>Prev</value>
+    <comment>Select the previous device in the list.</comment>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>Speichern</value>
+    <comment>Save settings.</comment>
+  </data>
+  <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
+    <value>Relais Zyklus {0} an-aus.</value>
+    <comment>Cycle relay task default name template.</comment>
+  </data>
+  <data name="CycleRelayMacroTask_Description" xml:space="preserve">
+    <value>Zyklus eines Relais. Dies ändert den Zustand eines Relais aus-&gt;an-&gt;aus mit einer Verzögerung von 200 ms.</value>
+    <comment>Cycle relay task description.</comment>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRelay" xml:space="preserve">
+    <value>Es muss ein Wert sein zwischen 1 und {0}.</value>
+    <comment>Cycle relay task parameter error for invalid relay number.</comment>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRepeat" xml:space="preserve">
+    <value>Es muss größer sein als 0.</value>
+    <comment>Cycle relay task parameter error for invalid repeat value.</comment>
+  </data>
+  <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
+    <value>Zyklus Relais {0}, Wiederholung {1} Zeit mit einer Verzögerung von {2} ms zwischen einer Wiederholung.</value>
+    <comment>Cycle relay task description template.</comment>
+  </data>
+  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
+    <value>Verzögerung {0:0.00}s</value>
+    <comment>Delay task default name template.</comment>
+  </data>
+  <data name="DelayTask_InvalidDelay" xml:space="preserve">
+    <value>Verzögerung muss größer sein als 0.</value>
+    <comment>Delay task parameter error for invalid delay.</comment>
+  </data>
+  <data name="DelayTask_ToStringFormat" xml:space="preserve">
+    <value>Pause für {0:0.00} Sekunden.</value>
+    <comment>Dalay task description template.</comment>
+  </data>
+  <data name="Disclaimer_Button" xml:space="preserve">
+    <value>Ich habe dies verstanden und bin damit einverstanden</value>
+    <comment>The user agrees to the conditions of the dislaimer.</comment>
+  </data>
+  <data name="Disclaimer_Text" xml:space="preserve">
+    <value>The Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems auftreten. Der Gebrauch des Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.
+Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit eingehalten werden.
+Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder andere möglichen Gefahren und muss völlig flach sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
+    <comment>The disclaimer.</comment>
+  </data>
+  <data name="Disclaimer_Title" xml:space="preserve">
+    <value>Verzichtserklärung</value>
+    <comment>Disclaimer title.</comment>
+  </data>
+  <data name="Hardware_DiagSpeedFullImage" xml:space="preserve">
+    <value>Voll</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DiagSpeedReducedImage" xml:space="preserve">
+    <value>Reduziert</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackward" xml:space="preserve">
+    <value>Rückwärts </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
+    <value>Rückwärts Links</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
+    <value>Rückwärts Rechts</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForward" xml:space="preserve">
+    <value>Vorwärts </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
+    <value>Vorwärts Links</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
+    <value>Vorwärts Rechts</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionLeft" xml:space="preserve">
+    <value>Links </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionRight" xml:space="preserve">
+    <value>Rechts </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
+    <value>Fertig  </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
+    <value>Fortsetzen </value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
+    <value>Reset</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
+    <value>Safe</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
+    <value>SkullAndCrossbones</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosImage_Power" xml:space="preserve">
+    <value>Off</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosImage_Tilt" xml:space="preserve">
+    <value>Neigung</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosName_Mode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosName_Power" xml:space="preserve">
+    <value>Ein / Aus </value>
+    <comment>The name of the default Power macro.</comment>
+  </data>
+  <data name="MacrosName_Spare" xml:space="preserve">
+    <value>Ersatz </value>
+    <comment>The name of the default Spare macro.</comment>
+  </data>
+  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
+    <value>Ungültige Anzeigename. Der kann nicht leer sein oder nur Leerzeichen enthalten.</value>
+    <comment>Macro task parameter error for invalid display name.</comment>
+  </data>
+  <data name="Macro_InvalidDisplayName" xml:space="preserve">
+    <value>Ungültige Anzeigename. Der kann nicht leer sein oder nur Leerzeichen enthalten.</value>
+    <comment>Macro parameter name for invalid display name.</comment>
+  </data>
+  <data name="MillisecondsLong" xml:space="preserve">
+    <value>Millisekunden</value>
+    <comment>Milliseconds</comment>
+  </data>
+  <data name="MillisecondsShort" xml:space="preserve">
+    <value>ms</value>
+    <comment>ms</comment>
+  </data>
+  <data name="NewTaskViewModelName" xml:space="preserve">
+    <value>Neue Aufgabe</value>
+    <comment>Create a new task for the current macro.</comment>
+  </data>
+  <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
+    <value>Diagonale Geschwindigkeits Reduzierung </value>
+    <comment>Reduces or restores diagonal speed.</comment>
+  </data>
+  <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
+    <value>Schubs Links</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_RightNudge" xml:space="preserve">
+    <value>Schubs Rechts</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedFast" xml:space="preserve">
+    <value>Schnell </value>
+    <comment>Set the drive speed to fast.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedManic" xml:space="preserve">
+    <value>Verrückt</value>
+    <comment>Set the drive speed to manic or full speed.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedSlow" xml:space="preserve">
+    <value>Langsam</value>
+    <comment>Set the drive speed to slow.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedWalk" xml:space="preserve">
+    <value>Gehen</value>
+    <comment>Set the drive speed to walk.</comment>
+  </data>
+  <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
+    <value>Halbe</value>
+    <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
+  </data>
+  <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
+    <value>Halbe</value>
+    <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
+  </data>
+  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+    <value>Verbindungs Einstellungen</value>
+    <comment>Title of the group containing settings for the device connection.</comment>
+  </data>
+  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+    <value>Verweilen Click Einstellungen</value>
+    <comment>Title of the group containing settings for the dwell click.</comment>
+  </data>
+  <data name="SettingsName_AutoConnect" xml:space="preserve">
+    <value>Automatische Verbindung nach dem Start</value>
+    <comment>Automatically connect to the device at application startup.</comment>
+  </data>
+  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+    <value>Aktivieren</value>
+    <comment>Enable/disable dwell click.</comment>
+  </data>
+  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Wederholverzögerung:</value>
+    <comment>Time between dwell click repeats.</comment>
+  </data>
+  <data name="SettingsName_DwellClickTime" xml:space="preserve">
+    <value>Verweilzeit:</value>
+    <comment>Time that the user must look at the target for the dwell click to "press".</comment>
+  </data>
+  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
+    <value>Wiederholrate:</value>
+    <comment>The time after the users gaze leaves the target before it is reset.</comment>
+  </data>
+  <data name="StatusView_NudgeDuration" xml:space="preserve">
+    <value>Stubs Dauer</value>
+    <comment>The time that the nudge is applied to the current motion.</comment>
+  </data>
+  <data name="StatusView_NudgeSpeed" xml:space="preserve">
+    <value>Stubs Geschwindigkeit</value>
+    <comment>The amount of nudge that is applied.</comment>
+  </data>
+  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
+    <value>Sicherheits Bypass Status</value>
+    <comment>Enable/disable the safety bypass that prevents consecutive clicks in the same direction.</comment>
+  </data>
+  <data name="StatusView_Seconds" xml:space="preserve">
+    <value>Sekunden</value>
+    <comment>Seconds</comment>
+  </data>
+  <data name="StatusView_XCenter" xml:space="preserve">
+    <value>X Servo Mittelpunkt</value>
+    <comment>The center point for the x servo.</comment>
+  </data>
+  <data name="StatusView_XServo" xml:space="preserve">
+    <value>X Servo</value>
+    <comment>The curent direction applied to the x servo.</comment>
+  </data>
+  <data name="StatusView_YCenter" xml:space="preserve">
+    <value>Y Servo Mittelpunkt</value>
+    <comment>The center point of the y servo.</comment>
+  </data>
+  <data name="StatusView_YServo" xml:space="preserve">
+    <value>Y Servo</value>
+    <comment>The current direction applied to the y servo.</comment>
+  </data>
+  <data name="TrimView_NudgeDuration" xml:space="preserve">
+    <value>Stubs Dauer</value>
+    <comment>The time that the nudge is applied to the current motion.</comment>
+  </data>
+  <data name="TrimView_NudgeSpeed" xml:space="preserve">
+    <value>Schubs Geschwindigkeit </value>
+    <comment>The amount of nudge that is applied.</comment>
+  </data>
+  <data name="ViewName_Configuration" xml:space="preserve">
+    <value>Einstellung</value>
+    <comment>The name of the configuration view.</comment>
+  </data>
+  <data name="ViewName_DeviceConfig" xml:space="preserve">
+    <value>BrainBox</value>
+    <comment>The name of the device configuration view.</comment>
+  </data>
+  <data name="ViewName_GeneralConfiguration" xml:space="preserve">
+    <value>Allgemein </value>
+    <comment>The name of the general configuration view.</comment>
+  </data>
+  <data name="ViewName_IndoorDriving" xml:space="preserve">
+    <value>Im Haus fahren</value>
+    <comment>The name of the indoor driving view.</comment>
+  </data>
+  <data name="ViewName_Macros" xml:space="preserve">
+    <value>Aktionen</value>
+    <comment>The name of the macros or actions view.</comment>
+  </data>
+  <data name="ViewName_MacrosSettings" xml:space="preserve">
+    <value>Verändern der Aktionen</value>
+    <comment>The name of the edit macros or actions view.</comment>
+  </data>
+  <data name="ViewName_OutdoorDriving" xml:space="preserve">
+    <value>Fahren</value>
+    <comment>The name of the outdoor driving view.</comment>
+  </data>
+  <data name="ViewName_Status" xml:space="preserve">
+    <value>Status</value>
+    <comment>The name of the status view.</comment>
+  </data>
+  <data name="ViewName_Trim" xml:space="preserve">
+    <value>Trim</value>
+    <comment>The name of the trim view.</comment>
+  </data>
+</root>

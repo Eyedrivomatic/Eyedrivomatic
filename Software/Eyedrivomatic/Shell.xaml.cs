@@ -27,12 +27,15 @@ using System.Windows.Input;
 namespace Eyedrivomatic
 {
     [Export]
-    public partial class Shell : Window
+    public partial class Shell : Window, IDisposable
     {
+        private readonly Cursor _smallCursor;
+
         public Shell()
         {
             InitializeComponent();
-            Mouse.OverrideCursor = ((FrameworkElement)App.Current.Resources["SmallCursor"]).Cursor;
+            _smallCursor = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur")).Stream);
+            Mouse.OverrideCursor = _smallCursor;
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -46,10 +49,30 @@ namespace Eyedrivomatic
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = ((FrameworkElement)App.Current.Resources["SmallCursor"]).Cursor;
+                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = _smallCursor;
                 else Mouse.OverrideCursor = null;
                 e.Handled = true;
             }
         }
+
+        #region IDisposable Support
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        private bool _disposed;
+        protected virtual void Dispose(bool disposeManaged)
+        {
+            if (_disposed) return;
+            _disposed = true;
+
+            if (disposeManaged)
+            {
+                _smallCursor.Dispose();
+            }
+        }
+
+        #endregion
     }
 }

@@ -27,6 +27,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1160"
@@ -61,12 +62,14 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="AutoConnectCheckBox"
-                      Content="{x:Static resources:Strings.SettingsName_DwellClickEnabled}"
-                      Grid.Row="0"
-                      Grid.ColumnSpan="3"
-                      IsChecked="{Binding DwellClickEnabled}"
-                      Margin="0,0,0,10"/>
+            <controls:ImageToggleButton 
+                x:Name="AutoConnectCheckBox"
+                CheckImage="{StaticResource Check}"
+                Content="{x:Static resources:Strings.SettingsName_DwellClickEnabled}"
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                IsChecked="{Binding DwellClickEnabled}"
+                Margin="0,0,0,10"/>
 
             <Label x:Name="DwellClickTimeLabel" Grid.Row="1" Grid.Column="0" Content="{x:Static resources:Strings.SettingsName_DwellClickTime}" Style="{StaticResource SettingLabelStyle}"/>
             <TextBox x:Name="DwellClickTimeValue" Grid.Row="1" Grid.Column="1" Text="{Binding DwellTimeMilliseconds}" Style="{StaticResource SettingValueStyle}" Margin="10"/>

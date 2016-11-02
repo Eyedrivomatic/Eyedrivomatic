@@ -38,7 +38,7 @@ using System.Windows;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None,
-    ResourceDictionaryLocation.SourceAssembly 
+    ResourceDictionaryLocation.ExternalAssembly
 )]
 
 [assembly: AssemblyVersion("1.0.*")]

@@ -93,23 +93,22 @@ namespace Eyedrivomatic.Startup
 
 
         #region IDisposable Support
-        private bool disposedValue = false;
-
+        private bool _disposed = false;
         void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposed) return;
+            _disposed = true;
+
+            if (disposing)
             {
-                if (disposing)
+                var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
+                foreach (var module in modules)
                 {
-                    var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
-                    foreach (var module in modules)
-                    {
-                        Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
-                        module.Dispose();
-                    }
+                    Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
+                    module.Dispose();
                 }
 
-                disposedValue = true;
+                ServiceLocator.Current.GetInstance<Shell>()?.Dispose();
             }
         }
 

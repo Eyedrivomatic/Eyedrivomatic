@@ -30,6 +30,7 @@
              xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
              xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="876">
     <UserControl.Resources>
@@ -203,7 +204,6 @@
             <Button Content="MANIC" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Manic}" />
 
             <Button Grid.Row="4" Grid.RowSpan="2"
-                    Style="{StaticResource StandardButtonStyle}" 
                     Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">
                 <Button.Resources>
                     <infrastructure:PathToImageConverter x:Key="LocalPathConverter"/>

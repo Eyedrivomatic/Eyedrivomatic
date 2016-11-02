@@ -22,17 +22,18 @@
 using System.Windows;
 
 using System;
+using System.Globalization;
+using System.Threading;
 
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Startup;
-using Eyedrivomatic.Configuration;
 
 namespace Eyedrivomatic
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : Application, IDisposable
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
 
@@ -40,6 +41,9 @@ namespace Eyedrivomatic
         {
             Log.Initialize();
             Log.Info(this, "Application Startup");
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("de");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
 
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;
@@ -53,15 +57,9 @@ namespace Eyedrivomatic
             Log.Error(this, $"Unhandled Exception! - {e.ExceptionObject}");
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        public void Dispose()
         {
-            Log.Info(this, "Application Exiting");
-
             _bootstrapper.Dispose();
-
-            base.OnExit(e);
-
-            Log.Info(this, "Application Exit");
         }
     }
    

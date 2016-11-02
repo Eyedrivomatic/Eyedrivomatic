@@ -21,6 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 [assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver")]
 [assembly: AssemblyDescription("Handles the UI and logic for the Eyedrivomatic system.")]
@@ -34,3 +35,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: AssemblyVersion("1.0.*")]
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None,
+    ResourceDictionaryLocation.ExternalAssembly
+)]

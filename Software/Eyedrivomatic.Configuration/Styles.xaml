@@ -50,6 +50,4 @@
     </Style>
 
     <infrastructure:BoolToImageConverter x:Key="BoolToSleepStateImageConverter" ImageIfTrue="{StaticResource Sleep}" ImageIfFalse="{StaticResource Off}"/>
-
-
 </ResourceDictionary>

@@ -96,7 +96,8 @@
                         Height="70"
                         Margin="0,10,0,0"/>
 
-                    <CheckBox x:Name="AutoConnectCheckBox"
+                    <controls:ImageToggleButton x:Name="AutoConnectCheckBox"
+                          CheckImage="{StaticResource Check}"
                           Content="{x:Static resources:Strings.SettingsName_AutoConnect}"
                           Grid.Row="3"
                           Grid.ColumnSpan="2"

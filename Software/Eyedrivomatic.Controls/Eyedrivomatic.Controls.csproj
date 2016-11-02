@@ -166,6 +166,7 @@
     <Compile Include="DwellClick\DwellClicker.cs" />
     <Compile Include="DwellClick\DwellClickPieAdorner.cs" />
     <Compile Include="IDwellClickConfigurationService.cs" />
+    <Compile Include="ImageToggleButton.cs" />
     <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">
@@ -212,7 +213,7 @@
     <PackagesRootDirectory Condition="$(PackagesRootDirectory) == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\packages'))</PackagesRootDirectory>
     <CodeContractsInstallDir>$(PackagesRootDirectory)\DotNet.Contracts.1.10.20606.1\</CodeContractsInstallDir>
   </PropertyGroup>
-  <Import Project="$(CodeContractsInstallDir)\MsBuild\v$(MSBuildToolsVersion)\Microsoft.CodeContracts.targets"/>
+  <Import Project="$(CodeContractsInstallDir)\MsBuild\v$(MSBuildToolsVersion)\Microsoft.CodeContracts.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

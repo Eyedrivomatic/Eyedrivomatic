@@ -117,113 +117,330 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BrowsableList_Next" xml:space="preserve">
+    <value>Next</value>
+    <comment>Navigate to the next item in a list.</comment>
+  </data>
+  <data name="BrowsableList_Prev" xml:space="preserve">
+    <value>Prev</value>
+    <comment>Navigate to the previous item in a list.</comment>
+  </data>
+  <data name="CommandImage_Sleep" xml:space="preserve">
+    <value>Sleep</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="CommandText_AutoDiscover" xml:space="preserve">
+    <value>Automatically Discover Device</value>
+    <comment>Discover and connect to the device.</comment>
+  </data>
   <data name="CommandText_Connect" xml:space="preserve">
     <value>Connect</value>
+    <comment>Connect to the device.</comment>
   </data>
   <data name="CommandText_Disconnect" xml:space="preserve">
     <value>Disconnect</value>
+    <comment>Disconnect from the device.</comment>
   </data>
   <data name="CommandText_NextDevice" xml:space="preserve">
     <value>Next</value>
+    <comment>Select the next device in the list.</comment>
   </data>
   <data name="CommandText_PrevDevice" xml:space="preserve">
     <value>Prev</value>
+    <comment>Select the previous device in the list.</comment>
   </data>
   <data name="CommandText_Save" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
-    <value>Delay {0:0.00}s</value>
-  </data>
-  <data name="DelayTask_InvalidDelay" xml:space="preserve">
-    <value>Delay must be greater than 0.</value>
-  </data>
-  <data name="DelayTask_ToStringFormat" xml:space="preserve">
-    <value>Pause for {0:0.00} seconds.</value>
-  </data>
-  <data name="Disclaimer_Button" xml:space="preserve">
-    <value>I Understand and Agree</value>
-  </data>
-  <data name="Disclaimer_Text" xml:space="preserve">
-    <value>The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
- 
-To ensure safe operation, the following guidelines MUST be adhered to at all times;
- 
-Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards. The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.</value>
-  </data>
-  <data name="Disclaimer_Title" xml:space="preserve">
-    <value>DISCLAIMER</value>
-  </data>
-  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
-    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
-  </data>
-  <data name="Macro_InvalidDisplayName" xml:space="preserve">
-    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
-  </data>
-  <data name="MillisecondsLong" xml:space="preserve">
-    <value>milliseconds</value>
-  </data>
-  <data name="MillisecondsShort" xml:space="preserve">
-    <value>ms</value>
-  </data>
-  <data name="NewTaskViewModelName" xml:space="preserve">
-    <value>New Task</value>
-  </data>
-  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
-    <value>Connection Settings</value>
-  </data>
-  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
-    <value>Dwell Click Settings</value>
-  </data>
-  <data name="SettingsName_AutoConnect" xml:space="preserve">
-    <value>Automatically Connect at Startup</value>
-  </data>
-  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
-    <value>Dwell Repeat Delay:</value>
-  </data>
-  <data name="SettingsName_DwellClickTime" xml:space="preserve">
-    <value>Dwell Time:</value>
-  </data>
-  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
-    <value>Dwell Timeout:</value>
+    <comment>Save settings.</comment>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Cycle Relay {0} on-off.</value>
+    <comment>Cycle relay task default name template.</comment>
   </data>
   <data name="CycleRelayMacroTask_Description" xml:space="preserve">
-    <value>Cycle a relay. This changes the state of the relay off->on->off with a 200ms delay.</value>
+    <value>Cycle a relay. This changes the state of the relay off-&gt;on-&gt;off with a 200ms delay.</value>
+    <comment>Cycle relay task description.</comment>
   </data>
   <data name="CycleRelayMacroTask_InvalidRelay" xml:space="preserve">
     <value>Must be a value between 1 and {0}.</value>
+    <comment>Cycle relay task parameter error for invalid relay number.</comment>
   </data>
   <data name="CycleRelayMacroTask_InvalidRepeat" xml:space="preserve">
     <value>Must be greater than 0.</value>
+    <comment>Cycle relay task parameter error for invalid repeat value.</comment>
   </data>
   <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
     <value>Cycle Relay {0}, repeat {1} times with a delay of {2} ms between repeats.</value>
+    <comment>Cycle relay task description template.</comment>
+  </data>
+  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
+    <value>Delay {0:0.00}s</value>
+    <comment>Delay task default name template.</comment>
+  </data>
+  <data name="DelayTask_InvalidDelay" xml:space="preserve">
+    <value>Delay must be greater than 0.</value>
+    <comment>Delay task parameter error for invalid delay.</comment>
+  </data>
+  <data name="DelayTask_ToStringFormat" xml:space="preserve">
+    <value>Pause for {0:0.00} seconds.</value>
+    <comment>Dalay task description template.</comment>
+  </data>
+  <data name="Disclaimer_Button" xml:space="preserve">
+    <value>I Understand and Agree</value>
+    <comment>The user agrees to the conditions of the dislaimer.</comment>
+  </data>
+  <data name="Disclaimer_Text" xml:space="preserve">
+    <value>The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
+To ensure safe operation, the following guidelines MUST be adhered to at all times;
+Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards. The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.</value>
+    <comment>The disclaimer.</comment>
+  </data>
+  <data name="Disclaimer_Title" xml:space="preserve">
+    <value>DISCLAIMER</value>
+    <comment>Disclaimer title.</comment>
+  </data>
+  <data name="Hardware_DiagSpeedFullImage" xml:space="preserve">
+    <value>Full</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DiagSpeedReducedImage" xml:space="preserve">
+    <value>Reduced</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackward" xml:space="preserve">
+    <value>Backward</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
+    <value>Backward Left</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
+    <value>Backward Right</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForward" xml:space="preserve">
+    <value>Forward</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
+    <value>Forward Left</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
+    <value>Forward Right</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionLeft" xml:space="preserve">
+    <value>Left</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_DirectionRight" xml:space="preserve">
+    <value>Right</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
+    <value>Ready</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
+    <value>Continue</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
+    <value>Reset</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
+    <value>Safe</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
+    <value>SkullAndCrossbones</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosImage_Power" xml:space="preserve">
+    <value>Off</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosImage_Tilt" xml:space="preserve">
+    <value>Tilt</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosName_Mode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="MacrosName_Power" xml:space="preserve">
+    <value>Power</value>
+    <comment>The name of the default Power macro.</comment>
+  </data>
+  <data name="MacrosName_Spare" xml:space="preserve">
+    <value>Spare</value>
+    <comment>The name of the default Spare macro.</comment>
+  </data>
+  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
+    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
+    <comment>Macro task parameter error for invalid display name.</comment>
+  </data>
+  <data name="Macro_InvalidDisplayName" xml:space="preserve">
+    <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
+    <comment>Macro parameter name for invalid display name.</comment>
+  </data>
+  <data name="MillisecondsLong" xml:space="preserve">
+    <value>milliseconds</value>
+    <comment>Milliseconds</comment>
+  </data>
+  <data name="MillisecondsShort" xml:space="preserve">
+    <value>ms</value>
+    <comment>ms</comment>
+  </data>
+  <data name="NewTaskViewModelName" xml:space="preserve">
+    <value>New Task</value>
+    <comment>Create a new task for the current macro.</comment>
+  </data>
+  <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
+    <value>Diagonal Speed Reduction Toggle</value>
+    <comment>Reduces or restores diagonal speed.</comment>
+  </data>
+  <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
+    <value>Left Nudge</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_RightNudge" xml:space="preserve">
+    <value>Right Nudge</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedFast" xml:space="preserve">
+    <value>Fast</value>
+    <comment>Set the drive speed to fast.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedManic" xml:space="preserve">
+    <value>MANIC</value>
+    <comment>Set the drive speed to manic or full speed.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedSlow" xml:space="preserve">
+    <value>Slow</value>
+    <comment>Set the drive speed to slow.</comment>
+  </data>
+  <data name="OutdoorDrivingView_SpeedWalk" xml:space="preserve">
+    <value>Walk</value>
+    <comment>Set the drive speed to walk.</comment>
+  </data>
+  <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
+    <value>Half</value>
+    <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
+  </data>
+  <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
+    <value>Half</value>
+    <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
+  </data>
+  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+    <value>Connection Settings</value>
+    <comment>Title of the group containing settings for the device connection.</comment>
+  </data>
+  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+    <value>Dwell Click Settings</value>
+    <comment>Title of the group containing settings for the dwell click.</comment>
+  </data>
+  <data name="SettingsName_AutoConnect" xml:space="preserve">
+    <value>Automatically Connect at Startup</value>
+    <comment>Automatically connect to the device at application startup.</comment>
+  </data>
+  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Enable/disable dwell click.</comment>
+  </data>
+  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Dwell Repeat Delay:</value>
+    <comment>Time between dwell click repeats.</comment>
+  </data>
+  <data name="SettingsName_DwellClickTime" xml:space="preserve">
+    <value>Dwell Time:</value>
+    <comment>Time that the user must look at the target for the dwell click to "press".</comment>
+  </data>
+  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
+    <value>Dwell Timeout:</value>
+    <comment>The time after the users gaze leaves the target before it is reset.</comment>
+  </data>
+  <data name="StatusView_NudgeDuration" xml:space="preserve">
+    <value>Nudge Duration:</value>
+    <comment>The time that the nudge is applied to the current motion.</comment>
+  </data>
+  <data name="StatusView_NudgeSpeed" xml:space="preserve">
+    <value>Nudge Speed:</value>
+    <comment>The amount of nudge that is applied.</comment>
+  </data>
+  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
+    <value>Safety Bypass Status:</value>
+    <comment>Enable/disable the safety bypass that prevents consecutive clicks in the same direction.</comment>
+  </data>
+  <data name="StatusView_Seconds" xml:space="preserve">
+    <value>seconds</value>
+    <comment>Seconds</comment>
+  </data>
+  <data name="StatusView_XCenter" xml:space="preserve">
+    <value>X Servo Centere Point:</value>
+    <comment>The center point for the x servo.</comment>
+  </data>
+  <data name="StatusView_XServo" xml:space="preserve">
+    <value>X Servo</value>
+    <comment>The curent direction applied to the x servo.</comment>
+  </data>
+  <data name="StatusView_YCenter" xml:space="preserve">
+    <value>Y Servo Centere Point:</value>
+    <comment>The center point of the y servo.</comment>
+  </data>
+  <data name="StatusView_YServo" xml:space="preserve">
+    <value>Y Servo</value>
+    <comment>The current direction applied to the y servo.</comment>
+  </data>
+  <data name="TrimView_NudgeDuration" xml:space="preserve">
+    <value>Nudge Duration</value>
+    <comment>The time that the nudge is applied to the current motion.</comment>
+  </data>
+  <data name="TrimView_NudgeSpeed" xml:space="preserve">
+    <value>Nudge Speed</value>
+    <comment>The amount of nudge that is applied.</comment>
+  </data>
+  <data name="ViewName_Configuration" xml:space="preserve">
+    <value>Setup</value>
+    <comment>The name of the configuration view.</comment>
   </data>
   <data name="ViewName_DeviceConfig" xml:space="preserve">
     <value>BrainBox</value>
+    <comment>The name of the device configuration view.</comment>
+  </data>
+  <data name="ViewName_GeneralConfiguration" xml:space="preserve">
+    <value>General</value>
+    <comment>The name of the general configuration view.</comment>
   </data>
   <data name="ViewName_IndoorDriving" xml:space="preserve">
     <value>Indoor Driving</value>
+    <comment>The name of the indoor driving view.</comment>
   </data>
   <data name="ViewName_Macros" xml:space="preserve">
     <value>Actions</value>
+    <comment>The name of the macros or actions view.</comment>
   </data>
   <data name="ViewName_MacrosSettings" xml:space="preserve">
     <value>Edit Actions</value>
+    <comment>The name of the edit macros or actions view.</comment>
   </data>
   <data name="ViewName_OutdoorDriving" xml:space="preserve">
     <value>Driving</value>
+    <comment>The name of the outdoor driving view.</comment>
   </data>
   <data name="ViewName_Status" xml:space="preserve">
     <value>Status</value>
+    <comment>The name of the status view.</comment>
   </data>
   <data name="ViewName_Trim" xml:space="preserve">
     <value>Trim</value>
+    <comment>The name of the trim view.</comment>
   </data>
 </root>

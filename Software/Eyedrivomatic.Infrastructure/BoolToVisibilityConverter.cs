@@ -28,8 +28,8 @@ namespace Eyedrivomatic.Infrastructure
 {
     public class BoolToVisibilityConverter : IValueConverter
     {
-        public Visibility VisibilityIfTrue { get; set; }
-        public Visibility VisibilityIfFalse { get; set; }
+        public Visibility VisibilityIfTrue { get; set; } = Visibility.Visible;
+        public Visibility VisibilityIfFalse { get; set; } = Visibility.Hidden;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
