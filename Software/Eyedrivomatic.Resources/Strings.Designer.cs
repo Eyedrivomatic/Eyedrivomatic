@@ -567,6 +567,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device Settings.
+        /// </summary>
+        public static string SettingsGroupName_DeviceSettings {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_DeviceSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dwell Click Settings.
         /// </summary>
         public static string SettingsGroupName_DwellClick {
@@ -581,6 +590,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsName_AutoConnect {
             get {
                 return ResourceManager.GetString("SettingsName_AutoConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Save Device Settings.
+        /// </summary>
+        public static string SettingsName_AutoSaveDeviceSettings {
+            get {
+                return ResourceManager.GetString("SettingsName_AutoSaveDeviceSettings", resourceCulture);
             }
         }
         
@@ -617,6 +635,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsName_DwellClickTimeout {
             get {
                 return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety Bypass.
+        /// </summary>
+        public static string SettingsName_SafetyBypass {
+            get {
+                return ResourceManager.GetString("SettingsName_SafetyBypass", resourceCulture);
             }
         }
         

@@ -312,8 +312,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
             {
                 lock (_statusLock)
                 {
+                    if (_lastStatusMessage.SafetyBypass == value) return;
                     Logger?.Log($"Toggling safety bypass status.", Category.Warn, Priority.None);
-                    ExecuteCommand(BrainBoxCommand.SafetyBypassToggle); //TODO: THIS SHOULD REALLY BE AN ON/OFF COMMAND.
+                    ExecuteCommand(BrainBoxCommand.SafetyBypassToggle);
                 }
             }
         }

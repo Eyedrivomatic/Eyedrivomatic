@@ -61,7 +61,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            OnPropertyChanged();
+            OnPropertyChanged(string.Empty);
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -82,6 +82,41 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool Connecting => HardwareService.CurrentDriver?.IsConnecting ?? false;
         public bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
         public bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
+
+        /// <remarks>
+        /// This safety bypass setting is a wierd animal. Currently the firmware does not save the 
+        /// setting as part of auto-save. But we want it to act like a device property that is saved
+        /// in this manner. Similarly, we don't want to force the user to select save (or even think they need to)
+        /// after toggling the safety bypass. So, the idea here is to delegate this setting to the driver if possible
+        /// and only to the configuration service if there is no connection.
+        /// </remarks>
+        public bool SafetyBypass
+        {
+            get
+            {
+                return HardwareService.CurrentDriver != null
+                    ? HardwareService.CurrentDriver.SafetyBypassStatus == SafetyBypassState.Unsafe
+                    : _configurationService.SafetyBypass;
+            }
+            set
+            {
+                if (HardwareService.CurrentDriver != null)
+                {
+                    HardwareService.CurrentDriver.SafetyBypassStatus = value ? SafetyBypassState.Unsafe : SafetyBypassState.Safe;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    _configurationService.SafetyBypass = value;
+                }
+            }
+        }
+
+        public bool AutoSaveDeviceSettingsOnExit
+        {
+            get { return _configurationService.AutoSaveDeviceSettingsOnExit; }
+            set { _configurationService.AutoSaveDeviceSettingsOnExit = value; }
+        }
 
         public class Device
         {

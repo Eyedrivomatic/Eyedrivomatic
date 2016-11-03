@@ -70,5 +70,17 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
                 this["SettingsVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SafetyBypass {
+            get {
+                return ((bool)(this["SafetyBypass"]));
+            }
+            set {
+                this["SafetyBypass"] = value;
+            }
+        }
     }
 }

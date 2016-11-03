@@ -30,6 +30,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 
         bool AutoSaveDeviceSettingsOnExit { get; set; }
 
+        bool SafetyBypass { get; set; }
+
         void Save();
         bool HasChanges { get; }
     }

@@ -83,6 +83,12 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             set { _configuration.ConnectionString = value; }
         }
 
+        public bool SafetyBypass
+        {
+            get { return _configuration.SafetyBypass; }
+            set { _configuration.SafetyBypass= value; }
+        }
+
         public bool HasChanges => _hasChanges;
 
         public void Save()

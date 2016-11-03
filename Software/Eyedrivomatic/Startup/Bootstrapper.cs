@@ -107,9 +107,9 @@ namespace Eyedrivomatic.Startup
                     Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
                     module.Dispose();
                 }
-
-                ServiceLocator.Current.GetInstance<Shell>()?.Dispose();
             }
+
+            (Shell as Shell)?.Dispose();
         }
 
         public void Dispose()

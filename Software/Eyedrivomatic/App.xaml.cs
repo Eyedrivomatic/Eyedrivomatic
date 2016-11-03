@@ -57,6 +57,11 @@ namespace Eyedrivomatic
             Log.Error(this, $"Unhandled Exception! - {e.ExceptionObject}");
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Dispose();
+            base.OnExit(e);
+        }
         public void Dispose()
         {
             _bootstrapper.Dispose();

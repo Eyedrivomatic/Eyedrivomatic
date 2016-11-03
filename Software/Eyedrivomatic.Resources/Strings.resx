@@ -443,4 +443,16 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>Trim</value>
     <comment>The name of the trim view.</comment>
   </data>
+  <data name="SettingsGroupName_DeviceSettings" xml:space="preserve">
+    <value>Device Settings</value>
+    <comment>Title of the group containing device settings.</comment>
+  </data>
+  <data name="SettingsName_AutoSaveDeviceSettings" xml:space="preserve">
+    <value>Auto Save Device Settings</value>
+    <comment>Toggle auto saving of device configuration.</comment>
+  </data>
+  <data name="SettingsName_SafetyBypass" xml:space="preserve">
+    <value>Safety Bypass</value>
+    <comment>Safety bypass toggle.</comment>
+  </data>
 </root>
