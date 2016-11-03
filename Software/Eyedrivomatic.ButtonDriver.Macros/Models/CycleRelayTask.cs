@@ -59,7 +59,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public virtual bool CanExecute(IButtonDriver driver)
         {
-            return driver?.ReadyState == ReadyState.Any && Relay <= driver.RelayCount;
+            return driver?.ReadyState != ReadyState.None && Relay <= driver.RelayCount && driver.CurrentDirection == Direction.None;
         }
         #endregion IButtonDriverMacroTask
 
