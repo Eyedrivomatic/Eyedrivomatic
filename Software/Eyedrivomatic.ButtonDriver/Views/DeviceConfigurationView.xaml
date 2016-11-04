@@ -70,7 +70,7 @@
                         <Button x:Name="AutoDiscoverButton" 
                         Style="{StaticResource TextButtonStyle}" 
                         Command="{Binding AutoDetectDeviceCommand}"
-                        Content="Automatically Discover Device" 
+                        Content="{x:Static resources:Strings.CommandText_AutoDiscover}" 
                         Grid.Row="0" Grid.Column="0" Height="70"
                         Grid.ColumnSpan="2" Margin="0,0,0,10"/>
 

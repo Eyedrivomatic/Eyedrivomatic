@@ -300,7 +300,8 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <comment>Create a new task for the current macro.</comment>
   </data>
   <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
-    <value>Diagonal Speed Reduction Toggle</value>
+    <value>Diagonal Speed
+Reduction Toggle</value>
     <comment>Reduces or restores diagonal speed.</comment>
   </data>
   <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
@@ -454,5 +455,29 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
   <data name="SettingsName_SafetyBypass" xml:space="preserve">
     <value>Safety Bypass</value>
     <comment>Safety bypass toggle.</comment>
+  </data>
+  <data name="StatusView_DurationFormat" xml:space="preserve">
+    <value>{}{0:F1} seconds</value>
+    <comment>The format of the duration indicators.</comment>
+  </data>
+  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
+    <value>{}{0} Degrees</value>
+    <comment>The format of the servo position indicators.</comment>
+  </data>
+  <data name="StatusView_Speed_Fast" xml:space="preserve">
+    <value>Fast</value>
+    <comment>The speed indicator for 'fast' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Manic" xml:space="preserve">
+    <value>MANIC</value>
+    <comment>The speed indicator for 'manic' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Slow" xml:space="preserve">
+    <value>Slow</value>
+    <comment>The speed indicator for 'slow' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Walk" xml:space="preserve">
+    <value>Walk</value>
+    <comment>The speed indicator for 'walk' speed.</comment>
   </data>
 </root>

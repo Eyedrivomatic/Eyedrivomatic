@@ -44,7 +44,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:IMacro}">
                     <Button Style="{StaticResource TextButtonStyle}" 
-                            Content="{Binding DisplayName}" Margin="10" Padding="10"
+                            Content="{Binding LocalizedDisplayName}" Margin="10" Padding="10"
                             MaxHeight="400" MaxWidth="400"
                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ExecuteMacrosView}}, Path=ViewModel.ExecuteMacroCommand}" 
                             CommandParameter="{Binding}"/>

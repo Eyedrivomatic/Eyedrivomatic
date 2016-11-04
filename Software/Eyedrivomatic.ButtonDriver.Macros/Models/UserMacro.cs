@@ -42,6 +42,18 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [XmlAttribute(AttributeName ="DisplayName")]
         public string DisplayName { get; set; }
 
+        [XmlAttribute(AttributeName = "LocalizedDisplayName")]
+        public string LocalizedDisplayName
+        {
+            get
+            {
+                var resourceName = $"MacrosName_{DisplayName}";
+                var localizedName = Strings.ResourceManager.GetString(resourceName);
+                if (string.IsNullOrEmpty(localizedName)) return DisplayName;
+                return localizedName;
+            }
+        }
+
         [XmlIgnore]
         public bool IsExecuting { get; private set; }
 

@@ -443,4 +443,24 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Trim</value>
     <comment>The name of the trim view.</comment>
   </data>
+  <data name="StatusView_DurationFormat" xml:space="preserve">
+    <value>{}{0:F1} sekunden</value>
+    <comment>The format of the duration indicators.</comment>
+  </data>
+  <data name="StatusView_Speed_Fast" xml:space="preserve">
+    <value>Schnell</value>
+    <comment>The speed indicator for 'fast' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Manic" xml:space="preserve">
+    <value>Verrückt</value>
+    <comment>The speed indicator for 'manic' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Slow" xml:space="preserve">
+    <value>Langsam</value>
+    <comment>The speed indicator for 'slow' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Walk" xml:space="preserve">
+    <value>Gehen</value>
+    <comment>The speed indicator for 'walk' speed.</comment>
+  </data>
 </root>

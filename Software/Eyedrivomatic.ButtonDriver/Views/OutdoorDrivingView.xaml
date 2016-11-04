@@ -31,6 +31,7 @@
              xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="876">
     <UserControl.Resources>
@@ -125,12 +126,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="Half" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_XDurationHalf}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
             <Button Content="1" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1000" />
             <Button Content="1.5" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1500" />
             <Button Content="2" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="2000" />
             <Button Content="3" Grid.Row="4"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="3000" />
-            <Button Content="Diagonal Speed Reduction Toggle" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding Path=DiagonalSpeedReductionToggle}"/>
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_DiagSpeedReduction}" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding Path=DiagonalSpeedReductionToggle}"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -140,7 +141,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="Left Nudge" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static hardware:XDirection.Left}" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_LeftNudge}" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static hardware:XDirection.Left}" />
             <Button Grid.Row="1" Style="{StaticResource ForwardLeftButtonStyle}"  Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.ForwardLeft}"/>
             <Button Grid.Row="2" Style="{StaticResource LeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.Left}"/>
             <Button Grid.Row="3" Style="{StaticResource BackwardLeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.BackwardLeft}"/>
@@ -166,7 +167,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="RightNudgeButton" Content="Right Nudge" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static hardware:XDirection.Right}" />
+            <Button x:Name="RightNudgeButton" Content="{x:Static resources:Strings.OutdoorDrivingView_RightNudge}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static hardware:XDirection.Right}" />
             <Button x:Name="ForwardRightButton" Grid.Row="1"  Style="{StaticResource ForwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.ForwardRight}"/>
             <Button x:Name="RightButton" Grid.Row="2"  Style="{StaticResource RightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.Right}"/>
             <Button x:Name="BackwardRightButton" Grid.Row="3"  Style="{StaticResource BackwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static hardware:Direction.BackwardRight}"/>
@@ -181,7 +182,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="Half" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="500" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_YDurationHalf}" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="500" />
             <Button Content="1" Grid.Row="1"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="1000" />
             <Button Content="2" Grid.Row="2"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="2000" />
             <Button Content="3" Grid.Row="3"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="3000" />
@@ -198,10 +199,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="Slow" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Slow}" />
-            <Button Content="Walk" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Walk}" />
-            <Button Content="Fast" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Fast}" />
-            <Button Content="MANIC" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Manic}" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedSlow}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Slow}" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedWalk}" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Walk}" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedFast}" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Fast}" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedManic}" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="{x:Static hardware:Speed.Manic}" />
 
             <Button Grid.Row="4" Grid.RowSpan="2"
                     Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">

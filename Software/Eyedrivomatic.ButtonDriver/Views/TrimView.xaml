@@ -29,6 +29,7 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
              xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1160"
              prism:ViewModelLocator.AutoWireViewModel="True">
@@ -79,22 +80,22 @@
             </Style>
 
             <Style x:Key="IncreaseNudgeSpeedButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TrimIncrementButtonStyle}">
-                <Setter Property="Content" Value="Nudge Speed"/>
+                <Setter Property="Content" Value="{x:Static resources:Strings.TrimView_NudgeSpeed}"/>
                 <Setter Property="Tag" Value="{StaticResource TrimUp}"/>
             </Style>
 
             <Style x:Key="DecreaseNudgeSpeedButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TrimIncrementButtonStyle}">
-                <Setter Property="Content" Value="Nudge Speed"/>
+                <Setter Property="Content" Value="{x:Static resources:Strings.TrimView_NudgeSpeed}"/>
                 <Setter Property="Tag" Value="{StaticResource TrimDown}"/>
             </Style>
 
             <Style x:Key="IncreaseNudgeDurationButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TrimIncrementButtonStyle}">
-                <Setter Property="Content" Value="Nudge Duration"/>
+                <Setter Property="Content" Value="{x:Static resources:Strings.StatusView_NudgeDuration}"/>
                 <Setter Property="Tag" Value="{StaticResource TrimUp}"/>
             </Style>
 
             <Style x:Key="DecreaseNudgeDurationButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource TrimIncrementButtonStyle}">
-                <Setter Property="Content" Value="Nudge Duration"/>
+                <Setter Property="Content" Value="{x:Static resources:Strings.StatusView_NudgeDuration}"/>
                 <Setter Property="Tag" Value="{StaticResource TrimDown}"/>
             </Style>
 

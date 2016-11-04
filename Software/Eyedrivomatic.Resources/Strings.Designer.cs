@@ -468,7 +468,8 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diagonal Speed Reduction Toggle.
+        ///   Looks up a localized string similar to Diagonal Speed
+        ///Reduction Toggle.
         /// </summary>
         public static string OutdoorDrivingView_DiagSpeedReduction {
             get {
@@ -648,6 +649,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {}{0:F1} seconds.
+        /// </summary>
+        public static string StatusView_DurationFormat {
+            get {
+                return ResourceManager.GetString("StatusView_DurationFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nudge Duration:.
         /// </summary>
         public static string StatusView_NudgeDuration {
@@ -680,6 +690,51 @@ namespace Eyedrivomatic.Resources {
         public static string StatusView_Seconds {
             get {
                 return ResourceManager.GetString("StatusView_Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {}{0} Degrees.
+        /// </summary>
+        public static string StatusView_ServoPositionFormat {
+            get {
+                return ResourceManager.GetString("StatusView_ServoPositionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast.
+        /// </summary>
+        public static string StatusView_Speed_Fast {
+            get {
+                return ResourceManager.GetString("StatusView_Speed_Fast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MANIC.
+        /// </summary>
+        public static string StatusView_Speed_Manic {
+            get {
+                return ResourceManager.GetString("StatusView_Speed_Manic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slow.
+        /// </summary>
+        public static string StatusView_Speed_Slow {
+            get {
+                return ResourceManager.GetString("StatusView_Speed_Slow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walk.
+        /// </summary>
+        public static string StatusView_Speed_Walk {
+            get {
+                return ResourceManager.GetString("StatusView_Speed_Walk", resourceCulture);
             }
         }
         
