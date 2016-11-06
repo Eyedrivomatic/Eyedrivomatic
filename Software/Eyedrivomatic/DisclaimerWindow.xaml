@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
-        <Label Content="{x:Static resources:Strings.Disclaimer_Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+        <Label Content="{x:Static resources:Strings.Disclaimer_Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontWeight="Bold" FontSize="28"/>
         <Button DockPanel.Dock="Bottom" 
                 Style="{StaticResource TextButtonStyle}" 
                 Content="{x:Static resources:Strings.Disclaimer_Button}" 

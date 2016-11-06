@@ -192,7 +192,7 @@
   <data name="Disclaimer_Text" xml:space="preserve">
     <value>Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems entstehen. Der Gebrauch der Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.
 Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit eingehalten werden.
-Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder anderer möglichen Gefahr und muss völlig eben sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
+Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder anderer möglicher Gefahr und muss völlig eben sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
     <comment>The disclaimer.</comment>
   </data>
   <data name="Disclaimer_Title" xml:space="preserve">
@@ -276,7 +276,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The name of the default Power macro.</comment>
   </data>
   <data name="MacrosName_Spare" xml:space="preserve">
-    <value>Resve</value>
+    <value>Reserve</value>
     <comment>The name of the default Spare macro.</comment>
   </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
@@ -376,7 +376,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
   </data>
   <data name="SettingsName_SafetyBypass" xml:space="preserve">
-    <value>Sicherheits Umgehung</value>
+    <value>Sicherheits Bypass</value>
     <comment>Safety bypass toggle.</comment>
   </data>
   <data name="StatusView_DurationFormat" xml:space="preserve">

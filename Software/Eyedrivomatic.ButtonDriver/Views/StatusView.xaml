@@ -149,15 +149,14 @@
             <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_XCenter}" Grid.Row="0" Grid.Column="0"/>
             <Label x:Name="XServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=XServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="0" Grid.Column="1" />
 
+            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_YCenter}" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="YServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=YServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="1" Grid.Column="1" />
 
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeSpeed}" Grid.Row="1" Grid.Column="0"/>
-            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeSpeed, Converter={StaticResource SpeedNameConverter}}" Grid.Row="1" Grid.Column="1" />
+            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeSpeed}" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeSpeed, Converter={StaticResource SpeedNameConverter}}" Grid.Row="2" Grid.Column="1" />
 
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeDuration}" Grid.Row="2" Grid.Column="0"/>
-            <Label x:Name="NudgeDuration" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeDuration}" ContentStringFormat="{x:Static resources:Strings.StatusView_DurationFormat}"  Grid.Row="2" Grid.Column="1" />
-
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_YCenter}" Grid.Row="3" Grid.Column="0"/>
-            <Label x:Name="YServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=YServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="3" Grid.Column="1" />
+            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeDuration}" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="NudgeDuration" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeDuration}" ContentStringFormat="{x:Static resources:Strings.StatusView_DurationFormat}"  Grid.Row="3" Grid.Column="1" />
 
         </Grid>
     </Grid>
