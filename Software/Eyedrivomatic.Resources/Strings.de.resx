@@ -134,19 +134,19 @@
     <comment>Discover and connect to the device.</comment>
   </data>
   <data name="CommandText_Connect" xml:space="preserve">
-    <value>Verbunden</value>
+    <value>Verbinden</value>
     <comment>Connect to the device.</comment>
   </data>
   <data name="CommandText_Disconnect" xml:space="preserve">
-    <value>Unterbrochen</value>
+    <value>Unterbrechen</value>
     <comment>Disconnect from the device.</comment>
   </data>
   <data name="CommandText_NextDevice" xml:space="preserve">
-    <value>Next</value>
+    <value>Vor</value>
     <comment>Select the next device in the list.</comment>
   </data>
   <data name="CommandText_PrevDevice" xml:space="preserve">
-    <value>Prev</value>
+    <value>Zurück</value>
     <comment>Select the previous device in the list.</comment>
   </data>
   <data name="CommandText_Save" xml:space="preserve">
@@ -190,9 +190,9 @@
     <comment>The user agrees to the conditions of the dislaimer.</comment>
   </data>
   <data name="Disclaimer_Text" xml:space="preserve">
-    <value>The Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems auftreten. Der Gebrauch des Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.
+    <value>Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems entstehen. Der Gebrauch der Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.
 Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit eingehalten werden.
-Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder andere möglichen Gefahren und muss völlig flach sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
+Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder anderer möglichen Gefahr und muss völlig eben sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
     <comment>The disclaimer.</comment>
   </data>
   <data name="Disclaimer_Title" xml:space="preserve">
@@ -240,7 +240,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>This is an image.</comment>
   </data>
   <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
-    <value>Fertig  </value>
+    <value>Bereit</value>
     <comment>This is an image.</comment>
   </data>
   <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
@@ -276,7 +276,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The name of the default Power macro.</comment>
   </data>
   <data name="MacrosName_Spare" xml:space="preserve">
-    <value>Ersatz </value>
+    <value>Resve</value>
     <comment>The name of the default Spare macro.</comment>
   </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
@@ -332,16 +332,20 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>Set the drive speed to walk.</comment>
   </data>
   <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
-    <value>Halbe</value>
+    <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
   </data>
   <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
-    <value>Halbe</value>
+    <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
   <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
     <value>Verbindungs Einstellungen</value>
     <comment>Title of the group containing settings for the device connection.</comment>
+  </data>
+  <data name="SettingsGroupName_DeviceSettings" xml:space="preserve">
+    <value>Geräteeinstellungen</value>
+    <comment>Title of the group containing device settings.</comment>
   </data>
   <data name="SettingsGroupName_DwellClick" xml:space="preserve">
     <value>Verweilen Click Einstellungen</value>
@@ -351,12 +355,16 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Automatische Verbindung nach dem Start</value>
     <comment>Automatically connect to the device at application startup.</comment>
   </data>
+  <data name="SettingsName_AutoSaveDeviceSettings" xml:space="preserve">
+    <value>Automatische Sicherung</value>
+    <comment>Toggle auto saving of device configuration.</comment>
+  </data>
   <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
     <value>Aktivieren</value>
     <comment>Enable/disable dwell click.</comment>
   </data>
   <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
-    <value>Wederholverzögerung:</value>
+    <value>Wiederholverzögerung:</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
   <data name="SettingsName_DwellClickTime" xml:space="preserve">
@@ -366,6 +374,14 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
     <value>Wiederholrate:</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
+  </data>
+  <data name="SettingsName_SafetyBypass" xml:space="preserve">
+    <value>Sicherheits Umgehung</value>
+    <comment>Safety bypass toggle.</comment>
+  </data>
+  <data name="StatusView_DurationFormat" xml:space="preserve">
+    <value>{0:F1} sekunden</value>
+    <comment>The format of the duration indicators.</comment>
   </data>
   <data name="StatusView_NudgeDuration" xml:space="preserve">
     <value>Stubs Dauer</value>
@@ -382,6 +398,30 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="StatusView_Seconds" xml:space="preserve">
     <value>Sekunden</value>
     <comment>Seconds</comment>
+  </data>
+  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
+    <value>{0}°</value>
+    <comment>The format of the servo position indicators.</comment>
+  </data>
+  <data name="StatusView_Speed_Fast" xml:space="preserve">
+    <value>Schnell </value>
+    <comment>The speed indicator for 'fast' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Manic" xml:space="preserve">
+    <value>Verrückt</value>
+    <comment>The speed indicator for 'manic' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_None" xml:space="preserve">
+    <value>Keine</value>
+    <comment>The speed indicator when not connected.</comment>
+  </data>
+  <data name="StatusView_Speed_Slow" xml:space="preserve">
+    <value>Langsam</value>
+    <comment>The speed indicator for 'slow' speed.</comment>
+  </data>
+  <data name="StatusView_Speed_Walk" xml:space="preserve">
+    <value>Gehen</value>
+    <comment>The speed indicator for 'walk' speed.</comment>
   </data>
   <data name="StatusView_XCenter" xml:space="preserve">
     <value>X Servo Mittelpunkt</value>
@@ -440,27 +480,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The name of the status view.</comment>
   </data>
   <data name="ViewName_Trim" xml:space="preserve">
-    <value>Trim</value>
+    <value>Trimm</value>
     <comment>The name of the trim view.</comment>
-  </data>
-  <data name="StatusView_DurationFormat" xml:space="preserve">
-    <value>{}{0:F1} sekunden</value>
-    <comment>The format of the duration indicators.</comment>
-  </data>
-  <data name="StatusView_Speed_Fast" xml:space="preserve">
-    <value>Schnell</value>
-    <comment>The speed indicator for 'fast' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Manic" xml:space="preserve">
-    <value>Verrückt</value>
-    <comment>The speed indicator for 'manic' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Slow" xml:space="preserve">
-    <value>Langsam</value>
-    <comment>The speed indicator for 'slow' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Walk" xml:space="preserve">
-    <value>Gehen</value>
-    <comment>The speed indicator for 'walk' speed.</comment>
   </data>
 </root>

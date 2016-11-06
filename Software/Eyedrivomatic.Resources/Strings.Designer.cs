@@ -649,7 +649,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {}{0:F1} seconds.
+        ///   Looks up a localized string similar to {0:F1} seconds.
         /// </summary>
         public static string StatusView_DurationFormat {
             get {
@@ -694,7 +694,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {}{0} Degrees.
+        ///   Looks up a localized string similar to {0}°.
         /// </summary>
         public static string StatusView_ServoPositionFormat {
             get {

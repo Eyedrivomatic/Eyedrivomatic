@@ -457,11 +457,11 @@ Reduction Toggle</value>
     <comment>Safety bypass toggle.</comment>
   </data>
   <data name="StatusView_DurationFormat" xml:space="preserve">
-    <value>{}{0:F1} seconds</value>
+    <value>{0:F1} seconds</value>
     <comment>The format of the duration indicators.</comment>
   </data>
   <data name="StatusView_ServoPositionFormat" xml:space="preserve">
-    <value>{}{0} Degrees</value>
+    <value>{0}°</value>
     <comment>The format of the servo position indicators.</comment>
   </data>
   <data name="StatusView_Speed_Fast" xml:space="preserve">
