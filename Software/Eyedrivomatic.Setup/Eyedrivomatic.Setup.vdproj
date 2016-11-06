@@ -238,13 +238,13 @@
         "Entry"
         {
         "MsmKey" = "8:_4D2E12A202A880CE294759E2577171C3"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4D2E12A202A880CE294759E2577171C3"
-        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -370,19 +370,13 @@
         "Entry"
         {
         "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
-        "OwnerKey" = "8:_5D3FE960991891B473CA7246F3FA2C6F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
-        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
         "OwnerKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
+        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -394,7 +388,13 @@
         "Entry"
         {
         "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
-        "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
+        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
+        "OwnerKey" = "8:_5D3FE960991891B473CA7246F3FA2C6F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -520,12 +520,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
-        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
         "OwnerKey" = "8:_7CFA8AB0B41B4546996A876E7A38F8B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -533,6 +527,12 @@
         {
         "MsmKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
         "OwnerKey" = "8:_A372280D917087F044F8F2E72CE583E4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
+        "OwnerKey" = "8:_F052BD89D63828AAD428EA9C94F2083C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -982,12 +982,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9A4C2B9C6B38C725D224C2A650CF67BB"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -995,6 +989,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_99DDA816F9741D409EB80A3B258DDC22"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_70E11CDBAF33C4089D5E95A66A1D3978"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4239,7 +4239,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.6152.37271, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Eyedrivomatic.ButtonDriver, Version=1.0.6154.21084, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F052BD89D63828AAD428EA9C94F2083C"
@@ -4479,15 +4479,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Eyedrivomatic"
-        "ProductCode" = "8:{45E6E587-E3DB-49DA-B389-C200663C9723}"
-        "PackageCode" = "8:{1E5B9A16-6275-4040-8523-8CE68963C701}"
+        "ProductCode" = "8:{41258A0C-B9C8-4ABD-9BAF-DB70382EEF98}"
+        "PackageCode" = "8:{EF926E7C-773E-4B9B-A5F0-31A225E5F27C}"
         "UpgradeCode" = "8:{60A2BFED-C726-408B-80A1-6340DFFB4DEE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.1105"
+        "ProductVersion" = "8:1.0.1106"
         "Manufacturer" = "8:Eyedrivomatic"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://www.eyedrivomatic.org/"
