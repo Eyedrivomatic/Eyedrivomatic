@@ -1,11 +1,14 @@
+*.suo
+*.vcxproj.user
+*.csproj.user 
+
 /Software/Debug
 /Software/Release
 bin
 obj
 /Software/packages
 
-/Software/.vs/Eyedrivomatic/v14/*.suo
+
 /Software/Eyedrivomatic.ButtonDriver.Hardware.Arduino/__vm
 /Software/Eyedrivomatic.Setup/Debug
 /Software/Eyedrivomatic.ButtonDriver.Hardware.Arduino/Debug
-Eyedrivomatic.ButtonDriver.Macros.UnitTests.csproj.user
