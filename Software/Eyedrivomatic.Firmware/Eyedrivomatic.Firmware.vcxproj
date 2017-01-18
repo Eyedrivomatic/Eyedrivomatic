@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
+    <RootNamespace>$safeprojectname$</RootNamespace>
+    <ProjectName>Eyedrivomatic.Firmware</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>
+    </PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>
+    </PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\libraries\Servo\src;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src\utility;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2\utility;C:\Program Files (x86)\Arduino\libraries\Servo\src\utility;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Program Files (x86)\Arduino\libraries\Servo\src;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\rguwjt1g.drj\Micro Platforms\default\debuggers\VM_DBG;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\rguwjt1g.drj\Micro Platforms\default\debuggers;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware\__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=106010;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2\utility;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware\__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;F_CPU=16000000L;ARDUINO=106010;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="VisualMicro" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Eyedrivomatic.Firmware.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Action.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ActionService.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ConfigureChecksumAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ConfigureResponseAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="EnableLogAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="GetSettingAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="InvalidAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="LoggerService.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MessageProcessor.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MoveServoAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="NoAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ResetAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Response.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SendStatusAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SetSettingAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SettingActionBase.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="TimerService.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ToggleSwitchAction.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="VersionInfo.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="__vm\.Eyedrivomatic.Firmware.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ActionService.cpp" />
+    <ClCompile Include="ConfigureChecksumAction.cpp" />
+    <ClCompile Include="ConfigureResponseAction.cpp" />
+    <ClCompile Include="EnableLogAction.cpp" />
+    <ClCompile Include="GetSettingAction.cpp" />
+    <ClCompile Include="InvalidAction.cpp" />
+    <ClCompile Include="LoggerService.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MessageProcessor.cpp" />
+    <ClCompile Include="MoveServoAction.cpp" />
+    <ClCompile Include="NoAction.cpp" />
+    <ClCompile Include="ResetAction.cpp" />
+    <ClCompile Include="Response.cpp" />
+    <ClCompile Include="SendStatusAction.cpp" />
+    <ClCompile Include="SetSettingAction.cpp" />
+    <ClCompile Include="SettingActionBase.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="TimerService.cpp" />
+    <ClCompile Include="ToggleSwitchAction.cpp" />
+    <ClCompile Include="VersionInfo.cpp" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
