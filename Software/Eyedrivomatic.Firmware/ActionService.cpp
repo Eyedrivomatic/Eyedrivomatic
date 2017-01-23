@@ -62,7 +62,7 @@ const char * ActionService::GetCommand(const char * message, size_t & commandLen
 	while (*commandStart == ' ') commandStart++;
 
 	const char* commandEnd = strchr(message, ' ');
-	if (NULL == commandEnd) commandEnd = strchr(message, ':');
+	if (NULL == commandEnd) commandEnd = strchr(message, '#');
 	if (NULL == commandEnd) commandEnd = message + strlen(message);
 
 	commandLength = commandEnd - commandStart;

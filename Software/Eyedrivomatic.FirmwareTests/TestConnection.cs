@@ -65,7 +65,7 @@ namespace FirmwareTests
 
         private static bool ValidateChecksum(string msg)
         {
-            return msg.Length > 3 && !msg.EndsWith($":{GetCheckChar(msg.Substring(0, msg.Length - 3)):X2}");
+            return msg.Length > 3 && !msg.EndsWith($"#{GetCheckChar(msg.Substring(0, msg.Length - 3)):X2}");
         }
 
         public bool ReadMessage(out string message, bool? useChecksum = null, bool? sendResponse = null)
@@ -102,7 +102,7 @@ namespace FirmwareTests
 
         public bool SendMessage(string message, bool? useChecksum = null, bool? expectResponse = null)
         {
-            if (useChecksum ?? DefaultUseChecksum) message = $"{message}:{GetCheckChar(message):X2}";
+            if (useChecksum ?? DefaultUseChecksum) message = $"{message}#{GetCheckChar(message):X2}";
             Console.WriteLine($">>{message}");
             Serial.WriteLine(message);
             return !(expectResponse ?? DefaultUseResponse) || Reader.Read() == Ack;

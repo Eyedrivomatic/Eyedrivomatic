@@ -8,7 +8,7 @@
 #define LF  0X0A
 #define ACK 0x06 
 #define NAK 0x15
-#define CHECKSEP ':'
+#define CHECKSEP '#'
 
 
 const char OK[]  PROGMEM = "OK";
@@ -124,7 +124,7 @@ bool MessageClass::sendInternal(const char * data)
 	if (useChecksum)
 	{
 		char checksum[4];
-		snprintf_P(checksum, sizeof(checksum), PSTR(":%02X"));
+		snprintf_P(checksum, sizeof(checksum), PSTR("%1%02X"), CHECKSEP, calculateChecksum(data, size));
 		written += Serial.write(checksum, 3);
 	}
 	
