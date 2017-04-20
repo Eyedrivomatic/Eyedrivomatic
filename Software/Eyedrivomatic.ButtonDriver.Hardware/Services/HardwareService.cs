@@ -23,34 +23,39 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-using Microsoft.Practices.ServiceLocation;
 using System.Threading.Tasks;
 using Prism.Logging;
 using System.Diagnostics.Contracts;
 using System;
+using Eyedrivomatic.ButtonDriver.Configuration;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
-    [Export(typeof(IHardwareService)), PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof(IHardwareService))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class HardwareService : IHardwareService
     {
-        private IServiceLocator ServiceLocator { get; }
+        private readonly IButtonDriverConfigurationService _configurationService;
         private ILoggerFacade Logger { get; }
 
         [ImportingConstructor]
-        public HardwareService(IServiceLocator serviceLocator, ILoggerFacade logger)
+        public HardwareService([ImportMany]IButtonDriver[] availableDrivers, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
         {
-            Contract.Requires<ArgumentNullException>(serviceLocator != null, nameof(serviceLocator));
+            _configurationService = configurationService;
+            Contract.Requires<ArgumentNullException>(availableDrivers != null, nameof(availableDrivers));
+            Contract.Requires<ArgumentException>(availableDrivers.Any(), "No available drivers specified");
+            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
-            AvailableDrivers = new ObservableCollection<IButtonDriver>();
+            _availableDrivers = new ObservableCollection<IButtonDriver>(availableDrivers);
+            CurrentDriver = _availableDrivers.FirstOrDefault();
 
-            ServiceLocator = serviceLocator;
             Logger = logger;
         }
 
-        public ObservableCollection<IButtonDriver> AvailableDrivers { get; }
+        public ObservableCollection<IButtonDriver> AvailableDrivers => _availableDrivers;
 
         private IButtonDriver _currentDriver;
+        private readonly ObservableCollection<IButtonDriver> _availableDrivers;
 
         public event EventHandler CurrentDriverChanged;
 
@@ -60,6 +65,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             set
             {
                 _currentDriver = value;
+                ApplySettings();
                 CurrentDriverChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -68,18 +74,21 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             Logger?.Log("Initializing the Hardware Service.", Category.Debug, Priority.None);
 
-            //TODO: Find the drivers that are actually plugged in.
-            // And don't clear the array every time. Just add/remove as necessary
-            AvailableDrivers.Clear();
-            AvailableDrivers.AddRange(ServiceLocator.GetAllInstances<IButtonDriver>());
-            CurrentDriver = AvailableDrivers.FirstOrDefault();
+            //TODO: Find refresh the list of drivers that are actually plugged in.
+            ApplySettings();
 
             return Task.FromResult(true);
         }
 
+        private void ApplySettings()
+        {
+            if (_currentDriver == null) return;
+            _currentDriver.Profile = _configurationService.CurrentProfile;
+        }
+
         public void Dispose()
         {
-            CurrentDriver?.Dispose();
+            _currentDriver?.Dispose();
         }
     }
 }

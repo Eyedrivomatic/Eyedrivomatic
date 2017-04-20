@@ -37,7 +37,7 @@ namespace Eyedrivomatic.Configuration
         internal static DwellClickConfiguration DefaultConfiguration => DwellClickConfiguration.Default;
     }
 
-    [InheritedExport(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
     public class DwellClickConfigurationService : BindableBase, IDwellClickConfigurationService
     {
         private readonly DwellClickConfiguration _configuration;
@@ -68,6 +68,7 @@ namespace Eyedrivomatic.Configuration
                 e.PropertyName == nameof(RepeatDelayMilliseconds) )
             {
                 _hasChanges = true;
+                // ReSharper disable once ExplicitCallerInfoArgument
                 OnPropertyChanged(e.PropertyName);
             }
         }

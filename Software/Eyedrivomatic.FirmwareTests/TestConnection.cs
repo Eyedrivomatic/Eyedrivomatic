@@ -11,7 +11,6 @@ namespace FirmwareTests
     {
         private const char Ack = (char)0x06;
         private const char Nak = (char)0x15;
-        private const bool DefaultUseResponse = true;
         private const bool DefaultUseChecksum = true;
 
         public SerialPort Serial { set; get; }
@@ -20,7 +19,7 @@ namespace FirmwareTests
 
         public void Initialize()
         {
-            Serial = new SerialPort("COM3", 19200) { Encoding = Encoding.ASCII, ReadTimeout = 3000 };
+            Serial = new SerialPort("COM4", 19200) { Encoding = Encoding.ASCII, ReadTimeout = 3000 };
             Serial.Open();
             Serial.DiscardInBuffer();
             Serial.DiscardOutBuffer();
@@ -50,7 +49,7 @@ namespace FirmwareTests
 
             while (true)
             {
-                if (!ReadMessage(out message, false, false)) return false;
+                if (!ReadMessage(out message)) return false;
                 if (message.StartsWith("START:")) break;
             }
 
@@ -65,15 +64,16 @@ namespace FirmwareTests
 
         private static bool ValidateChecksum(string msg)
         {
-            return msg.Length > 3 && !msg.EndsWith($"#{GetCheckChar(msg.Substring(0, msg.Length - 3)):X2}");
+            var expectedCheckChar = GetCheckChar(msg.Substring(0, msg.Length - 3));
+            return msg.Length > 3 && msg.EndsWith($"#{expectedCheckChar:X2}");
         }
 
-        public bool ReadMessage(out string message, bool? useChecksum = null, bool? sendResponse = null)
+        public bool ReadMessage(out string message, bool? useChecksum = null)
         {
             while (true)
             {
                 message = Reader.ReadLine();
-                Console.WriteLine($"<<{message}");
+                Console.WriteLine($">>{message}");
 
                 if (message == null) return false;
 
@@ -86,15 +86,10 @@ namespace FirmwareTests
 
                 if (useChecksum ?? DefaultUseChecksum)
                 {
-                    if (!ValidateChecksum(message))
-                    {
-                        if (sendResponse ?? DefaultUseResponse) Serial.Write(new [] {Nak}, 0, 1);
-                        return false; //No mercy. No retry.
-                    }
+                    if (!ValidateChecksum(message)) return false;
                     message = message.Substring(0, message.Length - 3);
                 }
 
-                if (sendResponse ?? DefaultUseResponse) Serial.Write(new [] {Ack}, 0, 1);
                 break;
             }
             return true;
@@ -103,9 +98,23 @@ namespace FirmwareTests
         public bool SendMessage(string message, bool? useChecksum = null, bool? expectResponse = null)
         {
             if (useChecksum ?? DefaultUseChecksum) message = $"{message}#{GetCheckChar(message):X2}";
-            Console.WriteLine($">>{message}");
+            Console.WriteLine($"<<{message}");
             Serial.WriteLine(message);
-            return !(expectResponse ?? DefaultUseResponse) || Reader.Read() == Ack;
+
+            while (true)
+            {
+                var response = Reader.Read();
+                if (response == Ack) return  true;
+                if (response == Nak)
+                {
+                    var logProbably = Reader.ReadLine();
+                    Console.WriteLine(logProbably);
+                    return false;
+                }
+
+                var restOfLogProbably = Reader.ReadLine();
+                Console.WriteLine((char)response + restOfLogProbably);
+            }
         }
 
     }

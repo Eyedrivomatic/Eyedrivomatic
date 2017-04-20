@@ -20,8 +20,7 @@
 
 
 using System.ComponentModel.Composition;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -38,21 +37,22 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public string HeaderInfo => Strings.ViewName_Status;
 
-        public SafetyBypassState SafetyBypassStatus => HardwareService.CurrentDriver?.SafetyBypassStatus ?? SafetyBypassState.Safe;
-        public bool DiagonalSpeedReduction => HardwareService.CurrentDriver?.DiagonalSpeedReduction ?? false;
+        public SafetyBypassState SafetyBypassStatus => Driver?.SafetyBypass ?? SafetyBypassState.Safe;
+        public bool DiagonalSpeedReduction => Driver?.Profile.DiagonalSpeedReduction ?? false;
 
-        public Direction LastDirection => HardwareService.CurrentDriver?.LastDirection ?? Direction.None;
-        public Direction JoystickState => HardwareService.CurrentDriver?.CurrentDirection ?? Direction.None;
+        public Direction LastDirection => Driver?.LastDirection ?? Direction.None;
+        public Direction JoystickState => Driver?.CurrentDirection ?? Direction.None;
 
-        public Speed Speed => HardwareService.CurrentDriver?.Speed ?? Speed.None;
+        public string Profile => Driver?.Profile.Name;
 
-        public int XServoCenter => HardwareService.CurrentDriver?.XServoCenter ?? 90;
-        public int YServoCenter => HardwareService.CurrentDriver?.YServoCenter ?? 90;
-        public Speed NudgeSpeed => HardwareService.CurrentDriver?.NudgeSpeed ?? Speed.Slow;
-        public double NudgeDuration => HardwareService.CurrentDriver?.NudgeDuration/1000d ?? 0;
-        public double YDuration => HardwareService.CurrentDriver?.YDuration/1000d ?? 0;
-        public double XDuration => HardwareService.CurrentDriver?.XDuration/1000d ?? 0;
+        public string Speed => Driver?.Profile.CurrentSpeed?.Name ?? Strings.StatusView_Speed_None;
 
-        public ReadyState ReadyState => HardwareService.CurrentDriver?.ReadyState ?? ReadyState.None;
+        public int XServoCenter => Driver?.DeviceSettings.CenterPosX ?? 90;
+        public int YServoCenter => Driver?.DeviceSettings.CenterPosX ?? 90;
+        public double NudgeDuration => Driver?.Profile.NudgeDuration.TotalSeconds ?? 0d;
+        public double YDuration => Driver?.Profile.YDuration.TotalSeconds ?? 0d;
+        public double XDuration => Driver?.Profile.XDuration.TotalSeconds ?? 0d;
+
+        public ReadyState ReadyState => Driver?.ReadyState ?? ReadyState.None;
     }
 }

@@ -22,8 +22,7 @@
 using System;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -37,7 +36,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     namespace Contracts
     {
         [ContractClassFor(typeof(IButtonDriverMacroAsyncTask))]
-        public abstract class DriverMacroAsyncTaskContract : IButtonDriverMacroAsyncTask
+        internal abstract class DriverMacroAsyncTaskContract : IButtonDriverMacroAsyncTask
         {
             public abstract bool CanExecute(IButtonDriver driver);
 

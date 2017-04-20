@@ -23,42 +23,38 @@ using System;
 using System.Diagnostics.Contracts;
 
 using Prism.Mvvm;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
     public abstract class ButtonDriverViewModelBase : BindableBase
     {
+        private IButtonDriver _driver;
         protected IHardwareService HardwareService { get; }
 
-        public ButtonDriverViewModelBase(IHardwareService hardwareService)
+        protected IButtonDriver Driver
+        {
+            get { return _driver; }
+            private set
+            {
+                if (_driver != null) _driver.PropertyChanged -= OnDriverStatusChanged;
+                SetProperty(ref _driver, value);
+                if (_driver != null) _driver.PropertyChanged += OnDriverStatusChanged;
+            }
+        }
+
+        protected ButtonDriverViewModelBase(IHardwareService hardwareService)
         {
             Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
 
-            HardwareService = hardwareService;
-
-            hardwareService.CurrentDriverChanged += Hardware_CurrentDriverChanged;
-            Hardware_CurrentDriverChanged(this, EventArgs.Empty); //force an update.
-        }
-
-        protected virtual void Hardware_CurrentDriverChanged(object sender, EventArgs e)
-        {
-            if (HardwareService.CurrentDriver != null)
-                HardwareService.CurrentDriver.StatusChanged += OnDriverStatusChanged;
-            OnPropertyChanged(string.Empty);
+            hardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
+            Driver = hardwareService.CurrentDriver;
         }
 
         protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
         {
-            if (sender is IHardwareService && sender != HardwareService.CurrentDriver)
-            {
-                //a status change from a driver that is not active. Unsubscribe from events.
-                ((IHardwareService)sender).CurrentDriverChanged -= OnDriverStatusChanged;
-                return;
-            }
-
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(string.Empty);
         }
     }

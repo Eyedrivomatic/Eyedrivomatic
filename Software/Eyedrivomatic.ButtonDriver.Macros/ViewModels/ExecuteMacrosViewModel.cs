@@ -34,13 +34,16 @@ using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
-    [Export(typeof(ExecuteMacrosViewModel))]
+    [Export]
     public class ExecuteMacrosViewModel : BindableBase, INavigationAware, IHeaderInfoProvider<string>
     {
         private readonly IMacroSerializationService _macroSerializationService;
 
         [ImportingConstructor]
-        public ExecuteMacrosViewModel([Import("ExecuteMacroCommand")]ICommand executeMacroCommand, IMacroSerializationService macroSerializationService)
+        public ExecuteMacrosViewModel(
+            [Import("ExecuteMacroCommand")]ICommand executeMacroCommand, 
+            IMacroSerializationService macroSerializationService
+            )
         {
             Contract.Requires<ArgumentNullException>(executeMacroCommand != null, nameof(executeMacroCommand));
             Contract.Requires<ArgumentNullException>(macroSerializationService != null, nameof(macroSerializationService));

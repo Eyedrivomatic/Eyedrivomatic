@@ -21,12 +21,9 @@
 
 using System;
 using System.Threading.Tasks;
-
-using Prism.Logging;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.Resources;
 using System.Xml.Serialization;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -101,13 +98,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
             return base.GetValidationError(propertyName);
         }
 
-        string ValidateRelay()
+        private string ValidateRelay()
         {
             if (Relay == 0 || Relay > BrainBoxDriver.AvailableRelays) return string.Format(Strings.CycleRelayMacroTask_InvalidRelay, BrainBoxDriver.AvailableRelays);
             return null;
         }
 
-        string ValidateRepeat()
+        private string ValidateRepeat()
         {
             if (Repeat == 0) return string.Format(Strings.CycleRelayMacroTask_InvalidRepeat);
             return null;

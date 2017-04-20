@@ -47,8 +47,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\libraries\Servo\src;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src\utility;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2\utility;C:\Program Files (x86)\Arduino\libraries\Servo\src\utility;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Program Files (x86)\Arduino\libraries\Servo\src;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\rguwjt1g.drj\Micro Platforms\default\debuggers\VM_DBG;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\rguwjt1g.drj\Micro Platforms\default\debuggers;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware\__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\libraries\Servo\src;$(ProjectDir)..\..\..\..\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\Documents\Arduino\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;$(ProjectDir)..\Eyedrivomatic.Firmware;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\avr\include\;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\avr\include\avr\;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=106010;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -63,8 +63,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;C:\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2\utility;C:\Program Files (x86)\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;C:\Users\Cody Barnes\Documents\Arduino\libraries;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;C:\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Source\Eyedrivomatic\Software\Eyedrivomatic.Firmware\__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\libraries\Servo\src;$(ProjectDir)..\..\..\..\Users\Cody Barnes\Documents\Arduino\libraries\MsTimer2;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries\EEPROM\src;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\Documents\Arduino\libraries;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\cores\arduino;$(ProjectDir)..\..\..\..\Users\Cody Barnes\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.14\variants\standard;$(ProjectDir)..\Eyedrivomatic.Firmware;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\avr\include\;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\avr\include\avr\;$(ProjectDir)..\..\..\..\Program Files (x86)\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.Eyedrivomatic.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;F_CPU=16000000L;ARDUINO=106010;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -119,7 +119,7 @@
     <ClInclude Include="NoAction.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="ResetAction.h">
+    <ClInclude Include="StopAction.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="Response.h">
@@ -163,7 +163,7 @@
     <ClCompile Include="MessageProcessor.cpp" />
     <ClCompile Include="MoveServoAction.cpp" />
     <ClCompile Include="NoAction.cpp" />
-    <ClCompile Include="ResetAction.cpp" />
+    <ClCompile Include="StopAction.cpp" />
     <ClCompile Include="Response.cpp" />
     <ClCompile Include="SendStatusAction.cpp" />
     <ClCompile Include="SetSettingAction.cpp" />
@@ -180,4 +180,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM4" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

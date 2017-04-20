@@ -19,8 +19,10 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.ComponentModel.Composition;
-
+using System.Diagnostics.Contracts;
+using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
@@ -30,11 +32,20 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
     [ModuleExport(typeof(ButtonDriverConfigurationModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ButtonDriverConfigurationModule : IModule
     {
-        [Export]
-        internal ButtonDriverConfiguration Configuration => ButtonDriverConfiguration.Default;
+        public static ILoggerFacade Logger;
+
+        [ImportingConstructor]
+        public ButtonDriverConfigurationModule(ILoggerFacade logger)
+        {
+            Contract.Requires<ArgumentNullException>(logger != null, nameof(logger));
+
+            Logger = logger;
+            Logger.Log($"Creating Module {nameof(ButtonDriverConfigurationModule)}.", Category.Debug, Priority.None);
+        }
 
         public void Initialize()
         {
+            Logger?.Log($"Initializing Module {nameof(ButtonDriverConfigurationModule)}.", Category.Debug, Priority.None);
         }
     }
 }

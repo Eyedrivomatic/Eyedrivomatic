@@ -22,9 +22,6 @@
 using System.Windows;
 
 using System;
-using System.Globalization;
-using System.Threading;
-
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Startup;
 

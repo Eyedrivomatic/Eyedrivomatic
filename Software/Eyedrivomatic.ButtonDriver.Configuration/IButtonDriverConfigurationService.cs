@@ -19,10 +19,14 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
+    [ContractClass(typeof(Contracts.ButtonDriverConfigurationServiceContract))]
     public interface IButtonDriverConfigurationService : INotifyPropertyChanged
     {
         bool AutoConnect { get; set; }
@@ -32,7 +36,47 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 
         bool SafetyBypass { get; set; }
 
+        ObservableCollection<Profile> DrivingProfiles { get; }
+
+        Profile CurrentProfile { get; set; }
+
+        TimeSpan CommandTimeout { get; set; }
+
         void Save();
         bool HasChanges { get; }
     }
+
+
+    namespace Contracts
+    {
+        [ContractClassFor(typeof(IButtonDriverConfigurationService))]
+        internal abstract class ButtonDriverConfigurationServiceContract : IButtonDriverConfigurationService
+        {
+            public abstract event PropertyChangedEventHandler PropertyChanged;
+            public abstract bool AutoConnect { get; set; }
+            public abstract string ConnectionString { get; set; }
+            public abstract bool AutoSaveDeviceSettingsOnExit { get; set; }
+            public abstract bool SafetyBypass { get; set; }
+
+            public ObservableCollection<Profile> DrivingProfiles
+            {
+                get
+                {
+                    Contract.Ensures(Contract.Result<ObservableCollection<Profile>>() != null);
+                    return default(ObservableCollection<Profile>);
+                }
+            }
+
+            public Profile CurrentProfile
+            {
+                get { return default(Profile); }
+                set { Contract.Requires<ArgumentException>(value != null); }
+            }
+
+            public abstract TimeSpan CommandTimeout { get; set; }
+            public abstract void Save();
+            public abstract bool HasChanges { get; }
+        }
+
+}
 }

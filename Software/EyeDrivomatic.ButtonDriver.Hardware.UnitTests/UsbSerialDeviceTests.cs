@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace EyeDrivomatic.ButtonDriver.Hardware.UnitTests
 {

@@ -94,7 +94,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     namespace Contracts
     {
         [ContractClassFor(typeof(MacroTask))]
-        public abstract class MacroTaskContract : MacroTask
+        internal abstract class MacroTaskContract : MacroTask
         {
             protected override string[] ValidatedProperties
             {

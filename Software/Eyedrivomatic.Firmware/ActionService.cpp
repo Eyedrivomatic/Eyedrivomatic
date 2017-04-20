@@ -17,7 +17,7 @@
 #include "EnableLogAction.h"
 #include "MoveServoAction.h"
 #include "InvalidAction.h"
-#include "ResetAction.h"
+#include "StopAction.h"
 #include "LoggerService.h"
 #include "ToggleSwitchAction.h"
 
@@ -35,7 +35,7 @@ const char ActionName_ConfigureChecksum[] PROGMEM = "#";
 const char ActionName_ConfigureResponse[] PROGMEM = "!";
 const char ActionName_SendStatus[] PROGMEM = "STATUS";
 const char ActionName_EnableLog[] PROGMEM = "LOG";
-const char ActionName_Reset[] PROGMEM = "RESET";
+const char ActionName_Stop[] PROGMEM = "STOP";
 const char ActionName_Move[] PROGMEM = "MOVE";
 const char ActionName_Switch[] PROGMEM = "SWITCH";
 const char ActionName_Set[] PROGMEM = "SET";
@@ -47,7 +47,7 @@ const CommandMapEntry CommandMap[] PROGMEM =
 	CommandMapEntry(ActionName_ConfigureResponse, ConfigureResponseAction),
 	CommandMapEntry(ActionName_SendStatus, SendStatusAction),
 	CommandMapEntry(ActionName_EnableLog, EnableLogAction),
-	CommandMapEntry(ActionName_Reset, ResetAction),
+	CommandMapEntry(ActionName_Stop, StopAction),
 	CommandMapEntry(ActionName_Move, MoveServoAction),
 	CommandMapEntry(ActionName_Switch, ToggleSwitchAction),
 	CommandMapEntry(ActionName_Set, SetSettingAction),
@@ -62,7 +62,7 @@ const char * ActionService::GetCommand(const char * message, size_t & commandLen
 	while (*commandStart == ' ') commandStart++;
 
 	const char* commandEnd = strchr(message, ' ');
-	if (NULL == commandEnd) commandEnd = strchr(message, '#');
+	if (NULL == commandEnd) commandEnd = strchr(message, CHECKSEP);
 	if (NULL == commandEnd) commandEnd = message + strlen(message);
 
 	commandLength = commandEnd - commandStart;

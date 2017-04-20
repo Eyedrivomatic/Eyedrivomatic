@@ -7,22 +7,26 @@
 #include "State.h"
 #include "Settings.h"
 
-#define SERVO_X 8
-#define SERVO_Y 9
+#define SERVO_X 9
+#define SERVO_Y 8
 
 #define SendStatus() SendStatusAction.execute(NULL)
 
 static int switchPins[] =
 {
 	7, //Switch1
-	6, //Switch2
-	5, //Switch3
+	5, //Switch2
+	3, //Switch3
 };
+
+#define SERVO_ENABLE 6
 
 void StateClass::init()
 {
+	pinMode(SERVO_ENABLE, OUTPUT);
 	pinMode(SERVO_X, OUTPUT);
 	pinMode(SERVO_Y, OUTPUT);
+	digitalWrite(SERVO_ENABLE, LOW);
 	digitalWrite(SERVO_X, LOW);
 	digitalWrite(SERVO_Y, LOW);
 
@@ -33,10 +37,12 @@ void StateClass::init()
 
 void StateClass::reset()
 {
+	digitalWrite(SERVO_ENABLE, LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch1], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch2], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch3], LOW);
 	resetServoPositions(); //queues a status message.
+	digitalWrite(SERVO_ENABLE, HIGH);
 }
 
 #define REL_POS(value, minValue, centerValue, maxValue) static_cast<int8_t>((value >= centerValue) \

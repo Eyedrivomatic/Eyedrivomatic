@@ -19,12 +19,13 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 
 using Prism.Commands;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
@@ -42,18 +43,53 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public string HeaderInfo { get; } = Strings.ViewName_OutdoorDriving;
 
-        public ICommand SetXDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.XDuration = ulong.Parse(duration); }, duration => { ulong tmp;  return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
-        public ICommand SetYDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.YDuration = ulong.Parse(duration); }, duration => { ulong tmp; return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
-        public ICommand DiagonalSpeedReductionToggle => new DelegateCommand(() => { HardwareService.CurrentDriver.DiagonalSpeedReduction = !HardwareService.CurrentDriver.DiagonalSpeedReduction; }, ()=> IsOnline);
+        public ICommand SetXDuration => new DelegateCommand<string>(
+            duration =>
+            {
+                Driver.Profile.XDuration = TimeSpan.FromMilliseconds(ulong.Parse(duration));
+            }, 
+            duration => { ulong tmp;  return ulong.TryParse(duration, out tmp) && IsOnline; });
 
-        public ICommand Continue => new DelegateCommand(() => HardwareService.CurrentDriver?.Continue(), () => IsOnline && (HardwareService.CurrentDriver.ReadyState == ReadyState.Any || HardwareService.CurrentDriver?.ReadyState == ReadyState.Continue));
+        public ICommand SetYDuration => new DelegateCommand<string>(
+            duration =>
+            {
+                Driver.Profile.YDuration = TimeSpan.FromMilliseconds(ulong.Parse(duration));
+            }, 
+            duration => { ulong tmp; return ulong.TryParse(duration, out tmp) && IsOnline; });
 
-        public ICommand Reset => new DelegateCommand(() => HardwareService.CurrentDriver?.Reset(), () => IsOnline);
+        public ICommand DiagonalSpeedReductionToggle => new DelegateCommand(
+            () => Driver.Profile.DiagonalSpeedReduction = !Driver.Profile.DiagonalSpeedReduction, 
+            () => IsOnline);
 
-        public ICommand Nudge => new DelegateCommand<XDirection?>(direction => HardwareService.CurrentDriver?.Nudge(direction.Value), direction => direction.HasValue && IsOnline);
-        public ICommand Move => new DelegateCommand<Direction?>(direction => HardwareService.CurrentDriver?.Move(direction.Value), direction => direction.HasValue && IsOnline && HardwareService.CurrentDriver.CanMove(direction.Value));
+        public ICommand Continue => new DelegateCommand(
+            () => Driver.Continue(), 
+            () => IsOnline && (Driver.ReadyState == ReadyState.Any || Driver.ReadyState == ReadyState.Continue));
 
-        public ICommand SetSpeed => new DelegateCommand<Speed?>(speed => HardwareService.CurrentDriver.Speed = speed.Value, speed => speed.HasValue && IsOnline );
+        public ICommand Reset => new DelegateCommand(
+            () => Driver.Stop(), 
+            () => IsOnline);
+
+        public ICommand Nudge => new DelegateCommand<XDirection?>(
+            direction => { if (direction != null) Driver.Nudge(direction: direction.Value); }, 
+            direction => direction.HasValue && IsOnline);
+        public ICommand Move => new DelegateCommand<Direction?>(
+            direction => { if (direction != null) Driver.Move(direction: direction.Value); }, 
+            direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value));
+
+        public ICommand SetSpeed => new DelegateCommand<string>(
+            speed =>
+            {
+                Driver.Profile.CurrentSpeed =
+                    Driver.Profile.Speeds.Single(
+                        s => string.Compare(s.Name, speed, StringComparison.CurrentCultureIgnoreCase) == 0);
+
+            }, 
+            speed =>
+            {
+                return !string.IsNullOrWhiteSpace(speed) && IsOnline &&
+                       Driver.Profile.Speeds.Any(
+                           s => string.Compare(s.Name, speed, StringComparison.CurrentCultureIgnoreCase) == 0);
+            });
 
         [Import("ExecuteMacroCommand")]
         public ICommand ExecuteMacroCommand { get; internal set; }
@@ -61,9 +97,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         [Import("DrivingPageMacro")]
         public IMacro DrivingPageMacro { get; internal set; }
 
-        public bool DiagnalSpeedReduction => IsOnline && HardwareService.CurrentDriver.DiagonalSpeedReduction;
+        public bool DiagnalSpeedReduction => IsOnline && Driver.Profile.DiagonalSpeedReduction;
 
-        bool IsOnline => HardwareService.CurrentDriver?.HardwareReady ?? false;
+        public bool IsOnline => Driver?.HardwareReady ?? false;
     }
 
 }

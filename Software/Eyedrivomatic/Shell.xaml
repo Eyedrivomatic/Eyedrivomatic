@@ -42,7 +42,7 @@
             <RowDefinition Height="75*" />
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0" Stretch="Uniform" StretchDirection="DownOnly">
-            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}" Width="{Binding ElementName=LayoutRoot, Path=RenderWidth}"/>
+            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}" Width="{Binding ElementName=LayoutRoot, Path=ActualWidth}"/>
         </Viewbox>
         <TabControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.GridRegion}" Style="{StaticResource GridRegionStyle}">
                 <TabControl.Template>

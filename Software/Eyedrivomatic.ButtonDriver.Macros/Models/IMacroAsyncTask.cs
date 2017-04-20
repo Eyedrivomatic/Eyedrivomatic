@@ -35,7 +35,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     namespace Contracts
     {
         [ContractClassFor(typeof(IMacroAsyncTask))]
-        public abstract class MacroAsyncTaskContract : IMacroAsyncTask
+        internal abstract class MacroAsyncTaskContract : IMacroAsyncTask
         {
             public abstract bool CanExecute();
 

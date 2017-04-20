@@ -19,9 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.Infrastructure;
-
 namespace Eyedrivomatic.ButtonDriver
 {
     public static class DriverExtensions

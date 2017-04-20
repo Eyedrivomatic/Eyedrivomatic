@@ -28,9 +28,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Prism.Commands;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
+using Eyedrivomatic.ButtonDriver.Hardware.Communications;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -61,7 +61,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            OnPropertyChanged(string.Empty);
+            OnPropertyChanged();
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -79,9 +79,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public DelegateCommand SaveCommand { get; }
 
-        public bool Connecting => HardwareService.CurrentDriver?.IsConnecting ?? false;
-        public bool Connected => HardwareService.CurrentDriver?.IsConnected ?? false;
-        public bool Ready => HardwareService.CurrentDriver?.HardwareReady ?? false;
+        public bool Connecting => Driver.Connection.State == ConnectionState.Connecting;
+        public bool Connected => Driver.Connection.State == ConnectionState.Connected;
+        public bool Ready => Driver.HardwareReady;
 
         /// <remarks>
         /// This safety bypass setting is a wierd animal. Currently the firmware does not save the 
@@ -94,15 +94,15 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             get
             {
-                return HardwareService.CurrentDriver != null
-                    ? HardwareService.CurrentDriver.SafetyBypassStatus == SafetyBypassState.Unsafe
+                return Driver != null
+                    ? Driver.SafetyBypass == SafetyBypassState.Unsafe
                     : _configurationService.SafetyBypass;
             }
             set
             {
-                if (HardwareService.CurrentDriver != null)
+                if (Driver != null)
                 {
-                    HardwareService.CurrentDriver.SafetyBypassStatus = value ? SafetyBypassState.Unsafe : SafetyBypassState.Safe;
+                    Driver.SafetyBypass = value ? SafetyBypassState.Unsafe : SafetyBypassState.Safe;
                     OnPropertyChanged();
                 }
                 else
@@ -118,10 +118,19 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             set { _configurationService.AutoSaveDeviceSettingsOnExit = value; }
         }
 
-        public class Device
+        public class SerialDeviceInfo
         {
-            public string Name;
-            public string Port;
+            public readonly string Name;
+            public readonly string Port;
+
+            public SerialDeviceInfo(string name, string port)
+            {
+                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
+                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(port));
+
+                Name = name;
+                Port = port;
+            }
 
             public override string ToString()
             {
@@ -129,14 +138,14 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         };
 
-        private IList<Device> _availableDevices;
-        public IList<Device> AvailableDevices
+        private IList<SerialDeviceInfo> _availableDevices;
+        public IList<SerialDeviceInfo> AvailableDevices
         {
             get { return _availableDevices; }
             set { SetProperty(ref _availableDevices, value); }
         }
 
-        public Device SelectedDevice
+        public SerialDeviceInfo SelectedDevice
         {
             get { return AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString);  }
             set { _configurationService.ConnectionString = (value?.Port ?? string.Empty); }
@@ -151,7 +160,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public void RefreshAvailableDeviceList()
         {
 
-            AvailableDevices = (from dev in HardwareService.CurrentDriver?.GetAvailableDevices() orderby dev.Item2 select new Device { Name = dev.Item1, Port = dev.Item2 }).ToList();
+            AvailableDevices = (from dev in Driver?.Connection.GetAvailableDevices() orderby dev.Item2 select new SerialDeviceInfo(dev.Item1, dev.Item2)).ToList();
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -166,27 +175,29 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         protected void SaveChanges()
         {
             _configurationService.Save();
-            HardwareService.CurrentDriver?.SaveSettings();
             SaveCommand.RaiseCanExecuteChanged();
         }
 
         protected bool CanSaveChanges()
         {
-            return (HardwareService.CurrentDriver?.IsConnected ?? false) || _configurationService.HasChanges;
+            return Driver.Connection.State == ConnectionState.Connected || _configurationService.HasChanges;
         }
 
         protected async Task AutoDetectDeviceAsync()
         {
             RefreshAvailableDeviceList();
-            var port = await HardwareService.CurrentDriver?.AutoDetectDeviceAsync();
-            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.Port == port);
+            await Driver.Connection.AutoConnectAsync();
+            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.Port == Driver.Connection.ConnectionString);
         }
 
         protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
 
         protected Task ConnectAsync()
         {
-            return HardwareService.CurrentDriver?.ConnectAsync(SelectedDevice.Port);
+            Contract.Requires<InvalidOperationException>(!string.IsNullOrWhiteSpace(SelectedDevice?.Port), "Unable to connect - no device selected.");
+            Contract.Ensures(Contract.Result<Task>() != null);
+
+            return Driver.Connection.ConnectAsync(SelectedDevice.Port);
         }
 
         protected bool CanConnect()
@@ -196,7 +207,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected void Disconnect()
         {
-            HardwareService.CurrentDriver?.Disconnect();
+            Driver.Connection.Disconnect();
         }
 
         protected bool CanDisconnect()

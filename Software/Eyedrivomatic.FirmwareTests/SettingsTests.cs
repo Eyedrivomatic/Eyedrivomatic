@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace FirmwareTests
 {
@@ -12,7 +11,7 @@ namespace FirmwareTests
         private const uint YMin = 60;
         private const uint YCenter = 90;
         private const uint YMax = 120;
-        private bool[] _switchStates = { false, false, false };
+        private readonly bool[] _switchStates = { false, false, false };
 
         private readonly TestConnection _testConnection = new TestConnection();
 

@@ -30,7 +30,7 @@ TimerCallback ToggleSwitchActionClass::CallbackRoutines[] =
 
 //Parameters:
 // D N S
-// Where each pair is a Hex byte and
+// Where
 //  D = Duration in milliseconds. Unsigned value from 0 to 10000;
 //  N = Switch number from 1 to 3
 //  S = State, ON or OFF (switch closed or open)

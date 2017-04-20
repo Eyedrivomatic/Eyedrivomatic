@@ -30,6 +30,8 @@ using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Communications;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Infrastructure;
@@ -41,10 +43,10 @@ namespace Eyedrivomatic.ButtonDriver
         DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule), nameof(MacrosModule) })]
     public class ButtonDriverModule : IModule, IDisposable
     {
-        private readonly IHardwareService HardwareService;
-        private readonly IButtonDriverConfigurationService ConfigurationService;
-        private readonly IRegionManager RegionManager;
-        private readonly ILoggerFacade Logger;
+        private readonly IHardwareService _hardwareService;
+        private readonly IButtonDriverConfigurationService _configurationService;
+        private readonly IRegionManager _regionManager;
+        private readonly ILoggerFacade _logger;
 
         [ImportingConstructor]
         public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
@@ -53,78 +55,84 @@ namespace Eyedrivomatic.ButtonDriver
             Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
             Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
 
-            Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
+            _logger = logger;
+            _logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
-            RegionManager = regionManager;
-            HardwareService = hardwareService;
-            ConfigurationService = configurationService;
+            _regionManager = regionManager;
+            _hardwareService = hardwareService;
+            _configurationService = configurationService;
         }
 
         public async void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
+            _logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
-            RegionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
+            _regionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
 
-            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(OutdoorDrivingView));
-            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(TrimView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(DrivingView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
 
             try
             {
-                await HardwareService.InitializeAsync();
+                await _hardwareService.InitializeAsync();
+                _logger?.Log($"HardwareService Initialized. AutoConnect: [{_configurationService.AutoConnect}]", Category.Debug, Priority.None);
 
-                Logger?.Log($"HardwareService Initialized. AutoConnect: [{ConfigurationService.AutoConnect}]", Category.Debug, Priority.None);
-                if (ConfigurationService.AutoConnect)
+                var connection = _hardwareService.CurrentDriver?.Connection;
+                if (_configurationService.AutoConnect)
                 {
+                    if (connection == null)
+                    {
+                        _logger?.Log("Failed to initialize hardware. No driver selected.", Category.Exception, Priority.None);
+                        NavigateToConfiguration();
+                        return;
+                    }
+
                     NavigateToDriver();
 
-                    var connectionString = ConfigurationService.ConnectionString;
+                    var connectionString = _configurationService.ConnectionString;
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
-                        Logger.Log($"Connection string: [{connectionString}]", Category.Info, Priority.None);
-                        await HardwareService.CurrentDriver?.ConnectAsync(connectionString);
+                        _logger.Log($"Connection string: [{connectionString}]", Category.Info, Priority.None);
+                        await connection.ConnectAsync(connectionString);
                     }
                     else
                     {
-                        Logger?.Log("Connection string not specified. Attempting to auto-detect.", Category.Warn, Priority.None);
-                        await HardwareService?.CurrentDriver.AutoDetectDeviceAsync();
+                        _logger?.Log("Connection string not specified. Attempting to auto-detect.", Category.Warn, Priority.None);
+                        await connection.AutoConnectAsync();
                     }
                 }
+
+                if (connection?.State != ConnectionState.Connected) NavigateToConfiguration();
             }
             catch (Exception ex)
             {
-                Logger?.Log($"Hardware Initialization Failed - {ex}", Category.Exception, Priority.None);
+                _logger?.Log($"Hardware Initialization Failed - {ex}", Category.Exception, Priority.None);
             }
-
-            if (!HardwareService.CurrentDriver?.IsConnected ?? false) NavigateToConfiguration();
         }
 
         private void NavigateToConfiguration()
         {
-            Logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
-            RegionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
-            RegionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
+            _logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
+            _regionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
+            _regionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
         }
 
         private void NavigateToDriver()
         {
-            Logger?.Log($"Navigating to [{nameof(OutdoorDrivingView)}].", Category.Debug, Priority.None);
-            RegionManager.RequestNavigate(RegionNames.GridRegion, nameof(OutdoorDrivingView));
+            _logger?.Log($"Navigating to [{nameof(DrivingView)}].", Category.Debug, Priority.None);
+            _regionManager.RequestNavigate(RegionNames.GridRegion, nameof(DrivingView));
         }
 
         public void Dispose()
         {
-            if (ConfigurationService.AutoSaveDeviceSettingsOnExit && HardwareService.CurrentDriver != null) 
+            if (_configurationService.AutoSaveDeviceSettingsOnExit && _hardwareService.CurrentDriver != null) 
             {
-                Logger?.Log("Auto saving device settings.", Category.Debug, Priority.None);
+                _logger?.Log("Auto saving device settings.", Category.Debug, Priority.None);
 
-                HardwareService.CurrentDriver?.SaveSettings();
-                ConfigurationService.SafetyBypass = HardwareService.CurrentDriver.SafetyBypassStatus == SafetyBypassState.Unsafe;
-                ConfigurationService.Save();
+                _configurationService.SafetyBypass = _hardwareService.CurrentDriver.SafetyBypass == SafetyBypassState.Unsafe;
+                _configurationService.Save();
             }
-            HardwareService?.Dispose();
+            _hardwareService?.Dispose();
         }
     }
 }

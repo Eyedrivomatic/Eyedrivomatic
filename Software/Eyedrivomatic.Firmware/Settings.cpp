@@ -27,7 +27,7 @@ void SettingsClass::reset()
 	CenterPos_X = 90;
 	MinPos_X = 60;
 	MaxPos_X = 120;
-	CenterPos_Y = 82;
+	CenterPos_Y = 90;
 	MinPos_Y = 60;
 	MaxPos_Y = 120;
 

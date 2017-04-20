@@ -19,10 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-
-using Prism.Mvvm;
-
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Resources;
 using System.ComponentModel.Composition;

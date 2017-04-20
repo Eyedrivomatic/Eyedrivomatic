@@ -19,7 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel;
 
 namespace Eyedrivomatic.Controls

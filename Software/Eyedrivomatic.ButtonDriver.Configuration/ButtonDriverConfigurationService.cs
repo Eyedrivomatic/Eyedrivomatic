@@ -20,18 +20,27 @@
 
 
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using Prism.Logging;
 using Prism.Mvvm;
 
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
-    [InheritedExport(typeof(IButtonDriverConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
-    public class ButtonDriverConfigurationService : BindableBase, IButtonDriverConfigurationService
+    public static class ButtonDriverConfigurationProvider
+    {
+        [Export]
+        internal static ButtonDriverConfiguration DefaultConfiguration => ButtonDriverConfiguration.Default;
+    }
+
+    [Export(typeof(IButtonDriverConfigurationService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    internal class ButtonDriverConfigurationService : BindableBase, IButtonDriverConfigurationService
     {
         private readonly ButtonDriverConfiguration _configuration;
         private bool _hasChanges;
@@ -45,7 +54,9 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             Contract.Requires<ArgumentNullException>(configuration != null, nameof(configuration));
 
             _configuration = configuration;
-            _configuration.PropertyChanged += Configuration_PropertyChanged;
+            _configuration.PropertyChanged += ConfigurationSectionPropertyChanged;
+            _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
+            ((INotifyPropertyChanged)_configuration.DrivingProfiles).PropertyChanged += ProfileOnPropertyChanged;
 
             if (_configuration.SettingsVersion < 1)
             {
@@ -54,16 +65,85 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             }
         }
 
-        private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        #region Change event handlers
+        private void DrivingProfilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            if (e.PropertyName == nameof(AutoConnect) ||
-                e.PropertyName == nameof(AutoSaveDeviceSettingsOnExit) ||
-                e.PropertyName == nameof(ConnectionString))
+            HasChanges = true;
+
+            if (args.Action == NotifyCollectionChangedAction.Reset ||
+                args.Action == NotifyCollectionChangedAction.Remove ||
+                args.Action == NotifyCollectionChangedAction.Replace)
             {
-                _hasChanges = true;
-                OnPropertyChanged(e.PropertyName);
+                foreach (var profile in args.OldItems.Cast<Profile>())
+                {
+                    profile.PropertyChanged -= ProfileOnPropertyChanged;
+                    profile.Speeds.CollectionChanged -= SpeedsOnCollectionChanged;
+                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged += ProfileOnPropertyChanged;
+
+                    if (CurrentProfile == profile) CurrentProfile = DrivingProfiles.FirstOrDefault();
+                }
+            }
+
+            if (args.Action == NotifyCollectionChangedAction.Add||
+                args.Action == NotifyCollectionChangedAction.Replace)
+            {
+                foreach (var profile in args.NewItems.Cast<Profile>())
+                {
+                    profile.PropertyChanged += ProfileOnPropertyChanged;
+                    profile.Speeds.CollectionChanged += SpeedsOnCollectionChanged;
+                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged -= ProfileOnPropertyChanged;
+
+                    if (CurrentProfile == null) CurrentProfile = profile;
+                }
             }
         }
+
+        private void ProfileOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            HasChanges = true;
+        }
+
+        private void SpeedsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            HasChanges = true;
+
+            if (args.Action == NotifyCollectionChangedAction.Reset ||
+                args.Action == NotifyCollectionChangedAction.Remove ||
+                args.Action == NotifyCollectionChangedAction.Replace)
+            {
+                var currentSpeed = CurrentProfile?.CurrentSpeed;
+                foreach (var profileSpeed in args.OldItems.Cast<ProfileSpeed>())
+                {
+                    profileSpeed.PropertyChanged -= ProfileSpeedOnPropertyChanged;
+
+                    if (currentSpeed == profileSpeed)
+                        CurrentProfile.CurrentSpeed = CurrentProfile.Speeds.FirstOrDefault();
+                }
+            }
+
+            if (args.Action == NotifyCollectionChangedAction.Add ||
+                args.Action == NotifyCollectionChangedAction.Replace)
+            {
+                foreach (var profileSpeed in args.NewItems.Cast<ProfileSpeed>())
+                {
+                    profileSpeed.PropertyChanged += ProfileOnPropertyChanged;
+                }
+            }
+        }
+
+        private void ProfileSpeedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            HasChanges = true;
+        }
+
+        private void ConfigurationSectionPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (sender == _configuration)
+            {
+                OnPropertyChanged(args.PropertyName);
+            }
+        }
+        #endregion Change event handlers
 
         public bool AutoConnect
         {
@@ -89,16 +169,44 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             set { _configuration.SafetyBypass= value; }
         }
 
-        public bool HasChanges => _hasChanges;
+        [Export(nameof(CommandTimeout))]
+        public TimeSpan CommandTimeout
+        {
+            get { return TimeSpan.FromMilliseconds(_configuration.CommandTimeout); }
+            set { _configuration.CommandTimeout = value.TotalMilliseconds; }
+        }
+
+        public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
+
+        public Profile CurrentProfile
+        {
+            get
+            {
+                return _configuration.DrivingProfiles.CurrentProfile;
+            }
+            set
+            {
+                if (_configuration.DrivingProfiles.CurrentProfile == value) return;
+
+                _configuration.DrivingProfiles.CurrentProfile = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool HasChanges
+        {
+            get { return _hasChanges; }
+            private set { SetProperty(ref _hasChanges, value); }
+        } 
 
         public void Save()
         {
-            if (!_hasChanges) return;
+            if (!HasChanges) return;
 
             Logger.Log("Saving Changes", Category.Info, Priority.None);
 
             _configuration.Save();
-            _hasChanges = false;
+            HasChanges = false;
         }
     }
 }

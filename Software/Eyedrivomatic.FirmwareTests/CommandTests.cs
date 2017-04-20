@@ -45,9 +45,38 @@ namespace FirmwareTests
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
         }
 
+        public void Test_Get_All_GetsSettings()
+        {
+            _testConnection.ReadStartup();
+            Assert.That(_testConnection.SendMessage("GET ALL"), Is.True);
+
+            string message;
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: XMIN 0"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: XCENTER 0"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: XMAX 180"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: YMIN 0"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: YCENTER 90"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: YMAX 180"));
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: SWITCH1 OFF"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: SWITCH2 OFF"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: SWITCH3 OFF"));
+        }
+
         [Test, Timeout(2500)]
         [TestCase(1000, 100, 100)]
         [TestCase(500, -100, -100)]
+        [TestCase(500, 0, 100)]
+        [TestCase(500, 100, 0)]
         public void Test_Move_BasicallyWorks(int duration, int x, int y)
         {
             _testConnection.ReadStartup();
@@ -97,9 +126,9 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            for (var pos = 0; pos <= 100; pos++)
+            for (var pos = -100; pos <= 100; pos++)
             {
-                Assert.That(_testConnection.SendMessage($"MOVE 0 {pos} -{pos}"), Is.True);
+                Assert.That(_testConnection.SendMessage($"MOVE 0 {pos} {-pos}"), Is.True);
 
                 var xAbs = Math.Round(pos > 0
                     ? XCenter + (XMax - XCenter)*(pos/100d)
@@ -212,7 +241,7 @@ namespace FirmwareTests
         }
 
         [Test]
-        public void Test_Reset_ImmediatelyResets()
+        public void Test_Stop_ImmediatelyStops()
         {
             _testConnection.ReadStartup();
             Assert.That(_testConnection.SendMessage($"MOVE 10000 100 -100"), Is.True);
@@ -222,7 +251,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Does.StartWith("STATUS:"));
 
-            Assert.That(_testConnection.SendMessage($"RESET"), Is.True);
+            Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
@@ -230,14 +259,14 @@ namespace FirmwareTests
         }
 
         [Test]
-        public void Test_NothingToReset_RespondsWithStatus()
+        public void Test_NothingToStop_RespondsWithStatus()
         {
             _testConnection.ReadStartup();
         
             var start = DateTime.Now;
             string message;
 
-            Assert.That(_testConnection.SendMessage($"RESET"), Is.True);
+            Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing

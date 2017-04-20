@@ -23,8 +23,7 @@ using System;
 using System.Threading.Tasks;
 
 using Prism.Logging;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 
 namespace Eyedrivomatic.ButtonDriver.Macros

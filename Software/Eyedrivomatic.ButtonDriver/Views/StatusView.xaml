@@ -31,6 +31,8 @@
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              mc:Ignorable="d" 
              MaxHeight="200"
              prism:ViewModelLocator.AutoWireViewModel="True">
@@ -83,7 +85,7 @@
                     <Setter Property="FontSize" Value="18"/>
                 </Style.Setters>
             </Style>
-            <infrastructure:LocalizedEnumNameConverter x:Key="SpeedNameConverter" EnumType="{x:Type hardware:Speed}" ResourcePrefix="StatusView_" />
+            <!--infrastructure:LocalizedEnumNameConverter x:Key="SpeedNameConverter" EnumType="{x:Type services:Speed}" ResourcePrefix="StatusView_" /-->
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -115,7 +117,7 @@
 
         <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource DirectionStatusPanelStyle}">
             <DockPanel>
-                <Label x:Name="Speed" Content="{Binding Speed, Converter={StaticResource SpeedNameConverter}}"  Style="{StaticResource SpeedStatusValueStyle}" DockPanel.Dock="Top"/>
+                <Label x:Name="Speed" Content="{Binding Path=Speed}"  Style="{StaticResource SpeedStatusValueStyle}" DockPanel.Dock="Top"/>
                 <Image x:Name="LastDirection" Source="{Binding Path=LastDirection, Converter={StaticResource DirectionToImageConverter}}" Margin="0"/>
             </DockPanel>
         </Border>
@@ -153,7 +155,7 @@
             <Label x:Name="YServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=YServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="1" Grid.Column="1" />
 
             <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeSpeed}" Grid.Row="2" Grid.Column="0"/>
-            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeSpeed, Converter={StaticResource SpeedNameConverter}}" Grid.Row="2" Grid.Column="1" />
+            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Grid.Row="2" Grid.Column="1" />
 
             <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeDuration}" Grid.Row="3" Grid.Column="0"/>
             <Label x:Name="NudgeDuration" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeDuration}" ContentStringFormat="{x:Static resources:Strings.StatusView_DurationFormat}"  Grid.Row="3" Grid.Column="1" />

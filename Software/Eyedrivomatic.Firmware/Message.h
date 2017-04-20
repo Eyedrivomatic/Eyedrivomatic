@@ -12,6 +12,9 @@
 #define READ_BUFFER_SIZE 32
 #define WRITE_BUFFER_SIZE 128
 
+#define CHECKSEP '#'
+
+
 class MessageClass
 {
  protected:

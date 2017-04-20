@@ -22,14 +22,16 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
-
+using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware
 {
-    [ModuleExport(typeof(ButtonDriverHardwareModule))]
+    [ModuleExport(typeof(ButtonDriverHardwareModule), 
+        InitializationMode = InitializationMode.WhenAvailable, 
+        DependsOnModuleNames = new [] {nameof (ButtonDriverConfigurationModule)})]
     public class ButtonDriverHardwareModule : IModule
     {
         public static ILoggerFacade Logger;

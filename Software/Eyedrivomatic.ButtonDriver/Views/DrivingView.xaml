@@ -1,0 +1,218 @@
+﻿<!--
+ Copyright (c) 2016 Eyedrivomatic Authors
+
+ This file is part of the 'Eyedrivomatic' PC application.
+
+    This program is intended for use as part of the 'Eyedrivomatic System' for 
+    controlling an electric wheelchair using soley the user's eyes. 
+
+    Eyedrivomatic is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Eyedrivomaticis distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<UserControl x:Class="Eyedrivomatic.ButtonDriver.Views.DrivingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
+             xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+             xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="876">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" BasedOn="{StaticResource ImportantTextButtonStyle}" TargetType="{x:Type Button}">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FontStyle" Value="Oblique"/>
+                </Style.Setters>
+            </Style>
+
+
+            <Style x:Key="ForwardBackButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+                <Setter Property="Background" Value="#FF57D465"/>
+            </Style>
+
+            <Style x:Key="ForwardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ForwardBackButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Up}"/>
+            </Style>
+
+            <Style x:Key="BackwardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ForwardBackButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Down}"/>
+            </Style>
+
+
+            <Style x:Key="LeftRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+            </Style>
+
+            <Style x:Key="LeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LeftRightButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Left}"/>
+            </Style>
+
+            <Style x:Key="RightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LeftRightButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Right}"/>
+            </Style>
+
+            <Style x:Key="DiagonalButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+                <Setter Property="Background" Value="#FF94ADDB"/>
+            </Style>
+
+            <Style x:Key="ForwardLeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource UpLeft}"/>
+            </Style>
+
+            <Style x:Key="ForwardRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource UpRight}"/>
+            </Style>
+
+            <Style x:Key="BackwardLeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource DownLeft}"/>
+            </Style>
+
+            <Style x:Key="BackwardRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource DownRight}"/>
+            </Style>
+
+            <Style x:Key="PowerButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Off}"/>
+            </Style>
+
+            <Style x:Key="ContinueButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Continue}"/>
+            </Style>
+
+            <Style x:Key="ResetButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
+                <Setter Property="Content" Value="{StaticResource Reset}"/>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_XDurationHalf}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
+            <Button Content="1" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1000" />
+            <Button Content="1.5" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1500" />
+            <Button Content="2" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="2000" />
+            <Button Content="3" Grid.Row="4"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="3000" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_DiagSpeedReduction}" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding Path=DiagonalSpeedReductionToggle}"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_LeftNudge}" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static services:XDirection.Left}" />
+            <Button Grid.Row="1" Style="{StaticResource ForwardLeftButtonStyle}"  Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.ForwardLeft}"/>
+            <Button Grid.Row="2" Style="{StaticResource LeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Left}"/>
+            <Button Grid.Row="3" Style="{StaticResource BackwardLeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.BackwardLeft}"/>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="ContinueButton" Grid.Row="0" Style="{StaticResource ContinueButtonStyle}" Command="{Binding Path=Continue}"/>
+            <Button x:Name="ForwardButton" Grid.Row="1" Style="{StaticResource ForwardButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Forward}"/>
+            <Button x:Name="ResetButton" Grid.Row="2" Style="{StaticResource ResetButtonStyle}" Command="{Binding Path=Reset}"/>
+            <Button x:Name="BackwardButton" Grid.Row="3" Style="{StaticResource BackwardButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Backward}"/>
+        </Grid>
+
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="RightNudgeButton" Content="{x:Static resources:Strings.OutdoorDrivingView_RightNudge}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static services:XDirection.Right}" />
+            <Button x:Name="ForwardRightButton" Grid.Row="1"  Style="{StaticResource ForwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.ForwardRight}"/>
+            <Button x:Name="RightButton" Grid.Row="2"  Style="{StaticResource RightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Right}"/>
+            <Button x:Name="BackwardRightButton" Grid.Row="3"  Style="{StaticResource BackwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.BackwardRight}"/>
+        </Grid>
+
+        <Grid Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_YDurationHalf}" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="500" />
+            <Button Content="1" Grid.Row="1"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="1000" />
+            <Button Content="2" Grid.Row="2"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="2000" />
+            <Button Content="3" Grid.Row="3"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="3000" />
+            <Button Content="4" Grid.Row="4"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="4000" />
+            <Button Content="5" Grid.Row="5"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="5000" />
+        </Grid>
+
+        <Grid Grid.Column="5">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedSlow}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Slow" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedWalk}" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Walk" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedFast}" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Fast" />
+            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedManic}" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Manic" />
+
+            <Button Grid.Row="4" Grid.RowSpan="2"
+                    Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">
+                <Button.Resources>
+                    <infrastructure:PathToImageConverter x:Key="LocalPathConverter"/>
+                </Button.Resources>
+                <Image Source="{Binding Path=DrivingPageMacro.IconPath, Converter={StaticResource LocalPathConverter}}" Margin="20"/>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

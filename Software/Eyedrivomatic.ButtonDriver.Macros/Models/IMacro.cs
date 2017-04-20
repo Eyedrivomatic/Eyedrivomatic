@@ -23,10 +23,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
 using System.Diagnostics.Contracts;
 using System.Xml.Serialization;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -71,7 +70,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     namespace Contracts
     {
         [ContractClassFor(typeof(IMacro))]
-        public abstract class MacroContract : IMacro
+        internal abstract class MacroContract : IMacro
         {
             public string this[string columnName]
             {

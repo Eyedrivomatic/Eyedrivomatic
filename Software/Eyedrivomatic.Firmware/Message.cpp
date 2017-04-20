@@ -8,7 +8,6 @@
 #define LF  0X0A
 #define ACK 0x06 
 #define NAK 0x15
-#define CHECKSEP '#'
 
 
 const char OK[]  PROGMEM = "OK";
@@ -124,14 +123,14 @@ bool MessageClass::sendInternal(const char * data)
 	if (useChecksum)
 	{
 		char checksum[4];
-		snprintf_P(checksum, sizeof(checksum), PSTR("%1%02X"), CHECKSEP, calculateChecksum(data, size));
+		snprintf_P(checksum, sizeof(checksum), PSTR("%c%02X"), CHECKSEP, calculateChecksum(data, size));
 		written += Serial.write(checksum, 3);
 	}
 	
 	written += Serial.write(LF);
 
 	LoggerService.debug_P(PSTR("Sent %d bytes in %d sends."), written, sends);
-	if (written == size + (useChecksum ? 4 : 1)) 
+	if (written != size + (useChecksum ? 4 : 1)) 
 	{
 		LoggerService.error_P(PSTR("Failed to write message. expecting %d characters written."), size + (useChecksum ? 4 : 1));
 		return false;

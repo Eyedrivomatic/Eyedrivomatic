@@ -27,7 +27,9 @@
                     xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver"
                     xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-                    xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware">
+                    xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+                    xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
@@ -36,43 +38,43 @@
     <sys:Uri x:Key="ResourcesImageBaseUri">pack://application:,,,/Eyedrivomatic.Resources;component/</sys:Uri>
     
     <local:DirectionToImageConverter x:Key="DirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.Backward}"  UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource DownLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource DownRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource UpLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource UpRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Backward}"  UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource DownLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource DownRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource UpLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource UpRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
     </local:DirectionToImageConverter>
 
     <local:DirectionToImageConverter x:Key="YDirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.Backward}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Backward}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
     </local:DirectionToImageConverter>
 
     <local:DirectionToImageConverter x:Key="XDirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
     </local:DirectionToImageConverter>
 
     <local:ReadyStateStatusImageConverter x:Key="ReadyStateStatusImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Any}" UriSource="{Binding Source={StaticResource Ready}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Continue}" UriSource="{Binding Source={StaticResource Continue}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Reset}" UriSource="{Binding Source={StaticResource Reset}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:ReadyState.Any}" UriSource="{Binding Source={StaticResource Ready}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:ReadyState.Continue}" UriSource="{Binding Source={StaticResource Continue}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:ReadyState.Reset}" UriSource="{Binding Source={StaticResource Reset}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
     </local:ReadyStateStatusImageConverter>
 
     <local:SafetyBypassStateImageConverter x:Key="SafetyBypassStateImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:SafetyBypassState.Safe}" UriSource="{Binding Source={StaticResource Safe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:SafetyBypassState.Unsafe}" UriSource="{Binding Source={StaticResource Unsafe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:SafetyBypassState.Safe}" UriSource="{Binding Source={StaticResource Safe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
+        <BitmapImage x:Key="{x:Static services:SafetyBypassState.Unsafe}" UriSource="{Binding Source={StaticResource Unsafe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
     </local:SafetyBypassStateImageConverter>
 
     <infrastructure:BoolToImageConverter x:Key="DiagonalSpeedReductionStatusImageConverter" ImageIfFalse="{StaticResource Full}" ImageIfTrue="{StaticResource Reduced}"/>

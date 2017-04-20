@@ -49,6 +49,7 @@ namespace Eyedrivomatic.Infrastructure
 
         public void Initialize()
         {
+            Logger?.Log($"Initializing Module {nameof(InfrastructureModule)}.", Category.Debug, Priority.None);
         }
     }
 }

@@ -27,8 +27,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 using Prism.Logging;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models

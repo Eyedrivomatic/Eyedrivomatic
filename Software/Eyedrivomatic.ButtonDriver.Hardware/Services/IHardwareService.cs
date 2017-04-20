@@ -24,7 +24,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware
+namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
     [ContractClass(typeof(Contracts.HardwareServiceContract))]
     public interface IHardwareService : IDisposable
@@ -40,7 +40,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
     namespace Contracts
     {
         [ContractClassFor(typeof(IHardwareService))]
-        public abstract class HardwareServiceContract : IHardwareService
+        internal abstract class HardwareServiceContract : IHardwareService
         {
             public ObservableCollection<IButtonDriver> AvailableDrivers
             {

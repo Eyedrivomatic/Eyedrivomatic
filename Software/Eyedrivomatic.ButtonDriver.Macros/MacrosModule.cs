@@ -32,16 +32,18 @@ using Prism.Modularity;
 using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.ButtonDriver.Macros.Views;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
-    [ModuleExport(typeof(MacrosModule), DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(InfrastructureModule) }, InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(MacrosModule), 
+        InitializationMode = InitializationMode.WhenAvailable,
+        DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(InfrastructureModule) })]
     public class MacrosModule : IModule
     {
-        private readonly IHardwareService _hardwareService;
         private readonly IRegionManager _regionManager;
         private readonly IMacroSerializationService _serializationService;
 
@@ -61,7 +63,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             Logger?.Log($"Creating Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
 
             _regionManager = regionManager;
-            _hardwareService = hardwareService;
             _serializationService = serializationService;
         }
 
@@ -72,7 +73,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             SetSerializationPath();
 
             //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
-            _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
+                _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
         }
 
         private void SetSerializationPath()

@@ -20,7 +20,7 @@
 
 
 using System.Runtime.Serialization;
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver

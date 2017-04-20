@@ -721,6 +721,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string StatusView_Speed_None {
+            get {
+                return ResourceManager.GetString("StatusView_Speed_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slow.
         /// </summary>
         public static string StatusView_Speed_Slow {

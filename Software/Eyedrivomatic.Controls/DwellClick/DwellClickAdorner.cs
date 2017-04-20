@@ -85,7 +85,7 @@ namespace Eyedrivomatic.Controls.DwellClick
             adorner.InvalidateVisual();
         }
 
-        public Visibility ProgressIndicatorVisible
+        public virtual Visibility ProgressIndicatorVisible
         {
             get { return (Visibility)GetValue(ProgressIndicatorVisibleProperty); }
             set { SetValue(ProgressIndicatorVisibleProperty, value); }

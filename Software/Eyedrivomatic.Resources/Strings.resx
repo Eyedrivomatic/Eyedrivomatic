@@ -464,6 +464,10 @@ Reduction Toggle</value>
     <value>{0}°</value>
     <comment>The format of the servo position indicators.</comment>
   </data>
+  <data name="StatusView_Speed_None" xml:space="preserve">
+    <value>None</value>
+    <comment>The speed indicator when a speed has not been selected.</comment>
+  </data>
   <data name="StatusView_Speed_Fast" xml:space="preserve">
     <value>Fast</value>
     <comment>The speed indicator for 'fast' speed.</comment>

@@ -29,7 +29,6 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Logging;
 using Prism.Mef;
 using Prism.Modularity;
-using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
@@ -61,17 +60,6 @@ namespace Eyedrivomatic.Startup
             Application.Current.MainWindow.Show();
         }
 
-        private void AddModule<T>()
-        {
-            var type = typeof(T);
-            ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
-        }
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
-        }
-
         protected override void ConfigureAggregateCatalog()
         {
             base.ConfigureAggregateCatalog();
@@ -80,15 +68,10 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
-        }
-
-        protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
-        {
-            return base.ConfigureDefaultRegionBehaviors();
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
         }
 
 

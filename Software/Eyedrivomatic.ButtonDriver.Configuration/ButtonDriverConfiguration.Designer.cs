@@ -61,7 +61,31 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SafetyBypass {
+            get {
+                return ((bool)(this["SafetyBypass"]));
+            }
+            set {
+                this["SafetyBypass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public double CommandTimeout {
+            get {
+                return ((double)(this["CommandTimeout"]));
+            }
+            set {
+                this["CommandTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int SettingsVersion {
             get {
                 return ((int)(this["SettingsVersion"]));
@@ -73,13 +97,36 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SafetyBypass {
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<profiles currentProfile=\"Indoor\">\r\n  <p" +
+            "rofile name=\"Indoor\">\r\n    <speed xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-in" +
+            "stance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" name=\"Slow\" x=\"0\" yForward=" +
+            "\"9\" yBackward=\"9\" xDiag=\"14\" xDiagReduced=\"4\" yForwardDiag=\"6\" yForwardDiagReduc" +
+            "ed=\"6\" yBackwardDiag=\"6\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n    <speed xmlns" +
+            ":xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/20" +
+            "01/XMLSchema\" name=\"Walk\" x=\"0\" yForward=\"13\" yBackward=\"13\" xDiag=\"15\" xDiagRed" +
+            "uced=\"5\" yForwardDiag=\"10\" yForwardDiagReduced=\"10\" yBackwardDiag=\"10\" yBackward" +
+            "DiagReduced=\"0\" nudge=\"6\" />\r\n    <speed xmlns:xsi=\"http://www.w3.org/2001/XMLSc" +
+            "hema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" name=\"Fast\" x=\"0\" yF" +
+            "orward=\"17\" yBackward=\"17\" xDiag=\"17\" xDiagReduced=\"7\" yForwardDiag=\"14\" yForwar" +
+            "dDiagReduced=\"14\" yBackwardDiag=\"14\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n  </" +
+            "profile>\r\n  <profile name=\"Outdoor\">\r\n    <speed xmlns:xsi=\"http://www.w3.org/20" +
+            "01/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" name=\"Slow\" " +
+            "x=\"0\" yForward=\"13\" yBackward=\"13\" xDiag=\"15\" xDiagReduced=\"5\" yForwardDiag=\"10\"" +
+            " yForwardDiagReduced=\"10\" yBackwardDiag=\"10\" yBackwardDiagReduced=\"0\" nudge=\"6\" " +
+            "/>\r\n    <speed xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"" +
+            "http://www.w3.org/2001/XMLSchema\" name=\"Walk\" x=\"0\" yForward=\"17\" yBackward=\"17\"" +
+            " xDiag=\"17\" xDiagReduced=\"7\" yForwardDiag=\"14\" yForwardDiagReduced=\"14\" yBackwar" +
+            "dDiag=\"14\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n    <speed xmlns:xsi=\"http://w" +
+            "ww.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" " +
+            "name=\"Fast\" x=\"0\" yForward=\"21\" yBackward=\"21\" xDiag=\"22\" xDiagReduced=\"12\" yFor" +
+            "wardDiag=\"18\" yForwardDiagReduced=\"18\" yBackwardDiag=\"18\" yBackwardDiagReduced=\"" +
+            "0\" nudge=\"6\" />\r\n  </profile>\r\n</profiles>")]
+        public global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection DrivingProfiles {
             get {
-                return ((bool)(this["SafetyBypass"]));
+                return ((global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection)(this["DrivingProfiles"]));
             }
             set {
-                this["SafetyBypass"] = value;
+                this["DrivingProfiles"] = value;
             }
         }
     }
