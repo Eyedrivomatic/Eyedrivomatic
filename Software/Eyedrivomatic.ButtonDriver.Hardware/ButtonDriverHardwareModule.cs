@@ -19,9 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Logging;
 using Prism.Mef.Modularity;
@@ -39,8 +37,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         [ImportingConstructor]
         public ButtonDriverHardwareModule(ILoggerFacade logger)
         {
-            Contract.Requires<ArgumentNullException>(logger != null, nameof(logger));
-
             Logger = logger;
             Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
         }

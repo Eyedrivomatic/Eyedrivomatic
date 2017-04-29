@@ -27,6 +27,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
+using NullGuard;
 using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
@@ -39,9 +40,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         public string FriendlyName { get; set; }
         public string Description { get; set; }
 
-        public string Vid { get; set; }
-        public string Pid { get; set; }
-        public string Rev { get; set; }
+        [AllowNull] public string Vid { get; set; }
+        [AllowNull] public string Pid { get; set; }
+        [AllowNull] public string Rev { get; set; }
     }
 
     public static class UsbSerialDeviceEnumerator

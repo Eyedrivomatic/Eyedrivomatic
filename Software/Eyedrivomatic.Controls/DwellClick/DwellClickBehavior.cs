@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +46,7 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         public static IDwellClickConfigurationService DefaultConfiguration
         {
-            get { return _defaultConfiguration; }
+            get => _defaultConfiguration;
             set
             {
                 if (Object.ReferenceEquals(_defaultConfiguration, value)) return;
@@ -70,7 +69,7 @@ namespace Eyedrivomatic.Controls.DwellClick
         /// </summary>
         public static bool Pause
         {
-            get { return _pause; }
+            get => _pause;
             set
             {
                 if (_pause == value) return;
@@ -91,13 +90,11 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         public static IDwellClickConfigurationService GetConfiguration(DependencyObject obj)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
             return (IDwellClickConfigurationService)obj.GetValue(ConfigurationProperty);
         }
 
         public static void SetConfiguration(DependencyObject obj, IDwellClickConfigurationService value)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
             obj.SetValue(ConfigurationProperty, value);
         }
 
@@ -121,13 +118,11 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         public static Style GetAdornerStyle(DependencyObject obj)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
             return (Style)obj.GetValue(AdornerStyleProperty);
         }
 
         public static void SetAdornerStyle(DependencyObject obj, Style value)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
             obj.SetValue(AdornerStyleProperty, value);
         }
 
@@ -139,22 +134,17 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         public static bool GetIgnorePause(DependencyObject obj)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
-
             return (bool)obj.GetValue(IgnorePauseProperty);
         }
 
         public static void SetIgnorePause(DependencyObject obj, bool value)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, nameof(obj));
-
             obj.SetValue(IgnorePauseProperty, value);
         }
         #endregion IgnorePause
         #endregion Attached Properties
 
-        [Import]
-        public static ILoggerFacade Logger { get; set; } //static so that the dependency property methods can be logged.
+        public static ILoggerFacade Logger { get; private set; } //static so that the dependency property methods can be logged.
 
         //If the mouse leaves the control, the animation is paused and a cancellation timer starts. 
         //If the mouse re-enters the control before the timer triggers, then the animation continues. 
@@ -169,9 +159,9 @@ namespace Eyedrivomatic.Controls.DwellClick
         private DwellClickAdorner _adorner;
 
         [ImportingConstructor]
-        public DwellClickBehavior(IDwellClickAnimator animator) : base()
+        public DwellClickBehavior(ILoggerFacade logger, IDwellClickAnimator animator) : base()
         {
-            Contract.Requires<ArgumentNullException>(animator != null, nameof(animator));
+            Logger = logger;
             _animator = animator;
         }
 

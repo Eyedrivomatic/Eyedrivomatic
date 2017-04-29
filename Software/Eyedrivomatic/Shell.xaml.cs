@@ -27,30 +27,27 @@ using System.Windows.Input;
 namespace Eyedrivomatic
 {
     [Export]
-    public partial class Shell : Window, IDisposable
+    public partial class Shell : IDisposable
     {
         private readonly Cursor _smallCursor;
 
         public Shell()
         {
             InitializeComponent();
-            _smallCursor = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur")).Stream);
-            Mouse.OverrideCursor = _smallCursor;
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            var disclaimer = new DisclaimerWindow();
-            disclaimer.ShowDialog();
+            var streamResourceInfo = Application.GetResourceStream(new Uri(
+                    "pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"));
+            if (streamResourceInfo != null)
+            {
+                _smallCursor = new Cursor(streamResourceInfo.Stream);
+                Mouse.OverrideCursor = _smallCursor;
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = _smallCursor;
-                else Mouse.OverrideCursor = null;
+                Mouse.OverrideCursor = Mouse.OverrideCursor == null ? _smallCursor : null;
                 e.Handled = true;
             }
         }

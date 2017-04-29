@@ -25,7 +25,6 @@ using System.Linq;
 
 using System.Threading.Tasks;
 using Prism.Logging;
-using System.Diagnostics.Contracts;
 using System;
 using Eyedrivomatic.ButtonDriver.Configuration;
 
@@ -42,10 +41,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         public HardwareService([ImportMany]IButtonDriver[] availableDrivers, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
         {
             _configurationService = configurationService;
-            Contract.Requires<ArgumentNullException>(availableDrivers != null, nameof(availableDrivers));
-            Contract.Requires<ArgumentException>(availableDrivers.Any(), "No available drivers specified");
-            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
-
             _availableDrivers = new ObservableCollection<IButtonDriver>(availableDrivers);
             CurrentDriver = _availableDrivers.FirstOrDefault();
 
@@ -61,7 +56,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public IButtonDriver CurrentDriver
         {
-            get { return _currentDriver; }
+            get => _currentDriver;
             set
             {
                 _currentDriver = value;

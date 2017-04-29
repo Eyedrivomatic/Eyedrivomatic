@@ -19,9 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -39,8 +37,6 @@ namespace Eyedrivomatic.Infrastructure
         [ImportingConstructor]
         public InfrastructureModule(IRegionManager regionManager, ILoggerFacade logger)
         {
-            Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
-
             Logger = logger;
             Logger?.Log($"Creating Module {nameof(InfrastructureModule)}.", Category.Debug, Priority.None);
 

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 using Eyedrivomatic.Resources;
@@ -32,13 +31,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
     /// <summary>
     /// The base class for an Eyedrivomatic macro.
     /// </summary>
-    [ContractClass(typeof(Contracts.MacroTaskContract))]
     public abstract class MacroTask : IDataErrorInfo, IEquatable<MacroTask>
     {
-        protected MacroTask()
-        {
-        }
-
         /// <summary>
         /// The name of the node as it should be seen by the user.
         /// </summary>
@@ -49,10 +43,10 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         /// Returns a string that describes the expected result of executing the task.
         /// </summary>
         /// <returns></returns>
-        public override abstract string ToString();
+        public abstract override string ToString();
 
         #region IDataErrorInfo
-        string IDataErrorInfo.Error { get { return null; } }
+        string IDataErrorInfo.Error => null;
 
         string IDataErrorInfo.this[string propertyName] => GetValidationError(propertyName);
         #endregion IDataErrorInfo
@@ -67,21 +61,12 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         protected virtual string GetValidationError(string propertyName)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(propertyName), nameof(propertyName));
-
-            switch (propertyName)
-            {
-                case nameof(DisplayName):
-                    return ValidateDisplayName();
-            }
-
-            return null;
+            return propertyName == nameof(DisplayName) ? ValidateDisplayName() : null;
         }
 
         private string ValidateDisplayName()
         {
-            if (string.IsNullOrWhiteSpace(DisplayName)) return Strings.MacroTask_InvalidDisplayName;
-            return null;
+            return string.IsNullOrWhiteSpace(DisplayName) ? Strings.MacroTask_InvalidDisplayName : null;
         }
 
         /// <summary>
@@ -89,23 +74,5 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         /// </summary>
         public bool IsValid => ValidatedProperties.Any(propertyName => GetValidationError(propertyName) != null);
         #endregion Validation
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(MacroTask))]
-        internal abstract class MacroTaskContract : MacroTask
-        {
-            protected override string[] ValidatedProperties
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<string[]>() != null);
-                    throw new NotImplementedException();
-                }
-            }
-
-            protected override abstract string GetValidationError(string propertyName);
-        }
     }
 }

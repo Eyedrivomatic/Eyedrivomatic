@@ -22,7 +22,6 @@
 using System;
 
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -33,6 +32,7 @@ using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Controls.DwellClick;
 using Eyedrivomatic.Infrastructure;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.Configuration
 {
@@ -43,13 +43,13 @@ namespace Eyedrivomatic.Configuration
     {
         private readonly IRegionManager RegionManager;
         private readonly ILoggerFacade Logger;
+        private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public ConfigurationModule(IRegionManager regionManager, ILoggerFacade logger)
+        public ConfigurationModule(IRegionManager regionManager, ILoggerFacade logger, IServiceLocator serviceLocator)
         {
-            Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
-
             Logger = logger;
+            _serviceLocator = serviceLocator;
             Logger?.Log($"Creating Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
 
             RegionManager = regionManager;
@@ -64,9 +64,20 @@ namespace Eyedrivomatic.Configuration
 
             DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
 
-            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ConfigurationView));
+            RegionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ConfigurationView));
             RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
             RegionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
+            RegionManager.RegisterViewWithRegion(RegionNames.MainNavigationRegion, CreateConfigurationNavigation);
         }
+
+        private object CreateConfigurationNavigation()
+        {
+            var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+            button.Content = Resources.Strings.ViewName_Configuration;
+            button.RegionName = RegionNames.MainContentRegion;
+            button.Target = new Uri($"/{nameof(ConfigurationView)}", UriKind.Relative);
+            return button;
+        }
+
     }
 }

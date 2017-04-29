@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -47,20 +46,16 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         private readonly IRegionManager _regionManager;
         private readonly IMacroSerializationService _serializationService;
 
-        [Import]
-        public static ILoggerFacade Logger { get; set; }
+        public static ILoggerFacade Logger { get; private set; }
 
         [Export("DrivingPageMacro")]
         public IMacro DrivingPageMacro => _serializationService.LoadMacros().FirstOrDefault();
 
         [ImportingConstructor]
-        public MacrosModule(IRegionManager regionManager, IHardwareService hardwareService, IMacroSerializationService serializationService)
+        public MacrosModule(ILoggerFacade logger, IRegionManager regionManager, IHardwareService hardwareService, IMacroSerializationService serializationService)
         {
-            Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
-            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-            Contract.Requires<ArgumentNullException>(serializationService != null, nameof(serializationService));
-
-            Logger?.Log($"Creating Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
+            Logger = logger;
+            Logger.Log($"Creating Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
 
             _regionManager = regionManager;
             _serializationService = serializationService;
@@ -73,7 +68,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             SetSerializationPath();
 
             //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
-                _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ExecuteMacrosView));
+                _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ExecuteMacrosView));
         }
 
         private void SetSerializationPath()

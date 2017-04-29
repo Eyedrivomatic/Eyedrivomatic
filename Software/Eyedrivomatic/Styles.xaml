@@ -36,6 +36,10 @@
 
     <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
 
+    <Style x:Key="NavigationRegionStyle" TargetType="{x:Type ItemsControl}">
+        
+    </Style>
+    
     <Style TargetType="{x:Type Grid}">
         <Setter Property="SnapsToDevicePixels" Value="False"/>
     </Style>

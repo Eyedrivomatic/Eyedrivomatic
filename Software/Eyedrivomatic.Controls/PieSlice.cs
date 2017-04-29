@@ -39,8 +39,8 @@ namespace Eyedrivomatic.Controls
         /// </summary>
         public double StartAngle
         {
-            get { return (double)GetValue(StartAngleProperty); }
-            set { SetValue(StartAngleProperty, value); }
+            get => (double)GetValue(StartAngleProperty);
+            set => SetValue(StartAngleProperty, value);
         }
 
 
@@ -49,8 +49,8 @@ namespace Eyedrivomatic.Controls
         /// </summary>
         public double EndAngle
         {
-            get { return (double)GetValue(EndAngleProperty); }
-            set { SetValue(EndAngleProperty, value); }
+            get => (double)GetValue(EndAngleProperty);
+            set => SetValue(EndAngleProperty, value);
         }
 
         private static PropertyMetadata endAngleMetadata = new FrameworkPropertyMetadata(90.0, FrameworkPropertyMetadataOptions.AffectsRender, null, CoerceAngle);

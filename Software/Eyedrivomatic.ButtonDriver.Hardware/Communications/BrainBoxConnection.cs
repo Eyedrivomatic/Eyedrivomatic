@@ -52,7 +52,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
         private bool _isConnecting;
         public bool IsConnecting
         {
-            get { return _isConnecting; }
+            get => _isConnecting;
             private set
             {
                 _isConnecting = value;
@@ -64,19 +64,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 
         public bool ConnectionFailed { get; private set; }
 
-        public ConnectionState State
-        {
-            get
-            {
-                return IsConnected
-                    ? ConnectionState.Connected
-                    : IsConnecting
-                        ? ConnectionState.Connecting
-                        : ConnectionFailed 
-                            ? ConnectionState.Error 
-                            : ConnectionState.Disconnected;
-            }
-        }
+        public ConnectionState State => IsConnected
+            ? ConnectionState.Connected
+            : IsConnecting
+                ? ConnectionState.Connecting
+                : ConnectionFailed 
+                    ? ConnectionState.Error 
+                    : ConnectionState.Disconnected;
 
         public IObservable<IObservable<char>> DataStream => _connectionSubject.AsObservable();
 

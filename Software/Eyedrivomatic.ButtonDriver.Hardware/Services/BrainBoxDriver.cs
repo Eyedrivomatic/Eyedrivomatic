@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
@@ -56,12 +55,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             ILoggerFacade logger
             )
         {
-            Contract.Requires<ArgumentNullException>(connection != null, nameof(connection));
-            Contract.Requires<ArgumentNullException>(commandFactory != null, nameof(commandFactory));
-            Contract.Requires<ArgumentNullException>(messageProcessors != null, nameof(messageProcessors));
-            Contract.Requires<ArgumentNullException>(deviceStatus != null, nameof(deviceStatus));
-            Contract.Requires<ArgumentNullException>(deviceSettings != null, nameof(deviceSettings));
-
             Logger = logger;
             Connection = connection;
             _commands = commandFactory;
@@ -79,11 +72,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (e.PropertyName == nameof(DeviceStatus.IsKnown))
             {
-                OnPropertyChanged(() => HardwareReady);
+                RaisePropertyChanged(nameof(HardwareReady));
             }
 
-            OnPropertyChanged(() => CurrentDirection);
-            OnPropertyChanged(() => ReadyState);
+            RaisePropertyChanged(nameof(CurrentDirection));
+            RaisePropertyChanged(nameof(ReadyState));
         }
 
         private void AttachToDataStream(IObservable<char> observable)
@@ -104,9 +97,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private void OnConnectionStateChanged(object sender, EventArgs eventArgs)
         {
-            OnPropertyChanged(() => CurrentDirection);
-            OnPropertyChanged(() => HardwareReady);
-            OnPropertyChanged(() => ReadyState);
+            RaisePropertyChanged(nameof(CurrentDirection));
+            RaisePropertyChanged(nameof(HardwareReady));
+            RaisePropertyChanged(nameof(ReadyState));
         }
 
         #region Connection
@@ -175,21 +168,21 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public Direction LastDirection
         {
-            get { return _lastDirection; }
+            get => _lastDirection;
             private set
             {
                 SetProperty(ref _lastDirection, value);
-                OnPropertyChanged(() => ReadyState);
+                RaisePropertyChanged(nameof(ReadyState));
             }
         }
 
         public ContinueState ContinueState
         {
-            get { return _continueState; }
+            get => _continueState;
             private set
             {
                 SetProperty(ref _continueState, value);
-                OnPropertyChanged(() => ReadyState);
+                RaisePropertyChanged(nameof(ReadyState));
             }
         }
 
@@ -200,12 +193,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private SafetyBypassState _safetyBypass = SafetyBypassState.Safe;
         public SafetyBypassState SafetyBypass
         {
-            get { return _safetyBypass; }
+            get => _safetyBypass;
             set
             {
                 Logger?.Log($"Toggling safety bypass status.", Category.Warn, Priority.None);
                 SetProperty(ref _safetyBypass, value);
-                OnPropertyChanged(() => ReadyState);
+                RaisePropertyChanged(nameof(ReadyState));
             }
         }
 
@@ -221,7 +214,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public Profile Profile
         {
-            get { return _profile; }
+            get => _profile;
             set
             {
                 if (_profile != null) _profile.PropertyChanged -= ProfileOnPropertyChanged;
@@ -232,7 +225,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private void ProfileOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            OnPropertyChanged(() => Profile);
+            RaisePropertyChanged(nameof(Profile));
         }
 
         #endregion Settings

@@ -40,8 +40,7 @@ namespace FirmwareTests
             _testConnection.ReadStartup();
             Assert.That(_testConnection.SendMessage("STATUS"), Is.True);
 
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
         }
 
@@ -50,8 +49,7 @@ namespace FirmwareTests
             _testConnection.ReadStartup();
             Assert.That(_testConnection.SendMessage("GET ALL"), Is.True);
 
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: XMIN 0"));
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: XCENTER 0"));
@@ -83,8 +81,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.SendMessage($"MOVE {duration} {x} {y}"), Is.True);
 
             var start = DateTime.Now;
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Does.Match(@"STATUS: SERVO_X=-?\d+\(\d{3}\),SERVO_Y=-?\d+\(\d{3}\),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF")); //Testing servo position calculations in TestMoveRange.
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
@@ -99,8 +96,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.SendMessage($"MOVE 3000 100 100"), Is.True);
 
             var start = DateTime.Now;
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=100({XMax:D3}),SERVO_Y=100({YMax:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
 
@@ -146,8 +142,7 @@ namespace FirmwareTests
                     ? 100d*(yAbs - YCenter)/(YMax - YCenter)
                     : 100d*(yAbs - YCenter)/(YCenter - YMin), MidpointRounding.AwayFromZero);
 
-                string message;
-                Assert.That(_testConnection.ReadMessage(out message), Is.True);
+                Assert.That(_testConnection.ReadMessage(out string message), Is.True);
                 Assert.That(message,
                     Is.EqualTo(
                         $"STATUS: SERVO_X={xRel}({xAbs:000}),SERVO_Y={yRel}({yAbs:000}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
@@ -163,8 +158,7 @@ namespace FirmwareTests
             _testConnection.ReadStartup();
             Assert.That(_testConnection.SendMessage($"MOVE {duration} 10 10"), Is.True);
 
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: DURATION OUT OF RANGE {duration}"));
         }
 
@@ -176,8 +170,7 @@ namespace FirmwareTests
             _testConnection.ReadStartup();
             Assert.That(_testConnection.SendMessage($"MOVE 0 {position} 0"), Is.True);
 
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: XPOS OUT OF RANGE {position}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
@@ -197,11 +190,10 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            string message;
 
             Assert.That(_testConnection.SendMessage($"SWITCH 2000 2"), Is.True);
             var start = DateTime.Now;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=ON,SWITCH 3=OFF"));
 
             Assert.That(_testConnection.SendMessage($"SWITCH 1000 1"), Is.True);
@@ -233,10 +225,9 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            string message;
 
             Assert.That(_testConnection.SendMessage($"SWITCH 0 {switchNumber}"), Is.True);
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: SWITCH NUMBER OUT OF RANGE {switchNumber}"));
         }
 
@@ -247,8 +238,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.SendMessage($"MOVE 10000 100 -100"), Is.True);
 
             var start = DateTime.Now;
-            string message;
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Does.StartWith("STATUS:"));
 
             Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
@@ -264,11 +254,10 @@ namespace FirmwareTests
             _testConnection.ReadStartup();
         
             var start = DateTime.Now;
-            string message;
 
             Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
 
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
         }

@@ -20,7 +20,6 @@
 
 
 using System;
-using System.Diagnostics.Contracts;
 using log4net;
 
 namespace Eyedrivomatic.Infrastructure
@@ -34,32 +33,24 @@ namespace Eyedrivomatic.Infrastructure
 
         public static void Debug(Type context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
-
             var logger = LogManager.GetLogger(context);
             logger.Debug(message);
         }
 
         public static void Info(Type context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
-
             var logger = LogManager.GetLogger(context);
             logger.Info(message);
         }
 
         public static void Warn(Type context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
-
             var logger = LogManager.GetLogger(context);
             logger.Warn(message);
         }
 
         public static void Error(Type context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
-
             var logger = LogManager.GetLogger(context);
             logger.Error(message);
         }
@@ -67,25 +58,21 @@ namespace Eyedrivomatic.Infrastructure
 
         public static void Debug(object context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
             Log.Debug(context.GetType(), message);
         }
 
         public static void Info(object context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
             Log.Info(context.GetType(), message);
         }
 
         public static void Warn(object context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
             Log.Warn(context.GetType(), message);
         }
 
         public static void Error(object context, string message)
         {
-            Contract.Requires<ArgumentNullException>(context != null, nameof(context));
             Log.Warn(context.GetType(), message);
         }
     }

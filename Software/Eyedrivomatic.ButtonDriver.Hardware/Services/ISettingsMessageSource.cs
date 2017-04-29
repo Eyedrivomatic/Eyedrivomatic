@@ -1,11 +1,7 @@
 using System;
-using System.Diagnostics.Contracts;
-using Eyedrivomatic.ButtonDriver.Hardware.Services.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
-
-    [ContractClass(typeof(SettingsMessageSourceContract))]
     internal interface ISettingsMessageSource
     {
         event EventHandler<SettingMessageEventArgs> SettingsMessageReceived;
@@ -23,18 +19,5 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public string SettingName { get; }
         public string SettingValue { get; }
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(ISettingsMessageSource))]
-        internal abstract class SettingsMessageSourceContract : ISettingsMessageSource
-        {
-            public abstract void Dispose();
-
-            public event EventHandler SettingsParseError;
-            public event EventHandler<SettingMessageEventArgs> SettingsMessageReceived;
-            public event EventHandler Disconnected;
-        }
     }
 }

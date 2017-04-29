@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,8 +29,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         [ImportingConstructor]
         internal BrainBoxCommandQueue([Import("BrainBoxCommandHandlerFactory")] Func<IBrainBoxCommand, IBrainBoxCommandHandler> commandHandlerFactory)
         {
-            Contract.Requires<ArgumentNullException>(commandHandlerFactory != null, nameof(commandHandlerFactory));
-
             _commandHandlerFactory = commandHandlerFactory;
         }
 

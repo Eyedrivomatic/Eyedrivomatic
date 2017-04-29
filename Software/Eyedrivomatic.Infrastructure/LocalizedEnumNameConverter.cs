@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 using Eyedrivomatic.Resources;
+using NullGuard;
 
 namespace Eyedrivomatic.Infrastructure
 {
@@ -32,7 +33,7 @@ namespace Eyedrivomatic.Infrastructure
         public string ResourcePrefix { get; set; }
         public Type EnumType { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             if (EnumType == null) throw new ApplicationException("enum type not specified.");
 
@@ -43,7 +44,7 @@ namespace Eyedrivomatic.Infrastructure
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, [AllowNull]  object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

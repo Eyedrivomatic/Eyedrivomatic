@@ -24,7 +24,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using Prism.Logging;
 using Prism.Mvvm;
@@ -51,8 +50,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [ImportingConstructor]
         internal ButtonDriverConfigurationService(ButtonDriverConfiguration configuration)
         {
-            Contract.Requires<ArgumentNullException>(configuration != null, nameof(configuration));
-
             _configuration = configuration;
             _configuration.PropertyChanged += ConfigurationSectionPropertyChanged;
             _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
@@ -140,63 +137,60 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             if (sender == _configuration)
             {
-                OnPropertyChanged(args.PropertyName);
+                RaisePropertyChanged(args.PropertyName);
             }
         }
         #endregion Change event handlers
 
         public bool AutoConnect
         {
-            get { return _configuration.AutoConnect; }
-            set { _configuration.AutoConnect = value; }
+            get => _configuration.AutoConnect;
+            set => _configuration.AutoConnect = value;
         }
 
         public bool AutoSaveDeviceSettingsOnExit
         {
-            get { return _configuration.AutoSaveDeviceSettingsOnExit; }
-            set { _configuration.AutoSaveDeviceSettingsOnExit = value; }
+            get => _configuration.AutoSaveDeviceSettingsOnExit;
+            set => _configuration.AutoSaveDeviceSettingsOnExit = value;
         }
 
         public string ConnectionString
         {
-            get { return _configuration.ConnectionString; }
-            set { _configuration.ConnectionString = value; }
+            get => _configuration.ConnectionString;
+            set => _configuration.ConnectionString = value;
         }
 
         public bool SafetyBypass
         {
-            get { return _configuration.SafetyBypass; }
-            set { _configuration.SafetyBypass= value; }
+            get => _configuration.SafetyBypass;
+            set => _configuration.SafetyBypass= value;
         }
 
         [Export(nameof(CommandTimeout))]
         public TimeSpan CommandTimeout
         {
-            get { return TimeSpan.FromMilliseconds(_configuration.CommandTimeout); }
-            set { _configuration.CommandTimeout = value.TotalMilliseconds; }
+            get => TimeSpan.FromMilliseconds(_configuration.CommandTimeout);
+            set => _configuration.CommandTimeout = value.TotalMilliseconds;
         }
 
         public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
 
         public Profile CurrentProfile
         {
-            get
-            {
-                return _configuration.DrivingProfiles.CurrentProfile;
-            }
+            get => _configuration.DrivingProfiles.CurrentProfile;
             set
             {
                 if (_configuration.DrivingProfiles.CurrentProfile == value) return;
 
                 _configuration.DrivingProfiles.CurrentProfile = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
         public bool HasChanges
         {
-            get { return _hasChanges; }
-            private set { SetProperty(ref _hasChanges, value); }
+            get => _hasChanges;
+            private set => SetProperty(ref _hasChanges, value);
         } 
 
         public void Save()

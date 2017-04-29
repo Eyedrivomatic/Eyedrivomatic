@@ -1,10 +1,7 @@
 using System;
-using System.Diagnostics.Contracts;
-using Eyedrivomatic.ButtonDriver.Hardware.Services.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
-    [ContractClass(typeof(StatusMessageSourceContract))]
     internal interface IStatusMessageSource
     {
         event EventHandler<StatusMessageEventArgs> StatusMessageReceived;
@@ -31,19 +28,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             Switch1 = switch1;
             Switch2 = switch2;
             Switch3 = switch3;
-        }
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IStatusMessageSource))]
-        internal abstract class StatusMessageSourceContract : IStatusMessageSource
-        {
-            public abstract void Dispose();
-
-            public event EventHandler StatusParseError;
-            public event EventHandler<StatusMessageEventArgs> StatusMessageReceived;
-            public event EventHandler Disconnected;
         }
     }
 }

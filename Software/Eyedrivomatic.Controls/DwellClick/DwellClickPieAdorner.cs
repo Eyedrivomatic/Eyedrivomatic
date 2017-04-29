@@ -26,6 +26,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
+using NullGuard;
 
 namespace Eyedrivomatic.Controls.DwellClick
 {
@@ -38,36 +39,35 @@ namespace Eyedrivomatic.Controls.DwellClick
             Focusable = false;
             IsHitTestVisible = false;
 
-            _progressIndicator = new PieSlice();
-            _progressIndicator.HorizontalAlignment = HorizontalAlignment.Center;
-            _progressIndicator.VerticalAlignment = VerticalAlignment.Center;
-            _progressIndicator.Visibility = Visibility.Visible;
+            _progressIndicator = new PieSlice
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Visibility = Visibility.Visible,
+                Effect = new DropShadowEffect()
+            };
 
-            _progressIndicator.Effect = new DropShadowEffect();
 
-            var binding = new Binding(nameof(DwellProgress));
-            binding.Source = this;
-            binding.Converter = new ProgressToAngleConverter();
+            var binding = new Binding(nameof(DwellProgress))
+            {
+                Source = this,
+                Converter = new ProgressToAngleConverter()
+            };
             _progressIndicator.SetBinding(PieSlice.EndAngleProperty, binding);
 
-            binding = new Binding(nameof(ProgressIndicatorVisible));
-            binding.Source = this;
+            binding = new Binding(nameof(ProgressIndicatorVisible)) {Source = this};
             _progressIndicator.SetBinding(VisibilityProperty, binding);
 
-            binding = new Binding(nameof(ProgressIndicatorFill));
-            binding.Source = this;
+            binding = new Binding(nameof(ProgressIndicatorFill)) {Source = this};
             _progressIndicator.SetBinding(Shape.FillProperty, binding);
 
-            binding = new Binding(nameof(ProgressIndicatorOutline));
-            binding.Source = this;
+            binding = new Binding(nameof(ProgressIndicatorOutline)) {Source = this};
             _progressIndicator.SetBinding(Shape.StrokeProperty, binding);
 
-            binding = new Binding(nameof(ProgressIndicatorSize));
-            binding.Source = this;
+            binding = new Binding(nameof(ProgressIndicatorSize)) {Source = this};
             _progressIndicator.SetBinding(WidthProperty, binding);
 
-            binding = new Binding(nameof(ProgressIndicatorSize));
-            binding.Source = this;
+            binding = new Binding(nameof(ProgressIndicatorSize)) {Source = this};
             _progressIndicator.SetBinding(HeightProperty, binding);
 
             AddVisualChild(_progressIndicator);
@@ -99,12 +99,12 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private class ProgressToAngleConverter : IValueConverter
         {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
             {
                 return (double)value*360.0d;
             }
 
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            public object ConvertBack(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
             {
                 return (double)value / 360.0;
             }

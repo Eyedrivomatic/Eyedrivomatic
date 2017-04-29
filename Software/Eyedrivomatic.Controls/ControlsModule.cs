@@ -19,7 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
@@ -29,7 +28,6 @@ using System.Windows;
 using Eyedrivomatic.Controls.DwellClick;
 using Prism.Logging;
 using Microsoft.Practices.ServiceLocation;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.Controls
 {
@@ -52,8 +50,6 @@ namespace Eyedrivomatic.Controls
         [ImportingConstructor]
         public ControlsModule(ILoggerFacade logger, IServiceLocator serviceLocator)
         {
-            Contract.Requires<ArgumentNullException>(serviceLocator != null, nameof(serviceLocator));
-
             Logger = logger;
             Logger?.Log($"Creating Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
 

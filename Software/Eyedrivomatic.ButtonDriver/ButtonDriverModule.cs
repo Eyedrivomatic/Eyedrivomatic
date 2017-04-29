@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 using Prism.Logging;
 using Prism.Mef.Modularity;
@@ -30,11 +29,12 @@ using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.Views;
+using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.ButtonDriver
 {
@@ -47,17 +47,15 @@ namespace Eyedrivomatic.ButtonDriver
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IRegionManager _regionManager;
         private readonly ILoggerFacade _logger;
+        private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
+        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ILoggerFacade logger, IServiceLocator serviceLocator)
         {
-            Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
-            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
-
             _logger = logger;
             _logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
+            _serviceLocator = serviceLocator;
             _regionManager = regionManager;
             _hardwareService = hardwareService;
             _configurationService = configurationService;
@@ -68,9 +66,13 @@ namespace Eyedrivomatic.ButtonDriver
             _logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
 
             _regionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
-
-            _regionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(DrivingView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(DrivingView));
+
+            foreach (var profile in _configurationService.DrivingProfiles)
+            {
+                _regionManager.RegisterViewWithRegion(RegionNames.MainNavigationRegion, () => CreateDriveProfileNavigation(profile));
+            }
 
             try
             {
@@ -87,7 +89,7 @@ namespace Eyedrivomatic.ButtonDriver
                         return;
                     }
 
-                    NavigateToDriver();
+                    NavigateToConfiguration();
 
                     var connectionString = _configurationService.ConnectionString;
                     if (!string.IsNullOrWhiteSpace(connectionString))
@@ -101,8 +103,6 @@ namespace Eyedrivomatic.ButtonDriver
                         await connection.AutoConnectAsync();
                     }
                 }
-
-                if (connection?.State != ConnectionState.Connected) NavigateToConfiguration();
             }
             catch (Exception ex)
             {
@@ -110,17 +110,20 @@ namespace Eyedrivomatic.ButtonDriver
             }
         }
 
-        private void NavigateToConfiguration()
+        private RegionNavigationButton CreateDriveProfileNavigation(Profile profile)
         {
-            _logger?.Log($"Navigating to [ConfigurationView]->[{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
-            _regionManager.RequestNavigate(RegionNames.GridRegion, "ConfigurationView");
-            _regionManager.RequestNavigate(RegionNames.ConfigurationRegion, nameof(DeviceConfigurationView));
+            var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+            button.Content = Resources.Strings.ResourceManager.GetString($"StandardProfileName_{profile.Name}") ?? profile.Name;
+            button.RegionName = RegionNames.MainContentRegion;
+            button.Target = new Uri($@"/{nameof(DrivingView)}?profile={profile.Name}", UriKind.Relative);
+            return button;
         }
 
-        private void NavigateToDriver()
+        private void NavigateToConfiguration()
         {
-            _logger?.Log($"Navigating to [{nameof(DrivingView)}].", Category.Debug, Priority.None);
-            _regionManager.RequestNavigate(RegionNames.GridRegion, nameof(DrivingView));
+            _logger?.Log($@"Navigating to [/ConfigurationView/{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
+            _regionManager.RequestNavigate(RegionNames.MainContentRegion, "/ConfigurationView");
+            _regionManager.RequestNavigate(RegionNames.ConfigurationRegion, $"/{nameof(DeviceConfigurationView)}");
         }
 
         public void Dispose()

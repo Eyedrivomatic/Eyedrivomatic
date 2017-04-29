@@ -19,10 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using Prism.Mvvm;
-
-using System.Diagnostics.Contracts;
 
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 
@@ -33,8 +30,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
     {
         protected EditMacroTaskViewModel(MacroTask task)
         {
-            Contract.Requires<ArgumentNullException>(task != null, nameof(task));
-
             Task = task;
         }
 
@@ -42,13 +37,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public string DisplayName
         {
-            get { return Task.DisplayName; }
+            get => Task.DisplayName;
             set
             {
                 if (Task.DisplayName == value) return;
                 Task.DisplayName = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
             }
         }
 

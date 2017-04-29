@@ -39,7 +39,8 @@
     </UserControl.Resources>
 
     <ToggleButton Style="{DynamicResource {ComponentResourceKey {x:Type ToggleButton}, FlashingToggleButton}}"
-        IsChecked="{Binding Path=(dwellclick:DwellClickBehavior.Pause)}"
+                  Visibility="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration).EnableDwellClick, Converter={StaticResource BoolToCollapsedConverter}}"
+                  IsChecked="{Binding Path=(dwellclick:DwellClickBehavior.Pause)}"
                   dwellclick:DwellClickBehavior.IgnorePause="True"
                   dwellclick:DwellClickBehavior.Configuration="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"
                   dwellclick:DwellClickBehavior.AdornerStyle="{StaticResource DwellClickAdornerStyle}">

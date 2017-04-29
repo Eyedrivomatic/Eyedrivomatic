@@ -19,10 +19,8 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 using Prism.Logging;
 using Prism.Mvvm;
@@ -49,8 +47,6 @@ namespace Eyedrivomatic.Configuration
         [ImportingConstructor]
         internal DwellClickConfigurationService(DwellClickConfiguration configuration)
         {
-            Contract.Requires<ArgumentNullException>(configuration != null, nameof(configuration));
-
             _configuration = configuration;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             if (_configuration.SettingsVersion < 1)
@@ -69,32 +65,32 @@ namespace Eyedrivomatic.Configuration
             {
                 _hasChanges = true;
                 // ReSharper disable once ExplicitCallerInfoArgument
-                OnPropertyChanged(e.PropertyName);
+                RaisePropertyChanged(e.PropertyName);
             }
         }
 
         public bool EnableDwellClick
         {
-            get { return _configuration.EnableDwellClick; }
-            set { _configuration.EnableDwellClick = value; }
+            get => _configuration.EnableDwellClick;
+            set => _configuration.EnableDwellClick = value;
         }
 
         public int DwellTimeMilliseconds
         {
-            get { return _configuration.DwellTimeMilliseconds; }
-            set { _configuration.DwellTimeMilliseconds = value; }
+            get => _configuration.DwellTimeMilliseconds;
+            set => _configuration.DwellTimeMilliseconds = value;
         }
 
         public int DwellTimeoutMilliseconds
         {
-            get { return _configuration.DwellTimeoutMilliseconds; }
-            set { _configuration.DwellTimeoutMilliseconds = value; }
+            get => _configuration.DwellTimeoutMilliseconds;
+            set => _configuration.DwellTimeoutMilliseconds = value;
         }
 
         public int RepeatDelayMilliseconds
         {
-            get { return _configuration.RepeatDelayMilliseconds; }
-            set { _configuration.RepeatDelayMilliseconds = value; }
+            get => _configuration.RepeatDelayMilliseconds;
+            set => _configuration.RepeatDelayMilliseconds = value;
         }
 
         public bool HasChanges => _hasChanges;

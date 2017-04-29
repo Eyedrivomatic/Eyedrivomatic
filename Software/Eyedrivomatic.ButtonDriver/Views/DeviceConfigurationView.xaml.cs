@@ -37,8 +37,8 @@ namespace Eyedrivomatic.ButtonDriver.Views
         [Import]
         public DeviceConfigViewModel ViewModel
         {
-            get { return (DeviceConfigViewModel)DataContext; }
-            set { DataContext = value; }
+            get => (DeviceConfigViewModel)DataContext;
+            set => DataContext = value;
         }
     }
 }

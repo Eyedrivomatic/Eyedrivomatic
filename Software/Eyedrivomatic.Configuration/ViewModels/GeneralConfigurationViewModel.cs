@@ -19,9 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 using Prism.Commands;
 using Prism.Mvvm;
@@ -42,8 +40,6 @@ namespace Eyedrivomatic.Configuration.ViewModels
         [ImportingConstructor]
         public GeneralConfigurationViewModel(IDwellClickConfigurationService dwellClickConfigurationService)
         {
-            Contract.Requires<ArgumentNullException>(dwellClickConfigurationService != null, nameof(dwellClickConfigurationService));
-
             _dwellClickConfigurationService = dwellClickConfigurationService;
             _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
 
@@ -52,7 +48,7 @@ namespace Eyedrivomatic.Configuration.ViewModels
 
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            OnPropertyChanged();
+            RaisePropertyChanged(string.Empty);
 
             SaveCommand.RaiseCanExecuteChanged();
         }
@@ -61,26 +57,26 @@ namespace Eyedrivomatic.Configuration.ViewModels
 
         public bool DwellClickEnabled
         {
-            get { return _dwellClickConfigurationService.EnableDwellClick; }
-            set { _dwellClickConfigurationService.EnableDwellClick = value; }
+            get => _dwellClickConfigurationService.EnableDwellClick;
+            set => _dwellClickConfigurationService.EnableDwellClick = value;
         }
 
         public int DwellTimeMilliseconds
         {
-            get { return _dwellClickConfigurationService.DwellTimeMilliseconds; }
-            set { _dwellClickConfigurationService.DwellTimeMilliseconds = value; }
+            get => _dwellClickConfigurationService.DwellTimeMilliseconds;
+            set => _dwellClickConfigurationService.DwellTimeMilliseconds = value;
         }
 
         public int DwellTimeoutMilliseconds
         {
-            get { return _dwellClickConfigurationService.DwellTimeoutMilliseconds; }
-            set { _dwellClickConfigurationService.DwellTimeoutMilliseconds = value; }
+            get => _dwellClickConfigurationService.DwellTimeoutMilliseconds;
+            set => _dwellClickConfigurationService.DwellTimeoutMilliseconds = value;
         }
 
         public int DwellRepeatDelayMilliseconds
         {
-            get { return _dwellClickConfigurationService.RepeatDelayMilliseconds; }
-            set { _dwellClickConfigurationService.RepeatDelayMilliseconds = value; }
+            get => _dwellClickConfigurationService.RepeatDelayMilliseconds;
+            set => _dwellClickConfigurationService.RepeatDelayMilliseconds = value;
         }
 
         protected void SaveChanges()

@@ -26,7 +26,6 @@ using System.Windows.Documents;
 using System.Windows.Media;
 
 using Prism.Logging;
-using System.Diagnostics.Contracts;
 
 
 namespace Eyedrivomatic.Controls.DwellClick
@@ -44,8 +43,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         internal static DwellClickAdorner CreateAndAdd(UIElement adornedElement)
         {
-            Contract.Requires<ArgumentNullException>(adornedElement != null, nameof(adornedElement));
-
             var adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
             if (adornerLayer == null) return null;
 
@@ -70,25 +67,24 @@ namespace Eyedrivomatic.Controls.DwellClick
         /// </summary>
         public double DwellProgress
         {
-            get { return (double)GetValue(DwellProgressProperty); }
-            set { SetValue(DwellProgressProperty, value); }
+            get => (double)GetValue(DwellProgressProperty);
+            set => SetValue(DwellProgressProperty, value);
         }
         public static readonly DependencyProperty DwellProgressProperty =
             DependencyProperty.Register(nameof(DwellProgress), typeof(double), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(0d, OnDwellProgressChanged));
 
         private static void OnDwellProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            Contract.Requires<ArgumentException>(d is DwellClickAdorner, nameof(d));
-
             var adorner = d as DwellClickAdorner;
+            if (d == null) return;
             adorner.ProgressIndicatorVisible = (double)args.NewValue > 0d ? Visibility.Visible : Visibility.Hidden;
             adorner.InvalidateVisual();
         }
 
         public virtual Visibility ProgressIndicatorVisible
         {
-            get { return (Visibility)GetValue(ProgressIndicatorVisibleProperty); }
-            set { SetValue(ProgressIndicatorVisibleProperty, value); }
+            get => (Visibility)GetValue(ProgressIndicatorVisibleProperty);
+            set => SetValue(ProgressIndicatorVisibleProperty, value);
         }
         public static readonly DependencyProperty ProgressIndicatorVisibleProperty =
             DependencyProperty.Register(nameof(ProgressIndicatorVisible), typeof(Visibility), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(Visibility.Visible));
@@ -99,16 +95,16 @@ namespace Eyedrivomatic.Controls.DwellClick
         /// </summary>
         public double ProgressIndicatorSize
         {
-            get { return (double)GetValue(ProgressIndicatorSizeProperty); }
-            set { SetValue(ProgressIndicatorSizeProperty, value); }
+            get => (double)GetValue(ProgressIndicatorSizeProperty);
+            set => SetValue(ProgressIndicatorSizeProperty, value);
         }
         public static readonly DependencyProperty ProgressIndicatorSizeProperty =
             DependencyProperty.Register(nameof(ProgressIndicatorSize), typeof(double), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(40d));
 
         public Brush ProgressIndicatorOutline
         {
-            get { return (Brush)GetValue(ProgressIndicatorOutlineProperty); }
-            set { SetValue(ProgressIndicatorOutlineProperty, value); }
+            get => (Brush)GetValue(ProgressIndicatorOutlineProperty);
+            set => SetValue(ProgressIndicatorOutlineProperty, value);
         }
         public static readonly DependencyProperty ProgressIndicatorOutlineProperty =
             DependencyProperty.Register(nameof(ProgressIndicatorOutline), typeof(Brush), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(Brushes.Black));
@@ -116,8 +112,8 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         public Brush ProgressIndicatorFill
         {
-            get { return (Brush)GetValue(ProgressIndicatorFillProperty); }
-            set { SetValue(ProgressIndicatorFillProperty, value); }
+            get => (Brush)GetValue(ProgressIndicatorFillProperty);
+            set => SetValue(ProgressIndicatorFillProperty, value);
         }
         public static readonly DependencyProperty ProgressIndicatorFillProperty =
             DependencyProperty.Register(nameof(ProgressIndicatorFill), typeof(Brush), typeof(DwellClickAdorner), new FrameworkPropertyMetadata(Brushes.GhostWhite));

@@ -39,7 +39,12 @@ namespace Eyedrivomatic.Controls.DwellClick
     [Export(typeof(IDwellClickAnimator)), PartCreationPolicy(CreationPolicy.NonShared)]
     public class DwellClickAnimator : IDwellClickAnimator
     {
-        [Import]
+        [ImportingConstructor]
+        public DwellClickAnimator(ILoggerFacade logger)
+        {
+            Logger = logger;
+        }
+
         public static ILoggerFacade Logger { get; set; }
 
         private Storyboard _dwellStoryboard;

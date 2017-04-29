@@ -303,7 +303,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Diagonale Geschwindigkeits Reduzierung </value>
     <comment>Reduces or restores diagonal speed.</comment>
   </data>
-  <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
+  <data name="DrivingView_LeftNudge" xml:space="preserve">
     <value>Schubs Links</value>
     <comment>This is an image.</comment>
   </data>
@@ -315,11 +315,11 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Schubs Rechts</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedFast" xml:space="preserve">
+  <data name="DrivingView_SpeedFast" xml:space="preserve">
     <value>Schnell </value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedManic" xml:space="preserve">
+  <data name="DrivingView_SpeedManic" xml:space="preserve">
     <value>Verrückt</value>
     <comment>Set the drive speed to manic or full speed.</comment>
   </data>
@@ -327,15 +327,15 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Langsam</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedWalk" xml:space="preserve">
+  <data name="DrivingView_SpeedWalk" xml:space="preserve">
     <value>Gehen</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
+  <data name="DrivingView_XDurationHalf" xml:space="preserve">
     <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
   </data>
-  <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
+  <data name="DrivingView_YDurationHalf" xml:space="preserve">
     <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
@@ -471,7 +471,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Verändern der Aktionen</value>
     <comment>The name of the edit macros or actions view.</comment>
   </data>
-  <data name="ViewName_OutdoorDriving" xml:space="preserve">
+  <data name="DriveProfile_Default" xml:space="preserve">
     <value>Fahren</value>
     <comment>The name of the outdoor driving view.</comment>
   </data>

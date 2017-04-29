@@ -41,7 +41,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
         }
 
-        public string HeaderInfo { get; } = Strings.ViewName_OutdoorDriving;
+        public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
         public ICommand SetXDuration => new DelegateCommand<string>(
             duration =>

@@ -19,7 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -29,7 +28,6 @@ using Prism.Commands;
 
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Resources;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 {
@@ -52,8 +50,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
         [ImportingConstructor]
         public EditMacrosViewModel(IMacroService macroService)
         {
-            Contract.Requires<ArgumentNullException>(macroService != null, nameof(macroService));
-
             _macroService = macroService;
             _macroService.PropertyChanged += MacroService_PropertyChanged; ;
 
@@ -63,7 +59,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
         private void MacroService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_macroService.HasChanges))
-                OnPropertyChanged(nameof(HasChanges));
+                RaisePropertyChanged(nameof(HasChanges));
         }
 
         private void AddMacro()

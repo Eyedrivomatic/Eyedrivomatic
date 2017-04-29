@@ -27,12 +27,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
-             xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
-             xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-             xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="876">
@@ -128,12 +124,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_XDurationHalf}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
-            <Button Content="1" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1000" />
-            <Button Content="1.5" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="1500" />
-            <Button Content="2" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="2000" />
-            <Button Content="3" Grid.Row="4"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="3000" />
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_DiagSpeedReduction}" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding Path=DiagonalSpeedReductionToggle}"/>
+            <Button Content="{x:Static resources:Strings.DrivingView_XDurationHalf}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
+            <Button Content="1" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="1000" />
+            <Button Content="1.5" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="1500" />
+            <Button Content="2" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="2000" />
+            <Button Content="3" Grid.Row="4"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="3000" />
+            <Button Content="{x:Static resources:Strings.DrivingView_DiagSpeedReduction}" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding DiagonalSpeedReductionToggle}"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -143,10 +139,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_LeftNudge}" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static services:XDirection.Left}" />
-            <Button Grid.Row="1" Style="{StaticResource ForwardLeftButtonStyle}"  Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.ForwardLeft}"/>
-            <Button Grid.Row="2" Style="{StaticResource LeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Left}"/>
-            <Button Grid.Row="3" Style="{StaticResource BackwardLeftButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.BackwardLeft}"/>
+            <Button Content="{x:Static resources:Strings.DrivingView_LeftNudge}" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Nudge}" CommandParameter="{x:Static services:XDirection.Left}" />
+            <Button Grid.Row="1" Style="{StaticResource ForwardLeftButtonStyle}"  Command="{Binding Move}" CommandParameter="{x:Static services:Direction.ForwardLeft}"/>
+            <Button Grid.Row="2" Style="{StaticResource LeftButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Left}"/>
+            <Button Grid.Row="3" Style="{StaticResource BackwardLeftButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.BackwardLeft}"/>
         </Grid>
 
         <Grid Grid.Column="2">
@@ -156,10 +152,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="ContinueButton" Grid.Row="0" Style="{StaticResource ContinueButtonStyle}" Command="{Binding Path=Continue}"/>
-            <Button x:Name="ForwardButton" Grid.Row="1" Style="{StaticResource ForwardButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Forward}"/>
-            <Button x:Name="ResetButton" Grid.Row="2" Style="{StaticResource ResetButtonStyle}" Command="{Binding Path=Reset}"/>
-            <Button x:Name="BackwardButton" Grid.Row="3" Style="{StaticResource BackwardButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Backward}"/>
+            <Button x:Name="ContinueButton" Grid.Row="0" Style="{StaticResource ContinueButtonStyle}" Command="{Binding Continue}"/>
+            <Button x:Name="ForwardButton" Grid.Row="1" Style="{StaticResource ForwardButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Forward}"/>
+            <Button x:Name="ResetButton" Grid.Row="2" Style="{StaticResource ResetButtonStyle}" Command="{Binding Reset}"/>
+            <Button x:Name="BackwardButton" Grid.Row="3" Style="{StaticResource BackwardButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Backward}"/>
         </Grid>
 
         <Grid Grid.Column="3">
@@ -169,10 +165,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="RightNudgeButton" Content="{x:Static resources:Strings.OutdoorDrivingView_RightNudge}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=Nudge}" CommandParameter="{x:Static services:XDirection.Right}" />
-            <Button x:Name="ForwardRightButton" Grid.Row="1"  Style="{StaticResource ForwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.ForwardRight}"/>
-            <Button x:Name="RightButton" Grid.Row="2"  Style="{StaticResource RightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.Right}"/>
-            <Button x:Name="BackwardRightButton" Grid.Row="3"  Style="{StaticResource BackwardRightButtonStyle}" Command="{Binding Path=Move}" CommandParameter="{x:Static services:Direction.BackwardRight}"/>
+            <Button x:Name="RightNudgeButton" Content="{x:Static resources:Strings.DrivingView_RightNudge}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Nudge}" CommandParameter="{x:Static services:XDirection.Right}" />
+            <Button x:Name="ForwardRightButton" Grid.Row="1"  Style="{StaticResource ForwardRightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.ForwardRight}"/>
+            <Button x:Name="RightButton" Grid.Row="2"  Style="{StaticResource RightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Right}"/>
+            <Button x:Name="BackwardRightButton" Grid.Row="3"  Style="{StaticResource BackwardRightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.BackwardRight}"/>
         </Grid>
 
         <Grid Grid.Column="4">
@@ -184,12 +180,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_YDurationHalf}" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="500" />
-            <Button Content="1" Grid.Row="1"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="1000" />
-            <Button Content="2" Grid.Row="2"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="2000" />
-            <Button Content="3" Grid.Row="3"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="3000" />
-            <Button Content="4" Grid.Row="4"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="4000" />
-            <Button Content="5" Grid.Row="5"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding Path=SetYDuration}" CommandParameter="5000" />
+            <Button Content="{x:Static resources:Strings.DrivingView_YDurationHalf}" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="500" />
+            <Button Content="1" Grid.Row="1"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="1000" />
+            <Button Content="2" Grid.Row="2"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="2000" />
+            <Button Content="3" Grid.Row="3"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="3000" />
+            <Button Content="4" Grid.Row="4"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="4000" />
+            <Button Content="5" Grid.Row="5"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="5000" />
         </Grid>
 
         <Grid Grid.Column="5">
@@ -201,17 +197,17 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedSlow}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Slow" />
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedWalk}" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Walk" />
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedFast}" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Fast" />
-            <Button Content="{x:Static resources:Strings.OutdoorDrivingView_SpeedManic}" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetSpeed}" CommandParameter="Manic" />
+            <Button Content="{x:Static resources:Strings.DrivingView_SpeedSlow}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Slow" />
+            <Button Content="{x:Static resources:Strings.DrivingView_SpeedWalk}" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Walk" />
+            <Button Content="{x:Static resources:Strings.DrivingView_SpeedFast}" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Fast" />
+            <Button Content="{x:Static resources:Strings.DrivingView_SpeedManic}" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Manic" />
 
             <Button Grid.Row="4" Grid.RowSpan="2"
                     Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">
                 <Button.Resources>
                     <infrastructure:PathToImageConverter x:Key="LocalPathConverter"/>
                 </Button.Resources>
-                <Image Source="{Binding Path=DrivingPageMacro.IconPath, Converter={StaticResource LocalPathConverter}}" Margin="20"/>
+                <Image Source="{Binding DrivingPageMacro.IconPath, Converter={StaticResource LocalPathConverter}}" Margin="20"/>
             </Button>
         </Grid>
     </Grid>

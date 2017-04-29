@@ -21,12 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
-using Eyedrivomatic.ButtonDriver.Hardware.Services.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -47,7 +45,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
     /// <summary>
     /// This it the interface to the device hardware.
     /// </summary>
-    [ContractClass(typeof(DriverContract))]
     public interface IButtonDriver : INotifyPropertyChanged, IDisposable
     {
         #region Connection
@@ -160,172 +157,5 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         /// <param name="repeatDelayMs">The delay between repeated relay cycles.</param>
         Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0);
         #endregion Control
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IButtonDriver))]
-        internal abstract class DriverContract : IButtonDriver
-        {
-
-            #region Connection
-
-            public IBrainBoxConnection Connection
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<IBrainBoxConnection>() != null);
-                    return default(IBrainBoxConnection);
-                }
-            }
-
-            #endregion Connection
-
-            #region DeviceInfo
-            public uint RelayCount
-            {
-                get
-                {
-                    //This may change in the future. But his makes sure that implementations dont break current expectations.
-                    Contract.Ensures(Contract.Result<uint>() > 0);
-                    return default(uint);
-                }
-            }
-            #endregion DeviceInfo
-
-            #region Status
-            public abstract bool HardwareReady { get; }
-
-            public ReadyState ReadyState
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(ReadyState), Contract.Result<ReadyState>()));
-                    return default(ReadyState);
-                }
-            }
-
-            public Direction CurrentDirection
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(Direction), Contract.Result<Direction>()));
-                    return default(Direction);
-                }
-            }
-
-            public Direction LastDirection
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(Direction), Contract.Result<Direction>()));
-                    return default(Direction);
-                }
-            }
-
-            public ContinueState ContinueState
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(ContinueState), Contract.Result<ContinueState>()));
-                    return default(ContinueState);
-                }
-            }
-
-            public IDeviceStatus DeviceStatus
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<IDeviceStatus>() != null);
-                    return default(IDeviceStatus);
-                }
-            }
-
-            #endregion Status
-
-            #region Settings
-
-            public SafetyBypassState SafetyBypass
-            {
-                get
-                {
-                    Contract.Ensures(Enum.IsDefined(typeof(SafetyBypassState), Contract.Result<SafetyBypassState>()));
-                    return default(SafetyBypassState);
-                }
-
-                set
-                {
-                    Contract.Requires(Enum.IsDefined(typeof(SafetyBypassState), value));
-                }
-            }
-
-            public IDeviceSettings DeviceSettings
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<IDeviceSettings>() != null);
-                    return default(IDeviceSettings);
-                }
-            }
-
-
-            public Profile Profile
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<Profile>() != null);
-                    return default(Profile);
-                }
-
-                set
-                {
-                    Contract.Requires<ArgumentNullException>(value != null, nameof(value));
-                }
-            }
-
-            #endregion Settings
-
-            #region Control
-
-            public abstract void Continue();
-
-            public abstract void Stop();
-
-
-            public Task Nudge(XDirection direction)
-            {
-                Contract.Requires(Enum.IsDefined(typeof(XDirection), direction));
-                throw new NotImplementedException();
-            }
-
-            public bool CanMove(Direction direction)
-            {
-                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
-                throw new NotImplementedException();
-            }
-
-            public Task Move(Direction direction)
-            {
-                Contract.Requires(Enum.IsDefined(typeof(Direction), direction));
-                throw new NotImplementedException();
-            }
-
-            public Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
-            {
-                Contract.Requires<ArgumentOutOfRangeException>(relay > 0 && relay <= RelayCount, nameof(relay));
-                Contract.Requires<ArgumentOutOfRangeException>(repeat > 0, nameof(repeat));
-                throw new NotImplementedException();
-            }
-
-            #region IDisposable
-
-            #endregion Control
-
-            public abstract void Dispose();
-
-            #endregion IDisposable
-
-            public abstract event PropertyChangedEventHandler PropertyChanged;
-        }
     }
 }

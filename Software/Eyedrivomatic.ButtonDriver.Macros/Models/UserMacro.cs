@@ -95,7 +95,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         }
 
         #region IDataErrorInfo
-        string IDataErrorInfo.Error { get { return null; } }
+        string IDataErrorInfo.Error => null;
 
         string IDataErrorInfo.this[string propertyName] => GetValidationError(propertyName);
         #endregion IDataErrorInfo

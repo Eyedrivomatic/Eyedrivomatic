@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Prism.Commands;
@@ -33,6 +31,7 @@ using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
@@ -45,15 +44,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public DeviceConfigViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
             : base(hardwareService)
         {
-            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-            Contract.Requires<ArgumentNullException>(configurationService != null, nameof(configurationService));
-
             _configurationService = configurationService;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
             SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
-            AutoDetectDeviceCommand = DelegateCommand.FromAsyncHandler(AutoDetectDeviceAsync, CanAutoDetectDevice);
-            ConnectCommand = DelegateCommand.FromAsyncHandler(ConnectAsync, CanConnect);
+            AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
+            ConnectCommand = new DelegateCommand(Connect, CanConnect);
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
 
             RefreshAvailableDeviceList();
@@ -61,7 +57,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            OnPropertyChanged();
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(string.Empty);
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -103,7 +100,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 if (Driver != null)
                 {
                     Driver.SafetyBypass = value ? SafetyBypassState.Unsafe : SafetyBypassState.Safe;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                 }
                 else
                 {
@@ -114,8 +111,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public bool AutoSaveDeviceSettingsOnExit
         {
-            get { return _configurationService.AutoSaveDeviceSettingsOnExit; }
-            set { _configurationService.AutoSaveDeviceSettingsOnExit = value; }
+            get => _configurationService.AutoSaveDeviceSettingsOnExit;
+            set => _configurationService.AutoSaveDeviceSettingsOnExit = value;
         }
 
         public class SerialDeviceInfo
@@ -125,9 +122,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
             public SerialDeviceInfo(string name, string port)
             {
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(port));
-
                 Name = name;
                 Port = port;
             }
@@ -141,20 +135,21 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         private IList<SerialDeviceInfo> _availableDevices;
         public IList<SerialDeviceInfo> AvailableDevices
         {
-            get { return _availableDevices; }
-            set { SetProperty(ref _availableDevices, value); }
+            get => _availableDevices;
+            set => SetProperty(ref _availableDevices, value);
         }
 
+        [AllowNull]
         public SerialDeviceInfo SelectedDevice
         {
             get { return AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString);  }
-            set { _configurationService.ConnectionString = (value?.Port ?? string.Empty); }
+            set => _configurationService.ConnectionString = (value?.Port ?? string.Empty);
         }
 
         public bool AutoConnect
         {
-            get { return _configurationService.AutoConnect; }
-            set { _configurationService.AutoConnect = value; }
+            get => _configurationService.AutoConnect;
+            set => _configurationService.AutoConnect = value;
         }
 
         public void RefreshAvailableDeviceList()
@@ -183,7 +178,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             return Driver.Connection.State == ConnectionState.Connected || _configurationService.HasChanges;
         }
 
-        protected async Task AutoDetectDeviceAsync()
+        protected async void AutoDetectDevice()
         {
             RefreshAvailableDeviceList();
             await Driver.Connection.AutoConnectAsync();
@@ -192,12 +187,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
 
-        protected Task ConnectAsync()
+        protected async void Connect()
         {
-            Contract.Requires<InvalidOperationException>(!string.IsNullOrWhiteSpace(SelectedDevice?.Port), "Unable to connect - no device selected.");
-            Contract.Ensures(Contract.Result<Task>() != null);
+            if (string.IsNullOrWhiteSpace(SelectedDevice?.Port)) throw new InvalidOperationException("Unable to connect - no device selected.");
 
-            return Driver.Connection.ConnectAsync(SelectedDevice.Port);
+            await Driver.Connection.ConnectAsync(SelectedDevice.Port);
         }
 
         protected bool CanConnect()

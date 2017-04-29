@@ -20,8 +20,6 @@
 
 
 using System;
-using System.Diagnostics.Contracts;
-
 using Prism.Mvvm;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
@@ -35,7 +33,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected IButtonDriver Driver
         {
-            get { return _driver; }
+            get => _driver;
             private set
             {
                 if (_driver != null) _driver.PropertyChanged -= OnDriverStatusChanged;
@@ -46,8 +44,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected ButtonDriverViewModelBase(IHardwareService hardwareService)
         {
-            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-
             hardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
             Driver = hardwareService.CurrentDriver;
         }
@@ -55,7 +51,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            OnPropertyChanged(string.Empty);
+            RaisePropertyChanged(string.Empty);
         }
     }
 }

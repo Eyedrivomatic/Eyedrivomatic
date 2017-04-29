@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
@@ -33,9 +32,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             [Import(nameof(IBrainBoxCommands.SetConfiguration))] Func<string, string, Task<bool>> setConfigurationCommand,
             ISettingsMessageSource settingsMessageSource)
         {
-            Contract.Requires<ArgumentNullException>(setConfigurationCommand != null, nameof(setConfigurationCommand));
-            Contract.Requires<ArgumentNullException>(settingsMessageSource != null, nameof(settingsMessageSource));
-
             _setConfigurationCommand = setConfigurationCommand;
             _settingsMessageSource = settingsMessageSource;
             _settingsMessageSource.SettingsMessageReceived += OnSettingMessage;
@@ -77,61 +73,61 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 
         public bool IsKnown
         {
-            get { return _isKnown; }
-            private set { SetProperty(ref _isKnown, value); }
+            get => _isKnown;
+            private set => SetProperty(ref _isKnown, value);
         }
 
         public int CenterPosX
         {
-            get { return _centerPosX; }
-            set { SendConfiguration(SettingNames.CenterPosX, value); }
+            get => _centerPosX;
+            set => SendConfiguration(SettingNames.CenterPosX, value);
         }
 
         public int MinPosX
         {
-            get { return _minPosX; }
-            set { SendConfiguration(SettingNames.MinPosX, value); }
+            get => _minPosX;
+            set => SendConfiguration(SettingNames.MinPosX, value);
         }
 
         public int MaxPosX
         {
-            get { return _maxPosX; }
-            set { SendConfiguration(SettingNames.MaxPosX, value); }
+            get => _maxPosX;
+            set => SendConfiguration(SettingNames.MaxPosX, value);
         }
 
         public int CenterPosY
         {
-            get { return _centerPosY; }
-            set { SendConfiguration(SettingNames.CenterPosY, value); }
+            get => _centerPosY;
+            set => SendConfiguration(SettingNames.CenterPosY, value);
         }
 
         public int MinPosY
         {
-            get { return _minPosY; }
-            set { SendConfiguration(SettingNames.MinPosY, value); }
+            get => _minPosY;
+            set => SendConfiguration(SettingNames.MinPosY, value);
         }
 
         public int MaxPosY
         {
-            get { return _maxPosY; }
-            set { SendConfiguration(SettingNames.MaxPosY, value); }
+            get => _maxPosY;
+            set => SendConfiguration(SettingNames.MaxPosY, value);
         }
 
         public bool Switch1Default
         {
-            get { return _switchDefaults[0]; }
-            set { SendConfiguration(SettingNames.Switch1Default, value); }
+            get => _switchDefaults[0];
+            set => SendConfiguration(SettingNames.Switch1Default, value);
         }
 
         public bool Switch2Default
         {
-            get { return _switchDefaults[1]; }
-            set { SendConfiguration(SettingNames.Switch1Default, value); }
+            get => _switchDefaults[1];
+            set => SendConfiguration(SettingNames.Switch1Default, value);
         }
         public bool Switch3Default
         {
-            get { return _switchDefaults[2]; }
-            set { SendConfiguration(SettingNames.Switch1Default, value); }
+            get => _switchDefaults[2];
+            set => SendConfiguration(SettingNames.Switch1Default, value);
         }
 
         private void SendConfiguration(string name, int value, [CallerMemberName] string propertyName = null)
@@ -155,7 +151,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
                 ButtonDriverHardwareModule.Logger?.Log($"Failed to send setting! [{e}]", Category.Exception, Priority.None);
 
                 // ReSharper disable once ExplicitCallerInfoArgument
-                OnPropertyChanged(propertyName); //Lets the client know that the "set" failed.
+                RaisePropertyChanged(propertyName); //Lets the client know that the "set" failed.
             }
         }
 

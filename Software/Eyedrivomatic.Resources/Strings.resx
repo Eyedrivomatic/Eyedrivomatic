@@ -299,44 +299,44 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>New Task</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
+  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
     <value>Diagonal Speed
 Reduction Toggle</value>
     <comment>Reduces or restores diagonal speed.</comment>
   </data>
-  <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
+  <data name="DrivingView_LeftNudge" xml:space="preserve">
     <value>Left Nudge</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_Reset" xml:space="preserve">
+  <data name="DrivingView_Reset" xml:space="preserve">
     <value>Reset</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_RightNudge" xml:space="preserve">
+  <data name="DrivingView_RightNudge" xml:space="preserve">
     <value>Right Nudge</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedFast" xml:space="preserve">
+  <data name="DrivingView_SpeedFast" xml:space="preserve">
     <value>Fast</value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedManic" xml:space="preserve">
+  <data name="DrivingView_SpeedManic" xml:space="preserve">
     <value>MANIC</value>
     <comment>Set the drive speed to manic or full speed.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedSlow" xml:space="preserve">
+  <data name="DrivingView_SpeedSlow" xml:space="preserve">
     <value>Slow</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedWalk" xml:space="preserve">
+  <data name="DrivingView_SpeedWalk" xml:space="preserve">
     <value>Walk</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
+  <data name="DrivingView_XDurationHalf" xml:space="preserve">
     <value>Half</value>
     <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
   </data>
-  <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
+  <data name="DrivingView_YDurationHalf" xml:space="preserve">
     <value>Half</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
@@ -432,9 +432,9 @@ Reduction Toggle</value>
     <value>Edit Actions</value>
     <comment>The name of the edit macros or actions view.</comment>
   </data>
-  <data name="ViewName_OutdoorDriving" xml:space="preserve">
+  <data name="DriveProfile_Default" xml:space="preserve">
     <value>Driving</value>
-    <comment>The name of the outdoor driving view.</comment>
+    <comment>The name of the default driving view.</comment>
   </data>
   <data name="ViewName_Status" xml:space="preserve">
     <value>Status</value>

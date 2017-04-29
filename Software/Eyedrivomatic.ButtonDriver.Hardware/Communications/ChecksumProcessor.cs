@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -26,15 +24,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 
         public static string ApplyChecksum(string message)
         {
-            Contract.Requires<ArgumentNullException>(message != null, nameof(message));
-
             return $"{message}{CheckChar}{GetCheckChar(message):X2}";
         }
 
         public static byte GetCheckChar(string message)
         {
-            Contract.Requires<ArgumentNullException>(message != null, nameof(message));
-
             return Encoding.ASCII.GetBytes(message).Aggregate((a, c) => (byte)(c ^ a));
         }
 

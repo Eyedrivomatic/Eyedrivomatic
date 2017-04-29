@@ -19,33 +19,14 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
-    [ContractClass(typeof(Contracts.DriverMacroAsyncTaskContract))]
     public interface IButtonDriverMacroAsyncTask
     {
         bool CanExecute(IButtonDriver driver);
         Task ExecuteAsync(IButtonDriver driver);
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IButtonDriverMacroAsyncTask))]
-        internal abstract class DriverMacroAsyncTaskContract : IButtonDriverMacroAsyncTask
-        {
-            public abstract bool CanExecute(IButtonDriver driver);
-
-            public Task ExecuteAsync(IButtonDriver driver)
-            {
-                Contract.Requires<ArgumentNullException>(driver != null, nameof(driver));
-                Contract.Ensures(Contract.Result<Task>() != null);
-                throw new NotImplementedException();
-            }
-        }
     }
 }

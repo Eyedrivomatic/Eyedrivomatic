@@ -39,7 +39,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         [Import]
         public IButtonDriver Driver
         {
-            get { return _driver; }
+            get => _driver;
             set
             {
                 if (ReferenceEquals(_driver, value)) return;

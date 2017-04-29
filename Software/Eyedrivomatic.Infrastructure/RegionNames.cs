@@ -24,8 +24,8 @@ namespace Eyedrivomatic.Infrastructure
     public class RegionNames
     {
         public const string StatusRegion = nameof(StatusRegion);
-        public const string GridRegion = nameof(GridRegion);
-        //public const string MainNavigationRegion = nameof(MainNavigationRegion);
+        public const string MainContentRegion = nameof(MainContentRegion);
+        public const string MainNavigationRegion = nameof(MainNavigationRegion);
         public const string ConfigurationRegion = nameof(ConfigurationRegion);
         public const string SleepButtonRegion = nameof(SleepButtonRegion);
     }

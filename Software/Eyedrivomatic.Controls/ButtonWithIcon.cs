@@ -29,8 +29,8 @@ namespace Eyedrivomatic.Controls
     {
         public ImageSource IconSource
         {
-            get { return (ImageSource)GetValue(IconSourceProperty); }
-            set { SetValue(IconSourceProperty, value); }
+            get => (ImageSource)GetValue(IconSourceProperty);
+            set => SetValue(IconSourceProperty, value);
         }
 
         public static readonly DependencyProperty IconSourceProperty =

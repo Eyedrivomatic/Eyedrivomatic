@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -19,9 +18,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         [ImportingConstructor]
         internal BrainBoxDeviceStatus(IStatusMessageSource statusMessageSource, [Import(nameof(IBrainBoxCommands.GetStatus))] Func<Task<bool>> getStatusCommand)
         {
-            Contract.Requires<ArgumentNullException>(statusMessageSource != null, nameof(statusMessageSource));
-            Contract.Requires<ArgumentNullException>(getStatusCommand != null, nameof(getStatusCommand));
-
             _statusMessageSource = statusMessageSource;
             _getStatusCommand = getStatusCommand;
             _statusMessageSource.StatusMessageReceived += OnStatusMessageReceived;
@@ -55,7 +51,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             IsKnown = true;
 
             // ReSharper disable once ExplicitCallerInfoArgument
-            OnPropertyChanged(string.Empty);
+            RaisePropertyChanged(string.Empty);
         }
 
         private async void OnStatusParseError(object sender, EventArgs eventArgs)
@@ -76,7 +72,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         private void OnDisconnected(object sender, EventArgs e)
         {
             IsKnown = false;
-            OnPropertyChanged(() => IsKnown);
+            RaisePropertyChanged(nameof(IsKnown));
         }
 
         public void Dispose()
@@ -85,7 +81,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             _statusMessageSource.StatusParseError -= OnStatusParseError;
 
             IsKnown = false;
-            OnPropertyChanged(() => IsKnown);
+            RaisePropertyChanged(nameof(IsKnown));
         }
     }
 }

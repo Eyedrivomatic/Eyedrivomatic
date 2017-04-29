@@ -19,13 +19,10 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
-    [ContractClass(typeof(Contracts.MacroSerializationServiceContract))]
     public interface IMacroSerializationService
     {
         string ConfigurationFilePath { get; set; }
@@ -34,37 +31,4 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         void SaveMacros(IEnumerable<IMacro> macros);
     }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IMacroSerializationService))]
-        internal abstract class MacroSerializationServiceContract : IMacroSerializationService
-        {
-            public string ConfigurationFilePath
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-
-                set
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public IEnumerable<IMacro> LoadMacros()
-            {
-                Contract.Ensures(Contract.Result<IEnumerable<IMacro>>() != null);
-                throw new NotImplementedException();
-            }
-
-            public void SaveMacros(IEnumerable<IMacro> macros)
-            {
-                Contract.Requires<ArgumentNullException>(macros != null, nameof(macros));
-                throw new NotImplementedException();
-            }
-        }
-    }
-
 }

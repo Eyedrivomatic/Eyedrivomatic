@@ -74,9 +74,16 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
         }
 
+        public override void Run(bool runWithDefaultConfiguration)
+        {
+            base.Run(runWithDefaultConfiguration);
+
+            var disclaimer = new DisclaimerWindow();
+            disclaimer.ShowDialog();
+        }
 
         #region IDisposable Support
-        private bool _disposed = false;
+        private bool _disposed;
         void Dispose(bool disposing)
         {
             if (_disposed) return;

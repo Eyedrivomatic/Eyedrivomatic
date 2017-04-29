@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
@@ -14,7 +13,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
         [ImportingConstructor]
         internal BrainBoxCommands([Import("ExecuteCommand")] Func <IBrainBoxCommand, Task<bool>> executeCommand)
         {
-            Contract.Requires<ArgumentNullException>(executeCommand != null, nameof(executeCommand));
             _executeCommand = executeCommand;
         }
 

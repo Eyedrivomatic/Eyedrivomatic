@@ -38,14 +38,14 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public double DelayMs
         {
-            get { return DelayTask.DelayMs; }
+            get => DelayTask.DelayMs;
             set
             {
                 if (DelayTask.DelayMs == value) return;
                 DelayTask.DelayMs = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
-                OnPropertyChanged(nameof(Description));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
+                RaisePropertyChanged(nameof(Description));
             }
         }
 

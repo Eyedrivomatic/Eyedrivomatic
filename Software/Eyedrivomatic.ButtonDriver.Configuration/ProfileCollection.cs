@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
@@ -22,7 +21,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             get { return this.FirstOrDefault(c => string.Compare(c.Name, _currentProfile, StringComparison.CurrentCultureIgnoreCase) == 0); }
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
                 _currentProfile = value.Name;
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(CurrentProfile)));
             }

@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
@@ -37,9 +36,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 
         internal BrainBoxCommandHandler(Action<string> sendFunc, IBrainBoxCommand command)
         {
-            Contract.Requires<ArgumentNullException>(sendFunc != null, nameof(sendFunc));
-            Contract.Requires<ArgumentNullException>(command != null, nameof(command));
-
             _sendFunc = sendFunc;
             _command = command;
         }

@@ -243,6 +243,106 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driving.
+        /// </summary>
+        public static string DriveProfile_Default {
+            get {
+                return ResourceManager.GetString("DriveProfile_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagonal Speed
+        ///Reduction Toggle.
+        /// </summary>
+        public static string DrivingView_DiagSpeedReduction {
+            get {
+                return ResourceManager.GetString("DrivingView_DiagSpeedReduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Nudge.
+        /// </summary>
+        public static string DrivingView_LeftNudge {
+            get {
+                return ResourceManager.GetString("DrivingView_LeftNudge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string DrivingView_Reset {
+            get {
+                return ResourceManager.GetString("DrivingView_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Nudge.
+        /// </summary>
+        public static string DrivingView_RightNudge {
+            get {
+                return ResourceManager.GetString("DrivingView_RightNudge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast.
+        /// </summary>
+        public static string DrivingView_SpeedFast {
+            get {
+                return ResourceManager.GetString("DrivingView_SpeedFast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MANIC.
+        /// </summary>
+        public static string DrivingView_SpeedManic {
+            get {
+                return ResourceManager.GetString("DrivingView_SpeedManic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slow.
+        /// </summary>
+        public static string DrivingView_SpeedSlow {
+            get {
+                return ResourceManager.GetString("DrivingView_SpeedSlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walk.
+        /// </summary>
+        public static string DrivingView_SpeedWalk {
+            get {
+                return ResourceManager.GetString("DrivingView_SpeedWalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Half.
+        /// </summary>
+        public static string DrivingView_XDurationHalf {
+            get {
+                return ResourceManager.GetString("DrivingView_XDurationHalf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Half.
+        /// </summary>
+        public static string DrivingView_YDurationHalf {
+            get {
+                return ResourceManager.GetString("DrivingView_YDurationHalf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full.
         /// </summary>
         public static string Hardware_DiagSpeedFullImage {
@@ -464,97 +564,6 @@ namespace Eyedrivomatic.Resources {
         public static string NewTaskViewModelName {
             get {
                 return ResourceManager.GetString("NewTaskViewModelName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Diagonal Speed
-        ///Reduction Toggle.
-        /// </summary>
-        public static string OutdoorDrivingView_DiagSpeedReduction {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_DiagSpeedReduction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Left Nudge.
-        /// </summary>
-        public static string OutdoorDrivingView_LeftNudge {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_LeftNudge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string OutdoorDrivingView_Reset {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_Reset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Right Nudge.
-        /// </summary>
-        public static string OutdoorDrivingView_RightNudge {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_RightNudge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fast.
-        /// </summary>
-        public static string OutdoorDrivingView_SpeedFast {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_SpeedFast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MANIC.
-        /// </summary>
-        public static string OutdoorDrivingView_SpeedManic {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_SpeedManic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slow.
-        /// </summary>
-        public static string OutdoorDrivingView_SpeedSlow {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_SpeedSlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Walk.
-        /// </summary>
-        public static string OutdoorDrivingView_SpeedWalk {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_SpeedWalk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Half.
-        /// </summary>
-        public static string OutdoorDrivingView_XDurationHalf {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_XDurationHalf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Half.
-        /// </summary>
-        public static string OutdoorDrivingView_YDurationHalf {
-            get {
-                return ResourceManager.GetString("OutdoorDrivingView_YDurationHalf", resourceCulture);
             }
         }
         
@@ -852,15 +861,6 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_MacrosSettings {
             get {
                 return ResourceManager.GetString("ViewName_MacrosSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Driving.
-        /// </summary>
-        public static string ViewName_OutdoorDriving {
-            get {
-                return ResourceManager.GetString("ViewName_OutdoorDriving", resourceCulture);
             }
         }
         

@@ -30,7 +30,6 @@ using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using NUnit.Framework;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using FakeItEasy;
-using NUnit.Framework.Constraints;
 
 
 namespace EyeDrivomatic.ButtonDriver.Hardware.UnitTests

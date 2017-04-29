@@ -36,8 +36,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Views
         [Import]
         public ExecuteMacrosViewModel ViewModel
         {
-            get { return (ExecuteMacrosViewModel)DataContext; }
-            set { DataContext = value; }
+            get => (ExecuteMacrosViewModel)DataContext;
+            set => DataContext = value;
         }
     }
 }

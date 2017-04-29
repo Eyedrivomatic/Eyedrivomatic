@@ -35,8 +35,8 @@ namespace Eyedrivomatic.Configuration.Views
         [Import]
         public GeneralConfigurationViewModel ViewModel
         {
-            get { return (GeneralConfigurationViewModel)DataContext; }
-            set { DataContext = value; }
+            get => (GeneralConfigurationViewModel)DataContext;
+            set => DataContext = value;
         }
     }
 }

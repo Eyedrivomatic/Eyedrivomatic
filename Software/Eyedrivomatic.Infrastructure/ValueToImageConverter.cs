@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Windows.Data;
 using System.Windows.Media;
+using NullGuard;
 
 namespace Eyedrivomatic.Infrastructure
 {
@@ -38,24 +39,26 @@ namespace Eyedrivomatic.Infrastructure
         {
         }
 
+        // ReSharper disable once RedundantOverriddenMember
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            //Recomended by CA2240
             base.GetObjectData(info, context);
         }
 
-        public ImageSource ImageIfNone { get; set; }
+        [AllowNull] public ImageSource ImageIfNone { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        [return: AllowNull]
+        public object Convert([AllowNull] object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             if (value == null) return ImageIfNone;
 
             var val = (T)System.Convert.ChangeType(value, typeof(T));
-            if (!ContainsKey(val)) return ImageIfNone;
-
-            return this[val];
+            return !ContainsKey(val) ? ImageIfNone : this[val];
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        [return: AllowNull]
+        public object ConvertBack([AllowNull] object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

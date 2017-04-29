@@ -3,7 +3,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -17,7 +16,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [ImportingConstructor]
         public MacroService(IMacroSerializationService macroSerializationService)
         {
-            Contract.Requires<ArgumentNullException>(macroSerializationService != null, nameof(macroSerializationService));
             _macroSerializationService = macroSerializationService;
         }
 
@@ -38,8 +36,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public bool HasChanges
         {
-            get { return _hasChanges; }
-            set { SetProperty(ref _hasChanges, value); }
+            get => _hasChanges;
+            set => SetProperty(ref _hasChanges, value);
         }
 
         private void MacrosCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

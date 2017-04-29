@@ -19,10 +19,8 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
 using System.Windows.Input;
 
 using Prism.Mvvm;
@@ -45,9 +43,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
             IMacroSerializationService macroSerializationService
             )
         {
-            Contract.Requires<ArgumentNullException>(executeMacroCommand != null, nameof(executeMacroCommand));
-            Contract.Requires<ArgumentNullException>(macroSerializationService != null, nameof(macroSerializationService));
-
             ExecuteMacroCommand = executeMacroCommand;
             _macroSerializationService = macroSerializationService;
             Macros = new ObservableCollection<IMacro>(_macroSerializationService.LoadMacros());

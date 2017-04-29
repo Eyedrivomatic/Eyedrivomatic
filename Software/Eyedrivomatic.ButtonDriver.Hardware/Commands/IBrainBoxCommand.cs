@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 {
-    [ContractClass(typeof(Contracts.BrainBoxCommandContract))]
     public interface IBrainBoxCommand
     {
         /// <summary>
@@ -28,47 +26,5 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
         /// </summary>
         string ToString();
 
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IBrainBoxCommand))]
-        internal abstract class BrainBoxCommandContract : IBrainBoxCommand
-        {
-            public string Name
-            {
-                get
-                {
-                    Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()));
-                    return default(string);
-                }
-            }
-
-            public int Retries
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<int>() > 0);
-                    return default(int);
-                }
-                set
-                {
-                    Contract.Requires<ArgumentOutOfRangeException>(value > 0);
-                }
-            }
-
-            public TimeSpan DefaultTimeout
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<TimeSpan>() >= TimeSpan.Zero);
-                    return default(TimeSpan);
-                }
-                set
-                {
-                    Contract.Requires<ArgumentOutOfRangeException>(value >= TimeSpan.Zero);
-                }
-            }
-        }
     }
 }

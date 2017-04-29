@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
@@ -24,18 +23,14 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public ProfileSpeed CurrentSpeed
         {
-            get { return Speeds.SingleOrDefault(c => string.Compare(c.Name, _currentSpeed, StringComparison.CurrentCultureIgnoreCase) == 0); }
-            set
-            {
-                Contract.Requires<ArgumentNullException>(value != null, nameof(value));
-                SetProperty(ref _currentSpeed, value.Name);
-            }
+            get => Speeds.SingleOrDefault(c => string.Compare(c.Name, _currentSpeed, StringComparison.CurrentCultureIgnoreCase) == 0);
+            set => SetProperty(ref _currentSpeed, value.Name);
         }
 
         /// <summary>
@@ -43,8 +38,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         /// </summary>
         public bool DiagonalSpeedReduction
         {
-            get { return _diagonalSpeedReduction; }
-            set { SetProperty(ref _diagonalSpeedReduction, value); }
+            get => _diagonalSpeedReduction;
+            set => SetProperty(ref _diagonalSpeedReduction, value);
         }
 
         #region Duration
@@ -54,8 +49,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         /// </summary>
         public TimeSpan XDuration
         {
-            get { return _xDuration; }
-            set { SetProperty(ref _xDuration, value); }
+            get => _xDuration;
+            set => SetProperty(ref _xDuration, value);
         }
 
         /// <summary>
@@ -63,8 +58,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         /// </summary>
         public TimeSpan YDuration
         {
-            get { return _yDuration; }
-            set { SetProperty(ref _yDuration,  value); }
+            get => _yDuration;
+            set => SetProperty(ref _yDuration,  value);
         }
 
         /// <summary>
@@ -72,8 +67,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         /// </summary>
         public TimeSpan NudgeDuration
         {
-            get { return _nudgeDuration; }
-            set { SetProperty(ref _nudgeDuration, value); }
+            get => _nudgeDuration;
+            set => SetProperty(ref _nudgeDuration, value);
         }
 
         #endregion Duration

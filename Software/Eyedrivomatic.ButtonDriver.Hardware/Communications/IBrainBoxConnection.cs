@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Prism.Events;
 
@@ -18,7 +17,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 
     public delegate void MessageReceivedHandler(string message);
 
-    [ContractClass(typeof(Contracts.BranBoxConnectionContract))]
     public interface IBrainBoxConnection : IDisposable
     {
         /// <summary>
@@ -77,51 +75,5 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
         /// Send the raw message to the device.
         /// </summary>
         void SendMessage(string message);
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IBrainBoxConnection))]
-        internal abstract class BranBoxConnectionContract : IBrainBoxConnection
-        {
-            public abstract string ConnectionString { get; }
-            public abstract ConnectionState State { get; }
-
-            public IObservable<IObservable<char>> DataStream
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<IObservable<IObservable<char>>>() != null);
-                    throw new NotImplementedException();
-                }
-            }
-
-            public abstract event EventHandler ConnectionStateChanged;
-
-            public IEnumerable<Tuple<string, string>> GetAvailableDevices()
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task AutoConnectAsync()
-            {
-                Contract.Ensures(Contract.Result<Task>() != null);
-                throw new NotImplementedException();
-            }
-
-            public Task ConnectAsync(string connectionString)
-            {
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(connectionString), nameof(connectionString));
-                Contract.Ensures(Contract.Result<Task>() != null);
-                throw new NotImplementedException();
-            }
-
-            public abstract void Disconnect();
-            public abstract void Dispose();
-            public void SendMessage(string message)
-            {
-                Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(message), nameof(message));
-            }
-        }
     }
 }

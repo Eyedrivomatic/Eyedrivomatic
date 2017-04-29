@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
-    [ContractClass(typeof(Contracts.HardwareServiceContract))]
     public interface IHardwareService : IDisposable
     {
         Task InitializeAsync();
@@ -35,33 +33,5 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         ObservableCollection<IButtonDriver> AvailableDrivers { get; }
 
         event EventHandler CurrentDriverChanged;
-    }
-
-    namespace Contracts
-    {
-        [ContractClassFor(typeof(IHardwareService))]
-        internal abstract class HardwareServiceContract : IHardwareService
-        {
-            public ObservableCollection<IButtonDriver> AvailableDrivers
-            {
-                get
-                {
-                    Contract.Ensures(Contract.Result<ObservableCollection<IButtonDriver>>() != null); 
-                    throw new NotImplementedException();
-                }
-            }
-
-            public abstract IButtonDriver CurrentDriver { get; set; }
-
-            public abstract event EventHandler CurrentDriverChanged;
-
-            public Task InitializeAsync()
-            {
-                Contract.Ensures(Contract.Result<Task>() != null);
-                throw new NotImplementedException();
-            }
-
-            public abstract void Dispose();
-        }
     }
 }

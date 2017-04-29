@@ -28,8 +28,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("name")]
         public string Name
         {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("x")]
         public int X
         {
-            get { return _x; }
-            set { SetProperty(ref _x, value); }
+            get => _x;
+            set => SetProperty(ref _x, value);
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yForward")]
         public int YForward
         {
-            get { return _yForward; }
-            set { SetProperty(ref _yForward, value); }
+            get => _yForward;
+            set => SetProperty(ref _yForward, value);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yBackward")]
         public int YBackward
         {
-            get { return _yBackward; }
-            set { SetProperty(ref _yBackward, value); }
+            get => _yBackward;
+            set => SetProperty(ref _yBackward, value);
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("xDiag")]
         public int XDiag
         {
-            get { return _xDiag; }
-            set { SetProperty(ref _xDiag, value); }
+            get => _xDiag;
+            set => SetProperty(ref _xDiag, value);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("xDiagReduced")]
         public int XDiagReduced
         {
-            get { return _xDiagReduced; }
-            set { SetProperty(ref _xDiagReduced, value); }
+            get => _xDiagReduced;
+            set => SetProperty(ref _xDiagReduced, value);
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yForwardDiag")]
         public int YForwardDiag
         {
-            get { return _yForwardDiag; }
-            set { SetProperty(ref _yForwardDiag, value); }
+            get => _yForwardDiag;
+            set => SetProperty(ref _yForwardDiag, value);
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yForwardDiagReduced")]
         public int YForwardDiagReduced
         {
-            get { return _yForwardDiagReduced; }
-            set { SetProperty(ref _yForwardDiagReduced, value); }
+            get => _yForwardDiagReduced;
+            set => SetProperty(ref _yForwardDiagReduced, value);
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yBackwardDiag")]
         public int YBackwardDiag
         {
-            get { return _yBackwardDiag; }
-            set { SetProperty(ref _yBackwardDiag, value); }
+            get => _yBackwardDiag;
+            set => SetProperty(ref _yBackwardDiag, value);
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("yBackwardDiagReduced")]
         public int YBackwardDiagReduced
         {
-            get { return _yBackwardDiagReduced; }
-            set { SetProperty(ref _yBackwardDiagReduced, value); }
+            get => _yBackwardDiagReduced;
+            set => SetProperty(ref _yBackwardDiagReduced, value);
         }
 
 
@@ -129,8 +129,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [XmlAttribute("nudge")]
         public int Nudge
         {
-            get { return _nudge; }
-            set { SetProperty(ref _nudge, value); }
+            get => _nudge;
+            set => SetProperty(ref _nudge, value);
         }
     }
 }
