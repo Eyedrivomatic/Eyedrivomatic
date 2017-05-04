@@ -89,18 +89,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonDriverModule.cs" />
-    <Compile Include="DriverExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EnumToImageConverters.cs" />
     <Compile Include="ViewModels\ButtonDriverViewModelBase.cs" />
     <Compile Include="ViewModels\DeviceConfigViewModel.cs" />
     <Compile Include="ViewModels\DrivingViewModel.cs" />
+    <Compile Include="ViewModels\ProfileConfigurationViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Views\DeviceConfigurationView.xaml.cs">
       <DependentUpon>DeviceConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DrivingView.xaml.cs">
       <DependentUpon>DrivingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfileConfigurationView.xaml.cs">
+      <DependentUpon>ProfileConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusView.xaml.cs">
       <DependentUpon>StatusView.xaml</DependentUpon>
@@ -151,6 +154,10 @@
     <Page Include="Views\DrivingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProfileConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StatusView.xaml">
       <Generator>MSBuild:Compile</Generator>

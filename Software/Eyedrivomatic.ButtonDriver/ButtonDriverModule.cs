@@ -67,6 +67,7 @@ namespace Eyedrivomatic.ButtonDriver
 
             _regionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ProfileConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(DrivingView));
 
             foreach (var profile in _configurationService.DrivingProfiles)
@@ -128,13 +129,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         public void Dispose()
         {
-            if (_configurationService.AutoSaveDeviceSettingsOnExit && _hardwareService.CurrentDriver != null) 
-            {
-                _logger?.Log("Auto saving device settings.", Category.Debug, Priority.None);
-
-                _configurationService.SafetyBypass = _hardwareService.CurrentDriver.SafetyBypass == SafetyBypassState.Unsafe;
-                _configurationService.Save();
-            }
+            _configurationService.Save();
             _hardwareService?.Dispose();
         }
     }

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
@@ -36,6 +37,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
     [Export(typeof(IButtonDriver))]
     [PartCreationPolicy(CreationPolicy.Shared)]
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class BrainBoxDriver : BindableBase, IButtonDriver
     {
         private readonly IBrainBoxCommands _commands;

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Eyedrivomatic.ButtonDriver.Views.ProfileConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
+             xmlns:dwellClick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1160">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Viewbox Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <GroupBox x:Name="ProfileSelection" Header="{x:Static resources:Strings.SettingsGroupName_ProfileSelection}" Grid.Column="0" Padding="10">
+                    <Grid Width="600">
+                         <Grid.RowDefinitions>
+                             <RowDefinition Height="Auto"/>
+                             <RowDefinition/>
+                         </Grid.RowDefinitions>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <controls:BrowsableList  x:Name="ProfileList" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                                 PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
+                                                 NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
+                                                 ItemsSource="{Binding DrivingProfiles}"
+                                                 SelectedValue="{Binding CurrentProfile}"
+                                                 HorizontalContentAlignment="Stretch">
+                            <controls:BrowsableList.Resources>
+                                <DataTemplate DataType="{x:Type configuration:Profile}">
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <Button Content="X" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfile}" CommandParameter="{Binding}" DockPanel.Dock="Left"/>
+                                        <Button DockPanel.Dock="Right" Width="40" Height="40"
+                                                Style="{StaticResource ImageButtonStyle}"
+                                                Content="{StaticResource Up}" 
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveUp}" 
+                                                CommandParameter="{Binding}"/>
+                                        <Button DockPanel.Dock="Right" Width="40" Height="40"
+                                                Style="{StaticResource ImageButtonStyle}"
+                                                Content="{StaticResource Down}" 
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveDown}" 
+                                                CommandParameter="{Binding}"/>
+                                        <TextBlock x:Name="ProfileName" Text="{Binding Name}" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </controls:BrowsableList.Resources>
+                        </controls:BrowsableList>
+                    </Grid>
+
+                </GroupBox>
+                <GroupBox x:Name="ProfileSettings" Grid.Column="1" Width="400" Header="{x:Static resources:Strings.SettingsGroupName_ProfileSettings}" Padding="10">
+                </GroupBox>
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</UserControl>

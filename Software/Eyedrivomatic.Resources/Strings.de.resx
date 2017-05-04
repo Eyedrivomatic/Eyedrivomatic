@@ -149,10 +149,6 @@
     <value>Zurück</value>
     <comment>Select the previous device in the list.</comment>
   </data>
-  <data name="CommandText_Save" xml:space="preserve">
-    <value>Speichern</value>
-    <comment>Save settings.</comment>
-  </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Relais Zyklus {0} an-aus.</value>
     <comment>Cycle relay task default name template.</comment>
@@ -354,10 +350,6 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="SettingsName_AutoConnect" xml:space="preserve">
     <value>Automatische Verbindung nach dem Start</value>
     <comment>Automatically connect to the device at application startup.</comment>
-  </data>
-  <data name="SettingsName_AutoSaveDeviceSettings" xml:space="preserve">
-    <value>Automatische Sicherung</value>
-    <comment>Toggle auto saving of device configuration.</comment>
   </data>
   <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
     <value>Aktivieren</value>

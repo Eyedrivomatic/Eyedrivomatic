@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using NullGuard;
 using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
@@ -16,6 +17,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         internal const string PropertyName = "profiles";
         private string _currentProfile;
 
+        [AllowNull]
         public Profile CurrentProfile
         {
             get { return this.FirstOrDefault(c => string.Compare(c.Name, _currentProfile, StringComparison.CurrentCultureIgnoreCase) == 0); }

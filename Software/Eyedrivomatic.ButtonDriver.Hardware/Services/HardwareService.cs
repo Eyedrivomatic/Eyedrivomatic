@@ -79,6 +79,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (_currentDriver == null) return;
             _currentDriver.Profile = _configurationService.CurrentProfile;
+            _currentDriver.SafetyBypass = _configurationService.SafetyBypass ? SafetyBypassState.Safe : SafetyBypassState.Unsafe;
         }
 
         public void Dispose()

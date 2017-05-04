@@ -18,27 +18,26 @@
 //    You should have received a copy of the GNU General Public License
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.ComponentModel.Composition;
 
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using Eyedrivomatic.ButtonDriver.ViewModels;
 
-namespace Eyedrivomatic.ButtonDriver.Configuration
+
+namespace Eyedrivomatic.ButtonDriver.Views
 {
-    public interface IButtonDriverConfigurationService : INotifyPropertyChanged
+    [Export]
+    public partial class ProfileConfigurationView
     {
-        bool AutoConnect { get; set; }
-        string ConnectionString { get; set; }
+        public ProfileConfigurationView()
+        {
+            InitializeComponent();
+        }
 
-        bool SafetyBypass { get; set; }
-
-        ObservableCollection<Profile> DrivingProfiles { get; }
-
-        Profile CurrentProfile { get; set; }
-
-        TimeSpan CommandTimeout { get; set; }
-
-        void Save();
-        bool HasChanges { get; }
+        [Import]
+        public ProfileConfigurationViewModel ViewModel
+        {
+            get => (ProfileConfigurationViewModel)DataContext;
+            set => DataContext = value;
+        }
     }
 }

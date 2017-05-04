@@ -137,6 +137,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             if (sender == _configuration)
             {
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(args.PropertyName);
             }
         }
@@ -148,12 +149,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             set => _configuration.AutoConnect = value;
         }
 
-        public bool AutoSaveDeviceSettingsOnExit
-        {
-            get => _configuration.AutoSaveDeviceSettingsOnExit;
-            set => _configuration.AutoSaveDeviceSettingsOnExit = value;
-        }
-
         public string ConnectionString
         {
             get => _configuration.ConnectionString;
@@ -163,7 +158,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public bool SafetyBypass
         {
             get => _configuration.SafetyBypass;
-            set => _configuration.SafetyBypass= value;
+            set => _configuration.SafetyBypass = value;
         }
 
         [Export(nameof(CommandTimeout))]

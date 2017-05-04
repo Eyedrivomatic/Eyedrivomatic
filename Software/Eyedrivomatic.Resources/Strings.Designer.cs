@@ -133,15 +133,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string CommandText_Save {
-            get {
-                return ResourceManager.GetString("CommandText_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cycle Relay {0} on-off..
         /// </summary>
         public static string CycleRelayMacroTask_DefaultNameFormat {
@@ -595,20 +586,29 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string SettingsGroupName_ProfileSelection {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_ProfileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Settings.
+        /// </summary>
+        public static string SettingsGroupName_ProfileSettings {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_ProfileSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically Connect at Startup.
         /// </summary>
         public static string SettingsName_AutoConnect {
             get {
                 return ResourceManager.GetString("SettingsName_AutoConnect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auto Save Device Settings.
-        /// </summary>
-        public static string SettingsName_AutoSaveDeviceSettings {
-            get {
-                return ResourceManager.GetString("SettingsName_AutoSaveDeviceSettings", resourceCulture);
             }
         }
         
@@ -861,6 +861,15 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_MacrosSettings {
             get {
                 return ResourceManager.GetString("ViewName_MacrosSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string ViewName_ProfileConfig {
+            get {
+                return ResourceManager.GetString("ViewName_ProfileConfig", resourceCulture);
             }
         }
         

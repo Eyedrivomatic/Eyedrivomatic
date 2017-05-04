@@ -608,7 +608,6 @@
         </Setter>
     </-->
 
-
     <Style TargetType="{x:Type local:BrowsableList}">
         <Setter Property="FontFamily" Value="Ariel"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -642,7 +641,7 @@
 			                BorderBrush="{TemplateBinding BorderBrush}"
 			                BorderThickness="{TemplateBinding BorderThickness}">
                             <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
-                                <ItemsPresenter x:Name="ItemsList"/>
+                                <ItemsPresenter x:Name="ItemsList" />
                             </ScrollViewer>
                         </Border>
 
@@ -657,6 +656,22 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+        <Setter Property="dwellclick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"/>
+        <Setter Property="dwellclick:DwellClickBehavior.AdornerStyle" Value="{StaticResource DwellClickAdornerStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid>
+                    <ContentPresenter/>
+                    <AdornerDecorator IsHitTestVisible="False"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 
     <Style TargetType="{x:Type GroupBox}">

@@ -30,9 +30,13 @@ namespace Eyedrivomatic.Controls.DwellClick
     {
         public static bool Click(UIElement element)
         {
-            var peer = UIElementAutomationPeer.FromElement(element);
-            if (peer == null) peer = UIElementAutomationPeer.CreatePeerForElement(element);
-            return InvokeElement(peer) || ToggleElement(peer) || SelectElement(peer) || SelectTabElement(element);
+            var peer = UIElementAutomationPeer.FromElement(element) ?? UIElementAutomationPeer.CreatePeerForElement(element);
+
+            return InvokeElement(peer) 
+                || ToggleElement(peer) 
+                || SelectElement(peer) 
+                || SelectTabElement(element)
+                || SelectListBoxElement(element);
 
         }
 
@@ -68,6 +72,16 @@ namespace Eyedrivomatic.Controls.DwellClick
             var tabItem = element as TabItem;
             if (tabItem == null) return false;
             return (tabItem.IsSelected = true);
+        }
+
+        private static bool SelectListBoxElement(UIElement element)
+        {
+            //The AutomationPeer returned by UIElementAutomationPeer.CreatePeerForElement to a TabItem is stupid and cannot select the tab.
+            //The "correct" approach is apparently to create a custom tab item adn a custom automation provider. This however works just as well.
+            // It's just not as elegant as it requires down-casting... yuck!
+            var listBoxItem = element as ListBoxItem;
+            if (listBoxItem == null) return false;
+            return (listBoxItem.IsSelected = true);
         }
     }
 }

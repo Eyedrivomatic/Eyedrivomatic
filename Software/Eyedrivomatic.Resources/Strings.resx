@@ -149,10 +149,6 @@
     <value>Prev</value>
     <comment>Select the previous device in the list.</comment>
   </data>
-  <data name="CommandText_Save" xml:space="preserve">
-    <value>Save</value>
-    <comment>Save settings.</comment>
-  </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Cycle Relay {0} on-off.</value>
     <comment>Cycle relay task default name template.</comment>
@@ -448,10 +444,6 @@ Reduction Toggle</value>
     <value>Device Settings</value>
     <comment>Title of the group containing device settings.</comment>
   </data>
-  <data name="SettingsName_AutoSaveDeviceSettings" xml:space="preserve">
-    <value>Auto Save Device Settings</value>
-    <comment>Toggle auto saving of device configuration.</comment>
-  </data>
   <data name="SettingsName_SafetyBypass" xml:space="preserve">
     <value>Safety Bypass</value>
     <comment>Safety bypass toggle.</comment>
@@ -483,5 +475,17 @@ Reduction Toggle</value>
   <data name="StatusView_Speed_Walk" xml:space="preserve">
     <value>Walk</value>
     <comment>The speed indicator for 'walk' speed.</comment>
+  </data>
+  <data name="SettingsGroupName_ProfileSelection" xml:space="preserve">
+    <value>Profiles</value>
+    <comment>Title of the group containing the list of profiles.</comment>
+  </data>
+  <data name="ViewName_ProfileConfig" xml:space="preserve">
+    <value>Profiles</value>
+    <comment>The name of the profile configuration view.</comment>
+  </data>
+  <data name="SettingsGroupName_ProfileSettings" xml:space="preserve">
+    <value>Profile Settings</value>
+    <comment>Title of the group containing the selected profile settings.</comment>
   </data>
 </root>

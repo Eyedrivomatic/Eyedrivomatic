@@ -42,13 +42,8 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-
         <Viewbox Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
-                <GroupBox x:Name="DwellClickSettings" Grid.Column="0" Width="400" Header="{x:Static resources:Strings.SettingsGroupName_DwellClick}" Padding="5">
+                <GroupBox x:Name="DwellClickSettings" Width="400" Header="{x:Static resources:Strings.SettingsGroupName_DwellClick}" Padding="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -85,15 +80,5 @@
                     </Grid>
                 </GroupBox>
         </Viewbox>
-        <Button x:Name="SaveButton"
-                Style="{StaticResource TextButtonStyle}" 
-                Content="{x:Static resources:Strings.CommandText_Save}"
-                Command="{Binding SaveCommand}"
-                Grid.Column="1"
-                MaxWidth="150"
-                MaxHeight="70"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right" 
-                Margin="0,0,50,50"/>    
     </Grid>
 </UserControl>

@@ -46,7 +46,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             _configurationService = configurationService;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
-            SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
             AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
             ConnectCommand = new DelegateCommand(Connect, CanConnect);
@@ -63,7 +62,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
             AutoDetectDeviceCommand.RaiseCanExecuteChanged();
-            SaveCommand.RaiseCanExecuteChanged();
         }
 
         public string HeaderInfo => Strings.ViewName_DeviceConfig;
@@ -74,45 +72,14 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public DelegateCommand ConnectCommand { get; }
         public DelegateCommand DisconnectCommand { get; }
 
-        public DelegateCommand SaveCommand { get; }
-
         public bool Connecting => Driver.Connection.State == ConnectionState.Connecting;
         public bool Connected => Driver.Connection.State == ConnectionState.Connected;
         public bool Ready => Driver.HardwareReady;
-
-        /// <remarks>
-        /// This safety bypass setting is a wierd animal. Currently the firmware does not save the 
-        /// setting as part of auto-save. But we want it to act like a device property that is saved
-        /// in this manner. Similarly, we don't want to force the user to select save (or even think they need to)
-        /// after toggling the safety bypass. So, the idea here is to delegate this setting to the driver if possible
-        /// and only to the configuration service if there is no connection.
-        /// </remarks>
+        
         public bool SafetyBypass
         {
-            get
-            {
-                return Driver != null
-                    ? Driver.SafetyBypass == SafetyBypassState.Unsafe
-                    : _configurationService.SafetyBypass;
-            }
-            set
-            {
-                if (Driver != null)
-                {
-                    Driver.SafetyBypass = value ? SafetyBypassState.Unsafe : SafetyBypassState.Safe;
-                    RaisePropertyChanged();
-                }
-                else
-                {
-                    _configurationService.SafetyBypass = value;
-                }
-            }
-        }
-
-        public bool AutoSaveDeviceSettingsOnExit
-        {
-            get => _configurationService.AutoSaveDeviceSettingsOnExit;
-            set => _configurationService.AutoSaveDeviceSettingsOnExit = value;
+            get => _configurationService.SafetyBypass;
+            set => _configurationService.SafetyBypass = value;
         }
 
         public class SerialDeviceInfo
@@ -142,7 +109,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         [AllowNull]
         public SerialDeviceInfo SelectedDevice
         {
-            get { return AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString);  }
+            get => AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString); 
             set => _configurationService.ConnectionString = (value?.Port ?? string.Empty);
         }
 
@@ -165,17 +132,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool CanRefreshAvailableDeviceList()
         {
             return true;
-        }
-
-        protected void SaveChanges()
-        {
-            _configurationService.Save();
-            SaveCommand.RaiseCanExecuteChanged();
-        }
-
-        protected bool CanSaveChanges()
-        {
-            return Driver.Connection.State == ConnectionState.Connected || _configurationService.HasChanges;
         }
 
         protected async void AutoDetectDevice()

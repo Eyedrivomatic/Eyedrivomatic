@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
@@ -10,6 +11,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 {
     [Serializable]
     [XmlRoot(PropertyName)]
+    [Export]
     public class Profile : BindableBase, IXmlSerializable
     {
         private string _name;

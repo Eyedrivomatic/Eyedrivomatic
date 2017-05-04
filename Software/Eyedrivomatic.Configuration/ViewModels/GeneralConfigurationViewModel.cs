@@ -42,18 +42,12 @@ namespace Eyedrivomatic.Configuration.ViewModels
         {
             _dwellClickConfigurationService = dwellClickConfigurationService;
             _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
-
-            SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
         }
 
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             RaisePropertyChanged(string.Empty);
-
-            SaveCommand.RaiseCanExecuteChanged();
         }
-
-        public DelegateCommand SaveCommand { get; }
 
         public bool DwellClickEnabled
         {
@@ -77,17 +71,6 @@ namespace Eyedrivomatic.Configuration.ViewModels
         {
             get => _dwellClickConfigurationService.RepeatDelayMilliseconds;
             set => _dwellClickConfigurationService.RepeatDelayMilliseconds = value;
-        }
-
-        protected void SaveChanges()
-        {
-            _dwellClickConfigurationService.Save();
-            SaveCommand.RaiseCanExecuteChanged();
-        }
-
-        protected bool CanSaveChanges()
-        {
-            return _dwellClickConfigurationService.HasChanges;
         }
     }
 }
