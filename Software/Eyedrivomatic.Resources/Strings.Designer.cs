@@ -88,6 +88,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Profile.
+        /// </summary>
+        public static string CommandText_AddProfile {
+            get {
+                return ResourceManager.GetString("CommandText_AddProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Speed.
+        /// </summary>
+        public static string CommandText_AddProfileSpeed {
+            get {
+                return ResourceManager.GetString("CommandText_AddProfileSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically Discover Device.
         /// </summary>
         public static string CommandText_AutoDiscover {
@@ -559,101 +577,326 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drive.
+        /// </summary>
+        public static string ProfileName_Drive {
+            get {
+                return ResourceManager.GetString("ProfileName_Drive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speed.
+        /// </summary>
+        public static string ProfileSpeed_Default {
+            get {
+                return ResourceManager.GetString("ProfileSpeed_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The X deflection when one of the nudge buttons are pressed while moving forward..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_Nudge {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_Nudge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The left or right deflection when one of the diagonal buttons are pressed..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_XDiag {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_XDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The left or right deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_XDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_XDiagReduced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backward deflection when one of the forward diagonal buttons are pressed..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_YBackwardDiag {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YBackwardDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_YBackwardDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YBackwardDiagReduced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The forward deflection when one of the forward diagonal buttons are pressed..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_YForwardDiag {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YForwardDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The forward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
+        /// </summary>
+        public static string SettingDescripion_ProfileSpeed_YForwardDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YForwardDiagReduced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The forward deflection when the backward button is presssed..
+        /// </summary>
+        public static string SettingDescription_ProfileSpeed_Backward {
+            get {
+                return ResourceManager.GetString("SettingDescription_ProfileSpeed_Backward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The forward deflection when the forward button is presssed..
+        /// </summary>
+        public static string SettingDescription_ProfileSpeed_Forward {
+            get {
+                return ResourceManager.GetString("SettingDescription_ProfileSpeed_Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the profile speed. This will be used to identify this speed to the user..
+        /// </summary>
+        public static string SettingDescription_ProfileSpeed_Name {
+            get {
+                return ResourceManager.GetString("SettingDescription_ProfileSpeed_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The X deflection when the right or left buttons are pressed..
+        /// </summary>
+        public static string SettingDescription_ProfileSpeed_X {
+            get {
+                return ResourceManager.GetString("SettingDescription_ProfileSpeed_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection Settings.
         /// </summary>
-        public static string SettingsGroupName_DeviceConnection {
+        public static string SettingGroupName_DeviceConnection {
             get {
-                return ResourceManager.GetString("SettingsGroupName_DeviceConnection", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_DeviceConnection", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Device Settings.
         /// </summary>
-        public static string SettingsGroupName_DeviceSettings {
+        public static string SettingGroupName_DeviceSettings {
             get {
-                return ResourceManager.GetString("SettingsGroupName_DeviceSettings", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_DeviceSettings", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dwell Click Settings.
         /// </summary>
-        public static string SettingsGroupName_DwellClick {
+        public static string SettingGroupName_DwellClick {
             get {
-                return ResourceManager.GetString("SettingsGroupName_DwellClick", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_DwellClick", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Profiles.
         /// </summary>
-        public static string SettingsGroupName_ProfileSelection {
+        public static string SettingGroupName_ProfileSelection {
             get {
-                return ResourceManager.GetString("SettingsGroupName_ProfileSelection", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_ProfileSelection", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Profile Settings.
         /// </summary>
-        public static string SettingsGroupName_ProfileSettings {
+        public static string SettingGroupName_ProfileSettings {
             get {
-                return ResourceManager.GetString("SettingsGroupName_ProfileSettings", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_ProfileSettings", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Automatically Connect at Startup.
         /// </summary>
-        public static string SettingsName_AutoConnect {
+        public static string SettingName_AutoConnect {
             get {
-                return ResourceManager.GetString("SettingsName_AutoConnect", resourceCulture);
+                return ResourceManager.GetString("SettingName_AutoConnect", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
-        public static string SettingsName_DwellClickEnabled {
+        public static string SettingName_DwellClickEnabled {
             get {
-                return ResourceManager.GetString("SettingsName_DwellClickEnabled", resourceCulture);
+                return ResourceManager.GetString("SettingName_DwellClickEnabled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dwell Repeat Delay:.
+        ///   Looks up a localized string similar to Dwell Repeat Delay.
         /// </summary>
-        public static string SettingsName_DwellClickRepeatDelay {
+        public static string SettingName_DwellClickRepeatDelay {
             get {
-                return ResourceManager.GetString("SettingsName_DwellClickRepeatDelay", resourceCulture);
+                return ResourceManager.GetString("SettingName_DwellClickRepeatDelay", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dwell Time:.
+        ///   Looks up a localized string similar to Dwell Time.
         /// </summary>
-        public static string SettingsName_DwellClickTime {
+        public static string SettingName_DwellClickTime {
             get {
-                return ResourceManager.GetString("SettingsName_DwellClickTime", resourceCulture);
+                return ResourceManager.GetString("SettingName_DwellClickTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dwell Timeout:.
+        ///   Looks up a localized string similar to Dwell Timeout.
         /// </summary>
-        public static string SettingsName_DwellClickTimeout {
+        public static string SettingName_DwellClickTimeout {
             get {
-                return ResourceManager.GetString("SettingsName_DwellClickTimeout", resourceCulture);
+                return ResourceManager.GetString("SettingName_DwellClickTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string SettingName_ProfileName {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backward Deflection.
+        /// </summary>
+        public static string SettingName_ProfileSpeed_Backward {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_Backward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forward Deflection.
+        /// </summary>
+        public static string SettingName_ProfileSpeed_Forward {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string SettingName_ProfileSpeed_Name {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nudge Deflection.
+        /// </summary>
+        public static string SettingName_ProfileSpeed_Nudge {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_Nudge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left/Right Deflection.
+        /// </summary>
+        public static string SettingName_ProfileSpeed_X {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left/Right Diagonal Deflection (Normal).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_XDiag {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_XDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left/Right Diagonal Deflection (Reduced).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_XDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_XDiagReduced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backward Diagonal Deflection (Normal).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_YBackwardDiag {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_YBackwardDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backward Diagonal Deflection (Reduced).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_YBackwardDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_YBackwardDiagReduced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forward Diagonal Deflection (Normal).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_YForwardDiag {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_YForwardDiag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forward Diagonal Deflection (Reduced).
+        /// </summary>
+        public static string SettingName_ProfileSpeed_YForwardDiagReduced {
+            get {
+                return ResourceManager.GetString("SettingName_ProfileSpeed_YForwardDiagReduced", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Safety Bypass.
         /// </summary>
-        public static string SettingsName_SafetyBypass {
+        public static string SettingName_SafetyBypass {
             get {
-                return ResourceManager.GetString("SettingsName_SafetyBypass", resourceCulture);
+                return ResourceManager.GetString("SettingName_SafetyBypass", resourceCulture);
             }
         }
         
@@ -667,7 +910,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudge Duration:.
+        ///   Looks up a localized string similar to Nudge Duration.
         /// </summary>
         public static string StatusView_NudgeDuration {
             get {
@@ -676,7 +919,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudge Speed:.
+        ///   Looks up a localized string similar to Nudge Speed.
         /// </summary>
         public static string StatusView_NudgeSpeed {
             get {
@@ -685,7 +928,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Safety Bypass Status:.
+        ///   Looks up a localized string similar to Safety Bypass Status.
         /// </summary>
         public static string StatusView_SafetyBypassStatus {
             get {
@@ -757,7 +1000,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X Servo Centere Point:.
+        ///   Looks up a localized string similar to X Servo Centere Point.
         /// </summary>
         public static string StatusView_XCenter {
             get {
@@ -775,7 +1018,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Y Servo Centere Point:.
+        ///   Looks up a localized string similar to Y Servo Centere Point.
         /// </summary>
         public static string StatusView_YCenter {
             get {

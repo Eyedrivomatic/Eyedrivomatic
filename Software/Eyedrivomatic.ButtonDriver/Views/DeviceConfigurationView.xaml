@@ -46,7 +46,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <GroupBox x:Name="DeviceSelection" Header="{x:Static resources:Strings.SettingsGroupName_DeviceConnection}" Grid.Column="0" Padding="10">
+                <GroupBox x:Name="DeviceSelection" Header="{x:Static resources:Strings.SettingGroupName_DeviceConnection}" Grid.Column="0" Padding="10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -95,19 +95,19 @@
 
                         <controls:ImageToggleButton x:Name="AutoConnectCheckBox"
                           CheckImage="{StaticResource Check}"
-                          Content="{x:Static resources:Strings.SettingsName_AutoConnect}"
+                          Content="{x:Static resources:Strings.SettingName_AutoConnect}"
                           Grid.Row="3"
                           Grid.ColumnSpan="2"
                           IsChecked="{Binding AutoConnect}"
                           Margin="0,10,0,0"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox x:Name="DeviceSettings" Grid.Column="1" Width="400" Header="{x:Static resources:Strings.SettingsGroupName_DeviceSettings}" Padding="10">
+                <GroupBox x:Name="DeviceSettings" Grid.Column="1" Width="400" Header="{x:Static resources:Strings.SettingGroupName_DeviceSettings}" Padding="10">
                     <StackPanel Height="221" VerticalAlignment="Center">
                         <controls:ImageToggleButton 
                             x:Name="SafetyToggleCheckBox"
                             CheckImage="{StaticResource Unsafe}"
-                            Content="{x:Static resources:Strings.SettingsName_SafetyBypass}"
+                            Content="{x:Static resources:Strings.SettingName_SafetyBypass}"
                             IsChecked="{Binding SafetyBypass}"
                             Margin="0,0,0,10"/>
                     </StackPanel>

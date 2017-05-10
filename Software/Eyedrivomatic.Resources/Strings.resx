@@ -336,44 +336,44 @@ Reduction Toggle</value>
     <value>Half</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+  <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
     <value>Connection Settings</value>
     <comment>Title of the group containing settings for the device connection.</comment>
   </data>
-  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+  <data name="SettingGroupName_DwellClick" xml:space="preserve">
     <value>Dwell Click Settings</value>
     <comment>Title of the group containing settings for the dwell click.</comment>
   </data>
-  <data name="SettingsName_AutoConnect" xml:space="preserve">
+  <data name="SettingName_AutoConnect" xml:space="preserve">
     <value>Automatically Connect at Startup</value>
     <comment>Automatically connect to the device at application startup.</comment>
   </data>
-  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+  <data name="SettingName_DwellClickEnabled" xml:space="preserve">
     <value>Enabled</value>
     <comment>Enable/disable dwell click.</comment>
   </data>
-  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
-    <value>Dwell Repeat Delay:</value>
+  <data name="SettingName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Dwell Repeat Delay</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingsName_DwellClickTime" xml:space="preserve">
-    <value>Dwell Time:</value>
+  <data name="SettingName_DwellClickTime" xml:space="preserve">
+    <value>Dwell Time</value>
     <comment>Time that the user must look at the target for the dwell click to "press".</comment>
   </data>
-  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
-    <value>Dwell Timeout:</value>
+  <data name="SettingName_DwellClickTimeout" xml:space="preserve">
+    <value>Dwell Timeout</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
   </data>
   <data name="StatusView_NudgeDuration" xml:space="preserve">
-    <value>Nudge Duration:</value>
+    <value>Nudge Duration</value>
     <comment>The time that the nudge is applied to the current motion.</comment>
   </data>
   <data name="StatusView_NudgeSpeed" xml:space="preserve">
-    <value>Nudge Speed:</value>
+    <value>Nudge Speed</value>
     <comment>The amount of nudge that is applied.</comment>
   </data>
   <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
-    <value>Safety Bypass Status:</value>
+    <value>Safety Bypass Status</value>
     <comment>Enable/disable the safety bypass that prevents consecutive clicks in the same direction.</comment>
   </data>
   <data name="StatusView_Seconds" xml:space="preserve">
@@ -381,7 +381,7 @@ Reduction Toggle</value>
     <comment>Seconds</comment>
   </data>
   <data name="StatusView_XCenter" xml:space="preserve">
-    <value>X Servo Centere Point:</value>
+    <value>X Servo Centere Point</value>
     <comment>The center point for the x servo.</comment>
   </data>
   <data name="StatusView_XServo" xml:space="preserve">
@@ -389,7 +389,7 @@ Reduction Toggle</value>
     <comment>The curent direction applied to the x servo.</comment>
   </data>
   <data name="StatusView_YCenter" xml:space="preserve">
-    <value>Y Servo Centere Point:</value>
+    <value>Y Servo Centere Point</value>
     <comment>The center point of the y servo.</comment>
   </data>
   <data name="StatusView_YServo" xml:space="preserve">
@@ -440,11 +440,11 @@ Reduction Toggle</value>
     <value>Trim</value>
     <comment>The name of the trim view.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceSettings" xml:space="preserve">
+  <data name="SettingGroupName_DeviceSettings" xml:space="preserve">
     <value>Device Settings</value>
     <comment>Title of the group containing device settings.</comment>
   </data>
-  <data name="SettingsName_SafetyBypass" xml:space="preserve">
+  <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>Safety Bypass</value>
     <comment>Safety bypass toggle.</comment>
   </data>
@@ -476,7 +476,7 @@ Reduction Toggle</value>
     <value>Walk</value>
     <comment>The speed indicator for 'walk' speed.</comment>
   </data>
-  <data name="SettingsGroupName_ProfileSelection" xml:space="preserve">
+  <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
     <value>Profiles</value>
     <comment>Title of the group containing the list of profiles.</comment>
   </data>
@@ -484,8 +484,116 @@ Reduction Toggle</value>
     <value>Profiles</value>
     <comment>The name of the profile configuration view.</comment>
   </data>
-  <data name="SettingsGroupName_ProfileSettings" xml:space="preserve">
+  <data name="SettingGroupName_ProfileSettings" xml:space="preserve">
     <value>Profile Settings</value>
     <comment>Title of the group containing the selected profile settings.</comment>
+  </data>
+  <data name="SettingName_ProfileName" xml:space="preserve">
+    <value>Name</value>
+    <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
+  </data>
+  <data name="CommandText_AddProfileSpeed" xml:space="preserve">
+    <value>Add Speed</value>
+    <comment>Add a driving profile speed.</comment>
+  </data>
+  <data name="CommandText_AddProfile" xml:space="preserve">
+    <value>Add Profile</value>
+    <comment>Add a driving profile.</comment>
+  </data>
+  <data name="ProfileSpeed_Default" xml:space="preserve">
+    <value>Speed</value>
+    <comment>The default name for a new profile speed.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Name" xml:space="preserve">
+    <value>The name of the profile speed. This will be used to identify this speed to the user.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_X" xml:space="preserve">
+    <value>The X deflection when the right or left buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
+    <value>Left/Right Deflection</value>
+    <comment>The label text displayed in the profie speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>The label text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>The X deflection when one of the nudge buttons are pressed while moving forward.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "nudge" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>The left or right deflection when one of the diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_XDiagReduced" xml:space="preserve">
+    <value>The left or right deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "xDiagReduced" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>The backward deflection when one of the forward diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiagReduced" xml:space="preserve">
+    <value>The backward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiagReduced" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>The forward deflection when one of the forward diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiagReduced" xml:space="preserve">
+    <value>The forward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForwardDiagReduced" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
+    <value>The forward deflection when the backward button is presssed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Forward" xml:space="preserve">
+    <value>The forward deflection when the forward button is presssed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Backward Deflection</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Forward Deflection</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>Nudge Deflection</value>
+    <comment>The label text displayed in the profile speed configuration view for the "nudge" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>Left/Right Diagonal Deflection (Normal)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiagReduced" xml:space="preserve">
+    <value>Left/Right Diagonal Deflection (Reduced)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "xDiagReduced" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>Backward Diagonal Deflection (Normal)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiagReduced" xml:space="preserve">
+    <value>Backward Diagonal Deflection (Reduced)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiagReduced" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>Forward Diagonal Deflection (Normal)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiagReduced" xml:space="preserve">
+    <value>Forward Diagonal Deflection (Reduced)</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForwardDiagReduced" setting.</comment>
+  </data>
+  <data name="ProfileName_Drive" xml:space="preserve">
+    <value>Drive</value>
+    <comment>The default name of a new profile.</comment>
   </data>
 </root>

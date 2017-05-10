@@ -31,7 +31,12 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}" Style="{StaticResource ConfigurationRegionStyle}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+    <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}" 
+                Style="{StaticResource ConfigurationRegionStyle}" 
+                VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
                 BorderBrush="Red" BorderThickness="1"/>
     
 </UserControl>

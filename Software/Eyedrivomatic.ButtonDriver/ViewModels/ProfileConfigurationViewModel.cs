@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Infrastructure.Extensions;
 using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Commands;
@@ -21,7 +21,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         private Profile _currentProfile;
 
         [ImportingConstructor]
-        public ProfileConfigurationViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory)
+        public ProfileConfigurationViewModel(IHardwareService hardwareService,
+            IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory)
             : base(hardwareService)
         {
             _configurationService = configurationService;
@@ -30,7 +31,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             _configurationService.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
         }
 
-        private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ConfigurationService_PropertyChanged(object sender,
+            System.ComponentModel.PropertyChangedEventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
@@ -43,12 +45,48 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         [AllowNull]
         public Profile CurrentProfile
         {
-            get => _currentProfile = _currentProfile ?? DrivingProfiles.FirstOrDefault();
-            set => SetProperty(ref _currentProfile, value);
+            get
+            {
+                if (_currentProfile == null) CurrentProfile = DrivingProfiles.FirstOrDefault();
+                return _currentProfile;
+            }
+            set
+            {
+                if (_currentProfile != null) _currentProfile.Speeds.CollectionChanged -= SpeedsOnCollectionChanged;
+
+                SetProperty(ref _currentProfile, value);
+                if (_currentProfile != null) _currentProfile.Speeds.CollectionChanged += SpeedsOnCollectionChanged;
+            }
         }
 
-        public ICommand MoveUp => new DelegateCommand<Profile>(profile => MoveProfile(profile, true), profile => profile != null && DrivingProfiles.IndexOf(profile) > 0);
-        public ICommand MoveDown => new DelegateCommand<Profile>(profile => MoveProfile(profile, false), profile => profile != null && DrivingProfiles.IndexOf(profile) < DrivingProfiles.Count-1);
+        public ICommand AddProfile => new DelegateCommand(InsertProfile);
+        public ICommand DeleteProfile => new DelegateCommand<Profile>(profile => DrivingProfiles.Remove(profile),
+            profile => profile != null && DrivingProfiles.Count > 1)
+            .ObservesProperty(() => DrivingProfiles);
+
+        public ICommand MoveProfileUp => new DelegateCommand<Profile>(profile => MoveProfile(profile, true),
+            profile => profile != null && DrivingProfiles.IndexOf(profile) > 0)
+            .ObservesProperty(() => DrivingProfiles);
+
+        public ICommand MoveProfileDown => new DelegateCommand<Profile>(profile => MoveProfile(profile, false),
+            profile => profile != null && DrivingProfiles.IndexOf(profile) < DrivingProfiles.Count - 1)
+            .ObservesProperty(() => DrivingProfiles);
+
+
+        public ICommand AddProfileSpeed => new DelegateCommand<ProfileSpeed>(profileSpeed => CurrentProfile.AddSpeed(profileSpeed), profileSpeed => CurrentProfile != null)
+            .ObservesProperty(() => CurrentProfile);
+
+        public ICommand DeleteProfileSpeed => new DelegateCommand<ProfileSpeed>(speed => CurrentProfile.Speeds.Remove(speed), 
+            speed => speed != null && CurrentProfile.Speeds.Contains(speed))
+            .ObservesProperty(() => CurrentProfile);
+
+        public ICommand MoveSpeedUp => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, true),
+            speed => speed != null && CurrentProfile.Speeds.Contains(speed) && CurrentProfile.Speeds.IndexOf(speed) > 0)
+            .ObservesProperty(() => CurrentProfile);
+
+        public ICommand MoveSpeedDown => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, false),
+            speed => speed != null && CurrentProfile.Speeds.Contains(speed) && CurrentProfile.Speeds.IndexOf(speed) < CurrentProfile.Speeds.Count - 1)
+            .ObservesProperty(() => CurrentProfile);
 
         private void MoveProfile(Profile profile, bool forward)
         {
@@ -59,19 +97,47 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             DrivingProfiles.Insert(index + (forward ? -1 : 1), profile);
         }
 
-        public ICommand DeleteProfile => new DelegateCommand<Profile>(profile => DrivingProfiles.Remove(profile), profile => profile != null && DrivingProfiles.Count > 1);
-        public ICommand AddProfile => new DelegateCommand(InsertProfile);
+        private void MoveProfileSpeed(ProfileSpeed speed, bool forward)
+        {
+            if (CurrentProfile == null) return;
+
+            var index = CurrentProfile.Speeds.IndexOf(speed);
+            if (index < 0) return;
+
+            CurrentProfile.Speeds.Remove(speed);
+            CurrentProfile.Speeds.Insert(index + (forward ? -1 : 1), speed);
+        }
 
         private void InsertProfile()
         {
             var index = CurrentProfile == null ? 0 : DrivingProfiles.IndexOf(CurrentProfile);
-            var newProfile = _profileFactory.CreateExport();
-            DrivingProfiles.Insert(index+1, newProfile.Value);
+            var newProfile = _profileFactory.CreateExport().Value;
+            newProfile.Name = newProfile.Name.NextPostfix(DrivingProfiles.Select(profile => profile.Name));
+            newProfile.AddDefaultSpeeds();
+
+            DrivingProfiles.Insert(index + 1, newProfile);
+            CurrentProfile = newProfile;
         }
 
-        private void DrivingProfilesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void DrivingProfilesOnCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            RaisePropertyChanged(string.Empty);
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(DrivingProfiles));
+        }
+
+        private void SpeedsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(CurrentProfile));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            CurrentProfile = null;
+            DrivingProfiles.CollectionChanged -= DrivingProfilesOnCollectionChanged;
+
+            base.Dispose(disposing);
         }
     }
 }

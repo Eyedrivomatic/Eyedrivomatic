@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Prism.Mvvm;
+using System.IO;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -22,13 +24,26 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         private int _yBackwardDiagReduced;
         private int _nudge;
 
+        public static ProfileSpeed Clone([AllowNull] ProfileSpeed from)
+        {
+            if (from == null) return new ProfileSpeed();
+
+            var stream = new MemoryStream();
+            //easiest way to do this is to just serialize it.
+            var serializer = new XmlSerializer(typeof(ProfileSpeed));
+            serializer.Serialize(stream, from);
+            stream.Seek(0, SeekOrigin.Begin);
+            var to = serializer.Deserialize(stream) as ProfileSpeed;
+            return to ?? new ProfileSpeed();
+        }
+
         /// <summary>
-        /// The name of the profile. This will be displayed to the user.
+        /// The name of the profile speed. This will be used to identify this speed to the user.
         /// </summary>
         [XmlAttribute("name")]
         public string Name
         {
-            get => _name;
+            get => _name = _name ?? Resources.Strings.ProfileSpeed_Default;
             set => SetProperty(ref _name, value);
         }
 
@@ -121,7 +136,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             get => _yBackwardDiagReduced;
             set => SetProperty(ref _yBackwardDiagReduced, value);
         }
-
 
         /// <summary>
         /// The X deflection when one of the nudge buttons are pressed while moving forward.

@@ -74,5 +74,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="SettingLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="SettingTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="SettingIntUpDownStyle" TargetType="{x:Type controls:IntUpDown}">
+        <Setter Property="Margin" Value="5"/>
+    </Style>
 
 </ResourceDictionary>

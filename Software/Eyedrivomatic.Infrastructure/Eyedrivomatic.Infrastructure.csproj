@@ -96,10 +96,12 @@
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="BoolToImageConverter.cs" />
     <Compile Include="Extensions\CancellationTokenExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IHeaderInfoProvider.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="LocalizedEnumNameConverter.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="NullToBoolConverter.cs" />
     <Compile Include="PathToImageConverter.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

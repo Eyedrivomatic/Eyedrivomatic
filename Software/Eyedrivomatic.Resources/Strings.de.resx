@@ -335,39 +335,39 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+  <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
     <value>Verbindungs Einstellungen</value>
     <comment>Title of the group containing settings for the device connection.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceSettings" xml:space="preserve">
+  <data name="SettingGroupName_DeviceSettings" xml:space="preserve">
     <value>Geräteeinstellungen</value>
     <comment>Title of the group containing device settings.</comment>
   </data>
-  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+  <data name="SettingGroupName_DwellClick" xml:space="preserve">
     <value>Verweilen Click Einstellungen</value>
     <comment>Title of the group containing settings for the dwell click.</comment>
   </data>
-  <data name="SettingsName_AutoConnect" xml:space="preserve">
+  <data name="SettingName_AutoConnect" xml:space="preserve">
     <value>Automatische Verbindung nach dem Start</value>
     <comment>Automatically connect to the device at application startup.</comment>
   </data>
-  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+  <data name="SettingName_DwellClickEnabled" xml:space="preserve">
     <value>Aktivieren</value>
     <comment>Enable/disable dwell click.</comment>
   </data>
-  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
-    <value>Wiederholverzögerung:</value>
+  <data name="SettingName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Wiederholverzögerung</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingsName_DwellClickTime" xml:space="preserve">
-    <value>Verweilzeit:</value>
+  <data name="SettingName_DwellClickTime" xml:space="preserve">
+    <value>Verweilzeit</value>
     <comment>Time that the user must look at the target for the dwell click to "press".</comment>
   </data>
-  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
-    <value>Wiederholrate:</value>
+  <data name="SettingName_DwellClickTimeout" xml:space="preserve">
+    <value>Wiederholrate</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
   </data>
-  <data name="SettingsName_SafetyBypass" xml:space="preserve">
+  <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>Sicherheits Bypass</value>
     <comment>Safety bypass toggle.</comment>
   </data>

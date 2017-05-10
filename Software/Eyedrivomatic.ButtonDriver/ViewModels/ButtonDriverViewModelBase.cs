@@ -26,7 +26,7 @@ using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    public abstract class ButtonDriverViewModelBase : BindableBase
+    public abstract class ButtonDriverViewModelBase : BindableBase, IDisposable
     {
         private IButtonDriver _driver;
         protected IHardwareService HardwareService { get; }
@@ -52,6 +52,21 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _driver?.Dispose();
+                HardwareService?.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

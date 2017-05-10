@@ -101,6 +101,9 @@
     <Compile Include="DwellClick\DwellClickPieAdorner.cs" />
     <Compile Include="IDwellClickConfigurationService.cs" />
     <Compile Include="ImageToggleButton.cs" />
+    <Compile Include="IntUpDown.xaml.cs">
+      <DependentUpon>IntUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionNavigationButton.cs" />
@@ -123,6 +126,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="IntUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

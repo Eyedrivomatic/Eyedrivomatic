@@ -82,6 +82,7 @@
     <SolidColorBrush x:Key="LeftRightStatusBackgroundBrush" Color="Transparent"/>
     <SolidColorBrush x:Key="DirectionStatusBackgroundBrush" Color="Green"/>
     <SolidColorBrush x:Key="ForwardBackwardStatusBackgroundBrush" Color="Green"/>
+    <SolidColorBrush x:Key="SeperatorsAndBordersBrush" Color="#FF2E2E2E"/>
 
     <Style x:Key="StatusLabelStyle" TargetType="{x:Type Label}">
         <Setter Property="HorizontalAlignment" Value="Right"/>

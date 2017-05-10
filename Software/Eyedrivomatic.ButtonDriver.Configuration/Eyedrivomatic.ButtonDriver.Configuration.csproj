@@ -116,6 +116,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+      <Project>{E579FF61-CAAB-4DA3-8F05-CF21197DF5D4}</Project>
+      <Name>Eyedrivomatic.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Resources\Eyedrivomatic.Resources.csproj">
       <Project>{1c00ccd6-a19c-4b9e-a203-f053ce0871ff}</Project>
       <Name>Eyedrivomatic.Resources</Name>

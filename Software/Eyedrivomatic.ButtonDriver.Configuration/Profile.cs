@@ -6,6 +6,9 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using Prism.Mvvm;
+using Eyedrivomatic.Infrastructure.Extensions;
+using Eyedrivomatic.Resources;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -23,12 +26,41 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         internal const string PropertyName = "profile";
         internal const string DefaultProfileName = "Default";
 
+        public void AddDefaultSpeeds()
+        {
+            var otherSpeeds = Speeds.Select(speed => speed.Name).ToList();
+            Speeds.AddRange(
+                new[]
+                {
+                    //Previous version = {Name="Slow"
+                    new ProfileSpeed {Name=Strings.DrivingView_SpeedSlow.NextPostfix(otherSpeeds),
+                    //  X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6}, Previous Version
+                        X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6},
+
+                    //Previous version = {Name="Walk"
+                    new ProfileSpeed {Name=Strings.DrivingView_SpeedWalk.NextPostfix(otherSpeeds),
+                    //  X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6}, Previous Version
+                        X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6},
+
+                    //Previous version = {Name="Fast",                           
+                    new ProfileSpeed {Name=Strings.DrivingView_SpeedFast.NextPostfix(otherSpeeds),
+                    //  X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6}, Previous Version
+                        X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6},
+
+                    //Previous version = {Name="Manic"
+                    //new ProfileSpeed {Name=Strings.DrivingView_SpeedManic.NextPostfix(otherSpeeds),
+                    //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6}, Previous Version
+                    //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6},
+                });
+        }
+
         public string Name
         {
-            get => _name;
+            get => _name = _name ?? Resources.Strings.ProfileName_Drive;
             set => SetProperty(ref _name, value);
         }
 
+        [AllowNull]
         public ProfileSpeed CurrentSpeed
         {
             get => Speeds.SingleOrDefault(c => string.Compare(c.Name, _currentSpeed, StringComparison.CurrentCultureIgnoreCase) == 0);
@@ -76,6 +108,14 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         #endregion Duration
 
         public ObservableCollection<ProfileSpeed> Speeds { get; } = new ObservableCollection<ProfileSpeed>();
+
+        public ProfileSpeed AddSpeed(ProfileSpeed cloneFrom = null)
+        {
+            var newSpeed = ProfileSpeed.Clone(cloneFrom ?? Speeds.LastOrDefault());
+            newSpeed.Name = newSpeed.Name.NextPostfix(Speeds.Select(speed => speed.Name));
+            Speeds.Add(newSpeed);
+            return newSpeed;
+        }
 
         public XmlSchema GetSchema()
         {

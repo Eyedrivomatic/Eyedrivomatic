@@ -42,8 +42,8 @@
                 <RowDefinition Height="75*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="85*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="90*" />
             </Grid.ColumnDefinitions>
             <Viewbox Grid.Row="0" Grid.ColumnSpan="2" Stretch="Uniform" StretchDirection="DownOnly">
                 <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}"
@@ -67,7 +67,9 @@
                         BorderBrush="Green" BorderThickness="5"/>
                 </Grid>
             </Viewbox>
-            <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}" />
+            <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform" StretchDirection="DownOnly">
+                <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}" />
+            </Viewbox>
         </Grid>
     </Grid>
 </Window>
