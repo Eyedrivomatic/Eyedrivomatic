@@ -28,13 +28,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="ConfigurationRegionStyle" TargetType="{x:Type TabControl}">
+            <Style.Resources>
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="FontSize" Value="20"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="{DynamicResource AreaBackgroundBrush}" />
+        </Style>
+
+        <Style x:Key="SettingLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style x:Key="SettingTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style x:Key="SettingIntUpDownStyle" TargetType="{x:Type controls:IntUpDown}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
 
     <TabControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}" 
                 Style="{StaticResource ConfigurationRegionStyle}" 
-                VerticalAlignment="Stretch" 
-                HorizontalAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 BorderBrush="Red" BorderThickness="1"/>

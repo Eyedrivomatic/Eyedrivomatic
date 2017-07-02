@@ -21,7 +21,7 @@
 
 using System.ComponentModel.Composition;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
@@ -32,18 +32,15 @@ namespace Eyedrivomatic.ButtonDriver.Hardware
         DependsOnModuleNames = new [] {nameof (ButtonDriverConfigurationModule)})]
     public class ButtonDriverHardwareModule : IModule
     {
-        public static ILoggerFacade Logger;
-
         [ImportingConstructor]
-        public ButtonDriverHardwareModule(ILoggerFacade logger)
+        public ButtonDriverHardwareModule()
         {
-            Logger = logger;
-            Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ButtonDriverHardwareModule)}.");
         }
 
         public void Initialize()
         {
-            Logger.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(ButtonDriverHardwareModule)}.");
         }
     }
 }

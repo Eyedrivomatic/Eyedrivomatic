@@ -24,9 +24,9 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using Prism.Logging;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
@@ -81,7 +81,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             }
             catch (Exception ex)
             {
-                MacrosModule.Logger?.Log($"Failed to execute macro - {ex}", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to execute macro - {ex}");
             }
             finally
             {

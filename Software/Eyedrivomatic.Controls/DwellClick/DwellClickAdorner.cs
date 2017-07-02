@@ -25,8 +25,6 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-using Prism.Logging;
-
 
 namespace Eyedrivomatic.Controls.DwellClick
 {
@@ -38,9 +36,6 @@ namespace Eyedrivomatic.Controls.DwellClick
 
     public abstract class DwellClickAdorner : Adorner
     {
-        [Import]
-        public static ILoggerFacade Logger { get; set; }
-
         internal static DwellClickAdorner CreateAndAdd(UIElement adornedElement)
         {
             var adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);

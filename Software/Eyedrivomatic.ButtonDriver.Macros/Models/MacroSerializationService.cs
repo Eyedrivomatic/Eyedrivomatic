@@ -24,8 +24,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {
@@ -36,7 +35,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public IEnumerable<IMacro> LoadMacros()
         {
-            MacrosModule.Logger?.Log($"Loading Macros from [{ConfigurationFilePath}].", Category.Debug, Priority.None);
+            Log.Debug(this, $"Loading Macros from [{ConfigurationFilePath}].");
 
             using (var reader = new StreamReader(ConfigurationFilePath))
             {
@@ -47,7 +46,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         public void SaveMacros(IEnumerable<IMacro> macros)
         {
-            MacrosModule.Logger?.Log($"Saving Macros to [{ConfigurationFilePath}].", Category.Debug, Priority.None);
+            Log.Debug(this, $"Saving Macros to [{ConfigurationFilePath}].");
 
             var serializer = new XmlSerializer(typeof(UserMacro[]), new XmlRootAttribute("Macros"));
 

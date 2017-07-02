@@ -46,7 +46,7 @@ namespace Eyedrivomatic.Infrastructure
             set => SetValue(ImageIfFalseProperty, value);
         }
 
-
+        [return: AllowNull]
         public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             return System.Convert.ToBoolean(value) ? ImageIfTrue : ImageIfFalse;

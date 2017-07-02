@@ -21,8 +21,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-
-using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -46,14 +44,12 @@ namespace Eyedrivomatic.ButtonDriver
         private readonly IHardwareService _hardwareService;
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IRegionManager _regionManager;
-        private readonly ILoggerFacade _logger;
         private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, ILoggerFacade logger, IServiceLocator serviceLocator)
+        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, IServiceLocator serviceLocator)
         {
-            _logger = logger;
-            _logger?.Log($"Creating Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ButtonDriverModule)}.");
 
             _serviceLocator = serviceLocator;
             _regionManager = regionManager;
@@ -63,7 +59,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         public async void Initialize()
         {
-            _logger?.Log($"Initializing Module {nameof(ButtonDriverModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(ButtonDriverModule)}.");
 
             _regionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
@@ -72,20 +68,20 @@ namespace Eyedrivomatic.ButtonDriver
 
             foreach (var profile in _configurationService.DrivingProfiles)
             {
-                _regionManager.RegisterViewWithRegion(RegionNames.MainNavigationRegion, () => CreateDriveProfileNavigation(profile));
+                _regionManager.RegisterViewWithRegion(RegionNames.DriveProfileSelectionRegion, () => CreateDriveProfileNavigation(profile));
             }
 
             try
             {
                 await _hardwareService.InitializeAsync();
-                _logger?.Log($"HardwareService Initialized. AutoConnect: [{_configurationService.AutoConnect}]", Category.Debug, Priority.None);
+                Log.Debug(this, $"HardwareService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
 
                 var connection = _hardwareService.CurrentDriver?.Connection;
                 if (_configurationService.AutoConnect)
                 {
                     if (connection == null)
                     {
-                        _logger?.Log("Failed to initialize hardware. No driver selected.", Category.Exception, Priority.None);
+                        Log.Error(this, "Failed to initialize hardware. No driver selected.");
                         NavigateToConfiguration();
                         return;
                     }
@@ -95,19 +91,19 @@ namespace Eyedrivomatic.ButtonDriver
                     var connectionString = _configurationService.ConnectionString;
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
-                        _logger.Log($"Connection string: [{connectionString}]", Category.Info, Priority.None);
+                        Log.Info(this, $"Connection string: [{connectionString}]");
                         await connection.ConnectAsync(connectionString);
                     }
                     else
                     {
-                        _logger?.Log("Connection string not specified. Attempting to auto-detect.", Category.Warn, Priority.None);
+                        Log.Warn(this, "Connection string not specified. Attempting to auto-detect.");
                         await connection.AutoConnectAsync();
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logger?.Log($"Hardware Initialization Failed - {ex}", Category.Exception, Priority.None);
+                Log.Error(this, $"Hardware Initialization Failed - {ex}");
             }
         }
 
@@ -117,12 +113,13 @@ namespace Eyedrivomatic.ButtonDriver
             button.Content = Resources.Strings.ResourceManager.GetString($"StandardProfileName_{profile.Name}") ?? profile.Name;
             button.RegionName = RegionNames.MainContentRegion;
             button.Target = new Uri($@"/{nameof(DrivingView)}?profile={profile.Name}", UriKind.Relative);
+            button.CanNavigate = () => _hardwareService?.CurrentDriver?.HardwareReady ?? false;
             return button;
         }
 
         private void NavigateToConfiguration()
         {
-            _logger?.Log($@"Navigating to [/ConfigurationView/{nameof(DeviceConfigurationView)}].", Category.Debug, Priority.None);
+            Log.Debug(this, $@"Navigating to [/ConfigurationView/{nameof(DeviceConfigurationView)}].");
             _regionManager.RequestNavigate(RegionNames.MainContentRegion, "/ConfigurationView");
             _regionManager.RequestNavigate(RegionNames.ConfigurationRegion, $"/{nameof(DeviceConfigurationView)}");
         }

@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Infrastructure;
 using Prism.Events;
-using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 {
@@ -24,15 +24,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 
         private readonly Subject<IObservable<char>> _connectionSubject = new Subject<IObservable<char>>();
 
-        private ILoggerFacade Logger { get; }
         private IEventAggregator Events { get; }
 
         public string ConnectionString => _serialPort?.PortName ?? string.Empty;
 
         [ImportingConstructor]
-        internal BrainBoxConnection(ILoggerFacade logger, IEventAggregator events)
+        internal BrainBoxConnection(IEventAggregator events)
         {
-            Logger = logger;
             Events = events;
         }
 
@@ -92,7 +90,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
                 _serialPort = await BrainBoxPortFinder.DetectDeviceAsync(CancellationToken.None);
                 if (_serialPort == null)
                 {
-                    Logger.Log("Failed to locate an Eyedrivomatic BrainBox device.", Category.Warn, Priority.None);
+                    Log.Warn(this, "Failed to locate an Eyedrivomatic BrainBox device.");
                     ConnectionFailed = true;
                     return;
                 }
@@ -141,7 +139,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
 
         public void Disconnect()
         {
-            if (IsConnected) Logger?.Log("Disconnecting", Category.Info, Priority.None);
+            if (IsConnected) Log.Info(this, "Disconnecting");
 
             var tmp = _serialPort;
             _serialPort = null; //IsConnected will now return false.
@@ -155,7 +153,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
         public void SendMessage(string message)
         {
             if (!IsConnected) throw new InvalidOperationException("Not connected.");
-            Logger?.Log($"sending [{message}].", Category.Debug, Priority.None);
+            Log.Debug(this, $"sending [{message}].");
             _serialPort.WriteLine(message);
         }
 
@@ -184,7 +182,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Communications
                 }
                 catch (IOException)
                 {
-                    ButtonDriverHardwareModule.Logger.Log("Disconnected.", Category.Info, Priority.None);
+                    Log.Info(this, "Disconnected.");
                     //The connection was closed.
                     return new char[0];
                 }

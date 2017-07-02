@@ -28,7 +28,8 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Media;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
+using NullGuard;
 
 namespace Eyedrivomatic.Controls.DwellClick
 {
@@ -44,8 +45,9 @@ namespace Eyedrivomatic.Controls.DwellClick
         #region DefaultConfiguration
         private static IDwellClickConfigurationService _defaultConfiguration; //off.
 
+        [AllowNull]
         public static IDwellClickConfigurationService DefaultConfiguration
-        {
+        { 
             get => _defaultConfiguration;
             set
             {
@@ -144,8 +146,6 @@ namespace Eyedrivomatic.Controls.DwellClick
         #endregion IgnorePause
         #endregion Attached Properties
 
-        public static ILoggerFacade Logger { get; set; } //static so that the dependency property methods can be logged.
-
         //If the mouse leaves the control, the animation is paused and a cancellation timer starts. 
         //If the mouse re-enters the control before the timer triggers, then the animation continues. 
         //This is to prevent a very short "eye-twitch" from stopping the dwell click.
@@ -159,9 +159,8 @@ namespace Eyedrivomatic.Controls.DwellClick
         private DwellClickAdorner _adorner;
 
         [ImportingConstructor]
-        public DwellClickBehavior(ILoggerFacade logger, IDwellClickAnimator animator)
+        public DwellClickBehavior(IDwellClickAnimator animator)
         {
-            Logger = logger;
             _animator = animator;
         }
 
@@ -215,7 +214,7 @@ namespace Eyedrivomatic.Controls.DwellClick
         {
             var result = VisualTreeHelper.HitTest(AssociatedObject, point);
 
-            var visual = result.VisualHit;
+            var visual = result?.VisualHit;
             while (!(visual?.Equals(AssociatedObject) ?? true))
             {
                 var behaviors = Interaction.GetBehaviors(visual);
@@ -228,7 +227,7 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void StartDwellClick(TimeSpan dwellTime)
         {
-            Logger?.Log($"Starting dwell click on [{AssociatedObject}]", Category.Info, Priority.None);
+            Log.Info(this, $"Starting dwell click on [{AssociatedObject}]");
 
             if (_adorner == null)
             {
@@ -246,7 +245,7 @@ namespace Eyedrivomatic.Controls.DwellClick
         {
             _animator?.StopAnimation();
             RemoveAdorner();
-            Logger?.Log($"Canceled dwell click on [{AssociatedObject}]", Category.Info, Priority.None);
+            Log.Info(this, $"Canceled dwell click on [{AssociatedObject}]");
         }
 
         private void AssociatedObject_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -254,7 +253,7 @@ namespace Eyedrivomatic.Controls.DwellClick
             _mouseMoves = -1;
             _repeatCancelSource?.Cancel();
 
-            Logger?.Log($"Pausing dwell click on [{AssociatedObject}]", Category.Info, Priority.None);
+            Log.Info(this, $"Pausing dwell click on [{AssociatedObject}]");
             _animator.PauseAnimation();
             HideAdorner();
             StartCancelTimer();
@@ -263,11 +262,11 @@ namespace Eyedrivomatic.Controls.DwellClick
 
         private void DoClick()
         {
-            Logger?.Log($"Performing dwell click on [{AssociatedObject}]", Category.Info, Priority.None);
+            Log.Info(this, $"Performing dwell click on [{AssociatedObject}]");
 
             _animator.StopAnimation(); //should already be stopped.
 
-            if (!DwellClicker.Click(AssociatedObject)) Logger?.Log($"Failed to perform dwell click on [{AssociatedObject}].", Category.Warn, Priority.None);
+            if (!DwellClicker.Click(AssociatedObject)) Log.Warn(this, $"Failed to perform dwell click on [{AssociatedObject}].");
 
             var configruation = GetConfiguration(AssociatedObject);
             if (configruation == null || !configruation.EnableDwellClick || Paused) return;
@@ -288,12 +287,12 @@ namespace Eyedrivomatic.Controls.DwellClick
                 RemoveAdorner();
                 _mouseMoves = 0;
 
-                Logger?.Log("Repeat-click.", Category.Info, Priority.None);
+                Log.Info(this, "Repeat-click.");
             }
             catch (OperationCanceledException)
             {
                 //click repeat cancelled.
-                Logger?.Log($"ClickRepeat canceled on [{AssociatedObject}].", Category.Debug, Priority.None);
+                Log.Debug(this, $"ClickRepeat canceled on [{AssociatedObject}].");
                 RemoveAdorner();
             }
         }

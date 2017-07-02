@@ -20,8 +20,10 @@
 
 
 using System;
+using System.Runtime.CompilerServices;
 using Prism.Mvvm;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Infrastructure;
 
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
@@ -29,6 +31,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public abstract class ButtonDriverViewModelBase : BindableBase, IDisposable
     {
         private IButtonDriver _driver;
+
         protected IHardwareService HardwareService { get; }
 
         protected IButtonDriver Driver
@@ -44,14 +47,20 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected ButtonDriverViewModelBase(IHardwareService hardwareService)
         {
-            hardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
-            Driver = hardwareService.CurrentDriver;
+            HardwareService = hardwareService;
+            HardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
+            Driver = HardwareService.CurrentDriver;
         }
 
         protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
+        }
+
+        protected void LogSettingChange(object value, [CallerMemberName] string settingName = null)
+        {
+            Log.Info(this, $"Set [{settingName}] on [{Driver.Profile.Name}] to [{value}].");
         }
 
         protected virtual void Dispose(bool disposing)

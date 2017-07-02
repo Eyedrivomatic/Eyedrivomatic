@@ -29,15 +29,13 @@ using Eyedrivomatic.ButtonDriver.Hardware.Models;
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
     #region Enums
-    public enum ReadyState { None, Any, Continue, Reset }
+    public enum ReadyState { None, Any, Continue }
 
     public enum Direction { None, Forward, ForwardLeft, ForwardRight, Left, Right, Backward, BackwardLeft, BackwardRight }
 
     public enum XDirection { Left, Right }
 
     public enum YDirection { Forward, Backward }
-
-    public enum SafetyBypassState { Safe, Unsafe }
 
     public enum ContinueState { NotContinuedRecently, Continued}
     #endregion Enums
@@ -100,11 +98,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         #endregion Status
 
         #region Settings
-        /// <summary>
-        /// The state of the SafetyBypass
-        /// </summary>
-        SafetyBypassState SafetyBypass { get; set; }
-
         /// <summary>
         /// Settings that are managed by and saved on the device.
         /// These values are not valid until the device has connected and reported its settings.

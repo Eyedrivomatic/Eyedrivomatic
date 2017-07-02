@@ -29,47 +29,122 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Eyedrivomatic"
         xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-        xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
+        xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="500" Width="1024" WindowState="Maximized"
         Icon="{StaticResource MainIcon}"
         KeyDown="Window_KeyDown">
-    <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
-        <AdornerDecorator IsHitTestVisible="False" />
-        <Grid>
+    <Grid x:Name="LayoutRoot" Background="{DynamicResource AreaBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*" x:Name="ConfigurationViewRow">
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=SettingsButton, Path=IsChecked}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <infrastructure:GridLengthAnimation
+                                                Storyboard.TargetProperty="Height"
+                                                To="1*" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <infrastructure:GridLengthAnimation
+                                                Storyboard.TargetProperty="Height"
+                                                To="0*" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+            <RowDefinition Height="45" x:Name="StatusViewRow" />
+            <RowDefinition Height="1*" x:Name="DrivingViewRow">
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=SettingsButton, Path=IsChecked}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <infrastructure:GridLengthAnimation
+                                                Storyboard.TargetProperty="Height"
+                                                To="0*" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <infrastructure:GridLengthAnimation
+                                                Storyboard.TargetProperty="Height"
+                                                To="1*" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <AdornerDecorator IsHitTestVisible="False" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" />
+
+        <Grid Name="ConfigurationNavigationGrid" Grid.Column="0" Grid.Row="0"
+              Background="{DynamicResource AreaBackgroundBrushAlt}" />
+
+        <Grid x:Name="SettingsRegion" Grid.Column="1" Grid.Row="0" />
+
+        <Grid Name="NavigationGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+              Background="{DynamicResource AreaBackgroundBrushAlt}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="25*" MaxHeight="150" />
-                <RowDefinition Height="75*" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*" />
-                <ColumnDefinition Width="90*" />
-            </Grid.ColumnDefinitions>
-            <Viewbox Grid.Row="0" Grid.ColumnSpan="2" Stretch="Uniform" StretchDirection="DownOnly">
-                <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}"
-                                Width="{Binding ElementName=LayoutRoot, Path=ActualWidth}" />
-            </Viewbox>
-            <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
-                <Grid VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ItemsControl
-                        Grid.Column="0" Grid.Row="0"
-                        VerticalAlignment="Top"
-                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainNavigationRegion}"
-                        Style="{StaticResource NavigationRegionStyle}"/>
-                    <ContentControl
-                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}"
-                        Grid.Column="0" Grid.Row="1"
-                        VerticalAlignment="Bottom"
-                        BorderBrush="Green" BorderThickness="5"/>
-                </Grid>
-            </Viewbox>
-            <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform" StretchDirection="DownOnly">
-                <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}" />
-            </Viewbox>
+
+
+            <ItemsControl Grid.Row="0"
+                          x:Name="DriveProfileSelection"
+                          prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.DriveProfileSelectionRegion}"
+                          ItemContainerStyle="{DynamicResource RegionNavigationButtonStyle}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" IsItemsHost="True" />
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ToggleButton Content="Indoors" />
+                <ToggleButton Content="Outdoors" />
+                <ToggleButton Content="Careful" />
+            </ItemsControl>
+
+            <ContentControl x:Name="SleepButtonRegion"
+                            prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}"
+                            Grid.Column="0" Grid.Row="1" Height="175" />
         </Grid>
+
+        <ToggleButton x:Name="SettingsButton"
+                      Grid.Row="1" Grid.Column="0"
+                      Content="{DynamicResource Button.Settings.Content}"
+                      Background="Transparent"
+                      Padding="20,0,20,0">
+        </ToggleButton>
+
+
+        <ContentControl x:Name="MainContent" Grid.Row="2" Grid.Column="1"
+                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}">
+            <views:DrivingView />
+        </ContentControl>
     </Grid>
 </Window>

@@ -24,27 +24,31 @@
 <UserControl x:Class="Eyedrivomatic.Configuration.Views.SleepButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Eyedrivomatic.Configuration.Views"
              xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="150">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml"/>
+                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ToggleButton Style="{DynamicResource {ComponentResourceKey {x:Type ToggleButton}, FlashingToggleButton}}"
+    <ToggleButton Style="{DynamicResource FlashingToggleButton}"
                   Visibility="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration).EnableDwellClick, Converter={StaticResource BoolToCollapsedConverter}}"
                   IsChecked="{Binding Path=(dwellclick:DwellClickBehavior.Pause)}"
                   dwellclick:DwellClickBehavior.IgnorePause="True"
-                  dwellclick:DwellClickBehavior.Configuration="{Binding Path=(dwellclick:DwellClickBehavior.DefaultConfiguration)}"
-                  dwellclick:DwellClickBehavior.AdornerStyle="{StaticResource DwellClickAdornerStyle}">
-        <Image Source="{StaticResource Sleep}" Stretch="Fill"/>
+                  Content="{DynamicResource Button.Sleep.Content}">
+        <ToggleButton.Resources>
+            <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrush">
+                <GradientStop Color="Red" Offset="0" />
+                <GradientStop Color="{DynamicResource ControlLightColor}" Offset="1" />
+            </LinearGradientBrush>
+        </ToggleButton.Resources>
     </ToggleButton>
 
 </UserControl>

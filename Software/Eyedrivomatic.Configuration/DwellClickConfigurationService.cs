@@ -21,11 +21,10 @@
 
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-
-using Prism.Logging;
 using Prism.Mvvm;
 
-using Eyedrivomatic.Controls;
+using Eyedrivomatic.Controls.DwellClick;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Configuration
 {
@@ -40,9 +39,6 @@ namespace Eyedrivomatic.Configuration
     {
         private readonly DwellClickConfiguration _configuration;
         private bool _hasChanges;
-
-        [Import]
-        public ILoggerFacade Logger { get; set; }
 
         [ImportingConstructor]
         internal DwellClickConfigurationService(DwellClickConfiguration configuration)
@@ -99,7 +95,7 @@ namespace Eyedrivomatic.Configuration
         {
             if (!_hasChanges) return;
 
-            Logger.Log("Saving Changes", Category.Info, Priority.None);
+            Log.Info(this, "Saving Changes");
 
             _configuration.Save();
             _hasChanges = false;

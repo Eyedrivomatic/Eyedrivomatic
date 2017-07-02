@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Windows.Controls.Primitives;
+using System.Windows;
+using System.Windows.Controls;
 using Prism.Regions;
 
 namespace Eyedrivomatic.Controls
 {
     [Export]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public class RegionNavigationButton : ToggleButton
+    public class RegionNavigationButton : RadioButton
     {
         private readonly IRegionManager _regionManager;
         private string _regionName;
@@ -29,6 +30,8 @@ namespace Eyedrivomatic.Controls
             }
         }
 
+        public Func<bool> CanNavigate = () => true; 
+
         private void SetRegionEvent()
         {
             if (string.IsNullOrEmpty(_regionName)) return;
@@ -38,7 +41,9 @@ namespace Eyedrivomatic.Controls
             {
                 region.NavigationService.Navigated += MainContentRegion_Navigated;
             }
+            GroupName = _regionName;
         }
+
         private void ClearRegionEvent()
         {
             if (string.IsNullOrEmpty(_regionName)) return;
@@ -62,10 +67,11 @@ namespace Eyedrivomatic.Controls
             IsChecked = (uri == Target);
         }
 
-        protected override void OnClick()
+        protected override void OnChecked(RoutedEventArgs e)
         {
-            base.OnClick();
-            _regionManager.RequestNavigate(RegionName, Target);
+            base.OnChecked(e);
+
+            if (IsChecked ?? false) _regionManager.RequestNavigate(RegionName, Target);
         }
     }
 }

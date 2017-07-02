@@ -32,12 +32,11 @@ namespace Eyedrivomatic.Controls.DwellClick
         {
             var peer = UIElementAutomationPeer.FromElement(element) ?? UIElementAutomationPeer.CreatePeerForElement(element);
 
-            return InvokeElement(peer) 
-                || ToggleElement(peer) 
-                || SelectElement(peer) 
-                || SelectTabElement(element)
-                || SelectListBoxElement(element);
-
+            return InvokeElement(peer)
+                   || ToggleElement(peer)
+                   || SelectElement(peer)
+                   || SelectTabElement(element)
+                   || SelectListBoxElement(element);
         }
 
         private static bool InvokeElement(AutomationPeer peer)

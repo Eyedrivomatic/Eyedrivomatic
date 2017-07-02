@@ -28,11 +28,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:ignore="http://www.galasoft.ch/ignore" 
              xmlns:local="clr-namespace:Eyedrivomatic"
+             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              mc:Ignorable="d ignore">
     <Application.Resources>
         <!--Global View Model Locator-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <infrastructure:ThemeResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultTheme.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

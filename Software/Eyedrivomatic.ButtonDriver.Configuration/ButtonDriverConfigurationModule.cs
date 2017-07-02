@@ -20,28 +20,25 @@
 
 
 using System.ComponentModel.Composition;
-using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
     [ModuleExport(typeof(ButtonDriverConfigurationModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ButtonDriverConfigurationModule : IModule
     {
-        public static ILoggerFacade Logger;
-
         [ImportingConstructor]
-        public ButtonDriverConfigurationModule(ILoggerFacade logger)
+        public ButtonDriverConfigurationModule()
         {
-            Logger = logger;
-            Logger.Log($"Creating Module {nameof(ButtonDriverConfigurationModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ButtonDriverConfigurationModule)}.");
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ButtonDriverConfigurationModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(ButtonDriverConfigurationModule)}.");
         }
     }
 }

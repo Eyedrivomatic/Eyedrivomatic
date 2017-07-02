@@ -34,14 +34,6 @@ namespace Eyedrivomatic.ButtonDriver
         {}
     }
 
-    public sealed class SafetyBypassStateImageConverter : ValueToImageConverter<SafetyBypassState>
-    {
-        public SafetyBypassStateImageConverter() {}
-
-        private SafetyBypassStateImageConverter(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {}
-    }
 
     public sealed class DirectionToImageConverter : ValueToImageConverter<Direction>
     {

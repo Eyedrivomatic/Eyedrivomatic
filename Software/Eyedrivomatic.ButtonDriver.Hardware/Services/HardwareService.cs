@@ -24,9 +24,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 
 using System.Threading.Tasks;
-using Prism.Logging;
 using System;
 using Eyedrivomatic.ButtonDriver.Configuration;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -35,16 +35,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
     public class HardwareService : IHardwareService
     {
         private readonly IButtonDriverConfigurationService _configurationService;
-        private ILoggerFacade Logger { get; }
 
         [ImportingConstructor]
-        public HardwareService([ImportMany]IButtonDriver[] availableDrivers, IButtonDriverConfigurationService configurationService, ILoggerFacade logger)
+        public HardwareService([ImportMany]IButtonDriver[] availableDrivers, IButtonDriverConfigurationService configurationService)
         {
             _configurationService = configurationService;
             _availableDrivers = new ObservableCollection<IButtonDriver>(availableDrivers);
             CurrentDriver = _availableDrivers.FirstOrDefault();
-
-            Logger = logger;
         }
 
         public ObservableCollection<IButtonDriver> AvailableDrivers => _availableDrivers;
@@ -67,7 +64,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public Task InitializeAsync()
         {
-            Logger?.Log("Initializing the Hardware Service.", Category.Debug, Priority.None);
+            Log.Debug(this, "Initializing the Hardware Service.");
 
             //TODO: Find refresh the list of drivers that are actually plugged in.
             ApplySettings();
@@ -79,7 +76,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (_currentDriver == null) return;
             _currentDriver.Profile = _configurationService.CurrentProfile;
-            _currentDriver.SafetyBypass = _configurationService.SafetyBypass ? SafetyBypassState.Safe : SafetyBypassState.Unsafe;
         }
 
         public void Dispose()

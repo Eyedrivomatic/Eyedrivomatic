@@ -271,83 +271,110 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Nudge.
+        ///   Looks up a localized string similar to Drive Speeds.
         /// </summary>
-        public static string DrivingView_LeftNudge {
+        public static string DrivingView_DriveSpeeds {
             get {
-                return ResourceManager.GetString("DrivingView_LeftNudge", resourceCulture);
+                return ResourceManager.GetString("DrivingView_DriveSpeeds", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized string similar to Forward/Back Duration.
         /// </summary>
-        public static string DrivingView_Reset {
+        public static string DrivingView_ForwardBackDuration {
             get {
-                return ResourceManager.GetString("DrivingView_Reset", resourceCulture);
+                return ResourceManager.GetString("DrivingView_ForwardBackDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left/Right Duration.
+        /// </summary>
+        public static string DrivingView_LeftRightDuration {
+            get {
+                return ResourceManager.GetString("DrivingView_LeftRightDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Nudge.
+        /// </summary>
+        public static string DrivingView_NudgeLeft {
+            get {
+                return ResourceManager.GetString("DrivingView_NudgeLeft", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Right Nudge.
         /// </summary>
-        public static string DrivingView_RightNudge {
+        public static string DrivingView_NudgeRight {
             get {
-                return ResourceManager.GetString("DrivingView_RightNudge", resourceCulture);
+                return ResourceManager.GetString("DrivingView_NudgeRight", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Fast.
         /// </summary>
-        public static string DrivingView_SpeedFast {
+        public static string DrivingView_Speed_Fast {
             get {
-                return ResourceManager.GetString("DrivingView_SpeedFast", resourceCulture);
+                return ResourceManager.GetString("DrivingView_Speed_Fast", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MANIC.
         /// </summary>
-        public static string DrivingView_SpeedManic {
+        public static string DrivingView_Speed_Manic {
             get {
-                return ResourceManager.GetString("DrivingView_SpeedManic", resourceCulture);
+                return ResourceManager.GetString("DrivingView_Speed_Manic", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Slow.
         /// </summary>
-        public static string DrivingView_SpeedSlow {
+        public static string DrivingView_Speed_Slow {
             get {
-                return ResourceManager.GetString("DrivingView_SpeedSlow", resourceCulture);
+                return ResourceManager.GetString("DrivingView_Speed_Slow", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Walk.
         /// </summary>
-        public static string DrivingView_SpeedWalk {
+        public static string DrivingView_Speed_Walk {
             get {
-                return ResourceManager.GetString("DrivingView_SpeedWalk", resourceCulture);
+                return ResourceManager.GetString("DrivingView_Speed_Walk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string DrivingView_Stop {
+            get {
+                return ResourceManager.GetString("DrivingView_Stop", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Half.
         /// </summary>
-        public static string DrivingView_XDurationHalf {
+        public static string DrivingView_XDuration_Half {
             get {
-                return ResourceManager.GetString("DrivingView_XDurationHalf", resourceCulture);
+                return ResourceManager.GetString("DrivingView_XDuration_Half", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Half.
         /// </summary>
-        public static string DrivingView_YDurationHalf {
+        public static string DrivingView_YDuration_Half {
             get {
-                return ResourceManager.GetString("DrivingView_YDurationHalf", resourceCulture);
+                return ResourceManager.GetString("DrivingView_YDuration_Half", resourceCulture);
             }
         }
         
@@ -694,6 +721,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        public static string SettingGroupName_Appearance {
+            get {
+                return ResourceManager.GetString("SettingGroupName_Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection Settings.
         /// </summary>
         public static string SettingGroupName_DeviceConnection {
@@ -897,6 +933,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingName_SafetyBypass {
             get {
                 return ResourceManager.GetString("SettingName_SafetyBypass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string SettingName_Theme {
+            get {
+                return ResourceManager.GetString("SettingName_Theme", resourceCulture);
             }
         }
         

@@ -23,8 +23,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Media.Animation;
-
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Controls.DwellClick
 {
@@ -40,18 +39,15 @@ namespace Eyedrivomatic.Controls.DwellClick
     public class DwellClickAnimator : IDwellClickAnimator
     {
         [ImportingConstructor]
-        public DwellClickAnimator(ILoggerFacade logger)
+        public DwellClickAnimator()
         {
-            Logger = logger;
         }
-
-        public static ILoggerFacade Logger { get; set; }
 
         private Storyboard _dwellStoryboard;
 
         public void StartAnimation(DwellClickAdorner adorner, TimeSpan dwellTime, Action clickCallback)
         {
-            Logger?.Log("Creating dwell click animation.", Category.Debug, Priority.None);
+            Log.Debug(this, "Creating dwell click animation.");
 
             _dwellStoryboard?.Stop(); //If the storyboard is already running
 
@@ -65,26 +61,26 @@ namespace Eyedrivomatic.Controls.DwellClick
 
             _dwellStoryboard.Children.Add(dwellAnimation);
 
-            Logger?.Log("Starting dwell click animation.", Category.Debug, Priority.None);
+            Log.Debug(this, "Starting dwell click animation.");
             _dwellStoryboard.Begin();
         }
 
         public void PauseAnimation()
         {
-            Logger?.Log("Pausing dwell click animation.", Category.Debug, Priority.None);
+            Log.Debug(this, "Pausing dwell click animation.");
             _dwellStoryboard?.Pause();
         }
 
         public void ResumeAnimation()
         {
-            Logger?.Log("Resuming the dwell click animation.", Category.Debug, Priority.None);
+            Log.Debug(this, "Resuming the dwell click animation.");
             _dwellStoryboard?.Resume();
         }
 
         public void StopAnimation()
         {
             _dwellStoryboard?.Stop();
-            Logger?.Log("Stopped the dwell click animation.", Category.Debug, Priority.None);
+            Log.Debug(this, "Stopped the dwell click animation.");
         }
 
     }

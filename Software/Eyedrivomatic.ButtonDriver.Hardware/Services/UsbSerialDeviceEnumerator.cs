@@ -25,10 +25,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using Eyedrivomatic.Infrastructure;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 using NullGuard;
-using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -84,7 +84,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 if (Marshal.GetLastWin32Error() != NativeMethods.NO_ERROR &&
                     Marshal.GetLastWin32Error() != NativeMethods.ERROR_NO_MORE_ITEMS)
                 {
-                    ButtonDriverHardwareModule.Logger?.Log($"Failed to enumerate USB serial devices. Error: [{Marshal.GetLastWin32Error()}] HR: [{Marshal.GetHRForLastWin32Error()}]", Category.Exception, Priority.None);
+                    Log.Error(typeof(UsbSerialDeviceEnumerator), $"Failed to enumerate USB serial devices. Error: [{Marshal.GetLastWin32Error()}] HR: [{Marshal.GetHRForLastWin32Error()}]");
                 }
             }
             finally
@@ -113,20 +113,18 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private static string GetFriendlyName(IntPtr hDevInfoSet, NativeMethods.DevInfoData devInfoData)
         {
-            uint propertyType;
             var buffer = new StringBuilder(256);
-            uint length = (uint)buffer.Capacity;
-            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_FRIENDLYNAME, out propertyType, buffer, length, out length);
+            var length = (uint)buffer.Capacity;
+            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_FRIENDLYNAME, out uint _, buffer, length, out length);
 
             return buffer.ToString();
         }
 
         private static string GetDescription(IntPtr hDevInfoSet, NativeMethods.DevInfoData devInfoData)
         {
-            uint propertyType;
             var buffer = new StringBuilder(256);
-            uint length = (uint)buffer.Capacity;
-            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_DEVICEDESC, out propertyType, buffer, length, out length);
+            var length = (uint)buffer.Capacity;
+            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_DEVICEDESC, out uint _, buffer, length, out length);
 
             return buffer.ToString();
         }
@@ -134,10 +132,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private static Dictionary<string, string> GetHardwareIds(IntPtr hDevInfoSet, NativeMethods.DevInfoData devInfoData)
         {
-            uint propertyType;
             var buffer = new StringBuilder(256);
-            uint length = (uint)buffer.Capacity;
-            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_HARDWAREID, out propertyType, buffer, length, out length);
+            var length = (uint)buffer.Capacity;
+            NativeMethods.SetupDiGetDeviceRegistryProperty(hDevInfoSet, ref devInfoData, NativeMethods.DeviceInfoRegistryProperty.SPDRP_HARDWAREID, out uint _, buffer, length, out length);
 
 
             var result = new Dictionary<string, string>();

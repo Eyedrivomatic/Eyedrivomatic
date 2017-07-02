@@ -20,86 +20,164 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
-
+using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using NullGuard;
+using Prism.Mvvm;
+using Prism.Regions;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    [Export]
-    public class DrivingViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
+    [Export(typeof(IDrivingViewModel))]
+    public class DrivingViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>, IDrivingViewModel, INavigationAware
     {
+        private readonly IEnumerable<Profile> _profiles;
+
         [ImportingConstructor]
-        public DrivingViewModel(IHardwareService hardwareService)
+        public DrivingViewModel(IHardwareService hardwareService,
+            [Import("ExecuteMacroCommand")]ICommand executeMacroCommand,
+            IMacroSerializationService macroSerializationService,
+            IEnumerable<Profile> profiles)
             : base (hardwareService)
         {
+            _profiles = profiles;
+            ExecuteMacroCommand = executeMacroCommand;
+            Macros = new ObservableCollection<IMacro>(macroSerializationService.LoadMacros());
         }
 
         public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
-        public ICommand SetXDuration => new DelegateCommand<string>(
-            duration =>
+        public bool IsOnline => Driver?.HardwareReady ?? false;
+
+        public bool DiagonalSpeedReduction
+        {
+            get => IsOnline && Driver.Profile.DiagonalSpeedReduction;
+            set
             {
-                Driver.Profile.XDuration = TimeSpan.FromMilliseconds(ulong.Parse(duration));
-            }, 
-            duration => { ulong tmp;  return ulong.TryParse(duration, out tmp) && IsOnline; });
+                Driver.Profile.DiagonalSpeedReduction = value;
+                LogSettingChange(Driver.Profile.DiagonalSpeedReduction);
+                RaisePropertyChanged();
+            }
+        }
 
-        public ICommand SetYDuration => new DelegateCommand<string>(
-            duration =>
+        public bool SafetyBypass
+        {
+            get => IsOnline && Driver.Profile.SafetyBypass;
+            set
             {
-                Driver.Profile.YDuration = TimeSpan.FromMilliseconds(ulong.Parse(duration));
-            }, 
-            duration => { ulong tmp; return ulong.TryParse(duration, out tmp) && IsOnline; });
+                Driver.Profile.SafetyBypass = value;
+                LogSettingChange(Driver.Profile.SafetyBypass);
+                RaisePropertyChanged();
+            }
+        }
 
-        public ICommand DiagonalSpeedReductionToggle => new DelegateCommand(
-            () => Driver.Profile.DiagonalSpeedReduction = !Driver.Profile.DiagonalSpeedReduction, 
-            () => IsOnline);
+        public IEnumerable<ProfileSpeed> Speeds => HardwareService.CurrentDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
 
-        public ICommand Continue => new DelegateCommand(
+        [AllowNull]
+        public ProfileSpeed CurrentSpeed => IsOnline ? Driver.Profile.CurrentSpeed : null;
+
+        public double XDuration
+        {
+            get => IsOnline ? Driver.Profile.XDuration.TotalMilliseconds : 0;
+            set
+            {
+                Driver.Profile.XDuration = TimeSpan.FromMilliseconds(value);
+                LogSettingChange(Driver.Profile.XDuration);
+                RaisePropertyChanged();
+            }
+        }
+
+        public double YDuration
+        {
+            get => IsOnline ? Driver.Profile.YDuration.TotalMilliseconds : 0;
+            set
+            {
+                Driver.Profile.YDuration = TimeSpan.FromMilliseconds(value);
+                LogSettingChange(Driver.Profile.YDuration);
+                RaisePropertyChanged();
+            }
+        }
+
+        public ICommand ContinueCommand => new DelegateCommand(
             () => Driver.Continue(), 
             () => IsOnline && (Driver.ReadyState == ReadyState.Any || Driver.ReadyState == ReadyState.Continue));
 
-        public ICommand Reset => new DelegateCommand(
+        public ICommand StopCommand => new DelegateCommand(
             () => Driver.Stop(), 
             () => IsOnline);
 
-        public ICommand Nudge => new DelegateCommand<XDirection?>(
-            direction => { if (direction != null) Driver.Nudge(direction: direction.Value); }, 
+        public ICommand NudgeCommand => new DelegateCommand<XDirection?>(
+            direction => { if (direction != null) Driver.Nudge(direction.Value); }, 
             direction => direction.HasValue && IsOnline);
-        public ICommand Move => new DelegateCommand<Direction?>(
-            direction => { if (direction != null) Driver.Move(direction: direction.Value); }, 
+
+        public ICommand MoveCommand => new DelegateCommand<Direction?>(
+            direction => { if (direction != null) Driver.Move(direction.Value); }, 
             direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value));
 
-        public ICommand SetSpeed => new DelegateCommand<string>(
+        public ICommand ExecuteMacroCommand { get; }
+
+        public ICommand DiagonalSpeedReductionToggleCommand => new DelegateCommand(
+             () =>
+             {
+                 Driver.Profile.DiagonalSpeedReduction = !DiagonalSpeedReduction;
+                 // ReSharper disable once ExplicitCallerInfoArgument
+                 LogSettingChange(Driver.Profile.DiagonalSpeedReduction ? "Enabled" : "Disabled", nameof(Driver.Profile.DiagonalSpeedReduction));
+                 RaisePropertyChanged();
+             },
+             () => IsOnline);
+
+        public ICommand SetSpeedCommand => new DelegateCommand<ProfileSpeed>(
             speed =>
             {
-                Driver.Profile.CurrentSpeed =
-                    Driver.Profile.Speeds.Single(
-                        s => string.Compare(s.Name, speed, StringComparison.CurrentCultureIgnoreCase) == 0);
+                Driver.Profile.CurrentSpeed = speed;
+                // ReSharper disable once ExplicitCallerInfoArgument
+                LogSettingChange(Driver.Profile.CurrentSpeed.Name, nameof(Driver.Profile.CurrentSpeed));
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(CurrentSpeed));
+            },
+            speed => IsOnline && speed != null);
 
-            }, 
-            speed =>
+        public ObservableCollection<IMacro> Macros { get; }
+
+
+        void INavigationAware.OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var parameters = navigationContext.Parameters;
+            var profileName = parameters["profile"].ToString();
+            var profile = _profiles.FirstOrDefault(p => p.Name == profileName);
+
+            if (profile == null)
             {
-                return !string.IsNullOrWhiteSpace(speed) && IsOnline &&
-                       Driver.Profile.Speeds.Any(
-                           s => string.Compare(s.Name, speed, StringComparison.CurrentCultureIgnoreCase) == 0);
-            });
+                Log.Error(this, $"Profile [{profileName}] not found!");
+                profile = _profiles.First();
+            }
 
-        [Import("ExecuteMacroCommand")]
-        public ICommand ExecuteMacroCommand { get; internal set; }
+            Log.Info(this, $"Setting driver profile to [{profile.Name}]");
+            Driver.Profile = profile;
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged("");
+        }
 
-        [Import("DrivingPageMacro")]
-        public IMacro DrivingPageMacro { get; internal set; }
+        bool INavigationAware.IsNavigationTarget(NavigationContext navigationContext)
+        {
+            var parameters = navigationContext.Parameters;
+            var profileName = parameters["profile"].ToString();
+            var profile = _profiles.FirstOrDefault(p => p.Name == profileName);
 
-        public bool DiagnalSpeedReduction => IsOnline && Driver.Profile.DiagonalSpeedReduction;
+            return profile != null;
+        }
 
-        public bool IsOnline => Driver?.HardwareReady ?? false;
+        void INavigationAware.OnNavigatedFrom(NavigationContext navigationContext)
+        { 
+        }
     }
-
 }

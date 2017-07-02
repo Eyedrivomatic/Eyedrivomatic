@@ -25,7 +25,6 @@ using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Prism.Logging;
 using Prism.Regions;
 
 using Eyedrivomatic.Configuration.Views;
@@ -41,18 +40,16 @@ namespace Eyedrivomatic.Configuration
         DependsOnModuleNames = new[] { nameof(InfrastructureModule), nameof(ControlsModule) })]
     public class ConfigurationModule : IModule
     {
-        private readonly IRegionManager RegionManager;
-        private readonly ILoggerFacade Logger;
+        private readonly IRegionManager _regionManager;
         private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public ConfigurationModule(IRegionManager regionManager, ILoggerFacade logger, IServiceLocator serviceLocator)
+        public ConfigurationModule(IRegionManager regionManager, IServiceLocator serviceLocator)
         {
-            Logger = logger;
             _serviceLocator = serviceLocator;
-            Logger?.Log($"Creating Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
+            Log.Info(this, $"Creating Module {nameof(ConfigurationModule)}.");
 
-            RegionManager = regionManager;
+            _regionManager = regionManager;
         }
 
         [Import]
@@ -60,14 +57,15 @@ namespace Eyedrivomatic.Configuration
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
+            Log.Info(this, $"Initializing Module {nameof(ConfigurationModule)}.");
 
             DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
 
-            RegionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ConfigurationView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
-            RegionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
-            RegionManager.RegisterViewWithRegion(RegionNames.MainNavigationRegion, CreateConfigurationNavigation);
+            _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EyegazeConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
+            _regionManager.RegisterViewWithRegion(RegionNames.DriveProfileSelectionRegion, CreateConfigurationNavigation);
         }
 
         private object CreateConfigurationNavigation()
@@ -78,6 +76,5 @@ namespace Eyedrivomatic.Configuration
             button.Target = new Uri($"/{nameof(ConfigurationView)}", UriKind.Relative);
             return button;
         }
-
     }
 }

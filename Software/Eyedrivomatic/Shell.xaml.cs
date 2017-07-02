@@ -34,13 +34,17 @@ namespace Eyedrivomatic
         public Shell()
         {
             InitializeComponent();
-            var streamResourceInfo = Application.GetResourceStream(new Uri(
-                    "pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"));
+            var streamResourceInfo = Application.GetResourceStream(
+                new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"));
+
             if (streamResourceInfo != null)
             {
                 _smallCursor = new Cursor(streamResourceInfo.Stream);
                 Mouse.OverrideCursor = _smallCursor;
             }
+
+            DriveProfileSelection.Items.Clear();
+            MainContent.Content = null;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

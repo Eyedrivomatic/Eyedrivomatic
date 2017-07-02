@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-
+using Eyedrivomatic.Controls.DwellClick;
 using FakeItEasy;
 using NUnit.Framework;
-using System.Threading.Tasks;
-using Prism.Logging;
 
-using Eyedrivomatic.Controls.UnitTests;
-
-namespace Eyedrivomatic.Controls.DwellClick.UnitTests
+namespace Eyedrivomatic.Controls.UnitTests
 {
     [TestFixture, Apartment(ApartmentState.STA)]
     public class DwellClickAnimatorTests
@@ -19,14 +16,10 @@ namespace Eyedrivomatic.Controls.DwellClick.UnitTests
 
         [UnderTest] public DwellClickAnimator Animator { get; set; }
 
-        private ILoggerFacade Logger = TestLogging.GetLogger(typeof(DwellClickAnimatorTests));
-
         [SetUp]
         public void SetUp()
         {
             Fake.InitializeFixture(this);
-            DwellClickAnimator.Logger = TestLogging.GetLogger(typeof(DwellClickAnimator));
-            DwellClickAdorner.Logger = TestLogging.GetLogger(typeof(DwellClickAdorner));
         }
 
         [Test, Timeout(200)]

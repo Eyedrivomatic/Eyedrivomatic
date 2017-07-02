@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Models
@@ -56,7 +56,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 
         private async void OnStatusParseError(object sender, EventArgs eventArgs)
         {
-            ButtonDriverHardwareModule.Logger.Log($"Status error. Current status was [{(IsKnown ? "Known" : "Unknown")}.", Category.Exception, Priority.None);
+            Log.Error(this, $"Status error. Current status was [{(IsKnown ? "Known" : "Unknown")}.");
 
             //Don't "spam" the device. But ask the device for status right away if this is just a glitch.
             if (!IsKnown && RetryDelay > TimeSpan.Zero) await Task.Delay(RetryDelay);
@@ -64,7 +64,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 
             while (!await _getStatusCommand())
             {
-                ButtonDriverHardwareModule.Logger.Log($"Status error. Failed to send 'get' status request.", Category.Exception, Priority.None);
+                Log.Error(this, $"Status error. Failed to send 'get' status request.");
                 if (RetryDelay > TimeSpan.Zero) await Task.Delay(RetryDelay);
             }
         }

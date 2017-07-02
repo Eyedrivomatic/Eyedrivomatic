@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 using Eyedrivomatic.Infrastructure.Extensions;
 using Eyedrivomatic.Resources;
@@ -33,22 +34,22 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
                 new[]
                 {
                     //Previous version = {Name="Slow"
-                    new ProfileSpeed {Name=Strings.DrivingView_SpeedSlow.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Slow.NextPostfix(otherSpeeds),
                     //  X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6}, Previous Version
                         X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6},
 
                     //Previous version = {Name="Walk"
-                    new ProfileSpeed {Name=Strings.DrivingView_SpeedWalk.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Walk.NextPostfix(otherSpeeds),
                     //  X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6}, Previous Version
                         X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6},
 
                     //Previous version = {Name="Fast",                           
-                    new ProfileSpeed {Name=Strings.DrivingView_SpeedFast.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Fast.NextPostfix(otherSpeeds),
                     //  X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6}, Previous Version
                         X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6},
 
                     //Previous version = {Name="Manic"
-                    //new ProfileSpeed {Name=Strings.DrivingView_SpeedManic.NextPostfix(otherSpeeds),
+                    //new ProfileSpeed {Name=Strings.DrivingView_Speed_Manic.NextPostfix(otherSpeeds),
                     //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6}, Previous Version
                     //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6},
                 });
@@ -65,6 +66,17 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             get => Speeds.SingleOrDefault(c => string.Compare(c.Name, _currentSpeed, StringComparison.CurrentCultureIgnoreCase) == 0);
             set => SetProperty(ref _currentSpeed, value.Name);
+        }
+
+        private bool _safetyBypass;
+        public bool SafetyBypass
+        {
+            get => _safetyBypass;
+            set
+            {
+                Log.Warn(this, $"Safety bypass [{(value ? "Enabled (Unsafe)" : "Disabled (Safe)")}].");
+                SetProperty(ref _safetyBypass, value);
+            }
         }
 
         /// <summary>

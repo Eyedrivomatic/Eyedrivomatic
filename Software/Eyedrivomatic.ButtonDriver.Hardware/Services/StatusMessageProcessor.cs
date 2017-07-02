@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -19,7 +19,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (!ChecksumProcessor.ValidateChecksum(ref message))
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Invalid checksum for message - '{message}'.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Invalid checksum for message - '{message}'.");
                 StatusParseError?.Invoke(this, EventArgs.Empty);
                 return;
             }
@@ -27,7 +27,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             var match = _messageFormat.Match(message);
             if (!match.Success)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Unable to parse status message - '{message}'.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Unable to parse status message - '{message}'.");
                 StatusParseError?.Invoke(this, EventArgs.Empty);
                 return;
             }

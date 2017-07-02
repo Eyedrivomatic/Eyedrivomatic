@@ -27,8 +27,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Practices.ServiceLocation;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -39,8 +39,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private static readonly string StartupMessage = "START: Eyedrivomatic - version 2.0.0";
 
-        private static ILoggerFacade Logger => ServiceLocator.Current.GetInstance<ILoggerFacade>();
-
+        [return: AllowNull]
         public static async Task<SerialPort> DetectDeviceAsync(CancellationToken cancellationToken)
         {
             var devices = UsbSerialDeviceEnumerator.EnumerateDevices().ToList();
@@ -62,7 +61,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
                 if (resultTask.IsCompleted && resultTask.Result != null)
                 {
-                    Logger.Log($"Found device on port [{resultTask.Result.PortName}]!", Category.Info, Priority.None);
+                    Log.Info(typeof(BrainBoxPortFinder), $"Found device on port [{resultTask.Result.PortName}]!");
                     return resultTask.Result;
                 }
 
@@ -82,7 +81,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             try
             {
-                Logger.Log($"Opening port [{port}].", Category.Info, Priority.None);
+                Log.Info(typeof(BrainBoxPortFinder), $"Opening port [{port}].");
                 var serialPort = new SerialPort(port, 19200)
                 {
                     DtrEnable = false,
@@ -97,7 +96,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 if (!serialPort.IsOpen) return null;
                 if (!await VerifyStartupMessage(serialPort))
                 {
-                    Logger.Log($"Device not found on port [{port}]", Category.Info, Priority.None);
+                    Log.Info(typeof(BrainBoxPortFinder), $"Device not found on port [{port}]");
                     serialPort.Dispose();
                     return null;
                 };
@@ -109,13 +108,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 // Access is denied to the port. 
                 // -or -
                 // The current process, or another process on the system, already has the specified COM port open either by a SerialPort instance or in unmanaged code.
-                Logger.Log($"COM port [{port}] is in use.", Category.Exception, Priority.None);
+                Log.Error(typeof(BrainBoxPortFinder), $"COM port [{port}] is in use.");
                 return null;
             }
             catch (ArgumentException)
             {
                 //Configuration shold start with "COM"
-                Logger.Log($"Invalid port name [{port}].", Category.Exception, Priority.None);
+                Log.Error(typeof(BrainBoxPortFinder), $"Invalid port name [{port}].");
                 return null;
             }
             catch (IOException ex)
@@ -123,12 +122,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 //The port is in an invalid state.
                 // -or -
                 //An attempt to set the state of the underlying port failed. For example, the parameters passed from this SerialPort object were invalid.
-                Logger.Log($"Failed to open the com port [{ex}]", Category.Exception, Priority.None);
+                Log.Error(typeof(BrainBoxPortFinder), $"Failed to open the com port [{ex}]");
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                Logger.Log($"Failed to open the com port [{ex}]", Category.Exception, Priority.None);
+                Log.Error(typeof(BrainBoxPortFinder), $"Failed to open the com port [{ex}]");
                 return null;
             }
         }
@@ -137,7 +136,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
             var firstMessage = await reader.ReadLineAsync();
-            Logger.Log($"First message on port [{serialPort.PortName}] is [{firstMessage}].", Category.Debug, Priority.None);
+            Log.Debug(typeof(BrainBoxPortFinder), $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
 
             //Ignore the checksum... TODO: Don't ignore the checksum.
             return string.CompareOrdinal(firstMessage.Substring(0, StartupMessage.Length), StartupMessage) == 0;

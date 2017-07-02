@@ -26,7 +26,7 @@ using Prism.Modularity;
 using System.Windows;
 
 using Eyedrivomatic.Controls.DwellClick;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.Controls
@@ -37,8 +37,6 @@ namespace Eyedrivomatic.Controls
     [ModuleExport(typeof(ControlsModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ControlsModule : IModule
     {
-        public ILoggerFacade Logger { get; set; }
-
         public IServiceLocator ServiceLocator { get; set; }
 
         [Export(typeof(DwellClickAdornerFactory))]
@@ -48,17 +46,16 @@ namespace Eyedrivomatic.Controls
         }
 
         [ImportingConstructor]
-        public ControlsModule(ILoggerFacade logger, IServiceLocator serviceLocator)
+        public ControlsModule(IServiceLocator serviceLocator)
         {
-            Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ControlsModule)}.");
 
             ServiceLocator = serviceLocator;
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(ControlsModule)}.");
 
             DwellClickBehaviorFactory.Create = ServiceLocator.GetInstance<DwellClickBehavior>;
             DwellClickAdornerFactory.Create = adornedElement => new DwellClickPieAdorner(adornedElement);

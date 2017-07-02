@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Models
@@ -57,7 +57,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         {
             if (!_messageHandlers.ContainsKey(args.SettingName))
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Invalid Setting [{args.SettingName} received", Category.Exception, Priority.None);
+                Log.Error(this, $"Invalid Setting [{args.SettingName} received");
                 IsKnown = false;
                 return;
             }
@@ -148,7 +148,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             }
             catch (Exception e)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Failed to send setting! [{e}]", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to send setting! [{e}]");
 
                 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(propertyName); //Lets the client know that the "set" failed.

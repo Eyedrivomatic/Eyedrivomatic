@@ -20,14 +20,15 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Prism.Logging;
 using Prism.Mvvm;
 
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -43,9 +44,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
     {
         private readonly ButtonDriverConfiguration _configuration;
         private bool _hasChanges;
-
-        [Import]
-        public ILoggerFacade Logger { get; set; }
 
         [ImportingConstructor]
         internal ButtonDriverConfigurationService(ButtonDriverConfiguration configuration)
@@ -168,6 +166,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             set => _configuration.CommandTimeout = value.TotalMilliseconds;
         }
 
+        [Export(typeof(IEnumerable<Profile>))]
         public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
 
         public Profile CurrentProfile
@@ -192,7 +191,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             if (!HasChanges) return;
 
-            Logger.Log("Saving Changes", Category.Info, Priority.None);
+            Log.Info(this, "Saving Changes");
 
             _configuration.Save();
             HasChanges = false;

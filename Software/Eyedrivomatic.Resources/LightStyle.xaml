@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Eyedrivomatic.Resources"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <Color x:Key="PrimaryBackgroundColor1">#FFFFF4E9</Color>
+    <Color x:Key="PrimaryBackgroundColor2">#FFC3A688</Color>
+
+    <Color x:Key="SecondaryBackgroundColor1">#C3D5C4</Color>
+    <Color x:Key="SecondaryBackgroundColor2">#6B996E</Color>
+
+    <LinearGradientBrush x:Key="PrimaryBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SecondaryBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="PrimaryHighlight" Color="#FFFFF4E9" />
+    <SolidColorBrush x:Key="SecondaryHighlight" Color="#FFFFF4E9" />
+
+    
+    <SolidColorBrush x:Key="PrimaryForeground" Color="#FF001217"/>
+    <SolidColorBrush x:Key="SecondaryForeground" Color="#FFFFF4E9"/>
+
+    <SolidColorBrush x:Key="PrimaryComplement" Color="#2F4D56"/>
+    <SolidColorBrush x:Key="SecondaryComplement" Color="#A5B1B4"/>
+
+    <SolidColorBrush x:Key="Button.Background" Color="#00FFFFFF"/>
+    <SolidColorBrush x:Key="Button.Border" Color="#05A0A0A0"/>
+    <system:Int32 x:Key="Button.Border.Thickness">0</system:Int32>
+    <system:Int32 x:Key="Button.Border.Corner">0</system:Int32>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#506B996E"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF686868"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FF3A6D3E"/>
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#70001E02"/>
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#70A5B1B4"/>
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7013353F"/>
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#2013353F"/>
+    <SolidColorBrush x:Key="Button.Important.Background" Color="#FFFF2223"/>
+
+    <SolidColorBrush x:Key="ToggleButton.Checked.Highlight" Color="#F0D6D6D6"/>
+    <SolidColorBrush x:Key="ToggleButton.Checked.HighlightSecondary" Color="#F0D6D6D6"/>
+
+    <BitmapImage x:Key="Button.NudgeLeft.Content" UriSource="Images/LightStyle/NudgeLeft.png"/>
+    <BitmapImage x:Key="Button.NudgeRight.Content" UriSource="Images/LightStyle/NudgeRight.png"/>
+    <BitmapImage x:Key="Button.ForwardLeft.Content" UriSource="Images/LightStyle/ForwardLeft.png"/>
+    <BitmapImage x:Key="Button.Forward.Content" UriSource="Images/LightStyle/Forward.png"/>
+    <BitmapImage x:Key="Button.ForwardRight.Content" UriSource="Images/LightStyle/ForwardRight.png"/>
+    <BitmapImage x:Key="Button.BackwardLeft.Content" UriSource="Images/LightStyle/BackLeft.png"/>
+    <BitmapImage x:Key="Button.Backward.Content" UriSource="Images/LightStyle/Backward.png"/>
+    <BitmapImage x:Key="Button.BackwardRight.Content" UriSource="Images/LightStyle/BackRight.png"/>
+
+    <BitmapImage x:Key="Button.Continue.Content" UriSource="Images/LightStyle/Continue.png"/>
+   
+</ResourceDictionary>

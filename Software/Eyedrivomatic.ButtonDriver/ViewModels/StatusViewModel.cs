@@ -37,7 +37,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public string HeaderInfo => Strings.ViewName_Status;
 
-        public SafetyBypassState SafetyBypassStatus => Driver?.SafetyBypass ?? SafetyBypassState.Safe;
+        public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
         public bool DiagonalSpeedReduction => Driver?.Profile.DiagonalSpeedReduction ?? false;
 
         public Direction LastDirection => Driver?.LastDirection ?? Direction.None;

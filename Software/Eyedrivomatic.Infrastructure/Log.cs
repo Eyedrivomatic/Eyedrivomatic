@@ -24,7 +24,7 @@ using log4net;
 
 namespace Eyedrivomatic.Infrastructure
 {
-    public class Log
+    public static class Log
     {
         public static void Initialize()
         {
@@ -58,22 +58,22 @@ namespace Eyedrivomatic.Infrastructure
 
         public static void Debug(object context, string message)
         {
-            Log.Debug(context.GetType(), message);
+            Debug(context.GetType(), message);
         }
 
         public static void Info(object context, string message)
         {
-            Log.Info(context.GetType(), message);
+            Info(context.GetType(), message);
         }
 
         public static void Warn(object context, string message)
         {
-            Log.Warn(context.GetType(), message);
+            Warn(context.GetType(), message);
         }
 
         public static void Error(object context, string message)
         {
-            Log.Warn(context.GetType(), message);
+            Warn(context.GetType(), message);
         }
     }
 }

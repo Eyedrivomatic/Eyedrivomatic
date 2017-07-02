@@ -76,12 +76,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool Connected => Driver.Connection.State == ConnectionState.Connected;
         public bool Ready => Driver.HardwareReady;
         
-        public bool SafetyBypass
-        {
-            get => _configurationService.SafetyBypass;
-            set => _configurationService.SafetyBypass = value;
-        }
-
         public class SerialDeviceInfo
         {
             public readonly string Name;

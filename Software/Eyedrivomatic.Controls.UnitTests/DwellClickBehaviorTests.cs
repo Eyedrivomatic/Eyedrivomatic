@@ -2,14 +2,11 @@
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-
+using Eyedrivomatic.Controls.DwellClick;
 using FakeItEasy;
 using NUnit.Framework;
-using Prism.Logging;
 
-using Eyedrivomatic.Controls.UnitTests;
-
-namespace Eyedrivomatic.Controls.DwellClick.UnitTests
+namespace Eyedrivomatic.Controls.UnitTests
 {
     [TestFixture, Apartment(ApartmentState.STA)]
     public class DwellClickBehaviorTests
@@ -21,17 +18,12 @@ namespace Eyedrivomatic.Controls.DwellClick.UnitTests
 
         [UnderTest] public DwellClickBehavior Behavior { get; set; }
 
-        private ILoggerFacade Logger = TestLogging.GetLogger(typeof(DwellClickAnimatorTests));
-
         [SetUp]
         public void SetUp()
         {
             Fake.InitializeFixture(this);
 
-            DwellClickBehavior.Logger = Logger;
-
-            _adornerDecorator = new AdornerDecorator();
-            _adornerDecorator.Child = AdornedElement;
+            _adornerDecorator = new AdornerDecorator {Child = AdornedElement};
         }
 
         [Test]

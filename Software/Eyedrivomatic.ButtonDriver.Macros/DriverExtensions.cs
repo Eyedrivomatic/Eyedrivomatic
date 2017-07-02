@@ -21,10 +21,9 @@
 
 using System;
 using System.Threading.Tasks;
-
-using Prism.Logging;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
@@ -45,7 +44,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
 
             if (!driverTask.CanExecute(driver))
             {
-                MacrosModule.Logger?.Log($"Unable to execute task - task unavailable.", Category.Exception, Priority.None);
+                Log.Error(typeof(DriverExtensions), "Unable to execute task - task unavailable.");
                 return Task.FromException(new InvalidOperationException("task unavailable"));
             }
 

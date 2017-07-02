@@ -27,10 +27,6 @@
                     xmlns:local="clr-namespace:Eyedrivomatic.Configuration"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
-
     <sys:Uri x:Key="ResourcesImageBaseUri">pack://application:,,,/Eyedrivomatic.Resources;component/</sys:Uri>
 
     <Style x:Key="SettingLabelStyle" TargetType="{x:Type Label}">

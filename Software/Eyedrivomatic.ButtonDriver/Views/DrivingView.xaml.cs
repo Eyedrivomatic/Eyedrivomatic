@@ -22,7 +22,6 @@
 using Eyedrivomatic.ButtonDriver.ViewModels;
 using System.ComponentModel.Composition;
 
-
 namespace Eyedrivomatic.ButtonDriver.Views
 {
     /// <summary>
@@ -37,9 +36,9 @@ namespace Eyedrivomatic.ButtonDriver.Views
         }
 
         [Import]
-        public DrivingViewModel ViewModel
+        public IDrivingViewModel ViewModel
         {
-            get => (DrivingViewModel)DataContext;
+            get => (IDrivingViewModel)DataContext;
             set => DataContext = value;
         }
     }

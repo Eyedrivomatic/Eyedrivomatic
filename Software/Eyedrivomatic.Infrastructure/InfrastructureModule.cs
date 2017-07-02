@@ -23,7 +23,6 @@ using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Prism.Logging;
 using Prism.Regions;
 
 namespace Eyedrivomatic.Infrastructure
@@ -32,20 +31,18 @@ namespace Eyedrivomatic.Infrastructure
     public class InfrastructureModule : IModule
     {
         private readonly IRegionManager RegionManager;
-        private readonly ILoggerFacade Logger;
 
         [ImportingConstructor]
-        public InfrastructureModule(IRegionManager regionManager, ILoggerFacade logger)
+        public InfrastructureModule(IRegionManager regionManager)
         {
-            Logger = logger;
-            Logger?.Log($"Creating Module {nameof(InfrastructureModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(InfrastructureModule)}.");
 
             RegionManager = regionManager;
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(InfrastructureModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(InfrastructureModule)}.");
         }
     }
 }

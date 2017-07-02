@@ -4,9 +4,9 @@ using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Prism.Logging;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -87,21 +87,21 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             var cmd = _currentCommand;
             if (cmd == null)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Unexpected [{(response == Ack ? "ACK" : "NAK")}] response received!", Category.Warn, Priority.None);
+                Log.Warn(this, $"Unexpected [{(response == Ack ? "ACK" : "NAK")}] response received!");
                 return;
             }
-            ButtonDriverHardwareModule.Logger?.Log($"Handling [{(response == Ack ? "ACK" : "NAK")}] response for [{cmd.Name}] command.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Handling [{(response == Ack ? "ACK" : "NAK")}] response for [{cmd.Name}] command.");
 
             try
             {
                 if (!cmd.HandleResponse(response == Ack))
                 {
-                    ButtonDriverHardwareModule.Logger?.Log($"Failed to handle response for [{cmd.Name}] command.", Category.Warn, Priority.None);
+                    Log.Warn(this, $"Failed to handle response for [{cmd.Name}] command.");
                 }
             }
             catch (Exception ex)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Exception handling [{cmd.Name}] command - [{ex}].", Category.Exception, Priority.None);
+                Log.Error(this, $"Exception handling [{cmd.Name}] command - [{ex}].");
             }
         }
 

@@ -24,191 +24,239 @@
 <UserControl x:Class="Eyedrivomatic.ButtonDriver.Views.DrivingView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="876">
+             xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
+             xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Macros.Models;assembly=Eyedrivomatic.ButtonDriver.Macros"
+             xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
+             xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="876"
+             d:DataContext="{d:DesignInstance d:Type=viewModels:DesignDrivingViewModel, IsDesignTimeCreatable=True}"
+             IsEnabled="{Binding IsOnline}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
+                <ResourceDictionary Source="../Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" BasedOn="{StaticResource ImportantTextButtonStyle}" TargetType="{x:Type Button}">
+            <Style x:Key="DriveControlHeaderStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="TextWrapping" Value="NoWrap" />
+                <Setter Property="TextTrimming" Value="None" />
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="Background" Value="{DynamicResource HeaderBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource HeaderForegroundBrush}" />
+            </Style>
+
+            <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource {x:Type Button}}">
                 <Style.Setters>
-                    <Setter Property="FontSize" Value="13"/>
-                    <Setter Property="FontStyle" Value="Oblique"/>
+                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="FontStyle" Value="Oblique" />
                 </Style.Setters>
             </Style>
-
-
-            <Style x:Key="ForwardBackButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-                <Setter Property="Background" Value="#FF57D465"/>
-            </Style>
-
-            <Style x:Key="ForwardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ForwardBackButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Up}"/>
-            </Style>
-
-            <Style x:Key="BackwardButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ForwardBackButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Down}"/>
-            </Style>
-
-
-            <Style x:Key="LeftRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-            </Style>
-
-            <Style x:Key="LeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LeftRightButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Left}"/>
-            </Style>
-
-            <Style x:Key="RightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource LeftRightButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Right}"/>
-            </Style>
-
-            <Style x:Key="DiagonalButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-                <Setter Property="Background" Value="#FF94ADDB"/>
-            </Style>
-
-            <Style x:Key="ForwardLeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource UpLeft}"/>
-            </Style>
-
-            <Style x:Key="ForwardRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource UpRight}"/>
-            </Style>
-
-            <Style x:Key="BackwardLeftButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource DownLeft}"/>
-            </Style>
-
-            <Style x:Key="BackwardRightButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource DiagonalButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource DownRight}"/>
-            </Style>
-
-            <Style x:Key="PowerButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Off}"/>
-            </Style>
-
-            <Style x:Key="ContinueButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Continue}"/>
-            </Style>
-
-            <Style x:Key="ResetButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButtonStyle}">
-                <Setter Property="Content" Value="{StaticResource Reset}"/>
-            </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
+    <Grid Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" MaxHeight="25" />
+            <RowDefinition Height="95*" />
+        </Grid.RowDefinitions>
 
-    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.DrivingView_XDurationHalf}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Path=SetXDuration}" CommandParameter="500" />
-            <Button Content="1" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="1000" />
-            <Button Content="1.5" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="1500" />
-            <Button Content="2" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="2000" />
-            <Button Content="3" Grid.Row="4"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetXDuration}" CommandParameter="3000" />
-            <Button Content="{x:Static resources:Strings.DrivingView_DiagSpeedReduction}" Grid.Row="5" Style="{StaticResource DiagonalSpeedReductionToggleButtonStyle}" Command="{Binding DiagonalSpeedReductionToggle}"/>
+        <Grid Grid.Column="0" Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock Text="{x:Static resources:Strings.DrivingView_LeftRightDuration}"
+                           Style="{DynamicResource DriveControlHeaderStyle}" />
+            </Viewbox>
         </Grid>
 
-        <Grid Grid.Column="1">
+        <UniformGrid Name="LeftRightDurationGrid" Grid.Column="0" Grid.Row="1" Columns="1">
+            <RadioButton GroupName="XDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="{x:Static resources:Strings.DrivingView_XDuration_Half}"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=500}" />
+            <RadioButton GroupName="XDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="1"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=1000}" />
+            <RadioButton GroupName="XDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="1.5"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=1500}" />
+            <RadioButton GroupName="XDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="2"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=2000}" />
+            <RadioButton GroupName="XDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="3"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=3000}" />
+            <Button Style="{DynamicResource DiagonalSpeedReductionToggleButtonStyle}"
+                    Command="{Binding DiagonalSpeedReductionToggleCommand}"
+                    Content="{Binding DiagonalSpeedReduction, Converter={StaticResource DiagonalSpeedReductionConverter}}" />
+        </UniformGrid>
+
+        <Grid Name="LeftDirectionsGrid" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.DrivingView_LeftNudge}" Grid.Row="0" Style="{StaticResource TextButtonStyle}" Command="{Binding Nudge}" CommandParameter="{x:Static services:XDirection.Left}" />
-            <Button Grid.Row="1" Style="{StaticResource ForwardLeftButtonStyle}"  Command="{Binding Move}" CommandParameter="{x:Static services:Direction.ForwardLeft}"/>
-            <Button Grid.Row="2" Style="{StaticResource LeftButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Left}"/>
-            <Button Grid.Row="3" Style="{StaticResource BackwardLeftButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.BackwardLeft}"/>
+
+            <Button Grid.Row="0" Content="{DynamicResource Button.NudgeLeft.Content}" Command="{Binding NudgeCommand}"
+                    CommandParameter="{x:Static services:XDirection.Left}" />
+            <Button Grid.Row="1" Content="{DynamicResource Button.ForwardLeft.Content}" Command="{Binding MoveCommand}"
+                    CommandParameter="{x:Static services:Direction.ForwardLeft}" />
+            <Button Grid.Row="2" Content="{DynamicResource Button.Left.Content}" Command="{Binding MoveCommand}"
+                    CommandParameter="{x:Static services:Direction.Left}" />
+            <Button Grid.Row="3" Content="{DynamicResource Button.BackwardLeft.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardLeft}" />
         </Grid>
 
-        <Grid Grid.Column="2">
+        <UniformGrid Name="CenterDirectionsGrid" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Columns="1">
+            <Button x:Name="ContinueButton"
+                    Content="{DynamicResource Button.Continue.Content}" Command="{Binding ContinueCommand}" 
+                    Visibility="{Binding SafetyBypass, Converter={StaticResource BoolToCollapsedConverterInv}}"/>
+            <Button x:Name="ForwardButton" Content="{DynamicResource Button.Forward.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Forward}" />
+
+            <Button x:Name="StopButton" Content="{DynamicResource Button.Stop.Content}" 
+                    Command="{Binding StopCommand}"/>
+            <Button x:Name="BackwardButton" Content="{DynamicResource Button.Backward.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Backward}" />
+        </UniformGrid>
+
+        <Grid Name="RightDirectionsGrid" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Button x:Name="ContinueButton" Grid.Row="0" Style="{StaticResource ContinueButtonStyle}" Command="{Binding Continue}"/>
-            <Button x:Name="ForwardButton" Grid.Row="1" Style="{StaticResource ForwardButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Forward}"/>
-            <Button x:Name="ResetButton" Grid.Row="2" Style="{StaticResource ResetButtonStyle}" Command="{Binding Reset}"/>
-            <Button x:Name="BackwardButton" Grid.Row="3" Style="{StaticResource BackwardButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Backward}"/>
+            <Button x:Name="RightNudgeButton" Content="{DynamicResource Button.NudgeRight.Content}" Grid.Row="0"
+                    Command="{Binding NudgeCommand}" CommandParameter="{x:Static services:XDirection.Right}" />
+            <Button x:Name="ForwardRightButton" Grid.Row="1" Content="{DynamicResource Button.ForwardRight.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.ForwardRight}" />
+            <Button x:Name="RightButton" Grid.Row="2" Content="{DynamicResource Button.Right.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Right}" />
+            <Button x:Name="BackwardRightButton" Grid.Row="3" Content="{DynamicResource Button.BackwardRight.Content}"
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardRight}" />
         </Grid>
 
-        <Grid Grid.Column="3">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button x:Name="RightNudgeButton" Content="{x:Static resources:Strings.DrivingView_RightNudge}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding Nudge}" CommandParameter="{x:Static services:XDirection.Right}" />
-            <Button x:Name="ForwardRightButton" Grid.Row="1"  Style="{StaticResource ForwardRightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.ForwardRight}"/>
-            <Button x:Name="RightButton" Grid.Row="2"  Style="{StaticResource RightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.Right}"/>
-            <Button x:Name="BackwardRightButton" Grid.Row="3"  Style="{StaticResource BackwardRightButtonStyle}" Command="{Binding Move}" CommandParameter="{x:Static services:Direction.BackwardRight}"/>
+        <Grid Grid.Column="4" Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock Text="{x:Static resources:Strings.DrivingView_ForwardBackDuration}"
+                           Style="{DynamicResource DriveControlHeaderStyle}" />
+            </Viewbox>
         </Grid>
 
-        <Grid Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.DrivingView_YDurationHalf}" Grid.Row="0"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="500" />
-            <Button Content="1" Grid.Row="1"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="1000" />
-            <Button Content="2" Grid.Row="2"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="2000" />
-            <Button Content="3" Grid.Row="3"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="3000" />
-            <Button Content="4" Grid.Row="4"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="4000" />
-            <Button Content="5" Grid.Row="5"  Style="{StaticResource EasyTextButtonStyle}" Command="{Binding SetYDuration}" CommandParameter="5000" />
+        <UniformGrid Name="ForwardBackwardDuration" Grid.Column="4" Grid.Row="1" Columns="1">
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="{x:Static resources:Strings.DrivingView_YDuration_Half}"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=500}" />
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="1"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=1000}" />
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="2"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=2000}" />
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="3"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=3000}" />
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="4"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=4000}" />
+            <RadioButton GroupName="YDuration"
+                         Style="{DynamicResource RadioToggleButtonStyle}"
+                         Content="5"
+                         IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=5000}" />
+        </UniformGrid>
+
+        <Grid Grid.Row="0" Grid.Column="5" Background="{DynamicResource HeaderBackgroundBrush}">
+            <Viewbox StretchDirection="DownOnly">
+                <TextBlock Text="{x:Static resources:Strings.DrivingView_DriveSpeeds}"
+                           Style="{DynamicResource DriveControlHeaderStyle}" />
+            </Viewbox>
         </Grid>
 
-        <Grid Grid.Column="5">
+        <Grid Name="SpeedAndActionsGrid" Grid.Column="5" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
-            <Button Content="{x:Static resources:Strings.DrivingView_SpeedSlow}" Grid.Row="0"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Slow" />
-            <Button Content="{x:Static resources:Strings.DrivingView_SpeedWalk}" Grid.Row="1"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Walk" />
-            <Button Content="{x:Static resources:Strings.DrivingView_SpeedFast}" Grid.Row="2"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Fast" />
-            <Button Content="{x:Static resources:Strings.DrivingView_SpeedManic}" Grid.Row="3"  Style="{StaticResource TextButtonStyle}" Command="{Binding SetSpeed}" CommandParameter="Manic" />
 
-            <Button Grid.Row="4" Grid.RowSpan="2"
-                    Command="{Binding ExecuteMacroCommand}" CommandParameter="{Binding DrivingPageMacro}">
-                <Button.Resources>
-                    <infrastructure:PathToImageConverter x:Key="LocalPathConverter"/>
-                </Button.Resources>
-                <Image Source="{Binding DrivingPageMacro.IconPath, Converter={StaticResource LocalPathConverter}}" Margin="20"/>
-            </Button>
+            <ItemsControl Name="ProfileSpeeds" Grid.Row="0" ItemsSource="{Binding Speeds}">
+                <ItemsControl.Resources>
+                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedStringConverter"
+                                                                    ResourceManager="{x:Static resources:Strings.ResourceManager}"
+                                                                    ResourcePattern="Button.Speed.{0}.Content" />
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type configuration:ProfileSpeed}">
+                        <DataTemplate.Resources>
+                            <infrastructure:StringCompareToBoolConverter x:Key="IsCurrentSpeedConverter"/>
+                        </DataTemplate.Resources>
+                        <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedStringConverter}}"
+                                     Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.SetSpeedCommand}"
+                                     CommandParameter="{Binding}"
+                                     GroupName="DriveSpeeds">
+                            <ToggleButton.IsChecked>
+                                <MultiBinding Converter="{StaticResource IsCurrentSpeedConverter}" Mode="OneWay">
+                                    <Binding RelativeSource="{RelativeSource AncestorType=views:DrivingView}" Path="ViewModel.CurrentSpeed.Name"/>
+                                    <Binding RelativeSource="{RelativeSource Self}" Path="DataContext.Name"/>
+                                </MultiBinding>
+                            </ToggleButton.IsChecked>
+                        </RadioButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl Name="Actions" Grid.Row="1" ItemsSource="{Binding Macros}"
+                          Background="{DynamicResource ButtonBackgroundBrushAlt}">
+                <ItemsControl.Resources>
+                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedStringConverter"
+                                                                    ResourceManager="{x:Static resources:Strings.ResourceManager}"
+                                                                    ResourcePattern="Button.Macro.{0}.Content" />
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:IMacro}">
+                        <ToggleButton
+                            Content="{Binding DisplayName, Converter={StaticResource LocalizedStringConverter}}"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.ExecuteMacroCommand}"
+                            CommandParameter="{Binding}"
+                            Background="{DynamicResource ButtonBackgroundBrushAlt}"
+                            Foreground="{DynamicResource ButtonForegroundBrushAlt}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>

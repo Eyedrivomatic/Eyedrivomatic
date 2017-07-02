@@ -25,9 +25,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Xml.Serialization;
-
-using Prism.Logging;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
@@ -41,18 +40,6 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [XmlAttribute(AttributeName ="DisplayName")]
         public string DisplayName { get; set; }
 
-        [XmlAttribute(AttributeName = "LocalizedDisplayName")]
-        public string LocalizedDisplayName
-        {
-            get
-            {
-                var resourceName = $"MacrosName_{DisplayName}";
-                var localizedName = Strings.ResourceManager.GetString(resourceName);
-                if (string.IsNullOrEmpty(localizedName)) return DisplayName;
-                return localizedName;
-            }
-        }
-
         [XmlIgnore]
         public bool IsExecuting { get; private set; }
 
@@ -64,24 +51,24 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         {
             if (IsExecuting)
             {
-                MacrosModule.Logger?.Log($"Unable to execute macro '{DisplayName}'. Macro is currently running.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Unable to execute macro '{DisplayName}'. Macro is currently running.");
             }
 
             try
             {
                 IsExecuting = true;
-                MacrosModule.Logger?.Log($"Executing macro '{DisplayName}'", Category.Info, Priority.None);
+                Log.Info(this, $"Executing macro '{DisplayName}'");
 
                 foreach (var task in Tasks)
                 {
                     await driver.ExecuteTaskAsync(task);
                 }
 
-                MacrosModule.Logger?.Log($"Macro '{DisplayName}' complete.", Category.Info, Priority.None);
+                Log.Info(this, $"Macro '{DisplayName}' complete.");
             }
             catch (Exception ex)
             {
-                MacrosModule.Logger?.Log($"Macro '{DisplayName}' Failed - {ex}", Category.Exception, Priority.None);
+                Log.Error(this, $"Macro '{DisplayName}' Failed - {ex}");
             }
             finally
             {

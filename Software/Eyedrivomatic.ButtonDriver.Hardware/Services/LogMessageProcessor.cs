@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -19,24 +19,24 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             var match = _messageFormat.Match(message);
             if (!match.Success)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Unable to parse log entry - '{message}'.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Unable to parse log entry - '{message}'.");
                 return;
             }
 
-            var categoryMap = new Dictionary<string, Category>
+            var categoryMap = new Dictionary<string, Action<string>>
             {
-                { "DEBUG", Category.Debug },
-                { "INFO", Category.Info },
-                { "WARN", Category.Warn },
-                { "ERROR", Category.Exception },
+                { "DEBUG", msg => Log.Debug(this, msg) },
+                { "INFO", msg => Log.Info(this, msg) },
+                { "WARN", msg => Log.Warn(this, msg) },
+                { "ERROR", msg => Log.Error(this, msg) },
             };
 
-            var category =
-                (match.Groups["Severity"].Success && categoryMap.ContainsKey(match.Groups["Severity"].Value))
+            var logAction = 
+                match.Groups["Severity"].Success && categoryMap.ContainsKey(match.Groups["Severity"].Value)
                     ? categoryMap[match.Groups["Severity"].Value]
-                    : Category.Exception;
+                    : categoryMap["ERROR"];
 
-            ButtonDriverHardwareModule.Logger?.Log(match.Groups["Message"].Value, category, Priority.None);
+            logAction(match.Groups["Message"].Value);
         }
 
         protected override IDisposable Attach(IObservable<string> source)

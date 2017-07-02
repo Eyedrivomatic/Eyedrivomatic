@@ -24,6 +24,9 @@ using System.ComponentModel.Composition;
 
 namespace Eyedrivomatic.Configuration.Views
 {
+    /// <summary>
+    /// Interaction logic for GeneralConfigurationView.xaml
+    /// </summary>
     [Export]
     public partial class GeneralConfigurationView
     {

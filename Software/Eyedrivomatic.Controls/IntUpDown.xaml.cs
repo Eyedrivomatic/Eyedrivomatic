@@ -38,7 +38,7 @@ namespace Eyedrivomatic.Controls
             set => SetValue(MinValueProperty, value);
         }
 
-        private ICommand Increment => new DelegateCommand(() => Value++, () => Value < MaxValue);
-        private ICommand Decrement => new DelegateCommand(() => Value--, () => Value > MinValue);
+        public ICommand IncrementCommand => new DelegateCommand(() => Value++, () => Value < MaxValue);
+        public ICommand DecrementCommand => new DelegateCommand(() => Value--, () => Value > MinValue);
     }
 }

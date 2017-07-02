@@ -37,6 +37,7 @@ using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.Startup
 {
@@ -66,6 +67,7 @@ namespace Eyedrivomatic.Startup
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ResourcesModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
@@ -94,7 +96,7 @@ namespace Eyedrivomatic.Startup
                 var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
                 foreach (var module in modules)
                 {
-                    Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
+                    Log.Debug(this, $"Disposing [{module.GetType().Name}]");
                     module.Dispose();
                 }
             }

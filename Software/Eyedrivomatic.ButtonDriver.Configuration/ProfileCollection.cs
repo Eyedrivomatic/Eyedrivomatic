@@ -5,8 +5,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Eyedrivomatic.Infrastructure;
 using NullGuard;
-using Prism.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -52,7 +52,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             }
             catch (Exception ex)
             {
-                ButtonDriverConfigurationModule.Logger.Log($"Failed to read drive profile configuration - [{ex}]", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to read drive profile configuration - [{ex}]");
             }
 
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CurrentProfile)));

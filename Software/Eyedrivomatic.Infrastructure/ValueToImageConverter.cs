@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using NullGuard;
@@ -30,7 +31,7 @@ using NullGuard;
 namespace Eyedrivomatic.Infrastructure
 {
     [Serializable]
-    public class ValueToImageConverter<T> : Dictionary<T, ImageSource>, IValueConverter
+    public class ValueToImageConverter<T> : Dictionary<T, Image>, IValueConverter
     {
         protected ValueToImageConverter() { }
 
@@ -46,7 +47,23 @@ namespace Eyedrivomatic.Infrastructure
             base.GetObjectData(info, context);
         }
 
-        [AllowNull] public ImageSource ImageIfNone { get; set; }
+        [AllowNull] public ImageSource ImageSourceIfNone
+        {
+            get => ImageIfNone?.Source;
+            set
+            {
+                if (value == null)
+                {
+                    ImageIfNone = null;
+                    return;
+                }
+
+                if (ImageIfNone == null) ImageIfNone = new Image();
+                ImageIfNone.Source = value;
+            }
+        }
+
+        [AllowNull] public Image ImageIfNone { get; set; }
 
         [return: AllowNull]
         public object Convert([AllowNull] object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)

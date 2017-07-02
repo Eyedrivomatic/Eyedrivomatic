@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 {
@@ -50,7 +50,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
         {
             SendAttempt++;
 
-            ButtonDriverHardwareModule.Logger?.Log($"Sending [{_command.Name}] command for attempt [{SendAttempt}].", Category.Debug, Priority.None);
+            Log.Debug(this, $"Sending [{_command.Name}] command for attempt [{SendAttempt}].");
 
             var timeoutCts = new CancellationTokenSource(timeout);
             _sendTaskCompletionSource = new TaskCompletionSource<bool>();
@@ -73,28 +73,28 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
         {
             if (!_taskCompletionSource.TrySetException(new TimeoutException($"The {_command.Name} command has timed out."))) return;
 
-            ButtonDriverHardwareModule.Logger?.Log($"The [{_command.Name}] command has timed out after [{timeout}].", Category.Exception, Priority.None);
+            Log.Error(this, $"The [{_command.Name}] command has timed out after [{timeout}].");
         }
 
         public bool HandleResponse(bool success)
         {
             if (_sendTaskCompletionSource == null)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Response received for unsent [{_command.Name}] command.", Category.Exception, Priority.None);
+                Log.Error(this, $"Response received for unsent [{_command.Name}] command.");
                 return false;
             }
 
             if (success)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Success response recieved for [{_command.Name}] command.", Category.Debug, Priority.None);
+                Log.Debug(this, $"Success response recieved for [{_command.Name}] command.");
                 _taskCompletionSource.TrySetResult(true);
             }
             else
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Fail response received for [{_command.Name}] command.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Fail response received for [{_command.Name}] command.");
                 if (SendAttempt > _command.Retries)
                 {
-                    ButtonDriverHardwareModule.Logger?.Log($"Failed final attempt to send the [{_command.Name}] command.", Category.Exception, Priority.None);
+                    Log.Error(this, $"Failed final attempt to send the [{_command.Name}] command.");
                     var ex = new BrainBoxCommandException(_command, $"Failed to send the [{_command.Name}] command after [{SendAttempt}] tries.");
                     _taskCompletionSource.TrySetException(ex);
                 }
@@ -103,7 +103,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 
             if (!_sendTaskCompletionSource.TrySetResult(success))
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Response received for completed [{_command.Name}] command.", Category.Exception, Priority.None);
+                Log.Error(this, $"Response received for completed [{_command.Name}] command.");
                 return false;
             }
             return true;
@@ -111,7 +111,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 
         public void OnError(string message)
         {
-            ButtonDriverHardwareModule.Logger?.Log($"The [{_command.Name}] command has failed - [{message}].", Category.Exception, Priority.None);
+            Log.Error(this, $"The [{_command.Name}] command has failed - [{message}].");
 
             var ex = new BrainBoxCommandException(_command, message);
             _taskCompletionSource.TrySetException(ex);
@@ -120,11 +120,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 
         protected void OnSendTimeout(TimeSpan timeout)
         {
-            ButtonDriverHardwareModule.Logger?.Log($"The [{_command.Name}] command has timed out while waiting for a response after [{timeout}] on attept [{SendAttempt}].", Category.Exception, Priority.None);
+            Log.Error(this, $"The [{_command.Name}] command has timed out while waiting for a response after [{timeout}] on attept [{SendAttempt}].");
 
             if (SendAttempt > _command.Retries)
             {
-                ButtonDriverHardwareModule.Logger?.Log($"Failed final attempt to send the [{_command.Name}] command.", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed final attempt to send the [{_command.Name}] command.");
                 _taskCompletionSource.TrySetException(new BrainBoxCommandException(_command, $"Failed to send the [{_command.Name}] command after [{SendAttempt}] tries."));
             }
 
@@ -133,7 +133,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
 
         protected void OnCanceled(bool cancelSend)
         {
-            ButtonDriverHardwareModule.Logger?.Log($"The [{_command.Name}] command was canceled on attempt [{SendAttempt}].", Category.Exception, Priority.None);
+            Log.Error(this, $"The [{_command.Name}] command was canceled on attempt [{SendAttempt}].");
 
             _taskCompletionSource.TrySetCanceled();
             if (cancelSend) _sendTaskCompletionSource.TrySetResult(false);

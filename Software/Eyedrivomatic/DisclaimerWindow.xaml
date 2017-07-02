@@ -12,14 +12,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Controls;component/Themes/generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <DockPanel x:Name="LayoutRoot" Background="{StaticResource MainBackgroundBrush}">
+    <DockPanel x:Name="LayoutRoot" Background="{StaticResource AreaBackgroundBrush}">
         <Label Content="{x:Static resources:Strings.Disclaimer_Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontWeight="Bold" FontSize="28"/>
         <Button DockPanel.Dock="Bottom" 
-                Style="{StaticResource TextButtonStyle}" 
                 Content="{x:Static resources:Strings.Disclaimer_Button}" 
                 Width="300" Margin="5" Click="Button_Click"
                 dwellclick:DwellClickBehavior.IgnorePause="True"/>

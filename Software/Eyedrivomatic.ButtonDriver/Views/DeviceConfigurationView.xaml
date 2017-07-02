@@ -42,10 +42,6 @@
 
         <Viewbox Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
                 <GroupBox x:Name="DeviceSelection" Header="{x:Static resources:Strings.SettingGroupName_DeviceConnection}" Grid.Column="0" Padding="10">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -60,57 +56,46 @@
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="AutoDiscoverButton" 
-                        Style="{StaticResource TextButtonStyle}" 
-                        Command="{Binding AutoDetectDeviceCommand}"
-                        Content="{x:Static resources:Strings.CommandText_AutoDiscover}" 
-                        Grid.Row="0" Grid.Column="0" Height="70"
-                        Grid.ColumnSpan="2" Margin="0,0,0,10"/>
+                                Command="{Binding AutoDetectDeviceCommand}"
+                                Content="{x:Static resources:Strings.CommandText_AutoDiscover}" 
+                                Grid.Row="0" Grid.Column="0" Height="70"
+                                Grid.ColumnSpan="2" Margin="0,0,0,10"/>
 
                         <controls:BrowsableList  x:Name="DeviceSelectionList"
-                                             PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
-                                             NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
-                                             Grid.Row="1" Grid.Column="0"
-                                             Grid.ColumnSpan="2"
-                                             ItemsSource="{Binding AvailableDevices}"
-                                             SelectedValue="{Binding SelectedDevice}"
-                                             IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}">
+                                                 PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
+                                                 NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
+                                                 Grid.Row="1" Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 ItemsSource="{Binding AvailableDevices}"
+                                                 SelectedValue="{Binding SelectedDevice}"
+                                                 IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}">
                         </controls:BrowsableList>
 
 
                         <Button x:Name="DisconnectButton"
-                        Style="{StaticResource TextButtonStyle}" 
-                        Content="{x:Static resources:Strings.CommandText_Disconnect}"
-                        Command="{Binding DisconnectCommand}"
-                        Grid.Row="2" Grid.Column="0"  
-                        Height="70"
-                        Margin="0,10,0,0"/>
+                                Content="{x:Static resources:Strings.CommandText_Disconnect}"
+                                Command="{Binding DisconnectCommand}"
+                                Grid.Row="2" Grid.Column="0"  
+                                Height="70"
+                                Margin="0,10,0,0"/>
 
                         <Button x:Name="ConnectButton"
-                        Style="{StaticResource TextButtonStyle}" 
-                        Content="{x:Static resources:Strings.CommandText_Connect}"
-                        Command="{Binding ConnectCommand}"
-                        Grid.Row="2" Grid.Column="1" 
-                        Height="70"
-                        Margin="0,10,0,0"/>
+                                Content="{x:Static resources:Strings.CommandText_Connect}"
+                                Command="{Binding ConnectCommand}"
+                                Grid.Row="2" Grid.Column="1" 
+                                Height="70"
+                                Margin="0,10,0,0"/>
 
-                        <controls:ImageToggleButton x:Name="AutoConnectCheckBox"
-                          CheckImage="{StaticResource Check}"
-                          Content="{x:Static resources:Strings.SettingName_AutoConnect}"
-                          Grid.Row="3"
-                          Grid.ColumnSpan="2"
-                          IsChecked="{Binding AutoConnect}"
-                          Margin="0,10,0,0"/>
+                        <ToggleButton x:Name="AutoConnectCheckBox"
+                                      Style="{DynamicResource CheckedToggleButtonStyle}"
+                                      Content="{x:Static resources:Strings.SettingName_AutoConnect}"
+                                      Grid.Row="3"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Height="70"
+                                      IsChecked="{Binding AutoConnect}"
+                                      Margin="0,10,0,0"/>
                     </Grid>
-                </GroupBox>
-                <GroupBox x:Name="DeviceSettings" Grid.Column="1" Width="400" Header="{x:Static resources:Strings.SettingGroupName_DeviceSettings}" Padding="10">
-                    <StackPanel Height="221" VerticalAlignment="Center">
-                        <controls:ImageToggleButton 
-                            x:Name="SafetyToggleCheckBox"
-                            CheckImage="{StaticResource Unsafe}"
-                            Content="{x:Static resources:Strings.SettingName_SafetyBypass}"
-                            IsChecked="{Binding SafetyBypass}"
-                            Margin="0,0,0,10"/>
-                    </StackPanel>
                 </GroupBox>
             </Grid>
         </Viewbox>

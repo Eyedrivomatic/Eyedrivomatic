@@ -300,39 +300,39 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
 Reduction Toggle</value>
     <comment>Reduces or restores diagonal speed.</comment>
   </data>
-  <data name="DrivingView_LeftNudge" xml:space="preserve">
+  <data name="DrivingView_NudgeLeft" xml:space="preserve">
     <value>Left Nudge</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="DrivingView_Reset" xml:space="preserve">
-    <value>Reset</value>
-    <comment>This is an image.</comment>
+  <data name="DrivingView_Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment>Stop all movement and reset relays.</comment>
   </data>
-  <data name="DrivingView_RightNudge" xml:space="preserve">
+  <data name="DrivingView_NudgeRight" xml:space="preserve">
     <value>Right Nudge</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="DrivingView_SpeedFast" xml:space="preserve">
+  <data name="DrivingView_Speed_Fast" xml:space="preserve">
     <value>Fast</value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="DrivingView_SpeedManic" xml:space="preserve">
+  <data name="DrivingView_Speed_Manic" xml:space="preserve">
     <value>MANIC</value>
     <comment>Set the drive speed to manic or full speed.</comment>
   </data>
-  <data name="DrivingView_SpeedSlow" xml:space="preserve">
+  <data name="DrivingView_Speed_Slow" xml:space="preserve">
     <value>Slow</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="DrivingView_SpeedWalk" xml:space="preserve">
+  <data name="DrivingView_Speed_Walk" xml:space="preserve">
     <value>Walk</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="DrivingView_XDurationHalf" xml:space="preserve">
+  <data name="DrivingView_XDuration_Half" xml:space="preserve">
     <value>Half</value>
     <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
   </data>
-  <data name="DrivingView_YDurationHalf" xml:space="preserve">
+  <data name="DrivingView_YDuration_Half" xml:space="preserve">
     <value>Half</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
@@ -595,5 +595,25 @@ Reduction Toggle</value>
   <data name="ProfileName_Drive" xml:space="preserve">
     <value>Drive</value>
     <comment>The default name of a new profile.</comment>
+  </data>
+  <data name="DrivingView_DriveSpeeds" xml:space="preserve">
+    <value>Drive Speeds</value>
+    <comment>The header text displayed on the drive page above the drive speed buttons.</comment>
+  </data>
+  <data name="DrivingView_ForwardBackDuration" xml:space="preserve">
+    <value>Forward/Back Duration</value>
+    <comment>The header text displayed on the drive page above the forward/backward duration buttons.</comment>
+  </data>
+  <data name="DrivingView_LeftRightDuration" xml:space="preserve">
+    <value>Left/Right Duration</value>
+    <comment>The header text displayed on the drive page above the left/right duration buttons.</comment>
+  </data>
+  <data name="SettingGroupName_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+    <comment>Title of the group containing settings for the application appearance.</comment>
+  </data>
+  <data name="SettingName_Theme" xml:space="preserve">
+    <value>Theme</value>
+    <comment>The label text displayed for the "Theme" setting.</comment>
   </data>
 </root>

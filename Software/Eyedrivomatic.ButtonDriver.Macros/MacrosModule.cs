@@ -24,8 +24,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
-using Prism.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -46,16 +44,13 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         private readonly IRegionManager _regionManager;
         private readonly IMacroSerializationService _serializationService;
 
-        public static ILoggerFacade Logger { get; private set; }
-
         [Export("DrivingPageMacro")]
         public IMacro DrivingPageMacro => _serializationService.LoadMacros().FirstOrDefault();
 
         [ImportingConstructor]
-        public MacrosModule(ILoggerFacade logger, IRegionManager regionManager, IHardwareService hardwareService, IMacroSerializationService serializationService)
+        public MacrosModule(IRegionManager regionManager, IHardwareService hardwareService, IMacroSerializationService serializationService)
         {
-            Logger = logger;
-            Logger.Log($"Creating Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
+            Log.Info(this, $"Creating Module {nameof(MacrosModule)}.");
 
             _regionManager = regionManager;
             _serializationService = serializationService;
@@ -63,7 +58,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(MacrosModule)}.", Category.Info, Priority.None);
+            Log.Info(this, $"Initializing Module {nameof(MacrosModule)}.");
 
             SetSerializationPath();
 

@@ -30,7 +30,7 @@ using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
-using Prism.Logging;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
@@ -45,19 +45,14 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public static uint AvailableRelays = 3;
 
-        private ILoggerFacade Logger { get; }
-
         [ImportingConstructor]
         internal BrainBoxDriver(
             IBrainBoxConnection connection, 
             IBrainBoxCommands commandFactory,
             [ImportMany] IEnumerable<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>> messageProcessors,
             IDeviceStatus deviceStatus,
-            IDeviceSettings deviceSettings,
-            ILoggerFacade logger
-            )
+            IDeviceSettings deviceSettings)
         {
-            Logger = logger;
             Connection = connection;
             _commands = commandFactory;
             _messageProcessors = new List<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>>(messageProcessors);
@@ -87,7 +82,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
             foreach (var lazy in _messageProcessors)
             {
-                Logger.Log($"Attaching datastream to [{lazy.Metadata.Name}].", Category.Debug, Priority.None);
+                Log.Debug(this, $"Attaching datastream to [{lazy.Metadata.Name}].");
                 lazy.Value.Attach(dataStream);
             }
 
@@ -126,12 +121,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             {
                 if (!HardwareReady) return ReadyState.None;
 
-                if (SafetyBypass == SafetyBypassState.Unsafe) return ReadyState.Any;
+                if (Profile.SafetyBypass) return ReadyState.Any;
 
                 if (LastDirection == Direction.None || ContinueState != ContinueState.NotContinuedRecently) return ReadyState.Any;
-                if (CurrentDirection != Direction.None) return ReadyState.Continue;
-
-                return ReadyState.Reset;
+                return ReadyState.Continue;
             }
         }
 
@@ -192,18 +185,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         #region Settings
 
-        private SafetyBypassState _safetyBypass = SafetyBypassState.Safe;
-        public SafetyBypassState SafetyBypass
-        {
-            get => _safetyBypass;
-            set
-            {
-                Logger?.Log($"Toggling safety bypass status.", Category.Warn, Priority.None);
-                SetProperty(ref _safetyBypass, value);
-                RaisePropertyChanged(nameof(ReadyState));
-            }
-        }
-
         public IDeviceSettings DeviceSettings { get; }
 
         #region Trim
@@ -235,24 +216,24 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         #region Control
         public void Continue()
         {
-            Logger?.Log($"Continue.", Category.Info, Priority.None);
+            Log.Info(this, $"Continue.");
             ContinueState = ContinueState.Continued;
         }
 
         public void Stop()
         {
-            Logger?.Log($"Stop.", Category.Info, Priority.None);
+            Log.Info(this, "Stop.");
             _commands.Stop();
             ContinueState = ContinueState.Continued;
         }
 
         public async Task Nudge(XDirection direction)
         {
-            Logger?.Log($"Nudge {direction}.", Category.Info, Priority.None);
+            Log.Info(this, $"Nudge {direction}.");
 
             if (CurrentDirection != Direction.Forward)
             {
-                Logger?.Log($"Nudge only available while moving forward.", Category.Warn, Priority.None);
+                Log.Warn(this, $"Nudge only available while moving forward.");
                 return;
             }
 
@@ -263,26 +244,26 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 var x = direction == XDirection.Right ? Profile.CurrentSpeed.Nudge : -Profile.CurrentSpeed.Nudge;
                 if (!await _commands.Move(x, Profile.CurrentSpeed.YForward, Profile.NudgeDuration))
                 {
-                    Logger?.Log($"Failed to send nudge [{direction}] command.", Category.Exception, Priority.None);
+                    Log.Error(this, $"Failed to send nudge [{direction}] command.");
                 }
             }
             catch (Exception e)
             {
-                Logger?.Log($"Failed to send nudge [{direction}] command - [{e}]", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to send nudge [{direction}] command - [{e}]");
             }
         }
 
         public bool CanMove(Direction direction)
         {
             return HardwareReady &&
-                (SafetyBypass == SafetyBypassState.Unsafe
+                (Profile.SafetyBypass
                 || ContinueState == ContinueState.Continued
                 || LastDirection != direction);
         }
 
         public async Task Move(Direction direction)
         {
-            Logger?.Log($"Move {direction}.", Category.Info, Priority.None);
+            Log.Info(this, $"Move {direction}.");
 
             ContinueState = ContinueState.NotContinuedRecently;
 
@@ -310,33 +291,33 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 LastDirection = direction;
                 if (!await directionCommands[direction]())
                 {
-                    Logger?.Log($"Failed to send move [{direction}] command.", Category.Exception, Priority.None);
+                    Log.Error(this, $"Failed to send move [{direction}] command.");
                 }
             }
             catch (Exception e)
             {
-                Logger?.Log($"Failed to send move [{direction}] command - [{e}]", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to send move [{direction}] command - [{e}]");
             }
         }
 
         public async Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
         {
-            Logger?.Log($"Cycling relay {relay} {repeat} times with a delay of {repeatDelayMs}.", Category.Info, Priority.None);
+            Log.Info(this, $"Cycling relay {relay} {repeat} times with a delay of {repeatDelayMs}.");
             try
             {
                 for (int i = 0; i < repeat; i++)
                 {
                     if (i > 0) await Task.Delay(TimeSpan.FromMilliseconds(repeatDelayMs));
 
-                    Logger?.Log($"Cycling relay {relay}.", Category.Info, Priority.None);
+                    Log.Info(this, $"Cycling relay {relay}.");
                     await _commands.ToggleRelay(relay, TimeSpan.Zero);
                     await Task.Delay(220); //the relay cycles over 200ms. Add a few ms to allow for communication.
                 }
-                Logger?.Log($"Cycling relay {relay} done.", Category.Info, Priority.None);
+                Log.Info(this, $"Cycling relay {relay} done.");
             }
             catch (Exception e)
             {
-                Logger?.Log($"Failed to toggle relay command - [{e}]", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to toggle relay command - [{e}]");
             }
         }
         #endregion Control

@@ -30,8 +30,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         bool AutoConnect { get; set; }
         string ConnectionString { get; set; }
 
-        bool SafetyBypass { get; set; }
-
         ObservableCollection<Profile> DrivingProfiles { get; }
 
         Profile CurrentProfile { get; set; }

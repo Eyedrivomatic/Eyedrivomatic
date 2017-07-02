@@ -19,58 +19,44 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-
-using Prism.Commands;
-using Prism.Mvvm;
-
-using Eyedrivomatic.Controls;
+using System.Windows.Input;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace Eyedrivomatic.Configuration.ViewModels
 {
     [Export]
     public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>
     {
-        private readonly IDwellClickConfigurationService _dwellClickConfigurationService;
+        private readonly IThemeConfigurationService _themeConfigurationService;
 
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
         [ImportingConstructor]
-        public GeneralConfigurationViewModel(IDwellClickConfigurationService dwellClickConfigurationService)
+        public GeneralConfigurationViewModel(IThemeConfigurationService themeConfigurationService)
         {
-            _dwellClickConfigurationService = dwellClickConfigurationService;
-            _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
+            _themeConfigurationService = themeConfigurationService;
+            _themeConfigurationService.PropertyChanged += ThemeConfigurationPropertyChanged;
         }
 
-        private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ThemeConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
         }
 
-        public bool DwellClickEnabled
+        public string Theme
         {
-            get => _dwellClickConfigurationService.EnableDwellClick;
-            set => _dwellClickConfigurationService.EnableDwellClick = value;
+            get => _themeConfigurationService.Theme;
+            set => _themeConfigurationService.Theme = value;
         }
 
-        public int DwellTimeMilliseconds
-        {
-            get => _dwellClickConfigurationService.DwellTimeMilliseconds;
-            set => _dwellClickConfigurationService.DwellTimeMilliseconds = value;
-        }
+        public IEnumerable<ThemeResourceDictionary> Themes => _themeConfigurationService.Themes;
 
-        public int DwellTimeoutMilliseconds
-        {
-            get => _dwellClickConfigurationService.DwellTimeoutMilliseconds;
-            set => _dwellClickConfigurationService.DwellTimeoutMilliseconds = value;
-        }
-
-        public int DwellRepeatDelayMilliseconds
-        {
-            get => _dwellClickConfigurationService.RepeatDelayMilliseconds;
-            set => _dwellClickConfigurationService.RepeatDelayMilliseconds = value;
-        }
+        public ICommand SaveCommand => new DelegateCommand(() => _themeConfigurationService.Save(), () => _themeConfigurationService.HasChanges);
     }
 }

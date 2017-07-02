@@ -295,43 +295,43 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Neue Aufgabe</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
+  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
     <value>Diagonale Geschwindigkeits Reduzierung </value>
     <comment>Reduces or restores diagonal speed.</comment>
   </data>
-  <data name="DrivingView_LeftNudge" xml:space="preserve">
+  <data name="DrivingView_NudgeLeft" xml:space="preserve">
     <value>Schubs Links</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_Reset" xml:space="preserve">
-    <value>Reset</value>
+  <data name="DrivingView_Stop" xml:space="preserve">
+    <value>Stop</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="OutdoorDrivingView_RightNudge" xml:space="preserve">
+  <data name="DrivingView_NudgeRight" xml:space="preserve">
     <value>Schubs Rechts</value>
     <comment>This is an image.</comment>
   </data>
-  <data name="DrivingView_SpeedFast" xml:space="preserve">
+  <data name="DrivingView_Speed_Fast" xml:space="preserve">
     <value>Schnell </value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="DrivingView_SpeedManic" xml:space="preserve">
+  <data name="DrivingView_Speed_Manic" xml:space="preserve">
     <value>Verrückt</value>
     <comment>Set the drive speed to manic or full speed.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedSlow" xml:space="preserve">
+  <data name="DrivingView_Speed_Slow" xml:space="preserve">
     <value>Langsam</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="DrivingView_SpeedWalk" xml:space="preserve">
+  <data name="DrivingView_Speed_Walk" xml:space="preserve">
     <value>Gehen</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="DrivingView_XDurationHalf" xml:space="preserve">
+  <data name="DrivingView_XDuration_Half" xml:space="preserve">
     <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
   </data>
-  <data name="DrivingView_YDurationHalf" xml:space="preserve">
+  <data name="DrivingView_YDuration_Half" xml:space="preserve">
     <value>Halbieren</value>
     <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
   </data>
