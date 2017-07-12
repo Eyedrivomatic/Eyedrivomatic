@@ -20,7 +20,8 @@
 
 
 using System;
-
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
@@ -61,20 +62,47 @@ namespace Eyedrivomatic.Configuration
 
             DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
 
-            _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EyegazeConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
-            _regionManager.RegisterViewWithRegion(RegionNames.DriveProfileSelectionRegion, CreateConfigurationNavigation);
+            RegisterConfigurationViews();
+
+            _regionManager.Regions[RegionNames.ConfigurationNavigationRegion].SortComparison = (viewA, viewB) =>
+            {
+                var buttonA = (RegionNavigationButton) viewA;
+                var buttonB = (RegionNavigationButton) viewB;
+
+                if (buttonA.SortOrder == buttonB.SortOrder)
+                    return string.CompareOrdinal(buttonA.Name, buttonB.Name);
+
+                return buttonA.SortOrder == buttonB.SortOrder ? 0 : buttonA.SortOrder > buttonB.SortOrder ? 1 : -1;
+            };
         }
 
-        private object CreateConfigurationNavigation()
+        private void RegisterConfigurationViews()
         {
-            var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-            button.Content = Resources.Strings.ViewName_Configuration;
-            button.RegionName = RegionNames.MainContentRegion;
-            button.Target = new Uri($"/{nameof(ConfigurationView)}", UriKind.Relative);
-            return button;
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ConfigurationView));
+
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(GeneralConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
+            {
+                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+                button.Content = Resources.Strings.ViewName_ProfileConfig;
+                button.RegionName = RegionNames.ConfigurationContentRegion;
+                button.Target = new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative);
+                button.SortOrder = 0;
+                return button;
+            });
+
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(EyegazeConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
+            {
+                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+                button.Content = Resources.Strings.ViewName_EyegazeConfig;
+                button.RegionName = RegionNames.ConfigurationContentRegion;
+                button.Target = new Uri($@"/{nameof(EyegazeConfigurationView)}", UriKind.Relative);
+                button.SortOrder = 1;
+                return button;
+            });
         }
+
     }
 }

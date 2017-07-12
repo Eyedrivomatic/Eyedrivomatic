@@ -83,7 +83,16 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public IEnumerable<ProfileSpeed> Speeds => HardwareService.CurrentDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
 
         [AllowNull]
-        public ProfileSpeed CurrentSpeed => IsOnline ? Driver.Profile.CurrentSpeed : null;
+        public ProfileSpeed CurrentSpeed
+        {
+            get => IsOnline ? Driver.Profile.CurrentSpeed : null;
+            set
+            {
+                Driver.Profile.CurrentSpeed = value;
+                LogSettingChange(Driver.Profile.CurrentSpeed.Name);
+                RaisePropertyChanged();
+            }
+        } 
 
         public double XDuration
         {

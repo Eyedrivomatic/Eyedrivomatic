@@ -27,14 +27,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Eyedrivomatic"
         xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-        xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
+        xmlns:views="clr-namespace:Eyedrivomatic.Configuration.Views;assembly=Eyedrivomatic.Configuration"
+        xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="500" Width="1024" WindowState="Maximized"
         Icon="{StaticResource MainIcon}"
         KeyDown="Window_KeyDown">
-    <Grid x:Name="LayoutRoot" Background="{DynamicResource AreaBackgroundBrush}">
+    <Grid x:Name="LayoutRoot" Background="{DynamicResource WindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0*" x:Name="ConfigurationViewRow">
                 <RowDefinition.Style>
@@ -65,7 +65,7 @@
                 </RowDefinition.Style>
             </RowDefinition>
             <RowDefinition Height="45" x:Name="StatusViewRow" />
-            <RowDefinition Height="1*" x:Name="DrivingViewRow">
+            <RowDefinition Height="*" x:Name="DrivingViewRow">
                 <RowDefinition.Style>
                     <Style TargetType="RowDefinition">
                         <Style.Triggers>
@@ -100,28 +100,48 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <AdornerDecorator IsHitTestVisible="False" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" />
+        <Grid x:Name="NaviagationAreaBackground"
+              Grid.Row="0" Grid.RowSpan="3"
+              Grid.Column="0"
+              Background="{DynamicResource NavigationAreaBackgroundBrush}"/>
 
-        <Grid Name="ConfigurationNavigationGrid" Grid.Column="0" Grid.Row="0"
-              Background="{DynamicResource AreaBackgroundBrushAlt}" />
+        <Grid Name="ConfigurationNavigationGrid" Grid.Column="0" Grid.Row="0">
+            <ItemsControl Grid.Row="0"
+                          x:Name="ConfigurationSelection"
+                          prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationNavigationRegion}"
+                          ItemContainerStyle="{DynamicResource RegionNavigationButtonStyle}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <UniformGrid Columns="1" VerticalAlignment="Center" IsItemsHost="True" />
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <RadioButton Content="General"/>
+                <RadioButton Content="Dwell Click" />
+                <RadioButton Content="Eyegaze" />
+                <RadioButton Content="Drive Profiles" />
+                <RadioButton Content="Camera" />
+                <RadioButton Content="Action Buttons"/>
+            </ItemsControl>
+        </Grid>
 
-        <Grid x:Name="SettingsRegion" Grid.Column="1" Grid.Row="0" />
-
-        <Grid Name="NavigationGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
-              Background="{DynamicResource AreaBackgroundBrushAlt}">
+        <ContentControl x:Name="ConfigurationContent" Grid.Column="1" Grid.Row="0" 
+                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}"/>
+            
+        
+        <Grid Name="NavigationGrid" Grid.Column="0" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
 
-            <ItemsControl Grid.Row="0"
-                          x:Name="DriveProfileSelection"
+            <ItemsControl x:Name="DriveProfileSelection"
                           prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.DriveProfileSelectionRegion}"
+                          Grid.Row="0"
                           ItemContainerStyle="{DynamicResource RegionNavigationButtonStyle}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" IsItemsHost="True" />
+                        <UniformGrid Columns="1" VerticalAlignment="Center" IsItemsHost="True" />
                     </ControlTemplate>
                 </ItemsControl.Template>
                 <ToggleButton Content="Indoors" />
@@ -138,13 +158,12 @@
                       Grid.Row="1" Grid.Column="0"
                       Content="{DynamicResource Button.Settings.Content}"
                       Background="Transparent"
-                      Padding="20,0,20,0">
-        </ToggleButton>
+                      Padding="20,0,20,0"/>
 
 
         <ContentControl x:Name="MainContent" Grid.Row="2" Grid.Column="1"
                         prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}">
-            <views:DrivingView />
+            <!--<buttonDriverViews:DrivingView />-->
         </ContentControl>
     </Grid>
 </Window>

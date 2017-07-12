@@ -203,36 +203,42 @@
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
 
-            <ItemsControl Name="ProfileSpeeds" Grid.Row="0" ItemsSource="{Binding Speeds}">
-                <ItemsControl.Resources>
+            <ListView Name="ProfileSpeeds" Grid.Row="0" ItemsSource="{Binding Speeds}" Padding="0" Margin="0"
+                      SelectedItem="{Binding CurrentSpeed}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <ListView.Resources>
                     <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedStringConverter"
                                                                     ResourceManager="{x:Static resources:Strings.ResourceManager}"
                                                                     ResourcePattern="Button.Speed.{0}.Content" />
-                </ItemsControl.Resources>
-                <ItemsControl.ItemsPanel>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Grid>
+                                        <ContentPresenter Content="{Binding}" 
+                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          Margin="0"
+                                                          />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type configuration:ProfileSpeed}">
-                        <DataTemplate.Resources>
-                            <infrastructure:StringCompareToBoolConverter x:Key="IsCurrentSpeedConverter"/>
-                        </DataTemplate.Resources>
+                        <UniformGrid Columns="1"/>
+                   </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="configuration:ProfileSpeed">
                         <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedStringConverter}}"
-                                     Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.SetSpeedCommand}"
-                                     CommandParameter="{Binding}"
-                                     GroupName="DriveSpeeds">
-                            <ToggleButton.IsChecked>
-                                <MultiBinding Converter="{StaticResource IsCurrentSpeedConverter}" Mode="OneWay">
-                                    <Binding RelativeSource="{RelativeSource AncestorType=views:DrivingView}" Path="ViewModel.CurrentSpeed.Name"/>
-                                    <Binding RelativeSource="{RelativeSource Self}" Path="DataContext.Name"/>
-                                </MultiBinding>
-                            </ToggleButton.IsChecked>
-                        </RadioButton>
+                                     IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}"
+                                     GroupName="ProfileSpeeds"/>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <ItemsControl Name="Actions" Grid.Row="1" ItemsSource="{Binding Macros}"
                           Background="{DynamicResource ButtonBackgroundBrushAlt}">
@@ -248,7 +254,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:IMacro}">
-                        <ToggleButton
+                        <Button
                             Content="{Binding DisplayName, Converter={StaticResource LocalizedStringConverter}}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.ExecuteMacroCommand}"
                             CommandParameter="{Binding}"

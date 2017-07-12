@@ -19,6 +19,8 @@ namespace Eyedrivomatic.Controls
             _regionManager = regionManager;
         }
 
+        public int SortOrder { get; set; }
+
         public string RegionName
         {
             get => _regionName;

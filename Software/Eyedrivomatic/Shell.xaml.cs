@@ -45,6 +45,9 @@ namespace Eyedrivomatic
 
             DriveProfileSelection.Items.Clear();
             MainContent.Content = null;
+
+            ConfigurationSelection.Items.Clear();
+            ConfigurationContent.Content = null;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

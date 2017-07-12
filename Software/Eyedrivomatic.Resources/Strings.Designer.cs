@@ -115,6 +115,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CommandText_Cancel {
+            get {
+                return ResourceManager.GetString("CommandText_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         public static string CommandText_Connect {
@@ -147,6 +156,15 @@ namespace Eyedrivomatic.Resources {
         public static string CommandText_PrevDevice {
             get {
                 return ResourceManager.GetString("CommandText_PrevDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string CommandText_Save {
+            get {
+                return ResourceManager.GetString("CommandText_Save", resourceCulture);
             }
         }
         
@@ -1113,6 +1131,15 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_DeviceConfig {
             get {
                 return ResourceManager.GetString("ViewName_DeviceConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyegaze.
+        /// </summary>
+        public static string ViewName_EyegazeConfig {
+            get {
+                return ResourceManager.GetString("ViewName_EyegazeConfig", resourceCulture);
             }
         }
         

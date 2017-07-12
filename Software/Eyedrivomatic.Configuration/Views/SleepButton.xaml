@@ -46,7 +46,7 @@
         <ToggleButton.Resources>
             <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrush">
                 <GradientStop Color="Red" Offset="0" />
-                <GradientStop Color="{DynamicResource ControlLightColor}" Offset="1" />
+                <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColor}}" Offset="1" />
             </LinearGradientBrush>
         </ToggleButton.Resources>
     </ToggleButton>

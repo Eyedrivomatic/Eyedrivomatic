@@ -162,8 +162,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ConfigurationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EyegazeConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>

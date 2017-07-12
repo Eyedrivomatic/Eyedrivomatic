@@ -15,7 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <DockPanel x:Name="LayoutRoot" Background="{StaticResource AreaBackgroundBrush}">
+    <DockPanel x:Name="LayoutRoot" Background="{StaticResource WindowBackgroundBrush}">
         <Label Content="{x:Static resources:Strings.Disclaimer_Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontWeight="Bold" FontSize="28"/>
         <Button DockPanel.Dock="Bottom" 
                 Content="{x:Static resources:Strings.Disclaimer_Button}" 

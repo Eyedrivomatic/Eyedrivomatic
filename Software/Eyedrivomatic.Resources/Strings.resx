@@ -616,4 +616,16 @@ Reduction Toggle</value>
     <value>Theme</value>
     <comment>The label text displayed for the "Theme" setting.</comment>
   </data>
+  <data name="CommandText_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Reset unsaved settings. changes</comment>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save all settings.</comment>
+  </data>
+  <data name="ViewName_EyegazeConfig" xml:space="preserve">
+    <value>Eyegaze</value>
+    <comment>The name of the eyegaze configuration view.</comment>
+  </data>
 </root>

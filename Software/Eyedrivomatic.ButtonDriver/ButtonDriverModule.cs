@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -33,6 +34,7 @@ using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
+using Prism.Mef.Regions;
 
 namespace Eyedrivomatic.ButtonDriver
 {
@@ -62,14 +64,10 @@ namespace Eyedrivomatic.ButtonDriver
             Log.Debug(this, $"Initializing Module {nameof(ButtonDriverModule)}.");
 
             _regionManager.RegisterViewWithRegion(RegionNames.StatusRegion, typeof(StatusView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(DeviceConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ProfileConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(DrivingView));
 
-            foreach (var profile in _configurationService.DrivingProfiles)
-            {
-                _regionManager.RegisterViewWithRegion(RegionNames.DriveProfileSelectionRegion, () => CreateDriveProfileNavigation(profile));
-            }
+            RegisterConfigurationViews();
+            RegisterDriveProfiles();
 
             try
             {
@@ -86,8 +84,6 @@ namespace Eyedrivomatic.ButtonDriver
                         return;
                     }
 
-                    NavigateToConfiguration();
-
                     var connectionString = _configurationService.ConnectionString;
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
@@ -103,7 +99,37 @@ namespace Eyedrivomatic.ButtonDriver
             }
             catch (Exception ex)
             {
-                Log.Error(this, $"Hardware Initialization Failed - {ex}");
+               Log.Error(this, $"Hardware Initialization Failed - {ex}");
+                NavigateToConfiguration();
+                return;
+            }
+
+            NavigateToCurrentProfile();
+        }
+
+        private void NavigateToCurrentProfile()
+        {
+            if (_configurationService.CurrentProfile == null)
+                _configurationService.CurrentProfile = _configurationService.DrivingProfiles.FirstOrDefault();
+
+            if (_configurationService.CurrentProfile == null)
+            {
+                NavigateToConfiguration();
+            }
+            else
+            {
+                var uri = GetNavigationUri(_configurationService.CurrentProfile);
+                Log.Debug(this, $@"Navigating to [{uri}].");
+                _regionManager.RequestNavigate(RegionNames.MainContentRegion, uri);
+            }
+        }
+
+        private void RegisterDriveProfiles()
+        {
+            foreach (var profile in _configurationService.DrivingProfiles)
+            {
+                _regionManager.RegisterViewWithRegion(RegionNames.DriveProfileSelectionRegion,
+                    () => CreateDriveProfileNavigation(profile));
             }
         }
 
@@ -112,16 +138,46 @@ namespace Eyedrivomatic.ButtonDriver
             var button = _serviceLocator.GetInstance<RegionNavigationButton>();
             button.Content = Resources.Strings.ResourceManager.GetString($"StandardProfileName_{profile.Name}") ?? profile.Name;
             button.RegionName = RegionNames.MainContentRegion;
-            button.Target = new Uri($@"/{nameof(DrivingView)}?profile={profile.Name}", UriKind.Relative);
+            button.Target = GetNavigationUri(profile);
             button.CanNavigate = () => _hardwareService?.CurrentDriver?.HardwareReady ?? false;
+
             return button;
+        }
+
+        private Uri GetNavigationUri(Profile profile)
+        {
+            return new Uri($@"/{nameof(DrivingView)}?profile={profile.Name}", UriKind.Relative);
+        }
+
+        private void RegisterConfigurationViews()
+        {
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(DeviceConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
+            {
+                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+                button.Content = Resources.Strings.ViewName_DeviceConfig;
+                button.RegionName = RegionNames.ConfigurationContentRegion;
+                button.Target = new Uri($@"/{nameof(DeviceConfigurationView)}", UriKind.Relative);
+                button.SortOrder = 3;
+                return button;
+            });
+
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(ProfileConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
+            {
+                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+                button.Content = Resources.Strings.ViewName_ProfileConfig;
+                button.RegionName = RegionNames.ConfigurationContentRegion;
+                button.Target = new Uri($@"/{nameof(ProfileConfigurationView)}", UriKind.Relative);
+                button.SortOrder = 4;
+                return button;
+            });
         }
 
         private void NavigateToConfiguration()
         {
-            Log.Debug(this, $@"Navigating to [/ConfigurationView/{nameof(DeviceConfigurationView)}].");
-            _regionManager.RequestNavigate(RegionNames.MainContentRegion, "/ConfigurationView");
-            _regionManager.RequestNavigate(RegionNames.ConfigurationRegion, $"/{nameof(DeviceConfigurationView)}");
+            Log.Debug(this, $@"Navigating to [/{nameof(DeviceConfigurationView)}].");
+            _regionManager.RequestNavigate(RegionNames.ConfigurationContentRegion, $"/{nameof(DeviceConfigurationView)}");
         }
 
         public void Dispose()

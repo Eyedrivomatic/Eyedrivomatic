@@ -62,8 +62,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
 
             SetSerializationPath();
 
-            //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(EditMacrosView));
-                _regionManager.RegisterViewWithRegion(RegionNames.MainContentRegion, typeof(ExecuteMacrosView));
+            //_regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(EditMacrosView));
         }
 
         private void SetSerializationPath()
