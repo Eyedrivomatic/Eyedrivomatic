@@ -33,6 +33,7 @@
              xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Macros.Models;assembly=Eyedrivomatic.ButtonDriver.Macros"
              xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
              xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
+             xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="876"
              d:DataContext="{d:DesignInstance d:Type=viewModels:DesignDrivingViewModel, IsDesignTimeCreatable=True}"
@@ -43,12 +44,18 @@
                 <ResourceDictionary Source="../Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverterInv" VisibilityIfTrue="{x:Static Visibility.Collapsed}" VisibilityIfFalse="{x:Static Visibility.Visible}"/>
+
             <Style x:Key="DriveControlHeaderStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="TextWrapping" Value="NoWrap" />
                 <Setter Property="TextTrimming" Value="None" />
                 <Setter Property="TextAlignment" Value="Center" />
                 <Setter Property="Background" Value="{DynamicResource HeaderBackgroundBrush}" />
                 <Setter Property="Foreground" Value="{DynamicResource HeaderForegroundBrush}" />
+            </Style>
+
+            <Style x:Key="DirectionButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="{Binding CameraOverlayButtonBackgroundBrush}"/>
             </Style>
 
             <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" TargetType="{x:Type Button}"
@@ -74,6 +81,12 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
+
+        <ContentControl x:Name="ForwardViewCameraRegion" 
+                        Grid.Row="0" Grid.RowSpan="2"
+                        Grid.Column="1" Grid.ColumnSpan="3"
+                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ForwardViewCameraRegion}"/>
+
 
         <Grid Grid.Column="0" Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">
             <Viewbox StretchDirection="DownOnly">
@@ -108,7 +121,7 @@
                     Content="{Binding DiagonalSpeedReduction, Converter={StaticResource DiagonalSpeedReductionConverter}}" />
         </UniformGrid>
 
-        <Grid Name="LeftDirectionsGrid" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+        <Grid Name="LeftDirectionsGrid" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Opacity="{Binding CameraOverlayOpacity}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -117,29 +130,37 @@
             </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Content="{DynamicResource Button.NudgeLeft.Content}" Command="{Binding NudgeCommand}"
-                    CommandParameter="{x:Static services:XDirection.Left}" />
+                    CommandParameter="{x:Static services:XDirection.Left}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button Grid.Row="1" Content="{DynamicResource Button.ForwardLeft.Content}" Command="{Binding MoveCommand}"
-                    CommandParameter="{x:Static services:Direction.ForwardLeft}" />
+                    CommandParameter="{x:Static services:Direction.ForwardLeft}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button Grid.Row="2" Content="{DynamicResource Button.Left.Content}" Command="{Binding MoveCommand}"
-                    CommandParameter="{x:Static services:Direction.Left}" />
+                    CommandParameter="{x:Static services:Direction.Left}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button Grid.Row="3" Content="{DynamicResource Button.BackwardLeft.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardLeft}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardLeft}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
         </Grid>
 
-        <UniformGrid Name="CenterDirectionsGrid" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Columns="1">
+        <UniformGrid Name="CenterDirectionsGrid" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Columns="1" Opacity="{Binding CameraOverlayOpacity}">
             <Button x:Name="ContinueButton"
                     Content="{DynamicResource Button.Continue.Content}" Command="{Binding ContinueCommand}" 
-                    Visibility="{Binding SafetyBypass, Converter={StaticResource BoolToCollapsedConverterInv}}"/>
+                    Visibility="{Binding SafetyBypass, Converter={StaticResource BoolToCollapsedConverterInv}}"
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button x:Name="ForwardButton" Content="{DynamicResource Button.Forward.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Forward}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Forward}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
 
             <Button x:Name="StopButton" Content="{DynamicResource Button.Stop.Content}" 
-                    Command="{Binding StopCommand}"/>
+                    Command="{Binding StopCommand}"
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button x:Name="BackwardButton" Content="{DynamicResource Button.Backward.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Backward}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Backward}"
+                    Style="{DynamicResource DirectionButtonStyle}"/>
         </UniformGrid>
 
-        <Grid Name="RightDirectionsGrid" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2">
+        <Grid Name="RightDirectionsGrid" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Opacity="{Binding CameraOverlayOpacity}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -147,13 +168,17 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Button x:Name="RightNudgeButton" Content="{DynamicResource Button.NudgeRight.Content}" Grid.Row="0"
-                    Command="{Binding NudgeCommand}" CommandParameter="{x:Static services:XDirection.Right}" />
+                    Command="{Binding NudgeCommand}" CommandParameter="{x:Static services:XDirection.Right}"
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button x:Name="ForwardRightButton" Grid.Row="1" Content="{DynamicResource Button.ForwardRight.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.ForwardRight}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.ForwardRight}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button x:Name="RightButton" Grid.Row="2" Content="{DynamicResource Button.Right.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Right}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Right}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
             <Button x:Name="BackwardRightButton" Grid.Row="3" Content="{DynamicResource Button.BackwardRight.Content}"
-                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardRight}" />
+                    Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardRight}" 
+                    Style="{DynamicResource DirectionButtonStyle}"/>
         </Grid>
 
         <Grid Grid.Column="4" Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">

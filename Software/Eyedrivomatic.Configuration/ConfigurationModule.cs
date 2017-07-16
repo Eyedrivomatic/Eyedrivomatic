@@ -20,8 +20,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
@@ -47,9 +45,8 @@ namespace Eyedrivomatic.Configuration
         [ImportingConstructor]
         public ConfigurationModule(IRegionManager regionManager, IServiceLocator serviceLocator)
         {
-            _serviceLocator = serviceLocator;
             Log.Info(this, $"Creating Module {nameof(ConfigurationModule)}.");
-
+            _serviceLocator = serviceLocator;
             _regionManager = regionManager;
         }
 

@@ -33,9 +33,11 @@
              xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
              mc:Ignorable="d" 
-             MaxHeight="200"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             d:DesignHeight="100" d:DesignWidth="1280"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance viewModels:DesignStatusViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -45,7 +47,15 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
+        <ContentControl x:Name="ConnectingIcon" Grid.Column="0"
+                        Margin="10,2,10,2" HorizontalAlignment="Left"
+                        RenderOptions.BitmapScalingMode="HighQuality" 
+                        Content="{Binding Path=ConnectionState, Converter={StaticResource ConnectionStateToImageConverter}}"/>
     </Grid>
 
 </UserControl>

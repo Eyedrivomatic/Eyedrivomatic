@@ -28,6 +28,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Eyedrivomatic.Configuration.Views"
              xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
+             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="150">
     <UserControl.Resources>
@@ -35,6 +36,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
         </ResourceDictionary>
     </UserControl.Resources>
 

@@ -22,10 +22,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Prism.Mef.Modularity;
-using Prism.Modularity;
-using Prism.Regions;
-
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -34,7 +30,9 @@ using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
-using Prism.Mef.Regions;
+using Prism.Mef.Modularity;
+using Prism.Modularity;
+using Prism.Regions;
 
 namespace Eyedrivomatic.ButtonDriver
 {

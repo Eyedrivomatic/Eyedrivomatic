@@ -129,6 +129,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -216,6 +219,10 @@
       <Project>{ba183b57-b10f-43f8-b6c7-5b362f1666ac}</Project>
       <Name>Eyedrivomatic.ButtonDriver</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Camera\Eyedrivomatic.Camera.csproj">
+      <Project>{e0c9704e-0907-4afc-98c8-33ba52998ea7}</Project>
+      <Name>Eyedrivomatic.Camera</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj">
       <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
       <Name>Eyedrivomatic.Configuration</Name>
@@ -248,7 +255,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /i /y $(SolutionDir)Eyedrivomatic.Resources\$(OutDir)Images $(SolutionDir)$(OutDir)Images</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

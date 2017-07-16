@@ -85,19 +85,20 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebEye.Controls.Wpf.WebCameraControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebEye.Controls.Wpf.WebCameraControl.1.0.1\lib\net40\WebEye.Controls.Wpf.WebCameraControl.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonDriverModule.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EnumToImageConverters.cs" />
     <Compile Include="ViewModels\ButtonDriverViewModelBase.cs" />
     <Compile Include="ViewModels\DeviceConfigViewModel.cs" />
     <Compile Include="ViewModels\DrivingViewModel.cs" />
     <Compile Include="ViewModels\IDrivingViewModel.cs" />
+    <Compile Include="ViewModels\IStatusViewModel.cs" />
     <Compile Include="ViewModels\ProfileConfigurationViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\DesignDrivingViewModel.cs" />

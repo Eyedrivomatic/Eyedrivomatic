@@ -624,6 +624,10 @@ Reduction Toggle</value>
     <value>Save</value>
     <comment>Save all settings.</comment>
   </data>
+  <data name="ViewName_CameraConfiguration" xml:space="preserve">
+    <value>Camera</value>
+    <comment>The name of the camera configuration view.</comment>
+  </data>
   <data name="ViewName_EyegazeConfig" xml:space="preserve">
     <value>Eyegaze</value>
     <comment>The name of the eyegaze configuration view.</comment>

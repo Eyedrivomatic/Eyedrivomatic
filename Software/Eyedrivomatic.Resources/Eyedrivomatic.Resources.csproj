@@ -194,6 +194,9 @@
   <ItemGroup>
     <Resource Include="Themes\Default\Images\SettingsDots.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Default\Images\Connection_Error.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PackagesRootDirectory Condition="$(PackagesRootDirectory) == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\packages'))</PackagesRootDirectory>

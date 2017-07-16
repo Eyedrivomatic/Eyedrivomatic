@@ -43,6 +43,10 @@
     <BitmapImage x:Key="Status.DiagonalSpeedReduction.Reduced.Content" UriSource="Images/Reduced.png"/>
     <BitmapImage x:Key="Status.Ready.Content" UriSource="Images/Ready.png"/>
     <BitmapImage x:Key="Status.Continue.Content" UriSource="Images/Continue.png"/>
+    <BitmapImage x:Key="Status.Connection.Disconnected" UriSource="Images/Connection_Disconnected.gif"/>
+    <BitmapImage x:Key="Status.Connection.Connecting" UriSource="Images/Connection_Connecting.gif"/>
+    <BitmapImage x:Key="Status.Connection.Connected" UriSource="Images/Connection_Connected.png"/>
+    <BitmapImage x:Key="Status.Connection.Error" UriSource="Images/Connection_Error.png"/>
 
     <BitmapImage x:Key="ToggleButton.Checked.Image" UriSource="Images/Checked.png"/>
     <BitmapImage x:Key="ToggleButton.Unchecked.Image" UriSource="Images/UnChecked.png"/>

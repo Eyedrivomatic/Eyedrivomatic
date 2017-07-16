@@ -29,9 +29,6 @@
         <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Controls;component/Themes/generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
-    <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverterInv" VisibilityIfTrue="{x:Static Visibility.Collapsed}" VisibilityIfFalse="{x:Static Visibility.Visible}"/>
-
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration)}"/>
         <Setter Property="dwellClick:DwellClickBehavior.AdornerStyle" Value="{DynamicResource DwellClickAdornerStyle}"/>

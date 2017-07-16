@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
+using System.Windows.Media;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    public interface IDrivingViewModel
+    public interface IDrivingViewModel : INotifyPropertyChanged
     {
         string HeaderInfo { get; }
 
@@ -17,6 +19,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         bool DiagonalSpeedReduction { get; set; }
         bool SafetyBypass { get; set; }
         bool IsOnline { get; }
+
+        double CameraOverlayOpacity { get; }
+        Brush CameraOverlayButtonBackgroundBrush { get; }
 
         ICommand ContinueCommand { get; }
         ICommand MoveCommand { get; }

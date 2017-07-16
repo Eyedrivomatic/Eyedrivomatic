@@ -20,14 +20,15 @@
 
 
 using System.ComponentModel.Composition;
+using System.Windows;
+using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
     [Export]
-    public class StatusViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
+    public class StatusViewModel : ButtonDriverViewModelBase, IStatusViewModel
     {
         [ImportingConstructor]
         public StatusViewModel(IHardwareService hardwareService)
@@ -35,24 +36,16 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
         }
 
-        public string HeaderInfo => Strings.ViewName_Status;
-
+        public ConnectionState ConnectionState => Driver?.Connection?.State ?? ConnectionState.Disconnected;
         public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
         public bool DiagonalSpeedReduction => Driver?.Profile.DiagonalSpeedReduction ?? false;
 
         public Direction LastDirection => Driver?.LastDirection ?? Direction.None;
-        public Direction JoystickState => Driver?.CurrentDirection ?? Direction.None;
+        public Point JoystickPosition => Driver == null ? new Point() : new Point(Driver.DeviceStatus.XPosition, Driver.DeviceStatus.YPosition);
 
         public string Profile => Driver?.Profile.Name;
 
         public string Speed => Driver?.Profile.CurrentSpeed?.Name ?? Strings.StatusView_Speed_None;
-
-        public int XServoCenter => Driver?.DeviceSettings.CenterPosX ?? 90;
-        public int YServoCenter => Driver?.DeviceSettings.CenterPosX ?? 90;
-        public double NudgeDuration => Driver?.Profile.NudgeDuration.TotalSeconds ?? 0d;
-        public double YDuration => Driver?.Profile.YDuration.TotalSeconds ?? 0d;
-        public double XDuration => Driver?.Profile.XDuration.TotalSeconds ?? 0d;
-
         public ReadyState ReadyState => Driver?.ReadyState ?? ReadyState.None;
     }
 }

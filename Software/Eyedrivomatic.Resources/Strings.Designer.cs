@@ -1117,6 +1117,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Camera.
+        /// </summary>
+        public static string ViewName_CameraConfiguration {
+            get {
+                return ResourceManager.GetString("ViewName_CameraConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setup.
         /// </summary>
         public static string ViewName_Configuration {

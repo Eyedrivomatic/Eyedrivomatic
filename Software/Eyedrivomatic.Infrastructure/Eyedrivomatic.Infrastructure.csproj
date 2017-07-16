@@ -97,6 +97,7 @@
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="BoolToImageConverter.cs" />
     <Compile Include="BrushAnimation.cs" />
+    <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="GridLengthAnimation.cs" />
     <Compile Include="StringCompareToBoolConverter.cs" />
     <Compile Include="Extensions\CancellationTokenExtensions.cs" />
@@ -122,10 +123,14 @@
       <Link>Eyedrivomatic.licenseheader</Link>
     </None>
     <None Include="app.config" />
+    <Resource Include="GrayscaleEffect.ps" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GrayscaleEffect.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -138,6 +143,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>"C:\Program Files (x86)\Windows Kits\10\bin\x86\fxc.exe" /T ps_2_0 /E main /Fo"$(ProjectDir)GrayscaleEffect.ps" "$(ProjectDir)GrayscaleEffect.fx"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

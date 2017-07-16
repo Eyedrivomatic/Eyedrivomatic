@@ -19,28 +19,19 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System.Runtime.Serialization;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Infrastructure;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Accord.Video.DirectShow;
 
-namespace Eyedrivomatic.ButtonDriver
+namespace Eyedrivomatic.Camera
 {
-    public sealed class ReadyStateStatusImageConverter : ValueToImageConverter<ReadyState>
+    public interface ICameraConfigurationService : INotifyPropertyChanged
     {
-        public ReadyStateStatusImageConverter() {}
+        bool CameraEnabled { get; set; }
+        FilterInfo Camera { get; set; }
+        IEnumerable<FilterInfo> AvailableCameras { get; }
 
-        private ReadyStateStatusImageConverter(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {}
-    }
-
-
-    public sealed class DirectionToImageConverter : ValueToImageConverter<Direction>
-    {
-        public DirectionToImageConverter() {}
-
-        private DirectionToImageConverter(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {}
+        bool HasChanges { get; }
+        void Save();
     }
 }

@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -32,7 +33,6 @@ using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using NullGuard;
-using Prism.Mvvm;
 using Prism.Regions;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
@@ -115,6 +115,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public double CameraOverlayOpacity => 0.5;
+        public Brush CameraOverlayButtonBackgroundBrush { get; } = new SolidColorBrush(Colors.Transparent);
 
         public ICommand ContinueCommand => new DelegateCommand(
             () => Driver.Continue(), 

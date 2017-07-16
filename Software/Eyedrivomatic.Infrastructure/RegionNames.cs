@@ -32,5 +32,7 @@ namespace Eyedrivomatic.Infrastructure
         public const string ConfigurationContentRegion = nameof(ConfigurationContentRegion);
         public const string ConfigurationNavigationRegion = nameof(ConfigurationNavigationRegion);
         public const string ConfigurationHelpRegion = nameof(ConfigurationHelpRegion);
+
+        public const string ForwardViewCameraRegion = nameof(ForwardViewCameraRegion);
     }
 }
