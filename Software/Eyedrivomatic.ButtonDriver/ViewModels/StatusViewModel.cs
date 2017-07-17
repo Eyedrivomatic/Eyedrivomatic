@@ -19,7 +19,10 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -34,14 +37,45 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public StatusViewModel(IHardwareService hardwareService)
             : base(hardwareService)
         {
+
+        }
+
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+        protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Console.WriteLine($@"!!!!!! PROPERTY CHANGED !!!!!! - {sender}:{e.PropertyName}");
+
+            base.OnDriverStateChanged(sender, e);
+            if (e.PropertyName == nameof(Driver.DeviceStatus))
+            {
+                RaisePropertyChanged(nameof(JoystickPosition));
+                RaisePropertyChanged(nameof(Switch1));
+                RaisePropertyChanged(nameof(Switch2));
+                RaisePropertyChanged(nameof(Switch3));
+            }
+
+            if (e.PropertyName == nameof(Driver.Profile))
+            {
+                RaisePropertyChanged(nameof(Profile));
+                RaisePropertyChanged(nameof(Speed));
+                RaisePropertyChanged(nameof(SafetyBypassStatus));
+            }
+
+            if (e.PropertyName == nameof(Driver.Connection))
+            {
+                RaisePropertyChanged(nameof(ConnectionState));
+            }
         }
 
         public ConnectionState ConnectionState => Driver?.Connection?.State ?? ConnectionState.Disconnected;
         public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
         public bool DiagonalSpeedReduction => Driver?.Profile.DiagonalSpeedReduction ?? false;
 
-        public Direction LastDirection => Driver?.LastDirection ?? Direction.None;
+        public Direction CurrentDirection => Driver?.CurrentDirection ?? Direction.None;
         public Point JoystickPosition => Driver == null ? new Point() : new Point(Driver.DeviceStatus.XPosition, Driver.DeviceStatus.YPosition);
+        public bool Switch1 => Driver?.DeviceStatus.Switch1 ?? false;
+        public bool Switch2 => Driver?.DeviceStatus.Switch2 ?? false;
+        public bool Switch3 => Driver?.DeviceStatus.Switch3 ?? false;
 
         public string Profile => Driver?.Profile.Name;
 

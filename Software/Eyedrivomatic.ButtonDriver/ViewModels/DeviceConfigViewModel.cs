@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
@@ -159,9 +160,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             return Connected;
         }
 
-        protected override void OnDriverStatusChanged(object sender, EventArgs e)
+        protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
         {
-            base.OnDriverStatusChanged(sender, e);
+            base.OnDriverStateChanged(sender, e);
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();

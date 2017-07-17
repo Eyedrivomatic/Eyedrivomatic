@@ -83,4 +83,6 @@
     <SolidColorBrush x:Key="NavigationButtonCheckedBorderBrush" Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
     <!--/Navigation Buttons-->
 
+    <SolidColorBrush x:Key="StatusTextBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+
 </ResourceDictionary>

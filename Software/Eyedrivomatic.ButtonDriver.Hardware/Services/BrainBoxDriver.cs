@@ -74,6 +74,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
             RaisePropertyChanged(nameof(CurrentDirection));
             RaisePropertyChanged(nameof(ReadyState));
+            RaisePropertyChanged(nameof(DeviceStatus));
         }
 
         private void AttachToDataStream(IObservable<char> observable)
@@ -97,6 +98,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             RaisePropertyChanged(nameof(CurrentDirection));
             RaisePropertyChanged(nameof(HardwareReady));
             RaisePropertyChanged(nameof(ReadyState));
+            RaisePropertyChanged(nameof(DeviceStatus));
+            RaisePropertyChanged(nameof(Connection));
         }
 
         #region Connection

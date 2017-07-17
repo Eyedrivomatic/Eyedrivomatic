@@ -56,16 +56,6 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ToggleButton
-                        x:Name="AutoConnectCheckBox"
-                        Style="{DynamicResource CheckedToggleButtonStyle}"
-                        Content="{x:Static resources:Strings.SettingName_DwellClickEnabled}"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="3"
-                        IsChecked="{Binding DwellClickEnabled}"
-                        MaxHeight="70"
-                        Margin="0,0,0,10"/>
-
                     <Label x:Name="Theme" Grid.Row="1" Grid.Column="0" Content="{x:Static resources:Strings.SettingName_Theme}" Style="{StaticResource SettingLabelStyle}"/>
                     <controls:BrowsableList x:Name="ThemeListBox" Grid.Row="1" ItemsSource="{Binding Themes}"/>
                 </Grid>

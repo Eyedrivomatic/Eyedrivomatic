@@ -29,15 +29,15 @@
                     xmlns:gif="http://wpfanimatedgif.codeplex.com"
                     >
 
-    <infrastructure:ValueToImageConverter x:Key="DirectionConverter">
-        <Image x:Key="{x:Static services:Direction.Backward}" Source="{DynamicResource Button.Backward}"/>
-        <Image x:Key="{x:Static services:Direction.BackwardLeft}"  Source="{DynamicResource Button.Backward.BackwardLeft}"/>
-        <Image x:Key="{x:Static services:Direction.BackwardRight}"  Source="{DynamicResource Button.Backward.BackwardRight}"/>
-        <Image x:Key="{x:Static services:Direction.Left}"  Source="{DynamicResource Button.Backward.Left}"/>
-        <Image x:Key="{x:Static services:Direction.Right}"  Source="{DynamicResource Button.Backward.Right}"/>
-        <Image x:Key="{x:Static services:Direction.Forward}"  Source="{DynamicResource Button.Backward.Forward}"/>
-        <Image x:Key="{x:Static services:Direction.ForwardLeft}"  Source="{DynamicResource Button.ForwardLeft.Image}"/>
-        <Image x:Key="{x:Static services:Direction.ForwardRight}"  Source="{DynamicResource Button.Backward.ForwardRight}"/>
+    <infrastructure:ValueToImageConverter x:Key="DirectionToImageConverter">
+        <Image x:Key="{x:Static services:Direction.Backward}" Source="{DynamicResource Status.Direction.Backward.Content}"/>
+        <Image x:Key="{x:Static services:Direction.BackwardLeft}"  Source="{DynamicResource Status.Direction.BackwardLeft.Content}"/>
+        <Image x:Key="{x:Static services:Direction.BackwardRight}"  Source="{DynamicResource Status.Direction.BackwardRight.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Left}"  Source="{DynamicResource Status.Direction.Left.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Right}"  Source="{DynamicResource Status.Direction.Right.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Forward}"  Source="{DynamicResource Status.Direction.Forward.Content}"/>
+        <Image x:Key="{x:Static services:Direction.ForwardLeft}"  Source="{DynamicResource Status.Direction.ForwardLeft.Content}"/>
+        <Image x:Key="{x:Static services:Direction.ForwardRight}"  Source="{DynamicResource Status.Direction.ForwardRight.Content}"/>
     </infrastructure:ValueToImageConverter>
 
     <infrastructure:ValueToImageConverter x:Key="ConnectionStateToImageConverter">

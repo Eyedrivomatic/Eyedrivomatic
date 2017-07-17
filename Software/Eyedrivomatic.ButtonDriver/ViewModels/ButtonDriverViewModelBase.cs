@@ -20,6 +20,7 @@
 
 
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Prism.Mvvm;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -39,9 +40,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => _driver;
             private set
             {
-                if (_driver != null) _driver.PropertyChanged -= OnDriverStatusChanged;
+                if (_driver != null) _driver.PropertyChanged -= OnDriverStateChanged;
                 SetProperty(ref _driver, value);
-                if (_driver != null) _driver.PropertyChanged += OnDriverStatusChanged;
+                if (_driver != null) _driver.PropertyChanged += OnDriverStateChanged;
             }
         }
 
@@ -52,10 +53,10 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             Driver = HardwareService.CurrentDriver;
         }
 
-        protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
+        protected virtual void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
+            RaisePropertyChanged(e.PropertyName);
         }
 
         protected void LogSettingChange(object value, [CallerMemberName] string settingName = null)

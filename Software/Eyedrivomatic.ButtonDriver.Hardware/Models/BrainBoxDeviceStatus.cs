@@ -41,6 +41,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 
         private void OnStatusMessageReceived(object sender, StatusMessageEventArgs statusMessageEventArgs)
         {
+            Log.Info(this, $"Device status message received - {statusMessageEventArgs}");
             //Set all, then send a propery changed event.
             //This prevents the "double" updates on bound members.
             XPosition = statusMessageEventArgs.XRelative;

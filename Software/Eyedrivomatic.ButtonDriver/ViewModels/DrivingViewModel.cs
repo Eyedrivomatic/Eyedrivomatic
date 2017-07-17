@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
@@ -190,6 +191,13 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         void INavigationAware.OnNavigatedFrom(NavigationContext navigationContext)
         { 
+        }
+
+        protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnDriverStateChanged(sender, e);
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(string.Empty); //Just refresh everything.
         }
     }
 }

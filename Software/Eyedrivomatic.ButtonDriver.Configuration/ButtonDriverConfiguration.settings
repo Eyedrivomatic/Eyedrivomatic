@@ -20,15 +20,15 @@
     <Setting Name="DrivingProfiles" Type="Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;profiles currentProfile="Indoor"&gt;
-  &lt;profile name="Indoor"&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Slow" x="0" yForward="9" yBackward="9" xDiag="14" xDiagReduced="4" yForwardDiag="6" yForwardDiagReduced="6" yBackwardDiag="6" yBackwardDiagReduced="0" nudge="6" /&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Walk" x="0" yForward="13" yBackward="13" xDiag="15" xDiagReduced="5" yForwardDiag="10" yForwardDiagReduced="10" yBackwardDiag="10" yBackwardDiagReduced="0" nudge="6" /&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Fast" x="0" yForward="17" yBackward="17" xDiag="17" xDiagReduced="7" yForwardDiag="14" yForwardDiagReduced="14" yBackwardDiag="14" yBackwardDiagReduced="0" nudge="6" /&gt;
+  &lt;profile name="Indoor" diagonalSpeedReduction="False" nudgeDuration="1000" xDuration="2000" yDuration="2000" CurrentSpeed="Slow"&gt;
+    &lt;speed name="Slow" x="6" yForward="9" yBackward="9" xDiag="14" xDiagReduced="4" yForwardDiag="6" yForwardDiagReduced="6" yBackwardDiag="6" yBackwardDiagReduced="0" nudge="6" /&gt;
+    &lt;speed name="Walk" x="10" yForward="13" yBackward="13" xDiag="15" xDiagReduced="5" yForwardDiag="10" yForwardDiagReduced="10" yBackwardDiag="10" yBackwardDiagReduced="0" nudge="6" /&gt;
+    &lt;speed name="Fast" x="14" yForward="17" yBackward="17" xDiag="17" xDiagReduced="7" yForwardDiag="14" yForwardDiagReduced="14" yBackwardDiag="14" yBackwardDiagReduced="0" nudge="6" /&gt;
   &lt;/profile&gt;
-  &lt;profile name="Outdoor"&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Slow" x="0" yForward="13" yBackward="13" xDiag="15" xDiagReduced="5" yForwardDiag="10" yForwardDiagReduced="10" yBackwardDiag="10" yBackwardDiagReduced="0" nudge="6" /&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Walk" x="0" yForward="17" yBackward="17" xDiag="17" xDiagReduced="7" yForwardDiag="14" yForwardDiagReduced="14" yBackwardDiag="14" yBackwardDiagReduced="0" nudge="6" /&gt;
-    &lt;speed xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Fast" x="0" yForward="21" yBackward="21" xDiag="22" xDiagReduced="12" yForwardDiag="18" yForwardDiagReduced="18" yBackwardDiag="18" yBackwardDiagReduced="0" nudge="6" /&gt;
+  &lt;profile name="Outdoor" diagonalSpeedReduction="False" nudgeDuration="1000" xDuration="2000" yDuration="2000" CurrentSpeed="Slow"&gt;
+    &lt;speed name="Slow" x="6" yForward="13" yBackward="13" xDiag="15" xDiagReduced="5" yForwardDiag="10" yForwardDiagReduced="10" yBackwardDiag="10" yBackwardDiagReduced="0" nudge="6" /&gt;
+    &lt;speed name="Walk" x="10" yForward="17" yBackward="17" xDiag="17" xDiagReduced="7" yForwardDiag="14" yForwardDiagReduced="14" yBackwardDiag="14" yBackwardDiagReduced="0" nudge="6" /&gt;
+    &lt;speed name="Fast" x="14" yForward="21" yBackward="21" xDiag="22" xDiagReduced="12" yForwardDiag="18" yForwardDiagReduced="18" yBackwardDiag="18" yBackwardDiagReduced="0" nudge="6" /&gt;
   &lt;/profile&gt;
 &lt;/profiles&gt;</Value>
     </Setting>

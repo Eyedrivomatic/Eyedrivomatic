@@ -29,5 +29,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             Switch2 = switch2;
             Switch3 = switch3;
         }
+
+        public override string ToString()
+        {
+            return $"X:{XRelative} ({XAbsolute}), Y:{YRelative} ({YAbsolute}), Switch1:{(Switch1 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, ";
+        }
     }
 }

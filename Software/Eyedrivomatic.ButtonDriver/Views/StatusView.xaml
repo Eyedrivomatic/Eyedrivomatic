@@ -27,12 +27,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
-             xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-             xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-             xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Models;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="1280"
@@ -56,6 +50,15 @@
                         Margin="10,2,10,2" HorizontalAlignment="Left"
                         RenderOptions.BitmapScalingMode="HighQuality" 
                         Content="{Binding Path=ConnectionState, Converter={StaticResource ConnectionStateToImageConverter}}"/>
+
+
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+            <ContentControl Content="{Binding CurrentDirection, Converter={StaticResource DirectionToImageConverter}}"/>
+            <Viewbox Margin="10,0,10,0">
+                <TextBlock Text="{Binding JoystickPosition}" Foreground="{DynamicResource StatusTextBrush}"/>
+            </Viewbox>
+        </StackPanel>
     </Grid>
 
 </UserControl>
