@@ -359,7 +359,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Wiederholverzögerung</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingName_DwellClickTime" xml:space="preserve">
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
     <value>Verweilzeit</value>
     <comment>Time that the user must look at the target for the dwell click to "press".</comment>
   </data>

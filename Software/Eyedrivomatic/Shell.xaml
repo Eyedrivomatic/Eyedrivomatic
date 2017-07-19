@@ -28,7 +28,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-        xmlns:views="clr-namespace:Eyedrivomatic.Configuration.Views;assembly=Eyedrivomatic.Configuration"
         xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="500" Width="1024" WindowState="Maximized"

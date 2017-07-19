@@ -1,49 +1,49 @@
 ﻿<UserControl x:Class="Eyedrivomatic.ButtonDriver.Views.ProfileConfigurationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="1160">
+             mc:Ignorable="d"
+             Width="860" Height="870">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
+                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <infrastructure:NullToBoolConverter x:Key="NullToBoolConverter" ValueIfNull="False"/>
+            <infrastructure:NullToBoolConverter x:Key="NullToBoolConverter" ValueIfNull="False" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-                
-        <GroupBox x:Name="ProfileSelection" 
+
+        <GroupBox x:Name="ProfileSelection"
                   Header="{x:Static resources:Strings.SettingGroupName_ProfileSelection}"
-                  Grid.Column="0" 
+                  Grid.Column="0"
                   Padding="10" Margin="0,0,10,0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <controls:BrowsableList x:Name="ProfileList" 
+                <controls:BrowsableList x:Name="ProfileList"
                                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                         PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
                                         NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
@@ -53,19 +53,19 @@
                     <controls:BrowsableList.Resources>
                         <DataTemplate DataType="{x:Type configuration:Profile}">
                             <DockPanel HorizontalAlignment="Stretch">
-                                <Button Content="X" 
+                                <Button Content="X"
                                         VerticalAlignment="Center"
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfile}" 
-                                        CommandParameter="{Binding}" DockPanel.Dock="Left"/>
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfile}"
+                                        CommandParameter="{Binding}" DockPanel.Dock="Left" />
                                 <Button DockPanel.Dock="Right" Width="40" Height="40"
-                                        Content="{DynamicResource Button.Forward.Content}" 
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileUp}" 
-                                        CommandParameter="{Binding}"/>
+                                        Content="{DynamicResource Button.Forward.Content}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileUp}"
+                                        CommandParameter="{Binding}" />
                                 <Button DockPanel.Dock="Right" Width="40" Height="40"
-                                        Content="{DynamicResource Button.Backward.Content}" 
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileDown}" 
-                                        CommandParameter="{Binding}"/>
-                                <TextBlock x:Name="ProfileName" Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        Content="{DynamicResource Button.Backward.Content}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileDown}"
+                                        CommandParameter="{Binding}" />
+                                <TextBlock x:Name="ProfileName" Text="{Binding Name}" VerticalAlignment="Center" />
                             </DockPanel>
                         </DataTemplate>
                     </controls:BrowsableList.Resources>
@@ -74,141 +74,147 @@
                         Padding="10"
                         Margin="10"
                         HorizontalAlignment="Right"
-                        Content="{x:Static resources:Strings.CommandText_AddProfile}" 
-                        Command="{Binding AddProfile}"/>
+                        Content="{x:Static resources:Strings.CommandText_AddProfile}"
+                        Command="{Binding AddProfile}" />
 
                 <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                         BorderThickness="0 3 0 0"
-                        BorderBrush="{DynamicResource ItemBorderBrush}"/>
+                        BorderBrush="{DynamicResource ItemBorderBrush}" />
 
                 <controls:BrowsableList x:Name="ProfileSpeedList"
                                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                         DataContext="{Binding CurrentProfile}"
-                                        ItemsSource="{Binding Speeds}" 
+                                        ItemsSource="{Binding Speeds}"
                                         Margin="0,20,0,0"
                                         HorizontalContentAlignment="Stretch">
                     <controls:BrowsableList.Resources>
                         <DataTemplate DataType="{x:Type configuration:ProfileSpeed}">
                             <DockPanel HorizontalAlignment="Stretch">
-                                <Button Content="X" 
+                                <Button Content="X"
                                         VerticalAlignment="Center"
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfileSpeed}" 
-                                        CommandParameter="{Binding}" DockPanel.Dock="Left"/>
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfileSpeed}"
+                                        CommandParameter="{Binding}" DockPanel.Dock="Left" />
                                 <Button DockPanel.Dock="Right" Width="40" Height="40"
-                                        Content="{StaticResource Button.Forward.Content}" 
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedUp}" 
-                                        CommandParameter="{Binding}"/>
+                                        Content="{DynamicResource Button.Forward.Content}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedUp}"
+                                        CommandParameter="{Binding}" />
                                 <Button DockPanel.Dock="Right" Width="40" Height="40"
-                                        Content="{StaticResource Button.Backward.Content}" 
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedDown}" 
-                                        CommandParameter="{Binding}"/>
-                                <TextBlock x:Name="ProfileSpeedName" Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        Content="{DynamicResource Button.Backward.Content}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedDown}"
+                                        CommandParameter="{Binding}" />
+                                <TextBlock x:Name="ProfileSpeedName" Text="{Binding Name}" VerticalAlignment="Center" />
                             </DockPanel>
                         </DataTemplate>
 
                     </controls:BrowsableList.Resources>
                 </controls:BrowsableList>
 
-                <Button Name="AddSpeedButton" 
+                <Button Name="AddSpeedButton"
                         Grid.Row="3" Grid.Column="1"
                         Padding="10"
                         Margin="10"
                         HorizontalAlignment="Right"
-                        Content="{x:Static resources:Strings.CommandText_AddProfileSpeed}" 
+                        Content="{x:Static resources:Strings.CommandText_AddProfileSpeed}"
                         Command="{Binding RelativeSource={RelativeSource AncestorType=local:ProfileConfigurationView}, Path=ViewModel.AddProfileSpeed}"
-                        CommandParameter="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}"/>
-            
+                        CommandParameter="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}" />
+
             </Grid>
         </GroupBox>
 
-        <GroupBox x:Name="ProfileSettings" 
-                  Grid.Column="1" 
-                  Header="{x:Static resources:Strings.SettingGroupName_ProfileSettings}" 
+        <GroupBox x:Name="ProfileSettings"
+                  Grid.Column="1"
+                  Header="{x:Static resources:Strings.SettingGroupName_ProfileSettings}"
                   Padding="10" Margin="10,0,0,0">
             <StackPanel Orientation="Vertical">
                 <Grid DataContext="{Binding ElementName=ProfileList, Path=SelectedItem}">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="{x:Static resources:Strings.SettingName_ProfileName}" HorizontalContentAlignment="Right" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox Text="{Binding Name}" x:Name="ProfileName" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
-                    <Label Content="{x:Static resources:Strings.SettingName_SafetyBypass}" HorizontalContentAlignment="Right" Grid.Row="1" Grid.Column="0"/>
-                    <ToggleButton Style="{DynamicResource CheckedToggleButtonStyle}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="{x:Static resources:Strings.SettingName_ProfileName}"
+                           HorizontalContentAlignment="Right" Grid.Row="0" Grid.Column="0" />
+                    <TextBox Text="{Binding Name}" x:Name="ProfileName" HorizontalAlignment="Stretch" Grid.Row="0"
+                             Grid.Column="1" />
+                    <ToggleButton x:Name="SafetyBypass"
+                                  Content="{x:Static resources:Strings.SettingName_SafetyBypass}"
+                                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                  Style="{DynamicResource CheckedToggleButtonStyle}"
+                                  Height="45"
+                                  Margin="5" />
                 </Grid>
                 <Grid DataContext="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}"
                       IsEnabled="{Binding Converter={StaticResource NullToBoolConverter}}">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Name}"/>
+                    <Label Grid.Row="0" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Name}" />
                     <TextBox Grid.Row="0" Grid.Column="1" x:Name="ProfileSpeedName"
-                             Text="{Binding Name}"/>
+                             Text="{Binding Name}" />
 
-                    <Label Grid.Row="1" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_X}"/>
-                    <controls:IntUpDown Grid.Row="1" Grid.Column="1" x:Name="ProfileSpeedX" 
-                                        Value="{Binding X}"/>
+                    <Label Grid.Row="1" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_X}" />
+                    <controls:IntUpDown Grid.Row="1" Grid.Column="1" x:Name="ProfileSpeedX"
+                                        Value="{Binding X}" />
 
-                    <Label Grid.Row="2" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Forward}"/>
-                    <controls:IntUpDown Grid.Row="2" Grid.Column="1" x:Name="ProfileSpeedYForward" 
-                                        Value="{Binding YForward}"/>
+                    <Label Grid.Row="2" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Forward}" />
+                    <controls:IntUpDown Grid.Row="2" Grid.Column="1" x:Name="ProfileSpeedYForward"
+                                        Value="{Binding YForward}" />
 
-                    <Label Grid.Row="3" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Backward}"/>
-                    <controls:IntUpDown Grid.Row="3" Grid.Column="1" x:Name="ProfileSpeedYBackward" 
-                                        Value="{Binding YBackward}"/>
+                    <Label Grid.Row="3" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Backward}" />
+                    <controls:IntUpDown Grid.Row="3" Grid.Column="1" x:Name="ProfileSpeedYBackward"
+                                        Value="{Binding YBackward}" />
 
-                    <Label Grid.Row="4" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_XDiag}"/>
-                    <controls:IntUpDown Grid.Row="4" Grid.Column="1" x:Name="ProfileSpeedXDiag" 
-                                        Value="{Binding XDiag}"/>
+                    <Label Grid.Row="4" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_XDiag}" />
+                    <controls:IntUpDown Grid.Row="4" Grid.Column="1" x:Name="ProfileSpeedXDiag"
+                                        Value="{Binding XDiag}" />
 
                     <Label Grid.Row="5" Grid.Column="0"
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_XDiagReduced}"/>
-                    <controls:IntUpDown Grid.Row="5" Grid.Column="1" x:Name="ProfileSpeedXDiagReduced" 
-                                        Value="{Binding XDiagReduced}"/>
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_XDiagReduced}" />
+                    <controls:IntUpDown Grid.Row="5" Grid.Column="1" x:Name="ProfileSpeedXDiagReduced"
+                                        Value="{Binding XDiagReduced}" />
 
-                    <Label Grid.Row="6" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiag}"/>
-                    <controls:IntUpDown Grid.Row="6" Grid.Column="1" x:Name="ProfileSpeedYForwardDiag" 
-                                        Value="{Binding YForwardDiag}"/>
+                    <Label Grid.Row="6" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiag}" />
+                    <controls:IntUpDown Grid.Row="6" Grid.Column="1" x:Name="ProfileSpeedYForwardDiag"
+                                        Value="{Binding YForwardDiag}" />
 
-                    <Label Grid.Row="7" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiagReduced}"/>
-                    <controls:IntUpDown Grid.Row="7" Grid.Column="1" x:Name="ProfileSpeedYForwardDiagReduced" 
-                                        Value="{Binding YForwardDiagReduced}"/>
+                    <Label Grid.Row="7" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiagReduced}" />
+                    <controls:IntUpDown Grid.Row="7" Grid.Column="1" x:Name="ProfileSpeedYForwardDiagReduced"
+                                        Value="{Binding YForwardDiagReduced}" />
 
-                    <Label Grid.Row="8" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiag}"/>
-                    <controls:IntUpDown Grid.Row="8" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiag" 
-                                        Value="{Binding YBackwardDiag}"/>
+                    <Label Grid.Row="8" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiag}" />
+                    <controls:IntUpDown Grid.Row="8" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiag"
+                                        Value="{Binding YBackwardDiag}" />
 
-                    <Label Grid.Row="9" Grid.Column="0" 
-                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiagReduced}"/>
-                    <controls:IntUpDown Grid.Row="9" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiagReduced" 
-                                        Value="{Binding YBackwardDiagReduced}"/>
+                    <Label Grid.Row="9" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiagReduced}" />
+                    <controls:IntUpDown Grid.Row="9" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiagReduced"
+                                        Value="{Binding YBackwardDiagReduced}" />
                 </Grid>
             </StackPanel>
         </GroupBox>

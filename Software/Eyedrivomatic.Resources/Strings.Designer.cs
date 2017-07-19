@@ -775,6 +775,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string SettingGroupName_Help {
+            get {
+                return ResourceManager.GetString("SettingGroupName_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profiles.
         /// </summary>
         public static string SettingGroupName_ProfileSelection {
@@ -820,11 +829,38 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dwell Time.
+        ///   Looks up a localized string similar to Direction Buttons Dwell Time.
         /// </summary>
-        public static string SettingName_DwellClickTime {
+        public static string SettingName_DwellClickTime_DirectionButtons {
             get {
-                return ResourceManager.GetString("SettingName_DwellClickTime", resourceCulture);
+                return ResourceManager.GetString("SettingName_DwellClickTime_DirectionButtons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard Dwell Time.
+        /// </summary>
+        public static string SettingName_DwellClickTime_Standard {
+            get {
+                return ResourceManager.GetString("SettingName_DwellClickTime_Standard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direction Buttons Dwell Time.
+        /// </summary>
+        public static string SettingName_DwellClickTime_StartButton {
+            get {
+                return ResourceManager.GetString("SettingName_DwellClickTime_StartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Button Dwell Time.
+        /// </summary>
+        public static string SettingName_DwellClickTime_StopButton {
+            get {
+                return ResourceManager.GetString("SettingName_DwellClickTime_StopButton", resourceCulture);
             }
         }
         

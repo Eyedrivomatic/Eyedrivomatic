@@ -24,62 +24,126 @@
 <UserControl x:Class="Eyedrivomatic.Configuration.Views.EyegazeConfigurationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1160"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             mc:Ignorable="d"
+             Width="650" Height="870"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml"/>
+                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
 
-        <Viewbox Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
-            <GroupBox x:Name="DwellClickSettings" Width="400" Header="{x:Static resources:Strings.SettingGroupName_DwellClick}" Padding="5">
-                <Grid>
+        <GroupBox x:Name="DwellClickSettings"
+                  Header="{x:Static resources:Strings.SettingGroupName_DwellClick}" Padding="5">
+            <Grid x:Name="DwellClickSettingsGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ToggleButton
+                    x:Name="DwellClickEnabledCheckBox"
+                    Style="{DynamicResource CheckedToggleButtonStyle}"
+                    Content="{x:Static resources:Strings.SettingName_DwellClickEnabled}"
+                    Grid.Row="0"
+                    IsChecked="{Binding DwellClickEnabled}"
+                    MaxHeight="70"
+                    Margin="5"/>
+
+                <controls:BrowsableList x:Name="EyegazeInterfaceList"
+                                        PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
+                                        NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
+                                        Grid.Row="1"
+                                        Height="100"
+                                        ItemsSource="{Binding AvailableEyegazeInterfaces}"
+                                        SelectedValue="{Binding EyegazeInterface}"
+                                        IsEnabled="{Binding ElementName=DwellClickEnabledCheckBox, Path=IsChecked}"
+                                        Margin="5"/>
+
+
+                <Grid x:Name="DwellClickValuesGrid" Grid.Row="2" 
+                      IsEnabled="{Binding ElementName=DwellClickEnabledCheckBox, Path=IsChecked}">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ToggleButton
-                            x:Name="AutoConnectCheckBox"
-                            Style="{DynamicResource CheckedToggleButtonStyle}"
-                            Content="{x:Static resources:Strings.SettingName_DwellClickEnabled}"
-                            Grid.Row="0"
-                            Grid.ColumnSpan="3"
-                            IsChecked="{Binding DwellClickEnabled}"
-                            MaxHeight="70"
-                            Margin="0,0,0,10"/>
+           
+                    <Label x:Name="StandardDwellClickTimeLabel" Grid.Row="0" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickTime_Standard}"
+                           Style="{DynamicResource SettingLabelStyle}" />
+                    <TextBox x:Name="StandardDwellClickTimeValue" Grid.Row="0" Grid.Column="1"
+                             Text="{Binding StandardDwellTimeMilliseconds}" 
+                             Style="{StaticResource SettingValueStyle}"/>
+                    <Label x:Name="StandardDwellClickTimeMs" Grid.Row="0" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{DynamicResource SettingLabelStyle}" />
 
-                    <Label x:Name="DwellClickTimeLabel" Grid.Row="1" Grid.Column="0" Content="{x:Static resources:Strings.SettingName_DwellClickTime}" Style="{StaticResource SettingLabelStyle}"/>
-                    <TextBox x:Name="DwellClickTimeValue" Grid.Row="1" Grid.Column="1" Text="{Binding DwellTimeMilliseconds}" Style="{StaticResource SettingValueStyle}" Margin="10"/>
-                    <Label x:Name="DwellClickTimeMs" Grid.Row="1" Grid.Column="2" Content="{x:Static resources:Strings.MillisecondsShort}" Style="{StaticResource SettingLabelStyle}"/>
+                    <Label x:Name="DirectionDwellClickTimeLabel" Grid.Row="1" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickTime_DirectionButtons}"
+                           Style="{DynamicResource SettingLabelStyle}" />
+                    <TextBox x:Name="DirectionDwellClickTimeValue" Grid.Row="1" Grid.Column="1"
+                             Text="{Binding DirectionButtonsDwellTimeMilliseconds}" Style="{StaticResource SettingValueStyle}" />
+                    <Label x:Name="DirectionDwellClickTimeMs" Grid.Row="1" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{StaticResource SettingLabelStyle}" />
 
-                    <Label x:Name="DwellClickTimeoutLabel" Grid.Row="2" Grid.Column="0" Content="{x:Static resources:Strings.SettingName_DwellClickTimeout}" Style="{StaticResource SettingLabelStyle}"/>
-                    <TextBox x:Name="DwellClickTimeoutValue" Grid.Row="2" Grid.Column="1" Text="{Binding DwellTimeoutMilliseconds}" Style="{StaticResource SettingValueStyle}" Margin="10"/>
-                    <Label x:Name="DwellClickTimeoutMs" Grid.Row="2" Grid.Column="2" Content="{x:Static resources:Strings.MillisecondsShort}" Style="{StaticResource SettingLabelStyle}"/>
+                    <Label x:Name="StartDwellClickTimeLabel" Grid.Row="2" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickTime_StartButton}"
+                           Style="{DynamicResource SettingLabelStyle}" />
+                    <TextBox x:Name="StartDwellClickTimeValue" Grid.Row="2" Grid.Column="1"
+                             Text="{Binding StartButtonDwellTimeMilliseconds}" Style="{StaticResource SettingValueStyle}" />
+                    <Label x:Name="StartDwellClickTimeMs" Grid.Row="2" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{StaticResource SettingLabelStyle}" />
 
-                    <Label x:Name="DwellClickRepeatDelayLabel" Grid.Row="3" Grid.Column="0" Content="{x:Static resources:Strings.SettingName_DwellClickRepeatDelay}" Style="{StaticResource SettingLabelStyle}"/>
-                    <TextBox x:Name="DwellClickRepeatDelayValue" Grid.Row="3" Grid.Column="1" Text="{Binding DwellRepeatDelayMilliseconds}" Style="{StaticResource SettingValueStyle}" Margin="10"/>
-                    <Label x:Name="DwellClickRepeatDelayMs" Grid.Row="3" Grid.Column="2" Content="{x:Static resources:Strings.MillisecondsShort}" Style="{StaticResource SettingLabelStyle}"/>
+                    <Label x:Name="StopDwellClickTimeLabel" Grid.Row="3" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickTime_StopButton}"
+                           Style="{DynamicResource SettingLabelStyle}" />
+                    <TextBox x:Name="StopDwellClickTimeValue" Grid.Row="3" Grid.Column="1"
+                             Text="{Binding StopButtonDwellTimeMilliseconds}" Style="{StaticResource SettingValueStyle}" />
+                    <Label x:Name="StopDwellClickTimeMs" Grid.Row="3" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{StaticResource SettingLabelStyle}" />
+
+                    <Label x:Name="DwellClickTimeoutLabel" Grid.Row="4" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickTimeout}"
+                           Style="{StaticResource SettingLabelStyle}" />
+                    <TextBox x:Name="DwellClickTimeoutValue" Grid.Row="4" Grid.Column="1"
+                             Text="{Binding DwellTimeoutMilliseconds}" Style="{StaticResource SettingValueStyle}" />
+                    <Label x:Name="DwellClickTimeoutMs" Grid.Row="4" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{StaticResource SettingLabelStyle}" />
+
+                    <Label x:Name="DwellClickRepeatDelayLabel" Grid.Row="5" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_DwellClickRepeatDelay}"
+                           Style="{StaticResource SettingLabelStyle}" />
+                    <TextBox x:Name="DwellClickRepeatDelayValue" Grid.Row="5" Grid.Column="1"
+                             Text="{Binding DwellRepeatDelayMilliseconds}" Style="{StaticResource SettingValueStyle}" />
+                    <Label x:Name="DwellClickRepeatDelayMs" Grid.Row="5" Grid.Column="2"
+                           Content="{x:Static resources:Strings.MillisecondsShort}"
+                           Style="{StaticResource SettingLabelStyle}" />
                 </Grid>
-            </GroupBox>
-        </Viewbox>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

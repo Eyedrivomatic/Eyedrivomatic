@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Resources;
 using System.Windows;
 using System.Windows.Data;
@@ -50,6 +51,7 @@ namespace Eyedrivomatic.Infrastructure
             var imagePath = $"Images/{value}.png";
             try
             {
+                if (!File.Exists(imagePath)) return null;
                 return converter.ConvertFrom(imagePath) as ImageSource;
 
             }

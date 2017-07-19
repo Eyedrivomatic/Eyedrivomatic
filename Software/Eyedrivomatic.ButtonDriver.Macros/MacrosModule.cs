@@ -31,7 +31,6 @@ using Prism.Regions;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
-using Eyedrivomatic.ButtonDriver.Macros.Views;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Macros

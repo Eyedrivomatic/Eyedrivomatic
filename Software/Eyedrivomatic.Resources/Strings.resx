@@ -356,9 +356,25 @@ Reduction Toggle</value>
     <value>Dwell Repeat Delay</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingName_DwellClickTime" xml:space="preserve">
-    <value>Dwell Time</value>
-    <comment>Time that the user must look at the target for the dwell click to "press".</comment>
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
+    <value>Standard Dwell Time</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for most buttons and controls.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_DirectionButtons" xml:space="preserve">
+    <value>Direction Buttons Dwell Time</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "direction" buttons on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Start Button Dwell Time</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "start" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StopButton" xml:space="preserve">
+    <value>Stop Button Dwell Time</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "stop" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Direction Buttons Dwell Time</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "start" button on the driving view.</comment>
   </data>
   <data name="SettingName_DwellClickTimeout" xml:space="preserve">
     <value>Dwell Timeout</value>
@@ -631,5 +647,9 @@ Reduction Toggle</value>
   <data name="ViewName_EyegazeConfig" xml:space="preserve">
     <value>Eyegaze</value>
     <comment>The name of the eyegaze configuration view.</comment>
+  </data>
+  <data name="SettingGroupName_Help" xml:space="preserve">
+    <value>Help</value>
+    <comment>Title of the group containing help content.</comment>
   </data>
 </root>

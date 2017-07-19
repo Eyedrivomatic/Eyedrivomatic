@@ -303,10 +303,18 @@
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1"
                                                          Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="UncheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="UncheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         Duration="0:0:0.2" />
                                         <DoubleAnimation Storyboard.TargetName="CheckedImage"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0"
@@ -564,7 +572,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ScrollViewer" BasedOn="{StaticResource {x:Type ScrollViewer}}">
+    <Style TargetType="ScrollViewer">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">

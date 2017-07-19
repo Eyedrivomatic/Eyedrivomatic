@@ -45,6 +45,7 @@ namespace Eyedrivomatic.Configuration.ViewModels
 
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
         }
 
@@ -54,10 +55,28 @@ namespace Eyedrivomatic.Configuration.ViewModels
             set => _dwellClickConfigurationService.EnableDwellClick = value;
         }
 
-        public int DwellTimeMilliseconds
+        public int StandardDwellTimeMilliseconds
         {
-            get => _dwellClickConfigurationService.DwellTimeMilliseconds;
-            set => _dwellClickConfigurationService.DwellTimeMilliseconds = value;
+            get => _dwellClickConfigurationService.StandardDwellTimeMilliseconds;
+            set => _dwellClickConfigurationService.StandardDwellTimeMilliseconds = value;
+        }
+
+        public int StartButtonDwellTimeMilliseconds
+        {
+            get => _dwellClickConfigurationService.StartButtonDwellTimeMilliseconds;
+            set => _dwellClickConfigurationService.StartButtonDwellTimeMilliseconds = value;
+        }
+
+        public int StopButtonDwellTimeMilliseconds
+        {
+            get => _dwellClickConfigurationService.StopButtonDwellTimeMilliseconds;
+            set => _dwellClickConfigurationService.StopButtonDwellTimeMilliseconds = value;
+        }
+
+        public int DirectionButtonsDwellTimeMilliseconds
+        {
+            get => _dwellClickConfigurationService.DirectionButtonDwellTimeMilliseconds;
+            set => _dwellClickConfigurationService.DirectionButtonDwellTimeMilliseconds = value;
         }
 
         public int DwellTimeoutMilliseconds

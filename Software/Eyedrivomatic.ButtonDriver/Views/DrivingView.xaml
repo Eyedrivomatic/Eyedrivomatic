@@ -34,6 +34,7 @@
              xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
              xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
              xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:dwellClick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="876"
              d:DataContext="{d:DesignInstance d:Type=viewModels:DesignDrivingViewModel, IsDesignTimeCreatable=True}"
@@ -56,6 +57,7 @@
 
             <Style x:Key="DirectionButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Background" Value="{Binding CameraOverlayButtonBackgroundBrush}"/>
+                <Setter Property="dwellClick:DwellClickBehavior.Role" Value="{x:Static dwellClick:DwellClickActivationRole.DirectionButtons}"/>
             </Style>
 
             <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" TargetType="{x:Type Button}"
@@ -148,13 +150,16 @@
                     Content="{DynamicResource Button.Continue.Content}" Command="{Binding ContinueCommand}" 
                     Visibility="{Binding SafetyBypass, Converter={StaticResource BoolToCollapsedConverterInv}}"
                     Style="{DynamicResource DirectionButtonStyle}"/>
+
             <Button x:Name="ForwardButton" Content="{DynamicResource Button.Forward.Content}"
                     Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Forward}" 
                     Style="{DynamicResource DirectionButtonStyle}"/>
 
             <Button x:Name="StopButton" Content="{DynamicResource Button.Stop.Content}" 
                     Command="{Binding StopCommand}"
-                    Style="{DynamicResource DirectionButtonStyle}"/>
+                    Style="{DynamicResource DirectionButtonStyle}"
+                    dwellClick:DwellClickBehavior.Role="{x:Static dwellClick:DwellClickActivationRole.StopButton}"/>
+
             <Button x:Name="BackwardButton" Content="{DynamicResource Button.Backward.Content}"
                     Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Backward}"
                     Style="{DynamicResource DirectionButtonStyle}"/>
