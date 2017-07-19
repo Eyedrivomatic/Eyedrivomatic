@@ -60,9 +60,9 @@
                 <ControlTemplate TargetType="{x:Type local:BrowsableList}">
                     <Grid x:Name="LayoutRoot">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="PrevItem"

@@ -23,10 +23,21 @@ using System.ComponentModel;
 
 namespace Eyedrivomatic.Controls.DwellClick
 {
+    public enum DwellClickActivationRole
+    {
+        Standard,
+        DirectionButtons,
+        StopButton,
+        StartButton
+    }
+
     public interface IDwellClickConfigurationService : INotifyPropertyChanged
     {
         bool EnableDwellClick { get; set; }
-        int DwellTimeMilliseconds { get; set; }
+        int StandardDwellTimeMilliseconds { get; set; }
+        int DirectionButtonDwellTimeMilliseconds { get; set; }
+        int StartButtonDwellTimeMilliseconds { get; set; }
+        int StopButtonDwellTimeMilliseconds { get; set; }
         int DwellTimeoutMilliseconds { get; set; }
         int RepeatDelayMilliseconds { get; set; }
 

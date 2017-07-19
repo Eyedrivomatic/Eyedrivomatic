@@ -25,6 +25,18 @@ namespace Eyedrivomatic.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int SettingsVersion {
+            get {
+                return ((int)(this["SettingsVersion"]));
+            }
+            set {
+                this["SettingsVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableDwellClick {
             get {
@@ -32,18 +44,6 @@ namespace Eyedrivomatic.Configuration {
             }
             set {
                 this["EnableDwellClick"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("700")]
-        public int DwellTimeMilliseconds {
-            get {
-                return ((int)(this["DwellTimeMilliseconds"]));
-            }
-            set {
-                this["DwellTimeMilliseconds"] = value;
             }
         }
         
@@ -73,13 +73,49 @@ namespace Eyedrivomatic.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SettingsVersion {
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public int StandardDwellTimeMilliseconds {
             get {
-                return ((int)(this["SettingsVersion"]));
+                return ((int)(this["StandardDwellTimeMilliseconds"]));
             }
             set {
-                this["SettingsVersion"] = value;
+                this["StandardDwellTimeMilliseconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public int DirectionButtonDwellTimeMilliseconds {
+            get {
+                return ((int)(this["DirectionButtonDwellTimeMilliseconds"]));
+            }
+            set {
+                this["DirectionButtonDwellTimeMilliseconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int StopButtonDwellTimeMilliseconds {
+            get {
+                return ((int)(this["StopButtonDwellTimeMilliseconds"]));
+            }
+            set {
+                this["StopButtonDwellTimeMilliseconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int StartButtonDwellTimeMilliseconds {
+            get {
+                return ((int)(this["StartButtonDwellTimeMilliseconds"]));
+            }
+            set {
+                this["StartButtonDwellTimeMilliseconds"] = value;
             }
         }
     }

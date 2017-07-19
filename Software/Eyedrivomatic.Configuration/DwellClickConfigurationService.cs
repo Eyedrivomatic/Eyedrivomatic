@@ -34,6 +34,7 @@ namespace Eyedrivomatic.Configuration
         internal static DwellClickConfiguration DefaultConfiguration => DwellClickConfiguration.Default;
     }
 
+
     [Export(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
     public class DwellClickConfigurationService : BindableBase, IDwellClickConfigurationService
     {
@@ -55,7 +56,7 @@ namespace Eyedrivomatic.Configuration
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(EnableDwellClick) ||
-                e.PropertyName == nameof(DwellTimeMilliseconds) ||
+                e.PropertyName.EndsWith("DwellTimeMilliseconds") ||
                 e.PropertyName == nameof(DwellTimeoutMilliseconds) ||
                 e.PropertyName == nameof(RepeatDelayMilliseconds) )
             {
@@ -71,10 +72,28 @@ namespace Eyedrivomatic.Configuration
             set => _configuration.EnableDwellClick = value;
         }
 
-        public int DwellTimeMilliseconds
+        public int StandardDwellTimeMilliseconds
         {
-            get => _configuration.DwellTimeMilliseconds;
-            set => _configuration.DwellTimeMilliseconds = value;
+            get => _configuration.StandardDwellTimeMilliseconds;
+            set => _configuration.StandardDwellTimeMilliseconds = value;
+        }
+
+        public int DirectionButtonDwellTimeMilliseconds
+        {
+            get => _configuration.DirectionButtonDwellTimeMilliseconds;
+            set => _configuration.DirectionButtonDwellTimeMilliseconds = value;
+        }
+
+        public int StopButtonDwellTimeMilliseconds
+        {
+            get => _configuration.StopButtonDwellTimeMilliseconds;
+            set => _configuration.StopButtonDwellTimeMilliseconds = value;
+        }
+
+        public int StartButtonDwellTimeMilliseconds
+        {
+            get => _configuration.StartButtonDwellTimeMilliseconds;
+            set => _configuration.StartButtonDwellTimeMilliseconds = value;
         }
 
         public int DwellTimeoutMilliseconds

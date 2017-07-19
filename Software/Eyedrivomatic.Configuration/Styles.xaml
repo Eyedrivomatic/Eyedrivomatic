@@ -43,6 +43,7 @@
         <Setter Property="FontFamily" Value="Ariel"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Margin" Value="10"/>
     </Style>
 
     <infrastructure:BoolToImageConverter x:Key="BoolToSleepStateImageConverter" ImageIfTrue="{StaticResource Sleep}" ImageIfFalse="{StaticResource Off}"/>

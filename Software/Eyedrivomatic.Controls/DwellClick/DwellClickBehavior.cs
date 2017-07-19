@@ -20,6 +20,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
@@ -114,6 +115,20 @@ namespace Eyedrivomatic.Controls.DwellClick
         }
         #endregion Configuration
 
+        public static readonly DependencyProperty RoleProperty = 
+            DependencyProperty.RegisterAttached("Role", typeof(DwellClickActivationRole), typeof(DwellClickBehavior), new PropertyMetadata(DwellClickActivationRole.Standard));
+
+        public static void SetRole(DependencyObject obj, DwellClickActivationRole value)
+        {
+            obj.SetValue(RoleProperty, value);
+        }
+
+        public static DwellClickActivationRole GetRole(DependencyObject obj)
+        {
+            return (DwellClickActivationRole)obj.GetValue(RoleProperty);
+        }
+
+
         #region AdornerStyle
         public static readonly DependencyProperty AdornerStyleProperty =
             DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new PropertyMetadata(null));
@@ -206,8 +221,24 @@ namespace Eyedrivomatic.Controls.DwellClick
             if (_mouseMoves < 0 || ++_mouseMoves < RequiredMouseMoves) return;
             _mouseMoves = -1;
 
-            StartDwellClick(TimeSpan.FromMilliseconds(configruation.DwellTimeMilliseconds));
+            var role = GetRole(AssociatedObject);
+
+            StartDwellClick(GetDwellTime(configruation, role));
             e.Handled = true;
+        }
+
+        private static TimeSpan GetDwellTime(IDwellClickConfigurationService configuration, DwellClickActivationRole role)
+        {
+            var accessors = new Dictionary<DwellClickActivationRole, Func<IDwellClickConfigurationService, int>>
+            {
+                { DwellClickActivationRole.Standard, config => config.StandardDwellTimeMilliseconds },
+                { DwellClickActivationRole.DirectionButtons, config => config.DirectionButtonDwellTimeMilliseconds},
+                { DwellClickActivationRole.StartButton, config => config.StartButtonDwellTimeMilliseconds },
+                { DwellClickActivationRole.StopButton, config => config.StopButtonDwellTimeMilliseconds}
+            };
+
+            var ms = accessors.ContainsKey(role) ? accessors[role](configuration) : configuration.StandardDwellTimeMilliseconds;
+            return TimeSpan.FromMilliseconds(ms);
         }
 
         private bool IsOverClickableVisibleChild(Point point)
