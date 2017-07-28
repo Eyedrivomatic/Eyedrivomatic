@@ -32,31 +32,51 @@ namespace Eyedrivomatic.Configuration.ViewModels
     [Export]
     public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>
     {
-        private readonly IThemeConfigurationService _themeConfigurationService;
+        private readonly IAppearanceConfigurationService _appearanceConfigurationService;
 
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
         [ImportingConstructor]
-        public GeneralConfigurationViewModel(IThemeConfigurationService themeConfigurationService)
+        public GeneralConfigurationViewModel(IAppearanceConfigurationService appearanceConfigurationService)
         {
-            _themeConfigurationService = themeConfigurationService;
-            _themeConfigurationService.PropertyChanged += ThemeConfigurationPropertyChanged;
+            _appearanceConfigurationService = appearanceConfigurationService;
+            _appearanceConfigurationService.PropertyChanged += AppearanceConfigurationPropertyChanged;
         }
 
-        private void ThemeConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void AppearanceConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
         }
 
-        public string Theme
+        public bool HideMouseCursor
         {
-            get => _themeConfigurationService.Theme;
-            set => _themeConfigurationService.Theme = value;
+            get => _appearanceConfigurationService.HideMouseCursor;
+            set => _appearanceConfigurationService.HideMouseCursor = value;
         }
 
-        public IEnumerable<ThemeResourceDictionary> Themes => _themeConfigurationService.Themes;
+        public ThemeColorsResourceDictionary ThemeColors
+        {
+            get => _appearanceConfigurationService.ThemeColors;
+            set => _appearanceConfigurationService.ThemeColors = value;
+        }
 
-        public ICommand SaveCommand => new DelegateCommand(() => _themeConfigurationService.Save(), () => _themeConfigurationService.HasChanges);
+        public ThemeImagesResourceDictionary ThemeImages
+        {
+            get => _appearanceConfigurationService.ThemeImages;
+            set => _appearanceConfigurationService.ThemeImages = value;
+        }
+
+        public ThemeStylesResourceDictionary ThemeStyles
+        {
+            get => _appearanceConfigurationService.ThemeStyles;
+            set => _appearanceConfigurationService.ThemeStyles = value;
+        }
+
+        public IList<ThemeColorsResourceDictionary> AvailableThemeColors => _appearanceConfigurationService.AvailableThemeColors;
+        public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _appearanceConfigurationService.AvailableThemeImages;
+        public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _appearanceConfigurationService.AvailableThemeStyles;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _appearanceConfigurationService.Save(), () => _appearanceConfigurationService.HasChanges);
     }
 }

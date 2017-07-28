@@ -21,27 +21,19 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Eyedrivomatic
 {
     [Export]
-    public partial class Shell : IDisposable
+    public sealed partial class Shell : IDisposable
     {
-        private readonly Cursor _smallCursor;
+        [Import]
+        private IMouseVisibility MouseVisibilty { get; set; }
 
         public Shell()
         {
             InitializeComponent();
-            var streamResourceInfo = Application.GetResourceStream(
-                new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur"));
-
-            if (streamResourceInfo != null)
-            {
-                _smallCursor = new Cursor(streamResourceInfo.Stream);
-                Mouse.OverrideCursor = _smallCursor;
-            }
 
             DriveProfileSelection.Items.Clear();
             MainContent.Content = null;
@@ -54,29 +46,12 @@ namespace Eyedrivomatic
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                Mouse.OverrideCursor = Mouse.OverrideCursor == null ? _smallCursor : null;
-                e.Handled = true;
+                MouseVisibilty.OverrideMouseVisibility(!MouseVisibilty.IsMouseHidden);
             }
         }
 
-        #region IDisposable Support
         public void Dispose()
         {
-            Dispose(true);
         }
-
-        private bool _disposed;
-        protected virtual void Dispose(bool disposeManaged)
-        {
-            if (_disposed) return;
-            _disposed = true;
-
-            if (disposeManaged)
-            {
-                _smallCursor.Dispose();
-            }
-        }
-
-        #endregion
     }
 }

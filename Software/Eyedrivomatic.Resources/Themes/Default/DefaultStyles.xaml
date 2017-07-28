@@ -6,13 +6,15 @@
     <Thickness x:Key="ButtonBorderThickness}">1</Thickness>
     <CornerRadius x:Key="ButtonBorderCorner">3</CornerRadius>
     <Thickness x:Key="DefaultMargin">2</Thickness>
+
     <Thickness x:Key="ItemBorderThickness">0</Thickness>
+    
+    <system:Double x:Key="StandardButtonHeight">50</system:Double>
 
     <system:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">35</system:Double>
+    <system:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">35</system:Double>
+    <system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">35</system:Double>
     <system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">35</system:Double>
-    
-    <Thickness x:Key="GroupBoxBorderThickness">3</Thickness>
-    <CornerRadius x:Key="AreaBorderCorner">3</CornerRadius>
 
     <DataTemplate DataType="{x:Type ImageSource}">
         <Image Source="{Binding}" Stretch="Uniform" Margin="5" RenderOptions.BitmapScalingMode="HighQuality"
@@ -36,7 +38,7 @@
 
     <!-- Button -->
     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Margin" Value="{DynamicResource DefaultMargin}"/>
+        <Setter Property="Margin" Value="{DynamicResource DefaultMargin}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="MinHeight" Value="23" />
@@ -56,29 +58,29 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0"/>
+                                                         To="0" Duration="0:0:0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -134,7 +136,7 @@
     </Style>
 
     <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-        <Setter Property="Margin" Value="{DynamicResource DefaultMargin}"/>
+        <Setter Property="Margin" Value="{DynamicResource DefaultMargin}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="MinHeight" Value="23" />
@@ -154,29 +156,29 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0"/>
+                                                         To="0" Duration="0:0:0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -235,7 +237,7 @@
                                               ContentTemplate="{TemplateBinding ContentTemplate}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"/>
+                                              Margin="{TemplateBinding Padding}" />
                         </Viewbox>
                         <Border x:Name="DisabledVisualElement"
                                 CornerRadius="{DynamicResource ButtonBorderCorner}"
@@ -263,29 +265,29 @@
                                 </VisualStateGroup.Transitions>
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0"/>
+                                                         To="0" Duration="0:0:0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -352,8 +354,8 @@
                                    Source="{DynamicResource ToggleButton.Checked.Image}"
                                    Stretch="Uniform"
                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                   Margin="5" 
-                                   Opacity="0"/>
+                                   Margin="5"
+                                   Opacity="0" />
                             <Image x:Name="UncheckedImage"
                                    Grid.Column="0"
                                    Source="{DynamicResource ToggleButton.Unchecked.Image}"
@@ -395,29 +397,29 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement" 
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="0" Duration="0:0:0"/>
+                                                         To="0" Duration="0:0:0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement" 
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
-                                                         To="1" Duration="0:0:0.2"/>
+                                                         To="1" Duration="0:0:0.2" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -497,33 +499,95 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="Background" Value="{DynamicResource ListBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ListBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
     <Style TargetType="ListBoxItem">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="{DynamicResource ItemBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource ItemBorderThickness}" />
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="{DynamicResource ItemForegroundBrush}"/>
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid>
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="SelectionStates">
-                                <VisualState x:Name="Unselected" />
-                                <VisualState x:Name="Selected">
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <infrastructure:BrushAnimation Duration="0"
-                                                                       Storyboard.TargetName="Border"
-                                                                       Storyboard.TargetProperty="Background"
-                                                                       To="{DynamicResource SelectedBackgroundBrush}" />
-                                        <infrastructure:BrushAnimation Duration="0"
-                                                                       Storyboard.TargetProperty="Foreground"
-                                                                       To="{DynamicResource SelectedForegroundBrush}"/>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0" />
                                     </Storyboard>
                                 </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Duration="0:0:0.2"
+                                                                       Storyboard.TargetProperty="(ListBoxItem.Foreground)"
+                                                                       To="{DynamicResource SelectedForegroundBrush}" />
+                                        <DoubleAnimation Storyboard.TargetName="UnfocusedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unselected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Duration="0:0:0.2"
+                                                                       Storyboard.TargetProperty="(ListBoxItem.Foreground)"
+                                                                       To="{DynamicResource ItemForegroundBrush}" />
+                                        <DoubleAnimation Storyboard.TargetName="UnfocusedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+
                                 <VisualState x:Name="SelectedUnfocused">
                                     <Storyboard>
-                                        <infrastructure:BrushAnimation Duration="0"
+                                        <DoubleAnimation Storyboard.TargetName="UnfocusedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Duration="0:0:0.2"
                                                                        Storyboard.TargetName="Border"
                                                                        Storyboard.TargetProperty="Background"
                                                                        To="{DynamicResource SelectedUnfocusedBrush}" />
@@ -531,20 +595,54 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="Border" Padding="2" BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}">
-                            <ContentPresenter/>
-                        </Border>
+
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}" />
+                        <Border x:Name="PressedVisualElement"
+                                Background="{DynamicResource ButtonPressedBackgroundBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                        <Border x:Name="MouseOverVisualElement"
+                                Background="{DynamicResource ButtonMouseOverBackgroundBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonMouseOverBorderBrush}"
+                                Opacity="0" />
+                        <Border x:Name="SelectedVisualElement"
+                                Background="{DynamicResource SelectedBackgroundBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource SelectedBorderBrush}"
+                                Opacity="0" />
+                        <Border x:Name="UnfocusedVisualElement"
+                                Background="{DynamicResource SelectedBackgroundBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource SelectedBorderBrush}"
+                                Opacity="0" />
+                        <ContentPresenter x:Name="contentPresenter"
+                                            Content="{TemplateBinding Content}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            Margin="{TemplateBinding Padding}" />
+                        <Border x:Name="DisabledVisualElement"
+                                Background="{DynamicResource DisabledOverlayBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                        <AdornerDecorator />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style TargetType="GroupBox">
+    <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderBrush" Value="{DynamicResource GroupBoxBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{DynamicResource GroupBoxBorderThickness}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Margin" Value="10" />
         <Setter Property="Padding" Value="15" />
     </Style>
@@ -658,7 +756,7 @@
     </Style>
 
     <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
-        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <!--<Setter Property="OverridesDefaultStyle" Value="true" />-->
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
@@ -923,5 +1021,15 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SettingGroupBoxStyle" TargetType="GroupBox"  BasedOn="{StaticResource {x:Type GroupBox}}">
+        <Setter Property="Width" Value="530"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="SettingGroupBoxDoubleWidthStyle" TargetType="GroupBox"  BasedOn="{StaticResource SettingGroupBoxStyle}">
+        <Setter Property="Width" Value="1080"/>
     </Style>
 </ResourceDictionary>

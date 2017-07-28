@@ -107,13 +107,14 @@
       <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
     </Compile>
     <Compile Include="DwellClickConfigurationService.cs" />
+    <Compile Include="IAppearanceConfigurationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThemeConfiguration.Designer.cs">
-      <DependentUpon>ThemeConfiguration.settings</DependentUpon>
+    <Compile Include="AppearanceConfiguration.Designer.cs">
+      <DependentUpon>AppearanceConfiguration.settings</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ThemeConfigurationService.cs" />
+    <Compile Include="AppearanceConfigurationService.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\EyegazeConfigruationViewModel.cs" />
     <Compile Include="ViewModels\GeneralConfigurationViewModel.cs" />
@@ -141,9 +142,9 @@
       <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="ThemeConfiguration.settings">
+    <None Include="AppearanceConfiguration.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>ThemeConfiguration.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppearanceConfiguration.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

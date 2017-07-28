@@ -23,12 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
+using Eyedrivomatic.ButtonDriver.Hardware.Models;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
@@ -37,32 +40,25 @@ using NullGuard;
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
     [Export]
-    public class DeviceConfigViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
+    public class DeviceConfigturationViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
     {
         private readonly IButtonDriverConfigurationService _configurationService;
 
         [ImportingConstructor]
-        public DeviceConfigViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
+        public DeviceConfigturationViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
             : base(hardwareService)
         {
             _configurationService = configurationService;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
+
+
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
             AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
             ConnectCommand = new DelegateCommand(Connect, CanConnect);
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
+            TrimCommand = new DelegateCommand<Direction?>(Trim, CanTrim);
 
             RefreshAvailableDeviceList();
-        }
-
-        private void ConfigurationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
-
-            ConnectCommand.RaiseCanExecuteChanged();
-            DisconnectCommand.RaiseCanExecuteChanged();
-            AutoDetectDeviceCommand.RaiseCanExecuteChanged();
         }
 
         public string HeaderInfo => Strings.ViewName_DeviceConfig;
@@ -72,6 +68,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public DelegateCommand AutoDetectDeviceCommand { get; }
         public DelegateCommand ConnectCommand { get; }
         public DelegateCommand DisconnectCommand { get; }
+        public DelegateCommand<Direction?> TrimCommand { get; } 
 
         public bool Connecting => Driver.Connection.State == ConnectionState.Connecting;
         public bool Connected => Driver.Connection.State == ConnectionState.Connected;
@@ -105,7 +102,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public SerialDeviceInfo SelectedDevice
         {
             get => AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString); 
-            set => _configurationService.ConnectionString = (value?.Port ?? string.Empty);
+            set => _configurationService.ConnectionString = value?.Port ?? string.Empty;
         }
 
         public bool AutoConnect
@@ -116,7 +113,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public void RefreshAvailableDeviceList()
         {
-
             AvailableDevices = (from dev in Driver?.Connection.GetAvailableDevices() orderby dev.Item2 select new SerialDeviceInfo(dev.Item1, dev.Item2)).ToList();
 
             ConnectCommand.RaiseCanExecuteChanged();
@@ -160,9 +156,98 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             return Connected;
         }
 
+        public Point TrimPosition => Driver == null ? new Point(90, 90) : new Point(Driver.DeviceSettings.CenterPosX, Driver.DeviceSettings.CenterPosY);
+
+        protected void Trim(Direction? direction)
+        {
+            if (!Connected || direction == null) return;
+
+            var actionDictionary = new Dictionary<Direction, Action>
+            {
+                { Direction.Forward, () => Driver.DeviceSettings.CenterPosY++ },
+                { Direction.Backward, () => Driver.DeviceSettings.CenterPosY-- },
+                { Direction.Right, () => Driver.DeviceSettings.CenterPosX++ },
+                { Direction.Left, () => Driver.DeviceSettings.CenterPosX-- }
+            };
+
+            if (!actionDictionary.ContainsKey(direction.Value)) return;
+            actionDictionary[direction.Value]();
+        }
+
+        protected bool CanTrim(Direction? direction)
+        {
+            if (!Connected || direction == null) return false;
+
+            var actionDictionary = new Dictionary<Direction, Func<bool>>
+            {
+                { Direction.Forward, () => Driver.DeviceSettings.CenterPosY < Driver.DeviceSettings.MaxPosY },
+                { Direction.Backward, () => Driver.DeviceSettings.CenterPosY > Driver.DeviceSettings.MinPosY },
+                { Direction.Right, () => Driver.DeviceSettings.CenterPosX < Driver.DeviceSettings.MaxPosX },
+                { Direction.Left, () => Driver.DeviceSettings.CenterPosX > Driver.DeviceSettings.MinPosY }
+            };
+
+            if (!actionDictionary.ContainsKey(direction.Value)) return false;
+            return actionDictionary[direction.Value]();
+        }
+
+        public int MaxLeft
+        {
+            get => Driver?.DeviceSettings.MinPosX ?? 60;
+            set => Driver.DeviceSettings.MinPosX = value;
+        }
+
+        public int MaxRight
+        {
+            get => Driver?.DeviceSettings.MaxPosX ?? 120;
+            set => Driver.DeviceSettings.MaxPosX = value;
+        }
+
+        public int MaxBackward
+        {
+            get => Driver?.DeviceSettings.MinPosY ?? 60;
+            set => Driver.DeviceSettings.MinPosY = value;
+        }
+
+        public int MaxForward
+        {
+            get => Driver?.DeviceSettings.MaxPosY ?? 120;
+            set => Driver.DeviceSettings.MaxPosY = value;
+        }
+
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnDriverStateChanged(sender, e);
+
+            if (e.PropertyName == nameof(Driver.HardwareReady)) RaisePropertyChanged(nameof(Ready));
+
+            if (e.PropertyName == nameof(Driver.Connection))
+            {
+                ConnectCommand.RaiseCanExecuteChanged();
+                DisconnectCommand.RaiseCanExecuteChanged();
+                AutoDetectDeviceCommand.RaiseCanExecuteChanged();
+                TrimCommand.RaiseCanExecuteChanged();
+
+                RaisePropertyChanged(nameof(Connecting));
+                RaisePropertyChanged(nameof(Connected));
+            }
+        }
+
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+        protected override void OnDriverSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IDeviceSettings.CenterPosX) || e.PropertyName == nameof(IDeviceSettings.CenterPosY))
+            {
+                TrimCommand.RaiseCanExecuteChanged();
+                RaisePropertyChanged(nameof(TrimPosition));
+            }
+        }
+
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+        private void ConfigurationService_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(string.Empty);
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();

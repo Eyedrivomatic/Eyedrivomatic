@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="DefaultImages.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <BitmapImage x:Key="Button.Continue.Content" UriSource="3DDark/Continue.png"/>
+
+    <BitmapImage x:Key="Button.Backward.Content" UriSource="3DDark/Backward.png"/>
+    <BitmapImage x:Key="Button.BackwardLeft.Content" UriSource="3DDark/BackwardLeft.png"/>
+    <BitmapImage x:Key="Button.BackwardRight.Content" UriSource="3DDark/BackwardRight.png"/>
+    <BitmapImage x:Key="Button.Left.Content" UriSource="3DDark/Left.png"/>
+    <BitmapImage x:Key="Button.Right.Content" UriSource="3DDark/Right.png"/>
+    <BitmapImage x:Key="Button.Forward.Content" UriSource="3DDark/Forward.png"/>
+    <BitmapImage x:Key="Button.ForwardLeft.Content" UriSource="3DDark/ForwardLeft.png"/>
+    <BitmapImage x:Key="Button.ForwardRight.Content" UriSource="3DDark/ForwardRight.png"/>
+    <BitmapImage x:Key="Button.NudgeLeft.Content" UriSource="3DDark/NudgeLeft.png"/>
+    <BitmapImage x:Key="Button.NudgeRight.Content" UriSource="3DDark/NudgeRight.png"/>
+
+    <BitmapImage x:Key="Status.Direction.Backward.Content" UriSource="3DDark/Backward.png"/>
+    <BitmapImage x:Key="Status.Direction.BackwardLeft.Content" UriSource="3DDark/BackwardLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.BackwardRight.Content" UriSource="3DDark/BackwardRight.png"/>
+    <BitmapImage x:Key="Status.Direction.Left.Content" UriSource="3DDark/Left.png"/>
+    <BitmapImage x:Key="Status.Direction.Right.Content" UriSource="3DDark/Right.png"/>
+    <BitmapImage x:Key="Status.Direction.Forward.Content" UriSource="3DDark/Forward.png"/>
+    <BitmapImage x:Key="Status.Direction.ForwardLeft.Content" UriSource="3DDark/ForwardLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.ForwardRight.Content" UriSource="3DDark/ForwardRight.png"/>
+    <BitmapImage x:Key="Status.Direction.NudgeLeft.Content" UriSource="3DDark/NudgeLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.NudgeRight.Content" UriSource="3DDark/NudgeRight.png"/>
+
+    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Full.Content" UriSource="3DDark/Full.png"/>
+    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Reduced.Content" UriSource="3DDark/Reduced.png"/>
+    <BitmapImage x:Key="Status.Continue.Content" UriSource="3DDark/Continue.png"/>
+    
+</ResourceDictionary>

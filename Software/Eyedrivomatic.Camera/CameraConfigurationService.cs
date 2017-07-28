@@ -79,7 +79,7 @@ namespace Eyedrivomatic.Camera
         public FilterInfo Camera
         {
             get => AvailableCameras.FirstOrDefault(fi => fi.MonikerString == _configuration.Camera) ?? AvailableCameras.FirstOrDefault();
-            set => _configuration.Camera = value.MonikerString;
+            set => _configuration.Camera = value?.MonikerString;
         }
 
         public IEnumerable<FilterInfo> AvailableCameras => _getCameras();

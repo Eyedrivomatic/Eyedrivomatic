@@ -39,17 +39,11 @@ namespace Eyedrivomatic.Resources
             Log.Info(this, $"Creating Module {nameof(ResourcesModule)}.");
         }
 
-        [Export]
         public IEnumerable<ThemeResourceDictionary> Themes { get; private set; }
 
         public void Initialize()
         {
             Log.Info(this, $"Initializing Module {nameof(ResourcesModule)}.");
-
-            Themes = new List<ThemeResourceDictionary>
-            { 
-                new ThemeResourceDictionary(new Uri(@"pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultTheme.xaml")){ThemeName = "Default"}
-            };
         }
     }
 }

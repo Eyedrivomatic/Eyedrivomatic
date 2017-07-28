@@ -82,7 +82,7 @@ namespace Eyedrivomatic.Configuration
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
             {
                 var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_ProfileConfig;
+                button.Content = Resources.Strings.ViewName_GeneralConfiguration;
                 button.RegionName = RegionNames.ConfigurationContentRegion;
                 button.Target = new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative);
                 button.SortOrder = 0;

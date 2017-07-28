@@ -38,7 +38,17 @@ namespace Eyedrivomatic.Controls
             set => SetValue(MinValueProperty, value);
         }
 
-        public ICommand IncrementCommand => new DelegateCommand(() => Value++, () => Value < MaxValue);
-        public ICommand DecrementCommand => new DelegateCommand(() => Value--, () => Value > MinValue);
+        public static readonly DependencyProperty StepProperty = DependencyProperty.Register(
+            nameof(Step), typeof(int), typeof(IntUpDown), new PropertyMetadata(1));
+
+        public int Step
+        {
+            get => (int) GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
+        }
+
+        public ICommand IncrementCommand => new DelegateCommand(() => Value += Step, () => Value <= MaxValue + Step);
+        public ICommand DecrementCommand => new DelegateCommand(() => Value -= Step, () => Value >= MinValue - Step);
+
     }
 }

@@ -25,6 +25,7 @@ using System.Windows.Input;
 using Accord.Video.DirectShow;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using NullGuard;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -47,9 +48,16 @@ namespace Eyedrivomatic.Camera.ViewModels
         private void CameraConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
+            RaisePropertyChanged(e.PropertyName);
         }
 
+        public bool CameraEnabled
+        {
+            get => _cameraConfigurationService.CameraEnabled;
+            set => _cameraConfigurationService.CameraEnabled = value;
+        }
+
+        [AllowNull]
         public FilterInfo Camera
         {
             get => _cameraConfigurationService.Camera;

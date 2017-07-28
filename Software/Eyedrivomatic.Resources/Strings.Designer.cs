@@ -379,24 +379,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Half.
-        /// </summary>
-        public static string DrivingView_XDuration_Half {
-            get {
-                return ResourceManager.GetString("DrivingView_XDuration_Half", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Half.
-        /// </summary>
-        public static string DrivingView_YDuration_Half {
-            get {
-                return ResourceManager.GetString("DrivingView_YDuration_Half", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Full.
         /// </summary>
         public static string Hardware_DiagSpeedFullImage {
@@ -703,6 +685,56 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees. The maximum movement is between 60 and 120. Be very careful not to exceed the physical limits of the hardware of your wheelchair!.
+        /// </summary>
+        public static string SettingDescription_DeviceLimits {
+            get {
+                return ResourceManager.GetString("SettingDescription_DeviceLimits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use this to set the center-point for the &quot;Electronic Hand&quot; measured in degrees. 
+        ///The center should be close to &quot;90,90&quot; and must be within the device limits specified above..
+        /// </summary>
+        public static string SettingDescription_DeviceTrim {
+            get {
+                return ResourceManager.GetString("SettingDescription_DeviceTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the transparency of the direction buttons overlaying the forward view camera. Use &quot;0&quot; for transparent and &quot;100&quot; for fully opaque. 
+        ///This setting is only effective while the forward view camera is active..
+        /// </summary>
+        public static string SettingDescription_DriveViewTransparency {
+            get {
+                return ResourceManager.GetString("SettingDescription_DriveViewTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The dwell time settings specify the time that a control should be selected before it activates. 
+        ///Most controls will use the &quot;Standard&quot; time. However there are special controls that should have shorter or longer dwell times for safety or convenience. 
+        ///The &quot;Stop&quot; button for example should have a very short dwell time to help stop the chair in an emergency. 
+        ///The &quot;Start&quot; button should have a very long dwell time to prevent accidental activation..
+        /// </summary>
+        public static string SettingDescription_DwellTimes {
+            get {
+                return ResourceManager.GetString("SettingDescription_DwellTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With this setting enabled, use the left &quot;ctrl&quot; key to toggle the mouse cursor visiblity..
+        /// </summary>
+        public static string SettingDescription_HideMouse {
+            get {
+                return ResourceManager.GetString("SettingDescription_HideMouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The forward deflection when the backward button is presssed..
         /// </summary>
         public static string SettingDescription_ProfileSpeed_Backward {
@@ -766,6 +798,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drive View.
+        /// </summary>
+        public static string SettingGroupName_DriveView {
+            get {
+                return ResourceManager.GetString("SettingGroupName_DriveView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dwell Click Settings.
         /// </summary>
         public static string SettingGroupName_DwellClick {
@@ -775,11 +816,29 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help.
+        ///   Looks up a localized string similar to Dwell Times.
         /// </summary>
-        public static string SettingGroupName_Help {
+        public static string SettingGroupName_DwellTimes {
             get {
-                return ResourceManager.GetString("SettingGroupName_Help", resourceCulture);
+                return ResourceManager.GetString("SettingGroupName_DwellTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyegaze System Interface.
+        /// </summary>
+        public static string SettingGroupName_EyegazeInterface {
+            get {
+                return ResourceManager.GetString("SettingGroupName_EyegazeInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse.
+        /// </summary>
+        public static string SettingGroupName_Mouse {
+            get {
+                return ResourceManager.GetString("SettingGroupName_Mouse", resourceCulture);
             }
         }
         
@@ -811,6 +870,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Camera Enabled.
+        /// </summary>
+        public static string SettingName_CameraEnabled {
+            get {
+                return ResourceManager.GetString("SettingName_CameraEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Overlay Transparency.
+        /// </summary>
+        public static string SettingName_DriveViewTransparency {
+            get {
+                return ResourceManager.GetString("SettingName_DriveViewTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string SettingName_DwellClickEnabled {
@@ -829,7 +906,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Direction Buttons Dwell Time.
+        ///   Looks up a localized string similar to Direction Buttons.
         /// </summary>
         public static string SettingName_DwellClickTime_DirectionButtons {
             get {
@@ -838,7 +915,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Standard Dwell Time.
+        ///   Looks up a localized string similar to Standard.
         /// </summary>
         public static string SettingName_DwellClickTime_Standard {
             get {
@@ -847,7 +924,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Direction Buttons Dwell Time.
+        ///   Looks up a localized string similar to Start Button.
         /// </summary>
         public static string SettingName_DwellClickTime_StartButton {
             get {
@@ -856,7 +933,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Button Dwell Time.
+        ///   Looks up a localized string similar to Stop Button.
         /// </summary>
         public static string SettingName_DwellClickTime_StopButton {
             get {
@@ -870,6 +947,24 @@ namespace Eyedrivomatic.Resources {
         public static string SettingName_DwellClickTimeout {
             get {
                 return ResourceManager.GetString("SettingName_DwellClickTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyegaze System.
+        /// </summary>
+        public static string SettingName_EyegazeInterface {
+            get {
+                return ResourceManager.GetString("SettingName_EyegazeInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Mouse Cursor.
+        /// </summary>
+        public static string SettingName_HideMouse {
+            get {
+                return ResourceManager.GetString("SettingName_HideMouse", resourceCulture);
             }
         }
         
@@ -991,11 +1086,47 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Theme.
+        ///   Looks up a localized string similar to Colors.
         /// </summary>
-        public static string SettingName_Theme {
+        public static string SettingName_ThemeColors {
             get {
-                return ResourceManager.GetString("SettingName_Theme", resourceCulture);
+                return ResourceManager.GetString("SettingName_ThemeColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        public static string SettingName_ThemeImages {
+            get {
+                return ResourceManager.GetString("SettingName_ThemeImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Styles.
+        /// </summary>
+        public static string SettingName_ThemeStyles {
+            get {
+                return ResourceManager.GetString("SettingName_ThemeStyles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limits.
+        /// </summary>
+        public static string SettingsGroupName_DeviceLimits {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_DeviceLimits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trim.
+        /// </summary>
+        public static string SettingsGroupName_Trim {
+            get {
+                return ResourceManager.GetString("SettingsGroupName_Trim", resourceCulture);
             }
         }
         
@@ -1135,24 +1266,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudge Duration.
-        /// </summary>
-        public static string TrimView_NudgeDuration {
-            get {
-                return ResourceManager.GetString("TrimView_NudgeDuration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nudge Speed.
-        /// </summary>
-        public static string TrimView_NudgeSpeed {
-            get {
-                return ResourceManager.GetString("TrimView_NudgeSpeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Camera.
         /// </summary>
         public static string ViewName_CameraConfiguration {
@@ -1171,7 +1284,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BrainBox.
+        ///   Looks up a localized string similar to Hardware.
         /// </summary>
         public static string ViewName_DeviceConfig {
             get {
@@ -1239,15 +1352,6 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_Status {
             get {
                 return ResourceManager.GetString("ViewName_Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trim.
-        /// </summary>
-        public static string ViewName_Trim {
-            get {
-                return ResourceManager.GetString("ViewName_Trim", resourceCulture);
             }
         }
     }

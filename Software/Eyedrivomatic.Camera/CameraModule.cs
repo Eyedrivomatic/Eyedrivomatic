@@ -25,7 +25,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Accord.Video.DirectShow;
 using Eyedrivomatic.Camera.Views;
+using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Microsoft.Practices.ServiceLocation;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -38,12 +40,14 @@ namespace Eyedrivomatic.Camera
     public class CameraModule : IModule
     {
         private readonly IRegionManager _regionManager;
+        private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public CameraModule(IRegionManager regionManager)
+        public CameraModule(IRegionManager regionManager, IServiceLocator serviceLocator)
         {
             Log.Info(this, $"Creating Module {nameof(CameraModule)}.");
             _regionManager = regionManager;
+            _serviceLocator = serviceLocator;
         }
 
         [Export("GetCameras")]
@@ -54,6 +58,18 @@ namespace Eyedrivomatic.Camera
             Log.Debug(this, $"Initializing Module {nameof(CameraModule)}.");
 
             _regionManager.RegisterViewWithRegion(RegionNames.ForwardViewCameraRegion, typeof(CameraView));
+
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(CameraConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
+            {
+                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
+                button.Content = Resources.Strings.ViewName_CameraConfiguration;
+                button.RegionName = RegionNames.ConfigurationContentRegion;
+                button.Target = new Uri($@"/{nameof(CameraConfigurationView)}", UriKind.Relative);
+                button.SortOrder = 3;
+                return button;
+            });
+
         }
     }
 }

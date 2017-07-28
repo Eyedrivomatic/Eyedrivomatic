@@ -24,42 +24,120 @@
 <UserControl x:Class="Eyedrivomatic.Configuration.Views.GeneralConfigurationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1160"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             xmlns:mvvm="http://prismlibrary.com/"
+             mc:Ignorable="d"
+             d:DesignWidth="869"
+             mvvm:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml"/>
+                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <WrapPanel Orientation="Horizontal">
 
-        <Viewbox Grid.Column="0" Stretch="Uniform" StretchDirection="DownOnly">
-            <GroupBox x:Name="ThemeSettings" Width="400" Header="{x:Static resources:Strings.SettingGroupName_Appearance}" Padding="5">
-                <Grid>
+            <GroupBox x:Name="MouseSettings"
+                      Header="{x:Static resources:Strings.SettingGroupName_Appearance}"
+                      Style="{DynamicResource SettingGroupBoxStyle}">
+                      
+                <StackPanel Orientation="Vertical">
+                    <ToggleButton Style="{DynamicResource CheckedToggleButtonStyle}" 
+                                  Height="{DynamicResource StandardButtonHeight}"
+                                  Content="{x:Static resources:Strings.SettingName_HideMouse}"
+                                  Margin="5,20,5,5"
+                                  IsChecked="{Binding HideMouseCursor}" />
+                    <Label Content="{x:Static resources:Strings.SettingDescription_HideMouse}"
+                           Margin="10" />
+                </StackPanel>
+
+            </GroupBox>
+
+            <GroupBox x:Name="ThemeSettings"
+                      Header="{x:Static resources:Strings.SettingGroupName_Appearance}"
+                      Style="{DynamicResource SettingGroupBoxStyle}">
+                <Grid VerticalAlignment="Top">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="Theme" Grid.Row="1" Grid.Column="0" Content="{x:Static resources:Strings.SettingName_Theme}" Style="{StaticResource SettingLabelStyle}"/>
-                    <controls:BrowsableList x:Name="ThemeListBox" Grid.Row="1" ItemsSource="{Binding Themes}"/>
+                    <Label x:Name="ThemeColorsLabel"
+                           Grid.Row="1" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ThemeColors}"
+                           Style="{StaticResource SettingLabelStyle}"
+                           HorizontalAlignment="Left"
+                           Margin="10,20,10,0" />
+
+                    <ListBox x:Name="ThemeColorsListBox"
+                             Grid.Row="2" Grid.Column="0"
+                             ItemsSource="{Binding AvailableThemeColors, Mode=OneTime}"
+                             SelectedValue="{Binding ThemeColors}"
+                             MinHeight="100"
+                             Height="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="infrastructure:ThemeColorsResourceDictionary">
+                                <Label Content="{Binding ThemeName}" Height="50" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Label x:Name="ThemeImagesLabel"
+                           Grid.Row="3" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ThemeImages}"
+                           Style="{StaticResource SettingLabelStyle}"
+                           HorizontalAlignment="Left"
+                           Margin="10,20,10,0" />
+
+                    <ListBox x:Name="ThemeImagesListBox"
+                             Grid.Row="4" Grid.Column="0"
+                             ItemsSource="{Binding AvailableThemeImages}"
+                             SelectedValue="{Binding ThemeImages}"
+                             MinHeight="100"
+                             Height="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="infrastructure:ThemeImagesResourceDictionary">
+                                <Label Content="{Binding ThemeName}" Height="50" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Label x:Name="ThemeStylesLabel"
+                           Grid.Row="5" Grid.Column="0"
+                           Content="{x:Static resources:Strings.SettingName_ThemeStyles}"
+                           Style="{StaticResource SettingLabelStyle}"
+                           HorizontalAlignment="Left"
+                           Margin="10,20,10,0" />
+
+                    <ListBox x:Name="ThemeStylesListBox"
+                             Grid.Row="6" Grid.Column="0"
+                             ItemsSource="{Binding AvailableThemeStyles}"
+                             SelectedValue="{Binding ThemeStyles}"
+                             MinHeight="100"
+                             Height="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="infrastructure:ThemeStylesResourceDictionary">
+                                <Label Content="{Binding ThemeName}" Height="50" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </GroupBox>
-        </Viewbox>
+        </WrapPanel>
     </Grid>
 </UserControl>

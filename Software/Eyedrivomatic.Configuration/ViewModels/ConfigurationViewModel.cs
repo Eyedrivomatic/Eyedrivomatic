@@ -19,8 +19,8 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -30,5 +30,9 @@ namespace Eyedrivomatic.Configuration.ViewModels
     public class ConfigurationViewModel : IHeaderInfoProvider<string>
     {
         public string HeaderInfo => Strings.ViewName_Configuration;
+
+        public List<ThemeResourceDictionary> AvailableColors;
+
+
     }
 }

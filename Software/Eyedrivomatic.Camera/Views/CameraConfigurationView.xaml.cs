@@ -19,18 +19,24 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using Eyedrivomatic.Infrastructure;
+using System.ComponentModel.Composition;
+using Eyedrivomatic.Camera.ViewModels;
 
-namespace Eyedrivomatic.Resources
+namespace Eyedrivomatic.Camera.Views
 {
-    public interface IThemeConfigurationService : INotifyPropertyChanged
+    [Export]
+    public partial class CameraConfigurationView
     {
-        string Theme { get; set; }
+        public CameraConfigurationView()
+        {
+            InitializeComponent();
+        }
 
-        void Save();
-        bool HasChanges { get; }
-        IList<ThemeResourceDictionary> Themes { get; }
+        [Import]
+        public CameraConfigurationViewModel ViewModel
+        {
+            get => (CameraConfigurationViewModel)DataContext;
+            set => DataContext = value;
+        }
     }
 }

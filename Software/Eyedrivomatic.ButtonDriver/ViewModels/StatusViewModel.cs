@@ -43,8 +43,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine($@"!!!!!! PROPERTY CHANGED !!!!!! - {sender}:{e.PropertyName}");
-
             base.OnDriverStateChanged(sender, e);
             if (e.PropertyName == nameof(Driver.DeviceStatus))
             {

@@ -142,7 +142,9 @@
     <Compile Include="DisclaimerWindow.xaml.cs">
       <DependentUpon>DisclaimerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IMouseVisibility.cs" />
     <Compile Include="Log4NetLogger.cs" />
+    <Compile Include="MouseVisibility.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Page Include="DisclaimerWindow.xaml">
       <SubType>Designer</SubType>

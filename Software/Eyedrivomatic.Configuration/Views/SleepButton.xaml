@@ -36,7 +36,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
             <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
         </ResourceDictionary>
     </UserControl.Resources>

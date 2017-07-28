@@ -67,6 +67,7 @@
                     <Setter Property="FontStyle" Value="Oblique" />
                 </Style.Setters>
             </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="LayoutRoot">
@@ -100,7 +101,7 @@
         <UniformGrid Name="LeftRightDurationGrid" Grid.Column="0" Grid.Row="1" Columns="1">
             <RadioButton GroupName="XDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"
-                         Content="{x:Static resources:Strings.DrivingView_XDuration_Half}"
+                         Content="0.5" ContentStringFormat="F1"
                          IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=500}" />
             <RadioButton GroupName="XDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"
@@ -108,7 +109,7 @@
                          IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=1000}" />
             <RadioButton GroupName="XDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"
-                         Content="1.5"
+                         Content="1.5" ContentStringFormat="F1"
                          IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=1500}" />
             <RadioButton GroupName="XDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"
@@ -196,7 +197,7 @@
         <UniformGrid Name="ForwardBackwardDuration" Grid.Column="4" Grid.Row="1" Columns="1">
             <RadioButton GroupName="YDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"
-                         Content="{x:Static resources:Strings.DrivingView_YDuration_Half}"
+                         Content="0.5"  ContentStringFormat="F1"
                          IsChecked="{Binding YDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=500}" />
             <RadioButton GroupName="YDuration"
                          Style="{DynamicResource RadioToggleButtonStyle}"

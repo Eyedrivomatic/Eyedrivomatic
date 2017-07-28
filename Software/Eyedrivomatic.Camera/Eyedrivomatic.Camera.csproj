@@ -108,6 +108,9 @@
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CameraConfigurationViewModel.cs" />
+    <Compile Include="Views\CameraConfigurationView.xaml.cs">
+      <DependentUpon>CameraConfigurationView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -124,6 +127,10 @@
       <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
       <Name>Eyedrivomatic.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
+      <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
+      <Name>Eyedrivomatic.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
       <Name>Eyedrivomatic.Infrastructure</Name>
@@ -137,6 +144,10 @@
     <Page Include="Views\CameraView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CameraConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

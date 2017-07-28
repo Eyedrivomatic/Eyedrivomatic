@@ -26,78 +26,201 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              mc:Ignorable="d"
-             Height="870" Width="860">
+             d:DesignWidth="869"
+             mvvm:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml" />
+                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter"
+                                                      VisibilityIfTrue="{x:Static Visibility.Visible}"
+                                                      VisibilityIfFalse="{x:Static Visibility.Collapsed}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot">
-        <GroupBox x:Name="DeviceSelection" 
-                  Header="{x:Static resources:Strings.SettingGroupName_DeviceConnection}"
-                  Grid.Column="0" Padding="10">
-            <Grid x:Name="InnerGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="300" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+    <Grid Name="LayoutRoot">
+        <WrapPanel Orientation="Horizontal">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <GroupBox Name="DeviceSelectionGroupBox"
+                      Header="{x:Static resources:Strings.SettingGroupName_DeviceConnection}"
+                      Style="{DynamicResource SettingGroupBoxStyle}">
+                <Grid Name="InnerGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="300" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <Button x:Name="AutoDiscoverButton"
-                        Command="{Binding AutoDetectDeviceCommand}"
-                        Content="{x:Static resources:Strings.CommandText_AutoDiscover}"
-                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="80"
-                        Margin="5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <controls:BrowsableList x:Name="DeviceSelectionList"
-                                        PrevLabel="{x:Static resources:Strings.CommandText_PrevDevice}"
-                                        NextLabel="{x:Static resources:Strings.CommandText_NextDevice}"
-                                        Grid.Row="1" Grid.Column="0"
-                                        Grid.ColumnSpan="2" 
-                                        ItemsSource="{Binding AvailableDevices}"
-                                        SelectedValue="{Binding SelectedDevice}"
-                                        IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}"
-                                        Margin="5" />
+                    <Button Name="AutoDiscoverButton"
+                            Command="{Binding AutoDetectDeviceCommand}"
+                            Content="{x:Static resources:Strings.CommandText_AutoDiscover}"
+                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                            Height="{DynamicResource StandardButtonHeight}"
+                            Margin="5" />
+
+                    <ListBox Name="DeviceSelectionList"
+                             Grid.Row="1" Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             ItemsSource="{Binding AvailableDevices}"
+                             SelectedValue="{Binding SelectedDevice}"
+                             IsEnabled="{Binding ElementName=AutoDiscoverButton, Path=IsEnabled}"
+                             Margin="5" />
 
 
-                <Button x:Name="DisconnectButton"
-                        Content="{x:Static resources:Strings.CommandText_Disconnect}"
-                        Command="{Binding DisconnectCommand}"
-                        Grid.Row="2" Grid.Column="0"
-                        Height="80" 
-                        Margin="5"/>
+                    <Button Name="DisconnectButton"
+                            Content="{x:Static resources:Strings.CommandText_Disconnect}"
+                            Command="{Binding DisconnectCommand}"
+                            Grid.Row="2" Grid.Column="0"
+                            Height="{DynamicResource StandardButtonHeight}"
+                            Margin="5" />
 
-                <Button x:Name="ConnectButton"
-                        Content="{x:Static resources:Strings.CommandText_Connect}"
-                        Command="{Binding ConnectCommand}"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Height="80"
-                        Margin="5" />
+                    <Button Name="ConnectButton"
+                            Content="{x:Static resources:Strings.CommandText_Connect}"
+                            Command="{Binding ConnectCommand}"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Height="{DynamicResource StandardButtonHeight}"
+                            Margin="5" />
 
-                <ToggleButton x:Name="AutoConnectCheckBox"
-                              Style="{DynamicResource CheckedToggleButtonStyle}"
-                              Content="{x:Static resources:Strings.SettingName_AutoConnect}"
-                              Grid.Row="3"
-                              Grid.Column="0"
-                              Height="80"
-                              IsChecked="{Binding AutoConnect}"
-                              Grid.ColumnSpan="2"
-                              Margin="5" />
-            </Grid>
-        </GroupBox>
+                    <ToggleButton Name="AutoConnectCheckBox"
+                                  Style="{DynamicResource CheckedToggleButtonStyle}"
+                                  Content="{x:Static resources:Strings.SettingName_AutoConnect}"
+                                  Grid.Row="3"
+                                  Grid.Column="0"
+                                  Height="{DynamicResource StandardButtonHeight}"
+                                  IsChecked="{Binding AutoConnect}"
+                                  Grid.ColumnSpan="2"
+                                  Margin="5" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Name="LimitsGroupBox"
+                      Header="{x:Static resources:Strings.SettingsGroupName_DeviceLimits}"
+                      Style="{DynamicResource SettingGroupBoxStyle}"
+                      Visibility="{Binding Connected, Converter={StaticResource BoolToCollapsedConverter}}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="LimitsDescriptionTextBlock"
+                               Style="{DynamicResource SettingDescriptionTextBlockStyle}"
+                               Text="{x:Static resources:Strings.SettingDescription_DeviceLimits}" />
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="25*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:IntUpDown Name="MaxForward"
+                                                Grid.Column="1"
+                                                MinValue="91" MaxValue="120"
+                                                Value="{Binding MaxForward}"
+                                                Margin="10" />
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:IntUpDown Name="MaxLeft"
+                                                Grid.Column="0"
+                                                MinValue="60" MaxValue="89"
+                                                Value="{Binding MaxLeft}"
+                                                Margin="10" />
+
+                            <controls:IntUpDown Name="MaxRight"
+                                                Grid.Column="1"
+                                                MinValue="91" MaxValue="120"
+                                                Value="{Binding MaxRight}"
+                                                Margin="10" />
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="25*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:IntUpDown Name="MaxBackward"
+                                                Grid.Column="1"
+                                                MinValue="60" MaxValue="89"
+                                                Value="{Binding MaxBackward}"
+                                                Margin="10" />
+                        </Grid>
+
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Name="TrimGroupBox"
+                      Header="{x:Static resources:Strings.SettingsGroupName_Trim}"
+                      Style="{DynamicResource SettingGroupBoxStyle}"
+                      Visibility="{Binding Connected, Converter={StaticResource BoolToCollapsedConverter}}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="TrimDescriptionTextBlock"
+                               Style="{DynamicResource SettingDescriptionTextBlockStyle}"
+                               Text="{x:Static resources:Strings.SettingDescription_DeviceTrim}" />
+
+                    <Grid Name="TrimGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Name="ForwardButton"
+                                Grid.Row="0" Grid.Column="1"
+                                Content="{DynamicResource Button.TrimForward.Content}"
+                                Command="{Binding TrimCommand}"
+                                CommandParameter="{x:Static services:Direction.Forward}" />
+                        <Button Name="RightButton"
+                                Grid.Row="1" Grid.Column="2"
+                                Content="{DynamicResource Button.TrimRight.Content}"
+                                Command="{Binding TrimCommand}" CommandParameter="{x:Static services:Direction.Right}" />
+                        <Button Name="BackwardButton"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Content="{DynamicResource Button.TrimBackward.Content}"
+                                Command="{Binding TrimCommand}"
+                                CommandParameter="{x:Static services:Direction.Backward}" />
+                        <Button Name="LeftButton"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Content="{DynamicResource Button.TrimLeft.Content}"
+                                Command="{Binding TrimCommand}" CommandParameter="{x:Static services:Direction.Left}" />
+
+                        <Label Name="TrimValue"
+                               Grid.Row="1" Grid.Column="1"
+                               Style="{DynamicResource SettingLabelStyle}"
+                               FontSize="28"
+                               Content="{Binding TrimPosition}"
+                               HorizontalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+        </WrapPanel>
     </Grid>
 </UserControl>

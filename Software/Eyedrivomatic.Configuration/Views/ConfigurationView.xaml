@@ -7,33 +7,31 @@
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
-             d:DesignHeight="940" d:DesignWidth="1144">
+             d:DesignHeight="660"
+             d:DesignWidth="904">
     <Grid x:Name="ConfigurationAreaLayout">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="650" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl x:Name="ConfigurationContent"
-                        Grid.Row="0" Grid.Column="0"
-                        regions:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationContentRegion}" />
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" CanContentScroll="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      HorizontalContentAlignment="Stretch">
+            <ContentControl x:Name="ConfigurationContent"
+                            HorizontalAlignment="Left"
+                            regions:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationContentRegion}"/>
+        </ScrollViewer>
 
-        <GroupBox x:Name="ConfigurationHelpGroupBox"
-                  Grid.Row="0" Grid.Column="1"
-                  Header="{x:Static resources:Strings.SettingGroupName_Help}">
-            <ScrollViewer>
-                <ContentControl x:Name="ConfigurationHelpContext"
-                                regions:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationHelpRegion}" />
-            </ScrollViewer>
-        </GroupBox>
-
-        <UniformGrid Rows="1" Grid.Row="1" Grid.Column="1">
-            <Button x:Name="CancelButton" Content="{x:Static resources:Strings.CommandText_Cancel}" Margin="5" />
-            <Button x:Name="SaveButton" Content="{x:Static resources:Strings.CommandText_Save}" Margin="5" />
+        <UniformGrid Rows="1" Grid.Row="1" Width="550" HorizontalAlignment="Right">
+            <Button x:Name="CancelButton" 
+                    Content="{x:Static resources:Strings.CommandText_Cancel}" 
+                    Margin="5"
+                    Height="{DynamicResource StandardButtonHeight}" />
+            <Button x:Name="SaveButton" 
+                    Content="{x:Static resources:Strings.CommandText_Save}" 
+                    Margin="5"                     
+                    Height="{DynamicResource StandardButtonHeight}"/>
         </UniformGrid>
     </Grid>
 </UserControl>

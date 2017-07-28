@@ -103,7 +103,7 @@ namespace Eyedrivomatic.Startup
                 }
             }
 
-            (Shell as Shell)?.Dispose();
+            (Shell as IDisposable)?.Dispose();
         }
 
         public void Dispose()

@@ -44,8 +44,13 @@
 
     <SolidColorBrush x:Key="DisabledOverlayBrush" Color="#4CE8EDF9"/>
 
-    <SolidColorBrush x:Key="ItemBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
+    <SolidColorBrush x:Key="ListBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.WindowBrush}}"/>
+    <SolidColorBrush x:Key="ListBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+
+    <SolidColorBrush x:Key="ItemBackgroundBrush" Color="Transparent"/>
     <SolidColorBrush x:Key="ItemBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ItemForegroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+    <SolidColorBrush x:Key="SelectedBorderBrush" Color="Transparent"/>
     <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
     <SolidColorBrush x:Key="SelectedForegroundBrush" Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
 

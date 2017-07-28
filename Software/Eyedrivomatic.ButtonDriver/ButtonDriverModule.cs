@@ -92,6 +92,7 @@ namespace Eyedrivomatic.ButtonDriver
                     {
                         Log.Warn(this, "Connection string not specified. Attempting to auto-detect.");
                         await connection.AutoConnectAsync();
+                        _configurationService.ConnectionString = connection.ConnectionString;
                     }
                 }
             }

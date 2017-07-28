@@ -327,14 +327,6 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Gehen</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="DrivingView_XDuration_Half" xml:space="preserve">
-    <value>Halbieren</value>
-    <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
-  </data>
-  <data name="DrivingView_YDuration_Half" xml:space="preserve">
-    <value>Halbieren</value>
-    <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
-  </data>
   <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
     <value>Verbindungs Einstellungen</value>
     <comment>Title of the group containing settings for the device connection.</comment>
@@ -430,14 +422,6 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="StatusView_YServo" xml:space="preserve">
     <value>Y Servo</value>
     <comment>The current direction applied to the y servo.</comment>
-  </data>
-  <data name="TrimView_NudgeDuration" xml:space="preserve">
-    <value>Stubs Dauer</value>
-    <comment>The time that the nudge is applied to the current motion.</comment>
-  </data>
-  <data name="TrimView_NudgeSpeed" xml:space="preserve">
-    <value>Schubs Geschwindigkeit </value>
-    <comment>The amount of nudge that is applied.</comment>
   </data>
   <data name="ViewName_Configuration" xml:space="preserve">
     <value>Einstellung</value>

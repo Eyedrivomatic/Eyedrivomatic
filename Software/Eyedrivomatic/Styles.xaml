@@ -34,6 +34,11 @@
         <Setter Property="dwellClick:DwellClickBehavior.AdornerStyle" Value="{DynamicResource DwellClickAdornerStyle}"/>
     </Style>
 
+    <Style TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource {x:Type RepeatButton}}">
+        <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration)}"/>
+        <Setter Property="dwellClick:DwellClickBehavior.AdornerStyle" Value="{DynamicResource DwellClickAdornerStyle}"/>
+    </Style>
+
     <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration)}"/>
         <Setter Property="dwellClick:DwellClickBehavior.AdornerStyle" Value="{DynamicResource DwellClickAdornerStyle}"/>

@@ -57,11 +57,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         {
             if (!_messageHandlers.ContainsKey(args.SettingName))
             {
-                Log.Error(this, $"Invalid Setting [{args.SettingName} received");
+                Log.Error(this, $"Invalid Setting [{args.SettingName}] received");
                 IsKnown = false;
                 return;
             }
-            
+            Log.Info(this, $"Setting [{args.SettingName}] changed to [{args.SettingValue}]");
             _messageHandlers[args.SettingName](args.SettingValue);
             IsKnown = true;
         }

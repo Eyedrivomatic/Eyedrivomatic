@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Configuration" GeneratedClassName="AppearanceConfiguration">
+  <Profiles />
+  <Settings>
+    <Setting Name="SettingsVersion" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="ThemeColors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Windows Default</Value>
+    </Setting>
+    <Setting Name="ThemeImages" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3D Dark</Value>
+    </Setting>
+    <Setting Name="ThemeStyles" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="HideMouseCursor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CameraOverlayTransparency" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

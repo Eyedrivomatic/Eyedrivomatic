@@ -5,15 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Eyedrivomatic.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="200">
-    <Grid>
+             d:DesignWidth="400">
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition  Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Content="-" Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=IncrementCommand}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"/>
-        <TextBox Grid.Column="1" Text="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=Value}" Margin="3,0,3,0"/>
-        <Button Grid.Column="2" Content="+"  Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=DecrementCommand}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"/>
+        <Button Grid.Column="0" Content="-" 
+                Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
+                Height="{DynamicResource StandardButtonHeight}"
+                Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=DecrementCommand}" 
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center" />
+        
+        <TextBox Name="ValueTextBox"
+                 Grid.Column="1" 
+                 Text="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=Value}" 
+                 Margin="3,0,3,0"
+                 VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        
+        <Button Grid.Column="2" Content="+"  
+                Height="{DynamicResource StandardButtonHeight}"
+                Width="{DynamicResource StandardButtonHeight}"
+                Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=IncrementCommand}" 
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center" />
     </Grid>
 </UserControl>

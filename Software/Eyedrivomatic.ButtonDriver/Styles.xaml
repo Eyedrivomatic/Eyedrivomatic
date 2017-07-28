@@ -42,16 +42,14 @@
 
     <infrastructure:ValueToImageConverter x:Key="ConnectionStateToImageConverter">
         <Image x:Key="{x:Static communications:ConnectionState.Disconnected}"
-               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Disconnected}"/>
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Disconnected.Content}"/>
         <Image x:Key="{x:Static communications:ConnectionState.Connecting}"
-               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connecting}"/>
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connecting.Content}"/>
         <Image x:Key="{x:Static communications:ConnectionState.Connected}"
-               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connected}"/>
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connected.Content}"/>
         <Image x:Key="{x:Static communications:ConnectionState.Error}"
-               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Error}"/>
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Error.Content}"/>
     </infrastructure:ValueToImageConverter>
-
-
 
     <infrastructure:ValueToImageConverter x:Key="ReadyStateStatusImageConverter">
         <Image x:Key="{x:Static services:ReadyState.Any}"  Source="{DynamicResource Status.Ready.Content}"/>

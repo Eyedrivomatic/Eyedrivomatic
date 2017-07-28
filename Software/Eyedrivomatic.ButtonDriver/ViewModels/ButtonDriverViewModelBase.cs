@@ -40,9 +40,17 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => _driver;
             private set
             {
-                if (_driver != null) _driver.PropertyChanged -= OnDriverStateChanged;
+                if (_driver != null)
+                {
+                    _driver.PropertyChanged -= OnDriverStateChanged;
+                    _driver.DeviceSettings.PropertyChanged -= OnDriverSettingsChanged;
+                }
                 SetProperty(ref _driver, value);
-                if (_driver != null) _driver.PropertyChanged += OnDriverStateChanged;
+                if (_driver != null)
+                {
+                    _driver.PropertyChanged += OnDriverStateChanged;
+                    _driver.DeviceSettings.PropertyChanged += OnDriverSettingsChanged;
+                }
             }
         }
 
@@ -59,6 +67,10 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             RaisePropertyChanged(e.PropertyName);
         }
 
+        protected virtual void OnDriverSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+        }
+
         protected void LogSettingChange(object value, [CallerMemberName] string settingName = null)
         {
             Log.Info(this, $"Set [{settingName}] on [{Driver.Profile.Name}] to [{value}].");
@@ -68,8 +80,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             if (disposing)
             {
-                _driver?.Dispose();
-                HardwareService?.Dispose();
+                Driver = null;
             }
         }
 
