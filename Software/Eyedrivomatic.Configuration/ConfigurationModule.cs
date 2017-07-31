@@ -28,7 +28,6 @@ using Prism.Regions;
 
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
-using Eyedrivomatic.Controls.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
 
@@ -50,16 +49,10 @@ namespace Eyedrivomatic.Configuration
             _regionManager = regionManager;
         }
 
-        [Import]
-        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
-
         public void Initialize()
         {
             Log.Info(this, $"Initializing Module {nameof(ConfigurationModule)}.");
 
-            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
-
-            _regionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
             RegisterConfigurationViews();
 
             _regionManager.Regions[RegionNames.ConfigurationNavigationRegion].SortComparison = (viewA, viewB) =>
@@ -88,18 +81,6 @@ namespace Eyedrivomatic.Configuration
                 button.SortOrder = 0;
                 return button;
             });
-
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(EyegazeConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
-            {
-                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_EyegazeConfig;
-                button.RegionName = RegionNames.ConfigurationContentRegion;
-                button.Target = new Uri($@"/{nameof(EyegazeConfigurationView)}", UriKind.Relative);
-                button.SortOrder = 1;
-                return button;
-            });
         }
-
     }
 }

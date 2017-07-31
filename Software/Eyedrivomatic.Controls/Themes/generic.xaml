@@ -23,14 +23,8 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Eyedrivomatic.Controls"
-                    xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick">
+                    xmlns:local="clr-namespace:Eyedrivomatic.Controls">
 
-    <Style x:Key="DwellClickAdornerStyle" TargetType="{x:Type dwellclick:DwellClickAdorner}">
-        <Setter Property="ProgressIndicatorSize" Value="40"/>
-        <Setter Property="ProgressIndicatorFill" Value="{DynamicResource DwellClickFillBrush}"/>
-    </Style>
-    
     <!-- Style TargetType="{x:Type local:NumericUpDown}">
         <Setter Property="Template">
             <Setter.Value>

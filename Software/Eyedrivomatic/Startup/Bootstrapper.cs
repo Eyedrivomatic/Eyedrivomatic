@@ -37,6 +37,7 @@ using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.Camera;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Eyegaze;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -70,6 +71,7 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ResourcesModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));

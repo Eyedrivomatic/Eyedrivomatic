@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Eyedrivomatic"
-        xmlns:dwellclick="clr-namespace:Eyedrivomatic.Controls.DwellClick;assembly=Eyedrivomatic.Controls"
         xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+        xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
         mc:Ignorable="d"
         Title="Disclaimer" Height="350" Width="550" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None">
     <Window.Resources>
@@ -20,7 +19,7 @@
         <Button DockPanel.Dock="Bottom" 
                 Content="{x:Static resources:Strings.Disclaimer_Button}" 
                 Width="300" Margin="5" Click="Button_Click"
-                dwellclick:DwellClickBehavior.IgnorePause="True"/>
+                dwellClick:DwellClickBehavior.IgnorePause="True"/>
         <Viewbox Margin="5">
             <TextBlock Width="470" TextWrapping="Wrap" Text="{x:Static resources:Strings.Disclaimer_Text}" FontWeight="Bold" TextAlignment="Left"/>
         </Viewbox>

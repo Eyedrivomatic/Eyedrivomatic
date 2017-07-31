@@ -23,9 +23,7 @@ using System.ComponentModel.Composition;
 
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using System.Windows;
 
-using Eyedrivomatic.Controls.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
 
@@ -39,12 +37,6 @@ namespace Eyedrivomatic.Controls
     {
         public IServiceLocator ServiceLocator { get; set; }
 
-        [Export(typeof(DwellClickAdornerFactory))]
-        public static DwellClickAdorner CreateDwellClickAdorner(UIElement adornedElement)
-        {
-            return new DwellClickPieAdorner(adornedElement);
-        }
-
         [ImportingConstructor]
         public ControlsModule(IServiceLocator serviceLocator)
         {
@@ -56,9 +48,6 @@ namespace Eyedrivomatic.Controls
         public void Initialize()
         {
             Log.Debug(this, $"Initializing Module {nameof(ControlsModule)}.");
-
-            DwellClickBehaviorFactory.Create = ServiceLocator.GetInstance<DwellClickBehavior>;
-            DwellClickAdornerFactory.Create = adornedElement => new DwellClickPieAdorner(adornedElement);
         }
     }
 }
