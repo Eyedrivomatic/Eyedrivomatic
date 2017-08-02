@@ -41,7 +41,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
     }
 
     [Export(typeof(DwellClickBehavior)), PartCreationPolicy(CreationPolicy.NonShared)]
-    public class DwellClickBehavior : Behavior<UIElement>, IEyegazeClient
+    public class DwellClickBehavior : Behavior<FrameworkElement>, IEyegazeClient
     {
         #region DefaultConfiguration
         private static IDwellClickConfigurationService _defaultConfiguration; //off.
@@ -172,6 +172,8 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private readonly IDwellClickAnimator _animator;
         private readonly IList<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> _providersFactories;
         private DwellClickAdorner _adorner;
+        private IDisposable _moveWatchdogRegistration;
+
 
         [ImportingConstructor]
         public DwellClickBehavior(IDwellClickAnimator animator, [ImportMany] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
@@ -214,21 +216,6 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             return TimeSpan.FromMilliseconds(ms);
         }
 
-        private bool IsOverClickableVisibleChild(Point point)
-        {
-            var result = VisualTreeHelper.HitTest(AssociatedObject, point);
-
-            var visual = result?.VisualHit;
-            while (!(visual?.Equals(AssociatedObject) ?? true))
-            {
-                var behaviors = Interaction.GetBehaviors(visual);
-                if (behaviors.OfType<DwellClickBehavior>().Any()) return true;
-                visual = VisualTreeHelper.GetParent(visual);
-            }
-
-            return false;
-        }
-
         private void StartDwellClick(TimeSpan dwellTime)
         {
             Log.Info(this, $"Starting dwell click on [{AssociatedObject}]");
@@ -254,6 +241,12 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private void DoClick()
         {
+            if (!AssociatedObject.IsEnabled)
+            {
+                Log.Warn(this, $"Dwell Click ignored because element [{AssociatedObject.Name}] is not enabled.");
+                return;
+            }
+
             Log.Info(this, $"Performing dwell click on [{AssociatedObject}]");
 
             _animator.StopAnimation(); //should already be stopped.
@@ -338,35 +331,51 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             RemoveAdorner();
         }
 
-        public void GazeEnter(Point point)
+        public void GazeEnter()
         {
             _dwellCancelRegistration?.Dispose(); //If the cancellation timer is running, stop it.
             _dwellCancelRegistration = null;
 
+            if (!AssociatedObject.IsEnabled) return;
+
             var configruation = GetConfiguration(AssociatedObject);
             if (configruation == null || !configruation.EnableDwellClick || Paused) return;
 
-            if (IsOverClickableVisibleChild(point))
-            {
-                CancelDwellClick();
-                return;
-            }
-
             var role = GetRole(AssociatedObject);
-            StartDwellClick(GetDwellTime(configruation, role));
+            var dwellTime = GetDwellTime(configruation, role);
+            StartDwellClick(dwellTime);
+            StartMovementWatchdog(dwellTime);
         }
 
-        public void GazeMove(Point point)
+        public void GazeContinue()
         {
+            var configruation = GetConfiguration(AssociatedObject);
+            if (configruation == null || !configruation.EnableDwellClick || Paused) return;
+
+            _moveWatchdogRegistration?.Dispose();
+            _moveWatchdogRegistration = null;
+
+            var role = GetRole(AssociatedObject);
+            var dwellTime = GetDwellTime(configruation, role);
+            StartMovementWatchdog(dwellTime);
         }
 
         public void GazeLeave()
         {
+            _moveWatchdogRegistration?.Dispose();
             _repeatCancelSource?.Cancel();
 
             _animator.PauseAnimation();
             HideAdorner();
             StartCancelTimer();
+        }
+
+        private void StartMovementWatchdog(TimeSpan dwellTime)
+        {
+            _moveWatchdogRegistration?.Dispose();
+            var watchdogTime = Math.Max(dwellTime.TotalMilliseconds / 3d, 200);
+            var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(watchdogTime));
+            _moveWatchdogRegistration = cts.Token.Register(GazeLeave, true);
         }
     }
 }

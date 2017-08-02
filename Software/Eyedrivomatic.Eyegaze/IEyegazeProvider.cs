@@ -3,18 +3,18 @@ using System.Windows;
 
 namespace Eyedrivomatic.Eyegaze
 {
-    public interface IEyegazeProvider
+    public interface IEyegazeProvider : IDisposable
     {
-        IDisposable RegisterElement(UIElement element, IEyegazeClient client);
+        IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client);
     }
 
     public interface IEyegazeClient
     {
         void ManualActivation();
 
-        void GazeEnter(Point point);
+        void GazeEnter();
 
-        void GazeMove(Point point);
+        void GazeContinue();
 
         void GazeLeave();
     }

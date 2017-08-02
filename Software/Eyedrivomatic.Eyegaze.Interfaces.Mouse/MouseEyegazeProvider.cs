@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Threading;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interactivity;
+using System.Windows.Media;
+using Eyedrivomatic.Eyegaze.DwellClick;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 {
@@ -14,9 +17,8 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
             private readonly UIElement _element;
             private readonly IEyegazeClient _client;
             private int _mouseMoves;
-            private IDisposable _moveWatchdogRegistration;
 
-            public MouseProviderRegistration(UIElement element, IEyegazeClient client)
+            public MouseProviderRegistration(FrameworkElement element, IEyegazeClient client)
             {
                 _element = element;
                 _client = client;
@@ -41,40 +43,54 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 
             private void MouseLeaveHandler(object sender, MouseEventArgs e)
             {
-                _moveWatchdogRegistration?.Dispose();
-
                 if (_mouseMoves >= RequiredMouseMoves) _client.GazeLeave();
                 _mouseMoves = 0;
             }
 
             private void MouseMoveHandler(object sender, MouseEventArgs e)
             {
-                if (!(sender is UIElement element)) return;
-
                 e.Handled = true;
 
-                _moveWatchdogRegistration?.Dispose();
-                _moveWatchdogRegistration = null;
+                var position = e.GetPosition(_element);
+
+                if (IsOverClickableVisibleChild(position))
+                {
+                    _mouseMoves = 0;
+                    if (_mouseMoves > RequiredMouseMoves) _client.GazeLeave();
+                    return;
+                }
 
                 //Only start the animation when the mouse has moved a specified number of times after MouseEnter or the last click.
                 //This prevents unintended double-clicks if the gaze tracking is lost.
                 if (_mouseMoves == RequiredMouseMoves)
                 {
                     _mouseMoves++;
-                    _client.GazeEnter(e.GetPosition(element));
-                    StartMovementWatchdog();
+                    _client.GazeEnter();
                     return;
                 }
 
                 if (_mouseMoves > RequiredMouseMoves)
                 {
-                    _client.GazeMove(e.GetPosition(element));
-                    StartMovementWatchdog();
+                    _client.GazeContinue();
                     return;
                 }
 
-                StartMovementWatchdog();
                 _mouseMoves++;
+            }
+
+            private bool IsOverClickableVisibleChild(Point point)
+            {
+                var result = VisualTreeHelper.HitTest(_element, point);
+
+                var visual = result?.VisualHit;
+                while (!(visual?.Equals(_element) ?? true))
+                {
+                    var behaviors = Interaction.GetBehaviors(visual);
+                    if (behaviors.OfType<DwellClickBehavior>().Any()) return true;
+                    visual = VisualTreeHelper.GetParent(visual);
+                }
+
+                return false;
             }
 
             public void Dispose()
@@ -84,18 +100,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
                 _element.MouseLeave += MouseLeaveHandler;
                 _element.MouseDown += MouseDownHandler;
             }
-
-            private void StartMovementWatchdog()
-            {
-                _moveWatchdogRegistration?.Dispose();
-
-                var cts = new CancellationTokenSource(MouseMoveWatchdogTime);
-                _moveWatchdogRegistration = cts.Token.Register(() =>
-                {
-                    _mouseMoves = 0;
-                    _client.GazeLeave();
-                }, true);
-            }
         }
 
         //[Import(nameof(RequiredMouseMoves))]
@@ -104,9 +108,13 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
         //[Import(nameof(MouseMoveWatchdogTime))]
         public static TimeSpan MouseMoveWatchdogTime = TimeSpan.FromMilliseconds(400);
 
-        public IDisposable RegisterElement(UIElement element, IEyegazeClient client)
+        public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)
         {
             return new MouseProviderRegistration(element, client);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
