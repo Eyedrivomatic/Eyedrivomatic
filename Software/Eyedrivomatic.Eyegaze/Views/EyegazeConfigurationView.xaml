@@ -74,8 +74,8 @@
                     <ListBox x:Name="EyegazeInterfaceList"
                              Grid.Row="2"
                              Height="100"
-                             ItemsSource="{Binding AvailableEyegazeInterfaces}"
-                             SelectedValue="{Binding EyegazeInterface}"
+                             ItemsSource="{Binding AvailableProviders}"
+                             SelectedValue="{Binding SelectedProvider}"
                              IsEnabled="{Binding ElementName=DwellClickEnabledCheckBox, Path=IsChecked}"
                              Margin="5" />
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
@@ -28,7 +29,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
-using System.Windows.Media;
 using Eyedrivomatic.Infrastructure;
 using NullGuard;
 
@@ -186,19 +186,28 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         {
             base.OnAttached();
 
-            AttachProvider();
+            var config = GetConfiguration(AssociatedObject);
+            config.PropertyChanged += ConfigOnPropertyChanged;
+
+            AttachProvider(config.Provider);
         }
 
-        private void AttachProvider()
+        private void AttachProvider(string provider)
         {
             _providerRegistration?.Dispose();
-            var config = GetConfiguration(AssociatedObject);
-
-            var providerFactory = _providersFactories.FirstOrDefault(p => p.Metadata.Name == config.Provider)
-                           ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Default")
+            var providerFactory = _providersFactories.FirstOrDefault(p => p.Metadata.Name == provider)
+                           ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Mouse")
                            ?? _providersFactories.First();
 
             _providerRegistration = providerFactory?.Value.RegisterElement(AssociatedObject, this);
+        }
+
+        private void ConfigOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == nameof(IDwellClickConfigurationService.Provider))
+            {
+                AttachProvider(GetConfiguration(AssociatedObject).Provider);
+            }
         }
 
 
@@ -219,6 +228,8 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private void StartDwellClick(TimeSpan dwellTime)
         {
             Log.Info(this, $"Starting dwell click on [{AssociatedObject}]");
+
+            _moveWatchdogRegistration?.Dispose();
 
             if (_adorner == null)
             {
@@ -335,6 +346,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         {
             _dwellCancelRegistration?.Dispose(); //If the cancellation timer is running, stop it.
             _dwellCancelRegistration = null;
+            _moveWatchdogRegistration?.Dispose();
 
             if (!AssociatedObject.IsEnabled) return;
 
@@ -363,6 +375,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         public void GazeLeave()
         {
             _moveWatchdogRegistration?.Dispose();
+            _moveWatchdogRegistration = null;
             _repeatCancelSource?.Cancel();
 
             _animator.PauseAnimation();

@@ -19,7 +19,10 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
@@ -35,16 +38,28 @@ namespace Eyedrivomatic.Eyegaze.ViewModels
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
         [ImportingConstructor]
-        public EyegazeConfigruationViewModel(IDwellClickConfigurationService dwellClickConfigurationService)
+        public EyegazeConfigruationViewModel(
+            IDwellClickConfigurationService dwellClickConfigurationService, 
+            [ImportMany] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
         {
             _dwellClickConfigurationService = dwellClickConfigurationService;
             _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
+
+            AvailableProviders = providers.Select(factory => factory.Metadata.Name);
         }
 
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty);
+        }
+
+        public IEnumerable<string> AvailableProviders { get; }
+
+        public string SelectedProvider
+        {
+            get => _dwellClickConfigurationService.Provider;
+            set => _dwellClickConfigurationService.Provider = value;
         }
 
         public bool DwellClickEnabled
