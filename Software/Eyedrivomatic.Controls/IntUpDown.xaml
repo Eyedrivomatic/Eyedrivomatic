@@ -23,7 +23,8 @@
                  Grid.Column="1" 
                  Text="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=Value}" 
                  Margin="3,0,3,0"
-                 VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                 Padding="4"
+                 VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         
         <Button Grid.Column="2" Content="+"  
                 Height="{DynamicResource StandardButtonHeight}"

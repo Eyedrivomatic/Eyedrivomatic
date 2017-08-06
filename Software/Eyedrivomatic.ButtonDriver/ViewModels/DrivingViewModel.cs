@@ -55,6 +55,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             _profiles = profiles;
             _camera = camera;
             _camera.IsCapturingChanged += CameraOnIsCapturingChanged;
+            _camera.OverlayOpacityChanged += CameraOnOverlayOpacityChanged;
             ExecuteMacroCommand = executeMacroCommand;
             Macros = new ObservableCollection<IMacro>(macroSerializationService.LoadMacros());
         }
@@ -123,7 +124,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        public double CameraOverlayOpacity => _camera.OverlayOpacity;
+        public double CameraOverlayOpacity => ShowForwardView ? _camera.OverlayOpacity : 1d;
 
         public ICommand ContinueCommand => new DelegateCommand(
             () => Driver.Continue(), 
@@ -203,6 +204,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             base.OnDriverStateChanged(sender, e);
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty); //Just refresh everything.
+        }
+
+        private void CameraOnOverlayOpacityChanged(object sender, EventArgs eventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(CameraOverlayOpacity));
         }
 
         private void CameraOnIsCapturingChanged(object sender, EventArgs eventArgs)

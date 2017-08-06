@@ -95,6 +95,7 @@ namespace Eyedrivomatic.Camera
 
         public event EventHandler<Bitmap> FrameCaptured;
         public event EventHandler IsCapturingChanged;
+        public event EventHandler OverlayOpacityChanged;
 
         private void CameraConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
@@ -106,6 +107,10 @@ namespace Eyedrivomatic.Camera
                 {
                     StartCapture();
                 }
+            }
+            else if (propertyChangedEventArgs.PropertyName == nameof(ICameraConfigurationService.OverlayOpacity))
+            {
+                OverlayOpacityChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

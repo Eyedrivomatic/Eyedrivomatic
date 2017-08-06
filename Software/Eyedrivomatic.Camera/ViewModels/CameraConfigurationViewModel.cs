@@ -64,6 +64,12 @@ namespace Eyedrivomatic.Camera.ViewModels
             set => _cameraConfigurationService.Camera = value;
         }
 
+        public double OverlayOpacity
+        {
+            get => _cameraConfigurationService.OverlayOpacity;
+            set => _cameraConfigurationService.OverlayOpacity = value;
+        }
+
         public IEnumerable<FilterInfo> AvailableCameras => _cameraConfigurationService.AvailableCameras;
 
         public ICommand SaveCommand => new DelegateCommand(() => _cameraConfigurationService.Save(), () => _cameraConfigurationService.HasChanges);

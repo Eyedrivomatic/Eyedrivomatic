@@ -91,12 +91,6 @@
                         <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
                     </DoubleAnimationUsingKeyFrames>
 
-                    <DoubleAnimationUsingKeyFrames
-                    Storyboard.TargetName="DirectionButtonsGrid"
-                    Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="{Binding CameraOverlayOpacity}" />
-                    </DoubleAnimationUsingKeyFrames>
-
                     <infrastructure:BrushAnimation
                     Storyboard.Target="{StaticResource DirectionButtonBrushPlaceholder}"
                     Storyboard.TargetProperty="Background"
@@ -108,12 +102,6 @@
                     Storyboard.TargetName="ForwardViewCameraRegion"
                     Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
-                    </DoubleAnimationUsingKeyFrames>
-
-                    <DoubleAnimationUsingKeyFrames
-                    Storyboard.TargetName="DirectionButtonsGrid"
-                    Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
                     </DoubleAnimationUsingKeyFrames>
 
                     <infrastructure:BrushAnimation
@@ -134,7 +122,7 @@
             <ei:DataStateBehavior Binding="{Binding ShowForwardView}"
                                   Value="True"
                                   TrueState="ShowForwardView" FalseState="HideForwardView" />
-        </i:Interaction.Behaviors>
+            </i:Interaction.Behaviors>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="5*" MaxHeight="25" />
@@ -186,7 +174,7 @@
                         Grid.Column="1"
                         prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ForwardViewCameraRegion}" />
 
-        <Grid x:Name="DirectionButtonsGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+        <Grid x:Name="DirectionButtonsGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Opacity="{Binding CameraOverlayOpacity, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

@@ -100,6 +100,7 @@
     <Compile Include="BrushAnimation.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="GridLengthAnimation.cs" />
+    <Compile Include="MultiplierConverter.cs" />
     <Compile Include="StringCompareToBoolConverter.cs" />
     <Compile Include="Extensions\CancellationTokenExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

@@ -61,7 +61,8 @@ namespace Eyedrivomatic.Camera
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(CameraConfiguration.CameraEnabled) ||
-                e.PropertyName == nameof(CameraConfiguration.Camera))
+                e.PropertyName == nameof(CameraConfiguration.Camera) ||
+                e.PropertyName == nameof(CameraConfiguration.OverlayOpacity))
             {
                 _hasChanges = true;
                 // ReSharper disable once ExplicitCallerInfoArgument

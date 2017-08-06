@@ -359,6 +359,14 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Camera Enabled</value>
     <comment>Enable/disable the forward-view camera.</comment>
   </data>
+  <data name="SettingName_CameraOverlayOpacity" xml:space="preserve">
+    <value>Overlay Opacity:</value>
+    <comment>Sets the transparency of the driving view.</comment>
+  </data>
+  <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
+    <value>Set the transparency of the driving buttons drawn over the forward-view camera image. Use 0 for fully transparent and 100 for fully opaque.</value>
+    <comment>Description of the camera overlay opacity setting.</comment>
+  </data>
   <data name="SettingName_DwellClickEnabled" xml:space="preserve">
     <value>Enabled</value>
     <comment>Enable/disable dwell click.</comment>

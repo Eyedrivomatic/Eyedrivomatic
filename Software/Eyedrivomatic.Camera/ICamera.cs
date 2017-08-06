@@ -13,5 +13,6 @@ namespace Eyedrivomatic.Camera
 
         event EventHandler<Bitmap> FrameCaptured;
         event EventHandler IsCapturingChanged;
+        event EventHandler OverlayOpacityChanged;
     }
 }

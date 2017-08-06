@@ -685,6 +685,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set the transparency of the driving buttons drawn over the forward-view camera image. Use 0 for fully transparent and 100 for fully opaque..
+        /// </summary>
+        public static string SettingDescription_CameraOverlayOpacity {
+            get {
+                return ResourceManager.GetString("SettingDescription_CameraOverlayOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees. The maximum movement is between 60 and 120. Be very careful not to exceed the physical limits of the hardware of your wheelchair!.
         /// </summary>
         public static string SettingDescription_DeviceLimits {
@@ -875,6 +884,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingName_CameraEnabled {
             get {
                 return ResourceManager.GetString("SettingName_CameraEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay Opacity:.
+        /// </summary>
+        public static string SettingName_CameraOverlayOpacity {
+            get {
+                return ResourceManager.GetString("SettingName_CameraOverlayOpacity", resourceCulture);
             }
         }
         
