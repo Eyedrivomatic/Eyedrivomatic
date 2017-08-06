@@ -53,7 +53,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             return adorner;
         }
 
-        public DwellClickAdorner(UIElement adornedElement) : base(adornedElement)
+        protected DwellClickAdorner(UIElement adornedElement) : base(adornedElement)
         { }
     
         /// <summary>
@@ -70,7 +70,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private static void OnDwellProgressChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             var adorner = d as DwellClickAdorner;
-            if (d == null) return;
+            if (adorner == null) return;
             adorner.ProgressIndicatorVisible = (double)args.NewValue > 0d ? Visibility.Visible : Visibility.Hidden;
             adorner.InvalidateVisual();
         }

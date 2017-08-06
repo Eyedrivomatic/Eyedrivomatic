@@ -101,9 +101,11 @@
     </Compile>
     <Compile Include="CameraConfigurationService.cs" />
     <Compile Include="CameraModule.cs" />
+    <Compile Include="DirectShowCamera.cs" />
     <Compile Include="ICameraConfigurationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CameraViewModel.cs" />
+    <Compile Include="ICamera.cs" />
     <Compile Include="Views\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>

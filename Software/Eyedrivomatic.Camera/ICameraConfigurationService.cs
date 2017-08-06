@@ -30,6 +30,7 @@ namespace Eyedrivomatic.Camera
         bool CameraEnabled { get; set; }
         FilterInfo Camera { get; set; }
         IEnumerable<FilterInfo> AvailableCameras { get; }
+        double OverlayOpacity { get; set; }
 
         bool HasChanges { get; }
         void Save();

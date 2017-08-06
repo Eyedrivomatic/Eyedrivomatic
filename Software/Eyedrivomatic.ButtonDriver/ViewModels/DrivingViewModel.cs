@@ -26,7 +26,6 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -35,6 +34,7 @@ using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Regions;
+using Eyedrivomatic.Camera;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
@@ -42,15 +42,19 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public class DrivingViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>, IDrivingViewModel, INavigationAware
     {
         private readonly IEnumerable<Profile> _profiles;
+        private readonly ICamera _camera;
 
         [ImportingConstructor]
         public DrivingViewModel(IHardwareService hardwareService,
             [Import("ExecuteMacroCommand")]ICommand executeMacroCommand,
             IMacroSerializationService macroSerializationService,
-            IEnumerable<Profile> profiles)
+            IEnumerable<Profile> profiles,
+            ICamera camera)
             : base (hardwareService)
         {
             _profiles = profiles;
+            _camera = camera;
+            _camera.IsCapturingChanged += CameraOnIsCapturingChanged;
             ExecuteMacroCommand = executeMacroCommand;
             Macros = new ObservableCollection<IMacro>(macroSerializationService.LoadMacros());
         }
@@ -58,6 +62,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
         public bool IsOnline => Driver?.HardwareReady ?? false;
+
+        public bool ShowForwardView => _camera.IsCapturing;
 
         public bool DiagonalSpeedReduction
         {
@@ -93,7 +99,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 LogSettingChange(Driver.Profile.CurrentSpeed.Name);
                 RaisePropertyChanged();
             }
-        } 
+        }
 
         public double XDuration
         {
@@ -117,8 +123,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        public double CameraOverlayOpacity => 0.5;
-        public Brush CameraOverlayButtonBackgroundBrush { get; } = new SolidColorBrush(Colors.Transparent);
+        public double CameraOverlayOpacity => _camera.OverlayOpacity;
 
         public ICommand ContinueCommand => new DelegateCommand(
             () => Driver.Continue(), 
@@ -198,6 +203,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             base.OnDriverStateChanged(sender, e);
             // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged(string.Empty); //Just refresh everything.
+        }
+
+        private void CameraOnIsCapturingChanged(object sender, EventArgs eventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(ShowForwardView));
         }
     }
 }

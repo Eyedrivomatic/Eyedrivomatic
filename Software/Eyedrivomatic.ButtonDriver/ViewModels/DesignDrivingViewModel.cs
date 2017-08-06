@@ -12,9 +12,9 @@ using Prism.Commands;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    class DesignDrivingViewModel : IDrivingViewModel
+    internal class DesignDrivingViewModel : IDrivingViewModel
     {
-        private ICommand _designCommand;
+        private readonly ICommand _designCommand;
 
         public DesignDrivingViewModel()
         {
@@ -25,13 +25,13 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public string HeaderInfo => "Drive";
 
         public bool IsOnline => true;
+        public bool ShowForwardView => true;
 
         public ProfileSpeed CurrentSpeed { get; }
         public bool DiagonalSpeedReduction { get; set; }
         public bool SafetyBypass { get; set; }
 
         public double CameraOverlayOpacity => 0.6;
-        public Brush CameraOverlayButtonBackgroundBrush { get; } = new SolidColorBrush(Colors.Transparent);
 
         public ObservableCollection<IMacro> Macros { get; } = new ObservableCollection<IMacro>
         {

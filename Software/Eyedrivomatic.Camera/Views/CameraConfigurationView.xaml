@@ -28,6 +28,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d"
              Width="Auto" 
              d:DesignHeight="870"
@@ -37,6 +38,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <CollectionViewSource Source="{Binding AvailableCameras}" x:Key="DeviceSource">
+                <CollectionViewSource.SortDescriptions>
+                    <componentModel:SortDescription PropertyName="Name"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -60,13 +68,17 @@
                     IsChecked="{Binding CameraEnabled}"
                     Height="{DynamicResource StandardButtonHeight}"/>
 
+                
+                
                 <ListBox x:Name="CameraList"
                          Grid.Row="1"
                          MinHeight="300"
-                         ItemsSource="{Binding AvailableCameras}"
+                         ItemsSource="{Binding Source={StaticResource DeviceSource}}"
                          SelectedValue="{Binding Camera}"
+                         DisplayMemberPath="Name"
                          IsEnabled="{Binding CameraEnabled}"
-                         Margin="5,15,5,5" />
+                         Margin="5,15,5,5">
+                    </ListBox>
             </Grid>
         </GroupBox>
     </Grid>

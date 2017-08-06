@@ -173,6 +173,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private readonly IList<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> _providersFactories;
         private DwellClickAdorner _adorner;
         private IDisposable _moveWatchdogRegistration;
+        private IDwellClickConfigurationService _configuration;
 
 
         [ImportingConstructor]
@@ -186,27 +187,35 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         {
             base.OnAttached();
 
-            var config = GetConfiguration(AssociatedObject);
-            config.PropertyChanged += ConfigOnPropertyChanged;
+            _configuration = GetConfiguration(AssociatedObject);
+            _configuration.PropertyChanged += ConfigOnPropertyChanged;
 
-            AttachProvider(config.Provider);
+            AttachProvider(_configuration.Provider);
         }
 
         private void AttachProvider(string provider)
         {
-            _providerRegistration?.Dispose();
-            var providerFactory = _providersFactories.FirstOrDefault(p => p.Metadata.Name == provider)
-                           ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Mouse")
-                           ?? _providersFactories.First();
+            try
+            {
+                _providerRegistration?.Dispose();
+                var providerFactory = _providersFactories.FirstOrDefault(p => p.Metadata.Name == provider)
+                               ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Mouse")
+                               ?? _providersFactories.First();
 
-            _providerRegistration = providerFactory?.Value.RegisterElement(AssociatedObject, this);
+                _providerRegistration = providerFactory?.Value.RegisterElement(AssociatedObject, this);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Failed to attach eyegaze provider - [{ex}]");
+            }
         }
 
         private void ConfigOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (propertyChangedEventArgs.PropertyName == nameof(IDwellClickConfigurationService.Provider))
             {
-                AttachProvider(GetConfiguration(AssociatedObject).Provider);
+                AttachProvider(_configuration.Provider);
             }
         }
 
@@ -227,18 +236,19 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private void StartDwellClick(TimeSpan dwellTime)
         {
-            Log.Info(this, $"Starting dwell click on [{AssociatedObject}]");
-
             _moveWatchdogRegistration?.Dispose();
 
             if (_adorner == null)
             {
+                Log.Info(this, $"Starting dwell click on [{AssociatedObject}]");
                 CreateAdorner();
                 _animator.StartAnimation(_adorner, dwellTime, DoClick);
             }
             else
             {
+                Log.Info(this, $"Resuming dwell click on [{AssociatedObject}]");
                 //re-entry before the cancel timer has fired.
+                ShowAdorner();
                 _animator.ResumeAnimation();
             }
         }
@@ -252,6 +262,8 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private void DoClick()
         {
+            RemoveAdorner();
+
             if (!AssociatedObject.IsEnabled)
             {
                 Log.Warn(this, $"Dwell Click ignored because element [{AssociatedObject.Name}] is not enabled.");
@@ -260,35 +272,33 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
             Log.Info(this, $"Performing dwell click on [{AssociatedObject}]");
 
-            _animator.StopAnimation(); //should already be stopped.
-
             if (!DwellClicker.Click(AssociatedObject)) Log.Warn(this, $"Failed to perform dwell click on [{AssociatedObject}].");
 
-            var configruation = GetConfiguration(AssociatedObject);
-            if (configruation == null || !configruation.EnableDwellClick || Paused) return;
-            var repeatDelay = TimeSpan.FromMilliseconds(configruation.RepeatDelayMilliseconds);
-
-            StartRepeatTimer(repeatDelay);
+            _moveWatchdogRegistration?.Dispose();
+            RepeatDwellAnimationAfter(TimeSpan.FromMilliseconds(_configuration.RepeatDelayMilliseconds));
         }
 
-        private async void StartRepeatTimer(TimeSpan repeatDelay)
+        private async void RepeatDwellAnimationAfter(TimeSpan repeatDelay)
         {
             _repeatCancelSource?.Cancel();
             _repeatCancelSource = new CancellationTokenSource();
 
             try
             {
+                RemoveAdorner();
+                StartMovementWatchdog(repeatDelay);
                 await Task.Delay(repeatDelay, _repeatCancelSource.Token);
 
-                RemoveAdorner();
+                if (!AssociatedObject.IsEnabled) return;
+                if (!_configuration.EnableDwellClick || Paused) return;
 
-                Log.Info(this, "Repeat-click.");
+                Log.Info(this, "Repeat-click start.");
+                StartDwellClick(GetDwellTime(_configuration, GetRole(AssociatedObject)));
             }
             catch (OperationCanceledException)
             {
                 //click repeat cancelled.
                 Log.Debug(this, $"ClickRepeat canceled on [{AssociatedObject}].");
-                RemoveAdorner();
             }
         }
 
@@ -298,6 +308,14 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             var style = GetAdornerStyle(AssociatedObject);
             if (style != null) _adorner.Style = style;
             _adorner.Visibility = Visibility.Visible;
+        }
+
+        private void ShowAdorner()
+        {
+            if (_adorner != null)
+            {
+                _adorner.Visibility = Visibility.Visible;
+            }
         }
 
         private void HideAdorner()
@@ -323,11 +341,9 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             }
         }
 
-        private void StartCancelTimer()
+        private void PauseAndCancelDwellAfter(TimeSpan cancelTimeout)
         {
-            var configruation = GetConfiguration(AssociatedObject);
-            var cancelTimeout = TimeSpan.FromMilliseconds(configruation.DwellTimeoutMilliseconds);
-
+            _dwellCancelRegistration?.Dispose();
             //Set a timer that resets the dwell to 0.
             var cancelation = new CancellationTokenSource(cancelTimeout);
             _dwellCancelRegistration = cancelation.Token.Register(CancelDwellClick, true);
@@ -349,38 +365,38 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             _moveWatchdogRegistration?.Dispose();
 
             if (!AssociatedObject.IsEnabled) return;
-
-            var configruation = GetConfiguration(AssociatedObject);
-            if (configruation == null || !configruation.EnableDwellClick || Paused) return;
+            if (!_configuration.EnableDwellClick || Paused) return;
 
             var role = GetRole(AssociatedObject);
-            var dwellTime = GetDwellTime(configruation, role);
+            var dwellTime = GetDwellTime(_configuration, role);
             StartDwellClick(dwellTime);
             StartMovementWatchdog(dwellTime);
         }
 
         public void GazeContinue()
         {
-            var configruation = GetConfiguration(AssociatedObject);
-            if (configruation == null || !configruation.EnableDwellClick || Paused) return;
+            if (!_configuration.EnableDwellClick || Paused) return;
 
             _moveWatchdogRegistration?.Dispose();
             _moveWatchdogRegistration = null;
 
             var role = GetRole(AssociatedObject);
-            var dwellTime = GetDwellTime(configruation, role);
+            var dwellTime = GetDwellTime(_configuration, role);
             StartMovementWatchdog(dwellTime);
         }
 
         public void GazeLeave()
         {
+            _repeatCancelSource?.Cancel();
+            _repeatCancelSource = null;
+
             _moveWatchdogRegistration?.Dispose();
             _moveWatchdogRegistration = null;
-            _repeatCancelSource?.Cancel();
 
             _animator.PauseAnimation();
             HideAdorner();
-            StartCancelTimer();
+
+            PauseAndCancelDwellAfter(TimeSpan.FromMilliseconds(_configuration.DwellTimeoutMilliseconds));
         }
 
         private void StartMovementWatchdog(TimeSpan dwellTime)

@@ -82,6 +82,12 @@ namespace Eyedrivomatic.Camera
             set => _configuration.Camera = value?.MonikerString;
         }
 
+        public double OverlayOpacity
+        {
+            get => _configuration.OverlayOpacity;
+            set => _configuration.OverlayOpacity = value;
+        }
+
         public IEnumerable<FilterInfo> AvailableCameras => _getCameras();
 
         public bool HasChanges => _hasChanges;

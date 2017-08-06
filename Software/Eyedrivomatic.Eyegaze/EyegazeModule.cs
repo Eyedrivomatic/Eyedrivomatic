@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
@@ -42,11 +43,12 @@ namespace Eyedrivomatic.Eyegaze
     [ModuleExport(typeof(EyegazeModule), 
         InitializationMode = InitializationMode.WhenAvailable,
         DependsOnModuleNames =  new[] { nameof(InfrastructureModule), nameof(ControlsModule), nameof(ConfigurationModule) })]
-    public class EyegazeModule : IModule
+    public class EyegazeModule : IModule, IDisposable
     {
         private readonly IRegionManager _regionManager;
         private readonly AggregateCatalog _catalog;
-        public IServiceLocator ServiceLocator { get; set; }
+        
+        private IServiceLocator ServiceLocator { get; set; }
 
         [Import]
         public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
@@ -97,5 +99,21 @@ namespace Eyedrivomatic.Eyegaze
             });
         }
 
+        public void Dispose()
+        {
+            //I probably need to revisit this. This will create any providers that have not yet been created
+            try
+            {
+                var providers = ServiceLocator.GetAllInstances<IEyegazeProvider>().OfType<IDisposable>();
+                foreach (var provider in providers)
+                {
+                    provider.Dispose();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(this, $"Error while disposing Eyegaze provider - [{e}]");
+            }
+        }
     }
 }

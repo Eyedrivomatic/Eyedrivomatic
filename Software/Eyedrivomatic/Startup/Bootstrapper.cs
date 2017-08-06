@@ -90,7 +90,7 @@ namespace Eyedrivomatic.Startup
 
         #region IDisposable Support
         private bool _disposed;
-        void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_disposed) return;
             _disposed = true;
@@ -103,9 +103,10 @@ namespace Eyedrivomatic.Startup
                     Log.Debug(this, $"Disposing [{module.GetType().Name}]");
                     module.Dispose();
                 }
-            }
 
-            (Shell as IDisposable)?.Dispose();
+                (Shell as IDisposable)?.Dispose();
+                AggregateCatalog.Dispose();
+            }
         }
 
         public void Dispose()

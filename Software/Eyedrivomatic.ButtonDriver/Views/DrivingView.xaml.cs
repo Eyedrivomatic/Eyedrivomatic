@@ -21,15 +21,11 @@
 
 using Eyedrivomatic.ButtonDriver.ViewModels;
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 namespace Eyedrivomatic.ButtonDriver.Views
 {
-    /// <summary>
-    /// Interaction logic for DrivingView.xaml
-    /// </summary>
     [Export]
-    public partial class DrivingView : UserControl
+    public partial class DrivingView
     {
         public DrivingView()
         {

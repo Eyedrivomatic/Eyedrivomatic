@@ -8,11 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Accord.Video;
-using Accord.Video.DirectShow;
-using Eyedrivomatic.Infrastructure;
 using NullGuard;
 using Prism.Mvvm;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 
 namespace Eyedrivomatic.Camera.ViewModels
@@ -20,70 +17,28 @@ namespace Eyedrivomatic.Camera.ViewModels
     [Export]
     public class CameraViewModel : BindableBase, IDisposable
     {
+        private readonly ICamera _camera;
         private readonly ICameraConfigurationService _cameraConfiguration;
-        private IVideoSource _videoSource;
-        private WriteableBitmap _frameSource;
         private Dispatcher _dispatcher;
+        private WriteableBitmap _frameSource;
 
         [ImportingConstructor]
-        public CameraViewModel(ICameraConfigurationService cameraConfiguration)
+        public CameraViewModel(ICamera camera, ICameraConfigurationService cameraConfiguration)
         {
+            _camera = camera;
             _cameraConfiguration = cameraConfiguration;
-            _cameraConfiguration.PropertyChanged += CameraConfigurationOnPropertyChanged;
-        }
-
-        private void CameraConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (propertyChangedEventArgs.PropertyName == nameof(ICameraConfigurationService.CameraEnabled) ||
-                propertyChangedEventArgs.PropertyName == nameof(ICameraConfigurationService.Camera))
-            {
-                StopCapture();
-                if (_cameraConfiguration.CameraEnabled)
-                {
-                    StartCapture();
-                }
-            }
+            _camera.FrameCaptured += CameraOnFrameCaptured;
         }
 
         public void StartCapture()
         {
             if (_dispatcher == null) _dispatcher = Dispatcher.CurrentDispatcher;
-
-            try
-            {
-                if (!_cameraConfiguration.CameraEnabled) return;
-
-                if (_videoSource == null || !_videoSource.IsRunning)
-                {
-                    if (_videoSource != null) _videoSource.NewFrame -= VideoSourceOnNewFrame;
-
-                    if (_cameraConfiguration.Camera == null)
-                    {
-                        Log.Warn(this, "No camera available");
-                        return;
-                    }
-
-                    var source = new VideoCaptureDevice(_cameraConfiguration.Camera.MonikerString, PixelFormat.Format24bppRgb);
-                    _videoSource = source;
-                    _videoSource.NewFrame += VideoSourceOnNewFrame;
-                    _videoSource.Start();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(this, $"Failed to start video capture - {ex}");
-                if (_videoSource != null) _videoSource.NewFrame -= VideoSourceOnNewFrame;
-                _videoSource = null;
-            }
+            _camera.StartCapture();
         }
 
         public void StopCapture()
         {
-            if (_videoSource == null) return;
-            _videoSource.NewFrame -= VideoSourceOnNewFrame;
-            _videoSource.SignalToStop();
-            _videoSource = null;
+            _camera.StopCapture();
         }
 
         [AllowNull]
@@ -93,20 +48,19 @@ namespace Eyedrivomatic.Camera.ViewModels
             private set => SetProperty(ref _frameSource, value as WriteableBitmap);
         }
 
-        private void VideoSourceOnNewFrame(object sender, NewFrameEventArgs eventArgs)
+        private void CameraOnFrameCaptured(object sender, Bitmap bitmap)
         {
-            var nativeFrame = eventArgs.Frame;
-            if (nativeFrame == null) return;
+            if (bitmap == null) return;
 
             _dispatcher.Invoke(() =>
             {
-                var destFrame = PrepareFrame(nativeFrame);
+                var destFrame = PrepareFrame(bitmap);
                 if (destFrame == null) return;
 
-                var rect = new Int32Rect(0, 0, nativeFrame.Width, nativeFrame.Height);
+                var rect = new Int32Rect(0, 0, bitmap.Width, bitmap.Height);
 
-                var data = nativeFrame.LockBits(new Rectangle(Point.Empty, nativeFrame.Size),
-                    ImageLockMode.ReadOnly, nativeFrame.PixelFormat);
+                var data = bitmap.LockBits(new Rectangle(Point.Empty, bitmap.Size),
+                    ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
                 try
                 {
@@ -114,7 +68,7 @@ namespace Eyedrivomatic.Camera.ViewModels
                 }
                 finally
                 {
-                    nativeFrame.UnlockBits(data);
+                    bitmap.UnlockBits(data);
                 }
             });
         }
@@ -136,7 +90,7 @@ namespace Eyedrivomatic.Camera.ViewModels
 
         public void Dispose()
         {
-            StopCapture();
+            _camera.Dispose();
         }
     }
 }

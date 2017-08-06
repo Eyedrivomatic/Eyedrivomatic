@@ -61,10 +61,10 @@ namespace Eyedrivomatic.Camera {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.4")]
-        public decimal OverlayOpacity {
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
+        public double OverlayOpacity {
             get {
-                return ((decimal)(this["OverlayOpacity"]));
+                return ((double)(this["OverlayOpacity"]));
             }
             set {
                 this["OverlayOpacity"] = value;

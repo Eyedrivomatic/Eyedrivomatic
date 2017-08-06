@@ -11,8 +11,8 @@
     <Setting Name="CameraEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="OverlayOpacity" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">0.4</Value>
+    <Setting Name="OverlayOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6</Value>
     </Setting>
   </Settings>
 </SettingsFile>

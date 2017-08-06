@@ -8,7 +8,7 @@
     <Thickness x:Key="DefaultMargin">2</Thickness>
 
     <Thickness x:Key="ItemBorderThickness">0</Thickness>
-    
+
     <system:Double x:Key="StandardButtonHeight">50</system:Double>
 
     <system:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">35</system:Double>
@@ -502,8 +502,8 @@
     <Style TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
         <Setter Property="Background" Value="{DynamicResource ListBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ListBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="5" />
     </Style>
 
     <Style TargetType="ListBoxItem">
@@ -511,7 +511,7 @@
         <Setter Property="Background" Value="{DynamicResource ItemBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource ItemBorderThickness}" />
-        <Setter Property="Foreground" Value="{DynamicResource ItemForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ItemForegroundBrush}" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
@@ -622,11 +622,12 @@
                                 BorderBrush="{DynamicResource SelectedBorderBrush}"
                                 Opacity="0" />
                         <ContentPresenter x:Name="contentPresenter"
-                                            Content="{TemplateBinding Content}"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            Margin="{TemplateBinding Padding}" />
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" />
                         <Border x:Name="DisabledVisualElement"
                                 Background="{DynamicResource DisabledOverlayBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -1023,13 +1024,14 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="SettingGroupBoxStyle" TargetType="GroupBox"  BasedOn="{StaticResource {x:Type GroupBox}}">
-        <Setter Property="Width" Value="530"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Style x:Key="SettingGroupBoxStyle" TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+        <Setter Property="Width" Value="530" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
 
-    <Style x:Key="SettingGroupBoxDoubleWidthStyle" TargetType="GroupBox"  BasedOn="{StaticResource SettingGroupBoxStyle}">
-        <Setter Property="Width" Value="1080"/>
+    <Style x:Key="SettingGroupBoxDoubleWidthStyle" TargetType="GroupBox"
+           BasedOn="{StaticResource SettingGroupBoxStyle}">
+        <Setter Property="Width" Value="1080" />
     </Style>
 </ResourceDictionary>
