@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration.ViewModels
 {
@@ -33,6 +34,7 @@ namespace Eyedrivomatic.Configuration.ViewModels
 
         public List<ThemeResourceDictionary> AvailableColors;
 
-
+        [Import(ConfigurationModule.SaveAllConfigurationCommandName)]
+        public CompositeCommand SaveCommand { get; set; }
     }
 }

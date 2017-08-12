@@ -29,7 +29,7 @@ using Prism.Regions;
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
-using Microsoft.Practices.ServiceLocation;
+using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration
 {
@@ -39,13 +39,14 @@ namespace Eyedrivomatic.Configuration
     public class ConfigurationModule : IModule
     {
         private readonly IRegionManager _regionManager;
-        private readonly IServiceLocator _serviceLocator;
+
+        [Import]
+        public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
 
         [ImportingConstructor]
-        public ConfigurationModule(IRegionManager regionManager, IServiceLocator serviceLocator)
+        public ConfigurationModule(IRegionManager regionManager)
         {
             Log.Info(this, $"Creating Module {nameof(ConfigurationModule)}.");
-            _serviceLocator = serviceLocator;
             _regionManager = regionManager;
         }
 
@@ -67,20 +68,21 @@ namespace Eyedrivomatic.Configuration
             };
         }
 
+        public const string SaveAllConfigurationCommandName = nameof(SaveAllConfigurationCommand);
+        [Export(SaveAllConfigurationCommandName)]
+        public CompositeCommand SaveAllConfigurationCommand { get; } = new CompositeCommandAny();
+
         private void RegisterConfigurationViews()
         {
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ConfigurationView));
 
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(GeneralConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
-            {
-                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_GeneralConfiguration;
-                button.RegionName = RegionNames.ConfigurationContentRegion;
-                button.Target = new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative);
-                button.SortOrder = 0;
-                return button;
-            });
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion,
+                () => RegionNavigationButtonFactory.Create(
+                    Resources.Strings.ViewName_GeneralConfiguration,
+                    RegionNames.ConfigurationContentRegion,
+                    new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative),
+                    0));
         }
     }
 }

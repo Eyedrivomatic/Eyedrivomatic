@@ -19,6 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -30,17 +31,22 @@ using Prism.Mvvm;
 namespace Eyedrivomatic.Configuration.ViewModels
 {
     [Export]
-    public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>
+    public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>, IDisposable
     {
         private readonly IAppearanceConfigurationService _appearanceConfigurationService;
-
+        private readonly IDisposable _saveCommandRegistration;
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
+
         [ImportingConstructor]
-        public GeneralConfigurationViewModel(IAppearanceConfigurationService appearanceConfigurationService)
+        public GeneralConfigurationViewModel(
+            IAppearanceConfigurationService appearanceConfigurationService, 
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
         {
             _appearanceConfigurationService = appearanceConfigurationService;
             _appearanceConfigurationService.PropertyChanged += AppearanceConfigurationPropertyChanged;
+
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
         private void AppearanceConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -77,6 +83,14 @@ namespace Eyedrivomatic.Configuration.ViewModels
         public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _appearanceConfigurationService.AvailableThemeImages;
         public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _appearanceConfigurationService.AvailableThemeStyles;
 
-        public ICommand SaveCommand => new DelegateCommand(() => _appearanceConfigurationService.Save(), () => _appearanceConfigurationService.HasChanges);
+        public bool HasChanges => _appearanceConfigurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _appearanceConfigurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
+        public void Dispose()
+        {
+            _saveCommandRegistration?.Dispose();
+        }
     }
 }

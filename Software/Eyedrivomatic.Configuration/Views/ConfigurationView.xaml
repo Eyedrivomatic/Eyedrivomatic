@@ -31,7 +31,8 @@
             <Button x:Name="SaveButton" 
                     Content="{x:Static resources:Strings.CommandText_Save}" 
                     Margin="5"                     
-                    Height="{DynamicResource StandardButtonHeight}"/>
+                    Height="{DynamicResource StandardButtonHeight}"
+                    Command="{Binding SaveCommand}"/>
         </UniformGrid>
     </Grid>
 </UserControl>

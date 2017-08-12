@@ -82,17 +82,5 @@ namespace Eyedrivomatic.Configuration {
                 this["HideMouseCursor"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
-        public int CameraOverlayTransparency {
-            get {
-                return ((int)(this["CameraOverlayTransparency"]));
-            }
-            set {
-                this["CameraOverlayTransparency"] = value;
-            }
-        }
     }
 }

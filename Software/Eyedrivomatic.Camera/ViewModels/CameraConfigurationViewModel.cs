@@ -19,10 +19,13 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using Accord.Video.DirectShow;
+using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using NullGuard;
@@ -32,17 +35,22 @@ using Prism.Mvvm;
 namespace Eyedrivomatic.Camera.ViewModels
 {
     [Export]
-    public class CameraConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>
+    public class CameraConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>, IDisposable
     {
         private readonly ICameraConfigurationService _cameraConfigurationService;
+        private readonly IDisposable _saveCommandRegistration;
 
         public string HeaderInfo => Strings.ViewName_CameraConfiguration;
 
         [ImportingConstructor]
-        public CameraConfigurationViewModel(ICameraConfigurationService cameraConfigurationService)
+        public CameraConfigurationViewModel(
+            ICameraConfigurationService cameraConfigurationService,
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
+
         {
             _cameraConfigurationService = cameraConfigurationService;
             _cameraConfigurationService.PropertyChanged += CameraConfigurationPropertyChanged;
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
         private void CameraConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -64,14 +72,29 @@ namespace Eyedrivomatic.Camera.ViewModels
             set => _cameraConfigurationService.Camera = value;
         }
 
+        [AllowNull]
+        public string CameraValue
+        {
+            get => _cameraConfigurationService.Camera?.MonikerString;
+            set => _cameraConfigurationService.Camera = AvailableCameras.FirstOrDefault(c => c.MonikerString == value);
+        }
+
         public double OverlayOpacity
         {
             get => _cameraConfigurationService.OverlayOpacity;
             set => _cameraConfigurationService.OverlayOpacity = value;
         }
 
-        public IEnumerable<FilterInfo> AvailableCameras => _cameraConfigurationService.AvailableCameras;
+        public List<FilterInfo> AvailableCameras => _cameraConfigurationService.AvailableCameras.ToList();
 
-        public ICommand SaveCommand => new DelegateCommand(() => _cameraConfigurationService.Save(), () => _cameraConfigurationService.HasChanges);
+        public bool HasChanges => _cameraConfigurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _cameraConfigurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
+        public void Dispose()
+        {
+            _saveCommandRegistration?.Dispose();
+        }
     }
 }

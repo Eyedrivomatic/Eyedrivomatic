@@ -41,7 +41,6 @@ namespace Eyedrivomatic.Configuration
         private readonly AppearanceConfiguration _configuration;
         private readonly ThemesProvider _themesProvider;
         private readonly ThemeSelector _themeSelector;
-        private bool _hasChanges;
 
         [ImportingConstructor]
         internal AppearanceConfigurationService(AppearanceConfiguration configuration, ThemesProvider themesProvider, ThemeSelector themeSelector)
@@ -50,6 +49,7 @@ namespace Eyedrivomatic.Configuration
             _themesProvider = themesProvider;
             _themeSelector = themeSelector;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
+            _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
 
             if (_configuration.SettingsVersion < 1)
             {
@@ -64,18 +64,12 @@ namespace Eyedrivomatic.Configuration
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _hasChanges = true;
+            HasChanges = true;
 
             if (e.PropertyName == nameof(_configuration.HideMouseCursor))
             {
                 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(nameof(HideMouseCursor));
-            }
-
-            if (e.PropertyName == nameof(_configuration.CameraOverlayTransparency))
-            {
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(CameraOverlayTransparency));
             }
 
             if (e.PropertyName == nameof(_configuration.ThemeColors))
@@ -129,22 +123,21 @@ namespace Eyedrivomatic.Configuration
         public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _themesProvider.Images;
         public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _themesProvider.Styles;
 
-        public int CameraOverlayTransparency
+        private bool _hasChanges;
+        public bool HasChanges
         {
-            get => _configuration.CameraOverlayTransparency;
-            set => _configuration.CameraOverlayTransparency = value;
+            get => _hasChanges;
+            private set => SetProperty(ref _hasChanges, value);
         }
-
-        public bool HasChanges => _hasChanges;
 
         public void Save()
         {
-            if (!_hasChanges) return;
+            if (!HasChanges) return;
 
             Log.Info(this, "Saving Changes");
 
             _configuration.Save();
-            _hasChanges = false;
+            HasChanges = false;
         }
 
 

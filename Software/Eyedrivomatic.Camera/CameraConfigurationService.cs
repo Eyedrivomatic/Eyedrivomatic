@@ -43,7 +43,6 @@ namespace Eyedrivomatic.Camera
     {
         private readonly CameraConfiguration _configuration;
         private readonly Func<IEnumerable<FilterInfo>> _getCameras;
-        private bool _hasChanges;
 
         [ImportingConstructor]
         internal CameraConfigurationService(CameraConfiguration configuration, [Import("GetCameras")] Func<IEnumerable<FilterInfo>> getCameras)
@@ -51,6 +50,8 @@ namespace Eyedrivomatic.Camera
             _configuration = configuration;
             _getCameras = getCameras;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
+            _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+
             if (_configuration.SettingsVersion < 1)
             {
                 _configuration.Upgrade();
@@ -64,7 +65,7 @@ namespace Eyedrivomatic.Camera
                 e.PropertyName == nameof(CameraConfiguration.Camera) ||
                 e.PropertyName == nameof(CameraConfiguration.OverlayOpacity))
             {
-                _hasChanges = true;
+                HasChanges = true;
                 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(e.PropertyName);
             }
@@ -91,16 +92,21 @@ namespace Eyedrivomatic.Camera
 
         public IEnumerable<FilterInfo> AvailableCameras => _getCameras();
 
-        public bool HasChanges => _hasChanges;
+        private bool _hasChanges;
+        public bool HasChanges
+        {
+            get => _hasChanges;
+            private set => SetProperty(ref _hasChanges, value);
+        }
 
         public void Save()
         {
-            if (!_hasChanges) return;
+            if (!HasChanges) return;
 
             Log.Info(this, "Saving Changes");
 
             _configuration.Save();
-            _hasChanges = false;
+            HasChanges = false;
         }
     }
 }

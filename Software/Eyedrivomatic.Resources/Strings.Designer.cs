@@ -789,6 +789,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forward View Camera.
+        /// </summary>
+        public static string SettingGroupName_Camera {
+            get {
+                return ResourceManager.GetString("SettingGroupName_Camera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection Settings.
         /// </summary>
         public static string SettingGroupName_DeviceConnection {

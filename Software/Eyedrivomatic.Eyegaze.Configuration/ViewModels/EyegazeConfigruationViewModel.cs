@@ -23,29 +23,36 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Input;
+using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.Eyegaze.Configuration.ViewModels
 {
     [Export]
-    public class EyegazeConfigruationViewModel : BindableBase, IHeaderInfoProvider<string>
+    public class EyegazeConfigruationViewModel : BindableBase, IHeaderInfoProvider<string>, IDisposable
     {
         private readonly IDwellClickConfigurationService _dwellClickConfigurationService;
+        private readonly IDisposable _saveCommandRegistration;
 
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
         [ImportingConstructor]
         public EyegazeConfigruationViewModel(
             IDwellClickConfigurationService dwellClickConfigurationService, 
-            [Import] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
+            [Import] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers,
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
         {
             _dwellClickConfigurationService = dwellClickConfigurationService;
             _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
 
             AvailableProviders = providers.Select(factory => factory.Metadata.Name);
+
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -102,6 +109,16 @@ namespace Eyedrivomatic.Eyegaze.Configuration.ViewModels
         {
             get => _dwellClickConfigurationService.RepeatDelayMilliseconds;
             set => _dwellClickConfigurationService.RepeatDelayMilliseconds = value;
+        }
+
+        public bool HasChanges => _dwellClickConfigurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _dwellClickConfigurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
+        public void Dispose()
+        {
+            _saveCommandRegistration?.Dispose();
         }
     }
 }

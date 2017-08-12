@@ -9,7 +9,7 @@ namespace Eyedrivomatic.Controls
     [Export]
     public class RegionNavigationButtonFactory
     {
-        private ExportFactory<RegionNavigationButton> _buttonExport;
+        private readonly ExportFactory<RegionNavigationButton> _buttonExport;
 
         [ImportingConstructor]
         public RegionNavigationButtonFactory(ExportFactory<RegionNavigationButton> buttonExport)

@@ -1,10 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Infrastructure.Extensions;
 using Eyedrivomatic.Resources;
@@ -18,17 +20,20 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     {
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly ExportFactory<Profile> _profileFactory;
+        private readonly IDisposable _saveCommandRegistration;
         private Profile _currentProfile;
 
         [ImportingConstructor]
         public ProfileConfigurationViewModel(IHardwareService hardwareService,
-            IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory)
+            IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory,
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
             : base(hardwareService)
         {
             _configurationService = configurationService;
             _profileFactory = profileFactory;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
             _configurationService.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
         private void ConfigurationService_PropertyChanged(object sender,
@@ -88,6 +93,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             speed => speed != null && CurrentProfile.Speeds.Contains(speed) && CurrentProfile.Speeds.IndexOf(speed) < CurrentProfile.Speeds.Count - 1)
             .ObservesProperty(() => CurrentProfile);
 
+        public bool HasChanges => _configurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _configurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
         private void MoveProfile(Profile profile, bool forward)
         {
             var index = DrivingProfiles.IndexOf(profile);
@@ -134,8 +144,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected override void Dispose(bool disposing)
         {
-            CurrentProfile = null;
-            DrivingProfiles.CollectionChanged -= DrivingProfilesOnCollectionChanged;
+            if (disposing)
+            {
+                CurrentProfile = null;
+                DrivingProfiles.CollectionChanged -= DrivingProfilesOnCollectionChanged;
+                _saveCommandRegistration?.Dispose();
+            }
 
             base.Dispose(disposing);
         }

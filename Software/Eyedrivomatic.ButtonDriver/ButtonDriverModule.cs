@@ -181,7 +181,6 @@ namespace Eyedrivomatic.ButtonDriver
 
         public void Dispose()
         {
-            _configurationService.Save();
             _hardwareService?.Dispose();
         }
     }

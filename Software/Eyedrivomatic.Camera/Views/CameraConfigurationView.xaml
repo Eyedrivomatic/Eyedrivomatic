@@ -51,8 +51,8 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <GroupBox x:Name="DwellClickSettings"
-                  Header="{x:Static resources:Strings.SettingGroupName_DwellClick}" 
+        <GroupBox x:Name="CameraSettings"
+                  Header="{x:Static resources:Strings.SettingGroupName_Camera}" 
                   Style="{DynamicResource SettingGroupBoxStyle}">
             <StackPanel x:Name="DwellClickSettingsGrid">
                 <ToggleButton
@@ -67,7 +67,8 @@
                 <ListBox x:Name="CameraList"
                          MinHeight="300"
                          ItemsSource="{Binding Source={StaticResource DeviceSource}}"
-                         SelectedValue="{Binding Camera}"
+                         SelectedValuePath="MonikerString"
+                         SelectedValue="{Binding CameraValue}"
                          DisplayMemberPath="Name"
                          IsEnabled="{Binding CameraEnabled}"
                          Margin="5,15,5,5"/>

@@ -53,7 +53,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration
         private IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
 
         [Import]
-        private RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
+        public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
 
         public void Initialize()
         {

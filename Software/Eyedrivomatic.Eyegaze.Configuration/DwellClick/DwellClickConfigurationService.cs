@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Configuration;
 using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
@@ -38,13 +39,14 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
     public class DwellClickConfigurationService : BindableBase, IDwellClickConfigurationService
     {
         private readonly DwellClickConfiguration _configuration;
-        private bool _hasChanges;
 
         [ImportingConstructor]
         internal DwellClickConfigurationService(DwellClickConfiguration configuration)
         {
             _configuration = configuration;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
+            _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+
             if (_configuration.SettingsVersion < 1)
             {
                 _configuration.Upgrade();
@@ -60,7 +62,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
                 e.PropertyName == nameof(_configuration.DwellTimeoutMilliseconds) ||
                 e.PropertyName == nameof(_configuration.RepeatDelayMilliseconds) )
             {
-                _hasChanges = true;
+                HasChanges = true;
                 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(e.PropertyName);
             }
@@ -114,16 +116,21 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
             set => _configuration.RepeatDelayMilliseconds = value;
         }
 
-        public bool HasChanges => _hasChanges;
+        private bool _hasChanges;
+        public bool HasChanges
+        {
+            get => _hasChanges;
+            private set => SetProperty(ref _hasChanges, value);
+        }
 
         public void Save()
         {
-            if (!_hasChanges) return;
+            if (!HasChanges) return;
 
             Log.Info(this, "Saving Changes");
 
             _configuration.Save();
-            _hasChanges = false;
+            HasChanges = false;
         }
     }
 }

@@ -656,10 +656,10 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrushAlt}" />
         <Setter Property="Margin" Value="10,0,0,0" />
-        <Setter Property="infrastructure:AncestorOpacityMask.Maskable"
+        <!--<Setter Property="infrastructure:AncestorOpacityMask.Maskable"
                 Value="{Binding ElementName=NaviagationAreaBackground}" />
         <Setter Property="infrastructure:AncestorOpacityMask.Enabled"
-                Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />-->
     </Style>
 
     <Style x:Key="FocusVisual">

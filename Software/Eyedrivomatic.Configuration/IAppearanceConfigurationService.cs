@@ -37,8 +37,6 @@ namespace Eyedrivomatic.Configuration
         IList<ThemeImagesResourceDictionary> AvailableThemeImages { get; }
         IList<ThemeStylesResourceDictionary> AvailableThemeStyles { get; }
 
-        int CameraOverlayTransparency { get; set; }
-
         void Save();
         bool HasChanges { get; }
     }

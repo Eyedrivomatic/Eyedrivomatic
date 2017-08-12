@@ -50,6 +50,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             _configuration = configuration;
             _configuration.PropertyChanged += ConfigurationSectionPropertyChanged;
+            _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+
             _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
             ((INotifyPropertyChanged)_configuration.DrivingProfiles).PropertyChanged += ProfileOnPropertyChanged;
 

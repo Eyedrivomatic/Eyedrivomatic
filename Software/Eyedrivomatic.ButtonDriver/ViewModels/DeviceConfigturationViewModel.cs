@@ -33,6 +33,7 @@ using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using NullGuard;
@@ -43,14 +44,17 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public class DeviceConfigturationViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
     {
         private readonly IButtonDriverConfigurationService _configurationService;
+        private readonly IDisposable _saveCommandRegistration;
 
         [ImportingConstructor]
-        public DeviceConfigturationViewModel(IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
+        public DeviceConfigturationViewModel(
+            IHardwareService hardwareService, 
+            IButtonDriverConfigurationService configurationService,
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
             : base(hardwareService)
         {
             _configurationService = configurationService;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
-
 
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
             AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
@@ -59,6 +63,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             TrimCommand = new DelegateCommand<Direction?>(Trim, CanTrim);
 
             RefreshAvailableDeviceList();
+
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
         public string HeaderInfo => Strings.ViewName_DeviceConfig;
@@ -214,6 +220,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             set => Driver.DeviceSettings.MaxPosY = value;
         }
 
+        public bool HasChanges => _configurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _configurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -252,6 +263,16 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
             AutoDetectDeviceCommand.RaiseCanExecuteChanged();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _saveCommandRegistration?.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

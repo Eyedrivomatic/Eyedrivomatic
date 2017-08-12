@@ -98,6 +98,7 @@
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="BoolToImageConverter.cs" />
     <Compile Include="BrushAnimation.cs" />
+    <Compile Include="CompositeCommandRegistration.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="GridLengthAnimation.cs" />
     <Compile Include="MultiplierConverter.cs" />

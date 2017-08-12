@@ -355,6 +355,10 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Automatically Connect at Startup</value>
     <comment>Automatically connect to the device at application startup.</comment>
   </data>
+  <data name="SettingGroupName_Camera" xml:space="preserve">
+    <value>Forward View Camera</value>
+    <comment>Title of the group containing settings for the forward view camera.</comment>
+  </data>
   <data name="SettingName_CameraEnabled" xml:space="preserve">
     <value>Camera Enabled</value>
     <comment>Enable/disable the forward-view camera.</comment>
