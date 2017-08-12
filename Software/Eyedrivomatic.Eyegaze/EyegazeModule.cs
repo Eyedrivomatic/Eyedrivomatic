@@ -20,17 +20,15 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
-using Eyedrivomatic.Configuration;
-using Eyedrivomatic.Controls;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Eyegaze.Views;
 using Eyedrivomatic.Infrastructure;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -42,72 +40,48 @@ namespace Eyedrivomatic.Eyegaze
     /// </summary>
     [ModuleExport(typeof(EyegazeModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames =  new[] { nameof(InfrastructureModule), nameof(ControlsModule), nameof(ConfigurationModule) })]
+        DependsOnModuleNames =  new[] { nameof(InfrastructureModule) })]
     public class EyegazeModule : IModule, IDisposable
     {
-        private readonly IRegionManager _regionManager;
-        private readonly AggregateCatalog _catalog;
-        
-        private IServiceLocator ServiceLocator { get; set; }
-
-        [Import]
-        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
-
-        [Export(typeof(DwellClickAdornerFactory))]
-        public static DwellClickAdorner CreateDwellClickAdorner(UIElement adornedElement)
-        {
-            return new DwellClickPieAdorner(adornedElement);
-        }
-
         [ImportingConstructor]
-        public EyegazeModule(IRegionManager regionManager, IServiceLocator serviceLocator, AggregateCatalog catalog)
+        public EyegazeModule(ExportFactory<DwellClickBehavior> dwellClickBehaviorFactory)
         {
             Log.Debug(this, $"Creating Module {nameof(EyegazeModule)}.");
 
-            _regionManager = regionManager;
-            _catalog = catalog;
-            ServiceLocator = serviceLocator;
+            DwellClickBehaviorFactory.Create = () => dwellClickBehaviorFactory.CreateExport().Value;
         }
+
+        [Import]
+        public IRegionManager RegionManager { get; set; }
 
         public void Initialize()
         {
             Log.Debug(this, $"Initializing Module {nameof(EyegazeModule)}.");
 
             var thisDir = Path.GetDirectoryName(new Uri(GetType().Assembly.CodeBase).AbsolutePath);
-            _catalog.Catalogs.Add(new DirectoryCatalog(thisDir ?? ".", "Eyedrivomatic.Eyegaze.Interfaces.*.dll"));
-
-            DwellClickBehaviorFactory.Create = ServiceLocator.GetInstance<DwellClickBehavior>;
-            DwellClickAdornerFactory.Create = adornedElement => new DwellClickPieAdorner(adornedElement);
-
-            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
-
-            _regionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
-            RegisterConfigurationViews();
+            var catalog = new AggregateCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()),
+                new DirectoryCatalog(thisDir ?? ".", "Eyedrivomatic.Eyegaze.Interfaces.*.dll"));
+            var container = new CompositionContainer(catalog);
+            EyegazeProviders = container.GetExports<IEyegazeProvider, IEyegazeProviderMetadata>().ToList();
         }
 
-        private void RegisterConfigurationViews()
+        [Export(typeof(IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>>))]
+        public List<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> EyegazeProviders { get; private set; }
+
+
+        [Export(typeof(Func<UIElement, DwellClickAdorner>))]
+        public DwellClickAdorner CreateDwellClickAdorner(UIElement adornedElement)
         {
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(EyegazeConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
-            {
-                var button = ServiceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_EyegazeConfig;
-                button.RegionName = RegionNames.ConfigurationContentRegion;
-                button.Target = new Uri($@"/{nameof(EyegazeConfigurationView)}", UriKind.Relative);
-                button.SortOrder = 1;
-                return button;
-            });
+            return new DwellClickPieAdorner(adornedElement);
         }
 
         public void Dispose()
         {
-            //I probably need to revisit this. This will create any providers that have not yet been created
             try
             {
-                var providers = ServiceLocator.GetAllInstances<IEyegazeProvider>().OfType<IDisposable>();
-                foreach (var provider in providers)
+                foreach (var providerExport in EyegazeProviders.Where(e => e.IsValueCreated))
                 {
-                    provider.Dispose();
+                    providerExport.Value.Dispose();
                 }
             }
             catch (Exception e)

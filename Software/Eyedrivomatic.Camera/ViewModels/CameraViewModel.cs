@@ -90,6 +90,7 @@ namespace Eyedrivomatic.Camera.ViewModels
 
         public void Dispose()
         {
+            _camera.FrameCaptured -= CameraOnFrameCaptured;
             _camera.Dispose();
         }
     }

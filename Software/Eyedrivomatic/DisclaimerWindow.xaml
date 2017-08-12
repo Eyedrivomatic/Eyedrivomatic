@@ -7,13 +7,7 @@
         xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
         mc:Ignorable="d"
         Title="Disclaimer" Height="350" Width="550" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+
     <DockPanel x:Name="LayoutRoot" Background="{StaticResource WindowBackgroundBrush}">
         <Label Content="{x:Static resources:Strings.Disclaimer_Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" FontWeight="Bold" FontSize="28"/>
         <Button DockPanel.Dock="Bottom" 

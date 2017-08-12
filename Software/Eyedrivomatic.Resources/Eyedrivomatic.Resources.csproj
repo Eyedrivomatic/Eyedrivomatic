@@ -184,6 +184,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Eyegaze\Eyedrivomatic.Eyegaze.csproj">
+      <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
+      <Name>Eyedrivomatic.Eyegaze</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
       <Name>Eyedrivomatic.Infrastructure</Name>

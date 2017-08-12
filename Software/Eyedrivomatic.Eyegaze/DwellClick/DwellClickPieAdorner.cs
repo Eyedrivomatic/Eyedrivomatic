@@ -34,6 +34,11 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
     {
         private readonly PieSlice _progressIndicator;
 
+        static DwellClickPieAdorner()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DwellClickPieAdorner), new FrameworkPropertyMetadata(typeof(DwellClickPieAdorner)));
+        }
+
         public DwellClickPieAdorner(UIElement adornedElement) : base(adornedElement)
         {
             Focusable = false;

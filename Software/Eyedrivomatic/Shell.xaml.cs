@@ -38,7 +38,7 @@ namespace Eyedrivomatic
             DriveProfileSelection.Items.Clear();
             MainContent.Content = null;
 
-            ConfigurationSelection.Items.Clear();
+            ConfigurationNavigation.Items.Clear();
             ConfigurationContent.Content = null;
         }
 

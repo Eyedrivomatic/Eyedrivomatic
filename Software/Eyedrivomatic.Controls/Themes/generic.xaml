@@ -25,27 +25,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Eyedrivomatic.Controls">
 
-    <!-- Style TargetType="{x:Type local:NumericUpDown}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NumericUpDown}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button x:Name="IncrementButton" Grid.Column="0" Command="{Binding IncrementCommand}" Content="+"/>
-                        <TextBox x:Name="ValueTextBox" Grid.Column="1" Text="{Binding Vale}"/>
-                        <Button x:Name="DecrementButton" Grid.Column="2" Command="{Binding DecrementCommand}" Content="-"/>
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </-->
-
     <Style TargetType="{x:Type local:BrowsableList}" BasedOn="{StaticResource {x:Type ListBox}}">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
@@ -88,4 +67,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

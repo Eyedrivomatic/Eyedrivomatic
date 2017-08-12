@@ -21,7 +21,7 @@
 
 using System.ComponentModel.Composition;
 
-namespace Eyedrivomatic.Eyegaze
+namespace Eyedrivomatic.Eyegaze.Configuration
 {
     [Export]
     public partial class SleepButton

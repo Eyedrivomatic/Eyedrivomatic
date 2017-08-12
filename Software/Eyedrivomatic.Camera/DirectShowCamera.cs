@@ -84,6 +84,7 @@ namespace Eyedrivomatic.Camera
             {
                 if (_videoSource == null) return;
                 _videoSource.NewFrame -= VideoSourceOnNewFrame;
+                _videoSource.PlayingFinished -= VideoSourceOnPlayingFinished;
                 _videoSource.SignalToStop();
                 _videoSource = null;
             }

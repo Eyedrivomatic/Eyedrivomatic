@@ -68,7 +68,7 @@
                     <Button Name="AutoDiscoverButton"
                             Command="{Binding AutoDetectDeviceCommand}"
                             Content="{x:Static resources:Strings.CommandText_AutoDiscover}"
-                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                             Height="{DynamicResource StandardButtonHeight}"
                             Margin="5" />
 
@@ -131,6 +131,7 @@
                             </Grid.ColumnDefinitions>
                             <controls:IntUpDown Name="MaxForward"
                                                 Grid.Column="1"
+                                                MinWidth="175"
                                                 MinValue="91" MaxValue="120"
                                                 Value="{Binding MaxForward}"
                                                 Margin="10" />
@@ -142,13 +143,15 @@
                                 <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
                             <controls:IntUpDown Name="MaxLeft"
-                                                Grid.Column="0"
+                                                Grid.Column="0" 
+                                                MinWidth="175"
                                                 MinValue="60" MaxValue="89"
                                                 Value="{Binding MaxLeft}"
                                                 Margin="10" />
 
                             <controls:IntUpDown Name="MaxRight"
                                                 Grid.Column="1"
+                                                MinWidth="175"
                                                 MinValue="91" MaxValue="120"
                                                 Value="{Binding MaxRight}"
                                                 Margin="10" />
@@ -162,6 +165,7 @@
                             </Grid.ColumnDefinitions>
                             <controls:IntUpDown Name="MaxBackward"
                                                 Grid.Column="1"
+                                                MinWidth="175"
                                                 MinValue="60" MaxValue="89"
                                                 Value="{Binding MaxBackward}"
                                                 Margin="10" />

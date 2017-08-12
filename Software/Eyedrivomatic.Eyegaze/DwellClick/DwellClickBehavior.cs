@@ -36,8 +36,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 {
     public static class DwellClickBehaviorFactory
     {
-        [Import]
-        public static Func<DwellClickBehavior> Create;
+        public static Func<DwellClickBehavior> Create { get; set; }
     }
 
     [Export(typeof(DwellClickBehavior)), PartCreationPolicy(CreationPolicy.NonShared)]
@@ -134,9 +133,10 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         public static readonly DependencyProperty AdornerStyleProperty =
             DependencyProperty.RegisterAttached("AdornerStyle", typeof(Style), typeof(DwellClickBehavior), new PropertyMetadata(null));
 
+        [return: AllowNull]
         public static Style GetAdornerStyle(DependencyObject obj)
         {
-            return (Style)obj.GetValue(AdornerStyleProperty);
+            return obj?.GetValue(AdornerStyleProperty) as Style;
         }
 
         public static void SetAdornerStyle(DependencyObject obj, Style value)
@@ -170,16 +170,20 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private IDisposable _providerRegistration;
 
         private readonly IDwellClickAnimator _animator;
+        private readonly DwellClickAdornerFactory _adornerFactory;
         private readonly IList<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> _providersFactories;
         private DwellClickAdorner _adorner;
         private IDisposable _moveWatchdogRegistration;
         private IDwellClickConfigurationService _configuration;
 
-
         [ImportingConstructor]
-        public DwellClickBehavior(IDwellClickAnimator animator, [ImportMany] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
+        public DwellClickBehavior(
+            IDwellClickAnimator animator, 
+            IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers,
+            DwellClickAdornerFactory adornerFactory)
         {
             _animator = animator;
+            _adornerFactory = adornerFactory;
             _providersFactories = providers.ToList();
         }
 
@@ -304,7 +308,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private void CreateAdorner()
         {
-            _adorner = DwellClickAdorner.CreateAndAdd(AssociatedObject);
+            _adorner = _adornerFactory.Create(AssociatedObject);
             var style = GetAdornerStyle(AssociatedObject);
             if (style != null) _adorner.Style = style;
             _adorner.Visibility = Visibility.Visible;

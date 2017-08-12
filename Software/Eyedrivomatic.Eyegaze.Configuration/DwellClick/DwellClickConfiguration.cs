@@ -1,4 +1,4 @@
-﻿namespace Eyedrivomatic.Eyegaze.DwellClick
+﻿namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
 {
     internal sealed partial class DwellClickConfiguration
     {

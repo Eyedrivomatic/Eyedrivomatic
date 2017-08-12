@@ -7,6 +7,29 @@ using Prism.Regions;
 namespace Eyedrivomatic.Controls
 {
     [Export]
+    public class RegionNavigationButtonFactory
+    {
+        private ExportFactory<RegionNavigationButton> _buttonExport;
+
+        [ImportingConstructor]
+        public RegionNavigationButtonFactory(ExportFactory<RegionNavigationButton> buttonExport)
+        {
+            _buttonExport = buttonExport;
+        }
+
+        public RegionNavigationButton Create(object content, string regionName, Uri target, int sortOrder)
+        {
+            var button = _buttonExport.CreateExport().Value;
+            button.Content = content;
+            button.RegionName = regionName;
+            button.Target = target;
+            button.SortOrder = sortOrder;
+            return button;
+
+        }
+    }
+
+    [Export]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class RegionNavigationButton : RadioButton
     {

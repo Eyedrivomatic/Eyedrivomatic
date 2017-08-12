@@ -18,41 +18,14 @@
 //    You should have received a copy of the GNU General Public License
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
-
-using System;
-using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace Eyedrivomatic.Eyegaze.DwellClick
 {
-    public static class DwellClickAdornerFactory
-    {
-        [Import]
-        public static Func<UIElement, DwellClickAdorner> Create;
-    }
-
     public abstract class DwellClickAdorner : Adorner
     {
-        internal static DwellClickAdorner CreateAndAdd(UIElement adornedElement)
-        {
-            var adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-            if (adornerLayer == null) return null;
-
-            var adorner = DwellClickAdornerFactory.Create?.Invoke(adornedElement);
-
-            if (adorner == null) return null;
-           
-            adorner.HorizontalAlignment = HorizontalAlignment.Center;
-            adorner.VerticalAlignment = VerticalAlignment.Center;
-
-            adornerLayer.Add(adorner);
-            adornerLayer.Update(adornedElement);
-
-            return adorner;
-        }
-
         protected DwellClickAdorner(UIElement adornedElement) : base(adornedElement)
         { }
     

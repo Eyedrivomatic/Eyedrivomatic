@@ -20,9 +20,9 @@
 
 
 using System.ComponentModel.Composition;
-using Eyedrivomatic.Eyegaze.ViewModels;
+using Eyedrivomatic.Eyegaze.Configuration.ViewModels;
 
-namespace Eyedrivomatic.Eyegaze.Views
+namespace Eyedrivomatic.Eyegaze.Configuration.Views
 {
     [Export]
     public partial class EyegazeConfigurationView

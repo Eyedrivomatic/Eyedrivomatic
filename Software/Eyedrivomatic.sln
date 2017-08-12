@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic", "Eyedrivomatic\Eyedrivomatic.csproj", "{AA2D68EC-A910-4260-A0A3-036755F1DEFB}"
 EndProject
@@ -56,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Eyegaze.Interfaces.Tobii.UnitTests", "Eyedrivomatic.Eyegaze.Interfaces.Tobii.UnitTests\Eyedrivomatic.Eyegaze.Interfaces.Tobii.UnitTests.csproj", "{2F53CAED-AB0C-4229-8533-E938E05E10DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{595A38E2-A036-4406-9BE5-9BB20DDF341B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Eyegaze.Configuration", "Eyedrivomatic.Eyegaze.Configuration\Eyedrivomatic.Eyegaze.Configuration.csproj", "{C9CA6046-C7EE-4194-821B-9570A6299734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -315,6 +317,18 @@ Global
 		{2F53CAED-AB0C-4229-8533-E938E05E10DB}.Release|x64.Build.0 = Release|Any CPU
 		{2F53CAED-AB0C-4229-8533-E938E05E10DB}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F53CAED-AB0C-4229-8533-E938E05E10DB}.Release|x86.Build.0 = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|x64.Build.0 = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Debug|x86.Build.0 = Debug|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|x64.ActiveCfg = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|x64.Build.0 = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|x86.ActiveCfg = Release|Any CPU
+		{C9CA6046-C7EE-4194-821B-9570A6299734}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -342,5 +356,6 @@ Global
 		{539878DA-37E9-48F4-B48F-1BFA8F2E7B0C} = {595A38E2-A036-4406-9BE5-9BB20DDF341B}
 		{2F53CAED-AB0C-4229-8533-E938E05E10DB} = {595A38E2-A036-4406-9BE5-9BB20DDF341B}
 		{595A38E2-A036-4406-9BE5-9BB20DDF341B} = {922F7FF6-CC4D-4D61-AFDA-0CF787425707}
+		{C9CA6046-C7EE-4194-821B-9570A6299734} = {922F7FF6-CC4D-4D61-AFDA-0CF787425707}
 	EndGlobalSection
 EndGlobal

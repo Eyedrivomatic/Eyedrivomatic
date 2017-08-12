@@ -28,7 +28,7 @@ using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using Prism.Mvvm;
 
-namespace Eyedrivomatic.Eyegaze.ViewModels
+namespace Eyedrivomatic.Eyegaze.Configuration.ViewModels
 {
     [Export]
     public class EyegazeConfigruationViewModel : BindableBase, IHeaderInfoProvider<string>
@@ -40,7 +40,7 @@ namespace Eyedrivomatic.Eyegaze.ViewModels
         [ImportingConstructor]
         public EyegazeConfigruationViewModel(
             IDwellClickConfigurationService dwellClickConfigurationService, 
-            [ImportMany] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
+            [Import] IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers)
         {
             _dwellClickConfigurationService = dwellClickConfigurationService;
             _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;

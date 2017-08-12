@@ -151,10 +151,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -234,6 +230,10 @@
     <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
       <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
       <Name>Eyedrivomatic.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Eyegaze.Configuration\Eyedrivomatic.Eyegaze.Configuration.csproj">
+      <Project>{c9ca6046-c7ee-4194-821b-9570a6299734}</Project>
+      <Name>Eyedrivomatic.Eyegaze.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Eyegaze.Interfaces.Mouse\Eyedrivomatic.Eyegaze.Interfaces.Mouse.csproj">
       <Project>{71f95403-3cb8-4956-b0e6-7993a735ffe1}</Project>

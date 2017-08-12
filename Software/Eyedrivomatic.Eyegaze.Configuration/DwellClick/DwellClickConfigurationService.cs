@@ -21,10 +21,11 @@
 
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 
-namespace Eyedrivomatic.Eyegaze.DwellClick
+namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
 {
     public static class DefaultConfigurationProvider
     {

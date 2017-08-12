@@ -4,11 +4,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Eyedrivomatic.Eyegaze.DwellClick")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Eyedrivomatic.Eyegaze.Configuration")]
+[assembly: AssemblyDescription("The Eyedrivomatic component configuration implementation.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Eyedrivomatic.Eyegaze.DwellClick")]
+[assembly: AssemblyCompany("Eyedrivomatic")]
+[assembly: AssemblyProduct("Eyedrivomatic.Eyegaze.Configuration")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

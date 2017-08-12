@@ -32,6 +32,11 @@ namespace Eyedrivomatic.Controls
     /// </summary>
     public class BrowsableList : ListBox
     {
+        static BrowsableList()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BrowsableList), new FrameworkPropertyMetadata(typeof(BrowsableList)));
+        }
+
         public BrowsableList() 
         {
             SetValue(PrevItemCommandProperty, new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0));

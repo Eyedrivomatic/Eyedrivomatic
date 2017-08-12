@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99689BC3-301B-4FC7-9D5F-2AD2BEEB0FD6}</ProjectGuid>
+    <ProjectGuid>{C9CA6046-C7EE-4194-821B-9570A6299734}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Eyedrivomatic.Eyegaze</RootNamespace>
-    <AssemblyName>Eyedrivomatic.Eyegaze</AssemblyName>
+    <RootNamespace>Eyedrivomatic.Eyegaze.Configuration</RootNamespace>
+    <AssemblyName>Eyedrivomatic.Eyegaze.Configuration</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -74,35 +74,66 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DwellClick\DwellClickAdornerFactory.cs" />
-    <Compile Include="ExportEyegazeProviderAttribute.cs" />
-    <Compile Include="EyegazeModule.cs" />
-    <Compile Include="DwellClick\DwellClickAdorner.cs" />
-    <Compile Include="DwellClick\DwellClickAnimator.cs" />
-    <Compile Include="DwellClick\DwellClickBehavior.cs" />
-    <Compile Include="DwellClick\DwellClicker.cs" />
-    <Compile Include="DwellClick\DwellClickPieAdorner.cs" />
-    <Compile Include="DwellClick\IDwellClickConfigurationService.cs" />
-    <Compile Include="DwellClick\PieSlice.cs" />
-    <Compile Include="IEyegazeProvider.cs" />
+    <Compile Include="DwellClick\DwellClickConfiguration.cs">
+      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
+    </Compile>
+    <Compile Include="DwellClick\DwellClickConfiguration.Designer.cs">
+      <DependentUpon>DwellClickConfiguration.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="DwellClick\DwellClickConfigurationService.cs" />
+    <Compile Include="EyegazeConfigurationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SleepButton.xaml.cs">
+      <DependentUpon>SleepButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EyegazeConfigruationViewModel.cs" />
+    <Compile Include="Views\EyegazeConfigurationView.xaml.cs">
+      <DependentUpon>EyegazeConfigurationView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="DwellClick\DwellClickConfiguration.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DwellClickConfiguration.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj">
+      <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
+      <Name>Eyedrivomatic.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
+      <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
+      <Name>Eyedrivomatic.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Eyegaze\Eyedrivomatic.Eyegaze.csproj">
+      <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
+      <Name>Eyedrivomatic.Eyegaze</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
       <Name>Eyedrivomatic.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Resources\Eyedrivomatic.Resources.csproj">
+      <Project>{1c00ccd6-a19c-4b9e-a203-f053ce0871ff}</Project>
+      <Name>Eyedrivomatic.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Themes\generic.xaml">
+    <Page Include="SleepButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EyegazeConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

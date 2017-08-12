@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eyedrivomatic.Eyegaze.DwellClick {
+namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

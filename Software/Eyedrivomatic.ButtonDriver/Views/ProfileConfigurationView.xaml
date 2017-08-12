@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml" />
+                <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <infrastructure:NullToBoolConverter x:Key="NullToBoolConverter" ValueIfNull="False" />
