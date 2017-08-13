@@ -37,10 +37,12 @@ const GetSettingsAction SettingsActions[] PROGMEM =
 	GetSettingsAction(SettingName_MinPosX, GetSettingActionClass::getXMin),
 	GetSettingsAction(SettingName_CenterPosX, GetSettingActionClass::getXCenter),
 	GetSettingsAction(SettingName_MaxPosX, GetSettingActionClass::getXMax),
+	GetSettingsAction(SettingName_InvertX, GetSettingActionClass::getXInvert),
 
 	GetSettingsAction(SettingName_MinPosY, GetSettingActionClass::getYMin),
 	GetSettingsAction(SettingName_CenterPosY, GetSettingActionClass::getYCenter),
 	GetSettingsAction(SettingName_MaxPosY, GetSettingActionClass::getYMax),
+	GetSettingsAction(SettingName_InvertY, GetSettingActionClass::getYInvert),
 
 	GetSettingsAction(SettingName_SwitchDefault, GetSettingActionClass::getSwitch),
 
@@ -83,6 +85,11 @@ void GetSettingActionClass::getXMax(const char * parameters)
 	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MaxPosX, Settings.MaxPos_X);
 }
 
+void GetSettingActionClass::getXInvert(const char * parameters)
+{
+	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertX, Settings.Invert_X ? TrueString : FalseString);
+}
+
 void GetSettingActionClass::getYMin(const char * parameters)
 {
 	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MinPosY, Settings.MinPos_Y);
@@ -96,6 +103,11 @@ void GetSettingActionClass::getYCenter(const char * parameters)
 void GetSettingActionClass::getYMax(const char * parameters)
 {
 	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MaxPosY, Settings.MaxPos_Y);
+}
+
+void GetSettingActionClass::getYInvert(const char * parameters)
+{
+	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertY, Settings.Invert_Y ? TrueString : FalseString);
 }
 
 void GetSettingActionClass::getSwitch(const char * parameters)
@@ -112,9 +124,11 @@ void GetSettingActionClass::getAll(const char * parameters)
 	getXMin(NULL);
 	getXCenter(NULL);
 	getXMax(NULL);
+	getXInvert(NULL);
 	getYMin(NULL);
 	getYCenter(NULL);
 	getYMax(NULL);
+	getYInvert(NULL);
 
 	Response.SendResponse_P(SettingsResponseFormatString, HardwareSwitchNames[HardwareSwitch::Switch1],
 		Settings.DefaultSwitchStates[HardwareSwitch::Switch1] ? OnString : OffString);

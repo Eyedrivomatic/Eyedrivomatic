@@ -20,6 +20,8 @@ const char * const HardwareSwitchNames[] = { SwitchName_1, SwitchName_2, SwitchN
 const char OnString[] PROGMEM = "ON";
 const char OffString[] PROGMEM = "OFF";
 
+const char TrueString[] PROGMEM = "TRUE";
+const char FalseString[] PROGMEM = "FALSE";
 
 class StateClass
 {

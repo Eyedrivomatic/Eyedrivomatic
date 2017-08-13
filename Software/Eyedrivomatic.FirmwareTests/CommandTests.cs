@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Configuration;
 using NUnit.Framework;
 using System.Threading;
 
@@ -43,32 +44,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
         }
-
-        public void Test_Get_All_GetsSettings()
-        {
-            _testConnection.ReadStartup();
-            Assert.That(_testConnection.SendMessage("GET ALL"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: XMIN 0"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: XCENTER 0"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: XMAX 180"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: YMIN 0"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: YCENTER 90"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: YMAX 180"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: SWITCH1 OFF"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: SWITCH2 OFF"));
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: SWITCH3 OFF"));
-        }
+        
 
         [Test, Timeout(2500)]
         [TestCase(1000, 100, 100)]
@@ -89,11 +65,38 @@ namespace FirmwareTests
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Test_Move_Invert_IsApplied(bool invertBothAxis)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET INVERT_X {(invertBothAxis ? "TRUE" : "FALSE")}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: INVERT_X {(invertBothAxis ? "TRUE" : "FALSE")}"));
+
+            Assert.That(_testConnection.SendMessage($"SET INVERT_Y {(invertBothAxis ? "TRUE" : "FALSE")}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: INVERT_Y {(invertBothAxis ? "TRUE" : "FALSE")}"));
+
+
+            Assert.That(_testConnection.SendMessage("MOVE 100 50 -50"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+
+            if (invertBothAxis) Assert.That(message, Is.EqualTo(@"STATUS: SERVO_X=50(075),SERVO_Y=-50(105),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
+            else Assert.That(message, Is.EqualTo(@"STATUS: SERVO_X=50(105),SERVO_Y=-50(075),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+        }
+
         [Test]
         public void Test_Move_NewMoveOverrides()
         {
             _testConnection.ReadStartup();
-            Assert.That(_testConnection.SendMessage($"MOVE 3000 100 100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE 3000 100 100"), Is.True);
 
             var start = DateTime.Now;
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);

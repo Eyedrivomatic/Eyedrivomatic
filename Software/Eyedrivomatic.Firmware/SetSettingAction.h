@@ -14,9 +14,11 @@ class SetSettingActionClass : public SettingActionBaseClass
 	static void setXMin(const char * parameters);
 	static void setXCenter(const char * parameters);
 	static void setXMax(const char * parameters);
+	static void setXInvert(const char * parameters);
 	static void setYMin(const char * parameters);
 	static void setYCenter(const char * parameters);
 	static void setYMax(const char * parameters);
+	static void setYInvert(const char * parameters);
 	static void setSwitch(const char * parameters);
 	static void setDefaults(const char * parameters);
 };

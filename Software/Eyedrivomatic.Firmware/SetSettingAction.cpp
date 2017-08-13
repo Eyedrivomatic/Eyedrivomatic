@@ -14,8 +14,6 @@
 #include "Settings.h"
 #include "Response.h"
 
-const char ValueOutOfRangeError_ul[] PROGMEM = "ERROR: %S is out of range (%u to %u)";
-
 #define LogError(msg, ...) Response.SendResponse_P(msg, ##__VA_ARGS__);
 
 #define LogErrorAndReturn(msg, ...) LogError(msg, ##__VA_ARGS__) return;
@@ -23,7 +21,13 @@ const char ValueOutOfRangeError_ul[] PROGMEM = "ERROR: %S is out of range (%u to
 #define ReadAndValidate_ul(parameters, minValue, maxValue, settingName, setting) \
 unsigned long value = strtoul(parameters, NULL, 10); \
 if (value >= minValue && value <= maxValue) setting = value;\
-else LogError(ValueOutOfRangeError_ul, settingName, minValue, maxValue)\
+else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %S"), parameters, minValue, maxValue, settingName)\
+
+#define ReadAndValidate_b(parameters, settingName, setting) \
+while (*parameters == ' ') parameters++; \
+if (strncmp_P(parameters, TrueString, strlen_P(TrueString)) == 0) setting = true; \
+else if (strncmp_P(parameters, FalseString, strlen_P(FalseString)) == 0) setting = false; \
+else LogError(PSTR("ERROR: '%s' is not a valid value for %S"), parameters, settingName);
 
 typedef struct SetSettingsAction
 {
@@ -45,10 +49,12 @@ const SetSettingsAction SettingsActions[] PROGMEM =
 	SetSettingsAction(SettingName_MinPosX, SetSettingActionClass::setXMin),
 	SetSettingsAction(SettingName_CenterPosX, SetSettingActionClass::setXCenter),
 	SetSettingsAction(SettingName_MaxPosX, SetSettingActionClass::setXMax),
+	SetSettingsAction(SettingName_InvertX, SetSettingActionClass::setXInvert),
 
 	SetSettingsAction(SettingName_MinPosY, SetSettingActionClass::setYMin),
 	SetSettingsAction(SettingName_CenterPosY, SetSettingActionClass::setYCenter),
 	SetSettingsAction(SettingName_MaxPosY, SetSettingActionClass::setYMax),
+	SetSettingsAction(SettingName_InvertY, SetSettingActionClass::setYInvert),
 
 	SetSettingsAction(SettingName_SwitchDefault, SetSettingActionClass::setSwitch),
 
@@ -66,13 +72,13 @@ void SetSettingActionClass::execute(const char * parameters)
 	{
 		if (strncmp_P(settingName, SettingsActions[i].settingName, size) == 0)
 		{
-			LoggerService.debug_P(PSTR("Sending %s"), settingName); //No null terminator. So it sends setting parameter if it exists.
+			LoggerService.debug_P(PSTR("Sending '%s'"), settingName); //No null terminator. So it sends setting parameter if it exists.
 			SettingsActions[i].setFunc(parameters + size);
 			return;
 		}
 
 	}
-	LogErrorAndReturn(PSTR("ERROR: INVALID SETTING NAME IN %s"), settingName);
+	LogErrorAndReturn(PSTR("ERROR: INVALID SETTING NAME IN '%s'"), settingName);
 }
 
 
@@ -100,6 +106,12 @@ void SetSettingActionClass::setYMin(const char * parameters)
 	GetSettingActionClass::getYMin(NULL);
 }
 
+void SetSettingActionClass::setYInvert(const char * parameters)
+{
+	ReadAndValidate_b(parameters, SettingName_InvertY, Settings.Invert_Y);
+	GetSettingActionClass::getYInvert(NULL);
+}
+
 void SetSettingActionClass::setYCenter(const char * parameters)
 {
 	ReadAndValidate_ul(parameters, Settings.MinPos_Y + 1, Settings.MaxPos_Y - 1, SettingName_CenterPosY, Settings.CenterPos_Y);
@@ -110,6 +122,12 @@ void SetSettingActionClass::setYMax(const char * parameters)
 {
 	ReadAndValidate_ul(parameters, Settings.CenterPos_Y + 1, 180, SettingName_MaxPosY, Settings.MaxPos_Y);
 	GetSettingActionClass::getYMax(NULL);
+}
+
+void SetSettingActionClass::setXInvert(const char * parameters)
+{
+	ReadAndValidate_b(parameters, SettingName_InvertX, Settings.Invert_X);
+	GetSettingActionClass::getXInvert(NULL);
 }
 
 void SetSettingActionClass::setSwitch(const char * parameters)
@@ -123,7 +141,7 @@ void SetSettingActionClass::setSwitch(const char * parameters)
 	else if (strncmp_P(parameters, OffString, strlen_P(OffString)) == 0) Settings.DefaultSwitchStates[hardwareSwitch] = false;
 	else
 	{
-		LogErrorAndReturn(PSTR("ERROR: INVALID SWITCH STATE %s"), parameters);
+		LogErrorAndReturn(PSTR("ERROR: INVALID SWITCH STATE '%s'"), parameters);
 	}
 	GetSettingActionClass::getSwitch(cache);
 }

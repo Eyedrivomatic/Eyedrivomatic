@@ -14,9 +14,11 @@ class GetSettingActionClass : public SettingActionBaseClass
 	static void getXMin(const char * parameters);
 	static void getXCenter(const char * parameters);
 	static void getXMax(const char * parameters);
+	static void getXInvert(const char * parameters);
 	static void getYMin(const char * parameters);
 	static void getYCenter(const char * parameters);
 	static void getYMax(const char * parameters);
+	static void getYInvert(const char * parameters);
 	static void getSwitch(const char * parameters);
 	static void getAll(const char * parameters);
 };

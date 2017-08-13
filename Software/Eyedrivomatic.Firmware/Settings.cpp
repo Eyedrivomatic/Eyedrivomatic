@@ -27,9 +27,11 @@ void SettingsClass::reset()
 	CenterPos_X = 90;
 	MinPos_X = 60;
 	MaxPos_X = 120;
+	Invert_X = false;
 	CenterPos_Y = 90;
 	MinPos_Y = 60;
 	MaxPos_Y = 120;
+	Invert_Y = true;
 
 	DefaultSwitchStates[HardwareSwitch::Switch1] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch2] = false;
@@ -51,7 +53,14 @@ void SettingsClass::upgrade()
 		DefaultSwitchStates[HardwareSwitch::Switch2] = false;
 		DefaultSwitchStates[HardwareSwitch::Switch3] = false;
 	}
-	Version = 3;
+
+	if (Version < 4)
+	{
+		Invert_X = false;
+		Invert_Y = true;
+	}
+
+	Version = 4;
 }
 
 SettingsClass Settings;
