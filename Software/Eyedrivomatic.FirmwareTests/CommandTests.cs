@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Configuration;
 using NUnit.Framework;
 using System.Threading;
 
@@ -86,8 +85,10 @@ namespace FirmwareTests
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
 
-            if (invertBothAxis) Assert.That(message, Is.EqualTo(@"STATUS: SERVO_X=50(075),SERVO_Y=-50(105),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
-            else Assert.That(message, Is.EqualTo(@"STATUS: SERVO_X=50(105),SERVO_Y=-50(075),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
+            Assert.That(message,
+                invertBothAxis
+                    ? Is.EqualTo(@"STATUS: SERVO_X=50(075),SERVO_Y=-50(105),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF")
+                    : Is.EqualTo(@"STATUS: SERVO_X=50(105),SERVO_Y=-50(075),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
         }
@@ -104,7 +105,7 @@ namespace FirmwareTests
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=100({XMax:D3}),SERVO_Y=100({YMax:D3}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
 
             Thread.Sleep(1000);
-            Assert.That(_testConnection.SendMessage($"MOVE 1000 -100 -100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE 1000 -100 -100"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             var responseTime = (DateTime.Now - start).TotalMilliseconds;
@@ -193,17 +194,16 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-
-            Assert.That(_testConnection.SendMessage($"SWITCH 2000 2"), Is.True);
+            Assert.That(_testConnection.SendMessage("SWITCH 2000 2"), Is.True);
             var start = DateTime.Now;
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=OFF,SWITCH 2=ON,SWITCH 3=OFF"));
 
-            Assert.That(_testConnection.SendMessage($"SWITCH 1000 1"), Is.True);
+            Assert.That(_testConnection.SendMessage("SWITCH 1000 1"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=ON,SWITCH 2=ON,SWITCH 3=OFF"));
 
-            Assert.That(_testConnection.SendMessage($"SWITCH 3000 3"), Is.True);
+            Assert.That(_testConnection.SendMessage("SWITCH 3000 3"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"STATUS: SERVO_X=0({XCenter:D3}),SERVO_Y=0({XCenter:D3}),SWITCH 1=ON,SWITCH 2=ON,SWITCH 3=ON"));
 
@@ -238,13 +238,13 @@ namespace FirmwareTests
         public void Test_Stop_ImmediatelyStops()
         {
             _testConnection.ReadStartup();
-            Assert.That(_testConnection.SendMessage($"MOVE 10000 100 -100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE 10000 100 -100"), Is.True);
 
             var start = DateTime.Now;
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Does.StartWith("STATUS:"));
 
-            Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
+            Assert.That(_testConnection.SendMessage("STOP"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
@@ -258,7 +258,7 @@ namespace FirmwareTests
         
             var start = DateTime.Now;
 
-            Assert.That(_testConnection.SendMessage($"STOP"), Is.True);
+            Assert.That(_testConnection.SendMessage("STOP"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
