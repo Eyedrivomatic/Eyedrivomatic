@@ -85,11 +85,8 @@ namespace FirmwareTests
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
 
-            Assert.That(message,
-                invertBothAxis
-                    ? Is.EqualTo(@"STATUS: SERVO_X=50(075),SERVO_Y=-50(105),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF")
-                    : Is.EqualTo(@"STATUS: SERVO_X=50(105),SERVO_Y=-50(075),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
-
+            //The status does not show a difference.
+            Assert.That(message, Is.EqualTo(@"STATUS: SERVO_X=50(105),SERVO_Y=-50(075),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
         }
 

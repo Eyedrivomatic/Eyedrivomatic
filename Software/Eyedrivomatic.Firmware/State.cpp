@@ -62,22 +62,19 @@ void StateClass::getServoPositionsRelative(int8_t & xPos, int8_t & yPos)
 
 	xPos = REL_POS(absXPos, Settings.MinPos_X, Settings.CenterPos_X, Settings.MaxPos_X);
 	yPos = REL_POS(absYPos, Settings.MinPos_Y, Settings.CenterPos_Y, Settings.MaxPos_Y);
-
-	if (Settings.Invert_X) xPos = -xPos;
-	if (Settings.Invert_Y) yPos = -yPos;
 }
 
 void StateClass::getServoPositions(uint8_t & xPos, uint8_t & yPos)
 {
 	xPos = xServo.read();
 	yPos = yServo.read();
+
+	if (Settings.Invert_X) xPos = 180 - xPos;
+	if (Settings.Invert_Y) yPos = 180 - yPos;
 }
 
 void StateClass::setServoPositionsRelative(int8_t xPos, int8_t yPos)
 {
-	if (Settings.Invert_X) xPos = -xPos;
-	if (Settings.Invert_Y) yPos = -yPos;
-
 	uint8_t absXPos = ABS_POS(xPos, Settings.MinPos_X, Settings.CenterPos_X, Settings.MaxPos_X);
 	uint8_t absYPos = ABS_POS(yPos, Settings.MinPos_Y, Settings.CenterPos_Y, Settings.MaxPos_Y);
 
@@ -91,6 +88,10 @@ void StateClass::setServoPositions(uint8_t xPos, uint8_t yPos)
 
 	if (!xServo.attached()) xServo.attach(SERVO_X);
 	if (!yServo.attached()) yServo.attach(SERVO_Y);
+
+
+	if (Settings.Invert_X) xPos = 180-xPos;
+	if (Settings.Invert_Y) yPos = 180-yPos;
 
 	xServo.write(xPos);
 	yServo.write(yPos);
