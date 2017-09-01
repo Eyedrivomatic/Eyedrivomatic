@@ -5,13 +5,13 @@ namespace FirmwareTests
     [TestFixture]
     public class SettingsTests
     {
-        private const uint XMin = 60;
-        private const uint XCenter = 90;
-        private const uint XMax = 120;
+        private const int XMin = -22;
+        private const int XCenter = 0;
+        private const int XMax = 22;
         //private const bool XInvert = false;
-        private const uint YMin = 60;
-        private const uint YCenter = 90;
-        private const uint YMax = 120;
+        private const int YMin = -22;
+        private const int YCenter = 0;
+        private const int YMax = 22;
         //private const bool YInvert = true;
         private readonly bool[] _switchStates = { false, false, false };
 
@@ -73,7 +73,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.SendMessage("GET INVERT_X"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_X FALSE"));
+            Assert.That(message, Is.EqualTo("SETTING: INVERT_X ON"));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace FirmwareTests
             Assert.That(_testConnection.SendMessage("GET INVERT_Y"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y TRUE"));
+            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y OFF"));
         }
 
 
@@ -149,7 +149,7 @@ namespace FirmwareTests
             Assert.That(message, Is.EqualTo($"SETTING: MAX_X {XMax}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_X FALSE"));
+            Assert.That(message, Is.EqualTo("SETTING: INVERT_X ON"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: MIN_Y {YMin}"));
@@ -161,7 +161,7 @@ namespace FirmwareTests
             Assert.That(message, Is.EqualTo($"SETTING: MAX_Y {YMax}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y TRUE"));
+            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y OFF"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: SWITCH 1 {(_switchStates[0] ? "ON" : "OFF")}"));
@@ -179,21 +179,46 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MIN_X 70"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET MIN_X -15"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MIN_X 70"));
+            Assert.That(message, Is.EqualTo("SETTING: MIN_X -15"));
         }
 
-        [Test]
-        public void Test_SetCenterX_Works()
+        [TestCase(-26)]
+        [TestCase(1)]
+        public void Test_SetMinX_OutOfRange_Is_Ignored(int value)
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET CENTER_X 80"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET MIN_X {value}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: CENTER_X 80"));
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 0) for MIN_X"));
+        }
+
+        [TestCase(5)]
+        [TestCase(-5)]
+        public void Test_SetCenterX_Works(int center)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER_X {center}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: CENTER_X {center}"));
+        }
+
+        [TestCase(-26)]
+        [TestCase(26)]
+        public void Test_SetCenterX_OutOfRange_Is_Ignored(int value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER_X {value}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 22) for CENTER_X"));
         }
 
         [Test]
@@ -201,10 +226,22 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MAX_X 110"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET MAX_X 15"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MAX_X 110"));
+            Assert.That(message, Is.EqualTo("SETTING: MAX_X 15"));
+        }
+
+        [TestCase(-1)]
+        [TestCase(26)]
+        public void Test_SetMaxX_OutOfRange_Is_Ignored(int value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET MAX_X {value}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (0 to 22) for MAX_X"));
         }
 
         [TestCase(true)]
@@ -213,10 +250,10 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage($"SET INVERT_X {(value ? "TRUE" : "FALSE")}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET INVERT_X {(value ? "ON" : "OFF")}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_X {(value ? "TRUE" : "FALSE")}"));
+            Assert.That(message, Is.EqualTo($"SETTING: INVERT_X {(value ? "ON" : "OFF")}"));
         }
 
         [Test]
@@ -235,21 +272,46 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MIN_Y 70"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET MIN_Y -15"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MIN_Y 70"));
+            Assert.That(message, Is.EqualTo("SETTING: MIN_Y -15"));
         }
 
-        [Test]
-        public void Test_SetCenterY_Works()
+        [TestCase(-26)]
+        [TestCase(1)]
+        public void Test_SetMinY_OutOfRange_Is_Ignored(int value)
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET CENTER_Y 80"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET MIN_Y {value}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: CENTER_Y 80"));
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 0) for MIN_Y"));
+        }
+
+        [TestCase(5)]
+        [TestCase(-5)]
+        public void Test_SetCenterY_Works(int center)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER_Y {center}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: CENTER_Y {center}"));
+        }
+
+        [TestCase(-26)]
+        [TestCase(26)]
+        public void Test_SetCenterY_OutOfRange_Is_Ignored(int value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER_Y {value}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 22) for CENTER_Y"));
         }
 
         [Test]
@@ -257,10 +319,22 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MAX_Y 110"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET MAX_Y 15"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MAX_Y 110"));
+            Assert.That(message, Is.EqualTo("SETTING: MAX_Y 15"));
+        }
+
+        [TestCase(-1)]
+        [TestCase(26)]
+        public void Test_SetMaxY_OutOfRange_Is_Ignored(int value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET MAX_Y {value}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (0 to 22) for MAX_Y"));
         }
 
         [TestCase(true)]
@@ -269,10 +343,10 @@ namespace FirmwareTests
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage($"SET INVERT_Y {(value ? "TRUE" : "FALSE")}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET INVERT_Y {(value ? "ON" : "OFF")}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_Y {(value ? "TRUE" : "FALSE")}"));
+            Assert.That(message, Is.EqualTo($"SETTING: INVERT_Y {(value ? "ON" : "OFF")}"));
         }
 
         [Test]

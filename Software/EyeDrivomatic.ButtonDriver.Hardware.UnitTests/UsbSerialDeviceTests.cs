@@ -31,14 +31,14 @@ namespace EyeDrivomatic.ButtonDriver.Hardware.UnitTests
     public class UsbSerialDeviceTests
     {
         [Test]
-        [TestCase("2341", new[] { "0043", "0001", "0243" })] //Arduino Uno
+        [TestCase(new [] {"2341", "2A03" }, new[] { "0043", "0001", "0243" })] //Arduino Uno
         //[Ignore("Requires USB serial device to be attached.")]
-        public void GetPortFromPidVidTest(string vid, string[] pids)
+        public void GetPortFromPidVidTest(string[] vids, string[] pids)
         {
             var devices = UsbSerialDeviceEnumerator.EnumerateDevices().ToList();
 
-            devices.ForEach(device => Console.WriteLine($"Found {device.FriendlyName} on port {device.Port}"));
-            Assert.That(devices.Any(device => device.Vid  == vid && pids.Contains(device.Pid)), Is.True );
+            devices.ForEach(device => Console.WriteLine($"Found {device.FriendlyName} on port {device.Port} - VID:{device.Vid}, PID:{device.Pid}"));
+            Assert.That(devices.Any(device => vids.Contains(device.Vid) && pids.Contains(device.Pid)), Is.True);
         }
     }
 }

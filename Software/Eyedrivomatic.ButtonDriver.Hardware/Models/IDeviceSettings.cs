@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 {
@@ -15,5 +16,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         bool Switch1Default { get; set; }
         bool Switch2Default { get; set; }
         bool Switch3Default { get; set; }
+
+        Task<bool> Save();
     }
 }

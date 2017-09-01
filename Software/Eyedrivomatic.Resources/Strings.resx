@@ -701,12 +701,12 @@ This setting is only effective while the forward view camera is active.</value>
     <comment>The name of the eyegaze configuration view.</comment>
   </data>
   <data name="SettingDescription_DeviceLimits" xml:space="preserve">
-    <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees. The maximum movement is between 60 and 120. Be very careful not to exceed the physical limits of the hardware of your wheelchair!</value>
+    <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees from the center. Recomended maximum movement is 30 degrees in each direction. Be very careful not to exceed the physical limits of joystick hardware!</value>
     <comment>The description of the "device limits" settings.</comment>
   </data>
   <data name="SettingDescription_DeviceTrim" xml:space="preserve">
     <value>Use this to set the center-point for the "Electronic Hand" measured in degrees. 
-The center should be close to "90,90" and must be within the device limits specified above.</value>
+The center should be close to "0,0" and must be within the device limits specified above.</value>
     <comment>The description of the "device trim" settings.</comment>
   </data>
 </root>

@@ -3,7 +3,6 @@
 // 
 
 #include "SettingActionBase.h"
-#include "LoggerService.h"
 
 const char * SettingActionBaseClass::getSettingName(const char * parameters, size_t & size)
 {

@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Media.Animation;
-using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Eyegaze.DwellClick
 {
@@ -47,7 +46,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         public void StartAnimation(DwellClickAdorner adorner, TimeSpan dwellTime, Action clickCallback)
         {
-            Log.Debug(this, "Creating dwell click animation.");
+            //Log.Debug(this, "Creating dwell click animation.");
 
             _dwellStoryboard?.Stop(); //If the storyboard is already running
 
@@ -61,26 +60,26 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
             _dwellStoryboard.Children.Add(dwellAnimation);
 
-            Log.Debug(this, "Starting dwell click animation.");
+            //Log.Debug(this, "Starting dwell click animation.");
             _dwellStoryboard.Begin();
         }
 
         public void PauseAnimation()
         {
-            Log.Debug(this, "Pausing dwell click animation.");
+            //Log.Debug(this, "Pausing dwell click animation.");
             _dwellStoryboard?.Pause();
         }
 
         public void ResumeAnimation()
         {
-            Log.Debug(this, "Resuming the dwell click animation.");
+            //Log.Debug(this, "Resuming the dwell click animation.");
             _dwellStoryboard?.Resume();
         }
 
         public void StopAnimation()
         {
             _dwellStoryboard?.Stop();
-            Log.Debug(this, "Stopped the dwell click animation.");
+            //Log.Debug(this, "Stopped the dwell click animation.");
         }
 
     }

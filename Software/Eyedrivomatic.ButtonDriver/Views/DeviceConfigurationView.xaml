@@ -132,8 +132,8 @@
                             <controls:IntUpDown Name="MaxForward"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="91" MaxValue="120"
-                                                Value="{Binding MaxForward}"
+                                                MinValue="0" MaxValue="60"
+                                                Value="{Binding MaxForward, Mode=TwoWay}"
                                                 Margin="10" />
                         </Grid>
 
@@ -145,14 +145,14 @@
                             <controls:IntUpDown Name="MaxLeft"
                                                 Grid.Column="0" 
                                                 MinWidth="175"
-                                                MinValue="60" MaxValue="89"
+                                                MinValue="0" MaxValue="60"
                                                 Value="{Binding MaxLeft}"
                                                 Margin="10" />
 
                             <controls:IntUpDown Name="MaxRight"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="91" MaxValue="120"
+                                                MinValue="0" MaxValue="60"
                                                 Value="{Binding MaxRight}"
                                                 Margin="10" />
                         </Grid>
@@ -166,7 +166,7 @@
                             <controls:IntUpDown Name="MaxBackward"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="60" MaxValue="89"
+                                                MinValue="0" MaxValue="60"
                                                 Value="{Binding MaxBackward}"
                                                 Margin="10" />
                         </Grid>
@@ -195,6 +195,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        
                         <Button Name="ForwardButton"
                                 Grid.Row="0" Grid.Column="1"
                                 Content="{DynamicResource Button.TrimForward.Content}"

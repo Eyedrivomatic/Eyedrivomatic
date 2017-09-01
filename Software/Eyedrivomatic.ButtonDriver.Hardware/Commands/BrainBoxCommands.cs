@@ -51,6 +51,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
             return _executeCommand(command);
         }
 
+        [Export(nameof(IBrainBoxCommands.SaveConfiguration))]
+        public Task<bool> SaveConfiguration()
+        {
+            var command = new SaveConfigurationCommand();
+            return _executeCommand(command);
+        }
+
         [Export(nameof(IBrainBoxCommands.Stop))]
         public Task<bool> Stop()
         {

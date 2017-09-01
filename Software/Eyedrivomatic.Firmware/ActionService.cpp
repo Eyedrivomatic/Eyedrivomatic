@@ -13,6 +13,7 @@
 #include "ConfigureResponseAction.h"
 #include "GetSettingAction.h"
 #include "SetSettingAction.h"
+#include "SaveSettingsAction.h"
 #include "SendStatusAction.h"
 #include "EnableLogAction.h"
 #include "MoveServoAction.h"
@@ -40,6 +41,7 @@ const char ActionName_Move[] PROGMEM = "MOVE";
 const char ActionName_Switch[] PROGMEM = "SWITCH";
 const char ActionName_Set[] PROGMEM = "SET";
 const char ActionName_Get[] PROGMEM = "GET";
+const char ActionName_Save[] PROGMEM = "SAVE";
 
 const CommandMapEntry CommandMap[] PROGMEM =
 {
@@ -52,6 +54,7 @@ const CommandMapEntry CommandMap[] PROGMEM =
 	CommandMapEntry(ActionName_Switch, ToggleSwitchAction),
 	CommandMapEntry(ActionName_Set, SetSettingAction),
 	CommandMapEntry(ActionName_Get, GetSettingAction),
+	CommandMapEntry(ActionName_Save, SaveSettingsAction),
 };
 
 const char * ActionService::GetCommand(const char * message, size_t & commandLength)

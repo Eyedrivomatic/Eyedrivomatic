@@ -27,7 +27,8 @@
             <Button x:Name="CancelButton" 
                     Content="{x:Static resources:Strings.CommandText_Cancel}" 
                     Margin="5"
-                    Height="{DynamicResource StandardButtonHeight}" />
+                    Height="{DynamicResource StandardButtonHeight}" 
+                    Visibility="Hidden"/>
             <Button x:Name="SaveButton" 
                     Content="{x:Static resources:Strings.CommandText_Save}" 
                     Margin="5"                     

@@ -23,13 +23,18 @@ unsigned long value = strtoul(parameters, NULL, 10); \
 if (value >= minValue && value <= maxValue) setting = value;\
 else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %S"), parameters, minValue, maxValue, settingName)\
 
+#define ReadAndValidate_l(parameters, minValue, maxValue, settingName, setting) \
+long value = strtol(parameters, NULL, 10); \
+if (value >= minValue && value <= maxValue) setting = value;\
+else LogError(PSTR("ERROR: '%li' is out of range (%i to %i) for %S"), value, minValue, maxValue, settingName)\
+
 #define ReadAndValidate_b(parameters, settingName, setting) \
 while (*parameters == ' ') parameters++; \
-if (strncmp_P(parameters, TrueString, strlen_P(TrueString)) == 0) setting = true; \
-else if (strncmp_P(parameters, FalseString, strlen_P(FalseString)) == 0) setting = false; \
+if (strncmp_P(parameters, OnString, strlen_P(OffString)) == 0) setting = true; \
+else if (strncmp_P(parameters, OffString, strlen_P(OffString)) == 0) setting = false; \
 else LogError(PSTR("ERROR: '%s' is not a valid value for %S"), parameters, settingName);
 
-typedef struct SetSettingsAction
+struct SetSettingsAction
 {
 public:
 	SetSettingsAction(const char * name, void(*f)(const char*))
@@ -68,12 +73,12 @@ void SetSettingActionClass::execute(const char * parameters)
 	const char * settingName = getSettingName(parameters, size);
 	if (0 == size) { LogErrorAndReturn(PSTR("ERROR: SETTING NAME NOT SPECIFIED")); }
 
-	for (int i = 0; i < sizeof(SettingsActions) / sizeof(SetSettingsAction); i++)
+	for (unsigned int i = 0; i < sizeof(SettingsActions) / sizeof(SetSettingsAction); i++)
 	{
 		if (strncmp_P(settingName, SettingsActions[i].settingName, size) == 0)
 		{
 			LoggerService.debug_P(PSTR("Sending '%s'"), settingName); //No null terminator. So it sends setting parameter if it exists.
-			SettingsActions[i].setFunc(parameters + size);
+			SettingsActions[i].setFunc(parameters + size + 1);
 			return;
 		}
 
@@ -84,49 +89,53 @@ void SetSettingActionClass::execute(const char * parameters)
 
 void SetSettingActionClass::setXMin(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, 0, Settings.CenterPos_X-1, SettingName_MinPosX, Settings.MinPos_X);
+	ReadAndValidate_l(parameters, HARDWARE_MIN_X, Settings.CenterPos_X, SettingName_MinPosX, Settings.MinPos_X);
 	GetSettingActionClass::getXMin(NULL);
 }
 
 void SetSettingActionClass::setXCenter(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, Settings.MinPos_X+1, Settings.MaxPos_X-1, SettingName_CenterPosX, Settings.CenterPos_X);
+	ReadAndValidate_l(parameters, Settings.MinPos_X, Settings.MaxPos_X, SettingName_CenterPosX, Settings.CenterPos_X);
+	State.resetServoPositions();
 	GetSettingActionClass::getXCenter(NULL);
 }
 
 void SetSettingActionClass::setXMax(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, Settings.CenterPos_X + 1, 180, SettingName_MaxPosX, Settings.MaxPos_X);
+	ReadAndValidate_l(parameters, Settings.CenterPos_X, HARDWARE_MAX_X, SettingName_MaxPosX, Settings.MaxPos_X);
 	GetSettingActionClass::getXMax(NULL);
 }
 
 void SetSettingActionClass::setYMin(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, 0, Settings.CenterPos_Y - 1, SettingName_MinPosY, Settings.MinPos_Y);
+	ReadAndValidate_l(parameters, HARDWARE_MIN_Y, Settings.CenterPos_X, SettingName_MinPosY, Settings.MinPos_Y);
 	GetSettingActionClass::getYMin(NULL);
 }
 
 void SetSettingActionClass::setYInvert(const char * parameters)
 {
 	ReadAndValidate_b(parameters, SettingName_InvertY, Settings.Invert_Y);
+	State.resetServoPositions();
 	GetSettingActionClass::getYInvert(NULL);
 }
 
 void SetSettingActionClass::setYCenter(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, Settings.MinPos_Y + 1, Settings.MaxPos_Y - 1, SettingName_CenterPosY, Settings.CenterPos_Y);
+	ReadAndValidate_l(parameters, Settings.MinPos_Y, Settings.MaxPos_Y, SettingName_CenterPosY, Settings.CenterPos_Y);
+	State.resetServoPositions();
 	GetSettingActionClass::getYCenter(NULL);
 }
 
 void SetSettingActionClass::setYMax(const char * parameters)
 {
-	ReadAndValidate_ul(parameters, Settings.CenterPos_Y + 1, 180, SettingName_MaxPosY, Settings.MaxPos_Y);
+	ReadAndValidate_l(parameters, Settings.CenterPos_Y, HARDWARE_MAX_Y, SettingName_MaxPosY, Settings.MaxPos_Y);
 	GetSettingActionClass::getYMax(NULL);
 }
 
 void SetSettingActionClass::setXInvert(const char * parameters)
 {
 	ReadAndValidate_b(parameters, SettingName_InvertX, Settings.Invert_X);
+	State.resetServoPositions();
 	GetSettingActionClass::getXInvert(NULL);
 }
 

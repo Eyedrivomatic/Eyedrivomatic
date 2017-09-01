@@ -21,6 +21,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Commands
         [Export(nameof(SetConfiguration))]
         Task<bool> SetConfiguration(string name, string value);
 
+        [Export(nameof(SaveConfiguration))]
+        Task<bool> SaveConfiguration();
+
         [Export(nameof(Stop))]
         Task<bool> Stop();
     }

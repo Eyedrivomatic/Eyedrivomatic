@@ -1,5 +1,6 @@
 #include "Settings.h"
 #include "State.h"
+#include "LoggerService.h"
 
 #include <EEPROM.h>
 
@@ -24,14 +25,14 @@ void SettingsClass::reset()
 {
 	strcpy_P(CheckValue, EEPROMCheckValue);
 	Version = EEPROM_SETTINGS_VERSION;
-	CenterPos_X = 90;
-	MinPos_X = 60;
-	MaxPos_X = 120;
-	Invert_X = false;
-	CenterPos_Y = 90;
-	MinPos_Y = 60;
-	MaxPos_Y = 120;
-	Invert_Y = true;
+	CenterPos_X = 0;
+	MinPos_X = HARDWARE_MIN_X;
+	MaxPos_X = HARDWARE_MAX_X;
+	Invert_X = true;
+	CenterPos_Y = 0;
+	MinPos_Y = HARDWARE_MIN_Y;
+	MaxPos_Y = HARDWARE_MAX_Y;
+	Invert_Y = false;
 
 	DefaultSwitchStates[HardwareSwitch::Switch1] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch2] = false;
@@ -42,7 +43,8 @@ void SettingsClass::reset()
 
 void SettingsClass::save()
 {
-	EEPROM.put(0, this);
+	EEPROM.put(0, *this);
+	LoggerService.info_P(PSTR("Settings Saved."));
 }
 
 void SettingsClass::upgrade()
@@ -56,11 +58,13 @@ void SettingsClass::upgrade()
 
 	if (Version < 4)
 	{
-		Invert_X = false;
-		Invert_Y = true;
+		Invert_X = true;
+		Invert_Y = false;
 	}
 
 	Version = 4;
+
+	save();
 }
 
 SettingsClass Settings;

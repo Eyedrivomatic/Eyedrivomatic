@@ -87,7 +87,7 @@ void GetSettingActionClass::getXMax(const char * parameters)
 
 void GetSettingActionClass::getXInvert(const char * parameters)
 {
-	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertX, Settings.Invert_X ? TrueString : FalseString);
+	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertX, Settings.Invert_X ? OnString : OffString);
 }
 
 void GetSettingActionClass::getYMin(const char * parameters)
@@ -107,7 +107,7 @@ void GetSettingActionClass::getYMax(const char * parameters)
 
 void GetSettingActionClass::getYInvert(const char * parameters)
 {
-	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertY, Settings.Invert_Y ? TrueString : FalseString);
+	Response.SendResponse_P(SettingsResponseFormatString, SettingName_InvertY, Settings.Invert_Y ? OnString : OffString);
 }
 
 void GetSettingActionClass::getSwitch(const char * parameters)

@@ -19,19 +19,25 @@ const char SettingName_MaxPosY[] PROGMEM = "MAX_Y";
 const char SettingName_InvertY[] PROGMEM = "INVERT_Y";
 const char SettingName_SwitchDefault[] PROGMEM = "SWITCH";
 
+#define HARDWARE_MAX_X 22
+#define HARDWARE_MIN_X -22
+
+#define HARDWARE_MAX_Y 22
+#define HARDWARE_MIN_Y -22
+
 struct SettingsClass
 {
 public:
 	char CheckValue[9];
 	uint8_t Version;
 
-	uint8_t CenterPos_X;
-	uint8_t MinPos_X;
-	uint8_t MaxPos_X;
+	int8_t CenterPos_X;
+	int8_t MinPos_X;
+	int8_t MaxPos_X;
 
-	uint8_t CenterPos_Y;
-	uint8_t MinPos_Y;
-	uint8_t MaxPos_Y;
+	int8_t CenterPos_Y;
+	int8_t MinPos_Y;
+	int8_t MaxPos_Y;
 
 	bool DefaultSwitchStates[3]; 
 
@@ -52,7 +58,6 @@ public:
 protected:
 	// upgrade settings based on the version number.
 	void upgrade();
-
 };
 
 extern SettingsClass Settings;

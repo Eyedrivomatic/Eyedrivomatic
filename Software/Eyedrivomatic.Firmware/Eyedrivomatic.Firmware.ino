@@ -6,7 +6,6 @@
 #define _DEBUG
 
 #if defined(ARDUINO) && ARDUINO >= 100
-#include "SettingActionBase.h"
 #include "arduino.h"
 #else
 #include "WProgram.h"
@@ -21,6 +20,7 @@
 #include "Response.h"
 #include "Settings.h"
 #include "State.h"
+#include "ActionService.h"
 #include "VersionInfo.h"
 
 void sendStartupInfo();

@@ -20,19 +20,16 @@ const char * const HardwareSwitchNames[] = { SwitchName_1, SwitchName_2, SwitchN
 const char OnString[] PROGMEM = "ON";
 const char OffString[] PROGMEM = "OFF";
 
-const char TrueString[] PROGMEM = "TRUE";
-const char FalseString[] PROGMEM = "FALSE";
-
 class StateClass
 {
 public:
 	void init();
 	void reset();
 
-	void getServoPositions(uint8_t & xPos, uint8_t & yPos);
+	void getServoPositions(float & xPos, float & yPos);
 	void getServoPositionsRelative(int8_t & xPos, int8_t & yPos);
 
-	void setServoPositions(uint8_t xPos, uint8_t yPos);
+	void setServoPositions(int8_t xPos, int8_t yPos);
 	void setServoPositionsRelative(int8_t xPos, int8_t yPos);
 
 	void resetServoPositions();

@@ -111,6 +111,7 @@
     <Compile Include="Commands\BrainBoxCommandHandler.cs" />
     <Compile Include="Commands\BrainBoxCommands.cs" />
     <Compile Include="Commands\GetStatusCommand.cs" />
+    <Compile Include="Commands\SaveConfigurationCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Communications\BrainBoxConnection.cs" />
     <Compile Include="Communications\ChecksumProcessor.cs" />

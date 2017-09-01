@@ -12,14 +12,14 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
     public class StatusMessageEventArgs : EventArgs
     {
         public int XRelative { get; }
-        public int XAbsolute { get; }
+        public double XAbsolute { get; }
         public int YRelative { get; }
-        public int YAbsolute { get; }
+        public double YAbsolute { get; }
         public bool Switch1 { get; }
         public bool Switch2 { get; }
         public bool Switch3 { get; }
 
-        public StatusMessageEventArgs(int xRelative, int xAbsolute, int yRelative, int yAbsolute, bool switch1, bool switch2, bool switch3)
+        public StatusMessageEventArgs(int xRelative, double xAbsolute, int yRelative, double yAbsolute, bool switch1, bool switch2, bool switch3)
         {
             XRelative = xRelative;
             XAbsolute = xAbsolute;

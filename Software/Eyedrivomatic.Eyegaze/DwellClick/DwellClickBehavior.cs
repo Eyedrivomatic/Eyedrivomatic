@@ -261,7 +261,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         {
             _animator?.StopAnimation();
             RemoveAdorner();
-            Log.Info(this, $"Canceled dwell click on [{AssociatedObject}]");
+            //Log.Debug(this, $"Canceled dwell click on [{AssociatedObject}]");
         }
 
         private void DoClick()

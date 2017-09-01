@@ -13,7 +13,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
     internal class StatusMessageProcessor : LineMessageProcessor, IStatusMessageSource
     {
         public const string MessagePrefix = "STATUS:";
-        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix} SERVO_X=(?<XRelative>-?\d{{1,3}})\((?<XAbsolute>\d{{3}})\),SERVO_Y=(?<YRelative>-?\d{{1,3}})\((?<YAbsolute>\d{{3}})\),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF)$");
+        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix} SERVO_X=(?<XRelative>-?\d+)\((?<XAbsolute>-?\d{{1,3}}\.\d)\),SERVO_Y=(?<YRelative>-?\d+)\((?<YAbsolute>-?\d{{1,3}}\.\d)\),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF)$");
 
         internal void Process(string message)
         {
@@ -35,9 +35,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             StatusMessageReceived?.Invoke(this, 
                 new StatusMessageEventArgs(
                     Convert.ToInt32(match.Groups["XRelative"].Value),
-                    Convert.ToInt32(match.Groups["XAbsolute"].Value),
+                    Convert.ToDouble(match.Groups["XAbsolute"].Value),
                     Convert.ToInt32(match.Groups["YRelative"].Value),
-                    Convert.ToInt32(match.Groups["YAbsolute"].Value),
+                    Convert.ToDouble(match.Groups["YAbsolute"].Value),
                     match.Groups["Switch1"].Value == "ON",
                     match.Groups["Switch2"].Value == "ON",
                     match.Groups["Switch3"].Value == "ON"));

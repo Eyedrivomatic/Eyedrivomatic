@@ -694,7 +694,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees. The maximum movement is between 60 and 120. Be very careful not to exceed the physical limits of the hardware of your wheelchair!.
+        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. Recomended maximum movement is 30 degrees in each direction. Be very careful not to exceed the physical limits of joystick hardware!.
         /// </summary>
         public static string SettingDescription_DeviceLimits {
             get {
@@ -704,7 +704,7 @@ namespace Eyedrivomatic.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Use this to set the center-point for the &quot;Electronic Hand&quot; measured in degrees. 
-        ///The center should be close to &quot;90,90&quot; and must be within the device limits specified above..
+        ///The center should be close to &quot;0,0&quot; and must be within the device limits specified above..
         /// </summary>
         public static string SettingDescription_DeviceTrim {
             get {

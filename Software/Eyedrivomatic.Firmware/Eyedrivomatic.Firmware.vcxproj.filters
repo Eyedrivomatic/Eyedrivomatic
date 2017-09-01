@@ -18,9 +18,6 @@
     <None Include="Eyedrivomatic.Firmware.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.Eyedrivomatic.Firmware.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +84,12 @@
     <ClInclude Include="StopAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SaveSettingsAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.Eyedrivomatic.Firmware.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionService.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StopAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveSettingsAction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

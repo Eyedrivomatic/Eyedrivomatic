@@ -19,7 +19,9 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 
@@ -33,20 +35,18 @@ namespace EyeDrivomatic.ButtonDriver.Hardware.UnitTests
         public void TestStatusMessageProcessor_Works()
         {
             var sut = new StatusMessageProcessor();
-            StatusMessageEventArgs receievedArgs = null;
-            sut.StatusMessageReceived += (sender, args) =>
-            {
-                receievedArgs = args;
-            };
 
-            sut.Attach("STATUS: SERVO_X=13(094),SERVO_Y=-13(086),SWITCH 1=OFF,SWITCH 2=ON,SWITCH 3=OFF#1F\n".ToObservable());
-            
+            StatusMessageEventArgs receievedArgs = null;
+            sut.StatusMessageReceived += (sender, args) => receievedArgs = args;
+            sut.StatusParseError += (sender, args) => Assert.Fail($"Parse Failed");
+
+            sut.Attach("STATUS: SERVO_X=13(4.0),SERVO_Y=-13(-4.0),SWITCH 1=OFF,SWITCH 2=ON,SWITCH 3=OFF#31\n".ToObservable());
+
             Assert.That(receievedArgs, Is.Not.Null);
-            if (receievedArgs == null) return; //satisfies null reference checkers.
             Assert.That(receievedArgs.XRelative, Is.EqualTo(13));
-            Assert.That(receievedArgs.XAbsolute, Is.EqualTo(94));
+            Assert.That(receievedArgs.XAbsolute, Is.EqualTo(4d).Within(0.1));
             Assert.That(receievedArgs.YRelative, Is.EqualTo(-13));
-            Assert.That(receievedArgs.YAbsolute, Is.EqualTo(86));
+            Assert.That(receievedArgs.YAbsolute, Is.EqualTo(-4d).Within(0.1));
             Assert.That(receievedArgs.Switch1, Is.False);
             Assert.That(receievedArgs.Switch2, Is.True);
             Assert.That(receievedArgs.Switch3, Is.False);
