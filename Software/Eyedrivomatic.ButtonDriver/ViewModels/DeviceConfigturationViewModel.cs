@@ -60,7 +60,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
             ConnectCommand = new DelegateCommand(Connect, CanConnect);
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
-            TrimCommand = new DelegateCommand<Direction?>(Trim).ObservesCanExecute(() => Connected);
+            TrimCommand = new DelegateCommand<Direction?>(Trim, CanTrim)
+                .ObservesProperty(() => TrimPosition)
+                .ObservesProperty(() => LeftLimit)
+                .ObservesProperty(() => RightLimit)
+                .ObservesProperty(() => ForwardLimit)
+                .ObservesProperty(() => BackwardLimit);
 
             RefreshAvailableDeviceList();
 
@@ -162,7 +167,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             return Connected;
         }
 
-        public Point TrimPosition => Driver == null ? new Point(0, 0) : new Point(Driver.DeviceSettings.CenterPosX, Driver.DeviceSettings.CenterPosY);
+        public Point TrimPosition => Driver == null ? new Point(0, 0) : new Point(Driver.DeviceSettings.CenterPosX ?? 0, Driver.DeviceSettings.CenterPosY ?? 0);
 
         protected void Trim(Direction? direction)
         {
@@ -178,48 +183,71 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
             if (!actionDictionary.ContainsKey(direction.Value)) return;
             actionDictionary[direction.Value]();
-            HasChanges = true;
         }
 
-        public int MaxLeft
+        protected bool CanTrim(Direction? direction)
         {
-            get => (Driver?.DeviceSettings.IsKnown ?? false) ? -Driver.DeviceSettings.MinPosX : 0;
+            if (!Connected || direction == null) return false;
+
+            var testDictionary = new Dictionary<Direction, Func<bool>>
+            {
+                { Direction.Forward, () => Driver.DeviceSettings.CenterPosY < Driver.DeviceSettings.MaxPosY },
+                { Direction.Backward, () => Driver.DeviceSettings.CenterPosY > Driver.DeviceSettings.MinPosY },
+                { Direction.Right, () => Driver.DeviceSettings.CenterPosX < Driver.DeviceSettings.MaxPosX },
+                { Direction.Left, () => Driver.DeviceSettings.CenterPosX > Driver.DeviceSettings.MinPosX }
+            };
+
+            if (!testDictionary.ContainsKey(direction.Value)) return false;
+            return testDictionary[direction.Value]();
+        }
+
+        public int LeftLimit
+        {
+            get => -(Driver.DeviceSettings.MinPosX ?? 0);
             set 
             {
                 Driver.DeviceSettings.MinPosX = -value;
                 HasChanges = true;
             }
         }
+        public int LeftMaxLimit => -Driver.DeviceSettings.HardwareMinPosX;
+        public int LeftMinLimit => -(Driver.DeviceSettings.CenterPosX ?? 0) + 1;
 
-        public int MaxRight
+        public int RightLimit
         {
-            get => (Driver?.DeviceSettings.IsKnown ?? false) ? Driver.DeviceSettings.MaxPosX : 0;
+            get => Driver.DeviceSettings.MaxPosX ?? 0;
             set
             {
                 Driver.DeviceSettings.MaxPosX = value;
                 HasChanges = true;
             }
         }
+        public int RightMaxLimit => Driver.DeviceSettings.HardwareMaxPosX;
+        public int RightMinLimit => (Driver.DeviceSettings.CenterPosX ?? 0) + 1;
 
-        public int MaxBackward
+        public int BackwardLimit
         {
-            get => (Driver?.DeviceSettings.IsKnown ?? false) ? -Driver.DeviceSettings.MinPosY : 0;
+            get => -(Driver.DeviceSettings.MinPosY ?? 0);
             set
             {
                 Driver.DeviceSettings.MinPosY = -value;
                 HasChanges = true;
             }
         }
+        public int BackwardMaxLimit => -Driver.DeviceSettings.HardwareMinPosY;
+        public int BackwardMinLimit => -(Driver.DeviceSettings.CenterPosY ?? 0) + 1;
 
-        public int MaxForward
+        public int ForwardLimit
         {
-            get => (Driver?.DeviceSettings.IsKnown ?? false) ? Driver.DeviceSettings.MaxPosY : 0;
+            get => Driver.DeviceSettings.MaxPosY ?? 0;
             set
             {
                 Driver.DeviceSettings.MaxPosY = value;
                 HasChanges = true;
             }
         }
+        public int ForwardMaxLimit => Driver.DeviceSettings.HardwareMaxPosY;
+        public int ForwardMinLimit => (Driver.DeviceSettings.CenterPosY ?? 0) + 1;
 
         private bool _deviceHasChanges;
 
@@ -254,40 +282,23 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
+        private static readonly Dictionary<string, string[]> SettingPropertyDependencies = new Dictionary<string, string[]>
+        {
+            {nameof(IDeviceSettings.CenterPosX),  new [] {nameof(TrimPosition), nameof(LeftMinLimit), nameof(RightMinLimit)}},
+            {nameof(IDeviceSettings.CenterPosY),  new [] {nameof(TrimPosition), nameof(ForwardMinLimit), nameof(BackwardMinLimit)}},
+            {nameof(IDeviceSettings.MaxPosX), new []{ nameof(RightLimit)} },
+            {nameof(IDeviceSettings.MinPosX), new []{ nameof(LeftLimit)} },
+            {nameof(IDeviceSettings.MaxPosY), new []{ nameof(ForwardLimit)} },
+            {nameof(IDeviceSettings.MinPosY), new []{ nameof(BackwardLimit)} }
+        };
+
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         protected override void OnDriverSettingsChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(IDeviceSettings.CenterPosX))
+            if (!SettingPropertyDependencies.ContainsKey(e.PropertyName)) return;
+            foreach (var dep in SettingPropertyDependencies[e.PropertyName])
             {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxLeft));
-                RaisePropertyChanged(nameof(MaxRight));
-            }
-            else if (e.PropertyName == nameof(IDeviceSettings.CenterPosY))
-            {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxBackward));
-                RaisePropertyChanged(nameof(MaxForward));
-            }
-            else if (e.PropertyName == nameof(IDeviceSettings.MinPosY))
-            {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxBackward));
-            }
-            else if (e.PropertyName == nameof(IDeviceSettings.MaxPosY))
-            {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxForward));
-            }
-            else if (e.PropertyName == nameof(IDeviceSettings.MinPosX))
-            {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxLeft));
-            }
-            else if (e.PropertyName == nameof(IDeviceSettings.MaxPosX))
-            {
-                RaisePropertyChanged(nameof(TrimPosition));
-                RaisePropertyChanged(nameof(MaxRight));
+                RaisePropertyChanged(dep);
             }
         }
 

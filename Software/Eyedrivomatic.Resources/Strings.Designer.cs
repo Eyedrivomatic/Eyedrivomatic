@@ -676,7 +676,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. Recomended maximum movement is 30 degrees in each direction. Be very careful not to exceed the physical limits of joystick hardware!.
+        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!.
         /// </summary>
         public static string SettingDescription_DeviceLimits {
             get {

@@ -19,16 +19,20 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         private readonly Func<Task<bool>> _saveConfigurationCommand;
         private readonly ISettingsMessageSource _settingsMessageSource;
         private readonly Dictionary<string, Action<string>> _messageHandlers;
-        private bool _isKnown;
-        private int _centerPosX;
-        private int _minPosX = -22;
-        private int _maxPosX = 22;
-        private int _centerPosY;
-        private int _minPosY = -22;
-        private int _maxPosY = 22;
-        private bool _invertX;
-        private bool _invertY = true;
-        private readonly bool[] _switchDefaults = new bool[3];
+        private int? _centerPosX;
+        private int? _minPosX;
+        private int? _maxPosX;
+        private int? _centerPosY;
+        private int? _minPosY;
+        private int? _maxPosY;
+        private bool? _invertX;
+        private bool? _invertY;
+        private readonly bool?[] _switchDefaults = new bool?[3];
+
+        public int HardwareMaxPosX => 22;
+        public int HardwareMinPosX => -22;
+        public int HardwareMaxPosY => 22;
+        public int HardwareMinPosY => -22;
 
         [ImportingConstructor]
         internal BrainBoxDeviceSettings(
@@ -65,88 +69,81 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             if (!_messageHandlers.ContainsKey(args.SettingName))
             {
                 Log.Error(this, $"Invalid Setting [{args.SettingName}] received");
-                IsKnown = false;
                 return;
             }
             Log.Info(this, $"Setting [{args.SettingName}] is [{args.SettingValue}]");
             _messageHandlers[args.SettingName](args.SettingValue);
-            IsKnown = true;
         }
 
         private void OnDisconnected(object sender, EventArgs e)
         {
-            IsKnown = false;
+            CenterPosX = null;
+            CenterPosY = null;
         }
 
-        public bool IsKnown
-        {
-            get => _isKnown;
-            private set => SetProperty(ref _isKnown, value);
-        }
-
-        public int CenterPosX
+        public int? CenterPosX
         {
             get => _centerPosX;
-            set => SendConfiguration(SettingNames.CenterPosX, value);
+            set => SendConfiguration(SettingNames.CenterPosX, value ?? 0);
         }
 
-        public int MinPosX
+        public int? MinPosX
         {
             get => _minPosX;
-            set => SendConfiguration(SettingNames.MinPosX, value);
+            set => SendConfiguration(SettingNames.MinPosX, value ?? -22);
         }
 
-        public int MaxPosX
+        public int? MaxPosX
         {
             get => _maxPosX;
-            set => SendConfiguration(SettingNames.MaxPosX, value);
+            set => SendConfiguration(SettingNames.MaxPosX, value ?? 22);
         }
 
-        public int CenterPosY
+        public int? CenterPosY
         {
             get => _centerPosY;
-            set => SendConfiguration(SettingNames.CenterPosY, value);
+            set => SendConfiguration(SettingNames.CenterPosY, value ?? 0);
         }
 
-        public int MinPosY
+        public int? MinPosY
         {
             get => _minPosY;
-            set => SendConfiguration(SettingNames.MinPosY, value);
+            set => SendConfiguration(SettingNames.MinPosY, value ?? -22);
         }
 
-        public int MaxPosY
+        public int? MaxPosY
         {
             get => _maxPosY;
-            set => SendConfiguration(SettingNames.MaxPosY, value);
+            set => SendConfiguration(SettingNames.MaxPosY, value ?? 22);
         }
 
-        public bool InvertX
+        public bool? InvertX
         {
             get => _invertX;
-            set => SendConfiguration(SettingNames.InvertX, value);
+            set => SendConfiguration(SettingNames.InvertX, value ?? true);
         }
 
-        public bool InvertY
+        public bool? InvertY
         {
             get => _invertX;
-            set => SendConfiguration(SettingNames.InvertY, value);
+            set => SendConfiguration(SettingNames.InvertY, value ?? false);
         }
 
-        public bool Switch1Default
+        public bool? Switch1Default
         {
             get => _switchDefaults[0];
-            set => SendConfiguration(SettingNames.Switch1Default, value);
+            set => SendConfiguration(SettingNames.Switch1Default, value ?? false);
         }
 
-        public bool Switch2Default
+        public bool? Switch2Default
         {
             get => _switchDefaults[1];
-            set => SendConfiguration(SettingNames.Switch1Default, value);
+            set => SendConfiguration(SettingNames.Switch1Default, value ?? false);
         }
-        public bool Switch3Default
+        public bool? Switch3Default
         {
             get => _switchDefaults[2];
-            set => SendConfiguration(SettingNames.Switch1Default, value);
+            set => SendConfiguration(SettingNames.Switch1Default, value ?? false);
         }
 
         public Task<bool> Save()

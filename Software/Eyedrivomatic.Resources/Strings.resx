@@ -681,7 +681,7 @@ This setting is only effective while the forward view camera is active.</value>
     <comment>The name of the eyegaze configuration view.</comment>
   </data>
   <data name="SettingDescription_DeviceLimits" xml:space="preserve">
-    <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees from the center. Recomended maximum movement is 30 degrees in each direction. Be very careful not to exceed the physical limits of joystick hardware!</value>
+    <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!</value>
     <comment>The description of the "device limits" settings.</comment>
   </data>
   <data name="SettingDescription_DeviceTrim" xml:space="preserve">

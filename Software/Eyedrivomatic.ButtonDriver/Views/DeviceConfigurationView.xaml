@@ -129,11 +129,11 @@
                                 <ColumnDefinition Width="50*" />
                                 <ColumnDefinition Width="25*" />
                             </Grid.ColumnDefinitions>
-                            <controls:IntUpDown Name="MaxForward"
+                            <controls:IntUpDown Name="ForwardLimit"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="0" MaxValue="60"
-                                                Value="{Binding MaxForward, Mode=TwoWay}"
+                                                MinValue="{Binding ForwardMinLimit}" MaxValue="{Binding ForwardMaxLimit}"
+                                                Value="{Binding ForwardLimit, Mode=TwoWay}"
                                                 Margin="10" />
                         </Grid>
 
@@ -145,15 +145,15 @@
                             <controls:IntUpDown Name="MaxLeft"
                                                 Grid.Column="0" 
                                                 MinWidth="175"
-                                                MinValue="0" MaxValue="60"
-                                                Value="{Binding MaxLeft}"
+                                                MinValue="{Binding LeftMinLimit}" MaxValue="{Binding LeftMaxLimit}"
+                                                Value="{Binding LeftLimit}"
                                                 Margin="10" />
 
                             <controls:IntUpDown Name="MaxRight"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="0" MaxValue="60"
-                                                Value="{Binding MaxRight}"
+                                                MinValue="{Binding RightMinLimit}" MaxValue="{Binding RightMaxLimit}"
+                                                Value="{Binding RightLimit}"
                                                 Margin="10" />
                         </Grid>
 
@@ -166,8 +166,8 @@
                             <controls:IntUpDown Name="MaxBackward"
                                                 Grid.Column="1"
                                                 MinWidth="175"
-                                                MinValue="0" MaxValue="60"
-                                                Value="{Binding MaxBackward}"
+                                                MinValue="{Binding BackwardMinLimit}" MaxValue="{Binding BackwardMaxLimit}"
+                                                Value="{Binding BackwardLimit}"
                                                 Margin="10" />
                         </Grid>
 

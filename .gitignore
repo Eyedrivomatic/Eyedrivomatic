@@ -7,7 +7,7 @@
 bin
 obj
 /Software/packages
-
+.vs
 
 /Software/Eyedrivomatic.ButtonDriver.Hardware.Arduino/__vm
 /Software/Eyedrivomatic.Firmware/__vm
