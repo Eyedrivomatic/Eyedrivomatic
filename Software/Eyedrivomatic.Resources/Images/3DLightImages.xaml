@@ -28,8 +28,6 @@
     <BitmapImage x:Key="Status.Direction.NudgeLeft.Content" UriSource="3DDark/NudgeLeft.png"/>
     <BitmapImage x:Key="Status.Direction.NudgeRight.Content" UriSource="3DDark/NudgeRight.png"/>
 
-    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Full.Content" UriSource="3DDark/Full.png"/>
-    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Reduced.Content" UriSource="3DDark/Reduced.png"/>
     <BitmapImage x:Key="Status.Continue.Content" UriSource="3DDark/Continue.png"/>
     
 </ResourceDictionary>

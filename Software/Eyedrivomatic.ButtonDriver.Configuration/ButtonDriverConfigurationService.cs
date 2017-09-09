@@ -55,11 +55,14 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
             ((INotifyPropertyChanged)_configuration.DrivingProfiles).PropertyChanged += ProfileOnPropertyChanged;
 
-            if (_configuration.SettingsVersion < 1)
+            foreach (var speed in _configuration.DrivingProfiles.SelectMany(p => p.Speeds))
             {
-                _configuration.Upgrade();
-                _configuration.SettingsVersion = 1;
+                speed.PropertyChanged += ProfileSpeedOnPropertyChanged;
             }
+
+            if (_configuration.SettingsVersion >= 1) return;
+            _configuration.Upgrade();
+            _configuration.SettingsVersion = 1;
         }
 
         #region Change event handlers
@@ -123,7 +126,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             {
                 foreach (var profileSpeed in args.NewItems.Cast<ProfileSpeed>())
                 {
-                    profileSpeed.PropertyChanged += ProfileOnPropertyChanged;
+                    profileSpeed.PropertyChanged += ProfileSpeedOnPropertyChanged;
                 }
             }
         }

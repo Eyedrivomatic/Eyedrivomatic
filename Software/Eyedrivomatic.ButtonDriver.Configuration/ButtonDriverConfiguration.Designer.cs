@@ -12,7 +12,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class ButtonDriverConfiguration : global::System.Configuration.ApplicationSettingsBase {
         
         private static ButtonDriverConfiguration defaultInstance = ((ButtonDriverConfiguration)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new ButtonDriverConfiguration())));
@@ -85,25 +85,24 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<profiles currentProfile=\"Indoor\">\r\n  <p" +
-            "rofile name=\"Indoor\" diagonalSpeedReduction=\"False\" nudgeDuration=\"1000\" xDurati" +
-            "on=\"2000\" yDuration=\"2000\" CurrentSpeed=\"Slow\">\r\n    <speed name=\"Slow\" x=\"6\" yF" +
-            "orward=\"9\" yBackward=\"9\" xDiag=\"14\" xDiagReduced=\"4\" yForwardDiag=\"6\" yForwardDi" +
-            "agReduced=\"6\" yBackwardDiag=\"6\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n    <spee" +
-            "d name=\"Walk\" x=\"10\" yForward=\"13\" yBackward=\"13\" xDiag=\"15\" xDiagReduced=\"5\" yF" +
-            "orwardDiag=\"10\" yForwardDiagReduced=\"10\" yBackwardDiag=\"10\" yBackwardDiagReduced" +
-            "=\"0\" nudge=\"6\" />\r\n    <speed name=\"Fast\" x=\"14\" yForward=\"17\" yBackward=\"17\" xD" +
-            "iag=\"17\" xDiagReduced=\"7\" yForwardDiag=\"14\" yForwardDiagReduced=\"14\" yBackwardDi" +
-            "ag=\"14\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n  </profile>\r\n  <profile name=\"Ou" +
-            "tdoor\" diagonalSpeedReduction=\"False\" nudgeDuration=\"1000\" xDuration=\"2000\" yDur" +
-            "ation=\"2000\" CurrentSpeed=\"Slow\">\r\n    <speed name=\"Slow\" x=\"6\" yForward=\"13\" yB" +
-            "ackward=\"13\" xDiag=\"15\" xDiagReduced=\"5\" yForwardDiag=\"10\" yForwardDiagReduced=\"" +
-            "10\" yBackwardDiag=\"10\" yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n    <speed name=\"W" +
-            "alk\" x=\"10\" yForward=\"17\" yBackward=\"17\" xDiag=\"17\" xDiagReduced=\"7\" yForwardDia" +
-            "g=\"14\" yForwardDiagReduced=\"14\" yBackwardDiag=\"14\" yBackwardDiagReduced=\"0\" nudg" +
-            "e=\"6\" />\r\n    <speed name=\"Fast\" x=\"14\" yForward=\"21\" yBackward=\"21\" xDiag=\"22\" " +
-            "xDiagReduced=\"12\" yForwardDiag=\"18\" yForwardDiagReduced=\"18\" yBackwardDiag=\"18\" " +
-            "yBackwardDiagReduced=\"0\" nudge=\"6\" />\r\n  </profile>\r\n</profiles>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<profiles currentProfile=""Large Room"">
+  <profile name=""Large Room"" xDuration=""2000"" yDuration=""2000"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""60"" yForward=""40"" yBackward=""40"" xDiag=""50"" yForwardDiag=""25"" yBackwardDiag=""25"" nudge=""10"" />
+    <speed name=""Walk"" x=""80"" yForward=""60"" yBackward=""60"" xDiag=""70"" yForwardDiag=""50"" yBackwardDiag=""45"" nudge=""10"" />
+    <speed name=""Fast"" x=""100"" yForward=""100"" yBackward=""100"" xDiag=""75"" yForwardDiag=""75"" yBackwardDiag=""65"" nudge=""10"" />
+  </profile>
+  <profile name=""Small Room"" xDuration=""1000"" yDuration=""1000"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""30"" yForward=""20"" yBackward=""10"" xDiag=""25"" yForwardDiag=""15"" yBackwardDiag=""10"" nudge=""5"" />
+    <speed name=""Walk"" x=""40"" yForward=""40"" yBackward=""20"" xDiag=""30"" yForwardDiag=""30"" yBackwardDiag=""20"" nudge=""5"" />
+    <speed name=""Fast"" x=""50"" yForward=""50"" yBackward=""30"" xDiag=""40"" yForwardDiag=""40"" yBackwardDiag=""25"" nudge=""5"" />
+  </profile>
+  <profile name=""Hallway"" xDuration=""3000"" yDuration=""3000"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""80"" yForward=""40"" yBackward=""20"" xDiag=""20"" yForwardDiag=""35"" yBackwardDiag=""15"" nudge=""10"" />
+    <speed name=""Walk"" x=""90"" yForward=""60"" yBackward=""30"" xDiag=""30"" yForwardDiag=""50"" yBackwardDiag=""20"" nudge=""10"" />
+    <speed name=""Fast"" x=""100"" yForward=""100"" yBackward=""50"" xDiag=""40"" yForwardDiag=""75"" yBackwardDiag=""25"" nudge=""10"" />
+  </profile>
+</profiles>")]
         public global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection DrivingProfiles {
             get {
                 return ((global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection)(this["DrivingProfiles"]));

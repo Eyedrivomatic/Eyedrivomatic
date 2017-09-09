@@ -195,14 +195,6 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>DISCLAIMER</value>
     <comment>Disclaimer title.</comment>
   </data>
-  <data name="Hardware_DiagSpeedFullImage" xml:space="preserve">
-    <value>Full</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DiagSpeedReducedImage" xml:space="preserve">
-    <value>Reduced</value>
-    <comment>This is an image.</comment>
-  </data>
   <data name="Hardware_DirectionBackward" xml:space="preserve">
     <value>Backward</value>
     <comment>This is an image.</comment>
@@ -443,9 +435,17 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>General</value>
     <comment>The name of the general configuration view.</comment>
   </data>
-  <data name="ViewName_IndoorDriving" xml:space="preserve">
-    <value>Indoor Driving</value>
-    <comment>The name of the indoor driving view.</comment>
+  <data name="DriveProfile_LargeRoom" xml:space="preserve">
+    <value>Large Room</value>
+    <comment>The name of the 'Large Room' driving view.</comment>
+  </data>
+  <data name="DriveProfile_SmallRoom" xml:space="preserve">
+    <value>Small Room</value>
+    <comment>The name of the 'Small Room' driving view.</comment>
+  </data>
+  <data name="DriveProfile_Hallway" xml:space="preserve">
+    <value>Hallway</value>
+    <comment>The name of the 'Hallway' driving view.</comment>
   </data>
   <data name="ViewName_Macros" xml:space="preserve">
     <value>Actions</value>
@@ -519,6 +519,10 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Profile Settings</value>
     <comment>Title of the group containing the selected profile settings.</comment>
   </data>
+  <data name="SettingGroupName_ProfileSpeed_Settings" xml:space="preserve">
+    <value>Profile Speed Settings</value>
+    <comment>Title of the group containing the selected profile speed settings.</comment>
+  </data>
   <data name="SettingName_ProfileName" xml:space="preserve">
     <value>Name</value>
     <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
@@ -544,7 +548,7 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <comment>The description text displayed in the profile speed configuration view for the "x" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
-    <value>Left/Right Deflection</value>
+    <value>Left/Right</value>
     <comment>The label text displayed in the profie speed configuration view for the "x" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
@@ -559,25 +563,13 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>The left or right deflection when one of the diagonal buttons are pressed.</value>
     <comment>The description text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
   </data>
-  <data name="SettingDescripion_ProfileSpeed_XDiagReduced" xml:space="preserve">
-    <value>The left or right deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
-    <comment>The description text displayed in the profile speed configuration view for the "xDiagReduced" setting.</comment>
-  </data>
   <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
     <value>The backward deflection when one of the forward diagonal buttons are pressed.</value>
     <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
   </data>
-  <data name="SettingDescripion_ProfileSpeed_YBackwardDiagReduced" xml:space="preserve">
-    <value>The backward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
-    <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiagReduced" setting.</comment>
-  </data>
   <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
     <value>The forward deflection when one of the forward diagonal buttons are pressed.</value>
     <comment>The description text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
-  </data>
-  <data name="SettingDescripion_ProfileSpeed_YForwardDiagReduced" xml:space="preserve">
-    <value>The forward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.</value>
-    <comment>The description text displayed in the profile speed configuration view for the "yForwardDiagReduced" setting.</comment>
   </data>
   <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
     <value>The forward deflection when the backward button is presssed.</value>
@@ -588,40 +580,28 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <comment>The description text displayed in the profile speed configuration view for the "yForward" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
-    <value>Backward Deflection</value>
+    <value>Backward</value>
     <comment>The label text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
-    <value>Forward Deflection</value>
+    <value>Forward</value>
     <comment>The label text displayed in the profile speed configuration view for the "yForward" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
-    <value>Nudge Deflection</value>
+    <value>Nudge</value>
     <comment>The label text displayed in the profile speed configuration view for the "nudge" setting.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
-    <value>Left/Right Diagonal Deflection (Normal)</value>
+    <value>Left/Right Diagonal</value>
     <comment>The label text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
   </data>
-  <data name="SettingName_ProfileSpeed_XDiagReduced" xml:space="preserve">
-    <value>Left/Right Diagonal Deflection (Reduced)</value>
-    <comment>The label text displayed in the profile speed configuration view for the "xDiagReduced" setting.</comment>
-  </data>
   <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
-    <value>Backward Diagonal Deflection (Normal)</value>
+    <value>Backward Diagonal</value>
     <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
   </data>
-  <data name="SettingName_ProfileSpeed_YBackwardDiagReduced" xml:space="preserve">
-    <value>Backward Diagonal Deflection (Reduced)</value>
-    <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiagReduced" setting.</comment>
-  </data>
   <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
-    <value>Forward Diagonal Deflection (Normal)</value>
+    <value>Forward Diagonal</value>
     <comment>The label text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
-  </data>
-  <data name="SettingName_ProfileSpeed_YForwardDiagReduced" xml:space="preserve">
-    <value>Forward Diagonal Deflection (Reduced)</value>
-    <comment>The label text displayed in the profile speed configuration view for the "yForwardDiagReduced" setting.</comment>
   </data>
   <data name="ProfileName_Drive" xml:space="preserve">
     <value>Drive</value>

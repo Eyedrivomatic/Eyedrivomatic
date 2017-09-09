@@ -195,6 +195,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private Direction _lastDirection;
         private ContinueState _continueState;
         private Profile _profile;
+        private int _nudge;
 
         #endregion Trim
 
@@ -219,7 +220,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         #region Control
         public void Continue()
         {
-            Log.Info(this, $"Continue.");
+            Log.Info(this, "Continue.");
             ContinueState = ContinueState.Continued;
         }
 
@@ -227,6 +228,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             Log.Info(this, "Stop.");
             _commands.Stop();
+            _nudge = 0;
             ContinueState = ContinueState.Continued;
         }
 
@@ -234,18 +236,18 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             Log.Info(this, $"Nudge {direction}.");
 
-            if (CurrentDirection != Direction.Forward)
+            if (LastDirection != Direction.Forward || CurrentDirection == Direction.None)
             {
-                Log.Warn(this, $"Nudge only available while moving forward.");
+                Log.Warn(this, "Nudge only available while moving forward.");
                 return;
             }
 
-            ContinueState = ContinueState.NotContinuedRecently;
-           
+            ContinueState = ContinueState.Continued;
+
             try
             {
-                var x = direction == XDirection.Right ? Profile.CurrentSpeed.Nudge : -Profile.CurrentSpeed.Nudge;
-                if (!await _commands.Move(x, Profile.CurrentSpeed.YForward, Profile.NudgeDuration))
+                _nudge += direction == XDirection.Right ? Profile.CurrentSpeed.Nudge : -Profile.CurrentSpeed.Nudge;
+                if (!await _commands.Move(_nudge, Profile.CurrentSpeed.YForward, Profile.YDuration))
                 {
                     Log.Error(this, $"Failed to send nudge [{direction}] command.");
                 }
@@ -270,21 +272,20 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
             ContinueState = ContinueState.NotContinuedRecently;
 
+            if (CurrentDirection != Direction.Forward && CurrentDirection != Direction.Backward) _nudge = 0;
+
             var speed = Profile.CurrentSpeed;
-            var xDiag = Profile.DiagonalSpeedReduction ? speed.XDiagReduced : speed.XDiag;
-            var yDiagForward = Profile.DiagonalSpeedReduction ? speed.YForwardDiagReduced : speed.YForwardDiag;
-            var yDiagBackward = Profile.DiagonalSpeedReduction ? speed.YBackwardDiagReduced : speed.YBackwardDiag;
 
             var directionCommands = new Dictionary<Direction, Func<Task<bool>>>
                 {
-                    {Direction.Forward,       () => _commands.Move(0, speed.YForward, Profile.YDuration)},
-                    {Direction.ForwardRight,  () => _commands.Move(xDiag, yDiagForward, Profile.YDuration)},
+                    {Direction.Forward,       () => _commands.Move(_nudge, speed.YForward, Profile.YDuration)},
+                    {Direction.ForwardRight,  () => _commands.Move(speed.XDiag, speed.YForwardDiag, Profile.YDuration)},
                     {Direction.Right,         () => _commands.Move(speed.X, 0, Profile.XDuration)},
-                    {Direction.BackwardRight, () => _commands.Move(xDiag,  yDiagBackward, Profile.YDuration)},
-                    {Direction.Backward,      () => _commands.Move(0, speed.YBackward, Profile.YDuration)},
-                    {Direction.BackwardLeft,  () => _commands.Move(-xDiag, yDiagBackward, Profile.YDuration)},
+                    {Direction.BackwardRight, () => _commands.Move(speed.XDiag,  -speed.YBackwardDiag, Profile.YDuration)},
+                    {Direction.Backward,      () => _commands.Move(0, -speed.YBackward, Profile.YDuration)},
+                    {Direction.BackwardLeft,  () => _commands.Move(-speed.XDiag, -speed.YBackwardDiag, Profile.YDuration)},
                     {Direction.Left,          () => _commands.Move(-speed.X, 0, Profile.XDuration)},
-                    {Direction.ForwardLeft,   () => _commands.Move(-xDiag, yDiagForward, Profile.YDuration)},
+                    {Direction.ForwardLeft,   () => _commands.Move(-speed.XDiag, speed.YForwardDiag, Profile.YDuration)},
                 };
 
             if (!directionCommands.ContainsKey(direction)) throw new InvalidEnumArgumentException(nameof(direction), (int)direction, typeof(Direction));

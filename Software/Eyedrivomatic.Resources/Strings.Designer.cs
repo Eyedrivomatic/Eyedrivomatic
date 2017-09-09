@@ -19,7 +19,7 @@ namespace Eyedrivomatic.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -279,6 +279,33 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hallway.
+        /// </summary>
+        public static string DriveProfile_Hallway {
+            get {
+                return ResourceManager.GetString("DriveProfile_Hallway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large Room.
+        /// </summary>
+        public static string DriveProfile_LargeRoom {
+            get {
+                return ResourceManager.GetString("DriveProfile_LargeRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small Room.
+        /// </summary>
+        public static string DriveProfile_SmallRoom {
+            get {
+                return ResourceManager.GetString("DriveProfile_SmallRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diagonal Speed
         ///Reduction Toggle.
         /// </summary>
@@ -375,24 +402,6 @@ namespace Eyedrivomatic.Resources {
         public static string DrivingView_Stop {
             get {
                 return ResourceManager.GetString("DrivingView_Stop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Full.
-        /// </summary>
-        public static string Hardware_DiagSpeedFullImage {
-            get {
-                return ResourceManager.GetString("Hardware_DiagSpeedFullImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reduced.
-        /// </summary>
-        public static string Hardware_DiagSpeedReducedImage {
-            get {
-                return ResourceManager.GetString("Hardware_DiagSpeedReducedImage", resourceCulture);
             }
         }
         
@@ -640,15 +649,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The left or right deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
-        /// </summary>
-        public static string SettingDescripion_ProfileSpeed_XDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_XDiagReduced", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The backward deflection when one of the forward diagonal buttons are pressed..
         /// </summary>
         public static string SettingDescripion_ProfileSpeed_YBackwardDiag {
@@ -658,29 +658,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The backward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
-        /// </summary>
-        public static string SettingDescripion_ProfileSpeed_YBackwardDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YBackwardDiagReduced", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The forward deflection when one of the forward diagonal buttons are pressed..
         /// </summary>
         public static string SettingDescripion_ProfileSpeed_YForwardDiag {
             get {
                 return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YForwardDiag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The forward deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled..
-        /// </summary>
-        public static string SettingDescripion_ProfileSpeed_YForwardDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_YForwardDiagReduced", resourceCulture);
             }
         }
         
@@ -879,6 +861,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile Speed Settings.
+        /// </summary>
+        public static string SettingGroupName_ProfileSpeed_Settings {
+            get {
+                return ResourceManager.GetString("SettingGroupName_ProfileSpeed_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically Connect at Startup.
         /// </summary>
         public static string SettingName_AutoConnect {
@@ -1005,7 +996,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backward Deflection.
+        ///   Looks up a localized string similar to Backward.
         /// </summary>
         public static string SettingName_ProfileSpeed_Backward {
             get {
@@ -1014,7 +1005,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forward Deflection.
+        ///   Looks up a localized string similar to Forward.
         /// </summary>
         public static string SettingName_ProfileSpeed_Forward {
             get {
@@ -1032,7 +1023,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudge Deflection.
+        ///   Looks up a localized string similar to Nudge.
         /// </summary>
         public static string SettingName_ProfileSpeed_Nudge {
             get {
@@ -1041,7 +1032,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left/Right Deflection.
+        ///   Looks up a localized string similar to Left/Right.
         /// </summary>
         public static string SettingName_ProfileSpeed_X {
             get {
@@ -1050,7 +1041,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left/Right Diagonal Deflection (Normal).
+        ///   Looks up a localized string similar to Left/Right Diagonal.
         /// </summary>
         public static string SettingName_ProfileSpeed_XDiag {
             get {
@@ -1059,16 +1050,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left/Right Diagonal Deflection (Reduced).
-        /// </summary>
-        public static string SettingName_ProfileSpeed_XDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingName_ProfileSpeed_XDiagReduced", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Backward Diagonal Deflection (Normal).
+        ///   Looks up a localized string similar to Backward Diagonal.
         /// </summary>
         public static string SettingName_ProfileSpeed_YBackwardDiag {
             get {
@@ -1077,29 +1059,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backward Diagonal Deflection (Reduced).
-        /// </summary>
-        public static string SettingName_ProfileSpeed_YBackwardDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingName_ProfileSpeed_YBackwardDiagReduced", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forward Diagonal Deflection (Normal).
+        ///   Looks up a localized string similar to Forward Diagonal.
         /// </summary>
         public static string SettingName_ProfileSpeed_YForwardDiag {
             get {
                 return ResourceManager.GetString("SettingName_ProfileSpeed_YForwardDiag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forward Diagonal Deflection (Reduced).
-        /// </summary>
-        public static string SettingName_ProfileSpeed_YForwardDiagReduced {
-            get {
-                return ResourceManager.GetString("SettingName_ProfileSpeed_YForwardDiagReduced", resourceCulture);
             }
         }
         
@@ -1334,15 +1298,6 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_GeneralConfiguration {
             get {
                 return ResourceManager.GetString("ViewName_GeneralConfiguration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Indoor Driving.
-        /// </summary>
-        public static string ViewName_IndoorDriving {
-            get {
-                return ResourceManager.GetString("ViewName_IndoorDriving", resourceCulture);
             }
         }
         

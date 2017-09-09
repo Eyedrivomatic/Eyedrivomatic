@@ -66,7 +66,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public ConnectionState ConnectionState => Driver?.Connection?.State ?? ConnectionState.Disconnected;
         public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
-        public bool DiagonalSpeedReduction => Driver?.Profile.DiagonalSpeedReduction ?? false;
 
         public Direction CurrentDirection => Driver?.CurrentDirection ?? Direction.None;
         public Point JoystickPosition => Driver == null ? new Point() : new Point(Driver.DeviceStatus.XPosition, Driver.DeviceStatus.YPosition);

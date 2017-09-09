@@ -59,10 +59,6 @@
     <infrastructure:BoolToImageConverter x:Key="SafetyBypassStateImageConverter" 
                                          ImageIfTrue="{DynamicResource Status.Safety.Off.Content}" 
                                          ImageIfFalse="{DynamicResource Status.Safety.On.Content}"/>
-
-    <infrastructure:BoolToImageConverter x:Key="DiagonalSpeedReductionConverter" 
-                                         ImageIfFalse="{DynamicResource Status.DiagonalSpeedReduction.Full.Content}" 
-                                         ImageIfTrue="{DynamicResource Status.DiagonalSpeedReduction.Reduced.Content}"/>
     
     <infrastructure:StringCompareToBoolConverter x:Key="StringCompareToBoolConverter"/>
     <infrastructure:ValueCompareToBoolConverter x:Key="ValueCompareToBoolConverter"/>

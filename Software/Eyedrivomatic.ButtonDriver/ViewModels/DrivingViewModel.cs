@@ -66,17 +66,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public bool ShowForwardView => _camera.IsCapturing;
 
-        public bool DiagonalSpeedReduction
-        {
-            get => IsOnline && Driver.Profile.DiagonalSpeedReduction;
-            set
-            {
-                Driver.Profile.DiagonalSpeedReduction = value;
-                LogSettingChange(Driver.Profile.DiagonalSpeedReduction);
-                RaisePropertyChanged();
-            }
-        }
-
         public bool SafetyBypass
         {
             get => IsOnline && Driver.Profile.SafetyBypass;
@@ -128,7 +117,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public ICommand ContinueCommand => new DelegateCommand(
             () => Driver.Continue(), 
-            () => IsOnline && (Driver.ReadyState == ReadyState.Any || Driver.ReadyState == ReadyState.Continue));
+            () => Driver.ReadyState == ReadyState.Continue);
 
         public ICommand StopCommand => new DelegateCommand(
             () => Driver.Stop(), 
@@ -136,23 +125,13 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public ICommand NudgeCommand => new DelegateCommand<XDirection?>(
             direction => { if (direction != null) Driver.Nudge(direction.Value); }, 
-            direction => direction.HasValue && IsOnline);
+            direction => direction.HasValue && IsOnline && Driver.LastDirection == Direction.Forward && Driver.CurrentDirection != Direction.None);
 
         public ICommand MoveCommand => new DelegateCommand<Direction?>(
             direction => { if (direction != null) Driver.Move(direction.Value); }, 
             direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value));
 
         public ICommand ExecuteMacroCommand { get; }
-
-        public ICommand DiagonalSpeedReductionToggleCommand => new DelegateCommand(
-             () =>
-             {
-                 Driver.Profile.DiagonalSpeedReduction = !DiagonalSpeedReduction;
-                 // ReSharper disable once ExplicitCallerInfoArgument
-                 LogSettingChange(Driver.Profile.DiagonalSpeedReduction ? "Enabled" : "Disabled", nameof(Driver.Profile.DiagonalSpeedReduction));
-                 RaisePropertyChanged();
-             },
-             () => IsOnline);
 
         public ICommand SetSpeedCommand => new DelegateCommand<ProfileSpeed>(
             speed =>

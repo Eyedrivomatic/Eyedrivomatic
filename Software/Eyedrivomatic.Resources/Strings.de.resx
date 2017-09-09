@@ -195,14 +195,6 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Verzichtserklärung</value>
     <comment>Disclaimer title.</comment>
   </data>
-  <data name="Hardware_DiagSpeedFullImage" xml:space="preserve">
-    <value>Voll</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DiagSpeedReducedImage" xml:space="preserve">
-    <value>Reduziert</value>
-    <comment>This is an image.</comment>
-  </data>
   <data name="Hardware_DirectionBackward" xml:space="preserve">
     <value>Rückwärts </value>
     <comment>This is an image.</comment>

@@ -7,7 +7,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public interface IStatusViewModel
     {
         ConnectionState ConnectionState { get; }
-        bool DiagonalSpeedReduction { get; }
         Point JoystickPosition { get; }
         Direction CurrentDirection { get; }
         string Profile { get; }
@@ -23,7 +22,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     class DesignStatusViewModel : IStatusViewModel
     {
         public ConnectionState ConnectionState => ConnectionState.Connecting;
-        public bool DiagonalSpeedReduction => false;
         public Point JoystickPosition => new Point(7, 12);
         public Direction CurrentDirection => Direction.BackwardRight;
         public string Profile => "Indoors";

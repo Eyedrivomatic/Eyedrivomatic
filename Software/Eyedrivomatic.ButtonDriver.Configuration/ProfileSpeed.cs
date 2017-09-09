@@ -17,11 +17,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         private int _yForward;
         private int _yBackward;
         private int _xDiag;
-        private int _xDiagReduced;
         private int _yForwardDiag;
-        private int _yForwardDiagReduced;
         private int _yBackwardDiag;
-        private int _yBackwardDiagReduced;
         private int _nudge;
 
         public static ProfileSpeed Clone([AllowNull] ProfileSpeed from)
@@ -88,16 +85,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         }
 
         /// <summary>
-        /// The X deflection when one of the diagonal buttons are pressed while diagonal reduction is enabled.
-        /// </summary>
-        [XmlAttribute("xDiagReduced")]
-        public int XDiagReduced
-        {
-            get => _xDiagReduced;
-            set => SetProperty(ref _xDiagReduced, value);
-        }
-
-        /// <summary>
         /// The Y deflection when one of the forward diagonal buttons are pressed.
         /// </summary>
         [XmlAttribute("yForwardDiag")]
@@ -108,16 +95,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         }
 
         /// <summary>
-        /// The Y deflection when one of the forward diagonal buttons are pressed while diagonal reduction is enabled.
-        /// </summary>
-        [XmlAttribute("yForwardDiagReduced")]
-        public int YForwardDiagReduced
-        {
-            get => _yForwardDiagReduced;
-            set => SetProperty(ref _yForwardDiagReduced, value);
-        }
-
-        /// <summary>
         /// The Y deflection when one of the backward diagonal buttons are pressed.
         /// </summary>
         [XmlAttribute("yBackwardDiag")]
@@ -125,16 +102,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             get => _yBackwardDiag;
             set => SetProperty(ref _yBackwardDiag, value);
-        }
-
-        /// <summary>
-        /// The Y deflection when one of the bacward diagonal buttons are pressed while diagonal reduction is enabled.
-        /// </summary>
-        [XmlAttribute("yBackwardDiagReduced")]
-        public int YBackwardDiagReduced
-        {
-            get => _yBackwardDiagReduced;
-            set => SetProperty(ref _yBackwardDiagReduced, value);
         }
 
         /// <summary>

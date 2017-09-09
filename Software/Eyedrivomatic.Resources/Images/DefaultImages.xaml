@@ -11,7 +11,6 @@
     <BitmapImage x:Key="Button.Macro.Off.Content" UriSource="Default/Off.png"/>
     <BitmapImage x:Key="Button.Macro.Tilt.Content" UriSource="Default/Tilt.png"/>
 
-    <BitmapImage x:Key="Button.DiagonalSpeedReduction.On" UriSource="Default/DiagonalSpeedReduction.png"/>
     <BitmapImage x:Key="Button.Settings.Content" UriSource="Default/SettingsMenu.png"/>
 
     <BitmapImage x:Key="Button.Backward.Content" UriSource="Default/Backward.png" CacheOption="OnLoad"/>
@@ -43,8 +42,6 @@
 
     <BitmapImage x:Key="Status.Safety.Off.Content" UriSource="Default/SkullAndCrossbones.png"/>
     <BitmapImage x:Key="Status.Safety.On.Content" UriSource="Default/Safe.png"/>
-    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Full.Content" UriSource="Default/Full.png"/>
-    <BitmapImage x:Key="Status.DiagonalSpeedReduction.Reduced.Content" UriSource="Default/Reduced.png"/>
     <BitmapImage x:Key="Status.Ready.Content" UriSource="Default/Ready.png"/>
     <BitmapImage x:Key="Status.Continue.Content" UriSource="Default/Continue.png"/>
     <BitmapImage x:Key="Status.Connection.Disconnected.Content" UriSource="Default/Connection_Disconnected.gif"/>

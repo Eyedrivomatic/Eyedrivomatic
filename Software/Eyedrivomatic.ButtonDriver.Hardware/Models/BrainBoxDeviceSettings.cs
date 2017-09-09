@@ -68,7 +68,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
                 IsKnown = false;
                 return;
             }
-            Log.Info(this, $"Setting [{args.SettingName}] changed to [{args.SettingValue}]");
+            Log.Info(this, $"Setting [{args.SettingName}] is [{args.SettingValue}]");
             _messageHandlers[args.SettingName](args.SettingValue);
             IsKnown = true;
         }

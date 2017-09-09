@@ -37,7 +37,6 @@
              xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="876"
              d:DataContext="{d:DesignInstance d:Type=viewModels:DesignDrivingViewModel, IsDesignTimeCreatable=True}"
@@ -70,14 +69,6 @@
 
             <Style x:Key="DirectionGridStyle" TargetType="Grid">
                 <Setter Property="Opacity" Value="1" />
-            </Style>
-
-            <Style x:Key="DiagonalSpeedReductionToggleButtonStyle" TargetType="{x:Type Button}"
-                   BasedOn="{StaticResource {x:Type Button}}">
-                <Style.Setters>
-                    <Setter Property="FontSize" Value="13" />
-                    <Setter Property="FontStyle" Value="Oblique" />
-                </Style.Setters>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -158,9 +149,9 @@
             <RadioButton GroupName="XDuration"
                          Content="3"
                          IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=3000}" />
-            <Button Style="{DynamicResource DiagonalSpeedReductionToggleButtonStyle}"
-                    Command="{Binding DiagonalSpeedReductionToggleCommand}"
-                    Content="{Binding DiagonalSpeedReduction, Converter={StaticResource DiagonalSpeedReductionConverter}}" />
+            <RadioButton GroupName="XDuration"
+                         Content="4"
+                         IsChecked="{Binding XDuration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=4000}" />
         </UniformGrid>
 
         <ContentControl x:Name="ForwardViewCameraRegion"

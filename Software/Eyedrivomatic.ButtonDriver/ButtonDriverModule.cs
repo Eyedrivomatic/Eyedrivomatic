@@ -29,6 +29,7 @@ using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Resources;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -135,7 +136,7 @@ namespace Eyedrivomatic.ButtonDriver
         private RegionNavigationButton CreateDriveProfileNavigation(Profile profile)
         {
             var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-            button.Content = Resources.Strings.ResourceManager.GetString($"StandardProfileName_{profile.Name}") ?? profile.Name;
+            button.Content = Strings.ResourceManager.GetString($"DriveProfile_{profile.Name.Replace(" ", "")}") ?? profile.Name;
             button.RegionName = RegionNames.MainContentRegion;
             button.Target = GetNavigationUri(profile);
             button.CanNavigate = () => _hardwareService?.CurrentDriver?.HardwareReady ?? false;
@@ -154,7 +155,7 @@ namespace Eyedrivomatic.ButtonDriver
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
             {
                 var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_DeviceConfig;
+                button.Content = Strings.ViewName_DeviceConfig;
                 button.RegionName = RegionNames.ConfigurationContentRegion;
                 button.Target = new Uri($@"/{nameof(DeviceConfigurationView)}", UriKind.Relative);
                 button.SortOrder = 3;
@@ -165,7 +166,7 @@ namespace Eyedrivomatic.ButtonDriver
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
             {
                 var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_ProfileConfig;
+                button.Content = Strings.ViewName_ProfileConfig;
                 button.RegionName = RegionNames.ConfigurationContentRegion;
                 button.Target = new Uri($@"/{nameof(ProfileConfigurationView)}", UriKind.Relative);
                 button.SortOrder = 4;

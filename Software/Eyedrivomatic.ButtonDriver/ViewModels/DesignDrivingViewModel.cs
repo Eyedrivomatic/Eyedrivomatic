@@ -28,7 +28,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool ShowForwardView => true;
 
         public ProfileSpeed CurrentSpeed { get; }
-        public bool DiagonalSpeedReduction { get; set; }
         public bool SafetyBypass { get; set; }
 
         public double CameraOverlayOpacity => 0.6;
@@ -47,7 +46,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public ICommand MoveCommand => _designCommand;
         public ICommand NudgeCommand => _designCommand;
         public ICommand StopCommand => _designCommand;
-        public ICommand DiagonalSpeedReductionToggleCommand => _designCommand;
         public ICommand SetSpeedCommand => _designCommand;
 
         public IEnumerable<ProfileSpeed> Speeds { get; } = new List<ProfileSpeed>

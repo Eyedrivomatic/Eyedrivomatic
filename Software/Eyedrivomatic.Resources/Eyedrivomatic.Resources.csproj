@@ -131,11 +131,9 @@
     <Resource Include="Images\Default\RightSmall.png" />
     <Resource Include="Images\Default\Right.png" />
     <Resource Include="Images\Default\Reset.png" />
-    <Resource Include="Images\Default\Reduced.png" />
     <Resource Include="Images\Default\Ready.png" />
     <Resource Include="Images\Default\LeftSmall.png" />
     <Resource Include="Images\Default\Left.png" />
-    <Resource Include="Images\Default\Full.png" />
     <Resource Include="Images\Default\ForwardSmall.png" />
     <Resource Include="Images\Default\ForwardRight.png" />
     <Resource Include="Images\Default\ForwardLeft.png" />
@@ -208,8 +206,6 @@
     <Resource Include="Images\3DDark\BackwardRight.png" />
     <Resource Include="Images\3DDark\Backward.png" />
     <Resource Include="Images\3DDark\Continue.png" />
-    <Resource Include="Images\3DDark\Full.png" />
-    <Resource Include="Images\3DDark\Reduced.png" />
     <Resource Include="Images\3DDark\Forward.png" />
     <Resource Include="Images\3DDark\ForwardLeft.png" />
     <Resource Include="Images\3DDark\ForwardRight.png" />
@@ -229,7 +225,6 @@
     <Resource Include="Images\3DLight\BackwardRight.png" />
     <Resource Include="Images\3DLight\Backward.png" />
     <Resource Include="Images\3DLight\Continue.png" />
-    <Resource Include="Images\3DLight\Reduced.png" />
     <Resource Include="Images\3DLight\Forward.png" />
     <Resource Include="Images\3DLight\ForwardLeft.png" />
     <Resource Include="Images\3DLight\ForwardRight.png" />
@@ -237,9 +232,6 @@
     <Resource Include="Images\3DLight\NudgeLeft.png" />
     <Resource Include="Images\3DLight\NudgeRight.png" />
     <Resource Include="Images\3DLight\Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\3DLight\Full.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Default\Delete.png" />

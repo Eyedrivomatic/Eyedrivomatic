@@ -15,7 +15,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         IEnumerable<ProfileSpeed> Speeds { get; }
 
         ObservableCollection<IMacro> Macros { get; }
-        bool DiagonalSpeedReduction { get; set; }
         bool SafetyBypass { get; set; }
         bool IsOnline { get; }
 
@@ -27,7 +26,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         ICommand NudgeCommand { get; }
         ICommand StopCommand { get; }
         ICommand ExecuteMacroCommand { get; }
-        ICommand DiagonalSpeedReductionToggleCommand { get; }
         ICommand SetSpeedCommand { get; }
     }
 

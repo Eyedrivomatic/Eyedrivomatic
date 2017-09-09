@@ -20,10 +20,8 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
     {
         private string _name;
         private string _currentSpeed;
-        private bool _diagonalSpeedReduction;
         private TimeSpan _xDuration;
         private TimeSpan _yDuration;
-        private TimeSpan _nudgeDuration;
         internal const string PropertyName = "profile";
         internal const string DefaultProfileName = "Default";
 
@@ -33,31 +31,20 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             Speeds.AddRange(
                 new[]
                 {
-                    //Previous version = {Name="Slow"
                     new ProfileSpeed {Name=Strings.DrivingView_Speed_Slow.NextPostfix(otherSpeeds),
-                    //  X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6}, Previous Version
-                        X=22, YForward=9, YBackward=9, XDiag=14, YForwardDiag=6, YBackwardDiag=6, XDiagReduced=4, YForwardDiagReduced=6, Nudge=6},
+                        X=60, YForward=40, YBackward=40, XDiag=50, YForwardDiag=25, YBackwardDiag=25, Nudge=10},
 
-                    //Previous version = {Name="Walk"
                     new ProfileSpeed {Name=Strings.DrivingView_Speed_Walk.NextPostfix(otherSpeeds),
-                    //  X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6}, Previous Version
-                        X=22, YForward=13, YBackward=13, XDiag=15, YForwardDiag=10, YBackwardDiag=10, XDiagReduced=5, YForwardDiagReduced=10, Nudge=6},
+                        X=80, YForward=60, YBackward=60, XDiag=70, YForwardDiag=50, YBackwardDiag=45, Nudge=10},
 
-                    //Previous version = {Name="Fast",                           
                     new ProfileSpeed {Name=Strings.DrivingView_Speed_Fast.NextPostfix(otherSpeeds),
-                    //  X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6}, Previous Version
-                        X=22, YForward=17, YBackward=17, XDiag=17, YForwardDiag=14, YBackwardDiag=14, XDiagReduced=7, YForwardDiagReduced=14, Nudge=6},
-
-                    //Previous version = {Name="Manic"
-                    //new ProfileSpeed {Name=Strings.DrivingView_Speed_Manic.NextPostfix(otherSpeeds),
-                    //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6}, Previous Version
-                    //    X=22, YForward=21, YBackward=21, XDiag=22, YForwardDiag=18, YBackwardDiag=18, XDiagReduced=12, YForwardDiagReduced=18, Nudge=6},
+                        X=100, YForward=100, YBackward=100, XDiag=75, YForwardDiag=75, YBackwardDiag=65, Nudge=10},
                 });
         }
 
         public string Name
         {
-            get => _name = _name ?? Resources.Strings.ProfileName_Drive;
+            get => _name = _name ?? Strings.ProfileName_Drive;
             set => SetProperty(ref _name, value);
         }
 
@@ -77,15 +64,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
                 Log.Warn(this, $"Safety bypass [{(value ? "Enabled (Unsafe)" : "Disabled (Safe)")}].");
                 SetProperty(ref _safetyBypass, value);
             }
-        }
-
-        /// <summary>
-        /// True if diagnonal speed reduction is enabled.
-        /// </summary>
-        public bool DiagonalSpeedReduction
-        {
-            get => _diagonalSpeedReduction;
-            set => SetProperty(ref _diagonalSpeedReduction, value);
         }
 
         #region Duration
@@ -108,15 +86,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             set => SetProperty(ref _yDuration,  value);
         }
 
-        /// <summary>
-        /// The duration of nudge movements.
-        /// </summary>
-        public TimeSpan NudgeDuration
-        {
-            get => _nudgeDuration;
-            set => SetProperty(ref _nudgeDuration, value);
-        }
-
         #endregion Duration
 
         public ObservableCollection<ProfileSpeed> Speeds { get; } = new ObservableCollection<ProfileSpeed>();
@@ -137,8 +106,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public void ReadXml(XmlReader reader)
         {
             Name = reader.GetAttribute("name") ?? DefaultProfileName;
-            DiagonalSpeedReduction = bool.Parse(reader.GetAttribute("diagonalSpeedReduction") ?? "False");
-            NudgeDuration = TimeSpan.FromMilliseconds(double.Parse(reader.GetAttribute("nudgeDuration") ?? "1000"));
             XDuration = TimeSpan.FromMilliseconds(double.Parse(reader.GetAttribute("xDuration") ?? "2000"));
             YDuration = TimeSpan.FromMilliseconds(double.Parse(reader.GetAttribute("yDuration") ?? "2000"));
             SetProperty(ref _currentSpeed, reader.GetAttribute("currentSpeed") ?? "None", nameof(CurrentSpeed));
@@ -158,8 +125,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("name", Name);
-            writer.WriteAttributeString("diagonalSpeedReduction", _diagonalSpeedReduction.ToString());
-            writer.WriteAttributeString("nudgeDuration", _nudgeDuration.TotalMilliseconds.ToString("0"));
             writer.WriteAttributeString("xDuration", _xDuration.TotalMilliseconds.ToString("0"));
             writer.WriteAttributeString("yDuration", _yDuration.TotalMilliseconds.ToString("0"));
             writer.WriteAttributeString(nameof(CurrentSpeed), CurrentSpeed?.Name ?? string.Empty);
