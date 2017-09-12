@@ -2,13 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
-                    xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze">
+                    xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
 
-    <Thickness x:Key="ButtonBorderThickness" Left="1" Top="1" Right="1" Bottom="1"/>
-    <CornerRadius x:Key="ButtonBorderCorner" BottomLeft="3" TopLeft="3" BottomRight="3" TopRight="3"/>
-    <Thickness x:Key="DefaultMargin" Left="2" Top="2" Right="2" Bottom="2"/>
+    <Thickness x:Key="ButtonBorderThickness" Left="1" Top="1" Right="1" Bottom="1" />
+    <CornerRadius x:Key="ButtonBorderCorner" BottomLeft="3" TopLeft="3" BottomRight="3" TopRight="3" />
+    <Thickness x:Key="DefaultMargin" Left="2" Top="2" Right="2" Bottom="2" />
 
-    <Thickness x:Key="ItemBorderThickness" Left="0" Top="0" Right="0" Bottom="0"/>
+    <Thickness x:Key="ItemBorderThickness" Left="0" Top="0" Right="0" Bottom="0" />
 
     <system:Double x:Key="StandardButtonHeight">50</system:Double>
 
@@ -39,7 +41,8 @@
 
     <!-- Button -->
     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+        <Setter Property="dwellClick:DwellClickBehavior.Configuration"
+                Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
         <Setter Property="Margin" Value="{DynamicResource DefaultMargin}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
@@ -136,9 +139,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-        <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+        <Setter Property="dwellClick:DwellClickBehavior.Configuration"
+                Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
         <Setter Property="Margin" Value="{DynamicResource DefaultMargin}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
@@ -387,8 +391,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-    </Style>
+    <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}" />
 
     <Style x:Key="FlashingToggleButton" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="Template">
@@ -509,7 +512,8 @@
     </Style>
 
     <Style TargetType="ListBoxItem">
-        <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+        <Setter Property="dwellClick:DwellClickBehavior.Configuration"
+                Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="{DynamicResource ItemBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}" />
@@ -715,7 +719,8 @@
     </Style>
 
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
-        <Setter Property="dwellClick:DwellClickBehavior.Configuration" Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+        <Setter Property="dwellClick:DwellClickBehavior.Configuration"
+                Value="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -1026,6 +1031,168 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type xctk:DoubleUpDown}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="xctk:DoubleUpDown">
+                    <xctk:ButtonSpinner x:Name="PART_Spinner"
+                                        IsTabStop="False"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
+                        <xctk:WatermarkTextBox x:Name="PART_TextBox"
+                                               BorderThickness="0"
+                                               Background="Transparent"
+                                               ContextMenu="{TemplateBinding ContextMenu}"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               FontStretch="{TemplateBinding FontStretch}"
+                                               FontStyle="{TemplateBinding FontStyle}"
+                                               FontWeight="{TemplateBinding FontWeight}"
+                                               Foreground="{TemplateBinding Foreground}"
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                               IsTabStop="True"
+                                               MinWidth="20"
+                                               AcceptsReturn="False"
+                                               Padding="{TemplateBinding Padding}"
+                                               AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
+                                               AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
+                                               TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                               TextWrapping="NoWrap"
+                                               TabIndex="{TemplateBinding TabIndex}"
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                               WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </xctk:ButtonSpinner>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="{DynamicResource {x:Static themes:ResourceKeys.ControlMouseOverBorderKey}}" />
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                     Value="True">
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
+                        </DataTrigger>
+                        <Trigger Property="IsKeyboardFocusWithin"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="{DynamicResource {x:Static themes:ResourceKeys.ControlSelectedBorderKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused"
+                                 Value="True">
+                            <Setter TargetName="PART_TextBox"
+                                    Property="FocusManager.FocusedElement"
+                                    Value="{Binding ElementName=PART_TextBox}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="IncreaseGlyphNormalKey">
+        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="IncreaseGlyphDisabledKey">
+        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="DecreaseGlyphNormalKey">
+        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="DecreaseGlyphDisabledKey">
+        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"/>
+    </DataTemplate>
+    
+    <Style TargetType="xctk:ButtonSpinner">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type xctk:ButtonSpinner}">
+                    <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="DecrementColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="ContentColumn" Width="*" />
+                                <ColumnDefinition x:Name="IncrementColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <RepeatButton x:Name="PART_DecreaseButton" Grid.Column="0"
+                                          Height="{DynamicResource StandardButtonHeight}"
+                                          Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
+                                          IsTabStop="{TemplateBinding IsTabStop}"
+                                          ContentTemplate="{StaticResource DecreaseGlyphNormalKey}"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center" />
+
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Grid.Column="1"
+                                              Focusable="False"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                            <RepeatButton x:Name="PART_IncreaseButton" Grid.Column="2"
+                                          Height="{DynamicResource StandardButtonHeight}"
+                                          Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
+                                          IsTabStop="{TemplateBinding IsTabStop}"
+                                          ContentTemplate="{StaticResource IncreaseGlyphNormalKey}"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="{DynamicResource {x:Static themes:ResourceKeys.ControlMouseOverBorderKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="BorderBrush"
+                                    Value="{DynamicResource {x:Static themes:ResourceKeys.ControlSelectedBorderKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource {x:Static themes:ResourceKeys.ControlDisabledBackgroundKey}}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_IncreaseButton" Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_IncreaseButton" Property="ContentTemplate"
+                                    Value="{StaticResource IncreaseGlyphDisabledKey}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_DecreaseButton" Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_DecreaseButton" Property="ContentTemplate"
+                                    Value="{StaticResource DecreaseGlyphDisabledKey}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

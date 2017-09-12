@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:configuration="clr-namespace:Eyedrivomatic.ButtonDriver.Configuration;assembly=Eyedrivomatic.ButtonDriver.Configuration"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignWidth="869"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
@@ -39,8 +39,8 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <ListBox x:Name="ProfileList" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
@@ -89,30 +89,30 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="250" />
                     </Grid.ColumnDefinitions>
 
                     <Label Content="{x:Static resources:Strings.SettingName_ProfileName}"
                            Grid.Row="0" Grid.Column="0"
-                           Style="{DynamicResource SettingLabelStyle}"/>
+                           Style="{DynamicResource SettingLabelStyle}" />
                     <TextBox x:Name="ProfileName" Grid.Row="0" Grid.Column="1"
                              Text="{Binding CurrentProfile.Name}"
-                             Style="{DynamicResource SettingValueStyle}"/>
+                             Style="{DynamicResource SettingValueStyle}" />
                     <ToggleButton x:Name="SafetyBypass" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                   Content="{x:Static resources:Strings.SettingName_SafetyBypass}"
                                   Style="{DynamicResource CheckedToggleButtonStyle}"
                                   Height="45"
-                                  Margin="0,10,0,10" 
-                                  IsChecked="{Binding CurrentProfile.SafetyBypass}"/>
+                                  Margin="0,10,0,10"
+                                  IsChecked="{Binding CurrentProfile.SafetyBypass}" />
 
-                    
+
                     <ListBox x:Name="ProfileSpeedList" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                              ItemsSource="{Binding CurrentProfile.Speeds}"
                              Margin="0,20,0,10"
@@ -162,7 +162,16 @@
                       Visibility="{Binding Converter={StaticResource NullToCollapsedConverter}}">
                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid DataContext="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}"
-                            IsEnabled="{Binding Converter={StaticResource NullToBoolConverter}}">
+                          IsEnabled="{Binding Converter={StaticResource NullToBoolConverter}}">
+                        <Grid.Resources>
+                            <Style x:Key="ProfileSpeedDoubleUpDownStyle" 
+                                   TargetType="xctk:DoubleUpDown" 
+                                   BasedOn="{StaticResource NumberSettingValueStyle}">
+                                <Setter Property="Minimum" Value="0" />
+                                <Setter Property="Maximum" Value="100" />
+                                <Setter Property="Increment" Value="1" />
+                            </Style>
+                        </Grid.Resources>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -176,59 +185,70 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Name}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <TextBox Text="{Binding Name}" x:Name="ProfileSpeedName" 
+                        <TextBox Text="{Binding Name}" x:Name="ProfileSpeedName"
                                  Grid.Row="0" Grid.Column="1"
                                  Style="{DynamicResource SettingValueStyle}"
-                                 Margin="0,0,0,10"/>
+                                 Margin="0,0,0,10" />
 
                         <Label Grid.Row="1" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_ProfileSpeed_X}" 
-                               Style="{DynamicResource SettingLabelStyle}"/>
-                        <controls:IntUpDown Grid.Row="1" Grid.Column="1" x:Name="ProfileSpeedX"
-                                            Value="{Binding X}" />
+                               Content="{x:Static resources:Strings.SettingName_ProfileSpeed_X}"
+                               Style="{DynamicResource SettingLabelStyle}" />
+                        <xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" x:Name="ProfileSpeedX"
+                                           Value="{Binding X}"
+                                           Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
                         <Label Grid.Row="2" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Forward}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <controls:IntUpDown Grid.Row="2" Grid.Column="1" x:Name="ProfileSpeedYForward"
-                                            Value="{Binding YForward}" />
+                        <xctk:DoubleUpDown Grid.Row="2" Grid.Column="1" x:Name="ProfileSpeedYForward"
+                                      Value="{Binding YForward}"
+                                      Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
+
 
                         <Label Grid.Row="3" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_Backward}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <controls:IntUpDown Grid.Row="3" Grid.Column="1" x:Name="ProfileSpeedYBackward"
-                                            Value="{Binding YBackward}" />
+                        <xctk:DoubleUpDown Grid.Row="3" Grid.Column="1" x:Name="ProfileSpeedYBackward"
+                                      Value="{Binding YBackward}"
+                                      Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
+
 
                         <Label Grid.Row="4" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_XDiag}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <controls:IntUpDown Grid.Row="4" Grid.Column="1" x:Name="ProfileSpeedXDiag"
-                                            Value="{Binding XDiag}" />
+                        <xctk:DoubleUpDown Grid.Row="4" Grid.Column="1" x:Name="ProfileSpeedXDiag"
+                                      Value="{Binding XDiag}"
+                                      Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
+
 
                         <Label Grid.Row="5" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiag}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <controls:IntUpDown Grid.Row="5" Grid.Column="1" x:Name="ProfileSpeedYForwardDiag"
-                                            Value="{Binding YForwardDiag}" />
+                        <xctk:DoubleUpDown Grid.Row="5" Grid.Column="1" x:Name="ProfileSpeedYForwardDiag"
+                                      Value="{Binding YForwardDiag}"
+                                      Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
+
 
                         <Label Grid.Row="6" Grid.Column="0"
                                Content="{x:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiag}"
-                               Style="{DynamicResource SettingLabelStyle}"/>
+                               Style="{DynamicResource SettingLabelStyle}" />
 
-                        <controls:IntUpDown Grid.Row="6" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiag"
-                                            Value="{Binding YBackwardDiag}" />
+                        <xctk:DoubleUpDown Grid.Row="6" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiag"
+                                      Value="{Binding YBackwardDiag}"
+                                      Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
+
                     </Grid>
                 </StackPanel>
             </GroupBox>

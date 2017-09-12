@@ -31,6 +31,7 @@
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              Width="Auto" 
              d:DesignHeight="870"
@@ -78,11 +79,10 @@
                         <infrastructure:MultiplierConverter x:Key="MultiplierConverter"/>
                     </StackPanel.Resources>
                     <Label Content="{x:Static resources:Strings.SettingName_CameraOverlayOpacity}" VerticalAlignment="Center"/>
-                    <controls:IntUpDown 
-                        MinValue="0" MaxValue="100" 
+                    <xctk:DoubleUpDown
+                        Minimum="0" Maximum="100" Increment="1" Style="{DynamicResource NumberSettingValueStyle}"
                         Value="{Binding OverlayOpacity, Converter={StaticResource MultiplierConverter}, ConverterParameter=100, Mode=TwoWay}" 
-                        Width="250">
-                        </controls:IntUpDown>
+                        Width="250"/>
                 </StackPanel>
                 <TextBlock Text="{x:Static resources:Strings.SettingDescription_CameraOverlayOpacity}"/>
             </StackPanel>

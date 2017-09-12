@@ -23,7 +23,8 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls">
+                    xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
 
     <Style x:Key="SettingLabelStyle" TargetType="{x:Type Label}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -52,11 +53,12 @@
         <Setter Property="Margin" Value="10"/>
     </Style>
 
-    <Style x:Key="NumberSettingValueStyle" TargetType="{x:Type controls:IntUpDown}">
+    <Style x:Key="NumberSettingValueStyle" TargetType="{x:Type xctk:DoubleUpDown}">
         <Setter Property="FontFamily" Value="Ariel"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Margin" Value="10"/>
+        <Setter Property="FormatString" Value="0"/>
     </Style>
 
     <Style x:Key="SettingGroupBoxStyle" TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">

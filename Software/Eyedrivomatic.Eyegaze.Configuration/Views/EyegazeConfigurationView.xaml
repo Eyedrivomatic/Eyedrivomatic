@@ -30,6 +30,7 @@
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignWidth="869"
              prism:ViewModelLocator.AutoWireViewModel="True">
@@ -39,6 +40,12 @@
                 <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" VisibilityIfTrue="{x:Static Visibility.Visible}" VisibilityIfFalse="{x:Static Visibility.Collapsed}"/>
+
+            <Style x:Key="GazeDurationUpDownStyle"
+                   TargetType="xctk:DoubleUpDown"
+                   BasedOn="{StaticResource NumberSettingValueStyle}">
+                <Setter Property="Increment" Value="10" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -98,7 +105,7 @@
                 
                     <Grid x:Name="DwellClickValuesGrid"
                       IsEnabled="{Binding ElementName=DwellClickEnabledCheckBox, Path=IsChecked}">
-                    <Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -107,20 +114,19 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="StandardDwellClickTimeLabel" Grid.Row="0" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickTime_Standard}"
                            Style="{DynamicResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="StandardDwellClickTimeValue" Grid.Row="0" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="StandardDwellClickTimeValue" Grid.Row="0" Grid.Column="1"
                                         Value="{Binding StandardDwellTimeMilliseconds}"
-                                        MinValue="100"
-                                        MaxValue="3000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="100"
+                                        Maximum="3000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="StandardDwellClickTimeMs" Grid.Row="0" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{DynamicResource SettingLabelStyle}" />
@@ -128,12 +134,11 @@
                     <Label x:Name="DirectionDwellClickTimeLabel" Grid.Row="1" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickTime_DirectionButtons}"
                            Style="{DynamicResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="DirectionDwellClickTimeValue" Grid.Row="1" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="DirectionDwellClickTimeValue" Grid.Row="1" Grid.Column="1"
                                         Value="{Binding DirectionButtonsDwellTimeMilliseconds}"
-                                        MinValue="100"
-                                        MaxValue="3000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="100"
+                                        Maximum="3000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="DirectionDwellClickTimeMs" Grid.Row="1" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{StaticResource SettingLabelStyle}" />
@@ -141,12 +146,11 @@
                     <Label x:Name="StartDwellClickTimeLabel" Grid.Row="2" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickTime_StartButton}"
                            Style="{DynamicResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="StartDwellClickTimeValue" Grid.Row="2" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="StartDwellClickTimeValue" Grid.Row="2" Grid.Column="1"
                                         Value="{Binding StartButtonDwellTimeMilliseconds}"
-                                        MinValue="100"
-                                        MaxValue="3000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="100"
+                                        Maximum="3000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="StartDwellClickTimeMs" Grid.Row="2" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{StaticResource SettingLabelStyle}" />
@@ -154,12 +158,11 @@
                     <Label x:Name="StopDwellClickTimeLabel" Grid.Row="3" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickTime_StopButton}"
                            Style="{DynamicResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="StopDwellClickTimeValue" Grid.Row="3" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="StopDwellClickTimeValue" Grid.Row="3" Grid.Column="1"
                                         Value="{Binding StopButtonDwellTimeMilliseconds}"
-                                        MinValue="100"
-                                        MaxValue="3000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="100"
+                                        Maximum="3000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="StopDwellClickTimeMs" Grid.Row="3" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{StaticResource SettingLabelStyle}" />
@@ -167,12 +170,11 @@
                     <Label x:Name="DwellClickTimeoutLabel" Grid.Row="4" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickTimeout}"
                            Style="{StaticResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="DwellClickTimeoutValue" Grid.Row="4" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="DwellClickTimeoutValue" Grid.Row="4" Grid.Column="1"
                                         Value="{Binding DwellTimeoutMilliseconds}"
-                                        MinValue="0"
-                                        MaxValue="1000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="0"
+                                        Maximum="1000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="DwellClickTimeoutMs" Grid.Row="4" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{StaticResource SettingLabelStyle}" />
@@ -180,12 +182,11 @@
                     <Label x:Name="DwellClickRepeatDelayLabel" Grid.Row="5" Grid.Column="0"
                            Content="{x:Static resources:Strings.SettingName_DwellClickRepeatDelay}"
                            Style="{StaticResource SettingLabelStyle}" />
-                    <controls:IntUpDown x:Name="DwellClickRepeatDelayValue" Grid.Row="5" Grid.Column="1"
+                    <xctk:DoubleUpDown x:Name="DwellClickRepeatDelayValue" Grid.Row="5" Grid.Column="1"
                                         Value="{Binding DwellRepeatDelayMilliseconds}"
-                                        MinValue="100"
-                                        MaxValue="10000"
-                                        Step="10"
-                                        Style="{StaticResource NumberSettingValueStyle}" />
+                                        Minimum="100"
+                                        Maximum="10000"
+                                        Style="{StaticResource GazeDurationUpDownStyle}" />
                     <Label x:Name="DwellClickRepeatDelayMs" Grid.Row="5" Grid.Column="2"
                            Content="{x:Static resources:Strings.MillisecondsShort}"
                            Style="{StaticResource SettingLabelStyle}" />

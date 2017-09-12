@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Eyedrivomatic.Controls"
              mc:Ignorable="d" 
              d:DesignWidth="400"
              HorizontalAlignment="Stretch"
              HorizontalContentAlignment="Stretch"
-             MinWidth="250">
+             MinWidth="250"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,13 +18,13 @@
         <Button Grid.Column="0" Content="-" 
                 Width="{Binding RelativeSource={RelativeSource Self}, Path=Height}"
                 Height="{DynamicResource StandardButtonHeight}"
-                Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=DecrementCommand}" 
+                Command="{Binding DecrementCommand}" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" />
         
         <TextBox Name="ValueTextBox"
                  Grid.Column="1" 
-                 Text="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=Value}" 
+                 Text="{Binding Value}" 
                  Margin="3,0,3,0"
                  Padding="4"
                  VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
@@ -32,7 +32,7 @@
         <Button Grid.Column="2" Content="+"  
                 Height="{DynamicResource StandardButtonHeight}"
                 Width="{DynamicResource StandardButtonHeight}"
-                Command="{Binding RelativeSource={RelativeSource AncestorType=local:IntUpDown}, Path=IncrementCommand}" 
+                Command="{Binding IncrementCommand}" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" />
     </Grid>

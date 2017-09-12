@@ -30,7 +30,7 @@
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignWidth="869"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
@@ -42,6 +42,14 @@
             <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter"
                                                       VisibilityIfTrue="{x:Static Visibility.Visible}"
                                                       VisibilityIfFalse="{x:Static Visibility.Collapsed}" />
+
+            <Style x:Key="DeviceLimitUpDownStyle"
+                   TargetType="xctk:DoubleUpDown"
+                   BasedOn="{StaticResource NumberSettingValueStyle}">
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="100" />
+                <Setter Property="Increment" Value="1" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -129,12 +137,13 @@
                                 <ColumnDefinition Width="50*" />
                                 <ColumnDefinition Width="25*" />
                             </Grid.ColumnDefinitions>
-                            <controls:IntUpDown Name="ForwardLimit"
-                                                Grid.Column="1"
-                                                MinWidth="175"
-                                                MinValue="{Binding ForwardMinLimit}" MaxValue="{Binding ForwardMaxLimit}"
-                                                Value="{Binding ForwardLimit, Mode=TwoWay}"
-                                                Margin="10" />
+                            <xctk:DoubleUpDown Name="ForwardLimit"
+                                               Grid.Column="1"
+                                               MinWidth="175"
+                                               Minimum="{Binding ForwardMinLimit}"
+                                               Maximum="{Binding ForwardMaxLimit}"
+                                               Value="{Binding ForwardLimit, Mode=TwoWay}"
+                                               Style="{DynamicResource DeviceLimitUpDownStyle}" />
                         </Grid>
 
                         <Grid Grid.Row="1">
@@ -142,19 +151,21 @@
                                 <ColumnDefinition Width="50*" />
                                 <ColumnDefinition Width="50*" />
                             </Grid.ColumnDefinitions>
-                            <controls:IntUpDown Name="MaxLeft"
-                                                Grid.Column="0" 
-                                                MinWidth="175"
-                                                MinValue="{Binding LeftMinLimit}" MaxValue="{Binding LeftMaxLimit}"
-                                                Value="{Binding LeftLimit}"
-                                                Margin="10" />
+                            <xctk:DoubleUpDown Name="MaxLeft"
+                                               Grid.Column="0"
+                                               MinWidth="175"
+                                               Minimum="{Binding LeftMinLimit}"
+                                               Maximum="{Binding LeftMaxLimit}"
+                                               Value="{Binding LeftLimit}"
+                                               Style="{DynamicResource DeviceLimitUpDownStyle}" />
 
-                            <controls:IntUpDown Name="MaxRight"
-                                                Grid.Column="1"
-                                                MinWidth="175"
-                                                MinValue="{Binding RightMinLimit}" MaxValue="{Binding RightMaxLimit}"
-                                                Value="{Binding RightLimit}"
-                                                Margin="10" />
+                            <xctk:DoubleUpDown Name="MaxRight"
+                                               Grid.Column="1"
+                                               MinWidth="175"
+                                               Minimum="{Binding RightMinLimit}"
+                                               Maximum="{Binding RightMaxLimit}"
+                                               Value="{Binding RightLimit}"
+                                               Style="{DynamicResource DeviceLimitUpDownStyle}" />
                         </Grid>
 
                         <Grid Grid.Row="2">
@@ -163,12 +174,13 @@
                                 <ColumnDefinition Width="50*" />
                                 <ColumnDefinition Width="25*" />
                             </Grid.ColumnDefinitions>
-                            <controls:IntUpDown Name="MaxBackward"
-                                                Grid.Column="1"
-                                                MinWidth="175"
-                                                MinValue="{Binding BackwardMinLimit}" MaxValue="{Binding BackwardMaxLimit}"
-                                                Value="{Binding BackwardLimit}"
-                                                Margin="10" />
+                            <xctk:DoubleUpDown Name="MaxBackward"
+                                               Grid.Column="1"
+                                               MinWidth="175"
+                                               Minimum="{Binding BackwardMinLimit}"
+                                               Maximum="{Binding BackwardMaxLimit}"
+                                               Value="{Binding BackwardLimit}"
+                                               Style="{DynamicResource DeviceLimitUpDownStyle}" />
                         </Grid>
 
                     </Grid>
@@ -195,7 +207,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        
+
                         <Button Name="ForwardButton"
                                 Grid.Row="0" Grid.Column="1"
                                 Content="{DynamicResource Button.TrimForward.Content}"
