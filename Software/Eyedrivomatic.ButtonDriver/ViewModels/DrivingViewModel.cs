@@ -43,6 +43,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     {
         private readonly IEnumerable<Profile> _profiles;
         private readonly ICamera _camera;
+        private double _duration;
 
         [ImportingConstructor]
         public DrivingViewModel(IHardwareService hardwareService,
@@ -91,26 +92,10 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        public double XDuration
+        public double Duration
         {
-            get => IsOnline ? Driver.Profile.XDuration.TotalMilliseconds : 0;
-            set
-            {
-                Driver.Profile.XDuration = TimeSpan.FromMilliseconds(value);
-                LogSettingChange(Driver.Profile.XDuration);
-                RaisePropertyChanged();
-            }
-        }
-
-        public double YDuration
-        {
-            get => IsOnline ? Driver.Profile.YDuration.TotalMilliseconds : 0;
-            set
-            {
-                Driver.Profile.YDuration = TimeSpan.FromMilliseconds(value);
-                LogSettingChange(Driver.Profile.YDuration);
-                RaisePropertyChanged();
-            }
+            get => IsOnline ? _duration : 0;
+            set => SetProperty(ref _duration, value);
         }
 
         public double CameraOverlayOpacity => ShowForwardView ? _camera.OverlayOpacity : 1d;
@@ -124,12 +109,14 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             () => IsOnline);
 
         public ICommand NudgeCommand => new DelegateCommand<XDirection?>(
-            direction => { if (direction != null) Driver.Nudge(direction.Value); }, 
-            direction => direction.HasValue && IsOnline && Driver.LastDirection == Direction.Forward && Driver.CurrentDirection != Direction.None);
+            direction => { if (direction != null) Driver.Nudge(direction.Value, TimeSpan.FromMilliseconds(_duration)); }, 
+            direction => direction.HasValue && IsOnline && Driver.LastDirection == Direction.Forward && Driver.CurrentDirection != Direction.None && _duration > 0)
+            .ObservesProperty(() => Duration);
 
         public ICommand MoveCommand => new DelegateCommand<Direction?>(
-            direction => { if (direction != null) Driver.Move(direction.Value); }, 
-            direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value));
+            direction => { if (direction != null) Driver.Move(direction.Value, TimeSpan.FromMilliseconds(Duration)); }, 
+            direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value) && _duration > 0)
+            .ObservesProperty(() => Duration);
 
         public ICommand ExecuteMacroCommand { get; }
 

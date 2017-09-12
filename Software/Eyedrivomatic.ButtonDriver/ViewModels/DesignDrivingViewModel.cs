@@ -38,8 +38,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             new UserMacro {DisplayName = "Tilt", IconPath = "Images/Tilt.png"}
         };
 
-        public double XDuration { get; set; }= 1000;
-        public double YDuration { get; set; }= 2000;
+        public double Duration { get; set; }
 
         public ICommand ExecuteMacroCommand => _designCommand;
         public ICommand ContinueCommand => _designCommand;

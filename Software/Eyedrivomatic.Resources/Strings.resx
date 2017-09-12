@@ -611,13 +611,9 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Drive Speeds</value>
     <comment>The header text displayed on the drive page above the drive speed buttons.</comment>
   </data>
-  <data name="DrivingView_ForwardBackDuration" xml:space="preserve">
-    <value>Forward/Back Duration</value>
-    <comment>The header text displayed on the drive page above the forward/backward duration buttons.</comment>
-  </data>
-  <data name="DrivingView_LeftRightDuration" xml:space="preserve">
-    <value>Left/Right Duration</value>
-    <comment>The header text displayed on the drive page above the left/right duration buttons.</comment>
+  <data name="DrivingView_Duration" xml:space="preserve">
+    <value>Move Duration</value>
+    <comment>The header text displayed on the drive page above the duration buttons.</comment>
   </data>
   <data name="SettingGroupName_Mouse" xml:space="preserve">
     <value>Mouse</value>

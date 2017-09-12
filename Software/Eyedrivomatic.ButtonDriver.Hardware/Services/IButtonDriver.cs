@@ -124,8 +124,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         /// <summary>
         /// Nudge in the direction indicated.
         /// </summary>
-        /// <param name="direction"></param>
-        Task Nudge(XDirection direction);
+        Task Nudge(XDirection direction, TimeSpan duration);
 
         /// <summary>
         /// Returns true if the user can move in the direction indicated.
@@ -139,7 +138,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         /// Move in the direction indicated.
         /// </summary>
         /// <param name="direction">The direction to move</param>
-        Task Move(Direction direction);
+        /// <param name="duration">The time to move in that direction</param>
+        Task Move(Direction direction, TimeSpan duration);
 
         /// <summary>
         /// Toggle the specefied relay. Repeat as desired.

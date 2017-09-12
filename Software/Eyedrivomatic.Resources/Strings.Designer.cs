@@ -325,20 +325,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forward/Back Duration.
+        ///   Looks up a localized string similar to Move Duration.
         /// </summary>
-        public static string DrivingView_ForwardBackDuration {
+        public static string DrivingView_Duration {
             get {
-                return ResourceManager.GetString("DrivingView_ForwardBackDuration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Left/Right Duration.
-        /// </summary>
-        public static string DrivingView_LeftRightDuration {
-            get {
-                return ResourceManager.GetString("DrivingView_LeftRightDuration", resourceCulture);
+                return ResourceManager.GetString("DrivingView_Duration", resourceCulture);
             }
         }
         

@@ -20,8 +20,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
     {
         private string _name;
         private string _currentSpeed;
-        private TimeSpan _xDuration;
-        private TimeSpan _yDuration;
         internal const string PropertyName = "profile";
         internal const string DefaultProfileName = "Default";
 
@@ -66,28 +64,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             }
         }
 
-        #region Duration
-
-        /// <summary>
-        /// The duration of left/right movements.
-        /// </summary>
-        public TimeSpan XDuration
-        {
-            get => _xDuration;
-            set => SetProperty(ref _xDuration, value);
-        }
-
-        /// <summary>
-        /// The duration of forward/backward movements.
-        /// </summary>
-        public TimeSpan YDuration
-        {
-            get => _yDuration;
-            set => SetProperty(ref _yDuration,  value);
-        }
-
-        #endregion Duration
-
         public ObservableCollection<ProfileSpeed> Speeds { get; } = new ObservableCollection<ProfileSpeed>();
 
         public ProfileSpeed AddSpeed(ProfileSpeed cloneFrom = null)
@@ -106,8 +82,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public void ReadXml(XmlReader reader)
         {
             Name = reader.GetAttribute("name") ?? DefaultProfileName;
-            XDuration = TimeSpan.FromMilliseconds(double.Parse(reader.GetAttribute("xDuration") ?? "2000"));
-            YDuration = TimeSpan.FromMilliseconds(double.Parse(reader.GetAttribute("yDuration") ?? "2000"));
+            // ReSharper disable once ExplicitCallerInfoArgument
             SetProperty(ref _currentSpeed, reader.GetAttribute("currentSpeed") ?? "None", nameof(CurrentSpeed));
 
             var serializer = new XmlSerializer(typeof(ProfileSpeed));
@@ -125,8 +100,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("name", Name);
-            writer.WriteAttributeString("xDuration", _xDuration.TotalMilliseconds.ToString("0"));
-            writer.WriteAttributeString("yDuration", _yDuration.TotalMilliseconds.ToString("0"));
             writer.WriteAttributeString(nameof(CurrentSpeed), CurrentSpeed?.Name ?? string.Empty);
 
             var ns = new XmlSerializerNamespaces();
