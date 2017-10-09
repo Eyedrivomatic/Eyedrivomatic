@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration

@@ -35,6 +35,7 @@ using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Regions;
 using Eyedrivomatic.Camera;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {

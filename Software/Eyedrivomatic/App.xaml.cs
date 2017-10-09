@@ -22,7 +22,7 @@
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Startup;
 
 namespace Eyedrivomatic

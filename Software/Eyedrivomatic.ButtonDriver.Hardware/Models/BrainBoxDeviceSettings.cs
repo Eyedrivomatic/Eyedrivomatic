@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Eyedrivomatic.ButtonDriver.Hardware.Commands;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Hardware.Commands;
+using Eyedrivomatic.Hardware.Communications;
+using Eyedrivomatic.Hardware.Services;
+using Eyedrivomatic.Logging;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Models

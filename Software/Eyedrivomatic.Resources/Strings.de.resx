@@ -427,10 +427,6 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Allgemein </value>
     <comment>The name of the general configuration view.</comment>
   </data>
-  <data name="ViewName_IndoorDriving" xml:space="preserve">
-    <value>Im Haus fahren</value>
-    <comment>The name of the indoor driving view.</comment>
-  </data>
   <data name="ViewName_Macros" xml:space="preserve">
     <value>Aktionen</value>
     <comment>The name of the macros or actions view.</comment>
@@ -446,9 +442,5 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="ViewName_Status" xml:space="preserve">
     <value>Status</value>
     <comment>The name of the status view.</comment>
-  </data>
-  <data name="ViewName_Trim" xml:space="preserve">
-    <value>Trimm</value>
-    <comment>The name of the trim view.</comment>
   </data>
 </root>

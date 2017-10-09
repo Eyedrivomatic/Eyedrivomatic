@@ -39,7 +39,9 @@ using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Eyegaze;
 using Eyedrivomatic.Eyegaze.Configuration;
+using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.Startup
@@ -48,7 +50,7 @@ namespace Eyedrivomatic.Startup
     { 
         protected override ILoggerFacade CreateLogger()
         {
-            return new Log4NetLogger();
+            return new PrismLogger();
         }
 
         protected override DependencyObject CreateShell()
@@ -80,6 +82,7 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CameraModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
         }
 
         public override void Run(bool runWithDefaultConfiguration)

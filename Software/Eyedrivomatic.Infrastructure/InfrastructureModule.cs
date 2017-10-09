@@ -20,7 +20,7 @@
 
 
 using System.ComponentModel.Composition;
-
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;

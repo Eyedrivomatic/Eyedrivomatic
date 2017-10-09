@@ -24,7 +24,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {

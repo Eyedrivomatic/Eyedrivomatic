@@ -23,8 +23,8 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels

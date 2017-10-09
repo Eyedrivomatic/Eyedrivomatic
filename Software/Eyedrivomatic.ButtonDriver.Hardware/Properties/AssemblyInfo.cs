@@ -21,6 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver.Hardware")]
 [assembly: AssemblyDescription("Implements the hardware interface for the Eyedrivomatic system.")]
@@ -31,7 +32,9 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: ComVisible(false)]
+
+[assembly: AssemblyVersion("2.0.*")]
 
 [assembly: InternalsVisibleTo("Eyedrivomatic.ButtonDriver.Hardware.UnitTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

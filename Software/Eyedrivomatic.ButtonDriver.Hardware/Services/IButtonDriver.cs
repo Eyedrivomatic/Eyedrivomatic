@@ -20,11 +20,15 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
+using Eyedrivomatic.Hardware.Communications;
+using Eyedrivomatic.Hardware.Services;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {
@@ -47,7 +51,14 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
     {
         #region Connection
 
-        IBrainBoxConnection Connection { get; }
+        IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices);
+
+        Task AutoConnectAsync(CancellationToken cancellationToken);
+
+        Task ConnectAsync(string connectionString, CancellationToken cancellationToken);
+
+        [AllowNull]
+        IDeviceConnection Connection { get; }
 
         #endregion Connection
 

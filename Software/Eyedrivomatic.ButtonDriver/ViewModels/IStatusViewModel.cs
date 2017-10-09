@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Hardware.Communications;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {

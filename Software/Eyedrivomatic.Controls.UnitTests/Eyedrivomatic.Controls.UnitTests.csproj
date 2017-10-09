@@ -33,23 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FakeItEasy, Version=4.0.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
-      <HintPath>..\packages\FakeItEasy.4.0.0\lib\net45\FakeItEasy.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="NullGuard, Version=1.5.2.0, Culture=neutral, PublicKeyToken=1958ac8092168428, processorArchitecture=MSIL">
-      <HintPath>..\packages\NullGuard.Fody.1.5.2\Lib\dotnet\NullGuard.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -64,24 +52,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj">
-      <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
-      <Name>Eyedrivomatic.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
-      <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
-      <Name>Eyedrivomatic.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
-      <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Resources\Eyedrivomatic.Resources.csproj">
-      <Project>{1c00ccd6-a19c-4b9e-a203-f053ce0871ff}</Project>
-      <Name>Eyedrivomatic.Resources</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -94,22 +64,12 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\FakeItEasy.Analyzer.CSharp.4.0.0\analyzers\dotnet\cs\FakeItEasy.Analyzer.CSharp.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PackagesRootDirectory Condition="$(PackagesRootDirectory) == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\packages'))</PackagesRootDirectory>
   </PropertyGroup>
-  <Import Project="..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

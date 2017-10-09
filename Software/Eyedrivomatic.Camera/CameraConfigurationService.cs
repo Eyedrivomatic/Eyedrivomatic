@@ -25,9 +25,8 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Accord.Video.DirectShow;
+using Eyedrivomatic.Logging;
 using Prism.Mvvm;
-
-using Eyedrivomatic.Infrastructure;
 using NullGuard;
 
 namespace Eyedrivomatic.Camera

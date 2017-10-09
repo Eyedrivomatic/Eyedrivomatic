@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using Accord.Video;
 using Accord.Video.DirectShow;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Camera
 {

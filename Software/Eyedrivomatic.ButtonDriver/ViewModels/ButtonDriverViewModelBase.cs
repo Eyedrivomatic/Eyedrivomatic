@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Prism.Mvvm;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels

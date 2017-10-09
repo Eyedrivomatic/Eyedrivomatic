@@ -1,9 +1,7 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("Eyedrivomatic.Eyegaze.Configuration")]
 [assembly: AssemblyDescription("The Eyedrivomatic component configuration implementation.")]
 [assembly: AssemblyConfiguration("")]
@@ -13,7 +11,8 @@ using System.Windows;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: ComVisible(false)]
+
+[assembly: AssemblyVersion("2.0.*")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]

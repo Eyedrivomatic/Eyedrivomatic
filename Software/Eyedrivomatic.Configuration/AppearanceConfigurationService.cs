@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using Prism.Mvvm;
 

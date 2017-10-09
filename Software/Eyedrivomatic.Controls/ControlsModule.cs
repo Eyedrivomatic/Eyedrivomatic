@@ -20,11 +20,9 @@
 
 
 using System.ComponentModel.Composition;
-
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-
-using Eyedrivomatic.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.Controls

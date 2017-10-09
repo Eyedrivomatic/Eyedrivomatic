@@ -21,10 +21,9 @@
 
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Configuration;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
 {

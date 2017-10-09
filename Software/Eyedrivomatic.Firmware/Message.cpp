@@ -19,11 +19,11 @@ const unsigned long ResponseTimeout = 1000;
 bool MessageClass::readNext()
 {
 	// Messages are sent as ascii strings in the following format.
-	// "Command[ P ][:X]LF"
+	// "Command [ P ][:X]<LF>"
 	// Command = a command; 
 	// [ P ] = command parameters. The format is specific to the command but may not include line-feeds.
-	// [:X] = a checksum in hex - xOr the bytes of the message up to and including the space between the last parameter and the checksum.
-	// [LF] = the ASCII line-feed character (0x0A) 
+	// [:X] = a checksum in hex preceded by a colon “:”. The checksum is an xOr the bytes of the message up to and including the space between the last parameter and the checksum.
+	// <LF> = the ASCII line-feed character (0x0A) 
 
 	_lasterror = NULL;
 

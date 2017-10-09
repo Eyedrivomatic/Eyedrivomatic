@@ -5,9 +5,9 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.Extensions;
 using Prism.Mvvm;
-using Eyedrivomatic.Infrastructure.Extensions;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
 

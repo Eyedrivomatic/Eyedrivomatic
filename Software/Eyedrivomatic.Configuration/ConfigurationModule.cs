@@ -29,6 +29,7 @@ using Prism.Regions;
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration

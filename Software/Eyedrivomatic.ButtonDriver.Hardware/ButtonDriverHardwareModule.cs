@@ -21,7 +21,7 @@
 
 using System.ComponentModel.Composition;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 

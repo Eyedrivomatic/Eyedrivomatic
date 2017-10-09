@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<WixLocalization Culture="de-de" Codepage="1252" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+  <String Id="ApplicationName">Eyedrivomatic</String>
+  <String Id="ManufacturerName">Eyedrivomatic.org</String>
+  <String Id="DowngradeErrorMessage">A newer version of Eyedrivomatic is already installed.</String>
+  <String Id="CompleteFeatureTitle">Complete</String>
+  <String Id="CompleteFeatureDescription">The Eyedrivomatic 2.0 application and firmware.</String>
+  <String Id="ApplicationFeatureTitle">Eyedrivomatic 2.0 Application</String>
+  <String Id="ApplicationFeatureDescription">The Eyedrivomatic 2.0 stand-alone desktop application.</String>
+  <String Id="DriversFeatureTitle">Electronic Hand Drivers</String>
+  <String Id="DriversFeatureDescription">The Windows drivers necessary to communicate with the "Electronic Hand" hardware through USB.</String>
+</WixLocalization>

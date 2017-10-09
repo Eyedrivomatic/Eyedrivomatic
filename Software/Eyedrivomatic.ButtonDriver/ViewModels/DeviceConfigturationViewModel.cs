@@ -25,16 +25,19 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware.Communications;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Configuration;
+using Eyedrivomatic.Hardware.Communications;
+using Eyedrivomatic.Hardware.Services;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
 
@@ -81,39 +84,22 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public DelegateCommand DisconnectCommand { get; }
         public DelegateCommand<Direction?> TrimCommand { get; } 
 
-        public bool Connecting => Driver.Connection.State == ConnectionState.Connecting;
-        public bool Connected => Driver.Connection.State == ConnectionState.Connected;
+        public bool Connecting => Driver?.Connection?.State == ConnectionState.Connecting;
+        public bool Connected => Driver?.Connection?.State == ConnectionState.Connected;
         public bool Ready => Driver.HardwareReady;
         
-        public class SerialDeviceInfo
-        {
-            public readonly string Name;
-            public readonly string Port;
-
-            public SerialDeviceInfo(string name, string port)
-            {
-                Name = name;
-                Port = port;
-            }
-
-            public override string ToString()
-            {
-                return $"{Port} - {Name}";
-            }
-        };
-
-        private IList<SerialDeviceInfo> _availableDevices;
-        public IList<SerialDeviceInfo> AvailableDevices
+        private IList<DeviceDescriptor> _availableDevices;
+        public IList<DeviceDescriptor> AvailableDevices
         {
             get => _availableDevices;
             set => SetProperty(ref _availableDevices, value);
         }
 
         [AllowNull]
-        public SerialDeviceInfo SelectedDevice
+        public DeviceDescriptor SelectedDevice
         {
-            get => AvailableDevices.FirstOrDefault(device => device.Port == _configurationService.ConnectionString); 
-            set => _configurationService.ConnectionString = value?.Port ?? string.Empty;
+            get => AvailableDevices.FirstOrDefault(device => device.ConnectionString == _configurationService.ConnectionString); 
+            set => _configurationService.ConnectionString = value?.ConnectionString ?? string.Empty;
         }
 
         public bool AutoConnect
@@ -124,7 +110,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public void RefreshAvailableDeviceList()
         {
-            AvailableDevices = (from dev in Driver?.Connection.GetAvailableDevices() orderby dev.Item2 select new SerialDeviceInfo(dev.Item1, dev.Item2)).ToList();
+            AvailableDevices = Driver.GetAvailableDevices(true).ToList();
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
@@ -139,17 +125,16 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         protected async void AutoDetectDevice()
         {
             RefreshAvailableDeviceList();
-            await Driver.Connection.AutoConnectAsync();
-            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.Port == Driver.Connection.ConnectionString);
+            await Driver.AutoConnectAsync(CancellationToken.None);
+            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.ConnectionString == Driver.Connection.ConnectionString);
         }
 
         protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
 
         protected async void Connect()
         {
-            if (string.IsNullOrWhiteSpace(SelectedDevice?.Port)) throw new InvalidOperationException("Unable to connect - no device selected.");
-
-            await Driver.Connection.ConnectAsync(SelectedDevice.Port);
+            if (string.IsNullOrWhiteSpace(SelectedDevice?.ConnectionString)) throw new InvalidOperationException("Unable to connect - no device selected.");
+            await Driver.ConnectAsync(SelectedDevice.ConnectionString, CancellationToken.None);
         }
 
         protected bool CanConnect()

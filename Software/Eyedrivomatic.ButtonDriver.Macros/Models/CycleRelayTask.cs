@@ -100,7 +100,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         private string ValidateRelay()
         {
-            if (Relay == 0 || Relay > BrainBoxDriver.AvailableRelays) return string.Format(Strings.CycleRelayMacroTask_InvalidRelay, BrainBoxDriver.AvailableRelays);
+            if (Relay == 0 || Relay > ElectronicHandButtonDriver.AvailableRelays) return string.Format(Strings.CycleRelayMacroTask_InvalidRelay, ElectronicHandButtonDriver.AvailableRelays);
             return null;
         }
 

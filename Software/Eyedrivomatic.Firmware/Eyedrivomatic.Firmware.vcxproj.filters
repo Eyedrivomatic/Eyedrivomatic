@@ -90,6 +90,9 @@
     <ClInclude Include="__vm\.Eyedrivomatic.Firmware.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BuildDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActionService.cpp">

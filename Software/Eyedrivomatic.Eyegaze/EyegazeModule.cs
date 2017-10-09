@@ -29,6 +29,7 @@ using System.Reflection;
 using System.Windows;
 using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -58,7 +59,7 @@ namespace Eyedrivomatic.Eyegaze
         {
             Log.Debug(this, $"Initializing Module {nameof(EyegazeModule)}.");
 
-            var thisDir = Path.GetDirectoryName(new Uri(GetType().Assembly.CodeBase).AbsolutePath);
+            var thisDir = Path.GetDirectoryName(new Uri(GetType().Assembly.CodeBase).LocalPath);
             var catalog = new AggregateCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()),
                 new DirectoryCatalog(thisDir ?? ".", "Eyedrivomatic.Eyegaze.Interfaces.*.dll"));
             var container = new CompositionContainer(catalog);

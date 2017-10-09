@@ -25,9 +25,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
                     xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-                    xmlns:communications="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Communications;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-                    xmlns:gif="http://wpfanimatedgif.codeplex.com"
-                    >
+                    xmlns:communications="clr-namespace:Eyedrivomatic.Hardware.Communications;assembly=Eyedrivomatic.Hardware"
+                    xmlns:gif="http://wpfanimatedgif.codeplex.com">
 
     <infrastructure:ValueToImageConverter x:Key="DirectionToImageConverter">
         <Image x:Key="{x:Static services:Direction.Backward}" Source="{DynamicResource Status.Direction.Backward.Content}"/>

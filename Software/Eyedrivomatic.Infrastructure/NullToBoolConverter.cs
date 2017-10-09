@@ -13,7 +13,7 @@ namespace Eyedrivomatic.Infrastructure
 
         public bool ValueIfNull
         {
-            get => (bool) GetValue(ValueIfNullProperty);
+            get => (bool) (GetValue(ValueIfNullProperty) ?? default(bool));
             set => SetValue(ValueIfNullProperty, value);
         }
 

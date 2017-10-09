@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?define Firmware_TargetDir=$(var.Eyedrivomatic.Setup.Firmware.TargetDir)?>
+
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="FirmwareFolder" Name="Firmware">
+        <Component Id="FirmwareComponent" Guid="{68A65910-B481-43B8-BB72-25E273629DF0}">
+          <File Id="$(var.Eyedrivomatic.Firmware.TargetFileName)" Name="$(var.Eyedrivomatic.Firmware.TargetName).2.0.1$(var.Eyedrivomatic.Firmware.TargetExt)"
+                Source="$(var.Eyedrivomatic.Firmware.TargetPath)" DiskId="1" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+
+    <ComponentGroup Id="FirmwareComponents">
+      <ComponentRef Id="FirmwareComponent" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>

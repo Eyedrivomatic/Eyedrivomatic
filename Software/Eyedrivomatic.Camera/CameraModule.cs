@@ -27,6 +27,7 @@ using Accord.Video.DirectShow;
 using Eyedrivomatic.Camera.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mef.Modularity;
 using Prism.Modularity;

@@ -26,7 +26,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 {

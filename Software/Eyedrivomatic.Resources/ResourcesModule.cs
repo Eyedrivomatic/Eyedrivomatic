@@ -24,6 +24,7 @@ using System.ComponentModel.Composition;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Resources
 {

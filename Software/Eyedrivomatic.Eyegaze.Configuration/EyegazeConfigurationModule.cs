@@ -26,6 +26,7 @@ using Eyedrivomatic.Controls;
 using Eyedrivomatic.Eyegaze.Configuration.Views;
 using Eyedrivomatic.Eyegaze.DwellClick;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;

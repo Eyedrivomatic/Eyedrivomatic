@@ -26,9 +26,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Eyedrivomatic.Logging;
 using Prism.Mvvm;
-
-using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {

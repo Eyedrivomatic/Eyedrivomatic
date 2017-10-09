@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="DriversFolder" Name="Drivers">
+        <Component Id="arduino_org.cat" Guid="{47ABE7A7-499D-45C8-9515-D0B55C072173}">
+          <File Id="arduino_org.cat" KeyPath="yes" Source="Drivers\arduino-org.cat" />
+        </Component>
+        <Component Id="arduino_org.inf" Guid="{F8039B45-D769-481F-8F08-19FBAD5136DF}">
+          <File Id="arduino_org.inf" KeyPath="yes" Source="Drivers\arduino-org.inf" />
+        </Component>
+        <Component Id="arduino.cat" Guid="{90C5723E-582A-4B10-88A3-C81A5AE19407}">
+          <File Id="arduino.cat" KeyPath="yes" Source="Drivers\arduino.cat" />
+        </Component>
+        <Component Id="arduino.inf" Guid="{EFDC267B-3474-4605-891D-86F787811522}">
+          <File Id="arduino.inf" KeyPath="yes" Source="Drivers\arduino.inf" />
+        </Component>
+        <Component Id="dpinst_amd64.exe" Guid="{A7E5265E-BA62-44C3-A0F5-D2FE225E8C1B}">
+          <File Id="dpinst_amd64.exe" KeyPath="yes" Source="Drivers\dpinst-amd64.exe" />
+        </Component>
+        <Component Id="dpinst_x86.exe" Guid="{A74E5A5E-0A76-4E74-9EB1-34101B213C69}">
+          <File Id="dpinst_x86.exe" KeyPath="yes" Source="Drivers\dpinst-x86.exe" />
+        </Component>
+        <Component Id="genuino.cat" Guid="{8D9CCC0B-2DB3-4781-81FA-E5D74312C678}">
+          <File Id="genuino.cat" KeyPath="yes" Source="Drivers\genuino.cat" />
+        </Component>
+        <Component Id="genuino.inf" Guid="{3E1205A0-B9FE-4E83-9B1F-C77B2158AA6C}">
+          <File Id="genuino.inf" KeyPath="yes" Source="Drivers\genuino.inf" />
+        </Component>
+        <Component Id="README.txt" Guid="{CF9A6614-4874-4546-B956-F45F396953D6}">
+          <File Id="README.txt" KeyPath="yes" Source="Drivers\README.txt" />
+        </Component>
+        <Directory Id="amd64" Name="amd64">
+          <Component Id="libusb0.dll" Guid="{2E07E47E-9F27-469D-BCE6-5AC95BD5314E}">
+            <File Id="libusb0.dll" KeyPath="yes" Source="Drivers\amd64\libusb0.dll" />
+          </Component>
+          <Component Id="libusb0.sys" Guid="{51CB7CB2-2D6C-456C-AF4B-1903835EC538}">
+            <File Id="libusb0.sys" KeyPath="yes" Source="Drivers\amd64\libusb0.sys" />
+          </Component>
+        </Directory>
+        <Directory Id="ia64" Name="ia64">
+          <Component Id="libusb0.dll_1" Guid="{47B11200-C279-4BE0-A4EA-CEAC154CEF31}">
+            <File Id="libusb0.dll_1" KeyPath="yes" Source="Drivers\ia64\libusb0.dll" />
+          </Component>
+          <Component Id="libusb0.sys_1" Guid="{C1A59F0E-EA28-4163-B00F-6004777CD4B4}">
+            <File Id="libusb0.sys_1" KeyPath="yes" Source="Drivers\ia64\libusb0.sys" />
+          </Component>
+        </Directory>
+        <Directory Id="license" Name="license">
+          <Directory Id="libusb0" Name="libusb0">
+            <Component Id="installer_license.txt" Guid="{8AEF3B41-D02F-450B-971A-2D00653BE3D5}">
+              <File Id="installer_license.txt" KeyPath="yes" Source="Drivers\license\libusb0\installer_license.txt" />
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="x86" Name="x86">
+          <Component Id="libusb0.sys_2" Guid="{EE1EA859-0316-48A6-AAAC-6BF7EEF62826}">
+            <File Id="libusb0.sys_2" KeyPath="yes" Source="Drivers\x86\libusb0.sys" />
+          </Component>
+          <Component Id="libusb0_x86.dll" Guid="{D5EB31B9-BD55-4375-AD0E-E50EAB7871AC}">
+            <File Id="libusb0_x86.dll" KeyPath="yes" Source="Drivers\x86\libusb0_x86.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <CustomAction Id="InstallDrivers_x86"
+                  Directory="APPLICATIONFOLDER"
+                  ExeCommand="[DriversFolder]dpinst-x86.exe"
+                  Execute="deferred"
+                  Return="ignore"
+                  Impersonate="no" />
+
+    <CustomAction Id="InstallDrivers_amd64"
+                  Directory="APPLICATIONFOLDER"
+                  ExeCommand="[DriversFolder]dpinst-amd64.exe"
+                  Execute="deferred"
+                  Return="ignore"
+                  Impersonate="no" />
+
+    <ComponentGroup Id="DriversComponents">
+      <ComponentRef Id="arduino_org.cat" />
+      <ComponentRef Id="arduino_org.inf" />
+      <ComponentRef Id="arduino.cat" />
+      <ComponentRef Id="arduino.inf" />
+      <ComponentRef Id="dpinst_amd64.exe" />
+      <ComponentRef Id="dpinst_x86.exe" />
+      <ComponentRef Id="genuino.cat" />
+      <ComponentRef Id="genuino.inf" />
+      <ComponentRef Id="README.txt" />
+      <ComponentRef Id="libusb0.dll" />
+      <ComponentRef Id="libusb0.sys" />
+      <ComponentRef Id="libusb0.dll_1" />
+      <ComponentRef Id="libusb0.sys_1" />
+      <ComponentRef Id="installer_license.txt" />
+      <ComponentRef Id="libusb0.sys_2" />
+      <ComponentRef Id="libusb0_x86.dll" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>

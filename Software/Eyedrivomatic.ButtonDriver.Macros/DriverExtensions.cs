@@ -23,7 +23,7 @@ using System;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {

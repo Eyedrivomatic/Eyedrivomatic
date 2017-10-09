@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Xml.Serialization;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
