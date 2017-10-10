@@ -19,6 +19,7 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -45,36 +46,82 @@ namespace Eyedrivomatic.Hardware.Services
         }
 
         [return: AllowNull]
-        public async Task<IDeviceConnection> DetectDeviceAsync(CancellationToken cancellationToken)
+        public async Task<IDeviceConnection> DetectDeviceAsync(Version minVersion, CancellationToken cancellationToken)
         {
             var devices = GetAvailableDevices(false);
             cancellationToken.ThrowIfCancellationRequested();
-
-            if (!devices.Any()) return null;
 
             var foundCts = new CancellationTokenSource();
             var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, foundCts.Token);
 
             var connections = from device in devices
-                select _connectionFactory.CreateConnection(device.ConnectionString);
+                select _connectionFactory.CreateConnection(device);
             var connectionTasks = (from connection in connections
-                select new {Connection = connection, Task = connection.ConnectAsync(cts.Token)}).ToList();
-            
-            while (connectionTasks.Any())
+                select new Tuple<IDeviceConnection, Task>(connection, connection.ConnectAsync(cts.Token))).ToList();
+
+            //See if there are any devices with the expected hardware ID's and version.
+            var foundDevice = await DetectMinVersionDeviceAsync(minVersion, connectionTasks, cts.Token);
+            if (foundDevice != null)
             {
-                await Task.WhenAny(connectionTasks.Select(ct => ct.Task).Union(new[] {cts.Token.AsTask()}));
+                foundCts.Cancel();
+                return foundDevice;
+            }
+
+            //Ok... let's see if there are any devices with an older firmware
+            foundDevice = await DetectMinVersionDeviceAsync(null, connectionTasks, cts.Token);
+            if (foundDevice != null)
+            {
+                foundCts.Cancel();
+                return foundDevice;
+            }
+
+
+            //Maybe there is a device with an odd hardware ID (it happens).
+            devices = GetAvailableDevices(true).Except(devices).ToList();
+            cancellationToken.ThrowIfCancellationRequested();
+
+            connections = from device in devices
+                select _connectionFactory.CreateConnection(device);
+            connectionTasks = (from connection in connections
+                select new Tuple<IDeviceConnection, Task>(connection, connection.ConnectAsync(cts.Token))).ToList();
+
+            //Is there one of these devices with a recent version of the firmware aboard?
+            foundDevice = await DetectMinVersionDeviceAsync(minVersion, connectionTasks, cts.Token);
+            if (foundDevice != null)
+            {
+                foundCts.Cancel();
+                return foundDevice;
+            }
+
+            //OK, last shot, is there any serial port that we can connect to?
+            foundDevice = await DetectMinVersionDeviceAsync(null, connectionTasks, cts.Token);
+            if (foundDevice != null)
+            {
+                foundCts.Cancel();
+                return foundDevice;
+            }
+
+            return null;
+        }
+
+        private async Task<IDeviceConnection> DetectMinVersionDeviceAsync(Version minVersion, IEnumerable<Tuple<IDeviceConnection, Task>> connectionTasks, CancellationToken cancellationToken)
+        {
+            var connectionTaskList = connectionTasks.ToList();
+
+            while (connectionTaskList.Any())
+            {
+                await Task.WhenAny(connectionTaskList.Select(ct => ct.Item2).Union(new[] { cancellationToken.AsTask() }));
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var connectionTask = connectionTasks.First(ct => ct.Task.IsCompleted);
+                var connectionTask = connectionTaskList.First(ct => ct.Item2.IsCompleted);
 
-                if (!connectionTask.Task.IsFaulted)
+                if (!connectionTask.Item2.IsFaulted && connectionTask.Item1.State == ConnectionState.Connected)
                 {
-                    Log.Info(this, $"Found device on [{connectionTask.Connection.ConnectionString}]!");
-                    foundCts.Cancel();
-                    return connectionTask.Connection;
+                    Log.Info(this, $"Found device on [{connectionTask.Item1.ConnectionString}]!");
+                    if (minVersion == null || minVersion <= connectionTask.Item1.FirmwareVersion) return connectionTask.Item1;
                 }
 
-                connectionTasks.Remove(connectionTask);
+                connectionTaskList.Remove(connectionTask);
             }
 
             return null;
@@ -82,16 +129,9 @@ namespace Eyedrivomatic.Hardware.Services
 
         public IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices)
         {
-            if (!includeAllSerialDevices)
-            {
-                var filter = _infos.SelectMany(i => i.EyedrivomaticIds.Values).ToList();
-                var devices = UsbSerialDeviceEnumerator.EnumerateDevices(filter)
-                    .OfType<DeviceDescriptor>().ToList();
-
-                if (devices.Any()) return devices;
-            }
-
-            return UsbSerialDeviceEnumerator.EnumerateDevices().OfType<DeviceDescriptor>().ToList();
+            var filter = includeAllSerialDevices ? null : _infos.SelectMany(i => i.EyedrivomaticIds.Values).Distinct().ToList();
+            return UsbSerialDeviceEnumerator.EnumerateDevices(filter)
+                .OfType<DeviceDescriptor>().ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Eyedrivomatic.Hardware.Services;
 
 namespace Eyedrivomatic.Hardware.Communications
 {
@@ -15,9 +16,9 @@ namespace Eyedrivomatic.Hardware.Communications
             _infos = infos.ToList();
         }
 
-        public IDeviceConnection CreateConnection(string connectionString)
+        public IDeviceConnection CreateConnection(DeviceDescriptor device)
         {
-            return new ElectronicHandConnection(_infos, connectionString);
+            return new ElectronicHandConnection(_infos, device);
         }
     }
 }

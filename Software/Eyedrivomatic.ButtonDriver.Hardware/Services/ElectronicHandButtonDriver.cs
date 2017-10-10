@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
@@ -34,6 +35,7 @@ using Eyedrivomatic.Hardware.Commands;
 using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Hardware.Services;
 using Eyedrivomatic.Logging;
+using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Mvvm;
 
@@ -123,14 +125,28 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         public async Task AutoConnectAsync(CancellationToken cancellationToken)
         {
             Connection = null;
-            var connection = await _deviceEnumerationService.DetectDeviceAsync(cancellationToken);
+
+            var connection = await _deviceEnumerationService.DetectDeviceAsync(MinFirmwareVersion, cancellationToken);
+            if (connection == null)
+            {
+                Log.Error(this, "Device not found!");
+                throw new ConnectionFailedException(Strings.DeviceConnection_Error_Auto_NotFound);
+            }
+
             if (await CheckFirmwareVersion(connection, cancellationToken)) Connection = connection;
         }
 
         public async Task ConnectAsync(string connectionString, CancellationToken cancellationToken)
         {
             Connection = null;
-            var connection = _connectionFactory.CreateConnection(connectionString);
+            var device = GetAvailableDevices(true).FirstOrDefault(d => d.ConnectionString == connectionString);
+            if (device == null)
+            {
+                Log.Error(this, $"Device [{connectionString}] not found!");
+                throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual_NotFound, connectionString));
+            }
+
+            var connection = _connectionFactory.CreateConnection(device);
             await connection.ConnectAsync(cancellationToken);
 
             if (await CheckFirmwareVersion(connection, cancellationToken)) Connection = connection;
@@ -140,6 +156,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (connection == null) return false;
             return true;
+
+
 
             connection.Disconnect();
 
@@ -397,7 +415,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         #region IDisposable
         public void Dispose()
         {
-            _connection.Dispose();
+            _connection?.Dispose();
             _connectionDatastream?.Dispose();
             _connectionDatastream = null;
         }

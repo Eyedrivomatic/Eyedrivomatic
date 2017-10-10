@@ -241,6 +241,24 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device not found!.
+        /// </summary>
+        public static string DeviceConnection_Error_Auto_NotFound {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error_Auto_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device [{0}] not found!.
+        /// </summary>
+        public static string DeviceConnection_Error_Manual_NotFound {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error_Manual_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I Understand and Agree.
         /// </summary>
         public static string Disclaimer_Button {

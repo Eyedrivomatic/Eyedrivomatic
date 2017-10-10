@@ -1,7 +1,9 @@
-﻿namespace Eyedrivomatic.Hardware.Communications
+﻿using Eyedrivomatic.Hardware.Services;
+
+namespace Eyedrivomatic.Hardware.Communications
 {
     public interface IElectronicHandConnectionFactory
     {
-        IDeviceConnection CreateConnection(string connectionString);
+        IDeviceConnection CreateConnection(DeviceDescriptor device);
     }
 }

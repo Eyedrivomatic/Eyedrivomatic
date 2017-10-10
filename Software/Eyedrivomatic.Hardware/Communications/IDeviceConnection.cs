@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Eyedrivomatic.Hardware.Services;
 
 namespace Eyedrivomatic.Hardware.Communications
 {
@@ -21,6 +22,8 @@ namespace Eyedrivomatic.Hardware.Communications
         /// This is the auto-detected configuration is none was supplied to the Connect method.
         /// </summary>
         string ConnectionString { get; }
+
+        DeviceDescriptor Device { get; }
 
         /// <summary>
         /// The version of the firmware running on the device.
@@ -50,8 +53,8 @@ namespace Eyedrivomatic.Hardware.Communications
         /// <summary>
         /// Connect to the device.
         /// </summary>
-        /// <param name="ctsToken"></param>
-        Task ConnectAsync(CancellationToken ctsToken);
+        /// <param name="cancellationToken"></param>
+        Task ConnectAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Disconnect from the device.

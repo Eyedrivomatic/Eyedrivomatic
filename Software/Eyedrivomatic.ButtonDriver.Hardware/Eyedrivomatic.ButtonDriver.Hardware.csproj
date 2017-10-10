@@ -85,6 +85,7 @@
     <Compile Include="Models\BrainBoxDeviceSettings.cs" />
     <Compile Include="Models\IDeviceSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ConnectionFailedException.cs" />
     <Compile Include="Services\ElectronicHandButtonDriver.cs" />
     <Compile Include="Services\HardwareService.cs" />
     <Compile Include="Services\IButtonDriver.cs" />
@@ -109,6 +110,10 @@
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
       <Name>Eyedrivomatic.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Resources\Eyedrivomatic.Resources.csproj">
+      <Project>{1c00ccd6-a19c-4b9e-a203-f053ce0871ff}</Project>
+      <Name>Eyedrivomatic.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

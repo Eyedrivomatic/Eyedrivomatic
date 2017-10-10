@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -20,16 +19,18 @@ namespace Eyedrivomatic.Hardware.Communications
         private SerialPort _serialPort;
         private readonly IList<IElectronicHandDeviceInfo> _infos;
         private Subject<IObservable<char>> _connectionSubject;
+        private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(20);
 
         private bool _disposed;
 
-        public ElectronicHandConnection(IEnumerable<IElectronicHandDeviceInfo> infos, string connectionString)
+        public ElectronicHandConnection(IEnumerable<IElectronicHandDeviceInfo> infos, DeviceDescriptor device)
         {
-            ConnectionString = connectionString;
+            Device = device;
             _infos = infos.ToList();
         }
 
-        public string ConnectionString { get; }
+        public DeviceDescriptor Device { get; }
+        public string ConnectionString => Device.ConnectionString;
 
         public event EventHandler ConnectionStateChanged;
         private void OnConnectionStateChanged()
@@ -75,7 +76,7 @@ namespace Eyedrivomatic.Hardware.Communications
             return _connectionSubject;
         }
 
-        public async Task ConnectAsync(CancellationToken ctsToken)
+        public async Task ConnectAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -86,11 +87,20 @@ namespace Eyedrivomatic.Hardware.Communications
                 //Failure is an option.
             }
 
+            var timeoutSource = new CancellationTokenSource(_connectionTimeout);
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutSource.Token);
+
             try
             {
                 IsConnecting = true;
-                _serialPort = await OpenSerialPortAsync(ConnectionString);
+                _serialPort = await OpenSerialPortAsync(ConnectionString, cts.Token);
                 _connectionSubject?.OnNext(Observable.Defer(CreateDataStream));
+            }
+            catch (OperationCanceledException)
+            {
+                ConnectionFailed = true;
+                if (timeoutSource.IsCancellationRequested) throw new TimeoutException();
+                throw;
             }
             catch
             {
@@ -123,36 +133,44 @@ namespace Eyedrivomatic.Hardware.Communications
             _serialPort.WriteLine(message);
         }
 
-        private async Task<SerialPort> OpenSerialPortAsync(string port)
+        private async Task<SerialPort> OpenSerialPortAsync(string port, CancellationToken cancellationToken)
         {
             try
             {
-                Log.Info(this, $"Opening port [{port}].");
-                var serialPort = new SerialPort(port, 19200)
+                return await Task.Run(async () =>
                 {
-                    DtrEnable = false,
-                    ReadTimeout = 5000
-                };
+                    var serialPort = new SerialPort(port, 19200)
+                    {
+                        DtrEnable = false,
+                        ReadTimeout = 5000
+                    };
 
-                serialPort.Open();
+                    Log.Info(this, $"Opening port [{port}].");
 
-                serialPort.DiscardInBuffer();
-                serialPort.DtrEnable = true;//this will reset the Arduino.
+                    // ReSharper disable once AccessToDisposedClosure - closure used locally.
+                    using (cancellationToken.Register(() => serialPort.Dispose()))
+                    {
+                        serialPort.Open();
 
-                if (!serialPort.IsOpen) return null;
+                        serialPort.DiscardInBuffer();
+                        serialPort.DtrEnable = true; //this will reset the Arduino.
 
-                var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
-                var firstMessage = await reader.ReadLineAsync();
-                Log.Debug(typeof(ElectronicHandEnumerationService), $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
+                        if (!serialPort.IsOpen) return null;
 
-                if (!VerifyStartupMessage(firstMessage))
-                {
-                    Log.Info(this, $"Device not found on port [{port}]");
-                    serialPort.Dispose();
-                    return null;
-                }
+                        var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
+                        var firstMessage = await reader.ReadLineAsync();
+                        Log.Debug(this, $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
 
-                return serialPort;
+                        if (!VerifyStartupMessage(firstMessage))
+                        {
+                            Log.Info(this, $"Device not found on port [{port}]");
+                            serialPort.Dispose();
+                            return null;
+                        }
+                    }
+
+                    return serialPort;
+                }, cancellationToken);
             }
             catch (UnauthorizedAccessException)
             {

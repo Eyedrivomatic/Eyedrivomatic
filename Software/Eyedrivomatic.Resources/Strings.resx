@@ -685,4 +685,12 @@ This setting is only effective while the forward view camera is active.</value>
 The center should be close to "0,0" and must be within the device limits specified above.</value>
     <comment>The description of the "device trim" settings.</comment>
   </data>
+  <data name="DeviceConnection_Error_Auto_NotFound" xml:space="preserve">
+    <value>Device not found!</value>
+    <comment>Auto-connect failed. The device could not be found.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
+    <value>Device [{0}] not found!</value>
+    <comment>The specified device could not be found.</comment>
+  </data>
 </root>
