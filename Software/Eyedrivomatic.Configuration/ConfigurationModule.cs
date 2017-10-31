@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -30,6 +29,8 @@ using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
+using Eyedrivomatic.Resources;
+using Gu.Localization;
 using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration
@@ -80,7 +81,7 @@ namespace Eyedrivomatic.Configuration
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(GeneralConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion,
                 () => RegionNavigationButtonFactory.Create(
-                    Resources.Strings.ViewName_GeneralConfiguration,
+                    Translate.TranslationFor(nameof(Strings.ViewName_GeneralConfiguration)),
                     RegionNames.ConfigurationContentRegion,
                     new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative),
                     0));

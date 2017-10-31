@@ -32,16 +32,7 @@ namespace Eyedrivomatic.Infrastructure
             var frameworkResource = FindFrameworkResource(resourceName);
             if (frameworkResource != null) return frameworkResource;
 
-            var localResource = FindLocalizedString(resourceName);
-            if (localResource != null) return localResource;
-
-            return value;
-        }
-
-        [return: AllowNull]
-        private object FindLocalizedString(string resourceName)
-        {
-            return ResourceManager?.GetObject(resourceName);
+            return Translate.TranslationFor(resourceName, value?.ToString());
         }
 
         [return: AllowNull]

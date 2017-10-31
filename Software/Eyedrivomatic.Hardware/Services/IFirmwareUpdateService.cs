@@ -7,9 +7,8 @@ namespace Eyedrivomatic.Hardware.Services
 {
     public interface IFirmwareUpdateService
     {
-        IEnumerable<Version> GetAvailableFirmware(Version minVersion);
-        bool HasFirmwareUpdate(IDeviceConnection connection, Version minVersion);
-        Task UpdateLatestFirmwareAsync(IDeviceConnection connection, IProgress<double> progress = null);
-        Task UpdateFirmwareAsync(IDeviceConnection connection, Version version, IProgress<double> progress = null);
+        IEnumerable<Version> GetAvailableFirmware();
+        Version GetLatestVersion();
+        Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, IProgress<double> progress = null);
     }
 }

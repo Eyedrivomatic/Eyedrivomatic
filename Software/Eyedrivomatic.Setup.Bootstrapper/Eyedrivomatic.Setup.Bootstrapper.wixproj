@@ -60,7 +60,8 @@
     <Content Include="Eyedrivomatic.Setup.Bootstrapper.wax" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings.de.wxl" />
+    <EmbeddedResource Include="Strings.en-US.wxl" />
+    <EmbeddedResource Include="Strings.de-de.wxl" />
     <EmbeddedResource Include="Strings.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" Exists('$(WixTargetsPath)') " />

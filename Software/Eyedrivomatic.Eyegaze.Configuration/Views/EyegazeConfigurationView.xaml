@@ -27,9 +27,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
              d:DesignWidth="869"
              prism:ViewModelLocator.AutoWireViewModel="True">
@@ -54,7 +55,7 @@
         <WrapPanel Orientation="Horizontal">
 
             <GroupBox x:Name="EyegazeInterfaceSettingsGrid"
-                      Header="{x:Static resources:Strings.SettingGroupName_EyegazeInterface}"
+                      Header="{l:Static resources:Strings.SettingGroupName_EyegazeInterface}"
                       Style="{DynamicResource SettingGroupBoxStyle}">
                 <Grid x:Name="DwellClickSettingsGrid">
                     <Grid.RowDefinitions>
@@ -67,14 +68,14 @@
                     <ToggleButton
                         x:Name="DwellClickEnabledCheckBox"
                         Style="{DynamicResource CheckedToggleButtonStyle}"
-                        Content="{x:Static resources:Strings.SettingName_DwellClickEnabled}"
+                        Content="{l:Static resources:Strings.SettingName_DwellClickEnabled}"
                         Grid.Row="0"
                         IsChecked="{Binding DwellClickEnabled}"
                         Height="{DynamicResource StandardButtonHeight}"
                         Margin="5" />
 
 
-                    <Label Content="{x:Static resources:Strings.SettingName_EyegazeInterface}"
+                    <Label Content="{l:Static resources:Strings.SettingName_EyegazeInterface}"
                            Grid.Row="1"
                            Style="{DynamicResource SettingLabelStyle}"
                            HorizontalAlignment="Left"
@@ -91,18 +92,18 @@
             </GroupBox>
 
             <GroupBox x:Name="DwellClickSettings"
-                      Header="{x:Static resources:Strings.SettingGroupName_DwellClick}"
+                      Header="{l:Static resources:Strings.SettingGroupName_DwellClick}"
                       Style="{DynamicResource SettingGroupBoxStyle}"
                       Visibility="{Binding DwellClickEnabled, Converter={StaticResource BoolToCollapsedConverter}}">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="DwellTimeLabel"
                            Style="{DynamicResource SettingLabelStyle}"
-                           Content="{x:Static resources:Strings.SettingGroupName_DwellTimes}"
+                           Content="{l:Static resources:Strings.SettingGroupName_DwellTimes}"
                            HorizontalAlignment="Left" />
 
                     <TextBlock x:Name="DwellTimeDescriptionLabel"
                                Style="{DynamicResource SettingDescriptionTextBlockStyle}"
-                               Text="{x:Static resources:Strings.SettingDescription_DwellTimes}" />
+                               Text="{l:Static resources:Strings.SettingDescription_DwellTimes}" />
 
                     <Grid x:Name="DwellClickValuesGrid"
                           IsEnabled="{Binding ElementName=DwellClickEnabledCheckBox, Path=IsChecked}">
@@ -121,7 +122,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label x:Name="StandardDwellClickTimeLabel" Grid.Row="0" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickTime_Standard}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickTime_Standard}"
                                Style="{DynamicResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="StandardDwellClickTimeValue" Grid.Row="0" Grid.Column="1"
                                            Value="{Binding StandardDwellTimeMilliseconds}"
@@ -129,11 +130,11 @@
                                            Maximum="3000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="StandardDwellClickTimeMs" Grid.Row="0" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
                         <Label x:Name="DirectionDwellClickTimeLabel" Grid.Row="1" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickTime_DirectionButtons}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickTime_DirectionButtons}"
                                Style="{DynamicResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="DirectionDwellClickTimeValue" Grid.Row="1" Grid.Column="1"
                                            Value="{Binding DirectionButtonsDwellTimeMilliseconds}"
@@ -141,11 +142,11 @@
                                            Maximum="3000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="DirectionDwellClickTimeMs" Grid.Row="1" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{StaticResource SettingLabelStyle}" />
 
                         <Label x:Name="StartDwellClickTimeLabel" Grid.Row="2" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickTime_StartButton}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickTime_StartButton}"
                                Style="{DynamicResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="StartDwellClickTimeValue" Grid.Row="2" Grid.Column="1"
                                            Value="{Binding StartButtonDwellTimeMilliseconds}"
@@ -153,11 +154,11 @@
                                            Maximum="3000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="StartDwellClickTimeMs" Grid.Row="2" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{StaticResource SettingLabelStyle}" />
 
                         <Label x:Name="StopDwellClickTimeLabel" Grid.Row="3" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickTime_StopButton}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickTime_StopButton}"
                                Style="{DynamicResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="StopDwellClickTimeValue" Grid.Row="3" Grid.Column="1"
                                            Value="{Binding StopButtonDwellTimeMilliseconds}"
@@ -165,11 +166,11 @@
                                            Maximum="3000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="StopDwellClickTimeMs" Grid.Row="3" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{StaticResource SettingLabelStyle}" />
 
                         <Label x:Name="DwellClickTimeoutLabel" Grid.Row="4" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickTimeout}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickTimeout}"
                                Style="{StaticResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="DwellClickTimeoutValue" Grid.Row="4" Grid.Column="1"
                                            Value="{Binding DwellTimeoutMilliseconds}"
@@ -177,11 +178,11 @@
                                            Maximum="1000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="DwellClickTimeoutMs" Grid.Row="4" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{StaticResource SettingLabelStyle}" />
 
                         <Label x:Name="DwellClickRepeatDelayLabel" Grid.Row="5" Grid.Column="0"
-                               Content="{x:Static resources:Strings.SettingName_DwellClickRepeatDelay}"
+                               Content="{l:Static resources:Strings.SettingName_DwellClickRepeatDelay}"
                                Style="{StaticResource SettingLabelStyle}" />
                         <xctk:DoubleUpDown x:Name="DwellClickRepeatDelayValue" Grid.Row="5" Grid.Column="1"
                                            Value="{Binding DwellRepeatDelayMilliseconds}"
@@ -189,7 +190,7 @@
                                            Maximum="10000"
                                            Style="{StaticResource GazeDurationUpDownStyle}" />
                         <Label x:Name="DwellClickRepeatDelayMs" Grid.Row="5" Grid.Column="2"
-                               Content="{x:Static resources:Strings.MillisecondsShort}"
+                               Content="{l:Static resources:Strings.MillisecondsShort}"
                                Style="{StaticResource SettingLabelStyle}" />
                     </Grid>
                 </StackPanel>

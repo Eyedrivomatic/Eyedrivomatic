@@ -690,7 +690,61 @@ The center should be close to "0,0" and must be within the device limits specifi
     <comment>Auto-connect failed. The device could not be found.</comment>
   </data>
   <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
-    <value>Device [{0}] not found!</value>
+    <value>Device on "{0}" not found!</value>
     <comment>The specified device could not be found.</comment>
+  </data>
+  <data name="Firmware_UpdateRequired_Title" xml:space="preserve">
+    <value>Firmware Update Required</value>
+    <comment>The header text on the firmware update dialog if the update is required.</comment>
+  </data>
+  <data name="Firmware_Update_Title" xml:space="preserve">
+    <value>Firmware Update</value>
+    <comment>The title of the firmware update dialog.</comment>
+  </data>
+  <data name="CommandText_Continue" xml:space="preserve">
+    <value>Continue</value>
+    <comment>The text on a "Continue" button.</comment>
+  </data>
+  <data name="DeviceConnection_Error_FirmwareCheck" xml:space="preserve">
+    <value>Unable to connect to the device on "{0}". The firmware version check failed.</value>
+    <comment>Displayed when a device is found with an older firmware version and the firmware update failed.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Manual" xml:space="preserve">
+    <value>The connection to the device on "{0}" failed.</value>
+    <comment>Failure to connect to the specified device.</comment>
+  </data>
+  <data name="DeviceConnection_MinFirmwareNotAvailable" xml:space="preserve">
+    <value>A device with an incompatable firmware version was found. However the firmware file installed with the application could not be found.</value>
+    <comment>Displayed when a device is found with an older firmware version, however the firmware .hex file cannot be found.</comment>
+  </data>
+  <data name="Firmware_UpdateOptional_Directive_Format" xml:space="preserve">
+    <value>A firmware update is available for the device on {0}. Would you like to update your device?
+Current Version: {1}
+Update Version: {2}
+</value>
+    <comment>The directive text on the firmware update dialog if the update is optional.</comment>
+  </data>
+  <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
+    <value>Firmware Update Available</value>
+    <comment>The header text on the firmware update dialog if the update is optional.</comment>
+  </data>
+  <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
+    <value>A device was detected on {0}, however the device has an older version of the Eyedrivomatic firmware. You must update the firmware to continue.
+    
+ Current Version: {1}
+ Update Version: {2}</value>
+    <comment>The directive text on the firmware update dialog if the update is required.</comment>
+  </data>
+  <data name="Firmware_Update_Versions_Format" xml:space="preserve">
+    <value>Current Version: {0}. Update Version: {1}</value>
+    <comment>The detected and new firmware versions displayed on the firmware update dialog. </comment>
+  </data>
+  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+    <value>Device Connection Failed</value>
+    <comment>Title on the connection failed notification.</comment>
+  </data>
+  <data name="SettingGroupName_Language" xml:space="preserve">
+    <value>Language</value>
+    <comment>Title of the group containing language settings.</comment>
   </data>
 </root>

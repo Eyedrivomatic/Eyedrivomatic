@@ -88,7 +88,8 @@ namespace Eyedrivomatic.ButtonDriver
                     {
                         Log.Warn(this, "Connection string not specified. Attempting to auto-detect.");
                         await _hardwareService.CurrentDriver.AutoConnectAsync(CancellationToken.None);
-                        _configurationService.ConnectionString = _hardwareService.CurrentDriver.Connection.ConnectionString;
+                        if (!string.IsNullOrEmpty(_hardwareService.CurrentDriver.Connection?.ConnectionString))
+                            _configurationService.ConnectionString = _hardwareService.CurrentDriver.Connection.ConnectionString;
                     }
 
 
@@ -141,7 +142,7 @@ namespace Eyedrivomatic.ButtonDriver
         private RegionNavigationButton CreateDriveProfileNavigation(Profile profile)
         {
             var button = RegionNavigationButtonFactory.Create(
-                Strings.ResourceManager.GetString($"DriveProfile_{profile.Name.Replace(" ", "")}") ?? profile.Name,
+                Translate.TranslationFor($"DriveProfile_{profile.Name.Replace(" ", "")}", profile.Name),
                 RegionNames.MainContentRegion,
                 GetNavigationUri(profile), 1);
             button.CanNavigate = () => _hardwareService?.CurrentDriver?.HardwareReady ?? false;
@@ -159,7 +160,7 @@ namespace Eyedrivomatic.ButtonDriver
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(DeviceConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
                 RegionNavigationButtonFactory.Create(
-                    Strings.ViewName_DeviceConfig,
+                    Translate.TranslationFor(nameof(Strings.ViewName_DeviceConfig)),
                     RegionNames.ConfigurationContentRegion,
                     new Uri($@"/{nameof(DeviceConfigurationView)}", UriKind.Relative),
                     3));
@@ -167,7 +168,7 @@ namespace Eyedrivomatic.ButtonDriver
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(ProfileConfigurationView));
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
                 RegionNavigationButtonFactory.Create(
-                Strings.ViewName_ProfileConfig,
+                Translate.TranslationFor(nameof(Strings.ViewName_ProfileConfig)),
                 RegionNames.ConfigurationContentRegion,
                 new Uri($@"/{nameof(ProfileConfigurationView)}", UriKind.Relative),
                 4));

@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic
 {
@@ -41,6 +42,12 @@ namespace Eyedrivomatic
             ConfigurationNavigation.Items.Clear();
             ConfigurationContent.Content = null;
         }
+
+        [Export]
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; } = new InteractionRequest<IConfirmation>();
+
+        [Export]
+        public InteractionRequest<INotification> NotificationRequest { get; } = new InteractionRequest<INotification>();
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

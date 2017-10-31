@@ -88,9 +88,10 @@ namespace Eyedrivomatic.Startup
         public override void Run(bool runWithDefaultConfiguration)
         {
             base.Run(runWithDefaultConfiguration);
-
+#if !DEBUG
             var disclaimer = new DisclaimerWindow();
             disclaimer.ShowDialog();
+#endif
         }
 
         #region IDisposable Support
@@ -118,6 +119,6 @@ namespace Eyedrivomatic.Startup
         {
             Dispose(true);
         }
-        #endregion
+#endregion
     }
 }

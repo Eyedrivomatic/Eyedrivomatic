@@ -22,10 +22,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Linq;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
+using Gu.Localization;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.Configuration
@@ -36,7 +38,7 @@ namespace Eyedrivomatic.Configuration
         internal static AppearanceConfiguration DefaultConfiguration => AppearanceConfiguration.Default;
     }
 
-    [Export(typeof(IAppearanceConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(IAppearanceConfigurationService)), PartCreationPolicy(CreationPolicy.Shared)]
     public class AppearanceConfigurationService : BindableBase, IAppearanceConfigurationService
     {
         private readonly AppearanceConfiguration _configuration;
@@ -52,6 +54,9 @@ namespace Eyedrivomatic.Configuration
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
 
+            InitializeCulture(configuration);
+            Translator.CurrentCultureChanged += TranslatorOnCurrentCultureChanged;
+
             if (_configuration.SettingsVersion < 1)
             {
                 _configuration.Upgrade();
@@ -61,39 +66,6 @@ namespace Eyedrivomatic.Configuration
             ApplyThemeColors();
             ApplyThemeImages();
             ApplyThemeStyles();
-        }
-
-        private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            HasChanges = true;
-
-            if (e.PropertyName == nameof(_configuration.HideMouseCursor))
-            {
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(HideMouseCursor));
-            }
-
-            if (e.PropertyName == nameof(_configuration.ThemeColors))
-            {
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(ThemeColors));
-
-                ApplyThemeColors();
-            }
-
-            if (e.PropertyName == nameof(_configuration.ThemeImages))
-            {
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(ThemeImages));
-                ApplyThemeImages();
-            }
-
-            if (e.PropertyName == nameof(_configuration.ThemeStyles))
-            {
-                // ReSharper disable once ExplicitCallerInfoArgument
-                RaisePropertyChanged(nameof(ThemeStyles));
-                ApplyThemeStyles();
-            }
         }
 
         public bool HideMouseCursor
@@ -124,6 +96,14 @@ namespace Eyedrivomatic.Configuration
         public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _themesProvider.Images;
         public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _themesProvider.Styles;
 
+        public CultureInfo CurrentCulture
+        {
+            get => Translator.CurrentCulture;
+            set => Translator.Culture = value;
+        }
+
+        public IList<CultureInfo> AvailableCultures => Translator.Cultures.ToList();
+
         private bool _hasChanges;
         public bool HasChanges
         {
@@ -141,7 +121,6 @@ namespace Eyedrivomatic.Configuration
             HasChanges = false;
         }
 
-
         private void ApplyThemeColors()
         {
             if (ThemeColors == null) return;
@@ -158,6 +137,70 @@ namespace Eyedrivomatic.Configuration
         {
             if (ThemeStyles == null) return;
             _themeSelector.ApplyTheme(ThemeStyles);
+        }
+
+        private void InitializeCulture(AppearanceConfiguration configuration)
+        {
+            if (string.IsNullOrWhiteSpace(configuration.CurrentCulture)) return;
+
+            try
+            {
+                var culture = CultureInfo.GetCultureInfoByIetfLanguageTag(configuration.CurrentCulture);
+                if (Translator.ContainsCulture(culture))
+                {
+                    Translator.Culture = culture;
+                }
+                else
+                {
+                    Log.Warn(this, $"Culture [{configuration.CurrentCulture}] not available.");
+                    configuration.CurrentCulture = CurrentCulture.IetfLanguageTag;
+                }
+            }
+            catch (CultureNotFoundException)
+            {
+                Log.Warn(this, $"Invalid culture [{configuration.CurrentCulture}].");
+                configuration.CurrentCulture = CurrentCulture.IetfLanguageTag;
+            }
+        }
+
+        private void TranslatorOnCurrentCultureChanged(object o, CultureChangedEventArgs cultureChangedEventArgs)
+        {
+            _configuration.CurrentCulture = CurrentCulture.IetfLanguageTag;
+
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(CurrentCulture));
+        }
+
+        private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            HasChanges = true;
+
+            if (e.PropertyName == nameof(_configuration.HideMouseCursor))
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(HideMouseCursor));
+            }
+
+            if (e.PropertyName == nameof(_configuration.ThemeColors))
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(ThemeColors));
+                ApplyThemeColors();
+            }
+
+            if (e.PropertyName == nameof(_configuration.ThemeImages))
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(ThemeImages));
+                ApplyThemeImages();
+            }
+
+            if (e.PropertyName == nameof(_configuration.ThemeStyles))
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(ThemeStyles));
+                ApplyThemeStyles();
+            }
         }
     }
 }

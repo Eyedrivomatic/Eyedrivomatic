@@ -133,6 +133,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string CommandText_Continue {
+            get {
+                return ResourceManager.GetString("CommandText_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disconnect.
         /// </summary>
         public static string CommandText_Disconnect {
@@ -250,11 +259,47 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device [{0}] not found!.
+        ///   Looks up a localized string similar to Unable to connect to the device on &quot;{0}&quot;. The firmware version check failed..
+        /// </summary>
+        public static string DeviceConnection_Error_FirmwareCheck {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error_FirmwareCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection to the device on &quot;{0}&quot; failed..
+        /// </summary>
+        public static string DeviceConnection_Error_Manual {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error_Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device on &quot;{0}&quot; not found!.
         /// </summary>
         public static string DeviceConnection_Error_Manual_NotFound {
             get {
                 return ResourceManager.GetString("DeviceConnection_Error_Manual_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Connection Failed.
+        /// </summary>
+        public static string DeviceConnection_Error_Title {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A device with an incompatable firmware version was found. However the firmware file installed with the application could not be found..
+        /// </summary>
+        public static string DeviceConnection_MinFirmwareNotAvailable {
+            get {
+                return ResourceManager.GetString("DeviceConnection_MinFirmwareNotAvailable", resourceCulture);
             }
         }
         
@@ -411,6 +456,66 @@ namespace Eyedrivomatic.Resources {
         public static string DrivingView_Stop {
             get {
                 return ResourceManager.GetString("DrivingView_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Update.
+        /// </summary>
+        public static string Firmware_Update_Title {
+            get {
+                return ResourceManager.GetString("Firmware_Update_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Version: {0}. Update Version: {1}.
+        /// </summary>
+        public static string Firmware_Update_Versions_Format {
+            get {
+                return ResourceManager.GetString("Firmware_Update_Versions_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A firmware update is available for the device on {0}. Would you like to update your device?
+        ///Current Version: {1}
+        ///Update Version: {2}
+        ///.
+        /// </summary>
+        public static string Firmware_UpdateOptional_Directive_Format {
+            get {
+                return ResourceManager.GetString("Firmware_UpdateOptional_Directive_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Update Available.
+        /// </summary>
+        public static string Firmware_UpdateOptional_Title {
+            get {
+                return ResourceManager.GetString("Firmware_UpdateOptional_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A device was detected on {0}, however the device has an older version of the Eyedrivomatic firmware. You must update the firmware to continue.
+        ///    
+        /// Current Version: {1}
+        /// Update Version: {2}.
+        /// </summary>
+        public static string Firmware_UpdateRequired_Directive_Format {
+            get {
+                return ResourceManager.GetString("Firmware_UpdateRequired_Directive_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Update Required.
+        /// </summary>
+        public static string Firmware_UpdateRequired_Title {
+            get {
+                return ResourceManager.GetString("Firmware_UpdateRequired_Title", resourceCulture);
             }
         }
         
@@ -839,6 +944,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingGroupName_EyegazeInterface {
             get {
                 return ResourceManager.GetString("SettingGroupName_EyegazeInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string SettingGroupName_Language {
+            get {
+                return ResourceManager.GetString("SettingGroupName_Language", resourceCulture);
             }
         }
         

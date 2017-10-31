@@ -44,6 +44,7 @@ namespace Eyedrivomatic.Resources
         public void Initialize()
         {
             Log.Info(this, $"Initializing Module {nameof(ResourcesModule)}.");
+            Translate.ResourceManager = Strings.ResourceManager;
         }
     }
 }

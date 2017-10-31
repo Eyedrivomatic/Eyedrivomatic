@@ -27,7 +27,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
              xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Macros.Models;assembly=Eyedrivomatic.ButtonDriver.Macros"
@@ -37,6 +36,8 @@
              xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="876"
              d:DataContext="{d:DesignInstance d:Type=viewModels:DesignDrivingViewModel, IsDesignTimeCreatable=True}"
@@ -127,7 +128,7 @@
 
         <Grid Grid.Column="0" Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">
             <Viewbox StretchDirection="DownOnly">
-                <TextBlock Text="{x:Static resources:Strings.DrivingView_Duration}"
+                <TextBlock Text="{l:Static resources:Strings.DrivingView_Duration}"
                            Style="{DynamicResource DriveControlHeaderStyle}" />
             </Viewbox>
         </Grid>
@@ -234,7 +235,7 @@
 
         <Grid Grid.Row="0" Grid.Column="2" Background="{DynamicResource HeaderBackgroundBrush}">
             <Viewbox StretchDirection="DownOnly">
-                <TextBlock Text="{x:Static resources:Strings.DrivingView_DriveSpeeds}"
+                <TextBlock Text="{l:Static resources:Strings.DrivingView_DriveSpeeds}"
                            Style="{DynamicResource DriveControlHeaderStyle}" />
             </Viewbox>
         </Grid>
@@ -249,9 +250,8 @@
                       SelectedItem="{Binding CurrentSpeed}" HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch">
                 <ListView.Resources>
-                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedStringConverter"
-                                                                    ResourceManager="{x:Static resources:Strings.ResourceManager}"
-                                                                    ResourcePattern="Button.Speed.{0}.Content" />
+                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeeds"
+                                                                    ResourcePattern="DrivingView_Speed_{0}" />
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template">
                             <Setter.Value>
@@ -275,7 +275,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="configuration:ProfileSpeed">
-                        <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedStringConverter}}"
+                        <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedDriveSpeeds}}"
                                      IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}"
                                      GroupName="ProfileSpeeds" />
                     </DataTemplate>
@@ -285,9 +285,8 @@
             <ItemsControl Name="Actions" Grid.Row="1" ItemsSource="{Binding Macros}"
                           Background="{DynamicResource ButtonBackgroundBrushAlt}">
                 <ItemsControl.Resources>
-                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedStringConverter"
-                                                                    ResourceManager="{x:Static resources:Strings.ResourceManager}"
-                                                                    ResourcePattern="Button.Macro.{0}.Content" />
+                    <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedMacroName"
+                                                                    ResourcePattern="MacrosName_{0}" />
                 </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -297,7 +296,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:IMacro}">
                         <Button
-                            Content="{Binding DisplayName, Converter={StaticResource LocalizedStringConverter}}"
+                            Content="{Binding DisplayName, Converter={StaticResource LocalizedMacroName}}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.ExecuteMacroCommand}"
                             CommandParameter="{Binding}"
                             Background="{DynamicResource ButtonBackgroundBrushAlt}"

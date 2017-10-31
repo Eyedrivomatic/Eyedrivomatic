@@ -27,11 +27,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
              Width="Auto" 
              d:DesignHeight="870"
@@ -53,13 +53,13 @@
 
     <Grid x:Name="LayoutRoot">
         <GroupBox x:Name="CameraSettings"
-                  Header="{x:Static resources:Strings.SettingGroupName_Camera}" 
+                  Header="{l:Static resources:Strings.SettingGroupName_Camera}" 
                   Style="{DynamicResource SettingGroupBoxStyle}">
             <StackPanel x:Name="DwellClickSettingsGrid">
                 <ToggleButton
                     x:Name="CameraEnabledCheckBox"
                     Style="{DynamicResource CheckedToggleButtonStyle}"
-                    Content="{x:Static resources:Strings.SettingName_CameraEnabled}"
+                    Content="{l:Static resources:Strings.SettingName_CameraEnabled}"
                     IsChecked="{Binding CameraEnabled}"
                     Height="{DynamicResource StandardButtonHeight}"/>
 
@@ -78,13 +78,13 @@
                     <StackPanel.Resources>
                         <infrastructure:MultiplierConverter x:Key="MultiplierConverter"/>
                     </StackPanel.Resources>
-                    <Label Content="{x:Static resources:Strings.SettingName_CameraOverlayOpacity}" VerticalAlignment="Center"/>
+                    <Label Content="{l:Static resources:Strings.SettingName_CameraOverlayOpacity}" VerticalAlignment="Center"/>
                     <xctk:DoubleUpDown
                         Minimum="0" Maximum="100" Increment="1" Style="{DynamicResource NumberSettingValueStyle}"
                         Value="{Binding OverlayOpacity, Converter={StaticResource MultiplierConverter}, ConverterParameter=100, Mode=TwoWay}" 
                         Width="250"/>
                 </StackPanel>
-                <TextBlock Text="{x:Static resources:Strings.SettingDescription_CameraOverlayOpacity}"/>
+                <TextBlock Text="{l:Static resources:Strings.SettingDescription_CameraOverlayOpacity}"/>
             </StackPanel>
         </GroupBox>
     </Grid>

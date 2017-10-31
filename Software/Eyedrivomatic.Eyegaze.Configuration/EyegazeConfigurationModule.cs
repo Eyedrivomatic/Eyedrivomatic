@@ -71,7 +71,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration
             RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(EyegazeConfigurationView));
             RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, 
                 () => RegionNavigationButtonFactory.Create(
-                    Resources.Strings.ViewName_EyegazeConfig,
+                    Translate.TranslationFor(nameof(Resources.Strings.ViewName_EyegazeConfig)),
                     RegionNames.ConfigurationContentRegion,
                     new Uri($@"/{nameof(EyegazeConfigurationView)}", UriKind.Relative),
                     1));

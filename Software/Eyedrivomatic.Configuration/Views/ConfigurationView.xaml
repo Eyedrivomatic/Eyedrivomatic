@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:regions="http://prismlibrary.com/"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:l="http://gu.se/Localization"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
              d:DesignHeight="660"
@@ -25,12 +26,12 @@
 
         <UniformGrid Rows="1" Grid.Row="1" Width="550" HorizontalAlignment="Right">
             <Button x:Name="CancelButton" 
-                    Content="{x:Static resources:Strings.CommandText_Cancel}" 
+                    Content="{l:Static resources:Strings.CommandText_Cancel}" 
                     Margin="5"
                     Height="{DynamicResource StandardButtonHeight}" 
                     Visibility="Hidden"/>
             <Button x:Name="SaveButton" 
-                    Content="{x:Static resources:Strings.CommandText_Save}" 
+                    Content="{l:Static resources:Strings.CommandText_Save}" 
                     Margin="5"                     
                     Height="{DynamicResource StandardButtonHeight}"
                     Command="{Binding SaveCommand}"/>

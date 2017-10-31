@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.Configuration
@@ -36,6 +37,9 @@ namespace Eyedrivomatic.Configuration
         IList<ThemeColorsResourceDictionary> AvailableThemeColors { get; }
         IList<ThemeImagesResourceDictionary> AvailableThemeImages { get; }
         IList<ThemeStylesResourceDictionary> AvailableThemeStyles { get; }
+
+        CultureInfo CurrentCulture { get; set; }
+        IList<CultureInfo> AvailableCultures { get; }
 
         void Save();
         bool HasChanges { get; }

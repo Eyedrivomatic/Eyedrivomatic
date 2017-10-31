@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Windows.Input;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
@@ -82,6 +83,14 @@ namespace Eyedrivomatic.Configuration.ViewModels
         public IList<ThemeColorsResourceDictionary> AvailableThemeColors => _appearanceConfigurationService.AvailableThemeColors;
         public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _appearanceConfigurationService.AvailableThemeImages;
         public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _appearanceConfigurationService.AvailableThemeStyles;
+
+        public CultureInfo CurrentCulture
+        {
+            get => _appearanceConfigurationService.CurrentCulture;
+            set => _appearanceConfigurationService.CurrentCulture = value;
+        }
+
+        public IList<CultureInfo> AvailableCultures => _appearanceConfigurationService.AvailableCultures;
 
         public bool HasChanges => _appearanceConfigurationService.HasChanges;
 

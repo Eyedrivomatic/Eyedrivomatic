@@ -31,11 +31,11 @@
         xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized"
         Icon="{StaticResource MainIcon}"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid x:Name="LayoutRoot" Background="{DynamicResource WindowBackgroundBrush}">
         <Grid.Resources>
             <Storyboard x:Key="ShowConfigurationAnimation">
@@ -51,7 +51,7 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="DriveProfileSelection"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}" />
                 </ObjectAnimationUsingKeyFrames>
 
                 <DoubleAnimationUsingKeyFrames
@@ -62,14 +62,14 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="MainContent"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}" />
                 </ObjectAnimationUsingKeyFrames>
 
 
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationNavigation"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}" />
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationNavigation"
@@ -80,14 +80,14 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationContent"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}" />
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationContent"
                     Storyboard.TargetProperty="Opacity">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
                 </DoubleAnimationUsingKeyFrames>
-                
+
                 <!--<BooleanAnimationUsingKeyFrames
                     Storyboard.Target="{Binding Path=(dwellClick:DwellClickBehavior.Pause)}">
                     <DiscreteBooleanKeyFrame KeyTime="0:0:1" Value="False"/>
@@ -98,11 +98,11 @@
                     Storyboard.Target="{Binding Path=(dwellClick:DwellClickBehavior.Pause)}">
                     <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
                 </BooleanAnimationUsingKeyFrames>-->
-                
+
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="DriveProfileSelection"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="{x:Static Visibility.Visible}" />
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames
                     Storyboard.TargetName="DriveProfileSelection"
@@ -113,14 +113,14 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="MainContent"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames
                     Storyboard.TargetName="MainContent"
                     Storyboard.TargetProperty="Opacity">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
                 </DoubleAnimationUsingKeyFrames>
-                
+
                 <DoubleAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationNavigation"
                     Storyboard.TargetProperty="Opacity">
@@ -129,7 +129,7 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationNavigation"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}" />
                 </ObjectAnimationUsingKeyFrames>
 
                 <DoubleAnimationUsingKeyFrames
@@ -140,7 +140,7 @@
                 <ObjectAnimationUsingKeyFrames
                     Storyboard.TargetName="ConfigurationContent"
                     Storyboard.TargetProperty="Visibility">
-                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}" />
                 </ObjectAnimationUsingKeyFrames>
 
                 <!--<BooleanAnimationUsingKeyFrames
@@ -151,8 +151,8 @@
         </Grid.Resources>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualizationStates">
-                <VisualState Name="ShowConfiguration" Storyboard="{StaticResource ShowConfigurationAnimation}"/>
-                <VisualState Name="HideConfiguration" Storyboard="{StaticResource HideConfigurationAnimation}"/>
+                <VisualState Name="ShowConfiguration" Storyboard="{StaticResource ShowConfigurationAnimation}" />
+                <VisualState Name="HideConfiguration" Storyboard="{StaticResource HideConfigurationAnimation}" />
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <i:Interaction.Behaviors>
@@ -160,16 +160,23 @@
                                   Value="True"
                                   TrueState="ShowConfiguration" FalseState="HideConfiguration" />
         </i:Interaction.Behaviors>
+        <i:Interaction.Triggers>
+            <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ConfirmationRequest}">
+                <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+            </prism:InteractionRequestTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=NotificationRequest}">
+                <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+            </prism:InteractionRequestTrigger>
+        </i:Interaction.Triggers>
 
-        
         <Grid.RowDefinitions>
-            <RowDefinition Height="45" x:Name="HeaderRow" />
+            <RowDefinition Height="50" x:Name="HeaderRow" />
             <RowDefinition Height="*" x:Name="MainRow" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120" x:Name="NavigationColumn"/>
-            <ColumnDefinition Width="*" x:Name="MainContentColumn"/>
+            <ColumnDefinition Width="120" x:Name="NavigationColumn" />
+            <ColumnDefinition Width="*" x:Name="MainContentColumn" />
         </Grid.ColumnDefinitions>
 
         <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}"
@@ -180,8 +187,8 @@
 
         <Grid x:Name="NaviagationAreaBackground"
               Grid.Row="0" Grid.RowSpan="2"
-              Grid.Column="0" 
-              Background="{DynamicResource NavigationAreaBackgroundBrush}"/>
+              Grid.Column="0"
+              Background="{DynamicResource NavigationAreaBackgroundBrush}" />
 
         <ToggleButton x:Name="SettingsButton"
                       Grid.Row="0" Grid.Column="0"
@@ -212,7 +219,7 @@
                 <ToggleButton Content="Outdoors" />
                 <ToggleButton Content="Careful" />
             </ItemsControl>
-            
+
             <ItemsControl x:Name="ConfigurationNavigation"
                           prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationNavigationRegion}"
                           Grid.Row="0"
@@ -240,9 +247,9 @@
                         prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}">
             <!--<buttonDriverViews:DrivingView />-->
         </ContentControl>
-        
+
         <ContentControl x:Name="ConfigurationContent" Grid.Column="1" Grid.Row="1"
-                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}" 
-                        Opacity="0" Visibility="Collapsed"/>
+                        prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}"
+                        Opacity="0" Visibility="Collapsed" />
     </Grid>
 </Window>

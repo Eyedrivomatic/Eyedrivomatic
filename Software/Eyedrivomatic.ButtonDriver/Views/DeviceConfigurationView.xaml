@@ -26,13 +26,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
-             d:DesignWidth="869"
+             d:DesignWidth="869" d:DesignHeight="800"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -57,7 +58,7 @@
         <WrapPanel Orientation="Horizontal">
 
             <GroupBox Name="DeviceSelectionGroupBox"
-                      Header="{x:Static resources:Strings.SettingGroupName_DeviceConnection}"
+                      Header="{l:Static resources:Strings.SettingGroupName_DeviceConnection}"
                       Style="{DynamicResource SettingGroupBoxStyle}">
                 <Grid Name="InnerGrid">
                     <Grid.RowDefinitions>
@@ -75,7 +76,7 @@
 
                     <Button Name="AutoDiscoverButton"
                             Command="{Binding AutoDetectDeviceCommand}"
-                            Content="{x:Static resources:Strings.CommandText_AutoDiscover}"
+                            Content="{l:Static resources:Strings.CommandText_AutoDiscover}"
                             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                             Height="{DynamicResource StandardButtonHeight}"
                             Margin="5" />
@@ -90,14 +91,14 @@
 
 
                     <Button Name="DisconnectButton"
-                            Content="{x:Static resources:Strings.CommandText_Disconnect}"
+                            Content="{l:Static resources:Strings.CommandText_Disconnect}"
                             Command="{Binding DisconnectCommand}"
                             Grid.Row="2" Grid.Column="0"
                             Height="{DynamicResource StandardButtonHeight}"
                             Margin="5" />
 
                     <Button Name="ConnectButton"
-                            Content="{x:Static resources:Strings.CommandText_Connect}"
+                            Content="{l:Static resources:Strings.CommandText_Connect}"
                             Command="{Binding ConnectCommand}"
                             Grid.Row="2"
                             Grid.Column="1"
@@ -106,7 +107,7 @@
 
                     <ToggleButton Name="AutoConnectCheckBox"
                                   Style="{DynamicResource CheckedToggleButtonStyle}"
-                                  Content="{x:Static resources:Strings.SettingName_AutoConnect}"
+                                  Content="{l:Static resources:Strings.SettingName_AutoConnect}"
                                   Grid.Row="3"
                                   Grid.Column="0"
                                   Height="{DynamicResource StandardButtonHeight}"
@@ -117,13 +118,13 @@
             </GroupBox>
 
             <GroupBox Name="LimitsGroupBox"
-                      Header="{x:Static resources:Strings.SettingsGroupName_DeviceLimits}"
+                      Header="{l:Static resources:Strings.SettingsGroupName_DeviceLimits}"
                       Style="{DynamicResource SettingGroupBoxStyle}"
                       Visibility="{Binding Connected, Converter={StaticResource BoolToCollapsedConverter}}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Name="LimitsDescriptionTextBlock"
                                Style="{DynamicResource SettingDescriptionTextBlockStyle}"
-                               Text="{x:Static resources:Strings.SettingDescription_DeviceLimits}" />
+                               Text="{l:Static resources:Strings.SettingDescription_DeviceLimits}" />
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -188,13 +189,13 @@
             </GroupBox>
 
             <GroupBox Name="TrimGroupBox"
-                      Header="{x:Static resources:Strings.SettingsGroupName_Trim}"
+                      Header="{l:Static resources:Strings.SettingsGroupName_Trim}"
                       Style="{DynamicResource SettingGroupBoxStyle}"
                       Visibility="{Binding Connected, Converter={StaticResource BoolToCollapsedConverter}}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Name="TrimDescriptionTextBlock"
                                Style="{DynamicResource SettingDescriptionTextBlockStyle}"
-                               Text="{x:Static resources:Strings.SettingDescription_DeviceTrim}" />
+                               Text="{l:Static resources:Strings.SettingDescription_DeviceTrim}" />
 
                     <Grid Name="TrimGrid">
                         <Grid.RowDefinitions>

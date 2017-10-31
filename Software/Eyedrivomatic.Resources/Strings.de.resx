@@ -126,12 +126,24 @@
     <comment>Navigate to the previous item in a list.</comment>
   </data>
   <data name="CommandImage_Sleep" xml:space="preserve">
-    <value>Sleep</value>
+    <value>Ruhe</value>
     <comment>This is an image.</comment>
+  </data>
+  <data name="CommandText_AddProfile" xml:space="preserve">
+    <value>Profil hinzufügen</value>
+    <comment>Add a driving profile.</comment>
+  </data>
+  <data name="CommandText_AddProfileSpeed" xml:space="preserve">
+    <value>Geschwindigkeit hinzufügen</value>
+    <comment>Add a driving profile speed.</comment>
   </data>
   <data name="CommandText_AutoDiscover" xml:space="preserve">
     <value>Automatische Erkennung </value>
     <comment>Discover and connect to the device.</comment>
+  </data>
+  <data name="CommandText_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+    <comment>Reset unsaved settings. changes</comment>
   </data>
   <data name="CommandText_Connect" xml:space="preserve">
     <value>Verbinden</value>
@@ -148,6 +160,10 @@
   <data name="CommandText_PrevDevice" xml:space="preserve">
     <value>Zurück</value>
     <comment>Select the previous device in the list.</comment>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>Sichern</value>
+    <comment>Save all settings.</comment>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Relais Zyklus {0} an-aus.</value>
@@ -182,7 +198,7 @@
     <comment>Dalay task description template.</comment>
   </data>
   <data name="Disclaimer_Button" xml:space="preserve">
-    <value>Ich habe dies verstanden und bin damit einverstanden</value>
+    <value>Ich habe dies verstanden und bin damit einverstanden! </value>
     <comment>The user agrees to the conditions of the dislaimer.</comment>
   </data>
   <data name="Disclaimer_Text" xml:space="preserve">
@@ -194,6 +210,62 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="Disclaimer_Title" xml:space="preserve">
     <value>Verzichtserklärung</value>
     <comment>Disclaimer title.</comment>
+  </data>
+  <data name="DriveProfile_Default" xml:space="preserve">
+    <value>Fahren</value>
+    <comment>The name of the default driving view.</comment>
+  </data>
+  <data name="DriveProfile_Hallway" xml:space="preserve">
+    <value>Flur</value>
+    <comment>The name of the 'Hallway' driving view.</comment>
+  </data>
+  <data name="DriveProfile_LargeRoom" xml:space="preserve">
+    <value>Großer Raum</value>
+    <comment>The name of the 'Large Room' driving view.</comment>
+  </data>
+  <data name="DriveProfile_SmallRoom" xml:space="preserve">
+    <value>Kleiner Raum</value>
+    <comment>The name of the 'Small Room' driving view.</comment>
+  </data>
+  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
+    <value>Diagonale Geschwindigkeits Reduzierung </value>
+    <comment>Reduces or restores diagonal speed.</comment>
+  </data>
+  <data name="DrivingView_DriveSpeeds" xml:space="preserve">
+    <value>Fahrgeschwindigkeit </value>
+    <comment>The header text displayed on the drive page above the drive speed buttons.</comment>
+  </data>
+  <data name="DrivingView_Duration" xml:space="preserve">
+    <value>Bewegungsdauer</value>
+    <comment>The header text displayed on the drive page above the duration buttons.</comment>
+  </data>
+  <data name="DrivingView_NudgeLeft" xml:space="preserve">
+    <value>Schubs Links</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="DrivingView_NudgeRight" xml:space="preserve">
+    <value>Schubs Rechts</value>
+    <comment>This is an image.</comment>
+  </data>
+  <data name="DrivingView_Speed_Fast" xml:space="preserve">
+    <value>Schnell </value>
+    <comment>Set the drive speed to fast.</comment>
+  </data>
+  <data name="DrivingView_Speed_Manic" xml:space="preserve">
+    <value>Verrückt</value>
+    <comment>Set the drive speed to manic or full speed.</comment>
+  </data>
+  <data name="DrivingView_Speed_Slow" xml:space="preserve">
+    <value>Langsam</value>
+    <comment>Set the drive speed to slow.</comment>
+  </data>
+  <data name="DrivingView_Speed_Walk" xml:space="preserve">
+    <value>Gehen</value>
+    <comment>Set the drive speed to walk.</comment>
+  </data>
+  <data name="DrivingView_Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment>Stop all movement and reset relays.</comment>
   </data>
   <data name="Hardware_DirectionBackward" xml:space="preserve">
     <value>Rückwärts </value>
@@ -287,37 +359,77 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Neue Aufgabe</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
-    <value>Diagonale Geschwindigkeits Reduzierung </value>
-    <comment>Reduces or restores diagonal speed.</comment>
+  <data name="ProfileName_Drive" xml:space="preserve">
+    <value>Fahren</value>
+    <comment>The default name of a new profile.</comment>
   </data>
-  <data name="DrivingView_NudgeLeft" xml:space="preserve">
-    <value>Schubs Links</value>
-    <comment>This is an image.</comment>
+  <data name="ProfileSpeed_Default" xml:space="preserve">
+    <value>Geschwindigkeit hinzuzufügen</value>
+    <comment>The default name for a new profile speed.</comment>
   </data>
-  <data name="DrivingView_Stop" xml:space="preserve">
-    <value>Stop</value>
-    <comment>This is an image.</comment>
+  <data name="SettingDescripion_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>Der  X-Ausschlag wenn eine der Stubs-Tasten gedrückt wird, während sie vorwärts fahren.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "nudge" setting.</comment>
   </data>
-  <data name="DrivingView_NudgeRight" xml:space="preserve">
-    <value>Schubs Rechts</value>
-    <comment>This is an image.</comment>
+  <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>Der linke oder rechte Ausschlag, wenn eine der Diagonaltasten gedrückt wird. </value>
+    <comment>The description text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
   </data>
-  <data name="DrivingView_Speed_Fast" xml:space="preserve">
-    <value>Schnell </value>
-    <comment>Set the drive speed to fast.</comment>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>Der Rückwärtsasschlag, wenn eine der rückwärts Diagonaltasten gedrückt wird. </value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
   </data>
-  <data name="DrivingView_Speed_Manic" xml:space="preserve">
-    <value>Verrückt</value>
-    <comment>Set the drive speed to manic or full speed.</comment>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>Der Vorwärtsausschlag, wenn eine der Vorwärts Diagonaltasten gedrückt wird.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
   </data>
-  <data name="DrivingView_Speed_Slow" xml:space="preserve">
-    <value>Langsam</value>
-    <comment>Set the drive speed to slow.</comment>
+  <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
+    <value>Setzen Sie die Transparenz der Fahrtaster, die über das Kamerabild des Vorwärtsbildes gezeichnet werden. Verwenden Sie 0 für voll transparent und 100 für voll undurchsichtig.</value>
+    <comment>Description of the camera overlay opacity setting.</comment>
   </data>
-  <data name="DrivingView_Speed_Walk" xml:space="preserve">
-    <value>Gehen</value>
-    <comment>Set the drive speed to walk.</comment>
+  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+    <value>Diese Einstellungen steuern den maximalen Abstand, den die "Elektronische Hand" in Grad von der Mitte aus bewegt. Die maximale Bewegung der elektrischen Hand beträgt in jeder Richtung 22 Grad. Seien Sie  sehr vorsichtig, die physischen Grenzen deiner Joystick-Hardware nicht zu überschreiten!</value>
+    <comment>The description of the "device limits" settings.</comment>
+  </data>
+  <data name="SettingDescription_DeviceTrim" xml:space="preserve">
+    <value>Hiermit stellen Sie den Mittelpunkt für die "Elektronische Hand" in Grad ein. Das Zentrum sollte in der Nähe von "0,0" liegen und muss innerhalb der oben genannten Gerätegrenzen liegen.</value>
+    <comment>The description of the "device trim" settings.</comment>
+  </data>
+  <data name="SettingDescription_DriveViewTransparency" xml:space="preserve">
+    <value>Setzen Sie hier die Transparenz der Richtungstasten, die die Vorwärtskamera überlagern. Verwenden Sie "0" für transparent und "100" für voll undurchsichtig. Diese Einstellung ist nur wirksam, während die Vorwärtskamera aktiv ist.</value>
+    <comment>The label text displayed for the "Camera Overlay Transparency" setting.</comment>
+  </data>
+  <data name="SettingDescription_DwellTimes" xml:space="preserve">
+    <value>Die Einstellungen für die Verweilzeit geben an, wie lange ein Steuerungselement ausgewählt werden soll, bevor es aktiviert wird. Die meisten Bedienelemente verwenden die "Standard" -Zeit. Allerdings gibt es spezielle Kontrollen, die kürzere oder längere Verweilzeiten für Sicherheit oder Bequemlichkeit haben sollten. Die "Stopp" -Taste zum Beispiel sollte eine sehr kurze Verweilzeit haben, um zu helfen, den Stuhl im Notfall sofort zu stoppen. Die "Start" -Taste sollte eine sehr lange Verweilzeit haben, um eine versehentliche Aktivierung zu verhindern. </value>
+    <comment>Description of the group of dwell time settings.</comment>
+  </data>
+  <data name="SettingDescription_HideMouse" xml:space="preserve">
+    <value>Wenn diese Einstellung aktiviert ist, können Sie mit der linken "ctrl" Taste den Mauszeigers sichtbar machen</value>
+    <comment>The text describing the "Hide Mouse" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Der Rückwärts-Ausschlag, wenn die Rückwärts-Taste gedrückt wird.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Der Vorwärtsausschlag, wenn die Vorwärts-Taste gedrückt wird.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Name" xml:space="preserve">
+    <value>Der Name der Profilgeschwindigkeit. Dies wird verwendet, um diese Geschwindigkeit für den Benutzer zu identifizieren.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_X" xml:space="preserve">
+    <value>Die X-Ausschlag, wenn die rechten oder linken Tasten gedrückt werden.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingGroupName_Appearance" xml:space="preserve">
+    <value>Aussehen </value>
+    <comment>Title of the group containing settings for the application appearance.</comment>
+  </data>
+  <data name="SettingGroupName_Camera" xml:space="preserve">
+    <value>Vorwärts Kamera </value>
+    <comment>Title of the group containing settings for the forward view camera.</comment>
   </data>
   <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
     <value>Verbindungs Einstellungen</value>
@@ -327,13 +439,53 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Geräteeinstellungen</value>
     <comment>Title of the group containing device settings.</comment>
   </data>
+  <data name="SettingGroupName_DriveView" xml:space="preserve">
+    <value>Fahr Bildschirm</value>
+    <comment>Title of the group containing settings for the drive view appearance.</comment>
+  </data>
   <data name="SettingGroupName_DwellClick" xml:space="preserve">
-    <value>Verweilen Click Einstellungen</value>
+    <value>Verweil Klick Auslösung</value>
     <comment>Title of the group containing settings for the dwell click.</comment>
+  </data>
+  <data name="SettingGroupName_DwellTimes" xml:space="preserve">
+    <value>Verweilzeit</value>
+    <comment>Title of the group containing settings for dwell times.</comment>
+  </data>
+  <data name="SettingGroupName_EyegazeInterface" xml:space="preserve">
+    <value>Augensteuerung System </value>
+    <comment>Title of the group containing settings for the eyegaze interface.</comment>
+  </data>
+  <data name="SettingGroupName_Mouse" xml:space="preserve">
+    <value>Maus</value>
+    <comment>Title of the group containing settings for the mouse cursor appearance.</comment>
+  </data>
+  <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
+    <value>Profile</value>
+    <comment>Title of the group containing the list of profiles.</comment>
+  </data>
+  <data name="SettingGroupName_ProfileSettings" xml:space="preserve">
+    <value>Profil Einstellungen</value>
+    <comment>Title of the group containing the selected profile settings.</comment>
+  </data>
+  <data name="SettingGroupName_ProfileSpeed_Settings" xml:space="preserve">
+    <value>Profil Geschwindigkeit</value>
+    <comment>Title of the group containing the selected profile speed settings.</comment>
   </data>
   <data name="SettingName_AutoConnect" xml:space="preserve">
     <value>Automatische Verbindung nach dem Start</value>
     <comment>Automatically connect to the device at application startup.</comment>
+  </data>
+  <data name="SettingName_CameraEnabled" xml:space="preserve">
+    <value>Kamera einschalten </value>
+    <comment>Enable/disable the forward-view camera.</comment>
+  </data>
+  <data name="SettingName_CameraOverlayOpacity" xml:space="preserve">
+    <value>Einblendung Deckkraft </value>
+    <comment>Sets the transparency of the driving view.</comment>
+  </data>
+  <data name="SettingName_DriveViewTransparency" xml:space="preserve">
+    <value>Transparenz der Kamera Überlagerung</value>
+    <comment>The label text displayed for the "Camera Overlay Transparency" setting.</comment>
   </data>
   <data name="SettingName_DwellClickEnabled" xml:space="preserve">
     <value>Aktivieren</value>
@@ -343,17 +495,93 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Wiederholverzögerung</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
-    <value>Verweilzeit</value>
-    <comment>Time that the user must look at the target for the dwell click to "press".</comment>
-  </data>
   <data name="SettingName_DwellClickTimeout" xml:space="preserve">
     <value>Wiederholrate</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
   </data>
+  <data name="SettingName_DwellClickTime_DirectionButtons" xml:space="preserve">
+    <value>Fahrtrichtung Taster</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "direction" buttons on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
+    <value>Verweilzeit</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for most buttons and controls.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Start Taster</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "start" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StopButton" xml:space="preserve">
+    <value>Stopp Taster </value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "stop" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_EyegazeInterface" xml:space="preserve">
+    <value>Augensteuerung </value>
+    <comment>The label text displayed for the "Eyegaze System" setting.</comment>
+  </data>
+  <data name="SettingName_HideMouse" xml:space="preserve">
+    <value>Mauszeiger ausblenden</value>
+    <comment>The label text displayed for the "Hide Mouse" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileName" xml:space="preserve">
+    <value>Name</value>
+    <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Rückwärts </value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Vorwärts </value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>The label text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>Stubs</value>
+    <comment>The label text displayed in the profile speed configuration view for the "nudge" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
+    <value>Links/Rechts</value>
+    <comment>The label text displayed in the profie speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>Links/Rechts Diagonale</value>
+    <comment>The label text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>Rückwärts Diagonale</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>Vorwärts Diagonale</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
+  </data>
   <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>Sicherheits Bypass</value>
     <comment>Safety bypass toggle.</comment>
+  </data>
+  <data name="SettingName_ThemeColors" xml:space="preserve">
+    <value>Farbe </value>
+    <comment>The label text displayed for the theme "Colors" setting.</comment>
+  </data>
+  <data name="SettingName_ThemeImages" xml:space="preserve">
+    <value>Bilder</value>
+    <comment>The label text displayed for the theme "Images" setting.</comment>
+  </data>
+  <data name="SettingName_ThemeStyles" xml:space="preserve">
+    <value>Stil</value>
+    <comment>The label text displayed for the theme "Styles" setting.</comment>
+  </data>
+  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+    <value>Grenzen</value>
+    <comment>The name of the device limits settings group.</comment>
+  </data>
+  <data name="SettingsGroupName_Trim" xml:space="preserve">
+    <value>Trimmen</value>
+    <comment>The name of the trim settings group.</comment>
   </data>
   <data name="StatusView_DurationFormat" xml:space="preserve">
     <value>{0:F1} sekunden</value>
@@ -389,7 +617,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   </data>
   <data name="StatusView_Speed_None" xml:space="preserve">
     <value>Keine</value>
-    <comment>The speed indicator when not connected.</comment>
+    <comment>The speed indicator when a speed has not been selected.</comment>
   </data>
   <data name="StatusView_Speed_Slow" xml:space="preserve">
     <value>Langsam</value>
@@ -415,6 +643,10 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Y Servo</value>
     <comment>The current direction applied to the y servo.</comment>
   </data>
+  <data name="ViewName_CameraConfiguration" xml:space="preserve">
+    <value>Kamera </value>
+    <comment>The name of the camera configuration view.</comment>
+  </data>
   <data name="ViewName_Configuration" xml:space="preserve">
     <value>Einstellung</value>
     <comment>The name of the configuration view.</comment>
@@ -422,6 +654,10 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="ViewName_DeviceConfig" xml:space="preserve">
     <value>BrainBox</value>
     <comment>The name of the device configuration view.</comment>
+  </data>
+  <data name="ViewName_EyegazeConfig" xml:space="preserve">
+    <value>Augensteuerung </value>
+    <comment>The name of the eyegaze configuration view.</comment>
   </data>
   <data name="ViewName_GeneralConfiguration" xml:space="preserve">
     <value>Allgemein </value>
@@ -435,9 +671,9 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <value>Verändern der Aktionen</value>
     <comment>The name of the edit macros or actions view.</comment>
   </data>
-  <data name="DriveProfile_Default" xml:space="preserve">
-    <value>Fahren</value>
-    <comment>The name of the outdoor driving view.</comment>
+  <data name="ViewName_ProfileConfig" xml:space="preserve">
+    <value>Profile</value>
+    <comment>The name of the profile configuration view.</comment>
   </data>
   <data name="ViewName_Status" xml:space="preserve">
     <value>Status</value>

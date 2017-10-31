@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?define Firmware_TargetDir=$(var.Eyedrivomatic.Setup.Firmware.TargetDir)?>
-
   <Fragment>
     <DirectoryRef Id="APPLICATIONFOLDER">
       <Directory Id="FirmwareFolder" Name="Firmware">

@@ -44,9 +44,6 @@ namespace Eyedrivomatic
             Log.Initialize();
             Log.Info(this, "Application Startup");
 
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("de");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
-
             var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;

@@ -64,7 +64,7 @@ namespace Eyedrivomatic.Camera
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
             {
                 var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Resources.Strings.ViewName_CameraConfiguration;
+                button.Content = Translate.TranslationFor(nameof(Resources.Strings.ViewName_CameraConfiguration));
                 button.RegionName = RegionNames.ConfigurationContentRegion;
                 button.Target = new Uri($@"/{nameof(CameraConfigurationView)}", UriKind.Relative);
                 button.SortOrder = 3;

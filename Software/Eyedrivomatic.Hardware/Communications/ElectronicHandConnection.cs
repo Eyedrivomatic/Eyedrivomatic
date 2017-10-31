@@ -142,7 +142,7 @@ namespace Eyedrivomatic.Hardware.Communications
                     var serialPort = new SerialPort(port, 19200)
                     {
                         DtrEnable = false,
-                        ReadTimeout = 5000
+                        ReadTimeout = 500
                     };
 
                     Log.Info(this, $"Opening port [{port}].");
@@ -152,14 +152,19 @@ namespace Eyedrivomatic.Hardware.Communications
                     {
                         serialPort.Open();
 
-                        serialPort.DiscardInBuffer();
-                        serialPort.DtrEnable = true; //this will reset the Arduino.
-
-                        if (!serialPort.IsOpen) return null;
-
-                        var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
-                        var firstMessage = await reader.ReadLineAsync();
-                        Log.Debug(this, $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
+                        string firstMessage;
+                        try
+                        {
+                            firstMessage = await ReadFirstMessageAsync(serialPort);
+                        }
+                        catch (IOException)
+                        {
+                            Log.Warn(this, $"Failed to read first message at [{serialPort.BaudRate}] baud. Attempting the slower speed of previous versions of [9600] baud.");
+                            serialPort.Close();
+                            serialPort.BaudRate = 9600;
+                            serialPort.Open();
+                            firstMessage = await ReadFirstMessageAsync(serialPort);
+                        }
 
                         if (!VerifyStartupMessage(firstMessage))
                         {
@@ -188,6 +193,7 @@ namespace Eyedrivomatic.Hardware.Communications
             }
             catch (IOException ex)
             {
+
                 //The port is in an invalid state.
                 // -or -
                 //An attempt to set the state of the underlying port failed. For example, the parameters passed from this SerialPort object were invalid.
@@ -199,6 +205,19 @@ namespace Eyedrivomatic.Hardware.Communications
                 Log.Error(typeof(ElectronicHandEnumerationService), $"Failed to open the com port [{ex}]");
                 return null;
             }
+        }
+
+        private async Task<string> ReadFirstMessageAsync(SerialPort serialPort)
+        {
+            serialPort.DiscardInBuffer();
+            serialPort.DtrEnable = true; //this will reset the Arduino.
+
+            if (!serialPort.IsOpen) return null;
+
+            var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
+            var firstMessage = await reader.ReadLineAsync();
+            Log.Debug(this, $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
+            return firstMessage;
         }
 
         private IObservable<char> CreateDataStream()

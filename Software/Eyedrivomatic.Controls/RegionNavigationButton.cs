@@ -25,7 +25,6 @@ namespace Eyedrivomatic.Controls
             button.Target = target;
             button.SortOrder = sortOrder;
             return button;
-
         }
     }
 

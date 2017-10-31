@@ -4,7 +4,8 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
+                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+                    xmlns:localization="clr-namespace:Gu.Localization;assembly=Gu.Localization">
 
     <Thickness x:Key="ButtonBorderThickness" Left="1" Top="1" Right="1" Bottom="1" />
     <CornerRadius x:Key="ButtonBorderCorner" BottomLeft="3" TopLeft="3" BottomRight="3" TopRight="3" />
@@ -22,6 +23,14 @@
     <DataTemplate DataType="{x:Type ImageSource}">
         <Image Source="{Binding}" Stretch="Uniform" Margin="5" RenderOptions.BitmapScalingMode="HighQuality"
                StretchDirection="Both" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type localization:Translation}">
+        <TextBlock Text="{Binding Translated}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type localization:StaticTranslation}">
+        <TextBlock Text="{Binding Translated}"/>
     </DataTemplate>
 
     <Style x:Key="ButtonFocusVisual">

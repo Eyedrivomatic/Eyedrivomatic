@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<WixLocalization Culture="en-US" Codepage="1252" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+  <!-- _locID@Culture="en-US" _locComment="American English" -->
+  <!-- _locID@Codepage="1252" _locComment="Windows-1252" -->
+
+</WixLocalization>

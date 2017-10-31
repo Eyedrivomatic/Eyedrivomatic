@@ -26,9 +26,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:l="http://gu.se/Localization"
+             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
              d:DesignWidth="869"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
@@ -43,100 +44,105 @@
     <Grid x:Name="LayoutRoot">
         <WrapPanel Orientation="Horizontal">
 
-            <GroupBox x:Name="MouseSettings"
-                      Header="{x:Static resources:Strings.SettingGroupName_Appearance}"
+            <GroupBox x:Name="LanguageGroup"
+                      Header="{l:Static resources:Strings.SettingGroupName_Language}"
                       Style="{DynamicResource SettingGroupBoxStyle}">
-                      
+
+                <ListBox ItemsSource="{Binding AvailableCultures}"
+                         SelectedItem="{Binding CurrentCulture}"
+                         DisplayMemberPath="NativeName"
+                         MinHeight="100"
+                         Height="Auto" />
+            </GroupBox>
+            <GroupBox x:Name="MouseSettings"
+                      Header="{l:Static resources:Strings.SettingGroupName_Appearance}"
+                      Style="{DynamicResource SettingGroupBoxStyle}">
+
                 <StackPanel Orientation="Vertical">
-                    <ToggleButton Style="{DynamicResource CheckedToggleButtonStyle}" 
+                    <ToggleButton Style="{DynamicResource CheckedToggleButtonStyle}"
                                   Height="{DynamicResource StandardButtonHeight}"
-                                  Content="{x:Static resources:Strings.SettingName_HideMouse}"
+                                  Content="{l:Static resources:Strings.SettingName_HideMouse}"
                                   Margin="5,20,5,5"
                                   IsChecked="{Binding HideMouseCursor}" />
-                    <Label Content="{x:Static resources:Strings.SettingDescription_HideMouse}"
+                    <Label Content="{l:Static resources:Strings.SettingDescription_HideMouse}"
                            Margin="10" />
+
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label x:Name="ThemeColorsLabel"
+                               Grid.Row="1" Grid.Column="0"
+                               Content="{l:Static resources:Strings.SettingName_ThemeColors}"
+                               Style="{StaticResource SettingLabelStyle}"
+                               HorizontalAlignment="Left"
+                               Margin="10,20,10,0" />
+
+                        <ListBox x:Name="ThemeColorsListBox"
+                                 Grid.Row="2" Grid.Column="0"
+                                 ItemsSource="{Binding AvailableThemeColors, Mode=OneTime}"
+                                 SelectedValue="{Binding ThemeColors}"
+                                 MinHeight="100"
+                                 Height="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="infrastructure:ThemeColorsResourceDictionary">
+                                    <Label Content="{Binding ThemeName}" Height="50" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Label x:Name="ThemeImagesLabel"
+                               Grid.Row="3" Grid.Column="0"
+                               Content="{l:Static resources:Strings.SettingName_ThemeImages}"
+                               Style="{StaticResource SettingLabelStyle}"
+                               HorizontalAlignment="Left"
+                               Margin="10,20,10,0" />
+
+                        <ListBox x:Name="ThemeImagesListBox"
+                                 Grid.Row="4" Grid.Column="0"
+                                 ItemsSource="{Binding AvailableThemeImages}"
+                                 SelectedValue="{Binding ThemeImages}"
+                                 MinHeight="100"
+                                 Height="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="infrastructure:ThemeImagesResourceDictionary">
+                                    <Label Content="{Binding ThemeName}" Height="50" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Label x:Name="ThemeStylesLabel"
+                               Grid.Row="5" Grid.Column="0"
+                               Content="{l:Static resources:Strings.SettingName_ThemeStyles}"
+                               Style="{StaticResource SettingLabelStyle}"
+                               HorizontalAlignment="Left"
+                               Margin="10,20,10,0" />
+
+                        <ListBox x:Name="ThemeStylesListBox"
+                                 Grid.Row="6" Grid.Column="0"
+                                 ItemsSource="{Binding AvailableThemeStyles}"
+                                 SelectedValue="{Binding ThemeStyles}"
+                                 MinHeight="100"
+                                 Height="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="infrastructure:ThemeStylesResourceDictionary">
+                                    <Label Content="{Binding ThemeName}" Height="50" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                 </StackPanel>
-
-            </GroupBox>
-
-            <GroupBox x:Name="ThemeSettings"
-                      Header="{x:Static resources:Strings.SettingGroupName_Appearance}"
-                      Style="{DynamicResource SettingGroupBoxStyle}">
-                <Grid VerticalAlignment="Top">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="ThemeColorsLabel"
-                           Grid.Row="1" Grid.Column="0"
-                           Content="{x:Static resources:Strings.SettingName_ThemeColors}"
-                           Style="{StaticResource SettingLabelStyle}"
-                           HorizontalAlignment="Left"
-                           Margin="10,20,10,0" />
-
-                    <ListBox x:Name="ThemeColorsListBox"
-                             Grid.Row="2" Grid.Column="0"
-                             ItemsSource="{Binding AvailableThemeColors, Mode=OneTime}"
-                             SelectedValue="{Binding ThemeColors}"
-                             MinHeight="100"
-                             Height="Auto">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="infrastructure:ThemeColorsResourceDictionary">
-                                <Label Content="{Binding ThemeName}" Height="50" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <Label x:Name="ThemeImagesLabel"
-                           Grid.Row="3" Grid.Column="0"
-                           Content="{x:Static resources:Strings.SettingName_ThemeImages}"
-                           Style="{StaticResource SettingLabelStyle}"
-                           HorizontalAlignment="Left"
-                           Margin="10,20,10,0" />
-
-                    <ListBox x:Name="ThemeImagesListBox"
-                             Grid.Row="4" Grid.Column="0"
-                             ItemsSource="{Binding AvailableThemeImages}"
-                             SelectedValue="{Binding ThemeImages}"
-                             MinHeight="100"
-                             Height="Auto">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="infrastructure:ThemeImagesResourceDictionary">
-                                <Label Content="{Binding ThemeName}" Height="50" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <Label x:Name="ThemeStylesLabel"
-                           Grid.Row="5" Grid.Column="0"
-                           Content="{x:Static resources:Strings.SettingName_ThemeStyles}"
-                           Style="{StaticResource SettingLabelStyle}"
-                           HorizontalAlignment="Left"
-                           Margin="10,20,10,0" />
-
-                    <ListBox x:Name="ThemeStylesListBox"
-                             Grid.Row="6" Grid.Column="0"
-                             ItemsSource="{Binding AvailableThemeStyles}"
-                             SelectedValue="{Binding ThemeStyles}"
-                             MinHeight="100"
-                             Height="Auto">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="infrastructure:ThemeStylesResourceDictionary">
-                                <Label Content="{Binding ThemeName}" Height="50" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
             </GroupBox>
         </WrapPanel>
     </Grid>
