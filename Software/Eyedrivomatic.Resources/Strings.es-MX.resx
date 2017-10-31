@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowsableList_Next" xml:space="preserve">
+    <value>¡Siguiente!</value>
+  </data>
+  <data name="BrowsableList_Prev" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="CommandImage_Sleep" xml:space="preserve">
+    <value>Sueño!</value>
+  </data>
+  <data name="CommandText_AutoDiscover" xml:space="preserve">
+    <value>Descubrir automáticamente el dispositivo!</value>
+  </data>
+  <data name="CommandText_Connect" xml:space="preserve">
+    <value>¡Conéctese!</value>
+  </data>
+  <data name="CommandText_Disconnect" xml:space="preserve">
+    <value>Desconectar</value>
+  </data>
+  <data name="CommandText_NextDevice" xml:space="preserve">
+    <value>¡Siguiente!</value>
+  </data>
+  <data name="CommandText_PrevDevice" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
+    <value>{0} relé de cierre del ciclo.!</value>
+  </data>
+  <data name="CycleRelayMacroTask_Description" xml:space="preserve">
+    <value>Ciclo de un relé. Esto cambia el estado del relé-&gt; en-&gt; con un retardo de 200ms.!</value>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRelay" xml:space="preserve">
+    <value>Debe ser un valor entre 1 y {0}.!</value>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRepeat" xml:space="preserve">
+    <value>debe ser mayor a</value>
+  </data>
+  <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
+    <value>Ciclo relé {0}, {1} veces con un retraso de ms de {2} entre repeticiones de la repetición.!</value>
+  </data>
+  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
+    <value>¡Retraso {0:0.00} s!</value>
+  </data>
+  <data name="DelayTask_InvalidDelay" xml:space="preserve">
+    <value>Demora debe ser mayor que 0.!</value>
+  </data>
+  <data name="DelayTask_ToStringFormat" xml:space="preserve">
+    <value>Pausa por {0:0.00} segundos.!</value>
+  </data>
+  <data name="Disclaimer_Button" xml:space="preserve">
+    <value>Entiendo y estoy de acuerdo</value>
+  </data>
+  <data name="Disclaimer_Text" xml:space="preserve">
+    <value>El sistema Eyedrivomatic es potencialmente peligroso si se usa sin la debida precaución. Ningún miembro del equipo de Eyedrivomatic acepta responsabilidad alguna por lesiones personales, daños a la propiedad sufridos durante el uso o mal uso de Eyedrivomatic. El uso del Sistema Eyedrivomatic es totalmente bajo el riesgo del usuario.</value>
+  </data>
+  <data name="Disclaimer_Title" xml:space="preserve">
+    <value>AVISO LEGAL</value>
+  </data>
+  <data name="Hardware_DirectionBackward" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
+    <value>¡Derecho al revés!</value>
+  </data>
+  <data name="Hardware_DirectionForward" xml:space="preserve">
+    <value>Reenviar</value>
+  </data>
+  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
+    <value>adelantar</value>
+  </data>
+  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
+    <value>¡Adelante derecha!</value>
+  </data>
+  <data name="Hardware_DirectionLeft" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="Hardware_DirectionRight" xml:space="preserve">
+    <value>Así es.</value>
+  </data>
+  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
+    <value>¡Listo!</value>
+  </data>
+  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
+    <value>¡Continuar!</value>
+  </data>
+  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
+    <value>Seguro</value>
+  </data>
+  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
+    <value>¡SkullAndCrossbones!</value>
+  </data>
+  <data name="MacrosImage_Power" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="MacrosImage_Tilt" xml:space="preserve">
+    <value>Inclinación</value>
+  </data>
+  <data name="MacrosName_Mode" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="MacrosName_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="MacrosName_Spare" xml:space="preserve">
+    <value>Repuesto</value>
+  </data>
+  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
+    <value>Nombre no válido. El no puede tener espacios vacíos o solamente caracteres.!</value>
+  </data>
+  <data name="Macro_InvalidDisplayName" xml:space="preserve">
+    <value>Nombre no válido. El no puede tener espacios vacíos o solamente caracteres.!</value>
+  </data>
+  <data name="MillisecondsLong" xml:space="preserve">
+    <value>milisegundos</value>
+  </data>
+  <data name="MillisecondsShort" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="NewTaskViewModelName" xml:space="preserve">
+    <value>Nueva Actividad</value>
+  </data>
+  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
+    <value>¡Palanca de reducción de velocidad diagonal!</value>
+  </data>
+  <data name="DrivingView_NudgeLeft" xml:space="preserve">
+    <value>Insistir</value>
+  </data>
+  <data name="DrivingView_Stop" xml:space="preserve">
+    <value>¡Alto!</value>
+  </data>
+  <data name="DrivingView_NudgeRight" xml:space="preserve">
+    <value>¡Codazo de derecha!</value>
+  </data>
+  <data name="DrivingView_Speed_Fast" xml:space="preserve">
+    <value>¡Rápido!</value>
+  </data>
+  <data name="DrivingView_Speed_Manic" xml:space="preserve">
+    <value>maníaco</value>
+  </data>
+  <data name="DrivingView_Speed_Slow" xml:space="preserve">
+    <value>Lento</value>
+  </data>
+  <data name="DrivingView_Speed_Walk" xml:space="preserve">
+    <value>¡Camina!</value>
+  </data>
+  <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
+    <value>Ajustes de conexión</value>
+  </data>
+  <data name="SettingGroupName_EyegazeInterface" xml:space="preserve">
+    <value>¡Interfaz del sistema Eyegaze!</value>
+  </data>
+  <data name="SettingGroupName_DwellClick" xml:space="preserve">
+    <value>Detención, haga clic en configuración.</value>
+  </data>
+  <data name="SettingGroupName_DwellTimes" xml:space="preserve">
+    <value>Tiempos de permanencia!</value>
+  </data>
+  <data name="SettingDescription_DwellTimes" xml:space="preserve">
+    <value>El tiempo de permanencia configuración especifica el tiempo que un control debe seleccionarse antes de activa. 
+Mayoría de los controles a usar el tiempo "Estándar". Sin embargo existen controles especiales que deben tener los tiempos de permanencia más corto o más largo por seguridad o conveniencia. 
+Por ejemplo, el botón "Stop" debe tener un tiempo muy corto para ayudar a detener la silla en caso de emergencia. 
+El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación accidental.!</value>
+  </data>
+  <data name="SettingName_AutoConnect" xml:space="preserve">
+    <value>Conectar automáticamente al iniciar!</value>
+  </data>
+  <data name="SettingGroupName_Camera" xml:space="preserve">
+    <value>¡Cámara de visión delantera!</value>
+  </data>
+  <data name="SettingName_CameraEnabled" xml:space="preserve">
+    <value>¡Cámara activada!</value>
+  </data>
+  <data name="SettingName_CameraOverlayOpacity" xml:space="preserve">
+    <value>Opacidad de superposición</value>
+  </data>
+  <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
+    <value>Establecer la transparencia de los botones de manejo dibujados sobre la imagen de la cámara hacia adelante. Uso 0 totalmente transparente y 100 para totalmente opaco.!</value>
+  </data>
+  <data name="SettingName_DwellClickEnabled" xml:space="preserve">
+    <value>¡Habilitado!</value>
+  </data>
+  <data name="SettingName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>retraso de la repetición</value>
+  </data>
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
+    <value>Estandar</value>
+  </data>
+  <data name="SettingName_DwellClickTime_DirectionButtons" xml:space="preserve">
+    <value>Botones de dirección.</value>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Botón empezar</value>
+  </data>
+  <data name="SettingName_DwellClickTime_StopButton" xml:space="preserve">
+    <value>Botón de parada</value>
+  </data>
+  <data name="SettingName_DwellClickTimeout" xml:space="preserve">
+    <value>¡Habitar el tiempo de espera!</value>
+  </data>
+  <data name="StatusView_NudgeDuration" xml:space="preserve">
+    <value>¡Empujar hacia la duración!</value>
+  </data>
+  <data name="StatusView_NudgeSpeed" xml:space="preserve">
+    <value>¡Empujar la velocidad!</value>
+  </data>
+  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
+    <value>¡Estado de derivación de seguridad!</value>
+  </data>
+  <data name="StatusView_Seconds" xml:space="preserve">
+    <value>Segundo</value>
+  </data>
+  <data name="StatusView_XCenter" xml:space="preserve">
+    <value>X punto de congresos Servo!</value>
+  </data>
+  <data name="StatusView_XServo" xml:space="preserve">
+    <value>servo</value>
+  </data>
+  <data name="StatusView_YCenter" xml:space="preserve">
+    <value>¡Y Servo Centere punto!</value>
+  </data>
+  <data name="StatusView_YServo" xml:space="preserve">
+    <value>servo</value>
+  </data>
+  <data name="ViewName_Configuration" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="ViewName_DeviceConfig" xml:space="preserve">
+    <value>Hardware</value>
+  </data>
+  <data name="ViewName_GeneralConfiguration" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="DriveProfile_LargeRoom" xml:space="preserve">
+    <value>Grande</value>
+  </data>
+  <data name="DriveProfile_SmallRoom" xml:space="preserve">
+    <value>Pequeña</value>
+  </data>
+  <data name="DriveProfile_Hallway" xml:space="preserve">
+    <value>Pasillo</value>
+  </data>
+  <data name="ViewName_Macros" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="ViewName_MacrosSettings" xml:space="preserve">
+    <value>Editar acciones</value>
+  </data>
+  <data name="DriveProfile_Default" xml:space="preserve">
+    <value>IMPULSOR</value>
+  </data>
+  <data name="ViewName_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+    <value>Límites</value>
+  </data>
+  <data name="SettingsGroupName_Trim" xml:space="preserve">
+    <value>Guarnición</value>
+  </data>
+  <data name="SettingGroupName_DeviceSettings" xml:space="preserve">
+    <value>Ajustes del dispositivo</value>
+  </data>
+  <data name="SettingName_SafetyBypass" xml:space="preserve">
+    <value>¡Puente de seguridad!</value>
+  </data>
+  <data name="StatusView_DurationFormat" xml:space="preserve">
+    <value>{0:F1} segundos!</value>
+  </data>
+  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
+    <value>{0}°!</value>
+  </data>
+  <data name="StatusView_Speed_None" xml:space="preserve">
+    <value>¡Ninguna!</value>
+  </data>
+  <data name="StatusView_Speed_Fast" xml:space="preserve">
+    <value>¡Rápido!</value>
+  </data>
+  <data name="StatusView_Speed_Manic" xml:space="preserve">
+    <value>maníaco</value>
+  </data>
+  <data name="StatusView_Speed_Slow" xml:space="preserve">
+    <value>Lento</value>
+  </data>
+  <data name="StatusView_Speed_Walk" xml:space="preserve">
+    <value>¡Camina!</value>
+  </data>
+  <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="ViewName_ProfileConfig" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="SettingGroupName_ProfileSettings" xml:space="preserve">
+    <value>Configurar perfil</value>
+  </data>
+  <data name="SettingGroupName_ProfileSpeed_Settings" xml:space="preserve">
+    <value>¡Configuración del perfil de velocidad!</value>
+  </data>
+  <data name="SettingName_ProfileName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="CommandText_AddProfileSpeed" xml:space="preserve">
+    <value>Añadir Velocidad</value>
+  </data>
+  <data name="CommandText_AddProfile" xml:space="preserve">
+    <value>Agregar perfil</value>
+  </data>
+  <data name="ProfileSpeed_Default" xml:space="preserve">
+    <value>Velocidad</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Name" xml:space="preserve">
+    <value>El nombre de la velocidad del perfil. Esto se utilizará para identificar a esta velocidad al usuario.!</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_X" xml:space="preserve">
+    <value>La desviación de X cuando se pulsen los botones derecho o izquierdos.!</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
+    <value>Izquierda/Derecha</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>La desviación de X cuando se presiona uno de los botones de nudge mientras se mueve hacia adelante.!</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>La desviación de izquierda o derecha cuando se presiona uno de los botones diagonales.!</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>La desviación hacia atrás cuando se presiona uno de los botones diagonales hacia adelantados.!</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>La desviación hacia adelante cuando se presiona uno de los botones diagonales hacia adelantados.!</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
+    <value>La desviación hacia adelante cuando el botón atrás es deel.!</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Forward" xml:space="preserve">
+    <value>La desviación hacia adelante cuando el botón de avance es deel.!</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Reenviar</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
+    <value>Insistir</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>¡Diagonal izquierda/derecha!</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>¡Diagonal al revés!</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>¡Diagonal hacia adelante!</value>
+  </data>
+  <data name="ProfileName_Drive" xml:space="preserve">
+    <value>Drive</value>
+  </data>
+  <data name="DrivingView_DriveSpeeds" xml:space="preserve">
+    <value>¡Conducir a velocidades!</value>
+  </data>
+  <data name="DrivingView_Duration" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="SettingGroupName_Mouse" xml:space="preserve">
+    <value>Ratón</value>
+  </data>
+  <data name="SettingName_HideMouse" xml:space="preserve">
+    <value>Cursor del Ratón</value>
+  </data>
+  <data name="SettingDescription_HideMouse" xml:space="preserve">
+    <value>Con esta configuración habilitada, utilice la tecla izquierda "ctrl" para cambiar la visibilidad del cursor de ratón.!</value>
+  </data>
+  <data name="SettingGroupName_DriveView" xml:space="preserve">
+    <value>Drive</value>
+  </data>
+  <data name="SettingName_DriveViewTransparency" xml:space="preserve">
+    <value>¡Transparencia de la cámara!</value>
+  </data>
+  <data name="SettingDescription_DriveViewTransparency" xml:space="preserve">
+    <value>Establecer la transparencia de los botones de dirección superponer la cámara hacia adelante. Uso "0" por "100" y transparente para completamente opaco. 
+Este ajuste sólo es efectivo mientras esté activa la cámara hacia adelante.!</value>
+  </data>
+  <data name="SettingName_EyegazeInterface" xml:space="preserve">
+    <value>¡Sistema Eyegaze!</value>
+  </data>
+  <data name="SettingGroupName_Appearance" xml:space="preserve">
+    <value>Apariencia</value>
+  </data>
+  <data name="SettingName_ThemeColors" xml:space="preserve">
+    <value>¡Colores!</value>
+  </data>
+  <data name="SettingName_ThemeImages" xml:space="preserve">
+    <value>Imágenes</value>
+  </data>
+  <data name="SettingName_ThemeStyles" xml:space="preserve">
+    <value>Estilos:</value>
+  </data>
+  <data name="CommandText_Cancel" xml:space="preserve">
+    <value>¡Cancelar!</value>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>¡Ahorra!</value>
+  </data>
+  <data name="ViewName_CameraConfiguration" xml:space="preserve">
+    <value>Cámara</value>
+  </data>
+  <data name="ViewName_EyegazeConfig" xml:space="preserve">
+    <value>Eyegaze Edge</value>
+  </data>
+  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+    <value>Estos ajustes controlan la distancia máxima que medio"electrónico" se mide en grados desde el centro. El máximo movimiento de la mano eléctrica es de 22 grados en cada dirección. Ten cuidado que no excedan los límites físicos de su hardware de joystick!!</value>
+  </data>
+  <data name="SettingDescription_DeviceTrim" xml:space="preserve">
+    <value>Utilice esto para establecer el punto central de la "mano electrónico" medido en grados. 
+El centro debe estar cerca de "0,0" y debe estar dentro de los límites de dispositivo especificados arriba.!</value>
+  </data>
+  <data name="DeviceConnection_Error_Auto_NotFound" xml:space="preserve">
+    <value>¡Dispositivo no encontrado!</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
+    <value>Dispositivo en "{0}" no se encuentra!!</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Title" xml:space="preserve">
+    <value>¡Requerida actualización de firmware!</value>
+  </data>
+  <data name="Firmware_Update_Title" xml:space="preserve">
+    <value>Actualización de Firmware</value>
+  </data>
+  <data name="CommandText_Continue" xml:space="preserve">
+    <value>¡Continuar!</value>
+  </data>
+  <data name="DeviceConnection_Error_FirmwareCheck" xml:space="preserve">
+    <value>No puede conectarse el dispositivo a "{0}". La comprobación de versión de firmware falló.!</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual" xml:space="preserve">
+    <value>Falló la conexión con el dispositivo en "{0}".!</value>
+  </data>
+  <data name="DeviceConnection_MinFirmwareNotAvailable" xml:space="preserve">
+    <value>Se encontró un dispositivo con una versión de firmware compatible. Sin embargo no se encontró el archivo de firmware instalado con la aplicación.!</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Directive_Format" xml:space="preserve">
+    <value>Una actualización de firmware está disponible para el dispositivo en {0}. ¿Quieres actualizar tu dispositivo?
+Versión actual: {1} actualización versión: {2}!</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
+    <value>¡Actualización de firmware disponible!</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
+    <value>Se detectó un dispositivo en {0}, sin embargo el dispositivo tiene una versión anterior del firmware Eyedrivomatic. Debe actualizar el firmware para continuar.
+    
+ Versión actual: versión de actualización {1}: {2}.</value>
+  </data>
+  <data name="Firmware_Update_Versions_Format" xml:space="preserve">
+    <value>Versión actual: {0}. actualizar versión: {1}.</value>
+  </data>
+  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+    <value>Error de conexión del dispositivo.</value>
+  </data>
+  <data name="SettingGroupName_Language" xml:space="preserve">
+    <value>Language!</value>
+  </data>
+</root>
