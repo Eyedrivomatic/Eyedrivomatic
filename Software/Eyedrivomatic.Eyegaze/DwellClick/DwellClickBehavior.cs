@@ -171,20 +171,20 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private readonly IDwellClickAnimator _animator;
         private readonly DwellClickAdornerFactory _adornerFactory;
-        private readonly IList<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> _providersFactories;
+        private readonly IEyegazeProviderFactory _providerFactory;
         private DwellClickAdorner _adorner;
         private IDisposable _moveWatchdogRegistration;
         private IDwellClickConfigurationService _configuration;
 
         [ImportingConstructor]
         public DwellClickBehavior(
-            IDwellClickAnimator animator, 
-            IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providers,
+            IEyegazeProviderFactory providerFactory,
+            IDwellClickAnimator animator,
             DwellClickAdornerFactory adornerFactory)
         {
+            _providerFactory = providerFactory;
             _animator = animator;
             _adornerFactory = adornerFactory;
-            _providersFactories = providers.ToList();
         }
 
         protected override void OnAttached()
@@ -197,16 +197,13 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             AttachProvider(_configuration.Provider);
         }
 
-        private void AttachProvider(string provider)
+        private void AttachProvider(string providerName)
         {
             try
             {
                 _providerRegistration?.Dispose();
-                var providerFactory = _providersFactories.FirstOrDefault(p => p.Metadata.Name == provider)
-                               ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Mouse")
-                               ?? _providersFactories.First();
-
-                _providerRegistration = providerFactory?.Value.RegisterElement(AssociatedObject, this);
+                var provider = _providerFactory.Create(providerName);
+                _providerRegistration = provider?.RegisterElement(AssociatedObject, this);
 
             }
             catch (Exception ex)
@@ -220,6 +217,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             if (propertyChangedEventArgs.PropertyName == nameof(IDwellClickConfigurationService.Provider))
             {
                 AttachProvider(_configuration.Provider);
+                //Let any errors fall through to event invocation to prevent further attempts to update the provider. 
             }
         }
 

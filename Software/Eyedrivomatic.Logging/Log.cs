@@ -73,7 +73,7 @@ namespace Eyedrivomatic.Logging
 
         public static void Error(object context, string message)
         {
-            Warn(context.GetType(), message);
+            Error(context.GetType(), message);
         }
     }
 }

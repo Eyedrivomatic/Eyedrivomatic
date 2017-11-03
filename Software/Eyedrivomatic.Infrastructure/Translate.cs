@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Resources;
+using Eyedrivomatic.Logging;
 using Gu.Localization;
 using Gu.Localization.Properties;
 
@@ -36,11 +37,12 @@ namespace Eyedrivomatic.Infrastructure
             try
             {
                 var translation = Translation.GetOrCreate(ResourceManager, key, ErrorHandling.ReturnErrorInfoPreserveNeutral);
-                if (translation is StaticTranslation) return new StaticTranslation(defaultValue);
+                if (translation is StaticTranslation) return new StaticTranslation(defaultValue);//error info found.
                 return translation;
             }
             catch (Exception e)
             {
+                Log.Warn(nameof(Translate), $"Failed to find translation for [{key}]. [{e}]");
                 return new StaticTranslation(defaultValue);
             }
         }

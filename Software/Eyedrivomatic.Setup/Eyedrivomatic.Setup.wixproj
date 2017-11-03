@@ -22,7 +22,7 @@
     </Cultures>
     <VerboseOutput>True</VerboseOutput>
     <SuppressAllWarnings>False</SuppressAllWarnings>
-    <Pedantic>True</Pedantic>
+    <Pedantic>False</Pedantic>
     <LinkerAdditionalOptions>-v -spdb</LinkerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>

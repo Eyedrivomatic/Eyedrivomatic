@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DwellClick\DwellClickAdornerFactory.cs" />
+    <Compile Include="DwellClick\EyegazeProviderFactory.cs" />
+    <Compile Include="DwellClick\IEyegazeProviderFactory.cs" />
     <Compile Include="ExportEyegazeProviderAttribute.cs" />
     <Compile Include="EyegazeModule.cs" />
     <Compile Include="DwellClick\DwellClickAdorner.cs" />

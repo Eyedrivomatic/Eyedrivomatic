@@ -10,4 +10,6 @@
   <String Id="ApplicationFeatureDescription">The Eyedrivomatic 2.0 stand-alone desktop application.</String>
   <String Id="DriversFeatureTitle">Electronic Hand Drivers</String>
   <String Id="DriversFeatureDescription">The Windows drivers necessary to communicate with the "Electronic Hand" hardware through USB.</String>
+  <String Id="DesktopShortcutsFeatureTitle">Desktop Shortcut</String>
+  <String Id="DesktopShortcutsFeatureDescription">A shortcut to the Eyedrivmatic application placed on your desktop.</String>
 </WixLocalization>

@@ -61,33 +61,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next.
-        /// </summary>
-        public static string BrowsableList_Next {
-            get {
-                return ResourceManager.GetString("BrowsableList_Next", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prev.
-        /// </summary>
-        public static string BrowsableList_Prev {
-            get {
-                return ResourceManager.GetString("BrowsableList_Prev", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sleep.
-        /// </summary>
-        public static string CommandImage_Sleep {
-            get {
-                return ResourceManager.GetString("CommandImage_Sleep", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add Profile.
         /// </summary>
         public static string CommandText_AddProfile {
@@ -147,24 +120,6 @@ namespace Eyedrivomatic.Resources {
         public static string CommandText_Disconnect {
             get {
                 return ResourceManager.GetString("CommandText_Disconnect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Next.
-        /// </summary>
-        public static string CommandText_NextDevice {
-            get {
-                return ResourceManager.GetString("CommandText_NextDevice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prev.
-        /// </summary>
-        public static string CommandText_PrevDevice {
-            get {
-                return ResourceManager.GetString("CommandText_PrevDevice", resourceCulture);
             }
         }
         
@@ -369,16 +324,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diagonal Speed
-        ///Reduction Toggle.
-        /// </summary>
-        public static string DrivingView_DiagSpeedReduction {
-            get {
-                return ResourceManager.GetString("DrivingView_DiagSpeedReduction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Drive Speeds.
         /// </summary>
         public static string DrivingView_DriveSpeeds {
@@ -397,38 +342,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Nudge.
-        /// </summary>
-        public static string DrivingView_NudgeLeft {
-            get {
-                return ResourceManager.GetString("DrivingView_NudgeLeft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Right Nudge.
-        /// </summary>
-        public static string DrivingView_NudgeRight {
-            get {
-                return ResourceManager.GetString("DrivingView_NudgeRight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fast.
         /// </summary>
         public static string DrivingView_Speed_Fast {
             get {
                 return ResourceManager.GetString("DrivingView_Speed_Fast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MANIC.
-        /// </summary>
-        public static string DrivingView_Speed_Manic {
-            get {
-                return ResourceManager.GetString("DrivingView_Speed_Manic", resourceCulture);
             }
         }
         
@@ -447,15 +365,6 @@ namespace Eyedrivomatic.Resources {
         public static string DrivingView_Speed_Walk {
             get {
                 return ResourceManager.GetString("DrivingView_Speed_Walk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stop.
-        /// </summary>
-        public static string DrivingView_Stop {
-            get {
-                return ResourceManager.GetString("DrivingView_Stop", resourceCulture);
             }
         }
         
@@ -520,173 +429,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backward.
-        /// </summary>
-        public static string Hardware_DirectionBackward {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionBackward", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Backward Left.
-        /// </summary>
-        public static string Hardware_DirectionBackwardLeft {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionBackwardLeft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Backward Right.
-        /// </summary>
-        public static string Hardware_DirectionBackwardRight {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionBackwardRight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forward.
-        /// </summary>
-        public static string Hardware_DirectionForward {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionForward", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forward Left.
-        /// </summary>
-        public static string Hardware_DirectionForwardLeft {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionForwardLeft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forward Right.
-        /// </summary>
-        public static string Hardware_DirectionForwardRight {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionForwardRight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Left.
-        /// </summary>
-        public static string Hardware_DirectionLeft {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionLeft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Right.
-        /// </summary>
-        public static string Hardware_DirectionRight {
-            get {
-                return ResourceManager.GetString("Hardware_DirectionRight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ready.
-        /// </summary>
-        public static string Hardware_ReadyStateAnyImage {
-            get {
-                return ResourceManager.GetString("Hardware_ReadyStateAnyImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue.
-        /// </summary>
-        public static string Hardware_ReadyStateContinueImage {
-            get {
-                return ResourceManager.GetString("Hardware_ReadyStateContinueImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string Hardware_ReadyStateResetImage {
-            get {
-                return ResourceManager.GetString("Hardware_ReadyStateResetImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Safe.
-        /// </summary>
-        public static string Hardware_SafetyBypassSafeImage {
-            get {
-                return ResourceManager.GetString("Hardware_SafetyBypassSafeImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SkullAndCrossbones.
-        /// </summary>
-        public static string Hardware_SafetyBypassUnSafeImage {
-            get {
-                return ResourceManager.GetString("Hardware_SafetyBypassUnSafeImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid Display Name. The cannot be empty or only whitespace characters..
         /// </summary>
         public static string Macro_InvalidDisplayName {
             get {
                 return ResourceManager.GetString("Macro_InvalidDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Off.
-        /// </summary>
-        public static string MacrosImage_Power {
-            get {
-                return ResourceManager.GetString("MacrosImage_Power", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tilt.
-        /// </summary>
-        public static string MacrosImage_Tilt {
-            get {
-                return ResourceManager.GetString("MacrosImage_Tilt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mode.
-        /// </summary>
-        public static string MacrosName_Mode {
-            get {
-                return ResourceManager.GetString("MacrosName_Mode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power.
-        /// </summary>
-        public static string MacrosName_Power {
-            get {
-                return ResourceManager.GetString("MacrosName_Power", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spare.
-        /// </summary>
-        public static string MacrosName_Spare {
-            get {
-                return ResourceManager.GetString("MacrosName_Spare", resourceCulture);
             }
         }
         
@@ -745,15 +492,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The X deflection when one of the nudge buttons are pressed while moving forward..
-        /// </summary>
-        public static string SettingDescripion_ProfileSpeed_Nudge {
-            get {
-                return ResourceManager.GetString("SettingDescripion_ProfileSpeed_Nudge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The left or right deflection when one of the diagonal buttons are pressed..
         /// </summary>
         public static string SettingDescripion_ProfileSpeed_XDiag {
@@ -805,16 +543,6 @@ namespace Eyedrivomatic.Resources {
         public static string SettingDescription_DeviceTrim {
             get {
                 return ResourceManager.GetString("SettingDescription_DeviceTrim", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set the transparency of the direction buttons overlaying the forward view camera. Use &quot;0&quot; for transparent and &quot;100&quot; for fully opaque. 
-        ///This setting is only effective while the forward view camera is active..
-        /// </summary>
-        public static string SettingDescription_DriveViewTransparency {
-            get {
-                return ResourceManager.GetString("SettingDescription_DriveViewTransparency", resourceCulture);
             }
         }
         
@@ -903,24 +631,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Settings.
-        /// </summary>
-        public static string SettingGroupName_DeviceSettings {
-            get {
-                return ResourceManager.GetString("SettingGroupName_DeviceSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Drive View.
-        /// </summary>
-        public static string SettingGroupName_DriveView {
-            get {
-                return ResourceManager.GetString("SettingGroupName_DriveView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dwell Click Settings.
         /// </summary>
         public static string SettingGroupName_DwellClick {
@@ -953,15 +663,6 @@ namespace Eyedrivomatic.Resources {
         public static string SettingGroupName_Language {
             get {
                 return ResourceManager.GetString("SettingGroupName_Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mouse.
-        /// </summary>
-        public static string SettingGroupName_Mouse {
-            get {
-                return ResourceManager.GetString("SettingGroupName_Mouse", resourceCulture);
             }
         }
         
@@ -1016,15 +717,6 @@ namespace Eyedrivomatic.Resources {
         public static string SettingName_CameraOverlayOpacity {
             get {
                 return ResourceManager.GetString("SettingName_CameraOverlayOpacity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Camera Overlay Transparency.
-        /// </summary>
-        public static string SettingName_DriveViewTransparency {
-            get {
-                return ResourceManager.GetString("SettingName_DriveViewTransparency", resourceCulture);
             }
         }
         
@@ -1146,15 +838,6 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nudge.
-        /// </summary>
-        public static string SettingName_ProfileSpeed_Nudge {
-            get {
-                return ResourceManager.GetString("SettingName_ProfileSpeed_Nudge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Left/Right.
         /// </summary>
         public static string SettingName_ProfileSpeed_X {
@@ -1245,137 +928,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:F1} seconds.
-        /// </summary>
-        public static string StatusView_DurationFormat {
-            get {
-                return ResourceManager.GetString("StatusView_DurationFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nudge Duration.
-        /// </summary>
-        public static string StatusView_NudgeDuration {
-            get {
-                return ResourceManager.GetString("StatusView_NudgeDuration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nudge Speed.
-        /// </summary>
-        public static string StatusView_NudgeSpeed {
-            get {
-                return ResourceManager.GetString("StatusView_NudgeSpeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Safety Bypass Status.
-        /// </summary>
-        public static string StatusView_SafetyBypassStatus {
-            get {
-                return ResourceManager.GetString("StatusView_SafetyBypassStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to seconds.
-        /// </summary>
-        public static string StatusView_Seconds {
-            get {
-                return ResourceManager.GetString("StatusView_Seconds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}°.
-        /// </summary>
-        public static string StatusView_ServoPositionFormat {
-            get {
-                return ResourceManager.GetString("StatusView_ServoPositionFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fast.
-        /// </summary>
-        public static string StatusView_Speed_Fast {
-            get {
-                return ResourceManager.GetString("StatusView_Speed_Fast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MANIC.
-        /// </summary>
-        public static string StatusView_Speed_Manic {
-            get {
-                return ResourceManager.GetString("StatusView_Speed_Manic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string StatusView_Speed_None {
             get {
                 return ResourceManager.GetString("StatusView_Speed_None", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slow.
-        /// </summary>
-        public static string StatusView_Speed_Slow {
-            get {
-                return ResourceManager.GetString("StatusView_Speed_Slow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Walk.
-        /// </summary>
-        public static string StatusView_Speed_Walk {
-            get {
-                return ResourceManager.GetString("StatusView_Speed_Walk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X Servo Centere Point.
-        /// </summary>
-        public static string StatusView_XCenter {
-            get {
-                return ResourceManager.GetString("StatusView_XCenter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X Servo.
-        /// </summary>
-        public static string StatusView_XServo {
-            get {
-                return ResourceManager.GetString("StatusView_XServo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y Servo Centere Point.
-        /// </summary>
-        public static string StatusView_YCenter {
-            get {
-                return ResourceManager.GetString("StatusView_YCenter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y Servo.
-        /// </summary>
-        public static string StatusView_YServo {
-            get {
-                return ResourceManager.GetString("StatusView_YServo", resourceCulture);
             }
         }
         
@@ -1448,15 +1005,6 @@ namespace Eyedrivomatic.Resources {
         public static string ViewName_ProfileConfig {
             get {
                 return ResourceManager.GetString("ViewName_ProfileConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string ViewName_Status {
-            get {
-                return ResourceManager.GetString("ViewName_Status", resourceCulture);
             }
         }
     }

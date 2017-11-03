@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowsableList_Next" xml:space="preserve">
-    <value>Next</value>
-    <comment>Navigate to the next item in a list.</comment>
-  </data>
-  <data name="BrowsableList_Prev" xml:space="preserve">
-    <value>Prev</value>
-    <comment>Navigate to the previous item in a list.</comment>
-  </data>
-  <data name="CommandImage_Sleep" xml:space="preserve">
-    <value>Sleep</value>
-    <comment>This is an image.</comment>
-  </data>
   <data name="CommandText_AutoDiscover" xml:space="preserve">
     <value>Automatically Discover Device</value>
     <comment>Discover and connect to the device.</comment>
@@ -140,14 +128,6 @@
   <data name="CommandText_Disconnect" xml:space="preserve">
     <value>Disconnect</value>
     <comment>Disconnect from the device.</comment>
-  </data>
-  <data name="CommandText_NextDevice" xml:space="preserve">
-    <value>Next</value>
-    <comment>Select the next device in the list.</comment>
-  </data>
-  <data name="CommandText_PrevDevice" xml:space="preserve">
-    <value>Prev</value>
-    <comment>Select the previous device in the list.</comment>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Cycle Relay {0} on-off.</value>
@@ -195,78 +175,6 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>DISCLAIMER</value>
     <comment>Disclaimer title.</comment>
   </data>
-  <data name="Hardware_DirectionBackward" xml:space="preserve">
-    <value>Backward</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
-    <value>Backward Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
-    <value>Backward Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForward" xml:space="preserve">
-    <value>Forward</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
-    <value>Forward Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
-    <value>Forward Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionLeft" xml:space="preserve">
-    <value>Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionRight" xml:space="preserve">
-    <value>Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
-    <value>Ready</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
-    <value>Continue</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
-    <value>Reset</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
-    <value>Safe</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
-    <value>SkullAndCrossbones</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosImage_Power" xml:space="preserve">
-    <value>Off</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosImage_Tilt" xml:space="preserve">
-    <value>Tilt</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosName_Mode" xml:space="preserve">
-    <value>Mode</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosName_Power" xml:space="preserve">
-    <value>Power</value>
-    <comment>The name of the default Power macro.</comment>
-  </data>
-  <data name="MacrosName_Spare" xml:space="preserve">
-    <value>Spare</value>
-    <comment>The name of the default Spare macro.</comment>
-  </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
     <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
     <comment>Macro task parameter error for invalid display name.</comment>
@@ -287,30 +195,9 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>New Task</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
-    <value>Diagonal Speed
-Reduction Toggle</value>
-    <comment>Reduces or restores diagonal speed.</comment>
-  </data>
-  <data name="DrivingView_NudgeLeft" xml:space="preserve">
-    <value>Left Nudge</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="DrivingView_Stop" xml:space="preserve">
-    <value>Stop</value>
-    <comment>Stop all movement and reset relays.</comment>
-  </data>
-  <data name="DrivingView_NudgeRight" xml:space="preserve">
-    <value>Right Nudge</value>
-    <comment>This is an image.</comment>
-  </data>
   <data name="DrivingView_Speed_Fast" xml:space="preserve">
     <value>Fast</value>
     <comment>Set the drive speed to fast.</comment>
-  </data>
-  <data name="DrivingView_Speed_Manic" xml:space="preserve">
-    <value>MANIC</value>
-    <comment>Set the drive speed to manic or full speed.</comment>
   </data>
   <data name="DrivingView_Speed_Slow" xml:space="preserve">
     <value>Slow</value>
@@ -391,38 +278,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Dwell Timeout</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
   </data>
-  <data name="StatusView_NudgeDuration" xml:space="preserve">
-    <value>Nudge Duration</value>
-    <comment>The time that the nudge is applied to the current motion.</comment>
-  </data>
-  <data name="StatusView_NudgeSpeed" xml:space="preserve">
-    <value>Nudge Speed</value>
-    <comment>The amount of nudge that is applied.</comment>
-  </data>
-  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
-    <value>Safety Bypass Status</value>
-    <comment>Enable/disable the safety bypass that prevents consecutive clicks in the same direction.</comment>
-  </data>
-  <data name="StatusView_Seconds" xml:space="preserve">
-    <value>seconds</value>
-    <comment>Seconds</comment>
-  </data>
-  <data name="StatusView_XCenter" xml:space="preserve">
-    <value>X Servo Centere Point</value>
-    <comment>The center point for the x servo.</comment>
-  </data>
-  <data name="StatusView_XServo" xml:space="preserve">
-    <value>X Servo</value>
-    <comment>The curent direction applied to the x servo.</comment>
-  </data>
-  <data name="StatusView_YCenter" xml:space="preserve">
-    <value>Y Servo Centere Point</value>
-    <comment>The center point of the y servo.</comment>
-  </data>
-  <data name="StatusView_YServo" xml:space="preserve">
-    <value>Y Servo</value>
-    <comment>The current direction applied to the y servo.</comment>
-  </data>
   <data name="ViewName_Configuration" xml:space="preserve">
     <value>Setup</value>
     <comment>The name of the configuration view.</comment>
@@ -459,10 +314,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Driving</value>
     <comment>The name of the default driving view.</comment>
   </data>
-  <data name="ViewName_Status" xml:space="preserve">
-    <value>Status</value>
-    <comment>The name of the status view.</comment>
-  </data>
   <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
     <value>Limits</value>
     <comment>The name of the device limits settings group.</comment>
@@ -471,41 +322,13 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Trim</value>
     <comment>The name of the trim settings group.</comment>
   </data>
-  <data name="SettingGroupName_DeviceSettings" xml:space="preserve">
-    <value>Device Settings</value>
-    <comment>Title of the group containing device settings.</comment>
-  </data>
   <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>Safety Bypass</value>
     <comment>Safety bypass toggle.</comment>
   </data>
-  <data name="StatusView_DurationFormat" xml:space="preserve">
-    <value>{0:F1} seconds</value>
-    <comment>The format of the duration indicators.</comment>
-  </data>
-  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
-    <value>{0}°</value>
-    <comment>The format of the servo position indicators.</comment>
-  </data>
   <data name="StatusView_Speed_None" xml:space="preserve">
     <value>None</value>
     <comment>The speed indicator when a speed has not been selected.</comment>
-  </data>
-  <data name="StatusView_Speed_Fast" xml:space="preserve">
-    <value>Fast</value>
-    <comment>The speed indicator for 'fast' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Manic" xml:space="preserve">
-    <value>MANIC</value>
-    <comment>The speed indicator for 'manic' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Slow" xml:space="preserve">
-    <value>Slow</value>
-    <comment>The speed indicator for 'slow' speed.</comment>
-  </data>
-  <data name="StatusView_Speed_Walk" xml:space="preserve">
-    <value>Walk</value>
-    <comment>The speed indicator for 'walk' speed.</comment>
   </data>
   <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
     <value>Profiles</value>
@@ -555,10 +378,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Name</value>
     <comment>The label text displayed in the profile speed configuration view for the "name" setting.</comment>
   </data>
-  <data name="SettingDescripion_ProfileSpeed_Nudge" xml:space="preserve">
-    <value>The X deflection when one of the nudge buttons are pressed while moving forward.</value>
-    <comment>The description text displayed in the profile speed configuration view for the "nudge" setting.</comment>
-  </data>
   <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
     <value>The left or right deflection when one of the diagonal buttons are pressed.</value>
     <comment>The description text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
@@ -587,10 +406,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Forward</value>
     <comment>The label text displayed in the profile speed configuration view for the "yForward" setting.</comment>
   </data>
-  <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
-    <value>Nudge</value>
-    <comment>The label text displayed in the profile speed configuration view for the "nudge" setting.</comment>
-  </data>
   <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
     <value>Left/Right Diagonal</value>
     <comment>The label text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
@@ -615,10 +430,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Move Duration</value>
     <comment>The header text displayed on the drive page above the duration buttons.</comment>
   </data>
-  <data name="SettingGroupName_Mouse" xml:space="preserve">
-    <value>Mouse</value>
-    <comment>Title of the group containing settings for the mouse cursor appearance.</comment>
-  </data>
   <data name="SettingName_HideMouse" xml:space="preserve">
     <value>Hide Mouse Cursor</value>
     <comment>The label text displayed for the "Hide Mouse" setting.</comment>
@@ -626,19 +437,6 @@ The "Start" button should have a very long dwell time to prevent accidental acti
   <data name="SettingDescription_HideMouse" xml:space="preserve">
     <value>With this setting enabled, use the left "ctrl" key to toggle the mouse cursor visiblity.</value>
     <comment>The text describing the "Hide Mouse" setting.</comment>
-  </data>
-  <data name="SettingGroupName_DriveView" xml:space="preserve">
-    <value>Drive View</value>
-    <comment>Title of the group containing settings for the drive view appearance.</comment>
-  </data>
-  <data name="SettingName_DriveViewTransparency" xml:space="preserve">
-    <value>Camera Overlay Transparency</value>
-    <comment>The label text displayed for the "Camera Overlay Transparency" setting.</comment>
-  </data>
-  <data name="SettingDescription_DriveViewTransparency" xml:space="preserve">
-    <value>Set the transparency of the direction buttons overlaying the forward view camera. Use "0" for transparent and "100" for fully opaque. 
-This setting is only effective while the forward view camera is active.</value>
-    <comment>The label text displayed for the "Camera Overlay Transparency" setting.</comment>
   </data>
   <data name="SettingName_EyegazeInterface" xml:space="preserve">
     <value>Eyegaze System</value>

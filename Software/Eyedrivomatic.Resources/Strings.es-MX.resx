@@ -97,15 +97,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowsableList_Next" xml:space="preserve">
-    <value>¡Siguiente!</value>
-  </data>
-  <data name="BrowsableList_Prev" xml:space="preserve">
-    <value>Anterior</value>
-  </data>
-  <data name="CommandImage_Sleep" xml:space="preserve">
-    <value>Sueño!</value>
-  </data>
   <data name="CommandText_AutoDiscover" xml:space="preserve">
     <value>Descubrir automáticamente el dispositivo!</value>
   </data>
@@ -114,12 +105,6 @@
   </data>
   <data name="CommandText_Disconnect" xml:space="preserve">
     <value>Desconectar</value>
-  </data>
-  <data name="CommandText_NextDevice" xml:space="preserve">
-    <value>¡Siguiente!</value>
-  </data>
-  <data name="CommandText_PrevDevice" xml:space="preserve">
-    <value>Anterior</value>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>{0} relé de cierre del ciclo.!</value>
@@ -154,60 +139,6 @@
   <data name="Disclaimer_Title" xml:space="preserve">
     <value>AVISO LEGAL</value>
   </data>
-  <data name="Hardware_DirectionBackward" xml:space="preserve">
-    <value>Atrás</value>
-  </data>
-  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
-    <value>Atrás</value>
-  </data>
-  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
-    <value>¡Derecho al revés!</value>
-  </data>
-  <data name="Hardware_DirectionForward" xml:space="preserve">
-    <value>Reenviar</value>
-  </data>
-  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
-    <value>adelantar</value>
-  </data>
-  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
-    <value>¡Adelante derecha!</value>
-  </data>
-  <data name="Hardware_DirectionLeft" xml:space="preserve">
-    <value>Izquierda</value>
-  </data>
-  <data name="Hardware_DirectionRight" xml:space="preserve">
-    <value>Así es.</value>
-  </data>
-  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
-    <value>¡Listo!</value>
-  </data>
-  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
-    <value>¡Continuar!</value>
-  </data>
-  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
-    <value>Reiniciar</value>
-  </data>
-  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
-    <value>Seguro</value>
-  </data>
-  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
-    <value>¡SkullAndCrossbones!</value>
-  </data>
-  <data name="MacrosImage_Power" xml:space="preserve">
-    <value>Desactivado</value>
-  </data>
-  <data name="MacrosImage_Tilt" xml:space="preserve">
-    <value>Inclinación</value>
-  </data>
-  <data name="MacrosName_Mode" xml:space="preserve">
-    <value>Modo</value>
-  </data>
-  <data name="MacrosName_Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="MacrosName_Spare" xml:space="preserve">
-    <value>Repuesto</value>
-  </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
     <value>Nombre no válido. El no puede tener espacios vacíos o solamente caracteres.!</value>
   </data>
@@ -223,23 +154,8 @@
   <data name="NewTaskViewModelName" xml:space="preserve">
     <value>Nueva Actividad</value>
   </data>
-  <data name="DrivingView_DiagSpeedReduction" xml:space="preserve">
-    <value>¡Palanca de reducción de velocidad diagonal!</value>
-  </data>
-  <data name="DrivingView_NudgeLeft" xml:space="preserve">
-    <value>Insistir</value>
-  </data>
-  <data name="DrivingView_Stop" xml:space="preserve">
-    <value>¡Alto!</value>
-  </data>
-  <data name="DrivingView_NudgeRight" xml:space="preserve">
-    <value>¡Codazo de derecha!</value>
-  </data>
   <data name="DrivingView_Speed_Fast" xml:space="preserve">
     <value>¡Rápido!</value>
-  </data>
-  <data name="DrivingView_Speed_Manic" xml:space="preserve">
-    <value>maníaco</value>
   </data>
   <data name="DrivingView_Speed_Slow" xml:space="preserve">
     <value>Lento</value>
@@ -301,30 +217,6 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="SettingName_DwellClickTimeout" xml:space="preserve">
     <value>¡Habitar el tiempo de espera!</value>
   </data>
-  <data name="StatusView_NudgeDuration" xml:space="preserve">
-    <value>¡Empujar hacia la duración!</value>
-  </data>
-  <data name="StatusView_NudgeSpeed" xml:space="preserve">
-    <value>¡Empujar la velocidad!</value>
-  </data>
-  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
-    <value>¡Estado de derivación de seguridad!</value>
-  </data>
-  <data name="StatusView_Seconds" xml:space="preserve">
-    <value>Segundo</value>
-  </data>
-  <data name="StatusView_XCenter" xml:space="preserve">
-    <value>X punto de congresos Servo!</value>
-  </data>
-  <data name="StatusView_XServo" xml:space="preserve">
-    <value>servo</value>
-  </data>
-  <data name="StatusView_YCenter" xml:space="preserve">
-    <value>¡Y Servo Centere punto!</value>
-  </data>
-  <data name="StatusView_YServo" xml:space="preserve">
-    <value>servo</value>
-  </data>
   <data name="ViewName_Configuration" xml:space="preserve">
     <value>Configuración</value>
   </data>
@@ -352,41 +244,17 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="DriveProfile_Default" xml:space="preserve">
     <value>IMPULSOR</value>
   </data>
-  <data name="ViewName_Status" xml:space="preserve">
-    <value>Estado</value>
-  </data>
   <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
     <value>Límites</value>
   </data>
   <data name="SettingsGroupName_Trim" xml:space="preserve">
     <value>Guarnición</value>
   </data>
-  <data name="SettingGroupName_DeviceSettings" xml:space="preserve">
-    <value>Ajustes del dispositivo</value>
-  </data>
   <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>¡Puente de seguridad!</value>
   </data>
-  <data name="StatusView_DurationFormat" xml:space="preserve">
-    <value>{0:F1} segundos!</value>
-  </data>
-  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
-    <value>{0}°!</value>
-  </data>
   <data name="StatusView_Speed_None" xml:space="preserve">
     <value>¡Ninguna!</value>
-  </data>
-  <data name="StatusView_Speed_Fast" xml:space="preserve">
-    <value>¡Rápido!</value>
-  </data>
-  <data name="StatusView_Speed_Manic" xml:space="preserve">
-    <value>maníaco</value>
-  </data>
-  <data name="StatusView_Speed_Slow" xml:space="preserve">
-    <value>Lento</value>
-  </data>
-  <data name="StatusView_Speed_Walk" xml:space="preserve">
-    <value>¡Camina!</value>
   </data>
   <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
     <value>Perfiles</value>
@@ -424,9 +292,6 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
     <value>Nombre</value>
   </data>
-  <data name="SettingDescripion_ProfileSpeed_Nudge" xml:space="preserve">
-    <value>La desviación de X cuando se presiona uno de los botones de nudge mientras se mueve hacia adelante.!</value>
-  </data>
   <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
     <value>La desviación de izquierda o derecha cuando se presiona uno de los botones diagonales.!</value>
   </data>
@@ -448,9 +313,6 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
     <value>Reenviar</value>
   </data>
-  <data name="SettingName_ProfileSpeed_Nudge" xml:space="preserve">
-    <value>Insistir</value>
-  </data>
   <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
     <value>¡Diagonal izquierda/derecha!</value>
   </data>
@@ -469,24 +331,11 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="DrivingView_Duration" xml:space="preserve">
     <value>Duración</value>
   </data>
-  <data name="SettingGroupName_Mouse" xml:space="preserve">
-    <value>Ratón</value>
-  </data>
   <data name="SettingName_HideMouse" xml:space="preserve">
     <value>Cursor del Ratón</value>
   </data>
   <data name="SettingDescription_HideMouse" xml:space="preserve">
     <value>Con esta configuración habilitada, utilice la tecla izquierda "ctrl" para cambiar la visibilidad del cursor de ratón.!</value>
-  </data>
-  <data name="SettingGroupName_DriveView" xml:space="preserve">
-    <value>Drive</value>
-  </data>
-  <data name="SettingName_DriveViewTransparency" xml:space="preserve">
-    <value>¡Transparencia de la cámara!</value>
-  </data>
-  <data name="SettingDescription_DriveViewTransparency" xml:space="preserve">
-    <value>Establecer la transparencia de los botones de dirección superponer la cámara hacia adelante. Uso "0" por "100" y transparente para completamente opaco. 
-Este ajuste sólo es efectivo mientras esté activa la cámara hacia adelante.!</value>
   </data>
   <data name="SettingName_EyegazeInterface" xml:space="preserve">
     <value>¡Sistema Eyegaze!</value>
