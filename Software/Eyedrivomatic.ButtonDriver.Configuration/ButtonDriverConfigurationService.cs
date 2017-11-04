@@ -26,8 +26,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Eyedrivomatic.Logging;
 using Prism.Mvvm;
+using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -37,8 +38,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         internal static ButtonDriverConfiguration DefaultConfiguration => ButtonDriverConfiguration.Default;
     }
 
-    [Export(typeof(IButtonDriverConfigurationService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(IButtonDriverConfigurationService)), PartCreationPolicy(CreationPolicy.Shared)]
     internal class ButtonDriverConfigurationService : BindableBase, IButtonDriverConfigurationService
     {
         private readonly ButtonDriverConfiguration _configuration;
@@ -50,6 +50,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             _configuration = configuration;
             _configuration.PropertyChanged += ConfigurationSectionPropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.WriteToLog();
 
             _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
             ((INotifyPropertyChanged)_configuration.DrivingProfiles).PropertyChanged += ProfileOnPropertyChanged;

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AncestorOpacityMask.cs" />
+    <Compile Include="AppplicationSettingsBaseExtensions.cs" />
     <Compile Include="BoolToVisibilityConverter.cs" />
     <Compile Include="BoolToImageConverter.cs" />
     <Compile Include="BrushAnimation.cs" />

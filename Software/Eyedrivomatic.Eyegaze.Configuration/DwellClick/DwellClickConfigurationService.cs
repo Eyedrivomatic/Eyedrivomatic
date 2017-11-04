@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using Eyedrivomatic.Eyegaze.DwellClick;
+using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 using Eyedrivomatic.Logging;
 
@@ -45,6 +46,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
             _configuration = configuration;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.WriteToLog();
 
             if (_configuration.SettingsVersion < 1)
             {
@@ -55,6 +57,8 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            Log.Debug(this, $"Configuration property [{e.PropertyName}] changed.");
+
             if (e.PropertyName == nameof(_configuration.EnableDwellClick) ||
                 e.PropertyName == nameof(_configuration.Provider) ||
                 e.PropertyName.EndsWith("DwellTimeMilliseconds") ||

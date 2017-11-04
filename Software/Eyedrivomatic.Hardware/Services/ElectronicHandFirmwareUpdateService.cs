@@ -64,8 +64,9 @@ namespace Eyedrivomatic.Hardware.Services
         {
             var path = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath) ?? @".\";
             path = Path.Combine(path, "Firmware");
-
-            return Directory.EnumerateFiles(path, "Eyedrivomatic.Firmware.*.hex");
+            return Directory.Exists(path) 
+                ? Directory.EnumerateFiles(path, "Eyedrivomatic.Firmware.*.hex") 
+                : Enumerable.Empty<string>();
         }
     }
 }

@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Accord.Video.DirectShow;
+using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Prism.Mvvm;
 using NullGuard;
@@ -37,7 +38,7 @@ namespace Eyedrivomatic.Camera
         internal static CameraConfiguration DefaultConfiguration => CameraConfiguration.Default;
     }
 
-    [Export(typeof(ICameraConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(ICameraConfigurationService)), PartCreationPolicy(CreationPolicy.Shared)]
     public class CameraConfigurationService : BindableBase, ICameraConfigurationService
     {
         private readonly CameraConfiguration _configuration;
@@ -50,6 +51,7 @@ namespace Eyedrivomatic.Camera
             _getCameras = getCameras;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.WriteToLog();
 
             if (_configuration.SettingsVersion < 1)
             {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Hardware.Services;
 using Eyedrivomatic.Resources;
+using NullGuard;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.ButtonDriver
@@ -28,6 +29,7 @@ namespace Eyedrivomatic.ButtonDriver
             return _target.GetAvailableFirmware();
         }
 
+        [return: AllowNull]
         public Version GetLatestVersion()
         {
             return _target.GetLatestVersion();
