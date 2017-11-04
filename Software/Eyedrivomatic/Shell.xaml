@@ -31,6 +31,7 @@
         xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:eyedrivomatic="clr-namespace:Eyedrivomatic"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized"
         Icon="{StaticResource MainIcon}"
@@ -166,6 +167,13 @@
             </prism:InteractionRequestTrigger>
             <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=NotificationRequest}">
                 <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+            </prism:InteractionRequestTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=CustomNotificationRequest}">
+                <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                    <prism:PopupWindowAction.WindowContent>
+                        <eyedrivomatic:CustomNotificationView />
+                    </prism:PopupWindowAction.WindowContent>
+                </prism:PopupWindowAction>
             </prism:InteractionRequestTrigger>
         </i:Interaction.Triggers>
 

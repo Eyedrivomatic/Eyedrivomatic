@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
+using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
@@ -32,6 +33,7 @@ using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -50,6 +52,10 @@ namespace Eyedrivomatic.ButtonDriver
 
         [Import]
         public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
+
+        [Import(nameof(ShowDisclaimerCommand))]
+        public ICommand ShowDisclaimerCommand { get; set; }
+
 
         [ImportingConstructor]
         public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
@@ -70,6 +76,8 @@ namespace Eyedrivomatic.ButtonDriver
 
             RegisterConfigurationViews();
             RegisterDriveProfiles();
+
+            ShowDisclaimerCommand.Execute(null);
 
             try
             {

@@ -118,13 +118,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DisclaimerWindow.xaml.cs">
-      <DependentUpon>DisclaimerWindow.xaml</DependentUpon>
+    <Compile Include="CustomNotificationView.xaml.cs">
+      <DependentUpon>CustomNotificationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DisclaimerNotification.cs" />
     <Compile Include="IMouseVisibility.cs" />
     <Compile Include="MouseVisibility.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
-    <Page Include="DisclaimerWindow.xaml">
+    <Page Include="CustomNotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

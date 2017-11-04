@@ -63,7 +63,7 @@ namespace Eyedrivomatic.Startup
             base.InitializeShell();
 
             Application.Current.MainWindow = (Window)Shell;
-            Application.Current.MainWindow.Show();
+            Application.Current.MainWindow?.Show();
         }
 
         protected override void ConfigureAggregateCatalog()
@@ -85,14 +85,14 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
         }
 
-        public override void Run(bool runWithDefaultConfiguration)
-        {
-            base.Run(runWithDefaultConfiguration);
-#if !DEBUG
-            var disclaimer = new DisclaimerWindow();
-            disclaimer.ShowDialog();
-#endif
-        }
+//        public override void Run(bool runWithDefaultConfiguration)
+//        {
+//            base.Run(runWithDefaultConfiguration);
+//#if !DEBUG
+//            var disclaimer = new DisclaimerWindow();
+//            disclaimer.ShowDialog();
+//#endif
+//        }
 
         #region IDisposable Support
         private bool _disposed;

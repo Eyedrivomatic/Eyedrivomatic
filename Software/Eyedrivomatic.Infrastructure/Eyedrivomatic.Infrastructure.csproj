@@ -74,6 +74,7 @@
     <Compile Include="CompositeCommandRegistration.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="GridLengthAnimation.cs" />
+    <Compile Include="INotificationWithCustomButton.cs" />
     <Compile Include="MultiplierConverter.cs" />
     <Compile Include="NullToVisibilityConverter.cs" />
     <Compile Include="PrismLogger.cs" />

@@ -22,6 +22,8 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
+using Eyedrivomatic.Infrastructure;
+using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic
@@ -48,6 +50,13 @@ namespace Eyedrivomatic
 
         [Export]
         public InteractionRequest<INotification> NotificationRequest { get; } = new InteractionRequest<INotification>();
+
+        [Export]
+        public InteractionRequest<INotificationWithCustomButton> CustomNotificationRequest { get; } = new InteractionRequest<INotificationWithCustomButton>();
+
+
+        [Export(nameof(ShowDisclaimerCommand))]
+        public ICommand ShowDisclaimerCommand => new DelegateCommand(() => CustomNotificationRequest.Raise(new DisclaimerNotification()));
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
