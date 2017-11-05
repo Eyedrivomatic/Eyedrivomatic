@@ -268,9 +268,13 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
-        ///To ensure safe operation, the following guidelines MUST be adhered to at all times;
-        ///Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST b [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+        ///{\colortbl ;\red0\green0\blue0;}
+        ///{\*\generator Riched20 10.0.15063}\viewkind4\uc1 
+        ///\pard\qc\cf1\b\f0\fs44 DISCLAIMER\b0\par
+        ///\par
+        ///
+        ///\pard\fs24 The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Disclaimer_Text {
             get {

@@ -166,9 +166,30 @@
     <comment>The user agrees to the conditions of the dislaimer.</comment>
   </data>
   <data name="Disclaimer_Text" xml:space="preserve">
-    <value>The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
-To ensure safe operation, the following guidelines MUST be adhered to at all times;
-Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards. The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.</value>
+    <value>{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.15063}\viewkind4\uc1 
+\pard\qc\cf1\b\f0\fs44 DISCLAIMER\b0\par
+\par
+
+\pard\fs24 The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.\par
+\par
+To ensure safe operation, the following guidelines MUST be adhered to at all times;\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 Users MUST be supervised at all times. \par
+
+\pard\li720\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards.\par
+
+\pard\li720  \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160 The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.\par
+
+\pard\sa200\f1\fs22\par
+
+\pard\sa200\sl276\slmult1\cf0\lang9\par
+}</value>
     <comment>The disclaimer.</comment>
   </data>
   <data name="Disclaimer_Title" xml:space="preserve">

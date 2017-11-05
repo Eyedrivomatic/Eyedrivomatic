@@ -178,13 +178,34 @@
     <comment>Dalay task description template.</comment>
   </data>
   <data name="Disclaimer_Button" xml:space="preserve">
-    <value></value>
+    <value>Ich habe dies verstanden und bin damit einverstanden!</value>
     <comment>The user agrees to the conditions of the dislaimer.</comment>
   </data>
   <data name="Disclaimer_Text" xml:space="preserve">
-    <value>Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems entstehen. Der Gebrauch der Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.
-Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit eingehalten werden.
-Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder anderer möglicher Gefahr und muss völlig eben sein. An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.</value>
+    <value>{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.15063}\viewkind4\uc1 
+\pard\qc\cf1\b\f0\fs44 Verzichtserklärung\b0\par
+\par
+
+\pard\fs24 Das Eyedrivomatic System ist potenziell gefährlich, wenn es ohne angemessener Sorgfalt benutzt wird. Kein Mitglied des Eyedrivomatic Teams übernimmt keinerlei Haftung für körperliche Verletzungen oder Sachschäden die durch die Verwendung des Systems entstehen. Der Gebrauch der Eyedrivomatic geschieht vollständig auf dem Risiko des Nutzers.\par
+\par
+Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit eingehalten werden.\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 Die Benutzer MÜSSEN jederzeit überwacht werden.\par
+
+\pard\li720\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 Der Einsatzbereich MUSS muss frei sein von Menschen, Tieren oder jeder anderer möglicher Gefahr und muss völlig eben sein.\par
+
+\pard\li720  \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160 An den Grenzen des Einsatzbereichs dürfen keine Gefahren sein - z.B. Abhänge jeglicher Art, Wasser, Stufen, Straßen, Menschen und alles was von einem außer Kontrolle geratenen Rollstuhl beschädigt werden könnte oder den Insassen eines außer Kontrolle geratenen Rollstuhl verletzen könnte.\par
+
+\pard\sa200\f1\fs22\par
+
+\pard\sa200\sl276\slmult1\cf0\lang9\par
+}</value>
     <comment>The disclaimer.</comment>
   </data>
   <data name="Disclaimer_Title" xml:space="preserve">
@@ -268,11 +289,11 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The description text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
   </data>
   <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
-    <value>Setzen Sie die Transparenz der Fahrtaster, die über das Kamerabild des Vorwärtsbildes gezeichnet werden. Verwenden Sie 0 für voll transparent und 100 für voll undurchsichtig.</value>
+    <value>Setzen Sie die Transparenz der Fahrtaster, die über das Kamerabild gezeichnet werden. Verwenden Sie 0 für voll transparent und 100 für voll undurchsichtig.</value>
     <comment>Description of the camera overlay opacity setting.</comment>
   </data>
   <data name="SettingDescription_DeviceLimits" xml:space="preserve">
-    <value>Diese Einstellungen steuern den maximalen Abstand, den die "Elektronische Hand" in Grad von der Mitte aus bewegt. Die maximale Bewegung der elektrischen Hand beträgt in jeder Richtung 22 Grad. Seien Sie  sehr vorsichtig, die physischen Grenzen deiner Joystick-Hardware nicht zu überschreiten!</value>
+    <value>Diese Einstellungen steuern den maximalen Ausschlag, den die "Elektronische Hand" in Grad von der Mitte aus bewegt. Die maximale Bewegung der elektrischen Hand beträgt in jeder Richtung 22 Grad. Seien Sie  sehr vorsichtig, die physischen Grenzen deiner Joystick-Hardware nicht zu überschreiten!</value>
     <comment>The description of the "device limits" settings.</comment>
   </data>
   <data name="SettingDescription_DeviceTrim" xml:space="preserve">
@@ -280,7 +301,7 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
     <comment>The description of the "device trim" settings.</comment>
   </data>
   <data name="SettingDescription_DwellTimes" xml:space="preserve">
-    <value>Die Einstellungen für die Verweilzeit geben an, wie lange ein Steuerungselement ausgewählt werden soll, bevor es aktiviert wird. Die meisten Bedienelemente verwenden die "Standard" -Zeit. Allerdings gibt es spezielle Kontrollen, die kürzere oder längere Verweilzeiten für Sicherheit oder Bequemlichkeit haben sollten. Die "Stopp" -Taste zum Beispiel sollte eine sehr kurze Verweilzeit haben, um zu helfen, den Stuhl im Notfall sofort zu stoppen. Die "Start" -Taste sollte eine sehr lange Verweilzeit haben, um eine versehentliche Aktivierung zu verhindern. </value>
+    <value>Die Einstellungen für die Verweilzeit geben an, wie lange ein Steuerungselement ausgewählt werden soll, bevor es aktiviert wird. Die meisten Bedienelemente verwenden die "Standard" -Zeit. Allerdings gibt es spezielle Schalter, die kürzere oder längere Verweilzeiten für Sicherheit oder Bequemlichkeit haben sollten. Die "Stopp" -Taste zum Beispiel sollte eine sehr kurze Verweilzeit haben, um sicherzustellen, dass der Rollstuhl im Notfall sofort stoppt. Die "Start" -Taste sollte eine sehr lange Verweilzeit haben, um eine versehentliche Aktivierung zu verhindern. </value>
     <comment>Description of the group of dwell time settings.</comment>
   </data>
   <data name="SettingDescription_HideMouse" xml:space="preserve">
@@ -478,5 +499,53 @@ Die Benutzer MÜSSEN jederzeit überwacht werden. Der Einsatzbereich MUSS muss f
   <data name="ViewName_ProfileConfig" xml:space="preserve">
     <value>Profile</value>
     <comment>The name of the profile configuration view.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Auto_NotFound" xml:space="preserve">
+    <value>Gerät nicht gefunden!</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
+    <value>Gerät am "{0}" nicht gefunden!</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Title" xml:space="preserve">
+    <value>Firmware Update notwendig!</value>
+  </data>
+  <data name="Firmware_Update_Title" xml:space="preserve">
+    <value>Firmware Update</value>
+  </data>
+  <data name="CommandText_Continue" xml:space="preserve">
+    <value>Fortsetzen</value>
+  </data>
+  <data name="DeviceConnection_Error_FirmwareCheck" xml:space="preserve">
+    <value>Verbindung zum Gerät kann nicht über "{0}"hergestellt werden. Die Überprüfung der Firmware-Version ist fehlgeschlagen.</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual" xml:space="preserve">
+    <value>Die Verbindung zum Gerät am "{0}" ist fehlgeschlagen</value>
+  </data>
+  <data name="DeviceConnection_MinFirmwareNotAvailable" xml:space="preserve">
+    <value>Es wurde ein Gerät mit einer inkompatiblen Firmware-Version gefunden. Die mit der Anwendung installierte Firmware-Datei konnte jedoch nicht gefunden werden.</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
+    <value>Ein Gerät wurde auf {0} erkannt, jedoch hat das Gerät eine ältere Version der Eyedrivomatic Firmware. Sie müssen die Firmware aktualisieren, um fortzufahren.
+    
+ Aktuelle Version: {1}
+ Neue Version: {2}</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Directive_Format" xml:space="preserve">
+    <value>Ein Firmware-Update ist für das Gerät unter {0} verfügbar. Möchten Sie Ihr Gerät aktualisieren?
+
+Aktuelle Version: {1}
+Neue Version: {2}</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
+    <value>Firmware Update verfügbar</value>
+  </data>
+  <data name="Firmware_Update_Versions_Format" xml:space="preserve">
+    <value>Aktuelle Version: {0}. Neue Version : {1}</value>
+  </data>
+  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+    <value>Geräteverbindung fehlgeschlagen</value>
+  </data>
+  <data name="SettingGroupName_Language" xml:space="preserve">
+    <value>Language</value>
   </data>
 </root>

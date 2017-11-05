@@ -170,6 +170,13 @@
             </prism:InteractionRequestTrigger>
             <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=CustomNotificationRequest}">
                 <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                    <prism:PopupWindowAction.WindowStyle>
+                        <Style TargetType="Window">
+                            <Setter Property="WindowStyle" Value="ToolWindow"/>
+                            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                            <Setter Property="ResizeMode" Value="NoResize"/>
+                        </Style>
+                    </prism:PopupWindowAction.WindowStyle>
                     <prism:PopupWindowAction.WindowContent>
                         <eyedrivomatic:CustomNotificationView />
                     </prism:PopupWindowAction.WindowContent>

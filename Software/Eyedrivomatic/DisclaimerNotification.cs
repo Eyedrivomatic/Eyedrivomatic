@@ -1,4 +1,8 @@
 using System;
+using System.IO;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 
@@ -14,7 +18,21 @@ namespace Eyedrivomatic
 
         public object Content
         {
-            get => Translate.Key(nameof(Strings.Disclaimer_Text));
+            get
+            {
+                var text = Translate.Key(nameof(Strings.Disclaimer_Text));
+                var rtb = new RichTextBox
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    BorderThickness = new Thickness(0)
+                };
+
+                var stream = new MemoryStream(Encoding.UTF8.GetBytes(text));
+                rtb.Selection.Load(stream, DataFormats.Rtf);
+                return rtb;
+            }
+
             set => throw new NotSupportedException();
         }
 
