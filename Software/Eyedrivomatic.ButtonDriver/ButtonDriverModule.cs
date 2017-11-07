@@ -33,7 +33,6 @@ using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
-using Prism.Interactivity.InteractionRequest;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;

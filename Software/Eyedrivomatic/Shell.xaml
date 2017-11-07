@@ -182,6 +182,20 @@
                     </prism:PopupWindowAction.WindowContent>
                 </prism:PopupWindowAction>
             </prism:InteractionRequestTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=CustomConfirmationRequest}">
+                <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                    <prism:PopupWindowAction.WindowStyle>
+                        <Style TargetType="Window">
+                            <Setter Property="WindowStyle" Value="ToolWindow"/>
+                            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                            <Setter Property="ResizeMode" Value="NoResize"/>
+                        </Style>
+                    </prism:PopupWindowAction.WindowStyle>
+                    <prism:PopupWindowAction.WindowContent>
+                        <eyedrivomatic:CustomConfirmationView />
+                    </prism:PopupWindowAction.WindowContent>
+                </prism:PopupWindowAction>
+            </prism:InteractionRequestTrigger>
         </i:Interaction.Triggers>
 
         <Grid.RowDefinitions>

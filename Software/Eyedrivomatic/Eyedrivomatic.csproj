@@ -118,6 +118,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomConfirmationView.xaml.cs">
+      <DependentUpon>CustomConfirmationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomNotificationView.xaml.cs">
       <DependentUpon>CustomNotificationView.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
     <Compile Include="IMouseVisibility.cs" />
     <Compile Include="MouseVisibility.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
+    <Page Include="CustomConfirmationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CustomNotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Hardware.Services;
+using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Interactivity.InteractionRequest;
@@ -14,11 +15,11 @@ namespace Eyedrivomatic.ButtonDriver
     public class FirmwareUpdateConfirmationDecorator : IFirmwareUpdateService
     {
         private readonly IFirmwareUpdateService _target;
-        private readonly InteractionRequest<IConfirmation> _firmwareUpdateRequest;
+        private readonly InteractionRequest<IConfirmationWithCustomButtons> _firmwareUpdateRequest;
         [ImportingConstructor]
         public FirmwareUpdateConfirmationDecorator(
             IFirmwareUpdateService target, 
-            InteractionRequest<IConfirmation> firmwareUpdateRequest)
+            InteractionRequest<IConfirmationWithCustomButtons> firmwareUpdateRequest)
         {
             _target = target;
             _firmwareUpdateRequest = firmwareUpdateRequest;
@@ -40,17 +41,17 @@ namespace Eyedrivomatic.ButtonDriver
             TaskCompletionSource<bool> requestTask = new TaskCompletionSource<bool>();
             _firmwareUpdateRequest.Raise(
                 required
-                    ? new Confirmation
+                    ? new ConfirmationWithCustomButtons
                     {
-                        Title = Strings.Firmware_UpdateRequired_Title,
-                        Content = string.Format(Strings.Firmware_UpdateRequired_Directive_Format,
+                        Title = Translate.Key(nameof(Strings.Firmware_UpdateRequired_Title)),
+                        Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateRequired_Directive_Format)),
                             connection.ConnectionString, connection.FirmwareVersion.ToString(3) ?? "N/A",
                             version.ToString(3))
                     }
-                    : new Confirmation
+                    : new ConfirmationWithCustomButtons
                     {
-                        Title = Strings.Firmware_UpdateOptional_Title,
-                        Content = string.Format(Strings.Firmware_UpdateOptional_Directive_Format,
+                        Title = Translate.Key(nameof(Strings.Firmware_UpdateOptional_Title)),
+                        Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateOptional_Directive_Format)),
                             connection.ConnectionString, connection.FirmwareVersion.ToString(3) ?? "N/A",
                             version.ToString(3))
                     },

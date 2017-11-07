@@ -54,6 +54,8 @@ namespace Eyedrivomatic
         [Export]
         public InteractionRequest<INotificationWithCustomButton> CustomNotificationRequest { get; } = new InteractionRequest<INotificationWithCustomButton>();
 
+        [Export]
+        public InteractionRequest<IConfirmationWithCustomButtons> CustomConfirmationRequest { get; } = new InteractionRequest<IConfirmationWithCustomButtons>();
 
         [Export(nameof(ShowDisclaimerCommand))]
         public ICommand ShowDisclaimerCommand => new DelegateCommand(() => CustomNotificationRequest.Raise(new DisclaimerNotification()));
