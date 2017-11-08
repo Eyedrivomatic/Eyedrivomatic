@@ -53,11 +53,7 @@ namespace Eyedrivomatic.Camera
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
             _configuration.WriteToLog();
 
-            if (_configuration.SettingsVersion < 1)
-            {
-                _configuration.Upgrade();
-                _configuration.SettingsVersion = 1;
-            }
+            _configuration.Upgrade();
         }
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)

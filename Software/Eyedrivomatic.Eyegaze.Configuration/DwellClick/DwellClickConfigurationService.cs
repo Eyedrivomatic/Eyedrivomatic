@@ -35,7 +35,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
     }
 
 
-    [Export(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(IDwellClickConfigurationService)), PartCreationPolicy(CreationPolicy.Shared)]
     public class DwellClickConfigurationService : BindableBase, IDwellClickConfigurationService
     {
         private readonly DwellClickConfiguration _configuration;
@@ -48,11 +48,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
             _configuration.WriteToLog();
 
-            if (_configuration.SettingsVersion < 1)
-            {
-                _configuration.Upgrade();
-                _configuration.SettingsVersion = 1;
-            }
+            _configuration.Upgrade();
         }
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -58,11 +58,7 @@ namespace Eyedrivomatic.Configuration
             InitializeCulture(configuration);
             Translator.CurrentCultureChanged += TranslatorOnCurrentCultureChanged;
 
-            if (_configuration.SettingsVersion < 1)
-            {
-                _configuration.Upgrade();
-                _configuration.SettingsVersion = 1;
-            }
+            _configuration.Upgrade();
 
             ApplyThemeColors();
             ApplyThemeImages();

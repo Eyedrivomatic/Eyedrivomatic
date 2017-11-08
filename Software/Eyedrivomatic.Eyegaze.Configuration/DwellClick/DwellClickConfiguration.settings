@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Eyegaze.DwellClick" GeneratedClassName="DwellClickConfiguration">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.Eyegaze.Configuration.DwellClick" GeneratedClassName="DwellClickConfiguration">
   <Profiles />
   <Settings>
     <Setting Name="SettingsVersion" Type="System.Int32" Scope="User">

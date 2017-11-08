@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 using Eyedrivomatic.Eyegaze.DwellClick;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 {
@@ -115,6 +116,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 
         public void Dispose()
         {
+            Log.Info(this, "Disposing Mouse Eyegaze provider.");
         }
     }
 }

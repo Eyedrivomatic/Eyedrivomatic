@@ -12,7 +12,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class DwellClickConfiguration : global::System.Configuration.ApplicationSettingsBase {
         
         private static DwellClickConfiguration defaultInstance = ((DwellClickConfiguration)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new DwellClickConfiguration())));

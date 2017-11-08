@@ -59,10 +59,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             {
                 speed.PropertyChanged += ProfileSpeedOnPropertyChanged;
             }
-
-            if (_configuration.SettingsVersion >= 1) return;
             _configuration.Upgrade();
-            _configuration.SettingsVersion = 1;
         }
 
         #region Change event handlers

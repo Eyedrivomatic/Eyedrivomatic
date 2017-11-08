@@ -6,7 +6,7 @@
         {
             base.Upgrade();
 
-            if (SettingsVersion == 0)
+            if (SettingsVersion < 1)
             {
                 if (GetPreviousVersion("DwellTimeMilliseconds") is int dwellTime)
                 {
@@ -15,6 +15,7 @@
                     StartButtonDwellTimeMilliseconds = dwellTime;
                     StopButtonDwellTimeMilliseconds = dwellTime;
                 }
+                SettingsVersion = 1;
             }
         }
     }
