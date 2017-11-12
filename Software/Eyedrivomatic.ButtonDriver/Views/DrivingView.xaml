@@ -78,43 +78,43 @@
             <ResourceDictionary>
                 <Storyboard x:Key="ShowForwardViewAnimation">
                     <DoubleAnimationUsingKeyFrames
-                    Storyboard.TargetName="ForwardViewCameraRegion"
-                    Storyboard.TargetProperty="Opacity">
+                        Storyboard.TargetName="ForwardViewCameraRegion"
+                        Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
                     </DoubleAnimationUsingKeyFrames>
 
                     <infrastructure:BrushAnimation
-                    Storyboard.Target="{StaticResource DirectionButtonBrushPlaceholder}"
-                    Storyboard.TargetProperty="Background"
-                    To="Transparent"
-                    Duration="0:0:1" />
+                        Storyboard.Target="{StaticResource DirectionButtonBrushPlaceholder}"
+                        Storyboard.TargetProperty="Background"
+                        To="Transparent"
+                        Duration="0:0:1" />
                 </Storyboard>
                 <Storyboard x:Key="HideForwardViewAnimation">
                     <DoubleAnimationUsingKeyFrames
-                    Storyboard.TargetName="ForwardViewCameraRegion"
-                    Storyboard.TargetProperty="Opacity">
+                        Storyboard.TargetName="ForwardViewCameraRegion"
+                        Storyboard.TargetProperty="Opacity">
                         <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
                     </DoubleAnimationUsingKeyFrames>
 
                     <infrastructure:BrushAnimation
-                    Storyboard.Target="{StaticResource DirectionButtonBrushPlaceholder}"
-                    Storyboard.TargetProperty="Background"
-                    To="{DynamicResource ButtonBackgroundBrush}"
-                    Duration="0:0:1" />
+                        Storyboard.Target="{StaticResource DirectionButtonBrushPlaceholder}"
+                        Storyboard.TargetProperty="Background"
+                        To="{DynamicResource ButtonBackgroundBrush}"
+                        Duration="0:0:1" />
                 </Storyboard>
             </ResourceDictionary>
         </Grid.Resources>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualizationStates">
-                <VisualState Name="ShowForwardView" Storyboard="{StaticResource ShowForwardViewAnimation}"/>
-                <VisualState Name="HideForwardView" Storyboard="{StaticResource HideForwardViewAnimation}"/>
+            <VisualStateGroup Name="VisualizationStates">
+                <VisualState Name="ShowForwardView" Storyboard="{StaticResource ShowForwardViewAnimation}" />
+                <VisualState Name="HideForwardView" Storyboard="{StaticResource HideForwardViewAnimation}" />
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <i:Interaction.Behaviors>
             <ei:DataStateBehavior Binding="{Binding ShowForwardView}"
                                   Value="True"
                                   TrueState="ShowForwardView" FalseState="HideForwardView" />
-            </i:Interaction.Behaviors>
+        </i:Interaction.Behaviors>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="5*" MaxHeight="25" />
@@ -154,12 +154,13 @@
                          IsChecked="{Binding Duration, Converter={StaticResource StringCompareToBoolConverter}, ConverterParameter=5000}" />
         </UniformGrid>
 
-        <ContentControl x:Name="ForwardViewCameraRegion"
+        <ContentControl Name="ForwardViewCameraRegion"
                         Grid.Row="0" Grid.RowSpan="2"
                         Grid.Column="1"
                         prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ForwardViewCameraRegion}" />
 
-        <Grid x:Name="DirectionButtonsGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Opacity="{Binding CameraOverlayOpacity, Mode=OneWay}">
+        <Grid Name="DirectionButtonsGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+              Opacity="{Binding CameraOverlayOpacity, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -173,38 +174,42 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Content="{DynamicResource Button.NudgeLeft.Content}"
+                <Button Name="LeftNudgeButton"
+                        Grid.Row="0" Content="{DynamicResource Button.NudgeLeft.Content}"
                         Command="{Binding NudgeCommand}"
                         CommandParameter="{x:Static services:XDirection.Left}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button Grid.Row="1" Content="{DynamicResource Button.ForwardLeft.Content}"
+                <Button Name="ForwardLeftButton"
+                        Grid.Row="1" Content="{DynamicResource Button.ForwardLeft.Content}"
                         Command="{Binding MoveCommand}"
                         CommandParameter="{x:Static services:Direction.ForwardLeft}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button Grid.Row="2" Content="{DynamicResource Button.Left.Content}" Command="{Binding MoveCommand}"
+                <Button Name="LeftButton"
+                        Grid.Row="2" Content="{DynamicResource Button.Left.Content}" Command="{Binding MoveCommand}"
                         CommandParameter="{x:Static services:Direction.Left}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button Grid.Row="3" Content="{DynamicResource Button.BackwardLeft.Content}"
+                <Button Name="BackwardLeftButton"
+                        Grid.Row="3" Content="{DynamicResource Button.BackwardLeft.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardLeft}"
                         Style="{DynamicResource DirectionButtonStyle}" />
             </Grid>
 
             <UniformGrid Name="CenterDirectionsGrid" Grid.Column="1" Grid.Row="0" Columns="1">
-                <Button x:Name="ContinueButton"
+                <Button Name="ContinueButton"
                         Content="{DynamicResource Button.Continue.Content}" Command="{Binding ContinueCommand}"
                         Visibility="{Binding SafetyBypass, Converter={StaticResource BoolToCollapsedConverterInv}}"
                         Style="{DynamicResource DirectionButtonStyle}" />
 
-                <Button x:Name="ForwardButton" Content="{DynamicResource Button.Forward.Content}"
+                <Button Name="ForwardButton" Content="{DynamicResource Button.Forward.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Forward}"
                         Style="{DynamicResource DirectionButtonStyle}" />
 
-                <Button x:Name="StopButton" Content="{DynamicResource Button.Stop.Content}"
+                <Button Name="StopButton" Content="{DynamicResource Button.Stop.Content}"
                         Command="{Binding StopCommand}"
                         Style="{DynamicResource DirectionButtonStyle}"
                         dwellClick:DwellClickBehavior.Role="{x:Static dwellClick:DwellClickActivationRole.StopButton}" />
 
-                <Button x:Name="BackwardButton" Content="{DynamicResource Button.Backward.Content}"
+                <Button Name="BackwardButton" Content="{DynamicResource Button.Backward.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Backward}"
                         Style="{DynamicResource DirectionButtonStyle}" />
             </UniformGrid>
@@ -216,17 +221,17 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Button x:Name="RightNudgeButton" Content="{DynamicResource Button.NudgeRight.Content}" Grid.Row="0"
+                <Button Name="RightNudgeButton" Content="{DynamicResource Button.NudgeRight.Content}" Grid.Row="0"
                         Command="{Binding NudgeCommand}" CommandParameter="{x:Static services:XDirection.Right}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button x:Name="ForwardRightButton" Grid.Row="1"
+                <Button Name="ForwardRightButton" Grid.Row="1"
                         Content="{DynamicResource Button.ForwardRight.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.ForwardRight}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button x:Name="RightButton" Grid.Row="2" Content="{DynamicResource Button.Right.Content}"
+                <Button Name="RightButton" Grid.Row="2" Content="{DynamicResource Button.Right.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.Right}"
                         Style="{DynamicResource DirectionButtonStyle}" />
-                <Button x:Name="BackwardRightButton" Grid.Row="3"
+                <Button Name="BackwardRightButton" Grid.Row="3"
                         Content="{DynamicResource Button.BackwardRight.Content}"
                         Command="{Binding MoveCommand}" CommandParameter="{x:Static services:Direction.BackwardRight}"
                         Style="{DynamicResource DirectionButtonStyle}" />
@@ -248,31 +253,39 @@
 
             <ListView Name="ProfileSpeeds" Grid.Row="0" ItemsSource="{Binding Speeds}" Padding="0" Margin="0"
                       SelectedItem="{Binding CurrentSpeed}" HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch">
+                      VerticalContentAlignment="Stretch"
+                      BorderThickness="0">
+                <ListView.Template>
+                    <ControlTemplate TargetType="ListView">
+                        <Grid Name="PresenterGrid" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <ItemsPresenter Name="Presenter"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="PresenterGrid" Property="Background" Value="{DynamicResource DisabledOverlayBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ListView.Template>
                 <ListView.Resources>
                     <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeeds"
                                                                     ResourcePattern="DrivingView_Speed_{0}" />
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <Grid>
-                                        <ContentPresenter Content="{Binding}"
-                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                          Margin="0" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
                 </ListView.Resources>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="1" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="configuration:ProfileSpeed">
                         <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedDriveSpeeds}}"

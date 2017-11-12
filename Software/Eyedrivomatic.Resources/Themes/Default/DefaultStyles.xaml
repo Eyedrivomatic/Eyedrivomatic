@@ -126,6 +126,7 @@
                         <Viewbox Stretch="Uniform">
                             <ContentPresenter x:Name="contentPresenter"
                                               Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               Margin="{TemplateBinding Padding}" />
@@ -1159,7 +1160,8 @@
                                           IsTabStop="{TemplateBinding IsTabStop}"
                                           ContentTemplate="{StaticResource DecreaseGlyphNormalKey}"
                                           VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center" />
+                                          HorizontalContentAlignment="Center" 
+                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
 
                             <ContentPresenter x:Name="contentPresenter"
                                               Grid.Column="1"
@@ -1174,7 +1176,8 @@
                                           IsTabStop="{TemplateBinding IsTabStop}"
                                           ContentTemplate="{StaticResource IncreaseGlyphNormalKey}"
                                           VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center" />
+                                          HorizontalContentAlignment="Center" 
+                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

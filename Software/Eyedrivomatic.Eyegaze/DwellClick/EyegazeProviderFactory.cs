@@ -35,6 +35,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             try
             {
                 Log.Info(this, $"Creating [{providerFactory.Metadata.Name}] eyegaze provider.");
+                if (!providerFactory.IsValueCreated) providerFactory.Value.Initialize();
                 provider = providerFactory.Value;
             }
             catch (Exception ex)

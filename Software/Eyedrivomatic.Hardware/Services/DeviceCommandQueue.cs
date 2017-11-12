@@ -37,6 +37,11 @@ namespace Eyedrivomatic.Hardware.Services
         public Task<bool> SendCommand(IDeviceCommand command)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(DeviceCommandQueue));
+            if (_commandSink == null)
+            {
+                Log.Warn(this, $"Failed to send [{command.Name}]. Not connected.");
+                return Task.FromResult(false);
+            }
 
             var handler = _commandHandlerFactory(command, _commandSink.OnNext);
             handler.StartTimeoutTimer(command.DefaultTimeout);

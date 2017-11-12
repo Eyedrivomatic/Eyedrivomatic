@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows;
 using Tobii.Interaction;
@@ -11,60 +12,64 @@ using Environment = Tobii.Interaction.Model.Environment;
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
 {
     [ExportEyegazeProvider("Tobii"), PartCreationPolicy(CreationPolicy.Shared)]
-    public class TobiiEyegazeProvider : IEyegazeProvider
+    public partial class TobiiEyegazeProvider : IEyegazeProvider
     {
-        private readonly Host _host;
-        private readonly WpfInteractorAgent _interactorAgent;
-        private readonly EngineStateObserver<EyeTrackingDeviceStatus> _deviceStatusObserver;
-        private readonly EngineStateObserver<UserPresence> _userPresenceObserver;
-        private readonly Environment _environment;
+        private Host _host;
+        private WpfInteractorAgent _interactorAgent;
+        private EngineStateObserver<EyeTrackingDeviceStatus> _deviceStatusObserver;
+        private EngineStateObserver<UserPresence> _userPresenceObserver;
+        private Environment _environment;
 
-        public TobiiEyegazeProvider()
+        public bool Initialize()
         {
-            if (!Environment.IsInitialized)
+            try
             {
                 Log.Info(this, "Tobii environment initializing.");
+                if (Environment.GetEyeXAvailability() == EyeXAvailability.NotAvailable)
+                {
+                    Log.Error(this, "Tobii  EyeX Engine is not available.");
+                }
+
                 _environment = Environment.Initialize(LogWriter);
+                if (!Environment.IsInitialized)
+                {
+                    Log.Error(this, "Failed to initialize the Tobii environment.");
+                    return false;
+                }
+
+                _host = new Host();
+                _host.EnableConnection();
+                Log.Info(this, $"Tobii EyeX Availability: [{Host.EyeXAvailability}]");
+                Log.Info(this, $"Tobii host connection state: [{_host.Context.ConnectionState}]");
+                _host.Context.ConnectionStateChanged += (sender, args) => Log.Info(this, $"Tobii host connection state changed: [{args.State}]");
+                _deviceStatusObserver = _host.States.CreateEyeTrackingDeviceStatusObserver();
+                _deviceStatusObserver.WhenChanged(value => Log.Info(this, $"Tobii device status changed: [{value}]."));
+
+                _userPresenceObserver = _host.States.CreateUserPresenceObserver();
+                _userPresenceObserver.WhenChanged(value => Log.Info(this, $"Tobii user presence detection changed: [{value}]."));
+
+                _interactorAgent = _host.InitializeWpfAgent();
+                return Host.EyeXAvailability == EyeXAvailability.Running;
             }
-            else
+            catch (Exception ex)
             {
-                Log.Info(this, "Tobii environment already initialized.");
-                _environment = null;
+                Log.Error(this, $"Failed to initialize the Tobii Eyegaze provider: [{ex}].");
+                return false;
             }
-
-            _host = new Host();
-            Log.Info(this, $"Tobii EyeX Availability: [{Host.EyeXAvailability}]");
-            Log.Info(this, $"Tobii host connection state: [{_host.Context.ConnectionState}]");
-            _host.Context.ConnectionStateChanged += (sender, args) => Log.Info(this, $"Tobii host connection state changed: [{args.State}]");
-            _deviceStatusObserver = _host.States.CreateEyeTrackingDeviceStatusObserver();
-            _deviceStatusObserver.WhenChanged(value => Log.Info(this, $"Tobii device status changed: [{value}].") );
-
-            _userPresenceObserver = _host.States.CreateUserPresenceObserver();
-            _userPresenceObserver.WhenChanged(value => Log.Info(this, $"Tobii user presence detection changed: [{value}]."));
-
-            _interactorAgent = _host.InitializeWpfAgent();
         }
 
-        private void LogWriter(LogLevel level, string scope, string message)
+        private static readonly Dictionary<LogLevel, Action<string>> LogMapper = new Dictionary<LogLevel, Action<string>>
         {
-            switch (level)
-            {
-                case LogLevel.Debug:
-                    Log.Debug(this, $"Tobii: {scope} - {message}");
-                    break;
-                case LogLevel.Info:
-                    Log.Info(this, $"Tobii: {scope} - {message}");
-                    break;
-                case LogLevel.Warning:
-                    Log.Warn(this, $"Tobii: {scope} - {message}");
-                    break;
-                case LogLevel.Error:
-                    Log.Error(this, $"Tobii: {scope} - {message}");
-                    break;
-                default:
-                    Log.Warn(this, $"Tobii: {scope} - {message}");
-                    break;
-            }
+            {LogLevel.Debug, msg => Log.Debug(typeof(Environment), msg)},
+            {LogLevel.Info, msg => Log.Info(typeof(Environment), msg)},
+            {LogLevel.Warning, msg => Log.Warn(typeof(Environment), msg)},
+            {LogLevel.Error, msg => Log.Error(typeof(Environment), msg)},
+        };
+
+        private static void LogWriter(LogLevel level, string scope, string message)
+        {
+            if (LogMapper.TryGetValue(level, out Action<string> action)) action($"Tobii: {scope} - {message}");
+            else Log.Error(typeof(Environment), $"Tobii: {scope} - {message}");
         }
 
         public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)
@@ -76,10 +81,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
         public void Dispose()
         {
             Log.Info(this, "Disposing Tobii Eyegaze provider.");
-            _interactorAgent.Dispose();
-            _userPresenceObserver.Dispose();
-            _deviceStatusObserver.Dispose();
-            _host.Dispose();
+            _interactorAgent?.Dispose();
+            _userPresenceObserver?.Dispose();
+            _deviceStatusObserver?.Dispose();
+            _host?.Dispose();
             _environment?.Dispose();
         }
     }

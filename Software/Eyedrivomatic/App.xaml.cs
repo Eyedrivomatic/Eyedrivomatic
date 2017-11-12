@@ -20,6 +20,7 @@
 
 
 using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using Eyedrivomatic.Logging;
@@ -42,7 +43,7 @@ namespace Eyedrivomatic
         protected override void OnStartup(StartupEventArgs e)
         {
             Log.Initialize();
-            Log.Info(this, "Application Startup");
+            Log.Info(this, $"Application Startup - Version: {Assembly.GetExecutingAssembly().GetName().Version}");
 
             var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;

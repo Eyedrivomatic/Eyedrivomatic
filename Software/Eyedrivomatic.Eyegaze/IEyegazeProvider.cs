@@ -5,6 +5,7 @@ namespace Eyedrivomatic.Eyegaze
 {
     public interface IEyegazeProvider : IDisposable
     {
+        bool Initialize();
         IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client);
     }
 

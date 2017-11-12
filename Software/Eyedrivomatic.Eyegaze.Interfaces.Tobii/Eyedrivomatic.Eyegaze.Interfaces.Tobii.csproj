@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="TobiiEyegazeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TobiiProviderRegistration.cs" />
+    <Compile Include="TobiiEyegazeProvider.TobiiProviderRegistration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
