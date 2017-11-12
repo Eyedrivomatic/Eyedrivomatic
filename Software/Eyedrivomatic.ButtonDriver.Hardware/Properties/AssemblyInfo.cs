@@ -32,6 +32,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: ComVisible(false)]
+
+[assembly: AssemblyVersion("2.0.*")]
 
 [assembly: InternalsVisibleTo("Eyedrivomatic.ButtonDriver.Hardware.UnitTests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowsableList_Next" xml:space="preserve">
-    <value>Next</value>
-    <comment>Navigate to the next item in a list.</comment>
-  </data>
-  <data name="BrowsableList_Prev" xml:space="preserve">
-    <value>Prev</value>
-    <comment>Navigate to the previous item in a list.</comment>
-  </data>
-  <data name="CommandImage_Sleep" xml:space="preserve">
-    <value>Sleep</value>
-    <comment>This is an image.</comment>
-  </data>
   <data name="CommandText_AutoDiscover" xml:space="preserve">
     <value>Automatically Discover Device</value>
     <comment>Discover and connect to the device.</comment>
@@ -140,18 +128,6 @@
   <data name="CommandText_Disconnect" xml:space="preserve">
     <value>Disconnect</value>
     <comment>Disconnect from the device.</comment>
-  </data>
-  <data name="CommandText_NextDevice" xml:space="preserve">
-    <value>Next</value>
-    <comment>Select the next device in the list.</comment>
-  </data>
-  <data name="CommandText_PrevDevice" xml:space="preserve">
-    <value>Prev</value>
-    <comment>Select the previous device in the list.</comment>
-  </data>
-  <data name="CommandText_Save" xml:space="preserve">
-    <value>Save</value>
-    <comment>Save settings.</comment>
   </data>
   <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
     <value>Cycle Relay {0} on-off.</value>
@@ -190,94 +166,35 @@
     <comment>The user agrees to the conditions of the dislaimer.</comment>
   </data>
   <data name="Disclaimer_Text" xml:space="preserve">
-    <value>The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.
-To ensure safe operation, the following guidelines MUST be adhered to at all times;
-Users MUST be supervised at all times. The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards. The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.</value>
+    <value>{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.15063}\viewkind4\uc1 
+\pard\qc\cf1\b\f0\fs44 DISCLAIMER\b0\par
+\par
+
+\pard\fs24 The Eyedrivomatic System is potentially dangerous if used without proper caution. No member of the Eyedrivomatic team accept any responsibility whatsoever for any injuries to persons, or damage to property sustained during the use, or misuse of Eyedrivomatic. Use of The Eyedrivomatic System is entirely at the users own risk.\par
+\par
+To ensure safe operation, the following guidelines MUST be adhered to at all times;\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 Users MUST be supervised at all times. \par
+
+\pard\li720\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 The area of use MUST be entirely flat The area of use MUST be devoid of people, animals or any other potential hazards.\par
+
+\pard\li720  \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160 The area of use MUST NOT have any hazards at its boundaries - i.e. slopes of any kind, water, steps leading down, roads, people, anything that could be damaged by an out of control wheelchair or anything that could damage the occupant of an out of control wheelchair.\par
+
+\pard\sa200\f1\fs22\par
+
+\pard\sa200\sl276\slmult1\cf0\lang9\par
+}</value>
     <comment>The disclaimer.</comment>
   </data>
   <data name="Disclaimer_Title" xml:space="preserve">
     <value>DISCLAIMER</value>
     <comment>Disclaimer title.</comment>
-  </data>
-  <data name="Hardware_DiagSpeedFullImage" xml:space="preserve">
-    <value>Full</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DiagSpeedReducedImage" xml:space="preserve">
-    <value>Reduced</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionBackward" xml:space="preserve">
-    <value>Backward</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionBackwardLeft" xml:space="preserve">
-    <value>Backward Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionBackwardRight" xml:space="preserve">
-    <value>Backward Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForward" xml:space="preserve">
-    <value>Forward</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForwardLeft" xml:space="preserve">
-    <value>Forward Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionForwardRight" xml:space="preserve">
-    <value>Forward Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionLeft" xml:space="preserve">
-    <value>Left</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_DirectionRight" xml:space="preserve">
-    <value>Right</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateAnyImage" xml:space="preserve">
-    <value>Ready</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateContinueImage" xml:space="preserve">
-    <value>Continue</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_ReadyStateResetImage" xml:space="preserve">
-    <value>Reset</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_SafetyBypassSafeImage" xml:space="preserve">
-    <value>Safe</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="Hardware_SafetyBypassUnSafeImage" xml:space="preserve">
-    <value>SkullAndCrossbones</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosImage_Power" xml:space="preserve">
-    <value>Off</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosImage_Tilt" xml:space="preserve">
-    <value>Tilt</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosName_Mode" xml:space="preserve">
-    <value>Mode</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="MacrosName_Power" xml:space="preserve">
-    <value>Power</value>
-    <comment>The name of the default Power macro.</comment>
-  </data>
-  <data name="MacrosName_Spare" xml:space="preserve">
-    <value>Spare</value>
-    <comment>The name of the default Spare macro.</comment>
   </data>
   <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
     <value>Invalid Display Name. The cannot be empty or only whitespace characters.</value>
@@ -299,130 +216,112 @@ Users MUST be supervised at all times. The area of use MUST be entirely flat The
     <value>New Task</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="OutdoorDrivingView_DiagSpeedReduction" xml:space="preserve">
-    <value>Diagonal Speed
-Reduction Toggle</value>
-    <comment>Reduces or restores diagonal speed.</comment>
-  </data>
-  <data name="OutdoorDrivingView_LeftNudge" xml:space="preserve">
-    <value>Left Nudge</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="OutdoorDrivingView_Reset" xml:space="preserve">
-    <value>Reset</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="OutdoorDrivingView_RightNudge" xml:space="preserve">
-    <value>Right Nudge</value>
-    <comment>This is an image.</comment>
-  </data>
-  <data name="OutdoorDrivingView_SpeedFast" xml:space="preserve">
+  <data name="DrivingView_Speed_Fast" xml:space="preserve">
     <value>Fast</value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedManic" xml:space="preserve">
-    <value>MANIC</value>
-    <comment>Set the drive speed to manic or full speed.</comment>
-  </data>
-  <data name="OutdoorDrivingView_SpeedSlow" xml:space="preserve">
+  <data name="DrivingView_Speed_Slow" xml:space="preserve">
     <value>Slow</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="OutdoorDrivingView_SpeedWalk" xml:space="preserve">
+  <data name="DrivingView_Speed_Walk" xml:space="preserve">
     <value>Walk</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
-  <data name="OutdoorDrivingView_XDurationHalf" xml:space="preserve">
-    <value>Half</value>
-    <comment>Set the time that the chair is in motion for left/right movements to half.</comment>
-  </data>
-  <data name="OutdoorDrivingView_YDurationHalf" xml:space="preserve">
-    <value>Half</value>
-    <comment>Set the time that the chair is in motion for forward/backward movements to half.</comment>
-  </data>
-  <data name="SettingsGroupName_DeviceConnection" xml:space="preserve">
+  <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
     <value>Connection Settings</value>
     <comment>Title of the group containing settings for the device connection.</comment>
   </data>
-  <data name="SettingsGroupName_DwellClick" xml:space="preserve">
+  <data name="SettingGroupName_EyegazeInterface" xml:space="preserve">
+    <value>Eyegaze System Interface</value>
+    <comment>Title of the group containing settings for the eyegaze interface.</comment>
+  </data>
+  <data name="SettingGroupName_DwellClick" xml:space="preserve">
     <value>Dwell Click Settings</value>
     <comment>Title of the group containing settings for the dwell click.</comment>
   </data>
-  <data name="SettingsName_AutoConnect" xml:space="preserve">
+  <data name="SettingGroupName_DwellTimes" xml:space="preserve">
+    <value>Dwell Times</value>
+    <comment>Title of the group containing settings for dwell times.</comment>
+  </data>
+  <data name="SettingDescription_DwellTimes" xml:space="preserve">
+    <value>The dwell time settings specify the time that a control should be selected before it activates. 
+Most controls will use the "Standard" time. However there are special controls that should have shorter or longer dwell times for safety or convenience. 
+The "Stop" button for example should have a very short dwell time to help stop the chair in an emergency. 
+The "Start" button should have a very long dwell time to prevent accidental activation.</value>
+    <comment>Description of the group of dwell time settings.</comment>
+  </data>
+  <data name="SettingName_AutoConnect" xml:space="preserve">
     <value>Automatically Connect at Startup</value>
     <comment>Automatically connect to the device at application startup.</comment>
   </data>
-  <data name="SettingsName_DwellClickEnabled" xml:space="preserve">
+  <data name="SettingGroupName_Camera" xml:space="preserve">
+    <value>Forward View Camera</value>
+    <comment>Title of the group containing settings for the forward view camera.</comment>
+  </data>
+  <data name="SettingName_CameraEnabled" xml:space="preserve">
+    <value>Camera Enabled</value>
+    <comment>Enable/disable the forward-view camera.</comment>
+  </data>
+  <data name="SettingName_CameraOverlayOpacity" xml:space="preserve">
+    <value>Overlay Opacity:</value>
+    <comment>Sets the transparency of the driving view.</comment>
+  </data>
+  <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
+    <value>Set the transparency of the driving buttons drawn over the forward-view camera image. Use 0 for fully transparent and 100 for fully opaque.</value>
+    <comment>Description of the camera overlay opacity setting.</comment>
+  </data>
+  <data name="SettingName_DwellClickEnabled" xml:space="preserve">
     <value>Enabled</value>
     <comment>Enable/disable dwell click.</comment>
   </data>
-  <data name="SettingsName_DwellClickRepeatDelay" xml:space="preserve">
-    <value>Dwell Repeat Delay:</value>
+  <data name="SettingName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Dwell Repeat Delay</value>
     <comment>Time between dwell click repeats.</comment>
   </data>
-  <data name="SettingsName_DwellClickTime" xml:space="preserve">
-    <value>Dwell Time:</value>
-    <comment>Time that the user must look at the target for the dwell click to "press".</comment>
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
+    <value>Standard</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for most buttons and controls.</comment>
   </data>
-  <data name="SettingsName_DwellClickTimeout" xml:space="preserve">
-    <value>Dwell Timeout:</value>
+  <data name="SettingName_DwellClickTime_DirectionButtons" xml:space="preserve">
+    <value>Direction Buttons</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "direction" buttons on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Start Button</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "start" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTime_StopButton" xml:space="preserve">
+    <value>Stop Button</value>
+    <comment>Time that the user must look at the target for the dwell click to "press" for the "stop" button on the driving view.</comment>
+  </data>
+  <data name="SettingName_DwellClickTimeout" xml:space="preserve">
+    <value>Dwell Timeout</value>
     <comment>The time after the users gaze leaves the target before it is reset.</comment>
-  </data>
-  <data name="StatusView_NudgeDuration" xml:space="preserve">
-    <value>Nudge Duration:</value>
-    <comment>The time that the nudge is applied to the current motion.</comment>
-  </data>
-  <data name="StatusView_NudgeSpeed" xml:space="preserve">
-    <value>Nudge Speed:</value>
-    <comment>The amount of nudge that is applied.</comment>
-  </data>
-  <data name="StatusView_SafetyBypassStatus" xml:space="preserve">
-    <value>Safety Bypass Status:</value>
-    <comment>Enable/disable the safety bypass that prevents consecutive clicks in the same direction.</comment>
-  </data>
-  <data name="StatusView_Seconds" xml:space="preserve">
-    <value>seconds</value>
-    <comment>Seconds</comment>
-  </data>
-  <data name="StatusView_XCenter" xml:space="preserve">
-    <value>X Servo Centere Point:</value>
-    <comment>The center point for the x servo.</comment>
-  </data>
-  <data name="StatusView_XServo" xml:space="preserve">
-    <value>X Servo</value>
-    <comment>The curent direction applied to the x servo.</comment>
-  </data>
-  <data name="StatusView_YCenter" xml:space="preserve">
-    <value>Y Servo Centere Point:</value>
-    <comment>The center point of the y servo.</comment>
-  </data>
-  <data name="StatusView_YServo" xml:space="preserve">
-    <value>Y Servo</value>
-    <comment>The current direction applied to the y servo.</comment>
-  </data>
-  <data name="TrimView_NudgeDuration" xml:space="preserve">
-    <value>Nudge Duration</value>
-    <comment>The time that the nudge is applied to the current motion.</comment>
-  </data>
-  <data name="TrimView_NudgeSpeed" xml:space="preserve">
-    <value>Nudge Speed</value>
-    <comment>The amount of nudge that is applied.</comment>
   </data>
   <data name="ViewName_Configuration" xml:space="preserve">
     <value>Setup</value>
     <comment>The name of the configuration view.</comment>
   </data>
   <data name="ViewName_DeviceConfig" xml:space="preserve">
-    <value>BrainBox</value>
+    <value>Hardware</value>
     <comment>The name of the device configuration view.</comment>
   </data>
   <data name="ViewName_GeneralConfiguration" xml:space="preserve">
     <value>General</value>
     <comment>The name of the general configuration view.</comment>
   </data>
-  <data name="ViewName_IndoorDriving" xml:space="preserve">
-    <value>Indoor Driving</value>
-    <comment>The name of the indoor driving view.</comment>
+  <data name="DriveProfile_LargeRoom" xml:space="preserve">
+    <value>Large Room</value>
+    <comment>The name of the 'Large Room' driving view.</comment>
+  </data>
+  <data name="DriveProfile_SmallRoom" xml:space="preserve">
+    <value>Small Room</value>
+    <comment>The name of the 'Small Room' driving view.</comment>
+  </data>
+  <data name="DriveProfile_Hallway" xml:space="preserve">
+    <value>Hallway</value>
+    <comment>The name of the 'Hallway' driving view.</comment>
   </data>
   <data name="ViewName_Macros" xml:space="preserve">
     <value>Actions</value>
@@ -432,52 +331,255 @@ Reduction Toggle</value>
     <value>Edit Actions</value>
     <comment>The name of the edit macros or actions view.</comment>
   </data>
-  <data name="ViewName_OutdoorDriving" xml:space="preserve">
+  <data name="DriveProfile_Default" xml:space="preserve">
     <value>Driving</value>
-    <comment>The name of the outdoor driving view.</comment>
+    <comment>The name of the default driving view.</comment>
   </data>
-  <data name="ViewName_Status" xml:space="preserve">
-    <value>Status</value>
-    <comment>The name of the status view.</comment>
+  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+    <value>Limits</value>
+    <comment>The name of the device limits settings group.</comment>
   </data>
-  <data name="ViewName_Trim" xml:space="preserve">
+  <data name="SettingsGroupName_Trim" xml:space="preserve">
     <value>Trim</value>
-    <comment>The name of the trim view.</comment>
+    <comment>The name of the trim settings group.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceSettings" xml:space="preserve">
-    <value>Device Settings</value>
-    <comment>Title of the group containing device settings.</comment>
-  </data>
-  <data name="SettingsName_AutoSaveDeviceSettings" xml:space="preserve">
-    <value>Auto Save Device Settings</value>
-    <comment>Toggle auto saving of device configuration.</comment>
-  </data>
-  <data name="SettingsName_SafetyBypass" xml:space="preserve">
+  <data name="SettingName_SafetyBypass" xml:space="preserve">
     <value>Safety Bypass</value>
     <comment>Safety bypass toggle.</comment>
   </data>
-  <data name="StatusView_DurationFormat" xml:space="preserve">
-    <value>{0:F1} seconds</value>
-    <comment>The format of the duration indicators.</comment>
+  <data name="StatusView_Speed_None" xml:space="preserve">
+    <value>None</value>
+    <comment>The speed indicator when a speed has not been selected.</comment>
   </data>
-  <data name="StatusView_ServoPositionFormat" xml:space="preserve">
-    <value>{0}°</value>
-    <comment>The format of the servo position indicators.</comment>
+  <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
+    <value>Profiles</value>
+    <comment>Title of the group containing the list of profiles.</comment>
   </data>
-  <data name="StatusView_Speed_Fast" xml:space="preserve">
-    <value>Fast</value>
-    <comment>The speed indicator for 'fast' speed.</comment>
+  <data name="ViewName_ProfileConfig" xml:space="preserve">
+    <value>Profiles</value>
+    <comment>The name of the profile configuration view.</comment>
   </data>
-  <data name="StatusView_Speed_Manic" xml:space="preserve">
-    <value>MANIC</value>
-    <comment>The speed indicator for 'manic' speed.</comment>
+  <data name="SettingGroupName_ProfileSettings" xml:space="preserve">
+    <value>Profile Settings</value>
+    <comment>Title of the group containing the selected profile settings.</comment>
   </data>
-  <data name="StatusView_Speed_Slow" xml:space="preserve">
-    <value>Slow</value>
-    <comment>The speed indicator for 'slow' speed.</comment>
+  <data name="SettingGroupName_ProfileSpeed_Settings" xml:space="preserve">
+    <value>Profile Speed Settings</value>
+    <comment>Title of the group containing the selected profile speed settings.</comment>
   </data>
-  <data name="StatusView_Speed_Walk" xml:space="preserve">
-    <value>Walk</value>
-    <comment>The speed indicator for 'walk' speed.</comment>
+  <data name="SettingName_ProfileName" xml:space="preserve">
+    <value>Name</value>
+    <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
+  </data>
+  <data name="CommandText_AddProfileSpeed" xml:space="preserve">
+    <value>Add Speed</value>
+    <comment>Add a driving profile speed.</comment>
+  </data>
+  <data name="CommandText_AddProfile" xml:space="preserve">
+    <value>Add Profile</value>
+    <comment>Add a driving profile.</comment>
+  </data>
+  <data name="ProfileSpeed_Default" xml:space="preserve">
+    <value>Speed</value>
+    <comment>The default name for a new profile speed.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Name" xml:space="preserve">
+    <value>The name of the profile speed. This will be used to identify this speed to the user.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_X" xml:space="preserve">
+    <value>The X deflection when the right or left buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
+    <value>Left/Right</value>
+    <comment>The label text displayed in the profie speed configuration view for the "x" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>The label text displayed in the profile speed configuration view for the "name" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>The left or right deflection when one of the diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>The backward deflection when one of the forward diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>The forward deflection when one of the forward diagonal buttons are pressed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
+    <value>The forward deflection when the backward button is presssed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Forward" xml:space="preserve">
+    <value>The forward deflection when the forward button is presssed.</value>
+    <comment>The description text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Backward</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Forward</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForward" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>Left/Right Diagonal</value>
+    <comment>The label text displayed in the profile speed configuration view for the "xDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>Backward Diagonal</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yBackwardDiag" setting.</comment>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>Forward Diagonal</value>
+    <comment>The label text displayed in the profile speed configuration view for the "yForwardDiag" setting.</comment>
+  </data>
+  <data name="ProfileName_Drive" xml:space="preserve">
+    <value>Drive</value>
+    <comment>The default name of a new profile.</comment>
+  </data>
+  <data name="DrivingView_DriveSpeeds" xml:space="preserve">
+    <value>Drive Speeds</value>
+    <comment>The header text displayed on the drive page above the drive speed buttons.</comment>
+  </data>
+  <data name="DrivingView_Duration" xml:space="preserve">
+    <value>Move Duration</value>
+    <comment>The header text displayed on the drive page above the duration buttons.</comment>
+  </data>
+  <data name="SettingName_HideMouse" xml:space="preserve">
+    <value>Hide Mouse Cursor</value>
+    <comment>The label text displayed for the "Hide Mouse" setting.</comment>
+  </data>
+  <data name="SettingDescription_HideMouse" xml:space="preserve">
+    <value>With this setting enabled, use the left "ctrl" key to toggle the mouse cursor visiblity.</value>
+    <comment>The text describing the "Hide Mouse" setting.</comment>
+  </data>
+  <data name="SettingName_EyegazeInterface" xml:space="preserve">
+    <value>Eyegaze System</value>
+    <comment>The label text displayed for the "Eyegaze System" setting.</comment>
+  </data>
+  <data name="SettingGroupName_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+    <comment>Title of the group containing settings for the application appearance.</comment>
+  </data>
+  <data name="SettingName_ThemeColors" xml:space="preserve">
+    <value>Colors</value>
+    <comment>The label text displayed for the theme "Colors" setting.</comment>
+  </data>
+  <data name="SettingName_ThemeImages" xml:space="preserve">
+    <value>Images</value>
+    <comment>The label text displayed for the theme "Images" setting.</comment>
+  </data>
+  <data name="SettingName_ThemeStyles" xml:space="preserve">
+    <value>Styles</value>
+    <comment>The label text displayed for the theme "Styles" setting.</comment>
+  </data>
+  <data name="CommandText_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Reset unsaved settings. changes</comment>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save all settings.</comment>
+  </data>
+  <data name="ViewName_CameraConfiguration" xml:space="preserve">
+    <value>Camera</value>
+    <comment>The name of the camera configuration view.</comment>
+  </data>
+  <data name="ViewName_EyegazeConfig" xml:space="preserve">
+    <value>Eyegaze</value>
+    <comment>The name of the eyegaze configuration view.</comment>
+  </data>
+  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+    <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!</value>
+    <comment>The description of the "device limits" settings.</comment>
+  </data>
+  <data name="SettingDescription_DeviceTrim" xml:space="preserve">
+    <value>Use this to set the center-point for the "Electronic Hand" measured in degrees. 
+The center should be close to "0,0" and must be within the device limits specified above.</value>
+    <comment>The description of the "device trim" settings.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Auto_NotFound" xml:space="preserve">
+    <value>Device not found!</value>
+    <comment>Auto-connect failed. The device could not be found.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
+    <value>Device on "{0}" not found!</value>
+    <comment>The specified device could not be found.</comment>
+  </data>
+  <data name="Firmware_UpdateRequired_Title" xml:space="preserve">
+    <value>Firmware Update Required</value>
+    <comment>The header text on the firmware update dialog if the update is required.</comment>
+  </data>
+  <data name="Firmware_Update_Title" xml:space="preserve">
+    <value>Firmware Update</value>
+    <comment>The title of the firmware update dialog.</comment>
+  </data>
+  <data name="CommandText_Continue" xml:space="preserve">
+    <value>Continue</value>
+    <comment>The text on a "Continue" button.</comment>
+  </data>
+  <data name="DeviceConnection_Error_FirmwareCheck" xml:space="preserve">
+    <value>Unable to connect to the device on "{0}". The firmware version check failed.</value>
+    <comment>Displayed when a device is found with an older firmware version and the firmware update failed.</comment>
+  </data>
+  <data name="DeviceConnection_Error_Manual" xml:space="preserve">
+    <value>The connection to the device on "{0}" failed.</value>
+    <comment>Failure to connect to the specified device.</comment>
+  </data>
+  <data name="DeviceConnection_MinFirmwareNotAvailable" xml:space="preserve">
+    <value>A device with an incompatable firmware version was found. However the firmware file installed with the application could not be found.</value>
+    <comment>Displayed when a device is found with an older firmware version, however the firmware .hex file cannot be found.</comment>
+  </data>
+  <data name="Firmware_UpdateOptional_Directive_Format" xml:space="preserve">
+    <value>A firmware update is available for the device on {0}. Would you like to update your device?
+Current Version: {1}
+Update Version: {2}
+</value>
+    <comment>The directive text on the firmware update dialog if the update is optional.</comment>
+  </data>
+  <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
+    <value>Firmware Update Available</value>
+    <comment>The header text on the firmware update dialog if the update is optional.</comment>
+  </data>
+  <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
+    <value>A device was detected on {0}, however the device has an older version of the Eyedrivomatic firmware. You must update the firmware to continue.
+    
+ Current Version: {1}
+ Update Version: {2}</value>
+    <comment>The directive text on the firmware update dialog if the update is required.</comment>
+  </data>
+  <data name="Firmware_Update_Versions_Format" xml:space="preserve">
+    <value>Current Version: {0}. Update Version: {1}</value>
+    <comment>The detected and new firmware versions displayed on the firmware update dialog. </comment>
+  </data>
+  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+    <value>Device Connection Failed</value>
+    <comment>Title on the connection failed notification.</comment>
+  </data>
+  <data name="SettingGroupName_Language" xml:space="preserve">
+    <value>Language</value>
+    <comment>Title of the group containing language settings.</comment>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Directive_Format" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' speed from the '{1}' profile?</value>
+    <comment>The title text of the "Delete Profile Speed" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Title" xml:space="preserve">
+    <value>Confirm Delete Profile Speed</value>
+    <comment>The title text of the "Delete Profile" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfile_Directive_Format" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' profile?</value>
+    <comment>The text displayed in the "Delete Profile" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
+    <value>Confirm Delete Profile</value>
+    <comment>The title text of the "Delete Profile" confirmation dialog.</comment>
   </data>
 </root>

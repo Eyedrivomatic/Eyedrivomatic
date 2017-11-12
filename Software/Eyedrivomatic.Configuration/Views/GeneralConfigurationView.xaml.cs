@@ -24,6 +24,9 @@ using System.ComponentModel.Composition;
 
 namespace Eyedrivomatic.Configuration.Views
 {
+    /// <summary>
+    /// Interaction logic for GeneralConfigurationView.xaml
+    /// </summary>
     [Export]
     public partial class GeneralConfigurationView
     {
@@ -35,8 +38,8 @@ namespace Eyedrivomatic.Configuration.Views
         [Import]
         public GeneralConfigurationViewModel ViewModel
         {
-            get { return (GeneralConfigurationViewModel)DataContext; }
-            set { DataContext = value; }
+            get => (GeneralConfigurationViewModel)DataContext;
+            set => DataContext = value;
         }
     }
 }

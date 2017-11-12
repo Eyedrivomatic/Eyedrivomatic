@@ -41,4 +41,4 @@ using System.Windows;
     ResourceDictionaryLocation.ExternalAssembly
 )]
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("2.0.*")]

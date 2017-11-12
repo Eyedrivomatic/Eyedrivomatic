@@ -19,8 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-using System.Diagnostics.Contracts;
 using System.Windows;
 using System.Windows.Media;
 
@@ -40,24 +38,14 @@ public static class UIHelper
     public static T FindVisualParent<T>(DependencyObject child)
       where T : DependencyObject
     {
-        Contract.Requires<ArgumentNullException>(child != null, nameof(child));
-
         // get parent item
-        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+        var parentObject = VisualTreeHelper.GetParent(child);
 
         // we’ve reached the end of the tree
         if (parentObject == null) return null;
 
         // check if the parent matches the type we’re looking for
-        T parent = parentObject as T;
-        if (parent != null)
-        {
-            return parent;
-        }
-        else
-        {
-            // use recursion to proceed with next level
-            return FindVisualParent<T>(parentObject);
-        }
+        var parent = parentObject as T;
+        return parent ?? FindVisualParent<T>(parentObject);
     }
 }

@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using NullGuard;
 
 namespace Eyedrivomatic.Infrastructure
 {
@@ -33,25 +34,25 @@ namespace Eyedrivomatic.Infrastructure
             DependencyProperty.Register(nameof(ImageIfTrue), typeof(ImageSource), typeof(BoolToImageConverter), new UIPropertyMetadata(null));
         public ImageSource ImageIfTrue
         {
-            get { return (ImageSource)GetValue(ImageIfTrueProperty); }
-            set { SetValue(ImageIfTrueProperty, value); }
+            get => (ImageSource)GetValue(ImageIfTrueProperty);
+            set => SetValue(ImageIfTrueProperty, value);
         }
 
         public static readonly DependencyProperty ImageIfFalseProperty =
             DependencyProperty.Register(nameof(ImageIfFalse), typeof(ImageSource), typeof(BoolToImageConverter), new UIPropertyMetadata(null));
         public ImageSource ImageIfFalse
         {
-            get { return (ImageSource)GetValue(ImageIfFalseProperty); }
-            set { SetValue(ImageIfFalseProperty, value); }
+            get => (ImageSource)GetValue(ImageIfFalseProperty);
+            set => SetValue(ImageIfFalseProperty, value);
         }
 
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        [return: AllowNull]
+        public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             return System.Convert.ToBoolean(value) ? ImageIfTrue : ImageIfFalse;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

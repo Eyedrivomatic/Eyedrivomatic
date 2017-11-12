@@ -21,58 +21,55 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Windows;
 using System.Windows.Input;
+using Eyedrivomatic.Infrastructure;
+using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic
 {
     [Export]
-    public partial class Shell : Window, IDisposable
+    public sealed partial class Shell : IDisposable
     {
-        private readonly Cursor _smallCursor;
+        [Import]
+        private IMouseVisibility MouseVisibilty { get; set; }
 
         public Shell()
         {
             InitializeComponent();
-            _smallCursor = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Images/SmallCursor.cur")).Stream);
-            Mouse.OverrideCursor = _smallCursor;
+
+            DriveProfileSelection.Items.Clear();
+            MainContent.Content = null;
+
+            ConfigurationNavigation.Items.Clear();
+            ConfigurationContent.Content = null;
         }
 
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            var disclaimer = new DisclaimerWindow();
-            disclaimer.ShowDialog();
-        }
+        [Export]
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; } = new InteractionRequest<IConfirmation>();
+
+        [Export]
+        public InteractionRequest<INotification> NotificationRequest { get; } = new InteractionRequest<INotification>();
+
+        [Export]
+        public InteractionRequest<INotificationWithCustomButton> CustomNotificationRequest { get; } = new InteractionRequest<INotificationWithCustomButton>();
+
+        [Export]
+        public InteractionRequest<IConfirmationWithCustomButtons> CustomConfirmationRequest { get; } = new InteractionRequest<IConfirmationWithCustomButtons>();
+
+        [Export(nameof(ShowDisclaimerCommand))]
+        public ICommand ShowDisclaimerCommand => new DelegateCommand(() => CustomNotificationRequest.Raise(new DisclaimerNotification()));
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                if (Mouse.OverrideCursor == null) Mouse.OverrideCursor = _smallCursor;
-                else Mouse.OverrideCursor = null;
-                e.Handled = true;
+                MouseVisibilty.OverrideMouseVisibility(!MouseVisibilty.IsMouseHidden);
             }
         }
 
-        #region IDisposable Support
         public void Dispose()
         {
-            Dispose(true);
         }
-
-        private bool _disposed;
-        protected virtual void Dispose(bool disposeManaged)
-        {
-            if (_disposed) return;
-            _disposed = true;
-
-            if (disposeManaged)
-            {
-                _smallCursor.Dispose();
-            }
-        }
-
-        #endregion
     }
 }

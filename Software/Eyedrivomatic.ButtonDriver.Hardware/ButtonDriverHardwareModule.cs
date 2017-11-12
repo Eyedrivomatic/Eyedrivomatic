@@ -19,33 +19,28 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
-
-using Prism.Logging;
+using Eyedrivomatic.ButtonDriver.Configuration;
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware
 {
-    [ModuleExport(typeof(ButtonDriverHardwareModule))]
+    [ModuleExport(typeof(ButtonDriverHardwareModule), 
+        InitializationMode = InitializationMode.WhenAvailable, 
+        DependsOnModuleNames = new [] {nameof (ButtonDriverConfigurationModule)})]
     public class ButtonDriverHardwareModule : IModule
     {
-        public static ILoggerFacade Logger;
-
         [ImportingConstructor]
-        public ButtonDriverHardwareModule(ILoggerFacade logger)
+        public ButtonDriverHardwareModule()
         {
-            Contract.Requires<ArgumentNullException>(logger != null, nameof(logger));
-
-            Logger = logger;
-            Logger.Log($"Creating Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ButtonDriverHardwareModule)}.");
         }
 
         public void Initialize()
         {
-            Logger.Log($"Initializing Module {nameof(ButtonDriverHardwareModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Initializing Module {nameof(ButtonDriverHardwareModule)}.");
         }
     }
 }

@@ -23,86 +23,43 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=system"
-                    xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver"
-                    xmlns:controls="clr-namespace:Eyedrivomatic.Controls;assembly=Eyedrivomatic.Controls"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-                    xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware">
+                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+                    xmlns:communications="clr-namespace:Eyedrivomatic.Hardware.Communications;assembly=Eyedrivomatic.Hardware"
+                    xmlns:gif="http://wpfanimatedgif.codeplex.com">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
+    <infrastructure:ValueToImageConverter x:Key="DirectionToImageConverter">
+        <Image x:Key="{x:Static services:Direction.Backward}" Source="{DynamicResource Status.Direction.Backward.Content}"/>
+        <Image x:Key="{x:Static services:Direction.BackwardLeft}"  Source="{DynamicResource Status.Direction.BackwardLeft.Content}"/>
+        <Image x:Key="{x:Static services:Direction.BackwardRight}"  Source="{DynamicResource Status.Direction.BackwardRight.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Left}"  Source="{DynamicResource Status.Direction.Left.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Right}"  Source="{DynamicResource Status.Direction.Right.Content}"/>
+        <Image x:Key="{x:Static services:Direction.Forward}"  Source="{DynamicResource Status.Direction.Forward.Content}"/>
+        <Image x:Key="{x:Static services:Direction.ForwardLeft}"  Source="{DynamicResource Status.Direction.ForwardLeft.Content}"/>
+        <Image x:Key="{x:Static services:Direction.ForwardRight}"  Source="{DynamicResource Status.Direction.ForwardRight.Content}"/>
+    </infrastructure:ValueToImageConverter>
 
-    <sys:Uri x:Key="ResourcesImageBaseUri">pack://application:,,,/Eyedrivomatic.Resources;component/</sys:Uri>
+    <infrastructure:ValueToImageConverter x:Key="ConnectionStateToImageConverter">
+        <Image x:Key="{x:Static communications:ConnectionState.Disconnected}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Disconnected.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Connecting}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connecting.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Connected}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connected.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Error}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Error.Content}"/>
+    </infrastructure:ValueToImageConverter>
+
+    <infrastructure:ValueToImageConverter x:Key="ReadyStateStatusImageConverter">
+        <Image x:Key="{x:Static services:ReadyState.Any}"  Source="{DynamicResource Status.Ready.Content}"/>
+        <Image x:Key="{x:Static services:ReadyState.Continue}"  Source="{DynamicResource Status.Continue.Content}"/>
+    </infrastructure:ValueToImageConverter>
+
+    <infrastructure:BoolToImageConverter x:Key="SafetyBypassStateImageConverter" 
+                                         ImageIfTrue="{DynamicResource Status.Safety.Off.Content}" 
+                                         ImageIfFalse="{DynamicResource Status.Safety.On.Content}"/>
     
-    <local:DirectionToImageConverter x:Key="DirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.Backward}"  UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource DownLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource DownRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource UpLeft}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource UpRight}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-    </local:DirectionToImageConverter>
-
-    <local:DirectionToImageConverter x:Key="YDirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.Backward}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Down}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Forward}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Up}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-    </local:DirectionToImageConverter>
-
-    <local:DirectionToImageConverter x:Key="XDirectionToImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.BackwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Left}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.Right}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardLeft}" UriSource="{Binding Source={StaticResource Left}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:Direction.ForwardRight}" UriSource="{Binding Source={StaticResource Right}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-    </local:DirectionToImageConverter>
-
-    <local:ReadyStateStatusImageConverter x:Key="ReadyStateStatusImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Any}" UriSource="{Binding Source={StaticResource Ready}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Continue}" UriSource="{Binding Source={StaticResource Continue}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:ReadyState.Reset}" UriSource="{Binding Source={StaticResource Reset}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-    </local:ReadyStateStatusImageConverter>
-
-    <local:SafetyBypassStateImageConverter x:Key="SafetyBypassStateImageConverter">
-        <BitmapImage x:Key="{x:Static hardware:SafetyBypassState.Safe}" UriSource="{Binding Source={StaticResource Safe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-        <BitmapImage x:Key="{x:Static hardware:SafetyBypassState.Unsafe}" UriSource="{Binding Source={StaticResource Unsafe}, Path=UriSource}" BaseUri="{StaticResource ResourcesImageBaseUri}"/>
-    </local:SafetyBypassStateImageConverter>
-
-    <infrastructure:BoolToImageConverter x:Key="DiagonalSpeedReductionStatusImageConverter" ImageIfFalse="{StaticResource Full}" ImageIfTrue="{StaticResource Reduced}"/>
-
-    <SolidColorBrush x:Key="LeftRightStatusBackgroundBrush" Color="Transparent"/>
-    <SolidColorBrush x:Key="DirectionStatusBackgroundBrush" Color="Green"/>
-    <SolidColorBrush x:Key="ForwardBackwardStatusBackgroundBrush" Color="Green"/>
-
-    <Style x:Key="StatusLabelStyle" TargetType="{x:Type Label}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Ariel"/>
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-    </Style>
-
-    <Style x:Key="StatusValueStyle" TargetType="{x:Type Label}">
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="FontFamily" Value="Ariel"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-    </Style>
-
-    <Style x:Key="SubStatusLabelStyle" TargetType="{x:Type Label}">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Ariel"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="Padding" Value="0"/>
-    </Style>
+    <infrastructure:StringCompareToBoolConverter x:Key="StringCompareToBoolConverter"/>
+    <infrastructure:ValueCompareToBoolConverter x:Key="ValueCompareToBoolConverter"/>
 
 </ResourceDictionary>

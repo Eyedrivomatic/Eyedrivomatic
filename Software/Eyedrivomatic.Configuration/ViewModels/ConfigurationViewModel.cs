@@ -19,10 +19,11 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration.ViewModels
 {
@@ -30,5 +31,10 @@ namespace Eyedrivomatic.Configuration.ViewModels
     public class ConfigurationViewModel : IHeaderInfoProvider<string>
     {
         public string HeaderInfo => Strings.ViewName_Configuration;
+
+        public List<ThemeResourceDictionary> AvailableColors;
+
+        [Import(ConfigurationModule.SaveAllConfigurationCommandName)]
+        public CompositeCommand SaveCommand { get; set; }
     }
 }

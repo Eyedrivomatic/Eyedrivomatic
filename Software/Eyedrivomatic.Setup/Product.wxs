@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?define Eyedrivomatic_TargetDir=$(var.Eyedrivomatic.TargetDir)?>
+
+  <Product Id="*" Name="!(loc.ApplicationName)" Version="2.0.6515.38793" Language="1033" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Keywords="Installer" />
+
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Property Id="ARPPRODUCTICON" Value="EyedrivomaticLogo.exe" />
+    <Property Id="ApplicationFolderName" Value="!(loc.ApplicationName)" />
+    <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+    
+    <Icon Id="EyedrivomaticLogo.exe" SourceFile="$(var.SolutionDir)Eyedrivomatic.Resources\Images\Logo.ico" />
+
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="Complete" Title="!(loc.CompleteFeatureTitle)" Description="!(loc.CompleteFeatureDescription)" ConfigurableDirectory="APPLICATIONFOLDER">
+      <Feature Id="Application" Title="!(loc.ApplicationFeatureTitle)" Description="!(loc.ApplicationFeatureDescription)">
+        <ComponentGroupRef Id="ProductComponents" />
+        <ComponentGroupRef Id="ThirdPartyComponents" />
+        <ComponentGroupRef Id="StartmenuShortcuts" />
+        <ComponentGroupRef Id="FirmwareComponents" />
+        <ComponentGroupRef Id="en_files" />
+        <ComponentGroupRef Id="en_US_files" />
+        <ComponentGroupRef Id="de_files" />
+        <ComponentGroupRef Id="es_files" />
+        <ComponentGroupRef Id="es_MX_files" />
+        <!--<ComponentGroupRef Id="fr_files" />
+        <ComponentGroupRef Id="it_files" />
+        <ComponentGroupRef Id="ja_files" />
+        <ComponentGroupRef Id="ko_files" />
+        <ComponentGroupRef Id="ru_files" />
+        <ComponentGroupRef Id="zh_Hans_files" />
+        <ComponentGroupRef Id="zh_Hant_files" />-->
+        <Feature Id="DesktopShortcuts" Title="!(loc.DesktopShortcutsFeatureTitle)" Description="!(loc.DesktopShortcutsFeatureDescription)">
+          <ComponentGroupRef Id="DesktopShortcuts" />
+        </Feature>
+      </Feature>
+
+      <Feature Id="Drivers" Title="!(loc.DriversFeatureTitle)" Description="!(loc.DriversFeatureDescription)">
+        <ComponentGroupRef Id="DriversComponents" />
+      </Feature>
+    </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="InstallDrivers_amd64" After="InstallFiles"><![CDATA[(&Drivers=3) AND (VersionNT64)]]></Custom>
+      <Custom Action="InstallDrivers_x86" After="InstallFiles"><![CDATA[(&Drivers=3) AND (NOT VersionNT64)]]></Custom>
+    </InstallExecuteSequence>
+
+    <UIRef Id="WixUI_Advanced" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="APPLICATIONFOLDER" Name="!(loc.ApplicationName)">
+          <Directory Id="en_US" Name="en-US" />
+          <Directory Id="de" Name="de" />
+          <Directory Id="en" Name="en" />
+          <Directory Id="es" Name="es" />
+          <Directory Id="es_MX" Name="es-MX" />
+          <!--<Directory Id="fr" Name="fr" />
+          <Directory Id="hu" Name="hu" />
+          <Directory Id="it" Name="it" />
+          <Directory Id="ja" Name="ja" />
+          <Directory Id="ko" Name="ko" />
+          <Directory Id="pt_BR" Name="pt-BR" />
+          <Directory Id="ro" Name="ro" />
+          <Directory Id="ru" Name="ru" />
+          <Directory Id="sv" Name="sv" />
+          <Directory Id="zh_Hans" Name="zh-Hans" />
+          <Directory Id="zh_Hant" Name="zh-Hant" />-->
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Eyedrivomatic" />
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+
+  <Fragment Id="Components">
+    <ComponentGroup Id="ProductComponents" Directory="APPLICATIONFOLDER">
+      <Component Id="ProductComponent" Guid="{62DC7083-38C2-404C-9B1E-90BBB081F731}">
+        <File Id="Eyedrivomatic.exe" Name="$(var.Eyedrivomatic.TargetFileName)" Source="$(var.Eyedrivomatic.TargetPath)" DiskId="1" KeyPath="yes">
+          <Shortcut Id="EyedrivomaticSTARTMENU" Directory="ProgramMenuDir" Name="!(loc.ApplicationName)" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes" Icon="EyedrivomaticLogo.exe" IconIndex="0" />
+          <Shortcut Id="EyedrivomaticDESKTOP" Directory="DesktopFolder" Name="!(loc.ApplicationName)" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes" Icon="EyedrivomaticLogo.exe" IconIndex="0" />
+        </File>
+      </Component>
+      <Component Id="Macros.config" Guid="{F9AAEE76-B7A0-47BB-992B-8CF36B96150D}">
+        <File Id="Macros.config" Name="Macros.config" Source="$(var.Eyedrivomatic_TargetDir)Macros.config" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.pdb" Guid="{DAE1FFED-DEF6-4EFD-814D-FCF014990188}">
+        <File Id="Eyedrivomatic.pdb" Name="Eyedrivomatic.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Configuration.dll" Guid="{D8EE6A08-AB31-478C-B200-779011205883}">
+        <File Id="Eyedrivomatic.ButtonDriver.Configuration.dll" Name="Eyedrivomatic.ButtonDriver.Configuration.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Configuration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Configuration.pdb" Guid="{437F0375-2BD5-4347-8B53-EAC46A4AB52C}">
+        <File Id="Eyedrivomatic.ButtonDriver.Configuration.pdb" Name="Eyedrivomatic.ButtonDriver.Configuration.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Configuration.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Common.dll" Guid="{18919A9B-1F24-4A51-9D7D-859C91949C33}">
+        <File Id="Eyedrivomatic.Common.dll" Name="Eyedrivomatic.Common.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Common.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Common.pdb" Guid="{B2590F4E-2431-43AE-8851-E362C1EBD3D4}">
+        <File Id="Eyedrivomatic.Common.pdb" Name="Eyedrivomatic.Common.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Common.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="GrayscaleEffect.fx" Guid="{B6B50CCE-F5C7-4534-B331-5BDC145F5F06}">
+        <File Id="GrayscaleEffect.fx" Name="GrayscaleEffect.fx" Source="$(var.Eyedrivomatic_TargetDir)GrayscaleEffect.fx" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Hardware.dll" Guid="{42167872-E426-4C2B-9451-AEA78E1A4765}">
+        <File Id="Eyedrivomatic.Hardware.dll" Name="Eyedrivomatic.Hardware.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Hardware.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Hardware.pdb" Guid="{1A8A0ADD-7B37-491C-A0E0-F2428998A7FF}">
+        <File Id="Eyedrivomatic.Hardware.pdb" Name="Eyedrivomatic.Hardware.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Hardware.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Infrastructure.dll" Guid="{1E745471-2547-417E-AAF4-BB4B258A7785}">
+        <File Id="Eyedrivomatic.Infrastructure.dll" Name="Eyedrivomatic.Infrastructure.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Infrastructure.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Infrastructure.pdb" Guid="{D2903AE0-747D-4D8B-9027-AC07C0305B2F}">
+        <File Id="Eyedrivomatic.Infrastructure.pdb" Name="Eyedrivomatic.Infrastructure.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Infrastructure.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Logging.dll" Guid="{837F67A8-09EC-4F1C-B008-DE0108E973C4}">
+        <File Id="Eyedrivomatic.Logging.dll" Name="Eyedrivomatic.Logging.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Logging.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Logging.pdb" Guid="{DA1714E7-A39E-4EF4-840A-3C60274DB5AC}">
+        <File Id="Eyedrivomatic.Logging.pdb" Name="Eyedrivomatic.Logging.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Logging.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Resources.dll" Guid="{2EAAB50D-6C72-46F7-BF73-92423AE6D3AC}">
+        <File Id="Eyedrivomatic.Resources.dll" Name="Eyedrivomatic.Resources.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Resources.pdb" Guid="{0EDD9F02-8000-479B-AD09-F0AF908D3CFB}">
+        <File Id="Eyedrivomatic.Resources.pdb" Name="Eyedrivomatic.Resources.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Resources.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.dll" Guid="{B5DF1962-13D4-4C09-942C-B46DF6EC6C22}">
+        <File Id="Eyedrivomatic.Eyegaze.dll" Name="Eyedrivomatic.Eyegaze.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.pdb" Guid="{642750ED-54C5-4C0C-9AD5-A102E05C9A36}">
+        <File Id="Eyedrivomatic.Eyegaze.pdb" Name="Eyedrivomatic.Eyegaze.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Hardware.dll" Guid="{1312A1BE-055D-41AA-8082-9259CC3D3735}">
+        <File Id="Eyedrivomatic.ButtonDriver.Hardware.dll" Name="Eyedrivomatic.ButtonDriver.Hardware.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Hardware.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Hardware.pdb" Guid="{280D7897-05D4-43DC-B5A2-7BDB74CE0CE0}">
+        <File Id="Eyedrivomatic.ButtonDriver.Hardware.pdb" Name="Eyedrivomatic.ButtonDriver.Hardware.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Hardware.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Configuration.dll" Guid="{886F8F46-DAAF-4CAC-8A52-AEF6AF5AAD07}">
+        <File Id="Eyedrivomatic.Configuration.dll" Name="Eyedrivomatic.Configuration.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Configuration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Configuration.pdb" Guid="{73582C57-F575-4E64-BB0B-C1D20E807A14}">
+        <File Id="Eyedrivomatic.Configuration.pdb" Name="Eyedrivomatic.Configuration.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Configuration.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Controls.dll" Guid="{AA257C80-C79C-492E-BFB1-6451D3F9446C}">
+        <File Id="Eyedrivomatic.Controls.dll" Name="Eyedrivomatic.Controls.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Controls.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Controls.pdb" Guid="{2659C9CA-0C09-4C6C-B96E-1493FFE2A9B3}">
+        <File Id="Eyedrivomatic.Controls.pdb" Name="Eyedrivomatic.Controls.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Controls.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Macros.dll" Guid="{615FE291-F71B-4550-B8A5-5C06D8330E8D}">
+        <File Id="Eyedrivomatic.ButtonDriver.Macros.dll" Name="Eyedrivomatic.ButtonDriver.Macros.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Macros.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.Macros.pdb" Guid="{C76F7292-BC80-4A8C-83EC-A905903DBCD0}">
+        <File Id="Eyedrivomatic.ButtonDriver.Macros.pdb" Name="Eyedrivomatic.ButtonDriver.Macros.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.Macros.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.dll" Guid="{27DAF450-5C52-46E8-BB28-1037638CE053}">
+        <File Id="Eyedrivomatic.ButtonDriver.dll" Name="Eyedrivomatic.ButtonDriver.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.ButtonDriver.pdb" Guid="{B9227478-8840-4E56-A30D-F172105E3991}">
+        <File Id="Eyedrivomatic.ButtonDriver.pdb" Name="Eyedrivomatic.ButtonDriver.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.ButtonDriver.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Camera.dll" Guid="{693FD350-4C92-4A92-BB33-29F65FD662C7}">
+        <File Id="Eyedrivomatic.Camera.dll" Name="Eyedrivomatic.Camera.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Camera.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Camera.pdb" Guid="{AEE6648A-BC5D-4F47-90BB-88F25071DAB1}">
+        <File Id="Eyedrivomatic.Camera.pdb" Name="Eyedrivomatic.Camera.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Camera.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Configuration.dll" Guid="{B0B84EC8-9BDD-439C-B3AF-378682DCA28D}">
+        <File Id="Eyedrivomatic.Eyegaze.Configuration.dll" Name="Eyedrivomatic.Eyegaze.Configuration.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Configuration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Configuration.pdb" Guid="{98A2179B-F506-46D1-B5C7-E48193D1731F}">
+        <File Id="Eyedrivomatic.Eyegaze.Configuration.pdb" Name="Eyedrivomatic.Eyegaze.Configuration.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Configuration.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll" Guid="{D4EDFDBA-135B-4A26-A7DE-951FD33C6528}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll" Name="Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Mouse.pdb" Guid="{DE728A23-04D8-4D6E-AE49-384ADD80DB42}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Mouse.pdb" Name="Eyedrivomatic.Eyegaze.Interfaces.Mouse.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Mouse.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.dll" Guid="{F756D65B-80E3-42EF-897B-EED772A532BC}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.dll" Name="Eyedrivomatic.Eyegaze.Interfaces.Tobii.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Tobii.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Guid="{B145123C-4011-40E6-8C64-6052DF552363}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Name="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.exe.config" Guid="{AD4A7390-355D-4E05-BDF9-560B05B53C3F}">
+        <File Id="Eyedrivomatic.exe.config" Name="Eyedrivomatic.exe.config" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.exe.config" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="ThirdPartyComponents" Directory="APPLICATIONFOLDER">
+      <Component Id="Accord.dll.config" Guid="{24D67D8D-8507-4452-A268-18E310ABC5B0}">
+        <File Id="Accord.dll.config" Name="Accord.dll.config" Source="$(var.Eyedrivomatic_TargetDir)Accord.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="log4net.dll" Guid="{86D5540F-C47C-46D5-8C6B-5706464492E2}">
+        <File Id="log4net.dll" Name="log4net.dll" Source="$(var.Eyedrivomatic_TargetDir)log4net.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Microsoft.Expression.Interactions.dll" Guid="{C709D688-0B60-4939-BCF6-6BE7F6F2501B}">
+        <File Id="Microsoft.Expression.Interactions.dll" Name="Microsoft.Expression.Interactions.dll" Source="$(var.Eyedrivomatic_TargetDir)Microsoft.Expression.Interactions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="NullGuard.dll" Guid="{751D8CA1-4B02-4B22-94D3-65CE05411D8E}">
+        <File Id="NullGuard.dll" Name="NullGuard.dll" Source="$(var.Eyedrivomatic_TargetDir)NullGuard.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Microsoft.Practices.ServiceLocation.dll" Guid="{7ACDAAB4-1E4F-4A5C-9B5A-54F3F95286FD}">
+        <File Id="Microsoft.Practices.ServiceLocation.dll" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.Eyedrivomatic_TargetDir)Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ArduinoUploader.dll" Guid="{31C72AC9-6159-40E2-AE5C-26CC60721FF3}">
+        <File Id="ArduinoUploader.dll" Name="ArduinoUploader.dll" Source="$(var.Eyedrivomatic_TargetDir)ArduinoUploader.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="IntelHexFormatReader.dll" Guid="{71C06180-0C71-4928-8F30-3636954D036F}">
+        <File Id="IntelHexFormatReader.dll" Name="IntelHexFormatReader.dll" Source="$(var.Eyedrivomatic_TargetDir)IntelHexFormatReader.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="RJCP.SerialPortStream.dll" Guid="{C13C0DEA-6B29-46CF-8A24-63FC9CF27A91}">
+        <File Id="RJCP.SerialPortStream.dll" Name="RJCP.SerialPortStream.dll" Source="$(var.Eyedrivomatic_TargetDir)RJCP.SerialPortStream.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Gu.Localization.dll" Guid="{F40FF30B-DE2F-41CE-AE3C-E4AA3ED9EBE1}">
+        <File Id="Gu.Localization.dll" Name="Gu.Localization.dll" Source="$(var.Eyedrivomatic_TargetDir)Gu.Localization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Gu.Wpf.Localization.dll" Guid="{0CA69864-C4A9-41DD-841E-8BF33774EBC6}">
+        <File Id="Gu.Wpf.Localization.dll" Name="Gu.Wpf.Localization.dll" Source="$(var.Eyedrivomatic_TargetDir)Gu.Wpf.Localization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Prism.dll" Guid="{D1434764-D721-45A9-A38A-FA97C5BB6186}">
+        <File Id="Prism.dll" Name="Prism.dll" Source="$(var.Eyedrivomatic_TargetDir)Prism.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Prism.Mef.Wpf.dll" Guid="{F0272752-0F63-4518-9A24-6242AA3DEAAE}">
+        <File Id="Prism.Mef.Wpf.dll" Name="Prism.Mef.Wpf.dll" Source="$(var.Eyedrivomatic_TargetDir)Prism.Mef.Wpf.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Prism.Wpf.dll" Guid="{BAD3C6FE-45FA-4974-A39A-BA9A4C7FBB0F}">
+        <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.Eyedrivomatic_TargetDir)Prism.Wpf.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll" Guid="{C68A9E8D-37EE-4E26-B61B-31DC2A90FF2F}">
+        <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Windows.Interactivity.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="WpfAnimatedGif.dll" Guid="{1AE8F238-D454-42B9-81D6-56177353E32C}">
+        <File Id="WpfAnimatedGif.dll" Name="WpfAnimatedGif.dll" Source="$(var.Eyedrivomatic_TargetDir)WpfAnimatedGif.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Xceed.Wpf.Toolkit.dll" Guid="{5C078CC7-5212-4580-AFE2-04A53BC1F0D1}">
+        <File Id="Xceed.Wpf.Toolkit.dll" Name="Xceed.Wpf.Toolkit.dll" Source="$(var.Eyedrivomatic_TargetDir)Xceed.Wpf.Toolkit.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Reactive.Interfaces.dll" Guid="{F642256B-25DF-4594-8E0C-CF2D114E250A}">
+        <File Id="System.Reactive.Interfaces.dll" Name="System.Reactive.Interfaces.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.Interfaces.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Reactive.Windows.Threading.dll" Guid="{753398DC-F74A-4A28-A0A8-EE14E327CADE}">
+        <File Id="System.Reactive.Windows.Threading.dll" Name="System.Reactive.Windows.Threading.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.Windows.Threading.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Reactive.Linq.dll" Guid="{FBE096FD-2C14-459C-901B-0F900A587F8F}">
+        <File Id="System.Reactive.Linq.dll" Name="System.Reactive.Linq.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.Linq.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Reactive.Core.dll" Guid="{769B5F96-B3A5-4AA3-8430-6AF065B36ECC}">
+        <File Id="System.Reactive.Core.dll" Name="System.Reactive.Core.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="System.Reactive.PlatformServices.dll" Guid="{C0D61BA0-A656-4490-A3DD-26B5BE1A742B}">
+        <File Id="System.Reactive.PlatformServices.dll" Name="System.Reactive.PlatformServices.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.PlatformServices.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Accord.Video.DirectShow.dll" Guid="{B296BC26-B013-45C3-9231-A10F5E71FF5C}">
+        <File Id="Accord.Video.DirectShow.dll" Name="Accord.Video.DirectShow.dll" Source="$(var.Eyedrivomatic_TargetDir)Accord.Video.DirectShow.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Accord.Video.dll" Guid="{2FCDC813-9A86-4E99-A97D-E60A49C5CEC1}">
+        <File Id="Accord.Video.dll" Name="Accord.Video.dll" Source="$(var.Eyedrivomatic_TargetDir)Accord.Video.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tobii.Interaction.Net.dll" Guid="{9A2F4327-CBAB-44DF-B788-22C58936D89A}">
+        <File Id="Tobii.Interaction.Net.dll" Name="Tobii.Interaction.Net.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.Interaction.Net.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tobii.Interaction.Model.dll" Guid="{F657D054-AFD1-43C5-959D-87B3D79A7283}">
+        <File Id="Tobii.Interaction.Model.dll" Name="Tobii.Interaction.Model.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.Interaction.Model.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tobii.EyeX.Client.dll" Guid="{36AC1793-BBD6-4756-8F61-6D7514F90576}">
+        <File Id="Tobii.EyeX.Client.dll" Name="Tobii.EyeX.Client.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.EyeX.Client.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="StartmenuShortcuts" Directory="ProgramMenuDir">
+      <Component Id="StartmenuShortcut" Guid="{E8C06BDB-6E58-4781-932A-6EA9B025B424}">
+        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Eyedrivomatic\Eyedrivomatic" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="DesktopShortcuts" Directory="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="{917E37CC-F280-47AC-9C36-AC22A72760F6}">
+        <RegistryValue Root="HKCU" Key="Software\Eyedrivomatic\Eyedrivomatic" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment Id="Localization">
+    <ComponentGroup Id="en_US_files" Directory="en_US">
+      <Component Id="en_US_Eyedrivomatic.Resources.resources.dll" Guid="{02BAA3CA-F667-4C47-BED5-F642FCAEADD6}">
+        <File Id="en_US_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)en-US\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="de_files" Directory="de">
+      <Component Id="de_Eyedrivomatic.Resources.resources.dll" Guid="{13359A48-3AF9-44F2-B865-C57B49CB713F}">
+        <File Id="de_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)de\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="de_System.Windows.Interactivity.resources.dll" Guid="{53AF45C2-76F2-44A7-86EA-F27DA214678B}">
+        <File Id="de_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)de\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="en_files" Directory="en">
+      <Component Id="en_System.Windows.Interactivity.resources.dll" Guid="{728B6744-9CA6-43E0-95E8-2D1DFBBA4904}">
+        <File Id="en_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)en\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="es_files" Directory="es">
+      <!--<Component Id="es_Eyedrivomatic.Resources.resources.dll" Guid="{987C15C8-1A6A-405A-B53A-D749AADAAD24}">
+        <File Id="es_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)es\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>-->
+      <Component Id="es_System.Windows.Interactivity.resources.dll" Guid="{12D0F9F2-FD1F-4D51-82A4-944BEF1CB1B5}">
+        <File Id="es_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)es\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="es_MX_files" Directory="es_MX">
+      <Component Id="es_MX_Eyedrivomatic.Resources.resources.dll" Guid="{1F6CBB8E-E5B7-4C94-81CF-34E9962A722D}">
+        <File Id="es_MX_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)es-MX\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <!--<ComponentGroup Id="fr_files" Directory="fr">
+      <Component Id="fr_Eyedrivomatic.Resources.resources.dll" Guid="{36C6D901-A83C-48DC-98FB-52EC3DBAB25F}">
+        <File Id="fr_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)fr\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="fr_System.Windows.Interactivity.resources.dll" Guid="{EE17ECE2-33AB-41A5-A708-EDF160C7012D}">
+        <File Id="fr_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)fr\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="it_files" Directory="it">
+      <Component Id="it_Eyedrivomatic.Resources.resources.dll" Guid="{C18F7896-E0CB-4D72-90E2-DEF0A75BC766}">
+        <File Id="it_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)it\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="it_System.Windows.Interactivity.resources.dll" Guid="{987A4759-20F5-49E9-9924-A5E7A5B2DD1D}">
+        <File Id="it_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)it\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ja_files" Directory="ja">
+      <Component Id="ja_Eyedrivomatic.Resources.resources.dll" Guid="{D582EC99-C695-44B2-91E7-C58C265CF70A}">
+        <File Id="ja_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ja\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ja_System.Windows.Interactivity.resources.dll" Guid="{EF630E18-CDAD-4CAF-A4F9-501195C5D258}">
+        <File Id="ja_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ja\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ko_files" Directory="ko">
+      <Component Id="ko_Eyedrivomatic.Resources.resources.dll" Guid="{745A221D-B385-428F-BDC1-498927AA5FAF}">
+        <File Id="ko_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ko\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ko_System.Windows.Interactivity.resources.dll" Guid="{AFF82498-D227-44C1-8F79-881FEFC9A74A}">
+        <File Id="ko_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ko\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ru_files" Directory="ru">
+      <Component Id="ru_Eyedrivomatic.Resources.resources.dll" Guid="{A0F553EA-5E6D-471C-9218-D88510FAEECF}">
+        <File Id="ru_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ru\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ru_System.Windows.Interactivity.resources.dll" Guid="{CEE48540-B64D-40AD-8D52-452B7C4D9663}">
+        <File Id="ru_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)ru\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="zh_Hans_files" Directory="zh_Hans">
+      <Component Id="zh_Hans_Eyedrivomatic.Resources.resources.dll" Guid="{5A381C50-468B-47E0-93B0-8A530168FFBB}">
+        <File Id="zh_Hans_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)zh-Hans\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="zh_Hans_System.Windows.Interactivity.resources.dll" Guid="{08D8B016-5BAD-40DD-920F-03CC9193DB46}">
+        <File Id="zh_Hans_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)zh-Hans\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="zh_Hant_files" Directory="zh_Hant">
+      <Component Id="zh_Hant_Eyedrivomatic.Resources.resources.dll" Guid="{2E7EC433-2A3C-4911-BD60-B2AE665A080B}">
+        <File Id="zh_Hant_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)zh-Hant\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="zh_Hant_System.Windows.Interactivity.resources.dll" Guid="{6F40BFA3-CCA8-4A79-AD7C-8E4EC8B5B590}">
+        <File Id="zh_Hant_System.Windows.Interactivity.resources.dll" Name="System.Windows.Interactivity.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)zh-Hant\System.Windows.Interactivity.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>-->
+  </Fragment>
+</Wix>

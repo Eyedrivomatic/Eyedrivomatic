@@ -19,34 +19,35 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System.Windows;
-
 using System;
-using System.Globalization;
-using System.Threading;
-
-using Eyedrivomatic.Infrastructure;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Threading;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Startup;
 
 namespace Eyedrivomatic
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
-    public sealed partial class App : Application, IDisposable
+    public sealed partial class App : IDisposable
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
+
+        public void Dispose()
+        {
+            _bootstrapper.Dispose();
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             Log.Initialize();
-            Log.Info(this, "Application Startup");
+            Log.Info(this, $"Application Startup - Version: {Assembly.GetExecutingAssembly().GetName().Version}");
 
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("de");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
-
-            AppDomain currentDomain = AppDomain.CurrentDomain;
+            var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;
+            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
             base.OnStartup(e);
             _bootstrapper.Run();
@@ -54,7 +55,27 @@ namespace Eyedrivomatic
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Log.Error(this, $"Unhandled Exception! - {e.ExceptionObject}");
+            HandleException(e.ExceptionObject as Exception);
+        }
+
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            HandleException(e.Exception);
+        }
+
+        private static void HandleException(Exception exception)
+        {
+            var message = string.Empty;
+            var i = 0;
+
+            while (exception != null)
+            {
+                message += new String(' ', i++) + exception.Message + Environment.NewLine;
+                exception = exception.InnerException;
+            }
+
+            Log.Error(typeof(App), $"Unhandled Exception! - {message}");
+            MessageBox.Show(message, "Exception!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -62,10 +83,5 @@ namespace Eyedrivomatic
             Dispose();
             base.OnExit(e);
         }
-        public void Dispose()
-        {
-            _bootstrapper.Dispose();
-        }
     }
-   
 }

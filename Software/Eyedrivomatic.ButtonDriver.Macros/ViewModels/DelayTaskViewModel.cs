@@ -19,10 +19,6 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
-
-using Prism.Mvvm;
-
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Resources;
 using System.ComponentModel.Composition;
@@ -42,14 +38,14 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public double DelayMs
         {
-            get { return DelayTask.DelayMs; }
+            get => DelayTask.DelayMs;
             set
             {
                 if (DelayTask.DelayMs == value) return;
                 DelayTask.DelayMs = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
-                OnPropertyChanged(nameof(Description));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
+                RaisePropertyChanged(nameof(Description));
             }
         }
 

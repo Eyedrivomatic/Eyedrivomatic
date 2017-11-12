@@ -29,15 +29,20 @@ using Microsoft.Practices.ServiceLocation;
 using Prism.Logging;
 using Prism.Mef;
 using Prism.Modularity;
-using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Macros;
+using Eyedrivomatic.Camera;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Eyegaze;
+using Eyedrivomatic.Eyegaze.Configuration;
+using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
+using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.Startup
 {
@@ -45,7 +50,7 @@ namespace Eyedrivomatic.Startup
     { 
         protected override ILoggerFacade CreateLogger()
         {
-            return new Log4NetLogger();
+            return new PrismLogger();
         }
 
         protected override DependencyObject CreateShell()
@@ -58,18 +63,7 @@ namespace Eyedrivomatic.Startup
             base.InitializeShell();
 
             Application.Current.MainWindow = (Window)Shell;
-            Application.Current.MainWindow.Show();
-        }
-
-        private void AddModule<T>()
-        {
-            var type = typeof(T);
-            ModuleCatalog.AddModule(new ModuleInfo(type.Name, type.AssemblyQualifiedName));
-        }
-
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
+            Application.Current.MainWindow?.Show();
         }
 
         protected override void ConfigureAggregateCatalog()
@@ -78,23 +72,31 @@ namespace Eyedrivomatic.Startup
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ResourcesModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverHardwareModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CameraModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
         }
 
-        protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
-        {
-            return base.ConfigureDefaultRegionBehaviors();
-        }
-
+//        public override void Run(bool runWithDefaultConfiguration)
+//        {
+//            base.Run(runWithDefaultConfiguration);
+//#if !DEBUG
+//            var disclaimer = new DisclaimerWindow();
+//            disclaimer.ShowDialog();
+//#endif
+//        }
 
         #region IDisposable Support
-        private bool _disposed = false;
-        void Dispose(bool disposing)
+        private bool _disposed;
+        private void Dispose(bool disposing)
         {
             if (_disposed) return;
             _disposed = true;
@@ -104,18 +106,19 @@ namespace Eyedrivomatic.Startup
                 var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
                 foreach (var module in modules)
                 {
-                    Logger?.Log($"Disposing [{module.GetType().Name}]", Category.Debug, Priority.None);
+                    Log.Debug(this, $"Disposing [{module.GetType().Name}]");
                     module.Dispose();
                 }
-            }
 
-            (Shell as Shell)?.Dispose();
+                (Shell as IDisposable)?.Dispose();
+                AggregateCatalog.Dispose();
+            }
         }
 
         public void Dispose()
         {
             Dispose(true);
         }
-        #endregion
+#endregion
     }
 }

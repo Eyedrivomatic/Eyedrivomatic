@@ -20,78 +20,86 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
-
-using Prism.Commands;
-using Prism.Mvvm;
-
-using Eyedrivomatic.Controls;
+using System.Globalization;
+using System.Windows.Input;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace Eyedrivomatic.Configuration.ViewModels
 {
     [Export]
-    public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>
+    public class GeneralConfigurationViewModel : BindableBase, IHeaderInfoProvider<string>, IDisposable
     {
-        private readonly IDwellClickConfigurationService _dwellClickConfigurationService;
-
+        private readonly IAppearanceConfigurationService _appearanceConfigurationService;
+        private readonly IDisposable _saveCommandRegistration;
         public string HeaderInfo => Strings.ViewName_GeneralConfiguration;
 
+
         [ImportingConstructor]
-        public GeneralConfigurationViewModel(IDwellClickConfigurationService dwellClickConfigurationService)
+        public GeneralConfigurationViewModel(
+            IAppearanceConfigurationService appearanceConfigurationService, 
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
         {
-            Contract.Requires<ArgumentNullException>(dwellClickConfigurationService != null, nameof(dwellClickConfigurationService));
+            _appearanceConfigurationService = appearanceConfigurationService;
+            _appearanceConfigurationService.PropertyChanged += AppearanceConfigurationPropertyChanged;
 
-            _dwellClickConfigurationService = dwellClickConfigurationService;
-            _dwellClickConfigurationService.PropertyChanged += DwellClickConfiguration_PropertyChanged;
-
-            SaveCommand = new DelegateCommand(SaveChanges, CanSaveChanges);
+            _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
-        private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void AppearanceConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            OnPropertyChanged();
-
-            SaveCommand.RaiseCanExecuteChanged();
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(string.Empty);
         }
 
-        public DelegateCommand SaveCommand { get; }
-
-        public bool DwellClickEnabled
+        public bool HideMouseCursor
         {
-            get { return _dwellClickConfigurationService.EnableDwellClick; }
-            set { _dwellClickConfigurationService.EnableDwellClick = value; }
+            get => _appearanceConfigurationService.HideMouseCursor;
+            set => _appearanceConfigurationService.HideMouseCursor = value;
         }
 
-        public int DwellTimeMilliseconds
+        public ThemeColorsResourceDictionary ThemeColors
         {
-            get { return _dwellClickConfigurationService.DwellTimeMilliseconds; }
-            set { _dwellClickConfigurationService.DwellTimeMilliseconds = value; }
+            get => _appearanceConfigurationService.ThemeColors;
+            set => _appearanceConfigurationService.ThemeColors = value;
         }
 
-        public int DwellTimeoutMilliseconds
+        public ThemeImagesResourceDictionary ThemeImages
         {
-            get { return _dwellClickConfigurationService.DwellTimeoutMilliseconds; }
-            set { _dwellClickConfigurationService.DwellTimeoutMilliseconds = value; }
+            get => _appearanceConfigurationService.ThemeImages;
+            set => _appearanceConfigurationService.ThemeImages = value;
         }
 
-        public int DwellRepeatDelayMilliseconds
+        public ThemeStylesResourceDictionary ThemeStyles
         {
-            get { return _dwellClickConfigurationService.RepeatDelayMilliseconds; }
-            set { _dwellClickConfigurationService.RepeatDelayMilliseconds = value; }
+            get => _appearanceConfigurationService.ThemeStyles;
+            set => _appearanceConfigurationService.ThemeStyles = value;
         }
 
-        protected void SaveChanges()
+        public IList<ThemeColorsResourceDictionary> AvailableThemeColors => _appearanceConfigurationService.AvailableThemeColors;
+        public IList<ThemeImagesResourceDictionary> AvailableThemeImages => _appearanceConfigurationService.AvailableThemeImages;
+        public IList<ThemeStylesResourceDictionary> AvailableThemeStyles => _appearanceConfigurationService.AvailableThemeStyles;
+
+        public CultureInfo CurrentCulture
         {
-            _dwellClickConfigurationService.Save();
-            SaveCommand.RaiseCanExecuteChanged();
+            get => _appearanceConfigurationService.CurrentCulture;
+            set => _appearanceConfigurationService.CurrentCulture = value;
         }
 
-        protected bool CanSaveChanges()
+        public IList<CultureInfo> AvailableCultures => _appearanceConfigurationService.AvailableCultures;
+
+        public bool HasChanges => _appearanceConfigurationService.HasChanges;
+
+        public ICommand SaveCommand => new DelegateCommand(() => _appearanceConfigurationService.Save())
+            .ObservesCanExecute(() => HasChanges);
+
+        public void Dispose()
         {
-            return _dwellClickConfigurationService.HasChanges;
+            _saveCommandRegistration?.Dispose();
         }
     }
 }

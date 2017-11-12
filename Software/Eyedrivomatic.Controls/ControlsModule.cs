@@ -19,17 +19,11 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
-using System;
 using System.ComponentModel.Composition;
-
+using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using System.Windows;
-
-using Eyedrivomatic.Controls.DwellClick;
-using Prism.Logging;
 using Microsoft.Practices.ServiceLocation;
-using System.Diagnostics.Contracts;
 
 namespace Eyedrivomatic.Controls
 {
@@ -39,33 +33,19 @@ namespace Eyedrivomatic.Controls
     [ModuleExport(typeof(ControlsModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ControlsModule : IModule
     {
-        public ILoggerFacade Logger { get; set; }
-
         public IServiceLocator ServiceLocator { get; set; }
 
-        [Export(typeof(DwellClickAdornerFactory))]
-        public static DwellClickAdorner CreateDwellClickAdorner(UIElement adornedElement)
-        {
-            return new DwellClickPieAdorner(adornedElement);
-        }
-
         [ImportingConstructor]
-        public ControlsModule(ILoggerFacade logger, IServiceLocator serviceLocator)
+        public ControlsModule(IServiceLocator serviceLocator)
         {
-            Contract.Requires<ArgumentNullException>(serviceLocator != null, nameof(serviceLocator));
-
-            Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
+            Log.Debug(this, $"Creating Module {nameof(ControlsModule)}.");
 
             ServiceLocator = serviceLocator;
         }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ControlsModule)}.", Category.Debug, Priority.None);
-
-            DwellClickBehaviorFactory.Create = ServiceLocator.GetInstance<DwellClickBehavior>;
-            DwellClickAdornerFactory.Create = adornedElement => new DwellClickPieAdorner(adornedElement);
+            Log.Debug(this, $"Initializing Module {nameof(ControlsModule)}.");
         }
     }
 }

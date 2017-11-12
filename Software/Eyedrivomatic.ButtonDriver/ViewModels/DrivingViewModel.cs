@@ -19,51 +19,170 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
-
+using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Commands;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using NullGuard;
+using Prism.Regions;
+using Eyedrivomatic.Camera;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    [Export]
-    public class DrivingViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>
+    [Export(typeof(IDrivingViewModel))]
+    public class DrivingViewModel : ButtonDriverViewModelBase, IHeaderInfoProvider<string>, IDrivingViewModel, INavigationAware
     {
+        private readonly IEnumerable<Profile> _profiles;
+        private readonly ICamera _camera;
+        private double _duration;
+
         [ImportingConstructor]
-        public DrivingViewModel(IHardwareService hardwareService)
+        public DrivingViewModel(IHardwareService hardwareService,
+            [Import("ExecuteMacroCommand")]ICommand executeMacroCommand,
+            IMacroSerializationService macroSerializationService,
+            IEnumerable<Profile> profiles,
+            ICamera camera)
             : base (hardwareService)
         {
+            _profiles = profiles;
+            _camera = camera;
+            _camera.IsCapturingChanged += CameraOnIsCapturingChanged;
+            _camera.OverlayOpacityChanged += CameraOnOverlayOpacityChanged;
+            ExecuteMacroCommand = executeMacroCommand;
+            Macros = new ObservableCollection<IMacro>(macroSerializationService.LoadMacros());
         }
 
-        public string HeaderInfo { get; } = Strings.ViewName_OutdoorDriving;
+        public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
-        public ICommand SetXDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.XDuration = ulong.Parse(duration); }, duration => { ulong tmp;  return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
-        public ICommand SetYDuration => new DelegateCommand<string>(duration => { HardwareService.CurrentDriver.YDuration = ulong.Parse(duration); }, duration => { ulong tmp; return ulong.TryParse(duration, out tmp) && tmp >= 0 && IsOnline; });
-        public ICommand DiagonalSpeedReductionToggle => new DelegateCommand(() => { HardwareService.CurrentDriver.DiagonalSpeedReduction = !HardwareService.CurrentDriver.DiagonalSpeedReduction; }, ()=> IsOnline);
+        public bool IsOnline => Driver?.HardwareReady ?? false;
 
-        public ICommand Continue => new DelegateCommand(() => HardwareService.CurrentDriver?.Continue(), () => IsOnline && (HardwareService.CurrentDriver.ReadyState == ReadyState.Any || HardwareService.CurrentDriver?.ReadyState == ReadyState.Continue));
+        public bool ShowForwardView => _camera.IsCapturing;
 
-        public ICommand Reset => new DelegateCommand(() => HardwareService.CurrentDriver?.Reset(), () => IsOnline);
+        public bool SafetyBypass
+        {
+            get => IsOnline && Driver.Profile.SafetyBypass;
+            set
+            {
+                Driver.Profile.SafetyBypass = value;
+                LogSettingChange(Driver.Profile.SafetyBypass);
+                RaisePropertyChanged();
+            }
+        }
 
-        public ICommand Nudge => new DelegateCommand<XDirection?>(direction => HardwareService.CurrentDriver?.Nudge(direction.Value), direction => direction.HasValue && IsOnline);
-        public ICommand Move => new DelegateCommand<Direction?>(direction => HardwareService.CurrentDriver?.Move(direction.Value), direction => direction.HasValue && IsOnline && HardwareService.CurrentDriver.CanMove(direction.Value));
+        public IEnumerable<ProfileSpeed> Speeds => HardwareService.CurrentDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
 
-        public ICommand SetSpeed => new DelegateCommand<Speed?>(speed => HardwareService.CurrentDriver.Speed = speed.Value, speed => speed.HasValue && IsOnline );
+        [AllowNull]
+        public ProfileSpeed CurrentSpeed
+        {
+            get => IsOnline ? Driver.Profile.CurrentSpeed : null;
+            set
+            {
+                Driver.Profile.CurrentSpeed = value;
+                LogSettingChange(Driver.Profile.CurrentSpeed?.Name);
+                RaisePropertyChanged();
+            }
+        }
 
-        [Import("ExecuteMacroCommand")]
-        public ICommand ExecuteMacroCommand { get; internal set; }
+        public double Duration
+        {
+            get => IsOnline ? _duration : 0;
+            set => SetProperty(ref _duration, value);
+        }
 
-        [Import("DrivingPageMacro")]
-        public IMacro DrivingPageMacro { get; internal set; }
+        public double CameraOverlayOpacity => ShowForwardView ? _camera.OverlayOpacity : 1d;
 
-        public bool DiagnalSpeedReduction => IsOnline && HardwareService.CurrentDriver.DiagonalSpeedReduction;
+        public ICommand ContinueCommand => new DelegateCommand(
+            () => Driver.Continue(), 
+            () => Driver.ReadyState == ReadyState.Continue);
 
-        bool IsOnline => HardwareService.CurrentDriver?.HardwareReady ?? false;
+        public ICommand StopCommand => new DelegateCommand(
+            () => Driver.Stop(), 
+            () => IsOnline);
+
+        public ICommand NudgeCommand => new DelegateCommand<XDirection?>(
+            direction => { if (direction != null) Driver.Nudge(direction.Value, TimeSpan.FromMilliseconds(_duration)); }, 
+            direction => direction.HasValue && IsOnline && Driver.LastDirection == Direction.Forward && Driver.CurrentDirection != Direction.None && _duration > 0)
+            .ObservesProperty(() => Duration);
+
+        public ICommand MoveCommand => new DelegateCommand<Direction?>(
+            direction => { if (direction != null) Driver.Move(direction.Value, TimeSpan.FromMilliseconds(Duration)); }, 
+            direction => direction.HasValue && IsOnline && Driver.CanMove(direction.Value) && _duration > 0)
+            .ObservesProperty(() => Duration);
+
+        public ICommand ExecuteMacroCommand { get; }
+
+        public ICommand SetSpeedCommand => new DelegateCommand<ProfileSpeed>(
+            speed =>
+            {
+                Driver.Profile.CurrentSpeed = speed;
+                // ReSharper disable once ExplicitCallerInfoArgument
+                LogSettingChange(Driver.Profile.CurrentSpeed.Name, nameof(Driver.Profile.CurrentSpeed));
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(CurrentSpeed));
+            },
+            speed => IsOnline && speed != null);
+
+        public ObservableCollection<IMacro> Macros { get; }
+
+
+        void INavigationAware.OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var parameters = navigationContext.Parameters;
+            var profileName = parameters["profile"].ToString();
+            var profile = _profiles.FirstOrDefault(p => p.Name == profileName);
+
+            if (profile == null)
+            {
+                Log.Error(this, $"Profile [{profileName}] not found!");
+                profile = _profiles.First();
+            }
+
+            Log.Info(this, $"Setting driver profile to [{profile.Name}]");
+            Driver.Profile = profile;
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged("");
+        }
+
+        bool INavigationAware.IsNavigationTarget(NavigationContext navigationContext)
+        {
+            var parameters = navigationContext.Parameters;
+            var profileName = parameters["profile"].ToString();
+            var profile = _profiles.FirstOrDefault(p => p.Name == profileName);
+
+            return profile != null;
+        }
+
+        void INavigationAware.OnNavigatedFrom(NavigationContext navigationContext)
+        { 
+        }
+
+        protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnDriverStateChanged(sender, e);
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(string.Empty); //Just refresh everything.
+        }
+
+        private void CameraOnOverlayOpacityChanged(object sender, EventArgs eventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(CameraOverlayOpacity));
+        }
+
+        private void CameraOnIsCapturingChanged(object sender, EventArgs eventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(nameof(ShowForwardView));
+        }
     }
-
 }

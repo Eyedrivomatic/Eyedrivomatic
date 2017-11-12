@@ -24,15 +24,14 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using Prism.Logging;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
     [Export("ExecuteMacroCommand", typeof(ICommand))]
-    public class ExecuteMacroCommand : ICommand
+    internal class ExecuteMacroCommand : ICommand
     {
         private IButtonDriver _driver;
         private Task _currentTask;
@@ -40,15 +39,15 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         [Import]
         public IButtonDriver Driver
         {
-            get { return _driver; }
+            get => _driver;
             set
             {
                 if (ReferenceEquals(_driver, value)) return;
 
-                if (_driver != null) _driver.StatusChanged -= Driver_StatusChanged;
+                if (_driver != null) _driver.PropertyChanged -= Driver_StatusChanged;
 
                 _driver = value;
-                _driver.StatusChanged += Driver_StatusChanged;
+                _driver.PropertyChanged += Driver_StatusChanged;
                 CanExecuteChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -66,12 +65,10 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             if (_driver == null) return false;
 
             var macro = parameter as IMacro;
-            if (macro == null) return false;
-
-            return macro.CanExecute(_driver);
+            return macro?.CanExecute(_driver) ?? false;
         }
 
-        public async virtual void Execute(object parameter)
+        public virtual async void Execute(object parameter)
         {
             if (!CanExecute(parameter)) return;
 
@@ -84,7 +81,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
             }
             catch (Exception ex)
             {
-                MacrosModule.Logger?.Log($"Failed to execute macro - {ex}", Category.Exception, Priority.None);
+                Log.Error(this, $"Failed to execute macro - {ex}");
             }
             finally
             {

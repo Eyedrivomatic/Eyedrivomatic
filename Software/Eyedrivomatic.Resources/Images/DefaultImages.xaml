@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="MainIcon" UriSource="Logo.png"/>
+
+    <BitmapImage x:Key="Button.Continue.Content" UriSource="Default/Continue.png"/>
+    <BitmapImage x:Key="Button.Stop.Content" UriSource="Default/Stop.png"/>
+
+    <BitmapImage x:Key="Button.Sleep.Content" UriSource="Default/Sleep.png"/>
+    
+    <BitmapImage x:Key="Button.Macro.Off.Content" UriSource="Default/Off.png"/>
+    <BitmapImage x:Key="Button.Macro.Tilt.Content" UriSource="Default/Tilt.png"/>
+
+    <BitmapImage x:Key="Button.Settings.Content" UriSource="Default/SettingsMenu.png"/>
+
+    <BitmapImage x:Key="Button.Backward.Content" UriSource="Default/Backward.png" CacheOption="OnLoad"/>
+    <BitmapImage x:Key="Button.BackwardLeft.Content" UriSource="Default/BackwardLeft.png"/>
+    <BitmapImage x:Key="Button.BackwardRight.Content" UriSource="Default/BackwardRight.png"/>
+    <BitmapImage x:Key="Button.Left.Content" UriSource="Default/Left.png"/>
+    <BitmapImage x:Key="Button.Right.Content" UriSource="Default/Right.png"/>
+    <BitmapImage x:Key="Button.Forward.Content" UriSource="Default/Forward.png"/>
+    <BitmapImage x:Key="Button.ForwardLeft.Content" UriSource="Default/ForwardLeft.png"/>
+    <BitmapImage x:Key="Button.ForwardRight.Content" UriSource="Default/ForwardRight.png"/>
+    <BitmapImage x:Key="Button.NudgeLeft.Content" UriSource="Default/NudgeLeft.png"/>
+    <BitmapImage x:Key="Button.NudgeRight.Content" UriSource="Default/NudgeRight.png"/>
+
+    <BitmapImage x:Key="Button.TrimBackward.Content" UriSource="Default/Backward.png" CacheOption="OnLoad"/>
+    <BitmapImage x:Key="Button.TrimForward.Content" UriSource="Default/Forward.png"/>
+    <BitmapImage x:Key="Button.TrimLeft.Content" UriSource="Default/Left.png"/>
+    <BitmapImage x:Key="Button.TrimRight.Content" UriSource="Default/Right.png"/>
+
+    <BitmapImage x:Key="Status.Direction.Backward.Content" UriSource="Default/Backward.png"/>
+    <BitmapImage x:Key="Status.Direction.BackwardLeft.Content" UriSource="Default/BackwardLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.BackwardRight.Content" UriSource="Default/BackwardRight.png"/>
+    <BitmapImage x:Key="Status.Direction.Left.Content" UriSource="Default/Left.png"/>
+    <BitmapImage x:Key="Status.Direction.Right.Content" UriSource="Default/Right.png"/>
+    <BitmapImage x:Key="Status.Direction.Forward.Content" UriSource="Default/Forward.png"/>
+    <BitmapImage x:Key="Status.Direction.ForwardLeft.Content" UriSource="Default/ForwardLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.ForwardRight.Content" UriSource="Default/ForwardRight.png"/>
+    <BitmapImage x:Key="Status.Direction.NudgeLeft.Content" UriSource="Default/NudgeLeft.png"/>
+    <BitmapImage x:Key="Status.Direction.NudgeRight.Content" UriSource="Default/NudgeRight.png"/>
+
+    <BitmapImage x:Key="Status.Safety.Off.Content" UriSource="Default/SkullAndCrossbones.png"/>
+    <BitmapImage x:Key="Status.Safety.On.Content" UriSource="Default/Safe.png"/>
+    <BitmapImage x:Key="Status.Ready.Content" UriSource="Default/Ready.png"/>
+    <BitmapImage x:Key="Status.Continue.Content" UriSource="Default/Continue.png"/>
+    <BitmapImage x:Key="Status.Connection.Disconnected.Content" UriSource="Default/Connection_Disconnected.gif"/>
+    <BitmapImage x:Key="Status.Connection.Connecting.Content" UriSource="Default/Connection_Connecting.gif"/>
+    <BitmapImage x:Key="Status.Connection.Connected.Content" UriSource="Default/Connection_Connected.png"/>
+    <BitmapImage x:Key="Status.Connection.Error.Content" UriSource="Default/Connection_Error.gif"/>
+
+    <BitmapImage x:Key="ToggleButton.Checked.Image" UriSource="Default/Checked.png"/>
+    <BitmapImage x:Key="ToggleButton.Unchecked.Image" UriSource="Default/UnChecked.png"/>
+    
+    <BitmapImage x:Key="Button.MoveUp.Content" UriSource="Default/MoveUp.png"/>
+    <BitmapImage x:Key="Button.MoveDown.Content" UriSource="Default/MoveDown.png"/>
+    <BitmapImage x:Key="Button.Delete.Content" UriSource="Default/Delete.png"/>
+
+</ResourceDictionary>

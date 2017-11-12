@@ -21,9 +21,10 @@
 
 using System;
 using System.Globalization;
+using System.Resources;
 using System.Windows.Data;
 
-using Eyedrivomatic.Resources;
+using NullGuard;
 
 namespace Eyedrivomatic.Infrastructure
 {
@@ -31,19 +32,20 @@ namespace Eyedrivomatic.Infrastructure
     {
         public string ResourcePrefix { get; set; }
         public Type EnumType { get; set; }
+        public ResourceManager ResourceManager { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             if (EnumType == null) throw new ApplicationException("enum type not specified.");
 
             var valueName = Enum.GetName(EnumType, value);
             var resourceName = $"{ResourcePrefix}{EnumType.Name}_{valueName}";
-            var result = Strings.ResourceManager.GetString(resourceName);
+            var result = ResourceManager?.GetString(resourceName);
             if (string.IsNullOrWhiteSpace(result)) return valueName;
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, [AllowNull]  object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

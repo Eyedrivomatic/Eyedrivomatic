@@ -20,46 +20,74 @@
 
 
 using System;
-using System.Diagnostics.Contracts;
-
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Prism.Mvvm;
-
-using Eyedrivomatic.ButtonDriver.Hardware;
+using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.Logging;
 
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
-    public abstract class ButtonDriverViewModelBase : BindableBase
+    public abstract class ButtonDriverViewModelBase : BindableBase, IDisposable
     {
+        private IButtonDriver _driver;
+
         protected IHardwareService HardwareService { get; }
 
-        public ButtonDriverViewModelBase(IHardwareService hardwareService)
+        protected IButtonDriver Driver
         {
-            Contract.Requires<ArgumentNullException>(hardwareService != null, nameof(hardwareService));
-
-            HardwareService = hardwareService;
-
-            hardwareService.CurrentDriverChanged += Hardware_CurrentDriverChanged;
-            Hardware_CurrentDriverChanged(this, EventArgs.Empty); //force an update.
-        }
-
-        protected virtual void Hardware_CurrentDriverChanged(object sender, EventArgs e)
-        {
-            if (HardwareService.CurrentDriver != null)
-                HardwareService.CurrentDriver.StatusChanged += OnDriverStatusChanged;
-            OnPropertyChanged(string.Empty);
-        }
-
-        protected virtual void OnDriverStatusChanged(object sender, EventArgs e)
-        {
-            if (sender is IHardwareService && sender != HardwareService.CurrentDriver)
+            get => _driver;
+            private set
             {
-                //a status change from a driver that is not active. Unsubscribe from events.
-                ((IHardwareService)sender).CurrentDriverChanged -= OnDriverStatusChanged;
-                return;
+                if (_driver != null)
+                {
+                    _driver.PropertyChanged -= OnDriverStateChanged;
+                    _driver.DeviceSettings.PropertyChanged -= OnDriverSettingsChanged;
+                }
+                SetProperty(ref _driver, value);
+                if (_driver != null)
+                {
+                    _driver.PropertyChanged += OnDriverStateChanged;
+                    _driver.DeviceSettings.PropertyChanged += OnDriverSettingsChanged;
+                }
             }
+        }
 
-            OnPropertyChanged(string.Empty);
+        protected ButtonDriverViewModelBase(IHardwareService hardwareService)
+        {
+            HardwareService = hardwareService;
+            HardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
+            Driver = HardwareService.CurrentDriver;
+        }
+
+        protected virtual void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            RaisePropertyChanged(e.PropertyName);
+        }
+
+        protected virtual void OnDriverSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+        }
+
+        protected void LogSettingChange(object value, [CallerMemberName] string settingName = null)
+        {
+            Log.Info(this, $"Set [{settingName}] on [{Driver.Profile.Name}] to [{value}].");
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Driver = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

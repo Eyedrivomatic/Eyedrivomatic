@@ -12,7 +12,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class ButtonDriverConfiguration : global::System.Configuration.ApplicationSettingsBase {
         
         private static ButtonDriverConfiguration defaultInstance = ((ButtonDriverConfiguration)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new ButtonDriverConfiguration())));
@@ -49,19 +49,31 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoSaveDeviceSettingsOnExit {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SafetyBypass {
             get {
-                return ((bool)(this["AutoSaveDeviceSettingsOnExit"]));
+                return ((bool)(this["SafetyBypass"]));
             }
             set {
-                this["AutoSaveDeviceSettingsOnExit"] = value;
+                this["SafetyBypass"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public double CommandTimeout {
+            get {
+                return ((double)(this["CommandTimeout"]));
+            }
+            set {
+                this["CommandTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int SettingsVersion {
             get {
                 return ((int)(this["SettingsVersion"]));
@@ -73,13 +85,30 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SafetyBypass {
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<profiles currentProfile=""Large Room"">
+  <profile name=""Large Room"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""60"" yForward=""40"" yBackward=""40"" xDiag=""50"" yForwardDiag=""25"" yBackwardDiag=""25"" nudge=""10"" />
+    <speed name=""Walk"" x=""80"" yForward=""60"" yBackward=""60"" xDiag=""70"" yForwardDiag=""50"" yBackwardDiag=""45"" nudge=""10"" />
+    <speed name=""Fast"" x=""100"" yForward=""100"" yBackward=""100"" xDiag=""75"" yForwardDiag=""75"" yBackwardDiag=""65"" nudge=""10"" />
+  </profile>
+  <profile name=""Small Room"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""30"" yForward=""20"" yBackward=""10"" xDiag=""25"" yForwardDiag=""15"" yBackwardDiag=""10"" nudge=""5"" />
+    <speed name=""Walk"" x=""40"" yForward=""40"" yBackward=""20"" xDiag=""30"" yForwardDiag=""30"" yBackwardDiag=""20"" nudge=""5"" />
+    <speed name=""Fast"" x=""50"" yForward=""50"" yBackward=""30"" xDiag=""40"" yForwardDiag=""40"" yBackwardDiag=""25"" nudge=""5"" />
+  </profile>
+  <profile name=""Hallway"" CurrentSpeed=""Slow"">
+    <speed name=""Slow"" x=""80"" yForward=""40"" yBackward=""20"" xDiag=""20"" yForwardDiag=""35"" yBackwardDiag=""15"" nudge=""10"" />
+    <speed name=""Walk"" x=""90"" yForward=""60"" yBackward=""30"" xDiag=""30"" yForwardDiag=""50"" yBackwardDiag=""20"" nudge=""10"" />
+    <speed name=""Fast"" x=""100"" yForward=""100"" yBackward=""50"" xDiag=""40"" yForwardDiag=""75"" yBackwardDiag=""25"" nudge=""10"" />
+  </profile>
+</profiles>")]
+        public global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection DrivingProfiles {
             get {
-                return ((bool)(this["SafetyBypass"]));
+                return ((global::Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection)(this["DrivingProfiles"]));
             }
             set {
-                this["SafetyBypass"] = value;
+                this["DrivingProfiles"] = value;
             }
         }
     }

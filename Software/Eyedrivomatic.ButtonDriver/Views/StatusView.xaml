@@ -27,138 +27,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"             
-             xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver.Views"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-             xmlns:hardware="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
              mc:Ignorable="d" 
-             MaxHeight="200"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             d:DesignHeight="100" d:DesignWidth="1280"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance viewModels:DesignStatusViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Eyedrivomatic.ButtonDriver;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="SubStatusPanelStyle" TargetType="Border">
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="CornerRadius" Value="3"/>
-                <Setter Property="BorderThickness" Value="5"/>
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Padding" Value="2"/>
-            </Style>
-
-            <Style x:Key="DirectionStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
-                <Setter Property="Background" Value="{StaticResource DirectionStatusBackgroundBrush}"/>
-            </Style>
-
-            <Style x:Key="XServoStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
-                <Setter Property="Background" Value="{StaticResource LeftRightStatusBackgroundBrush}"/>
-            </Style>
-
-            <Style x:Key="YServoStatusPanelStyle" TargetType="Border" BasedOn="{StaticResource SubStatusPanelStyle}">
-                <Setter Property="Background" Value="{StaticResource ForwardBackwardStatusBackgroundBrush}"/>
-            </Style>
-
-            <Style x:Key="ServoStatusLabelStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
-                <Setter Property="VerticalAlignment" Value="Top"/>
-            </Style>
-
-            <Style x:Key="ServoStatusValueStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
-                <Style.Setters>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                </Style.Setters>
-            </Style>
-
-            <Style x:Key="ServoStatusUnitStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
-                <Style.Setters>
-                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                </Style.Setters>
-            </Style>
-
-            <Style x:Key="SpeedStatusValueStyle" TargetType="Label" BasedOn="{StaticResource SubStatusLabelStyle}">
-                <Style.Setters>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                    <Setter Property="FontWeight" Value="Heavy"/>
-                    <Setter Property="FontSize" Value="18"/>
-                </Style.Setters>
-            </Style>
-            <infrastructure:LocalizedEnumNameConverter x:Key="SpeedNameConverter" EnumType="{x:Type hardware:Speed}" ResourcePrefix="StatusView_" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="75"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="190"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition MinWidth="360" Width="360*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="DiagonalSpeedReduction"  Grid.Row="0" Grid.Column="0" Source="{Binding Path=DiagonalSpeedReduction, Converter={StaticResource DiagonalSpeedReductionStatusImageConverter}}" Margin="5"/>
-        <Label Content="{x:Static resources:Strings.StatusView_SafetyBypassStatus}" Grid.Row="0" Grid.Column="1" Style="{StaticResource SubStatusLabelStyle}" HorizontalAlignment="Right"/>
-        <Image x:Name="SafetyBypassStatus"  Grid.Row="0" Grid.Column="2" Source="{Binding Path=SafetyBypassStatus, Converter={StaticResource SafetyBypassStateImageConverter}}" Margin="5"/>
-        <Border x:Name="XServoStatusPanel" Grid.Row="0" Grid.Column="3" Style="{StaticResource XServoStatusPanelStyle}">
-            <Grid>
-                <Image x:Name="XJoystickState" Source="{Binding Path=JoystickState, Converter={StaticResource XDirectionToImageConverter}}" Margin="0" Opacity="0.6"/>
-                <Label x:Name="XDuration" Content="{Binding Path=XDuration}" ContentStringFormat="{}{0:F1}" Style="{StaticResource ServoStatusValueStyle}" VerticalAlignment="Top"/>
-                <Label Content="{x:Static resources:Strings.StatusView_Seconds}" Style="{StaticResource ServoStatusUnitStyle}" VerticalAlignment="Bottom"/>
-            </Grid>
-        </Border>
+        <ContentControl x:Name="ConnectingIcon" Grid.Column="0"
+                        Margin="10,2,10,2" HorizontalAlignment="Left"
+                        RenderOptions.BitmapScalingMode="HighQuality" 
+                        Content="{Binding Path=ConnectionState, Converter={StaticResource ConnectionStateToImageConverter}}"/>
 
-        <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource DirectionStatusPanelStyle}">
-            <DockPanel>
-                <Label x:Name="Speed" Content="{Binding Speed, Converter={StaticResource SpeedNameConverter}}"  Style="{StaticResource SpeedStatusValueStyle}" DockPanel.Dock="Top"/>
-                <Image x:Name="LastDirection" Source="{Binding Path=LastDirection, Converter={StaticResource DirectionToImageConverter}}" Margin="0"/>
-            </DockPanel>
-        </Border>
 
-        <Border x:Name="YServoStatusPanel" Grid.Row="0" Grid.Column="5" Style="{StaticResource YServoStatusPanelStyle}">
-            <Grid>
-                <Image x:Name="YJoystickState" Source="{Binding Path=JoystickState, Converter={StaticResource YDirectionToImageConverter}}" Margin="0" Opacity="0.6"/>
-                <Label x:Name="YDuration" Content="{Binding Path=YDuration}" ContentStringFormat="{}{0:F1}" Style="{StaticResource ServoStatusValueStyle}" VerticalAlignment="Top"/>
-                <Label Content="{x:Static resources:Strings.StatusView_Seconds}"  Style="{StaticResource ServoStatusUnitStyle}" VerticalAlignment="Bottom"/>
-            </Grid>
-        </Border>
 
-        <Label Content="{x:Static resources:Strings.StatusView_XServo}" Grid.Row="1" Grid.Column="3" Style="{StaticResource ServoStatusLabelStyle}"/>
-
-        <Image Source="{Binding Path=ReadyState, Converter={StaticResource ReadyStateStatusImageConverter}}" Grid.Row="1" Grid.Column="4" Margin="5"/>
-
-        <Label Content="{x:Static resources:Strings.StatusView_YServo}" Grid.Row="1" Grid.Column="5" Style="{StaticResource ServoStatusLabelStyle}"/>
-
-        <Grid Grid.Row="0" Grid.Column="6" Grid.RowSpan="2" Margin="10" Height="auto" VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_XCenter}" Grid.Row="0" Grid.Column="0"/>
-            <Label x:Name="XServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=XServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="0" Grid.Column="1" />
-
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_YCenter}" Grid.Row="1" Grid.Column="0"/>
-            <Label x:Name="YServoCenter" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=YServoCenter}" ContentStringFormat="{x:Static resources:Strings.StatusView_ServoPositionFormat}" Grid.Row="1" Grid.Column="1" />
-
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeSpeed}" Grid.Row="2" Grid.Column="0"/>
-            <Label x:Name="NudgeSpeed" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeSpeed, Converter={StaticResource SpeedNameConverter}}" Grid.Row="2" Grid.Column="1" />
-
-            <Label Style="{StaticResource StatusLabelStyle}" Content="{x:Static resources:Strings.StatusView_NudgeDuration}" Grid.Row="3" Grid.Column="0"/>
-            <Label x:Name="NudgeDuration" Style="{StaticResource StatusValueStyle}" Content="{Binding Path=NudgeDuration}" ContentStringFormat="{x:Static resources:Strings.StatusView_DurationFormat}"  Grid.Row="3" Grid.Column="1" />
-
-        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+            <ContentControl Content="{Binding CurrentDirection, Converter={StaticResource DirectionToImageConverter}}"/>
+            <Viewbox Margin="10,0,10,0">
+                <TextBlock Text="{Binding JoystickPosition}" Foreground="{DynamicResource StatusTextBrush}"/>
+            </Viewbox>
+        </StackPanel>
     </Grid>
 
 </UserControl>

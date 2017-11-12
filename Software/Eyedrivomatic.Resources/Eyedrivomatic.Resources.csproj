@@ -9,9 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Eyedrivomatic.Resources</RootNamespace>
     <AssemblyName>Eyedrivomatic.Resources</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,49 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
-    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
-    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
-    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
-    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
-    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
-    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
-    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
-    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
-    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
-    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
-    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
-    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
-    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
-    <CodeContractsInferRequires>True</CodeContractsInferRequires>
-    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
-    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
-    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
-    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
-    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
-    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
-    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
-    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
-    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
-    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
-    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
-    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
-    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
-    <CodeContractsCustomRewriterAssembly />
-    <CodeContractsCustomRewriterClass />
-    <CodeContractsLibPaths />
-    <CodeContractsExtraRewriteOptions />
-    <CodeContractsExtraAnalysisOptions />
-    <CodeContractsSQLServerOption />
-    <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
-    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
-    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
-    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
-    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
-    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,76 +31,61 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
-    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
-    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
-    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
-    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
-    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
-    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
-    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
-    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
-    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
-    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
-    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
-    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
-    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
-    <CodeContractsInferRequires>True</CodeContractsInferRequires>
-    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
-    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
-    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
-    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
-    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
-    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
-    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
-    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
-    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
-    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
-    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
-    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
-    <CodeContractsEmitXMLDocs>True</CodeContractsEmitXMLDocs>
-    <CodeContractsCustomRewriterAssembly />
-    <CodeContractsCustomRewriterClass />
-    <CodeContractsLibPaths />
-    <CodeContractsExtraRewriteOptions />
-    <CodeContractsExtraAnalysisOptions />
-    <CodeContractsSQLServerOption />
-    <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
-    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
-    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
-    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
-    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
-    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gu.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gu.Localization.6.2.2.0\lib\net45\Gu.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="NullGuard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullGuard.Fody.1.6.0\lib\netstandard1.0\NullGuard.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Prism.Mef.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Mef.6.3.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesModule.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="ThemesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings.en-US.resx" />
+    <EmbeddedResource Include="Strings.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strings.de.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.es-MX.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -150,93 +94,42 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Continue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\DownLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\DownRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Error.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Full.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Off.png">
+    <Resource Include="Images\Default\Connection_Connected.png" />
+    <Resource Include="Images\Default\Connection_Connecting.gif" />
+    <Resource Include="Images\Default\Connection_Disconnected.gif" />
+    <Resource Include="Images\Default\Connection_RxTx.gif" />
+    <Resource Include="Images\Default\DiagonalSpeedReduction.png" />
+    <Resource Include="Images\Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\Tilt.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\Sleep.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Ready.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Reduced.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Reset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Safe.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\SkullAndCrossbones.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\SmallCursor.cur" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Stop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TrimDown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TrimLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TrimRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TrimUp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\UpLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\UpRight.png" />
+    </Resource>
+    <Resource Include="Images\Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Default\NudgeLeft.png" />
+    <Resource Include="Images\Default\NudgeRight.png" />
+    <Resource Include="Images\Default\Off.png" />
+    <Resource Include="Images\Default\SettingsMenu.png" />
+    <Resource Include="Images\Default\Stop.png" />
+    <Resource Include="Images\Default\Tilt.png" />
+    <Resource Include="Images\Default\Sleep.png" />
+    <Resource Include="Images\Default\SkullAndCrossbones.png" />
+    <Resource Include="Images\Default\Safe.png" />
+    <Resource Include="Images\Default\RightSmall.png" />
+    <Resource Include="Images\Default\Right.png" />
+    <Resource Include="Images\Default\Reset.png" />
+    <Resource Include="Images\Default\Ready.png" />
+    <Resource Include="Images\Default\LeftSmall.png" />
+    <Resource Include="Images\Default\Left.png" />
+    <Resource Include="Images\Default\ForwardSmall.png" />
+    <Resource Include="Images\Default\ForwardRight.png" />
+    <Resource Include="Images\Default\ForwardLeft.png" />
+    <Resource Include="Images\Default\Forward.png" />
+    <Resource Include="Images\Default\Continue.png" />
+    <Resource Include="Images\Default\BackwardSmall.png" />
+    <Resource Include="Images\Default\Backward.png" />
+    <Resource Include="Images\Default\BackwardRight.png" />
+    <Resource Include="Images\Default\BackwardLeft.png" />
+    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Eyedrivomatic.licenseheader">
@@ -245,17 +138,107 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Check.png" />
+    <Page Include="Images\3DLightImages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\OriginalImages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\DefaultImages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Colors\WindowsDefaultColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Default\DefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\3DDarkImages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
-  <PropertyGroup>
-    <DontImportCodeContracts>True</DontImportCodeContracts>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Eyegaze\Eyedrivomatic.Eyegaze.csproj">
+      <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
+      <Name>Eyedrivomatic.Eyegaze</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+      <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
+      <Name>Eyedrivomatic.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
+      <Project>{785AB166-FD30-487D-A963-9AD39D9979A5}</Project>
+      <Name>Eyedrivomatic.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Default\Checked.png" />
+    <Resource Include="Images\Default\UnChecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SmallCursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Default\Connection_Error.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\3DDark\BackwardLeft.png" />
+    <Resource Include="Images\3DDark\BackwardRight.png" />
+    <Resource Include="Images\3DDark\Backward.png" />
+    <Resource Include="Images\3DDark\Continue.png" />
+    <Resource Include="Images\3DDark\Forward.png" />
+    <Resource Include="Images\3DDark\ForwardLeft.png" />
+    <Resource Include="Images\3DDark\ForwardRight.png" />
+    <Resource Include="Images\3DDark\Left.png" />
+    <Resource Include="Images\3DDark\NudgeLeft.png" />
+    <Resource Include="Images\3DDark\NudgeRight.png" />
+    <Resource Include="Images\3DDark\Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Original\" />
+    <Folder Include="Styles\" />
+    <Folder Include="Themes\Default\Images\" />
+    <Folder Include="Themes\LightStyle\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\3DLight\BackwardLeft.png" />
+    <Resource Include="Images\3DLight\BackwardRight.png" />
+    <Resource Include="Images\3DLight\Backward.png" />
+    <Resource Include="Images\3DLight\Continue.png" />
+    <Resource Include="Images\3DLight\Forward.png" />
+    <Resource Include="Images\3DLight\ForwardLeft.png" />
+    <Resource Include="Images\3DLight\ForwardRight.png" />
+    <Resource Include="Images\3DLight\Left.png" />
+    <Resource Include="Images\3DLight\NudgeLeft.png" />
+    <Resource Include="Images\3DLight\NudgeRight.png" />
+    <Resource Include="Images\3DLight\Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Default\Delete.png" />
+    <Resource Include="Images\Default\MoveDown.png" />
+    <Resource Include="Images\Default\MoveUp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PackagesRootDirectory Condition="$(PackagesRootDirectory) == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\packages'))</PackagesRootDirectory>
-    <CodeContractsInstallDir>$(PackagesRootDirectory)\DotNet.Contracts.1.10.20606.1\</CodeContractsInstallDir>
   </PropertyGroup>
-  <Import Project="$(CodeContractsInstallDir)\MsBuild\v$(MSBuildToolsVersion)\Microsoft.CodeContracts.targets" />
+  <Import Project="..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

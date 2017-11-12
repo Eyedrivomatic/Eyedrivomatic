@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+
+  <Bundle Name="Eyedrivomatic" Version="2.0.0.0" 
+          Manufacturer="!(loc.ManufacturerName)" 
+          UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkSidebarLicense">
+		  <bal:WixStandardBootstrapperApplication
+		    LicenseUrl="http://www.gnu.org/licenses/"
+		    LogoFile="$(var.Eyedrivomatic.Resources.ProjectDir)Images\Logo.png" />
+		</BootstrapperApplicationRef>
+
+    <Chain>
+		  <PackageGroupRef Id="NetFx47Web"/>
+      <MsiPackage Id="App_en-US" SourceFile="$(var.Eyedrivomatic.Setup.en-US.TargetPath)"/>
+    </Chain>
+	</Bundle>
+</Wix>

@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StatusView_XCenter" xml:space="preserve">
-    <value>X Servo Center Point:</value>
-    <comment>The center point for the x servo.</comment>
-  </data>
-  <data name="StatusView_YCenter" xml:space="preserve">
-    <value>Y Servo Center Point:</value>
-    <comment>The center point of the y servo.</comment>
-  </data>
 </root>

@@ -20,19 +20,18 @@
 
 
 using System;
-
 using System.ComponentModel.Composition;
-using System.Diagnostics.Contracts;
-
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Prism.Logging;
 using Prism.Regions;
 
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
-using Eyedrivomatic.Controls.DwellClick;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
+using Eyedrivomatic.Resources;
+using Gu.Localization;
+using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration
 {
@@ -41,32 +40,51 @@ namespace Eyedrivomatic.Configuration
         DependsOnModuleNames = new[] { nameof(InfrastructureModule), nameof(ControlsModule) })]
     public class ConfigurationModule : IModule
     {
-        private readonly IRegionManager RegionManager;
-        private readonly ILoggerFacade Logger;
-
-        [ImportingConstructor]
-        public ConfigurationModule(IRegionManager regionManager, ILoggerFacade logger)
-        {
-            Contract.Requires<ArgumentNullException>(regionManager != null, nameof(regionManager));
-
-            Logger = logger;
-            Logger?.Log($"Creating Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
-
-            RegionManager = regionManager;
-        }
+        private readonly IRegionManager _regionManager;
 
         [Import]
-        public IDwellClickConfigurationService DwellClickConfigurationService { get; set; }
+        public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
+
+        [ImportingConstructor]
+        public ConfigurationModule(IRegionManager regionManager)
+        {
+            Log.Info(this, $"Creating Module {nameof(ConfigurationModule)}.");
+            _regionManager = regionManager;
+        }
 
         public void Initialize()
         {
-            Logger?.Log($"Initializing Module {nameof(ConfigurationModule)}.", Category.Info, Priority.None);
+            Log.Info(this, $"Initializing Module {nameof(ConfigurationModule)}.");
 
-            DwellClickBehavior.DefaultConfiguration = DwellClickConfigurationService;
+            RegisterConfigurationViews();
 
-            RegionManager.RegisterViewWithRegion(RegionNames.GridRegion, typeof(ConfigurationView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(GeneralConfigurationView));
-            RegionManager.RegisterViewWithRegion(RegionNames.SleepButtonRegion, typeof(SleepButton));
+            _regionManager.Regions[RegionNames.ConfigurationNavigationRegion].SortComparison = (viewA, viewB) =>
+            {
+                var buttonA = (RegionNavigationButton) viewA;
+                var buttonB = (RegionNavigationButton) viewB;
+
+                if (buttonA.SortOrder == buttonB.SortOrder)
+                    return string.CompareOrdinal(buttonA.Name, buttonB.Name);
+
+                return buttonA.SortOrder == buttonB.SortOrder ? 0 : buttonA.SortOrder > buttonB.SortOrder ? 1 : -1;
+            };
+        }
+
+        public const string SaveAllConfigurationCommandName = nameof(SaveAllConfigurationCommand);
+        [Export(SaveAllConfigurationCommandName)]
+        public CompositeCommand SaveAllConfigurationCommand { get; } = new CompositeCommandAny();
+
+        private void RegisterConfigurationViews()
+        {
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationRegion, typeof(ConfigurationView));
+
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(GeneralConfigurationView));
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion,
+                () => RegionNavigationButtonFactory.Create(
+                    Translate.TranslationFor(nameof(Strings.ViewName_GeneralConfiguration)),
+                    RegionNames.ConfigurationContentRegion,
+                    new Uri($@"/{nameof(GeneralConfigurationView)}", UriKind.Relative),
+                    0));
         }
     }
 }

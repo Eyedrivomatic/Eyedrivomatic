@@ -23,6 +23,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using NullGuard;
 
 namespace Eyedrivomatic.Infrastructure
 {
@@ -31,12 +32,12 @@ namespace Eyedrivomatic.Infrastructure
         public Visibility VisibilityIfTrue { get; set; } = Visibility.Visible;
         public Visibility VisibilityIfFalse { get; set; } = Visibility.Hidden;
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             return System.Convert.ToBoolean(value) ? VisibilityIfTrue : VisibilityIfFalse;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

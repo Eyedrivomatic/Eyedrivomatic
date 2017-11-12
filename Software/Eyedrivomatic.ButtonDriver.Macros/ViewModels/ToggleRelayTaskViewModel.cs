@@ -42,37 +42,37 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public uint Relay
         {
-            get { return CycleRelayTask.Relay; }
+            get => CycleRelayTask.Relay;
             set
             {
                 if (CycleRelayTask.Relay == value) return;
                 CycleRelayTask.Relay = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
             }
         }
 
         public uint Repeat
         {
-            get { return CycleRelayTask.Repeat; }
+            get => CycleRelayTask.Repeat;
             set
             {
                 if (CycleRelayTask.Repeat == value) return;
                 CycleRelayTask.Repeat = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
             }
         }
 
         public uint DelayMs
         {
-            get { return CycleRelayTask.DelayMs; }
+            get => CycleRelayTask.DelayMs;
             set
             {
                 if (CycleRelayTask.DelayMs == value) return;
                 CycleRelayTask.DelayMs = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Info));
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Info));
             }
         }
 

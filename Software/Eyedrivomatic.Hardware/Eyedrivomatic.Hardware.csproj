@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CAAD25FE-1FB3-4B50-9D6F-DD1681E1BEA1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eyedrivomatic.Hardware</RootNamespace>
+    <AssemblyName>Eyedrivomatic.Hardware</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArduinoUploader, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ArduinoUploader.3.0.0\lib\net452\ArduinoUploader.dll</HintPath>
+    </Reference>
+    <Reference Include="IntelHexFormatReader, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IntelHexFormatReader.2.2.3\lib\net46\IntelHexFormatReader.dll</HintPath>
+    </Reference>
+    <Reference Include="NullGuard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\packages\NullGuard.Fody.1.6.0\lib\netstandard1.0\NullGuard.dll</HintPath>
+    </Reference>
+    <Reference Include="RJCP.SerialPortStream, Version=2.1.2.0, Culture=neutral, PublicKeyToken=5f5e7b70c6a74deb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SerialPortStream.2.1.2\lib\net45\RJCP.SerialPortStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.PlatformServices.3.1.1\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\DeviceCommandBase.cs" />
+    <Compile Include="Commands\DeviceCommandException.cs" />
+    <Compile Include="Commands\DeviceCommandHandler.cs" />
+    <Compile Include="Commands\DeviceCommands.cs" />
+    <Compile Include="Commands\GetConfigurationCommand.cs" />
+    <Compile Include="Commands\GetStatusCommand.cs" />
+    <Compile Include="Commands\IDeviceCommand.cs" />
+    <Compile Include="Commands\IBrainBoxCommands.cs" />
+    <Compile Include="Commands\MoveCommand.cs" />
+    <Compile Include="Commands\SaveConfigurationCommand.cs" />
+    <Compile Include="Commands\SetConfigurationCommand.cs" />
+    <Compile Include="Commands\StopCommand.cs" />
+    <Compile Include="Commands\ToggleRelayCommand.cs" />
+    <Compile Include="Communications\ElectronicHandInfo.cs" />
+    <Compile Include="Communications\ElectronicHandConnection.cs" />
+    <Compile Include="Communications\ChecksumProcessor.cs" />
+    <Compile Include="Communications\ElectronicHandConnectionFactory.cs" />
+    <Compile Include="Communications\IElectronicHandConnectionFactory.cs" />
+    <Compile Include="Communications\IElectronicHandDeviceInfo.cs" />
+    <Compile Include="Communications\IDeviceCommandHandler.cs" />
+    <Compile Include="Communications\IDeviceConnection.cs" />
+    <Compile Include="Communications\SettingNames.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DeviceCommandQueue.cs" />
+    <Compile Include="Services\DeviceDescriptor.cs" />
+    <Compile Include="Services\ElectronicHandEnumerationService.cs" />
+    <Compile Include="Services\ElectronicHandFirmwareUpdateService.cs" />
+    <Compile Include="Services\IDeviceCommandQueue.cs" />
+    <Compile Include="Services\IBrainBoxMessageProcessor.cs" />
+    <Compile Include="Services\IDeviceEnumerationService.cs" />
+    <Compile Include="Services\IFirmwareUpdateService.cs" />
+    <Compile Include="Services\ISettingsMessageSource.cs" />
+    <Compile Include="Services\IStatusMessageSource.cs" />
+    <Compile Include="Services\LineMessageProcessor.cs" />
+    <Compile Include="Services\LogMessageProcessor.cs" />
+    <Compile Include="Services\MessageProcessorExportAttribute.cs" />
+    <Compile Include="Services\SettingMessageProcessor.cs" />
+    <Compile Include="Services\StatusMessageProcessor.cs" />
+    <Compile Include="UsbSerialDeviceEnumerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Common\Eyedrivomatic.Common.csproj">
+      <Project>{FABE3103-3B06-420F-84C7-62B148F60AE9}</Project>
+      <Name>Eyedrivomatic.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
+      <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
+      <Name>Eyedrivomatic.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
+  </Target>
+</Project>

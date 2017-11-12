@@ -10,8 +10,8 @@ namespace Eyedrivomatic.Controls
             DependencyProperty.Register(nameof(CheckImage), typeof(ImageSource), typeof(ImageToggleButton), new PropertyMetadata(null));
         public ImageSource CheckImage
         {
-            get { return (ImageSource)GetValue(CheckImageProperty); }
-            set { SetValue(CheckImageProperty, value); }
+            get => (ImageSource)GetValue(CheckImageProperty);
+            set => SetValue(CheckImageProperty, value);
         }
     }
 }

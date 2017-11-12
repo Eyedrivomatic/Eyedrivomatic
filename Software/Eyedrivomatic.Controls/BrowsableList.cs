@@ -32,6 +32,11 @@ namespace Eyedrivomatic.Controls
     /// </summary>
     public class BrowsableList : ListBox
     {
+        static BrowsableList()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BrowsableList), new FrameworkPropertyMetadata(typeof(BrowsableList)));
+        }
+
         public BrowsableList() 
         {
             SetValue(PrevItemCommandProperty, new DelegateCommand(() => SelectedIndex--, () => SelectedIndex > 0));
@@ -57,8 +62,8 @@ namespace Eyedrivomatic.Controls
 
         public string PrevLabel
         {
-            get { return (string)GetValue(PrevLabelProperty); }
-            set { SetValue(PrevLabelProperty, value); }
+            get => (string)GetValue(PrevLabelProperty);
+            set => SetValue(PrevLabelProperty, value);
         }
         public static readonly DependencyProperty PrevLabelProperty =
             DependencyProperty.Register("PrevLabel", typeof(string), typeof(BrowsableList), new PropertyMetadata("Prev"));
@@ -66,8 +71,8 @@ namespace Eyedrivomatic.Controls
 
         public string NextLabel
         {
-            get { return (string)GetValue(NextLabelProperty); }
-            set { SetValue(NextLabelProperty, value); }
+            get => (string)GetValue(NextLabelProperty);
+            set => SetValue(NextLabelProperty, value);
         }
         public static readonly DependencyProperty NextLabelProperty =
             DependencyProperty.Register("NextLabel", typeof(string), typeof(BrowsableList), new PropertyMetadata("Next"));

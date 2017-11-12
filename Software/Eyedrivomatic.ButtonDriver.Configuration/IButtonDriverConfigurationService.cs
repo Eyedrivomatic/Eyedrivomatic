@@ -19,6 +19,8 @@
 //    along with Eyedrivomatic.  If not, see <http://www.gnu.org/licenses/>.
 
 
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
@@ -28,9 +30,11 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         bool AutoConnect { get; set; }
         string ConnectionString { get; set; }
 
-        bool AutoSaveDeviceSettingsOnExit { get; set; }
+        ObservableCollection<Profile> DrivingProfiles { get; }
 
-        bool SafetyBypass { get; set; }
+        Profile CurrentProfile { get; set; }
+
+        TimeSpan CommandTimeout { get; set; }
 
         void Save();
         bool HasChanges { get; }
