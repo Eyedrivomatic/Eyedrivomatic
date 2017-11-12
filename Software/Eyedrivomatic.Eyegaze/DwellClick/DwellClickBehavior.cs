@@ -244,6 +244,11 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             {
                 Log.Info(this, $"Starting dwell click on [{GetAssociatedObjectLoggingName()}]");
                 CreateAdorner();
+                if (_adorner == null)
+                {
+                    Log.Warn(this, $"Failed to create adorner on [{GetAssociatedObjectLoggingName()}]");
+                    return;
+                }
                 _animator.StartAnimation(_adorner, dwellTime, DoClick);
             }
             else
