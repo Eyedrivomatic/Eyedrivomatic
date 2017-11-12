@@ -133,6 +133,42 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the &apos;{0}&apos; profile?.
+        /// </summary>
+        public static string ConfirmDeleteProfile_Directive_Format {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteProfile_Directive_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete Profile.
+        /// </summary>
+        public static string ConfirmDeleteProfile_Title {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteProfile_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the &apos;{0}&apos; speed from the &apos;{1}&apos; profile?.
+        /// </summary>
+        public static string ConfirmDeleteProfileSpeed_Directive_Format {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteProfileSpeed_Directive_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete Profile Speed.
+        /// </summary>
+        public static string ConfirmDeleteProfileSpeed_Title {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteProfileSpeed_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cycle Relay {0} on-off..
         /// </summary>
         public static string CycleRelayMacroTask_DefaultNameFormat {

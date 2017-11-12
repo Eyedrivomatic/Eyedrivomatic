@@ -93,6 +93,7 @@
     <Compile Include="ThemeResourceDictionary.cs" />
     <Compile Include="ThemeSelector.cs" />
     <Compile Include="Translate.cs" />
+    <Compile Include="TranslationWrapper.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="ValueCompareToBoolConverter.cs" />
     <Compile Include="ValueToImageConverter.cs" />

@@ -9,13 +9,13 @@ namespace Eyedrivomatic.Infrastructure
     {
         public string ResourcePattern { get; set; } = "{0}";
 
-        public object Convert(object value, Type targetType, [AllowNull] object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, [AllowNull] object parameter, [AllowNull] CultureInfo culture)
         {
             var resourceName = $"{ResourcePattern}{value}";
             return Translate.TranslationFor(resourceName, value?.ToString());
         }
 
-        public object ConvertBack(object value, Type targetType, [AllowNull]  object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, [AllowNull]  object parameter, [AllowNull] CultureInfo culture)
         {
             throw new NotImplementedException();
         }

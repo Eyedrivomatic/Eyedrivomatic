@@ -25,7 +25,7 @@ namespace Eyedrivomatic.Infrastructure
         /// <returns>A translation for the key.</returns>
         public static ITranslation TranslationFor(string key, ErrorHandling errorHandling = ErrorHandling.ReturnErrorInfoPreserveNeutral)
         {
-            return Translation.GetOrCreate(ResourceManager, key, errorHandling);
+            return new TranslationWrapper(Translation.GetOrCreate(ResourceManager, key, errorHandling));
         }
 
         /// <summary>Call like this: Translate.Key(nameof(Strings.Saved_file__0_)).</summary>
@@ -37,7 +37,7 @@ namespace Eyedrivomatic.Infrastructure
             try
             {
                 var translation = Translation.GetOrCreate(ResourceManager, key, ErrorHandling.ReturnErrorInfoPreserveNeutral);
-                if (translation is StaticTranslation) return new StaticTranslation(defaultValue);//error info found.
+                if (translation is StaticTranslation) return new TranslationWrapper(new StaticTranslation(defaultValue));//error info found.
                 return translation;
             }
             catch (Exception e)

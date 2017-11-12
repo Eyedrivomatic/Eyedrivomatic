@@ -566,4 +566,20 @@ Update Version: {2}
     <value>Language</value>
     <comment>Title of the group containing language settings.</comment>
   </data>
+  <data name="ConfirmDeleteProfileSpeed_Directive_Format" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' speed from the '{1}' profile?</value>
+    <comment>The title text of the "Delete Profile Speed" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Title" xml:space="preserve">
+    <value>Confirm Delete Profile Speed</value>
+    <comment>The title text of the "Delete Profile" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfile_Directive_Format" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' profile?</value>
+    <comment>The text displayed in the "Delete Profile" confirmation dialog.</comment>
+  </data>
+  <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
+    <value>Confirm Delete Profile</value>
+    <comment>The title text of the "Delete Profile" confirmation dialog.</comment>
+  </data>
 </root>

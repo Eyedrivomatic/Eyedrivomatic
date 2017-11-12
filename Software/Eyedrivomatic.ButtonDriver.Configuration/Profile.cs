@@ -50,7 +50,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public ProfileSpeed CurrentSpeed
         {
             get => Speeds.SingleOrDefault(c => string.Compare(c.Name, _currentSpeed, StringComparison.CurrentCultureIgnoreCase) == 0);
-            set => SetProperty(ref _currentSpeed, value.Name);
+            set => SetProperty(ref _currentSpeed, value?.Name);
         }
 
         private bool _safetyBypass;

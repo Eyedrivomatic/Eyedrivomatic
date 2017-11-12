@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Documents;
+using NullGuard;
 
 namespace Eyedrivomatic.Eyegaze.DwellClick
 {
@@ -15,7 +16,8 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         {
             _exportFactory = exportFactory;
         }
-
+        
+        [return:AllowNull]
         public DwellClickAdorner Create(UIElement adornedElement)
         {
             var adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);

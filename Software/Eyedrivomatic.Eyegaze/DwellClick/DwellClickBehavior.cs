@@ -307,6 +307,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         private void CreateAdorner()
         {
             _adorner = _adornerFactory.Create(AssociatedObject);
+            if (_adorner == null) return;
             var style = GetAdornerStyle(AssociatedObject);
             if (style != null) _adorner.Style = style;
             _adorner.Visibility = Visibility.Visible;

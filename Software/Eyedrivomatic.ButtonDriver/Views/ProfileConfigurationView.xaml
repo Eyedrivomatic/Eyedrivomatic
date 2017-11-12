@@ -23,12 +23,18 @@
 
             <infrastructure:NullToVisibilityConverter x:Key="NullToCollapsedConverter"
                                                       VisibilityIfNull="{x:Static Visibility.Collapsed}" />
+
+            <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveProfiles"
+                                                            ResourcePattern="DriveProfile_{0}" />
+
+            <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeeds"
+                                                            ResourcePattern="DrivingView_Speed_{0}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid Name="LayoutRoot">
         <WrapPanel Orientation="Horizontal">
-            <GroupBox x:Name="ProfileSelection"
+            <GroupBox Name="ProfileSelection"
                       Header="{l:Static resources:Strings.SettingGroupName_ProfileSelection}"
                       Style="{DynamicResource SettingGroupBoxStyle}">
                 <Grid>
@@ -44,8 +50,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ListBox x:Name="ProfileList" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                             Height="200"
+                    <ListBox Name="ProfileList" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                             Height="300"
                              Margin="0,0,0,10"
                              ItemsSource="{Binding DrivingProfiles}"
                              SelectedItem="{Binding CurrentProfile}"
@@ -57,19 +63,19 @@
                                             VerticalAlignment="Center"
                                             Width="40" Height="40"
                                             Background="Transparent"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfile}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfileCommand}"
                                             CommandParameter="{Binding}" DockPanel.Dock="Left" />
                                     <Button DockPanel.Dock="Right" Width="40" Height="40"
                                             Background="Transparent"
                                             Content="{DynamicResource Button.MoveUp.Content}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileUp}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileUpCommand}"
                                             CommandParameter="{Binding}" />
                                     <Button DockPanel.Dock="Right" Width="40" Height="40"
                                             Background="Transparent"
                                             Content="{DynamicResource Button.MoveDown.Content}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileDown}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveProfileDownCommand}"
                                             CommandParameter="{Binding}" />
-                                    <TextBlock x:Name="ProfileName" Text="{Binding Name}" VerticalAlignment="Center" />
+                                    <ContentPresenter Name="ProfileName" Content="{Binding Name, Converter={StaticResource LocalizedDriveProfiles}}" VerticalAlignment="Center" />
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.Resources>
@@ -78,16 +84,15 @@
                     <Button Name="AddProfileButton" Grid.Row="1" Grid.Column="1"
                             HorizontalAlignment="Right"
                             Content="{l:Static resources:Strings.CommandText_AddProfile}"
-                            Command="{Binding AddProfile}"
+                            Command="{Binding AddProfileCommand}"
                             Height="{DynamicResource StandardButtonHeight}" />
                 </Grid>
             </GroupBox>
 
-            <GroupBox x:Name="ProfileSettings"
+            <GroupBox Name="ProfileSettings"
                       Header="{l:Static resources:Strings.SettingGroupName_ProfileSettings}"
                       Style="{DynamicResource SettingGroupBoxStyle}"
                       Visibility="{Binding CurrentProfile, Converter={StaticResource NullToCollapsedConverter}}">
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -103,10 +108,10 @@
                     <Label Content="{l:Static resources:Strings.SettingName_ProfileName}"
                            Grid.Row="0" Grid.Column="0"
                            Style="{DynamicResource SettingLabelStyle}" />
-                    <TextBox x:Name="ProfileName" Grid.Row="0" Grid.Column="1"
+                    <TextBox Name="ProfileName" Grid.Row="0" Grid.Column="1"
                              Text="{Binding CurrentProfile.Name}"
                              Style="{DynamicResource SettingValueStyle}" />
-                    <ToggleButton x:Name="SafetyBypass" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    <ToggleButton Name="SafetyBypass" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                   Content="{l:Static resources:Strings.SettingName_SafetyBypass}"
                                   Style="{DynamicResource CheckedToggleButtonStyle}"
                                   Height="45"
@@ -114,10 +119,10 @@
                                   IsChecked="{Binding CurrentProfile.SafetyBypass}" />
 
 
-                    <ListBox x:Name="ProfileSpeedList" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    <ListBox Name="ProfileSpeedList" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                              ItemsSource="{Binding CurrentProfile.Speeds}"
                              Margin="0,20,0,10"
-                             Height="200"
+                             Height="300"
                              HorizontalContentAlignment="Stretch">
                         <ListBox.Resources>
                             <DataTemplate DataType="{x:Type configuration:ProfileSpeed}">
@@ -126,20 +131,19 @@
                                             VerticalAlignment="Center"
                                             Width="40" Height="40"
                                             Background="Transparent"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfileSpeed}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.DeleteProfileSpeedCommand}"
                                             CommandParameter="{Binding}" DockPanel.Dock="Left" />
                                     <Button DockPanel.Dock="Right" Width="40" Height="40"
                                             Background="Transparent"
                                             Content="{DynamicResource Button.MoveUp.Content}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedUp}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedUpCommand}"
                                             CommandParameter="{Binding}" />
                                     <Button DockPanel.Dock="Right" Width="40" Height="40"
                                             Background="Transparent"
                                             Content="{DynamicResource Button.MoveDown.Content}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedDown}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ProfileConfigurationView}}, Path=ViewModel.MoveSpeedDownCommand}"
                                             CommandParameter="{Binding}" />
-                                    <TextBlock x:Name="ProfileSpeedName" Text="{Binding Name}"
-                                               VerticalAlignment="Center" />
+                                    <ContentPresenter Name="ProfileSpeedName" Content="{Binding Path=Name, Converter={StaticResource LocalizedDriveSpeeds}}" VerticalAlignment="Center" />
                                 </DockPanel>
                             </DataTemplate>
 
@@ -150,13 +154,13 @@
                             HorizontalAlignment="Right"
                             Height="{DynamicResource StandardButtonHeight}"
                             Content="{l:Static resources:Strings.CommandText_AddProfileSpeed}"
-                            Command="{Binding AddProfileSpeed}"
+                            Command="{Binding AddProfileSpeedCommand}"
                             CommandParameter="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}" />
 
                 </Grid>
             </GroupBox>
 
-            <GroupBox x:Name="ProfileSpeedSettings"
+            <GroupBox Name="ProfileSpeedSettings"
                       Header="{l:Static resources:Strings.SettingGroupName_ProfileSpeed_Settings}"
                       Style="{DynamicResource SettingGroupBoxStyle}"
                       DataContext="{Binding ElementName=ProfileSpeedList, Path=SelectedItem}"
@@ -194,7 +198,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_Name}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <TextBox Text="{Binding Name}" x:Name="ProfileSpeedName"
+                        <TextBox Text="{Binding Name}" Name="ProfileSpeedName"
                                  Grid.Row="0" Grid.Column="1"
                                  Style="{DynamicResource SettingValueStyle}"
                                  Margin="0,0,0,10" />
@@ -202,7 +206,7 @@
                         <Label Grid.Row="1" Grid.Column="0"
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_X}"
                                Style="{DynamicResource SettingLabelStyle}" />
-                        <xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" x:Name="ProfileSpeedX"
+                        <xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" Name="ProfileSpeedX"
                                            Value="{Binding X}"
                                            Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
@@ -210,7 +214,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_Forward}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <xctk:DoubleUpDown Grid.Row="2" Grid.Column="1" x:Name="ProfileSpeedYForward"
+                        <xctk:DoubleUpDown Grid.Row="2" Grid.Column="1" Name="ProfileSpeedYForward"
                                       Value="{Binding YForward}"
                                       Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
@@ -219,7 +223,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_Backward}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <xctk:DoubleUpDown Grid.Row="3" Grid.Column="1" x:Name="ProfileSpeedYBackward"
+                        <xctk:DoubleUpDown Grid.Row="3" Grid.Column="1" Name="ProfileSpeedYBackward"
                                       Value="{Binding YBackward}"
                                       Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
@@ -228,7 +232,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_XDiag}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <xctk:DoubleUpDown Grid.Row="4" Grid.Column="1" x:Name="ProfileSpeedXDiag"
+                        <xctk:DoubleUpDown Grid.Row="4" Grid.Column="1" Name="ProfileSpeedXDiag"
                                       Value="{Binding XDiag}"
                                       Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
@@ -237,7 +241,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_YForwardDiag}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <xctk:DoubleUpDown Grid.Row="5" Grid.Column="1" x:Name="ProfileSpeedYForwardDiag"
+                        <xctk:DoubleUpDown Grid.Row="5" Grid.Column="1" Name="ProfileSpeedYForwardDiag"
                                       Value="{Binding YForwardDiag}"
                                       Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 
@@ -246,7 +250,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_YBackwardDiag}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <xctk:DoubleUpDown Grid.Row="6" Grid.Column="1" x:Name="ProfileSpeedYBackwardDiag"
+                        <xctk:DoubleUpDown Grid.Row="6" Grid.Column="1" Name="ProfileSpeedYBackwardDiag"
                                       Value="{Binding YBackwardDiag}"
                                       Style="{StaticResource ProfileSpeedDoubleUpDownStyle}" />
 

@@ -88,7 +88,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             set
             {
                 Driver.Profile.CurrentSpeed = value;
-                LogSettingChange(Driver.Profile.CurrentSpeed.Name);
+                LogSettingChange(Driver.Profile.CurrentSpeed?.Name);
                 RaisePropertyChanged();
             }
         }

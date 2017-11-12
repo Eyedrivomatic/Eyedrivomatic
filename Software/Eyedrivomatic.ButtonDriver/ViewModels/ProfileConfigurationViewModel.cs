@@ -9,9 +9,12 @@ using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Common.Extensions;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
+using Gu.Localization;
 using NullGuard;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
@@ -22,15 +25,18 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         private readonly ExportFactory<Profile> _profileFactory;
         private readonly IDisposable _saveCommandRegistration;
         private Profile _currentProfile;
+        private readonly InteractionRequest<IConfirmationWithCustomButtons> _confirmationRequest;
 
         [ImportingConstructor]
         public ProfileConfigurationViewModel(IHardwareService hardwareService,
             IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory,
-            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand, 
+            InteractionRequest<IConfirmationWithCustomButtons> confirmationRequest)
             : base(hardwareService)
         {
             _configurationService = configurationService;
             _profileFactory = profileFactory;
+            _confirmationRequest = confirmationRequest;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
             _configurationService.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
             _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
@@ -64,32 +70,32 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        public ICommand AddProfile => new DelegateCommand(InsertProfile);
-        public ICommand DeleteProfile => new DelegateCommand<Profile>(profile => DrivingProfiles.Remove(profile),
+        public ICommand AddProfileCommand => new DelegateCommand(InsertProfile);
+        public ICommand DeleteProfileCommand => new DelegateCommand<Profile>(DeleteProfile,
             profile => profile != null && DrivingProfiles.Count > 1)
             .ObservesProperty(() => DrivingProfiles);
 
-        public ICommand MoveProfileUp => new DelegateCommand<Profile>(profile => MoveProfile(profile, true),
+        public ICommand MoveProfileUpCommand => new DelegateCommand<Profile>(profile => MoveProfile(profile, true),
             profile => profile != null && DrivingProfiles.IndexOf(profile) > 0)
             .ObservesProperty(() => DrivingProfiles);
 
-        public ICommand MoveProfileDown => new DelegateCommand<Profile>(profile => MoveProfile(profile, false),
+        public ICommand MoveProfileDownCommand => new DelegateCommand<Profile>(profile => MoveProfile(profile, false),
             profile => profile != null && DrivingProfiles.IndexOf(profile) < DrivingProfiles.Count - 1)
             .ObservesProperty(() => DrivingProfiles);
 
 
-        public ICommand AddProfileSpeed => new DelegateCommand<ProfileSpeed>(profileSpeed => CurrentProfile.AddSpeed(profileSpeed), profileSpeed => CurrentProfile != null)
+        public ICommand AddProfileSpeedCommand => new DelegateCommand<ProfileSpeed>(profileSpeed => CurrentProfile.AddSpeed(profileSpeed), profileSpeed => CurrentProfile != null)
             .ObservesProperty(() => CurrentProfile);
 
-        public ICommand DeleteProfileSpeed => new DelegateCommand<ProfileSpeed>(speed => CurrentProfile.Speeds.Remove(speed), 
+        public ICommand DeleteProfileSpeedCommand => new DelegateCommand<ProfileSpeed>(DeleteProfileSpeed, 
             speed => speed != null && CurrentProfile.Speeds.Contains(speed))
             .ObservesProperty(() => CurrentProfile);
 
-        public ICommand MoveSpeedUp => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, true),
+        public ICommand MoveSpeedUpCommand => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, true),
             speed => speed != null && CurrentProfile.Speeds.Contains(speed) && CurrentProfile.Speeds.IndexOf(speed) > 0)
             .ObservesProperty(() => CurrentProfile);
 
-        public ICommand MoveSpeedDown => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, false),
+        public ICommand MoveSpeedDownCommand => new DelegateCommand<ProfileSpeed>(speed => MoveProfileSpeed(speed, false),
             speed => speed != null && CurrentProfile.Speeds.Contains(speed) && CurrentProfile.Speeds.IndexOf(speed) < CurrentProfile.Speeds.Count - 1)
             .ObservesProperty(() => CurrentProfile);
 
@@ -127,6 +133,47 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
             DrivingProfiles.Insert(index + 1, newProfile);
             CurrentProfile = newProfile;
+        }
+
+        private void DeleteProfile(Profile profile)
+        {
+            _confirmationRequest.Raise(new ConfirmationWithCustomButtons
+            {
+                Title = Translate.Key(nameof(Strings.ConfirmDeleteProfile_Title)),
+                Content = string.Format(
+                    Translate.Key(nameof(Strings.ConfirmDeleteProfile_Directive_Format)),
+                    ProfileNameConverter.Convert(profile.Name, typeof(ITranslation), null, null))
+            }, 
+            confirmation =>
+            {
+                if (!confirmation.Confirmed) return;
+                Log.Info(this, $"Deleting driving profile [{profile.Name}].");
+                DrivingProfiles.Remove(profile);
+            });
+        }
+
+        public LocalizedStringConverter ProfileNameConverter { get; } =
+            new LocalizedStringConverter { ResourcePattern = "DriveProfile_{0}" };
+
+        public LocalizedStringConverter ProfileSpeedNameConverter { get; } =
+            new LocalizedStringConverter { ResourcePattern = "DrivingView_Speed_{0}" };
+
+        private void DeleteProfileSpeed(ProfileSpeed speed)
+        {
+            _confirmationRequest.Raise(new ConfirmationWithCustomButtons
+                {
+                    Title = Translate.Key(nameof(Strings.ConfirmDeleteProfileSpeed_Title)),
+                    Content = string.Format(
+                        Translate.Key(nameof(Strings.ConfirmDeleteProfileSpeed_Directive_Format)),
+                        ProfileSpeedNameConverter.Convert(speed.Name, typeof(ITranslation), null, null),
+                        ProfileNameConverter.Convert(CurrentProfile.Name, typeof(ITranslation), null, null))
+                },
+                confirmation =>
+                {
+                    if (!confirmation.Confirmed) return;
+                    Log.Info(this, $"Deleting driving speed [{speed.Name}] from profile [{CurrentProfile.Name}.");
+                    CurrentProfile.Speeds.Remove(speed);
+                });
         }
 
         private void DrivingProfilesOnCollectionChanged(object sender,
