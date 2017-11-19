@@ -410,7 +410,7 @@ Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit e
   </data>
   <data name="SettingName_ProfileName" xml:space="preserve">
     <value>Name</value>
-    <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
+    <comment>The label displayed next to the "Name" setting in the profile configuration view.</comment>
   </data>
   <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
     <value>Rückwärts </value>

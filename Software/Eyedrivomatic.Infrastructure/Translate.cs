@@ -47,7 +47,7 @@ namespace Eyedrivomatic.Infrastructure
             {
                 var translation = Translation.GetOrCreate(ResourceManager, key, ErrorHandling.ReturnErrorInfoPreserveNeutral);
                 if (translation is StaticTranslation) return new TranslationWrapper(new StaticTranslation(defaultValue));//error info found.
-                return translation;
+                return new TranslationWrapper(translation);
             }
             catch (Exception e)
             {

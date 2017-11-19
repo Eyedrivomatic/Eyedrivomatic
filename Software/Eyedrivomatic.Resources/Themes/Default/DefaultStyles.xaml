@@ -25,12 +25,8 @@
                StretchDirection="Both" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type localization:Translation}">
-        <TextBlock Text="{Binding Translated}"/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type localization:StaticTranslation}">
-        <TextBlock Text="{Binding Translated}"/>
+    <DataTemplate DataType="{x:Type infrastructure:TranslationWrapper}">
+        <TextBlock Text="{Binding Translated, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
     </DataTemplate>
 
     <Style x:Key="ButtonFocusVisual">
@@ -666,7 +662,7 @@
         <Setter Property="Padding" Value="15" />
     </Style>
 
-    <Style x:Key="RegionNavigationButtonStyle" TargetType="ToggleButton"
+    <Style x:Key="RegionNavigationButtonStyle" TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrushAlt}" />

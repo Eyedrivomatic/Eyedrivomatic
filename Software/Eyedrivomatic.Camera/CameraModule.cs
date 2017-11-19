@@ -28,7 +28,6 @@ using Eyedrivomatic.Camera.Views;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -41,15 +40,16 @@ namespace Eyedrivomatic.Camera
     public class CameraModule : IModule
     {
         private readonly IRegionManager _regionManager;
-        private readonly IServiceLocator _serviceLocator;
 
         [ImportingConstructor]
-        public CameraModule(IRegionManager regionManager, IServiceLocator serviceLocator)
+        public CameraModule(IRegionManager regionManager)
         {
             Log.Info(this, $"Creating Module {nameof(CameraModule)}.");
             _regionManager = regionManager;
-            _serviceLocator = serviceLocator;
         }
+
+        [Import]
+        public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
 
         [Export("GetCameras")]
         Func<IEnumerable<FilterInfo>> GetCameras => () => new FilterInfoCollection(FilterCategory.VideoInputDevice).Cast<FilterInfo>();
@@ -61,15 +61,10 @@ namespace Eyedrivomatic.Camera
             _regionManager.RegisterViewWithRegion(RegionNames.ForwardViewCameraRegion, typeof(CameraView));
 
             _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationContentRegion, typeof(CameraConfigurationView));
-            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () =>
-            {
-                var button = _serviceLocator.GetInstance<RegionNavigationButton>();
-                button.Content = Translate.TranslationFor(nameof(Resources.Strings.ViewName_CameraConfiguration));
-                button.RegionName = RegionNames.ConfigurationContentRegion;
-                button.Target = new Uri($@"/{nameof(CameraConfigurationView)}", UriKind.Relative);
-                button.SortOrder = 3;
-                return button;
-            });
+            _regionManager.RegisterViewWithRegion(RegionNames.ConfigurationNavigationRegion, () => RegionNavigationButtonFactory.Create(
+                Translate.TranslationFor(nameof(Resources.Strings.ViewName_CameraConfiguration)),
+                RegionNames.ConfigurationContentRegion,
+                new Uri($@"/{nameof(CameraConfigurationView)}", UriKind.Relative), 3));
 
         }
     }

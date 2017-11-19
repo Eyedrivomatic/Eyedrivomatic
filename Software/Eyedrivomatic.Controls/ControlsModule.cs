@@ -23,7 +23,6 @@ using System.ComponentModel.Composition;
 using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Eyedrivomatic.Controls
 {
@@ -33,14 +32,10 @@ namespace Eyedrivomatic.Controls
     [ModuleExport(typeof(ControlsModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ControlsModule : IModule
     {
-        public IServiceLocator ServiceLocator { get; set; }
-
         [ImportingConstructor]
-        public ControlsModule(IServiceLocator serviceLocator)
+        public ControlsModule()
         {
             Log.Debug(this, $"Creating Module {nameof(ControlsModule)}.");
-
-            ServiceLocator = serviceLocator;
         }
 
         public void Initialize()

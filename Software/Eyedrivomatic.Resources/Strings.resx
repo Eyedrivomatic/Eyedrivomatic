@@ -369,7 +369,7 @@ The "Start" button should have a very long dwell time to prevent accidental acti
   </data>
   <data name="SettingName_ProfileName" xml:space="preserve">
     <value>Name</value>
-    <comment>The lable displayed next to the "Name" setting in the profile configuration view.</comment>
+    <comment>The label displayed next to the "Name" setting in the profile configuration view.</comment>
   </data>
   <data name="CommandText_AddProfileSpeed" xml:space="preserve">
     <value>Add Speed</value>

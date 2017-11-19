@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using Gu.Localization;
 
@@ -14,13 +15,10 @@ namespace Eyedrivomatic.Infrastructure
         public TranslationWrapper(ITranslation translationImplementation)
         {
             _translationImplementation = translationImplementation;
+            _translationImplementation.PropertyChanged += (sender, args) => PropertyChanged?.Invoke(this, args);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add => _translationImplementation.PropertyChanged += value;
-            remove => _translationImplementation.PropertyChanged -= value;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Translate(CultureInfo culture, ErrorHandling errorHandlingStrategy = ErrorHandling.Inherit)
         {

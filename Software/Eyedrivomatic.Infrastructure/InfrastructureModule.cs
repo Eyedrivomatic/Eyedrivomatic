@@ -30,14 +30,10 @@ namespace Eyedrivomatic.Infrastructure
     [ModuleExport(typeof(InfrastructureModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class InfrastructureModule : IModule
     {
-        private readonly IRegionManager RegionManager;
-
         [ImportingConstructor]
         public InfrastructureModule(IRegionManager regionManager)
         {
             Log.Debug(this, $"Creating Module {nameof(InfrastructureModule)}.");
-
-            RegionManager = regionManager;
         }
 
         public void Initialize()

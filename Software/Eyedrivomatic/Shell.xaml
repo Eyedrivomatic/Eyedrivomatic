@@ -244,9 +244,9 @@
                         <UniformGrid Columns="1" VerticalAlignment="Center" IsItemsHost="True" />
                     </ControlTemplate>
                 </ItemsControl.Template>
-                <ToggleButton Content="Indoors" />
-                <ToggleButton Content="Outdoors" />
-                <ToggleButton Content="Careful" />
+                <RadioButton Content="Indoors" />
+                <RadioButton Content="Outdoors" />
+                <RadioButton Content="Careful" />
             </ItemsControl>
 
             <ItemsControl x:Name="ConfigurationNavigation"
