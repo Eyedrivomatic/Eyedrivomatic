@@ -14,10 +14,10 @@
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
         <Button x:Name="CancelButton" Content="{Binding CancelButtonContent}" 
                 Height="50" Width="290" Margin="5,5,10,5" Click="CancelButton_Click"
-                dwellClick:DwellClickBehavior.IgnorePause="True"/>
+                dwellClick:DwellClickBehavior.IgnorePause="{Binding IgnoreDwellPause}"/>
             <Button x:Name="ContinueButton" Content="{Binding ContinueButtonContent}" 
                     Height="50" Width="290" Margin="10,5,5,5" Click="OkButton_Click"
-                    dwellClick:DwellClickBehavior.IgnorePause="True"/>
+                    dwellClick:DwellClickBehavior.IgnorePause="{Binding IgnoreDwellPause}"/>
         </StackPanel>
         <ContentControl Content="{Binding Content}" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto">
             <ContentControl.Resources>

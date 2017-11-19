@@ -5,5 +5,6 @@ namespace Eyedrivomatic.Infrastructure
     public interface INotificationWithCustomButton : INotification
     {
         object ButtonContent { get; set; }
+        bool IgnoreDwellPause { get; set; }
     }
 }

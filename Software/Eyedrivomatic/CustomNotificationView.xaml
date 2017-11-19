@@ -14,7 +14,7 @@
         <Button DockPanel.Dock="Bottom" 
                 Content="{Binding ButtonContent}" 
                 Height="50" Width="400" Margin="5" Click="Button_Click"
-                dwellClick:DwellClickBehavior.IgnorePause="True"/>
+                dwellClick:DwellClickBehavior.IgnorePause="{Binding IgnoreDwellPause}"/>
         <ContentControl Content="{Binding Content}" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type system:String}">

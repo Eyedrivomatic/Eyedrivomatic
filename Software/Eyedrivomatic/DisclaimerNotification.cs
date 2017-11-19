@@ -41,5 +41,7 @@ namespace Eyedrivomatic
             get => Translate.Key(nameof(Strings.Disclaimer_Button));
             set => throw new NotSupportedException();
         }
+
+        public bool IgnoreDwellPause { get; set; } = true;
     }
 }

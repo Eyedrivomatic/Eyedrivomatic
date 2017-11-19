@@ -6,5 +6,6 @@ namespace Eyedrivomatic.Infrastructure
     {
         public object ContinueButtonContent { get; set; } = Translate.TranslationFor("CommandText_Continue");
         public object CancelButtonContent { get; set; } = Translate.TranslationFor("CommandText_Cancel");
+        public bool IgnoreDwellPause { get; set; }
     }
 }

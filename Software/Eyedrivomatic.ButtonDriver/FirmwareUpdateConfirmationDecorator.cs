@@ -46,14 +46,16 @@ namespace Eyedrivomatic.ButtonDriver
                         Title = Translate.Key(nameof(Strings.Firmware_UpdateRequired_Title)),
                         Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateRequired_Directive_Format)),
                             connection.ConnectionString, connection.FirmwareVersion.ToString(3) ?? "N/A",
-                            version.ToString(3))
+                            version.ToString(3)),
+                        IgnoreDwellPause = true
                     }
                     : new ConfirmationWithCustomButtons
                     {
                         Title = Translate.Key(nameof(Strings.Firmware_UpdateOptional_Title)),
                         Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateOptional_Directive_Format)),
                             connection.ConnectionString, connection.FirmwareVersion.ToString(3) ?? "N/A",
-                            version.ToString(3))
+                            version.ToString(3)),
+                        IgnoreDwellPause = true
                     },
                 c => requestTask.SetResult(c.Confirmed));
 

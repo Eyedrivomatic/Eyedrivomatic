@@ -6,5 +6,6 @@ namespace Eyedrivomatic.Infrastructure
     {
         object ContinueButtonContent { get; set; }
         object CancelButtonContent { get; set; }
+        bool IgnoreDwellPause { get; set; }
     }
 }
