@@ -530,6 +530,7 @@
         <Setter Property="BorderThickness" Value="{DynamicResource ItemBorderThickness}" />
         <Setter Property="Foreground" Value="{DynamicResource ItemForegroundBrush}" />
         <Setter Property="FontSize" Value="20" />
+        <Setter Property="Height" Value="70" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
