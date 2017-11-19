@@ -216,15 +216,15 @@ To ensure safe operation, the following guidelines MUST be adhered to at all tim
     <value>New Task</value>
     <comment>Create a new task for the current macro.</comment>
   </data>
-  <data name="DrivingView_Speed_Fast" xml:space="preserve">
+  <data name="DriveProfileSpeed_Fast" xml:space="preserve">
     <value>Fast</value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="DrivingView_Speed_Slow" xml:space="preserve">
+  <data name="DriveProfileSpeed_Slow" xml:space="preserve">
     <value>Slow</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="DrivingView_Speed_Walk" xml:space="preserve">
+  <data name="DriveProfileSpeed_Walk" xml:space="preserve">
     <value>Walk</value>
     <comment>Set the drive speed to walk.</comment>
   </data>

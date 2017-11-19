@@ -154,13 +154,13 @@
   <data name="NewTaskViewModelName" xml:space="preserve">
     <value>Nueva Actividad</value>
   </data>
-  <data name="DrivingView_Speed_Fast" xml:space="preserve">
+  <data name="DriveProfileSpeed_Fast" xml:space="preserve">
     <value>¡Rápido!</value>
   </data>
-  <data name="DrivingView_Speed_Slow" xml:space="preserve">
+  <data name="DriveProfileSpeed_Slow" xml:space="preserve">
     <value>Lento</value>
   </data>
-  <data name="DrivingView_Speed_Walk" xml:space="preserve">
+  <data name="DriveProfileSpeed_Walk" xml:space="preserve">
     <value>¡Camina!</value>
   </data>
   <data name="SettingGroupName_DeviceConnection" xml:space="preserve">

@@ -29,13 +29,13 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             Speeds.AddRange(
                 new[]
                 {
-                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Slow.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DriveProfileSpeed_Slow.NextPostfix(otherSpeeds),
                         X=60, YForward=40, YBackward=40, XDiag=50, YForwardDiag=25, YBackwardDiag=25, Nudge=10},
 
-                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Walk.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DriveProfileSpeed_Walk.NextPostfix(otherSpeeds),
                         X=80, YForward=60, YBackward=60, XDiag=70, YForwardDiag=50, YBackwardDiag=45, Nudge=10},
 
-                    new ProfileSpeed {Name=Strings.DrivingView_Speed_Fast.NextPostfix(otherSpeeds),
+                    new ProfileSpeed {Name=Strings.DriveProfileSpeed_Fast.NextPostfix(otherSpeeds),
                         X=100, YForward=100, YBackward=100, XDiag=75, YForwardDiag=75, YBackwardDiag=65, Nudge=10},
                 });
         }

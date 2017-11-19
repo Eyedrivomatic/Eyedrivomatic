@@ -272,7 +272,8 @@
                 </ListView.Template>
                 <ListView.Resources>
                     <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeeds"
-                                                                    ResourcePattern="DrivingView_Speed_{0}" />
+                                                                    ResourcePattern="DriveProfileSpeed_{0}"
+                                                                    ConvertToTranslation="True"/>
                 </ListView.Resources>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -299,7 +300,8 @@
                           Background="{DynamicResource ButtonBackgroundBrushAlt}">
                 <ItemsControl.Resources>
                     <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedMacroName"
-                                                                    ResourcePattern="MacrosName_{0}" />
+                                                                    ResourcePattern="MacrosName_{0}"
+                                                                    ConvertToTranslation="True"/>
                 </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

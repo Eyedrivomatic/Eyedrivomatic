@@ -364,6 +364,33 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fast.
+        /// </summary>
+        public static string DriveProfileSpeed_Fast {
+            get {
+                return ResourceManager.GetString("DriveProfileSpeed_Fast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slow.
+        /// </summary>
+        public static string DriveProfileSpeed_Slow {
+            get {
+                return ResourceManager.GetString("DriveProfileSpeed_Slow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walk.
+        /// </summary>
+        public static string DriveProfileSpeed_Walk {
+            get {
+                return ResourceManager.GetString("DriveProfileSpeed_Walk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drive Speeds.
         /// </summary>
         public static string DrivingView_DriveSpeeds {
@@ -378,33 +405,6 @@ namespace Eyedrivomatic.Resources {
         public static string DrivingView_Duration {
             get {
                 return ResourceManager.GetString("DrivingView_Duration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fast.
-        /// </summary>
-        public static string DrivingView_Speed_Fast {
-            get {
-                return ResourceManager.GetString("DrivingView_Speed_Fast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slow.
-        /// </summary>
-        public static string DrivingView_Speed_Slow {
-            get {
-                return ResourceManager.GetString("DrivingView_Speed_Slow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Walk.
-        /// </summary>
-        public static string DrivingView_Speed_Walk {
-            get {
-                return ResourceManager.GetString("DrivingView_Speed_Walk", resourceCulture);
             }
         }
         

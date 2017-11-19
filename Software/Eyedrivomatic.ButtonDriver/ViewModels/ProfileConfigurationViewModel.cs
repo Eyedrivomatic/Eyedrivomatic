@@ -156,7 +156,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             new LocalizedStringConverter { ResourcePattern = "DriveProfile_{0}" };
 
         public LocalizedStringConverter ProfileSpeedNameConverter { get; } =
-            new LocalizedStringConverter { ResourcePattern = "DrivingView_Speed_{0}" };
+            new LocalizedStringConverter { ResourcePattern = "DriveProfileSpeed_{0}" };
 
         private void DeleteProfileSpeed(ProfileSpeed speed)
         {

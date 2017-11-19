@@ -21,6 +21,15 @@ namespace Eyedrivomatic.Infrastructure
 
         /// <summary>Call like this: Translate.Key(nameof(Strings.Saved_file__0_)).</summary>
         /// <param name="key">A key in Properties.Resources</param>
+        /// <param name="defaultValue">The value to use if the translation does not exist</param>
+        /// <returns>A translation for the key.</returns>
+        public static string Key(string key, string defaultValue)
+        {
+            return TranslationFor(key, defaultValue).Translated;
+        }
+
+        /// <summary>Call like this: Translate.Key(nameof(Strings.Saved_file__0_)).</summary>
+        /// <param name="key">A key in Properties.Resources</param>
         /// <param name="errorHandling">How to handle translation errors like missing key or culture.</param>
         /// <returns>A translation for the key.</returns>
         public static ITranslation TranslationFor(string key, ErrorHandling errorHandling = ErrorHandling.ReturnErrorInfoPreserveNeutral)

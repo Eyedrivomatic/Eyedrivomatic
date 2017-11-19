@@ -25,10 +25,16 @@
                                                       VisibilityIfNull="{x:Static Visibility.Collapsed}" />
 
             <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveProfiles"
-                                                            ResourcePattern="DriveProfile_{0}" />
+                                                            ResourcePattern="DriveProfile_{0}"
+                                                            ConvertToTranslation="True"/>
+            <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveProfileStrings"
+                                                            ResourcePattern="DriveProfile_{0}"/>
 
             <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeeds"
-                                                            ResourcePattern="DrivingView_Speed_{0}" />
+                                                            ResourcePattern="DriveProfileSpeed_{0}"
+                                                            ConvertToTranslation="True"/>
+            <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedDriveSpeedStrings"
+                                                            ResourcePattern="DriveProfileSpeed_{0}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -109,7 +115,7 @@
                            Grid.Row="0" Grid.Column="0"
                            Style="{DynamicResource SettingLabelStyle}" />
                     <TextBox Name="ProfileName" Grid.Row="0" Grid.Column="1"
-                             Text="{Binding CurrentProfile.Name}"
+                             Text="{Binding CurrentProfile.Name, Converter={StaticResource LocalizedDriveProfileStrings}}"
                              Style="{DynamicResource SettingValueStyle}" />
                     <ToggleButton Name="SafetyBypass" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                   Content="{l:Static resources:Strings.SettingName_SafetyBypass}"
@@ -198,7 +204,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_Name}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <TextBox Text="{Binding Name}" Name="ProfileSpeedName"
+                        <TextBox Text="{Binding Name, Converter={StaticResource LocalizedDriveSpeedStrings}}" Name="ProfileSpeedName"
                                  Grid.Row="0" Grid.Column="1"
                                  Style="{DynamicResource SettingValueStyle}"
                                  Margin="0,0,0,10" />

@@ -18,21 +18,25 @@ namespace Eyedrivomatic.Infrastructure
     public class LocalizedStringOrImageConverter : IValueConverter
     {
         public string ResourcePattern { get; set; } = "{0}";
+        public bool ConvertToTranslation { get; set; }
 
         [AllowNull] public ResourceManager ResourceManager { get; set; }
         [AllowNull] public FrameworkElement FrameworkElement { get; set; }
         
+
         [return: AllowNull]
         public object Convert([AllowNull] object value, Type targetType, [AllowNull] object parameter, [AllowNull] CultureInfo culture)
         {
-            var resourceName = string.Format(ResourcePattern, value);
+            var resourceName = string.Format(ResourcePattern, value).Replace(" ", "");
             var image = FindImage(resourceName);
             if (image != null) return image;
 
             var frameworkResource = FindFrameworkResource(resourceName);
             if (frameworkResource != null) return frameworkResource;
 
-            return Translate.TranslationFor(resourceName, value?.ToString());
+            return ConvertToTranslation 
+                ? Translate.TranslationFor(resourceName, value?.ToString()) as object
+                : Translate.Key(resourceName, value?.ToString());
         }
 
         [return: AllowNull]
@@ -60,7 +64,7 @@ namespace Eyedrivomatic.Infrastructure
 
         public object ConvertBack(object value, Type targetType, [AllowNull]  object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value?.ToString();
         }
     }
 }

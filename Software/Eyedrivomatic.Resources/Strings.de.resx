@@ -236,15 +236,15 @@ Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit e
     <value>Bewegungsdauer</value>
     <comment>The header text displayed on the drive page above the duration buttons.</comment>
   </data>
-  <data name="DrivingView_Speed_Fast" xml:space="preserve">
+  <data name="DriveProfileSpeed_Fast" xml:space="preserve">
     <value>Schnell </value>
     <comment>Set the drive speed to fast.</comment>
   </data>
-  <data name="DrivingView_Speed_Slow" xml:space="preserve">
+  <data name="DriveProfileSpeed_Slow" xml:space="preserve">
     <value>Langsam</value>
     <comment>Set the drive speed to slow.</comment>
   </data>
-  <data name="DrivingView_Speed_Walk" xml:space="preserve">
+  <data name="DriveProfileSpeed_Walk" xml:space="preserve">
     <value>Gehen</value>
     <comment>Set the drive speed to walk.</comment>
   </data>
