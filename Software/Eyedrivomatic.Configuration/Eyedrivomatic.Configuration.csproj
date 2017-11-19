@@ -82,6 +82,9 @@
     <Compile Include="ConfigurationModule.cs" />
     <Compile Include="IAppearanceConfigurationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AppearanceConfiguration.cs">
+      <DependentUpon>AppearanceConfiguration.settings</DependentUpon>
+    </Compile>
     <Compile Include="AppearanceConfiguration.Designer.cs">
       <DependentUpon>AppearanceConfiguration.settings</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -101,7 +104,9 @@
     <None Include="..\Eyedrivomatic.licenseheader">
       <Link>Eyedrivomatic.licenseheader</Link>
     </None>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="AppearanceConfiguration.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -78,6 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraConfiguration.cs" >
+      <DependentUpon>CameraConfiguration.settings</DependentUpon>
+    </Compile>
     <Compile Include="CameraConfiguration.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

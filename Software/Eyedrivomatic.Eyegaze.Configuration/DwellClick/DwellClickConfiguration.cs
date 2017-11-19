@@ -4,9 +4,11 @@
     {
         public override void Upgrade()
         {
+            if (SettingsVersion > 0) return; //Already upgraded.
+
             base.Upgrade();
 
-            if (SettingsVersion < 1)
+            if (SettingsVersion == 0) //Eyedrivomatic 1.0
             {
                 if (GetPreviousVersion("DwellTimeMilliseconds") is int dwellTime)
                 {
@@ -15,8 +17,9 @@
                     StartButtonDwellTimeMilliseconds = dwellTime;
                     StopButtonDwellTimeMilliseconds = dwellTime;
                 }
-                SettingsVersion = 1;
             }
+
+            SettingsVersion = 1;
         }
     }
 }

@@ -50,16 +50,23 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             _configuration = configuration;
             _configuration.PropertyChanged += ConfigurationSectionPropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.Upgrade();
             _configuration.WriteToLog();
 
             _configuration.DrivingProfiles.CollectionChanged += DrivingProfilesOnCollectionChanged;
             ((INotifyPropertyChanged)_configuration.DrivingProfiles).PropertyChanged += ProfileOnPropertyChanged;
 
+            foreach (var profile in _configuration.DrivingProfiles)
+            {
+                profile.PropertyChanged += ProfileOnPropertyChanged;
+                profile.Speeds.CollectionChanged += SpeedsOnCollectionChanged;
+            }
             foreach (var speed in _configuration.DrivingProfiles.SelectMany(p => p.Speeds))
             {
                 speed.PropertyChanged += ProfileSpeedOnPropertyChanged;
             }
-            _configuration.Upgrade();
+
+            HasChanges = false;
         }
 
         #region Change event handlers
@@ -75,7 +82,11 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
                 {
                     profile.PropertyChanged -= ProfileOnPropertyChanged;
                     profile.Speeds.CollectionChanged -= SpeedsOnCollectionChanged;
-                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged += ProfileOnPropertyChanged;
+                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged -= ProfileOnPropertyChanged;
+                    foreach (var speed in profile.Speeds)
+                    {
+                        speed.PropertyChanged -= ProfileSpeedOnPropertyChanged;
+                    }
 
                     if (CurrentProfile == profile) CurrentProfile = DrivingProfiles.FirstOrDefault();
                 }
@@ -88,7 +99,11 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
                 {
                     profile.PropertyChanged += ProfileOnPropertyChanged;
                     profile.Speeds.CollectionChanged += SpeedsOnCollectionChanged;
-                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged -= ProfileOnPropertyChanged;
+                    ((INotifyPropertyChanged)profile.Speeds).PropertyChanged += ProfileOnPropertyChanged;
+                    foreach (var speed in profile.Speeds)
+                    {
+                        speed.PropertyChanged += ProfileSpeedOnPropertyChanged;
+                    }
 
                     if (CurrentProfile == null) CurrentProfile = profile;
                 }
@@ -139,6 +154,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
             {
                 // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(args.PropertyName);
+                HasChanges = true;
             }
         }
         #endregion Change event handlers
@@ -146,26 +162,26 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public bool AutoConnect
         {
             get => _configuration.AutoConnect;
-            set => _configuration.AutoConnect = value;
+            set { if (_configuration.AutoConnect != value) _configuration.AutoConnect = value; }
         }
 
         public string ConnectionString
         {
             get => _configuration.ConnectionString;
-            set => _configuration.ConnectionString = value;
+            set { if (_configuration.ConnectionString != value) _configuration.ConnectionString = value; }
         }
 
         public bool SafetyBypass
         {
             get => _configuration.SafetyBypass;
-            set => _configuration.SafetyBypass = value;
+            set { if (_configuration.SafetyBypass != value) _configuration.SafetyBypass = value; }
         }
 
         [Export(nameof(CommandTimeout))]
         public TimeSpan CommandTimeout
         {
             get => TimeSpan.FromMilliseconds(_configuration.CommandTimeout);
-            set => _configuration.CommandTimeout = value.TotalMilliseconds;
+            set { if (Math.Abs(_configuration.CommandTimeout - value.TotalMilliseconds) >= 1) _configuration.CommandTimeout = value.TotalMilliseconds; }
         }
 
         [Export(typeof(IEnumerable<Profile>))]

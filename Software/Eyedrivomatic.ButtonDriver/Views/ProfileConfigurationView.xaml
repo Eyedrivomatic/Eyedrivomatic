@@ -115,7 +115,7 @@
                            Grid.Row="0" Grid.Column="0"
                            Style="{DynamicResource SettingLabelStyle}" />
                     <TextBox Name="ProfileName" Grid.Row="0" Grid.Column="1"
-                             Text="{Binding CurrentProfile.Name, Converter={StaticResource LocalizedDriveProfileStrings}}"
+                             Text="{Binding CurrentProfile.Name, Converter={StaticResource LocalizedDriveProfileStrings}, UpdateSourceTrigger=PropertyChanged}"
                              Style="{DynamicResource SettingValueStyle}" />
                     <ToggleButton Name="SafetyBypass" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                   Content="{l:Static resources:Strings.SettingName_SafetyBypass}"
@@ -204,7 +204,7 @@
                                Content="{l:Static resources:Strings.SettingName_ProfileSpeed_Name}"
                                Style="{DynamicResource SettingLabelStyle}" />
 
-                        <TextBox Text="{Binding Name, Converter={StaticResource LocalizedDriveSpeedStrings}}" Name="ProfileSpeedName"
+                        <TextBox Text="{Binding Name, Converter={StaticResource LocalizedDriveSpeedStrings}, UpdateSourceTrigger=PropertyChanged}" Name="ProfileSpeedName"
                                  Grid.Row="0" Grid.Column="1"
                                  Style="{DynamicResource SettingValueStyle}"
                                  Margin="0,0,0,10" />

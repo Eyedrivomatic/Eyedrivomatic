@@ -46,9 +46,10 @@ namespace Eyedrivomatic.Eyegaze.Configuration.DwellClick
             _configuration = configuration;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.Upgrade();
             _configuration.WriteToLog();
 
-            _configuration.Upgrade();
+            HasChanges = false;
         }
 
         private void Configuration_PropertyChanged(object sender, PropertyChangedEventArgs e)

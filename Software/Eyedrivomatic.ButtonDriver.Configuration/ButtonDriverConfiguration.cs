@@ -1,20 +1,28 @@
-﻿using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
     internal sealed partial class ButtonDriverConfiguration
     {
-        protected override void OnSettingsLoaded(object sender, SettingsLoadedEventArgs e)
+        public override void Upgrade()
         {
-            //Populate the driving profiles if none are defined.
-            if (!(DrivingProfiles?.Any() ?? false))
+            if (SettingsVersion > 0) return; //Already upgraded.
+
+            base.Upgrade();
+            
+            if (SettingsVersion == 0) //Eyedrivomatic 1.0
             {
-                var defaultProfile = new Profile();
-                defaultProfile.AddDefaultSpeeds();
-                DrivingProfiles = new ProfileCollection { defaultProfile  };
-                base.OnSettingsLoaded(sender, e);
+                //Populate the driving profiles if none are defined.
+                if (!(DrivingProfiles?.Any() ?? false))
+                {
+                    var defaultProfile = new Profile();
+                    defaultProfile.AddDefaultSpeeds();
+                    DrivingProfiles = new ProfileCollection { defaultProfile };
+                }
             }
+
+            SettingsVersion = 1;
         }
     }
+    
 }

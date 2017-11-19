@@ -53,12 +53,13 @@ namespace Eyedrivomatic.Configuration
             _themeSelector = themeSelector;
             _configuration.PropertyChanged += Configuration_PropertyChanged;
             _configuration.SettingsLoaded += (sender, args) => HasChanges = false;
+            _configuration.Upgrade();
             _configuration.WriteToLog();
 
             InitializeCulture(configuration);
             Translator.CurrentCultureChanged += TranslatorOnCurrentCultureChanged;
 
-            _configuration.Upgrade();
+            HasChanges = false;
 
             ApplyThemeColors();
             ApplyThemeImages();
