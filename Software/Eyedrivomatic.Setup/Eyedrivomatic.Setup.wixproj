@@ -14,6 +14,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
+    <VerboseOutput>True</VerboseOutput>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -77,6 +78,8 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Drivers\AdafruitCircuitPlayground.cat" />
+    <Content Include="Drivers\AdafruitCircuitPlayground.inf" />
     <Content Include="Drivers\amd64\libusb0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -95,12 +98,54 @@
     <Content Include="Drivers\arduino.inf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Drivers\arduino_gemma.cat" />
+    <Content Include="Drivers\arduino_gemma.inf" />
+    <Content Include="Drivers\CP210x_6.7.4\slabvcp.cat" />
+    <Content Include="Drivers\CP210x_6.7.4\slabvcp.inf" />
+    <Content Include="Drivers\CP210x_6.7.4\x64\silabser.sys" />
+    <Content Include="Drivers\CP210x_6.7.4\x64\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7.4\x86\silabser.sys" />
+    <Content Include="Drivers\CP210x_6.7.4\x86\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7\ReleaseNotes.txt" />
+    <Content Include="Drivers\CP210x_6.7\slabvcp.cat" />
+    <Content Include="Drivers\CP210x_6.7\slabvcp.inf" />
+    <Content Include="Drivers\CP210x_6.7\SLAB_License_Agreement_VCP_Windows.txt" />
+    <Content Include="Drivers\CP210x_6.7\x64\silabenm.sys" />
+    <Content Include="Drivers\CP210x_6.7\x64\silabser.sys" />
+    <Content Include="Drivers\CP210x_6.7\x64\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7\x86\silabenm.sys" />
+    <Content Include="Drivers\CP210x_6.7\x86\silabser.sys" />
+    <Content Include="Drivers\CP210x_6.7\x86\WdfCoInstaller01009.dll" />
     <Content Include="Drivers\dpinst-amd64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Drivers\dpinst-x86.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftbusui.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftcserco.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftd2xx.lib" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftd2xx64.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftdibus.sys" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftlang.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftser2k.sys" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftserui2.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\ftd2xx.h" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdibus.cat" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdibus.inf" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdiport.cat" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdiport.inf" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftbusui.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftcserco.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftd2xx.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftd2xx.lib" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftdibus.sys" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftlang.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftser2k.sys" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftserui2.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\LogoVerificationReport.pdf" />
+    <Content Include="Drivers\FTDI USB Drivers\Static\amd64\ftd2xx.lib" />
+    <Content Include="Drivers\FTDI USB Drivers\Static\i386\ftd2xx.lib" />
     <Content Include="Drivers\genuino.cat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -116,6 +161,10 @@
     <Content Include="Drivers\license\libusb0\installer_license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Drivers\linino-boards_amd64.cat" />
+    <Content Include="Drivers\linino-boards_x86.cat" />
+    <Content Include="Drivers\linino.inf" />
+    <Content Include="Drivers\Old_Arduino_Drivers.zip" />
     <Content Include="Drivers\README.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -130,6 +179,18 @@
   <ItemGroup>
     <Folder Include="Drivers\" />
     <Folder Include="Drivers\amd64\" />
+    <Folder Include="Drivers\CP210x_6.7.4\" />
+    <Folder Include="Drivers\CP210x_6.7.4\x64\" />
+    <Folder Include="Drivers\CP210x_6.7.4\x86\" />
+    <Folder Include="Drivers\CP210x_6.7\" />
+    <Folder Include="Drivers\CP210x_6.7\x64\" />
+    <Folder Include="Drivers\CP210x_6.7\x86\" />
+    <Folder Include="Drivers\FTDI USB Drivers\" />
+    <Folder Include="Drivers\FTDI USB Drivers\amd64\" />
+    <Folder Include="Drivers\FTDI USB Drivers\i386\" />
+    <Folder Include="Drivers\FTDI USB Drivers\Static\" />
+    <Folder Include="Drivers\FTDI USB Drivers\Static\amd64\" />
+    <Folder Include="Drivers\FTDI USB Drivers\Static\i386\" />
     <Folder Include="Drivers\ia64\" />
     <Folder Include="Drivers\license\" />
     <Folder Include="Drivers\license\libusb0\" />

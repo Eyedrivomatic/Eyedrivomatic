@@ -3,7 +3,7 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <?define Eyedrivomatic_TargetDir=$(var.Eyedrivomatic.TargetDir)?>
 
-  <Product Id="*" Name="!(loc.ApplicationName)" Version="2.0.6532.21850" Language="1033" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
+  <Product Id="*" Name="!(loc.ApplicationName)" Version="2.0.6535.38837" Language="1033" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Keywords="Installer" />
 
     <PropertyRef Id="NETFRAMEWORK45" />
@@ -27,6 +27,7 @@
         <ComponentGroupRef Id="de_files" />
         <ComponentGroupRef Id="es_files" />
         <ComponentGroupRef Id="es_MX_files" />
+        <ComponentGroupRef Id="sv_files" />
         <!--<ComponentGroupRef Id="fr_files" />
         <ComponentGroupRef Id="it_files" />
         <ComponentGroupRef Id="ja_files" />
@@ -62,6 +63,7 @@
           <Directory Id="en" Name="en" />
           <Directory Id="es" Name="es" />
           <Directory Id="es_MX" Name="es-MX" />
+          <Directory Id="sv" Name="sv" />
           <!--<Directory Id="fr" Name="fr" />
           <Directory Id="hu" Name="hu" />
           <Directory Id="it" Name="it" />
@@ -70,7 +72,6 @@
           <Directory Id="pt_BR" Name="pt-BR" />
           <Directory Id="ro" Name="ro" />
           <Directory Id="ru" Name="ru" />
-          <Directory Id="sv" Name="sv" />
           <Directory Id="zh_Hans" Name="zh-Hans" />
           <Directory Id="zh_Hant" Name="zh-Hant" />-->
         </Directory>
@@ -251,6 +252,45 @@
       <Component Id="Xceed.Wpf.Toolkit.dll" Guid="{5C078CC7-5212-4580-AFE2-04A53BC1F0D1}">
         <File Id="Xceed.Wpf.Toolkit.dll" Name="Xceed.Wpf.Toolkit.dll" Source="$(var.Eyedrivomatic_TargetDir)Xceed.Wpf.Toolkit.dll" KeyPath="yes" />
       </Component>
+      <Component Id="System.Threading.Overlapped.dll" Guid="bbcb5902-2d3f-4665-a10a-8b2723c9d51f">
+        <File Id="System.Threading.Overlapped.dll" Name="System.Threading.Overlapped.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Threading.Overlapped.dll" />
+      </Component>
+      <Component Id="System.Runtime.dll" Guid="2d97932f-4213-40db-a4b0-3b880202f0e0">
+        <File Id="System.Runtime.dll" Name="System.Runtime.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Runtime.dll" />
+      </Component>
+      <Component Id="System.Threading.ThreadPool.dll" Guid="b0a7cda0-7593-4727-a7bb-da7ec7701949">
+        <File Id="System.Threading.ThreadPool.dll" Name="System.Threading.ThreadPool.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Threading.ThreadPool.dll" />
+      </Component>
+      <Component Id="System.Threading.Thread.dll" Guid="2c835ae9-3c4f-4a95-814e-fa701e0c754b">
+        <File Id="System.Threading.Thread.dll" Name="System.Threading.Thread.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Threading.Thread.dll" />
+      </Component>
+      <Component Id="System.IO.FileSystem.Primitives.dll" Guid="f8bccbd2-2fb1-453e-a36e-c01165ad01e3">
+        <File Id="System.IO.FileSystem.Primitives.dll" Name="System.IO.FileSystem.Primitives.dll" Source="$(var.Eyedrivomatic_TargetDir)System.IO.FileSystem.Primitives.dll" />
+      </Component>
+      <Component Id="System.IO.dll" Guid="ec204920-58fb-4ed9-a67d-1d44fc830a45">
+        <File Id="System.IO.dll" Name="System.IO.dll" Source="$(var.Eyedrivomatic_TargetDir)System.IO.dll" />
+      </Component>
+      <Component Id="System.IO.FileSystem.dll" Guid="679a83f8-8c42-4540-840b-71b9e34f2490">
+        <File Id="System.IO.FileSystem.dll" Name="System.IO.FileSystem.dll" Source="$(var.Eyedrivomatic_TargetDir)System.IO.FileSystem.dll" />
+      </Component>
+      <Component Id="System.Runtime.InteropServices.dll" Guid="61ea2e57-d7ab-4459-b734-f2650491624b">
+        <File Id="System.Runtime.InteropServices.dll" Name="System.Runtime.InteropServices.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Runtime.InteropServices.dll" />
+      </Component>
+      <Component Id="System.Diagnostics.TraceSource.dll" Guid="86078160-d63c-47e8-b51d-01ce79054e6f">
+        <File Id="System.Diagnostics.TraceSource.dll" Name="System.Diagnostics.TraceSource.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Diagnostics.TraceSource.dll" />
+      </Component>
+      <Component Id="System.Collections.Specialized.dll" Guid="ec13ae20-be5a-48b6-82ae-ba50e1634a3d">
+        <File Id="System.Collections.Specialized.dll" Name="System.Collections.Specialized.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Collections.Specialized.dll" />
+      </Component>
+      <Component Id="System.Diagnostics.FileVersionInfo.dll" Guid="c773ca17-5963-45a1-88f9-73851c4e4a93">
+        <File Id="System.Diagnostics.FileVersionInfo.dll" Name="System.Diagnostics.FileVersionInfo.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Diagnostics.FileVersionInfo.dll" />
+      </Component>
+      <Component Id="Microsoft.Win32.Registry.dll" Guid="db96fdf0-56c3-4ff1-881c-154f5a0b760f">
+        <File Id="Microsoft.Win32.Registry.dll" Name="Microsoft.Win32.Registry.dll" Source="$(var.Eyedrivomatic_TargetDir)Microsoft.Win32.Registry.dll" />
+      </Component>
+      <Component Id="System.Runtime.Extensions.dll" Guid="d55a6ee0-b797-49b9-8ef5-76e493bddf85">
+        <File Id="System.Runtime.Extensions.dll" Name="System.Runtime.Extensions.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Runtime.Extensions.dll" />
+      </Component>
       <Component Id="System.Reactive.Interfaces.dll" Guid="{F642256B-25DF-4594-8E0C-CF2D114E250A}">
         <File Id="System.Reactive.Interfaces.dll" Name="System.Reactive.Interfaces.dll" Source="$(var.Eyedrivomatic_TargetDir)System.Reactive.Interfaces.dll" KeyPath="yes" />
       </Component>
@@ -327,6 +367,11 @@
     <ComponentGroup Id="es_MX_files" Directory="es_MX">
       <Component Id="es_MX_Eyedrivomatic.Resources.resources.dll" Guid="{1F6CBB8E-E5B7-4C94-81CF-34E9962A722D}">
         <File Id="es_MX_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)es-MX\Eyedrivomatic.Resources.resources.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="sv_files" Directory="sv">
+      <Component Id="sv_Eyedrivomatic.Resources.resources.dll" Guid="c8132481-3ef0-45c4-abd7-a1a85c05dab9">
+        <File Id="sv_Eyedrivomatic.Resources.resources.dll" Name="Eyedrivomatic.Resources.resources.dll" Source="$(var.Eyedrivomatic_TargetDir)sv\Eyedrivomatic.Resources.resources.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
     <!--<ComponentGroup Id="fr_files" Directory="fr">

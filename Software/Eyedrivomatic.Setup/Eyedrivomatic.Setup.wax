@@ -5,6 +5,7 @@
   </DeployedProjects>
   <DirectoryMappings>
     <Item Key="" Value="APPLICATIONFOLDER" />
+    <Item Key="sv" Value="es" />
   </DirectoryMappings>
   <FileMappings />
   <DeploySymbols>true</DeploySymbols>
