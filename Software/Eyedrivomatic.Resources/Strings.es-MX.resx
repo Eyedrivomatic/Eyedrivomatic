@@ -416,4 +416,16 @@ Versión actual: {1} actualización versión: {2}!</value>
   <data name="SettingGroupName_Language" xml:space="preserve">
     <value>Language!</value>
   </data>
+  <data name="ConfirmDeleteProfileSpeed_Directive_Format" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar la velocidad '{0}' del perfil '{1}'?</value>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Title" xml:space="preserve">
+    <value>Confirme la Eliminación de la Velocidad del Perfil</value>
+  </data>
+  <data name="ConfirmDeleteProfile_Directive_Format" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar el perfil '{0}'?</value>
+  </data>
+  <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
+    <value>Confirmar Eliminar Perfil</value>
+  </data>
 </root>
