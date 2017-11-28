@@ -12,7 +12,7 @@ namespace Eyedrivomatic.Hardware.Communications
 
         public Version VerifyStartupMessage(string firstMessage)
         {
-            return string.CompareOrdinal(firstMessage.Substring(0, StartupMessage.Length), StartupMessage) == 0 ? new Version(1, 0, 0, 0) : null;
+            return string.CompareOrdinal(firstMessage.Substring(0, Math.Min(StartupMessage.Length, firstMessage.Length)), StartupMessage) == 0 ? new Version(1, 0, 0, 0) : null;
         }
 
         public Dictionary<string, HardwareIdFilter> EyedrivomaticIds => ArduinoInfo.UnoDeviceIds;

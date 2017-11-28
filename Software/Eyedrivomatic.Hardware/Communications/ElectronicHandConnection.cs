@@ -115,14 +115,21 @@ namespace Eyedrivomatic.Hardware.Communications
 
         public void Disconnect()
         {
-            if (IsConnected) Log.Info(this, "Disconnecting");
+            if (_serialPort == null) return;
+            if (IsConnected || IsConnecting) Log.Info(this, "Disconnecting");
 
             var tmp = _serialPort;
             _serialPort = null; //IsConnected will now return false.
-            tmp?.BaseStream.Close();
-            tmp?.Close();
-            tmp?.Dispose();
-
+            if (tmp != null)
+            {
+                tmp.DtrEnable = false;
+                Thread.Sleep(250);
+                tmp.DtrEnable = true;
+                Thread.Sleep(250);
+                tmp.BaseStream.Close();
+                tmp.Close();
+                tmp.Dispose();
+            }
             OnConnectionStateChanged();
         }
 
@@ -137,45 +144,42 @@ namespace Eyedrivomatic.Hardware.Communications
         {
             try
             {
-                return await Task.Run(async () =>
+                var serialPort = new SerialPort(port, 19200)
                 {
-                    var serialPort = new SerialPort(port, 19200)
-                    {
-                        DtrEnable = false,
-                        ReadTimeout = 500
-                    };
+                    DtrEnable = false,
+                    ReadTimeout = 500
+                };
 
-                    Log.Info(this, $"Opening port [{port}].");
+                Log.Info(this, $"Opening port [{port}].");
 
-                    // ReSharper disable once AccessToDisposedClosure - closure used locally.
-                    using (cancellationToken.Register(() => serialPort.Dispose()))
+                // ReSharper disable once AccessToDisposedClosure - closure used locally.
+                using (cancellationToken.Register(() => serialPort.Dispose()))
+                {
+                    serialPort.Open();
+
+                    string firstMessage;
+                    try
                     {
+                        firstMessage = await ReadFirstMessageAsync(serialPort);
+                    }
+                    catch (IOException)
+                    {
+                        Log.Warn(this, $"Failed to read first message at [{serialPort.BaudRate}] baud. Attempting the slower speed of previous versions of [9600] baud.");
+                        serialPort.Close();
+                        serialPort.BaudRate = 9600;
                         serialPort.Open();
-
-                        string firstMessage;
-                        try
-                        {
-                            firstMessage = await ReadFirstMessageAsync(serialPort);
-                        }
-                        catch (IOException)
-                        {
-                            Log.Warn(this, $"Failed to read first message at [{serialPort.BaudRate}] baud. Attempting the slower speed of previous versions of [9600] baud.");
-                            serialPort.Close();
-                            serialPort.BaudRate = 9600;
-                            serialPort.Open();
-                            firstMessage = await ReadFirstMessageAsync(serialPort);
-                        }
-
-                        if (!VerifyStartupMessage(firstMessage))
-                        {
-                            Log.Info(this, $"Device not found on port [{port}]");
-                            serialPort.Dispose();
-                            return null;
-                        }
+                        firstMessage = await ReadFirstMessageAsync(serialPort);
                     }
 
-                    return serialPort;
-                }, cancellationToken);
+                    if (!VerifyStartupMessage(firstMessage))
+                    {
+                        Log.Info(this, $"Device not found on port [{port}]");
+                        serialPort.Dispose();
+                        return null;
+                    }
+                }
+
+                return serialPort;
             }
             catch (UnauthorizedAccessException)
             {
@@ -216,6 +220,7 @@ namespace Eyedrivomatic.Hardware.Communications
 
             var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
             var firstMessage = await reader.ReadLineAsync();
+            if (string.IsNullOrEmpty(firstMessage)) firstMessage = await reader.ReadLineAsync(); //In an earlier version of the software, a newline was sent first.
             Log.Debug(this, $"First message on port [{serialPort.PortName}] is [{firstMessage}].");
             return firstMessage;
         }

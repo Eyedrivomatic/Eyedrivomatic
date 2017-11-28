@@ -43,18 +43,15 @@ namespace Eyedrivomatic.Hardware.Services
 
             connection.Disconnect();
 
-            await Task.Run(() =>
-            {
-                var uploader = new ArduinoSketchUploader(
-                    new ArduinoSketchUploaderOptions
-                    {
-                        FileName = path,
-                        PortName = connection.ConnectionString,
-                        ArduinoModel = ArduinoModel.UnoR3,
-                    }, null, progress);
+            var uploader = new ArduinoSketchUploader(
+                new ArduinoSketchUploaderOptions
+                {
+                    FileName = path,
+                    PortName = connection.ConnectionString,
+                    ArduinoModel = ArduinoModel.UnoR3
+                }, null, progress);
 
-                uploader.UploadSketch();
-            });
+            uploader.UploadSketch();
 
             await connection.ConnectAsync(CancellationToken.None);
             return connection.State == ConnectionState.Connected;
