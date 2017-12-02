@@ -205,7 +205,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cycle Relay {0}, repeat {1} times with a delay of {2} ms between repeats..
+        ///   Looks up a localized string similar to Cycle Relay {0} for {1} ms, repeat {2} times with a delay of {3} ms between repeats..
         /// </summary>
         public static string CycleRelayMacroTask_ToStringFormat {
             get {

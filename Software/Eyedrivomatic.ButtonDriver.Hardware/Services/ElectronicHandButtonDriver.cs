@@ -435,9 +435,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             }
         }
 
-        public async Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0)
+        public async Task CycleRelayAsync(uint relay, uint repeat = 1, uint toggleDelayMs = 500, uint repeatDelayMs = 1000)
         {
-            Log.Info(this, $"Cycling relay {relay} {repeat} times with a delay of {repeatDelayMs}.");
+            Log.Info(this, $"Cycling relay {relay} for {toggleDelayMs} ms, {repeat} times with a delay of {repeatDelayMs} ms.");
             try
             {
                 for (int i = 0; i < repeat; i++)
@@ -445,8 +445,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                     if (i > 0) await Task.Delay(TimeSpan.FromMilliseconds(repeatDelayMs));
 
                     Log.Info(this, $"Cycling relay {relay}.");
-                    await _commands.ToggleRelay(relay, TimeSpan.Zero);
-                    await Task.Delay(220); //the relay cycles over 200ms. Add a few ms to allow for communication.
+                    await _commands.ToggleRelay(relay, TimeSpan.FromMilliseconds(toggleDelayMs));
+                    await Task.Delay(TimeSpan.FromMilliseconds(220 + toggleDelayMs)); //the relay cycles over 200ms. Add a few ms to allow for communication.
                 }
                 Log.Info(this, $"Cycling relay {relay} done.");
             }

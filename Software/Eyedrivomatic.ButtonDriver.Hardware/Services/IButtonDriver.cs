@@ -158,8 +158,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         /// <exception cref="ArgumentOutOfRangeException">If the relay does not exist.</exception>
         /// <param name="relay">The relay to cycle.</param>
         /// <param name="repeat">The number of times to repeat the cycle. If 0, the relay will not be activated.</param>
+        /// <param name="toggleDelayMs">The delay between relay state toggles in a cycle.</param>
         /// <param name="repeatDelayMs">The delay between repeated relay cycles.</param>
-        Task CycleRelayAsync(uint relay, uint repeat = 1, uint repeatDelayMs = 0);
+        Task CycleRelayAsync(uint relay, uint repeat = 1, uint toggleDelayMs = 500, uint repeatDelayMs = 1000);
         #endregion Control
     }
 }

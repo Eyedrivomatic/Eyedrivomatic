@@ -66,11 +66,11 @@ namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels
 
         public uint DelayMs
         {
-            get => CycleRelayTask.DelayMs;
+            get => CycleRelayTask.ToggleDelayMs;
             set
             {
-                if (CycleRelayTask.DelayMs == value) return;
-                CycleRelayTask.DelayMs = value;
+                if (CycleRelayTask.ToggleDelayMs == value) return;
+                CycleRelayTask.ToggleDelayMs = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(Info));
             }

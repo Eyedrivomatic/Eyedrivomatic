@@ -17,7 +17,7 @@ namespace Eyedrivomatic.Hardware.Commands
 
         public override string ToString()
         {
-            return $"SWITCH {Relay} {Duration.TotalMilliseconds} ON";
+            return $"SWITCH {Duration.TotalMilliseconds} {Relay}";
         }
     }
 }

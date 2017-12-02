@@ -43,26 +43,33 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         public uint Repeat { get; set; } = 1;
 
         /// <summary>
+        /// The delay between on and off in milliseconds.
+        /// </summary>
+        [XmlAttribute("ToggleDelay")]
+        public uint ToggleDelayMs { get; set; } = 500;
+
+        /// <summary>
         /// The delay between cycle repeats in milliseconds.
         /// </summary>
-        [XmlAttribute("Delay")]
-        public uint DelayMs { get; set; }
+        [XmlAttribute("CycleDelay")]
+        public uint CycleDelayMs { get; set; } = 1000;
 
+        
         #region IButtonDriverMacroTask
         public virtual async Task ExecuteAsync(IButtonDriver driver)
         {
-            await driver.CycleRelayAsync(Relay, Repeat, DelayMs);
+            await driver.CycleRelayAsync(Relay, Repeat, ToggleDelayMs, CycleDelayMs);
         }
 
         public virtual bool CanExecute(IButtonDriver driver)
         {
-            return driver?.ReadyState != ReadyState.None && Relay <= driver.RelayCount && driver.CurrentDirection == Direction.None;
+            return driver != null && driver.ReadyState != ReadyState.None && Relay <= driver.RelayCount && driver.CurrentDirection == Direction.None;
         }
         #endregion IButtonDriverMacroTask
 
         public override string ToString()
         {
-            return string.Format(Strings.CycleRelayMacroTask_ToStringFormat, Relay, Repeat, DelayMs);
+            return string.Format(Strings.CycleRelayMacroTask_ToStringFormat, Relay, Repeat, ToggleDelayMs);
         }
 
         #region IComparable
@@ -71,15 +78,15 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
             var that = other as CycleRelayTask;
 
             return that != null
-                && this.Relay == that.Relay
-                && this.Repeat == that.Repeat
-                && this.DelayMs == that.DelayMs;
+                && Relay == that.Relay
+                && Repeat == that.Repeat
+                && ToggleDelayMs == that.ToggleDelayMs;
         }
         #endregion IComparable
 
         #region Validation
 
-        protected override string[] ValidatedProperties => new[] { nameof(Relay), nameof(Repeat), nameof(DelayMs) };
+        protected override string[] ValidatedProperties => new[] { nameof(Relay), nameof(Repeat), nameof(ToggleDelayMs) };
 
         protected override string GetValidationError(string propertyName)
         {
@@ -91,8 +98,10 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
                     return ValidateRelay();
                 case nameof(Repeat):
                     return ValidateRepeat();
-                case nameof(DelayMs):
-                    return ValidateDelayMs();
+                case nameof(ToggleDelayMs):
+                    return ValidateToggleDelayMs();
+                case nameof(CycleDelayMs):
+                    return ValidateCycleDelayMs();
             }
 
             return base.GetValidationError(propertyName);
@@ -110,7 +119,12 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
             return null;
         }
 
-        string ValidateDelayMs()
+        string ValidateToggleDelayMs()
+        {
+            return null;
+        }
+
+        string ValidateCycleDelayMs()
         {
             return null;
         }

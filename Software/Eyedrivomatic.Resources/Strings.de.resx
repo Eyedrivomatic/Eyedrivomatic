@@ -162,7 +162,7 @@
     <comment>Cycle relay task parameter error for invalid repeat value.</comment>
   </data>
   <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
-    <value>Zyklus Relais {0}, Wiederholung {1} Zeit mit einer Verzögerung von {2} ms zwischen einer Wiederholung.</value>
+    <value>Zyklus Relais {0} für {1} ms, Wiederholung {2} Zeit mit einer Verzögerung von {3} ms zwischen einer Wiederholung.</value>
     <comment>Cycle relay task description template.</comment>
   </data>
   <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
