@@ -3,7 +3,7 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <?define Eyedrivomatic_TargetDir=$(var.Eyedrivomatic.TargetDir)?>
 
-  <Product Id="*" Name="!(loc.ApplicationName)" Version="2.0.6535.38837" Language="1033" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
+  <Product Id="*" Name="!(loc.ApplicationName)" Version="2.0.6544.39765" Language="1033" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="{60A2BFED-C726-408B-80A1-6340DFFB4DEE}">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Keywords="Installer" />
 
     <PropertyRef Id="NETFRAMEWORK45" />

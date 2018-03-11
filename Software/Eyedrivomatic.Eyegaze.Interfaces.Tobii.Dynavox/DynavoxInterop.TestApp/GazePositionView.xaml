@@ -1,0 +1,44 @@
+﻿<!--
+	Copyright (c) 2018 Eyedrivomatic Authors
+
+	This file is part of the 'Eyedrivomatic' PC application.
+
+	This program is intended for use as part of the 'Eyedrivomatic System' for 
+	controlling an electric wheelchair using soley the user's eyes. 
+
+	Eyedrivomaticis distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+-->
+
+
+<UserControl x:Class="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.DynavoxInterop.TestApp.GazePositionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Status"/>
+        <Label Name="GazeStatus" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="X"/>
+        <Label Name="GazeX" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Y"/>
+        <Label Name="GazeY" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"/>
+        <ScrollViewer Name="LogScrollViewer"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,0,0">
+            <TextBlock Name="Log" TextWrapping="Wrap"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
