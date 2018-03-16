@@ -11,12 +11,8 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using Eyedrivomatic.Eyegaze.Interfaces.Dynavox.Interop;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
@@ -29,14 +25,12 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             private readonly IEyegazeClient _client;
             private readonly IDisposable _dataSourceRegistration;
 
-            public TobiiDynavoxProviderRegistration(FrameworkElement element, IEyegazeClient client, IObservable<GazeData> dataSource)
+            public TobiiDynavoxProviderRegistration(FrameworkElement element, IEyegazeClient client, IObservable<Point?> dataSource)
             {
                 _element = element;
                 _client = client;
 
-                _dataSourceRegistration = dataSource
-                    .Select(data => DataFilter[data.Status](data))
-                    .Where(point => point != null && VisualTreeHelper.HitTest(element, point.Value).VisualHit == element).Subscribe(OnNext, OnCompleted, OnError);
+                _dataSourceRegistration = dataSource.Subscribe(OnNext, OnError, OnCompleted);
 
                 _element.MouseDown += ElementOnMouseDown;
             }

@@ -33,6 +33,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
                 _element = element;
                 _client = client;
 
+                element.IsHitTestVisible = true;
                 element.MouseEnter += MouseEnterHandler;
                 element.MouseMove += MouseMoveHandler;
                 element.MouseLeave += MouseLeaveHandler;
@@ -63,8 +64,9 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 
                 var position = e.GetPosition(_element);
 
-                if (IsOverClickableVisibleChild(position))
+                if (!ReferenceEquals(_element, _element.GazeHitTest(position)?.VisualHit))
                 {
+                    //Child element with gaze interaction is selected.
                     _mouseMoves = 0;
                     if (_mouseMoves > RequiredMouseMoves) _client.GazeLeave();
                     return;
@@ -86,21 +88,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
                 }
 
                 _mouseMoves++;
-            }
-
-            private bool IsOverClickableVisibleChild(Point point)
-            {
-                var result = VisualTreeHelper.HitTest(_element, point);
-
-                var visual = result?.VisualHit;
-                while (!(visual?.Equals(_element) ?? true))
-                {
-                    var behaviors = Interaction.GetBehaviors(visual);
-                    if (behaviors.OfType<DwellClickBehavior>().Any()) return true;
-                    visual = VisualTreeHelper.GetParent(visual);
-                }
-
-                return false;
             }
 
             public void Dispose()

@@ -11,8 +11,10 @@
 
 
 using System;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Eyedrivomatic.Eyegaze.DwellClick;
 using Tobii.Interaction;
 using Tobii.Interaction.Framework;
 using Tobii.Interaction.Wpf;
@@ -43,6 +45,12 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 _dispatcher.InvokeAsync(() =>
                 {
                     if (!_hasGaze) return;
+                    var hitTest = _interactor.Element.GazeHitTest(new Point(x, y));
+                    if (hitTest != null && !ReferenceEquals(_interactor.Element, hitTest.VisualHit))
+                    {
+                        Console.WriteLine($"{_interactor.Element.Name} {x}, {y}");
+                        return; //child element.
+                    }
                     _client.GazeContinue();
                 });
             }

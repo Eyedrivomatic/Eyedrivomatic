@@ -13,10 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using Eyedrivomatic.Eyegaze.Interfaces.Dynavox.Interop;
 using Eyedrivomatic.Logging;
 
@@ -26,63 +23,13 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
     [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class TobiiDynavoxEyegazeProvider : IEyegazeProvider
     {
-        public class TobiiDynavoxWpfInteractorAgent : IDisposable
-        {
-            private readonly IDynavoxHost _host;
-            private IDisposable _observerRegistration;
-
-            private static readonly Dictionary<GazeData.TrackingStatus, Func<GazeData, Point?>> DataFilter = new Dictionary<GazeData.TrackingStatus, Func<GazeData, Point?>>
-            {
-                { GazeData.TrackingStatus.NoEyesTracked, data => null },
-                { GazeData.TrackingStatus.OneEyeTrackedUnknownWhich, data => null },
-                { GazeData.TrackingStatus.BothEyesTracked, data => new Point((data.GazePointLeft.X+data.GazePointRight.X)/2, (data.GazePointLeft.Y+data.GazePointRight.Y)/2) },
-                { GazeData.TrackingStatus.OneEyeTrackedProbablyLeft, data => new Point(data.GazePointLeft.X, data.GazePointLeft.Y) },
-                { GazeData.TrackingStatus.OneEyeTrackedProbablyRight, data => new Point(data.GazePointRight.X, data.GazePointRight.Y ) },
-                { GazeData.TrackingStatus.OnlyLeftEyeTracked, data => new Point(data.GazePointLeft.X, data.GazePointRight.Y ) },
-                { GazeData.TrackingStatus.OnlyRightEyeTracked, data => new Point(data.GazePointRight.X, data.GazePointRight.Y ) }
-            };
-
-
-            public TobiiDynavoxWpfInteractorAgent(IDynavoxHost host)
-            {
-                _host = host;
-                _host.DataStream
-                    .SubscribeOnDispatcher()
-                    .Select(data =>
-                    {
-                        var point = DataFilter[data.Status](data);
-                        var visual = VisualTreeHelper.HitTest()
-                    new {, VisualTreeHelper.HitTest() )}}
-            }
-
-            private void OnCompleted()
-            {
-                throw new NotImplementedException();
-            }
-
-            private void OnNext(GazeData gazeData)
-            {
-                throw new NotImplementedException();
-            }
-
-            private void OnError(Exception error)
-            {
-                
-            }
-
-            public void Dispose()
-            {
-                _observerRegistration?.Dispose();
-            }
-        }
-
-
         private IDynavoxHost _host;
+        private readonly Func<IDynavoxHost, DataStreamFilter> _dataStreamFactory;
+        private DataStreamFilter _dataStream;
 
-        public void Dispose()
+        public TobiiDynavoxEyegazeProvider(Func<IDynavoxHost, DataStreamFilter> dataStreamFactory)
         {
-            _host?.Dispose();
-            _host = null;
+            _dataStreamFactory = dataStreamFactory;
         }
 
         public bool Initialize()
@@ -118,8 +65,15 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 
         public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)
         {
-            return new TobiiDynavoxProviderRegistration(client, _host.DataStream);
+            if (_dataStream == null) _dataStream = _dataStreamFactory(_host);
+            return _dataStream.AddRegistration(element, client);
+        }
 
+        public void Dispose()
+        {
+            _host?.Dispose();
+            _dataStream = null;
+            _host = null;
         }
     }
 
