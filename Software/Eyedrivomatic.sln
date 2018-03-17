@@ -462,8 +462,8 @@ Global
 		{C715FB04-E302-4977-B41F-81026CF50DC1}.Debug|x86.Build.0 = Debug|Any CPU
 		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x64.ActiveCfg = Release|Any CPU
-		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x64.Build.0 = Release|Any CPU
+		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x64.ActiveCfg = Release|x64
+		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x64.Build.0 = Release|x64
 		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x86.ActiveCfg = Release|Any CPU
 		{C715FB04-E302-4977-B41F-81026CF50DC1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -509,7 +509,7 @@ Global
 		{C715FB04-E302-4977-B41F-81026CF50DC1} = {23775EC2-27B7-49DB-89B5-43C9677FA603}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = MultipleSheets
 		SolutionGuid = {F78FE821-D5B8-4B44-9431-0B75AA03A224}
+		RESX_ExcelExportMode = MultipleSheets
 	EndGlobalSection
 EndGlobal

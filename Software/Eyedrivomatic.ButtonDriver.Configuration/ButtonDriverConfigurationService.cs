@@ -20,6 +20,7 @@ using System.Linq;
 using Prism.Mvvm;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
+using NullGuard;
 
 namespace Eyedrivomatic.ButtonDriver.Configuration
 {
@@ -110,11 +111,12 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         {
             HasChanges = true;
 
-            if (args.Action == NotifyCollectionChangedAction.Reset ||
+            if (CurrentProfile != null && (
+                args.Action == NotifyCollectionChangedAction.Reset ||
                 args.Action == NotifyCollectionChangedAction.Remove ||
-                args.Action == NotifyCollectionChangedAction.Replace)
+                args.Action == NotifyCollectionChangedAction.Replace))
             {
-                var currentSpeed = CurrentProfile?.CurrentSpeed;
+                var currentSpeed = CurrentProfile.CurrentSpeed;
                 foreach (var profileSpeed in args.OldItems.Cast<ProfileSpeed>())
                 {
                     profileSpeed.PropertyChanged -= ProfileSpeedOnPropertyChanged;
@@ -178,6 +180,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         [Export(typeof(IEnumerable<Profile>))]
         public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
 
+        [AllowNull]
         public Profile CurrentProfile
         {
             get => _configuration.DrivingProfiles.CurrentProfile;

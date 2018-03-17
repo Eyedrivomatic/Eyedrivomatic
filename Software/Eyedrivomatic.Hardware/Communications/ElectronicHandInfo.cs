@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;
+using NullGuard;
 
 namespace Eyedrivomatic.Hardware.Communications
 {
@@ -22,6 +23,7 @@ namespace Eyedrivomatic.Hardware.Communications
     {
         private static readonly string StartupMessage = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
+        [return:AllowNull]
         public Version VerifyStartupMessage(string firstMessage)
         {
             return string.CompareOrdinal(firstMessage.Substring(0, Math.Min(StartupMessage.Length, firstMessage.Length)), StartupMessage) == 0 ? new Version(1, 0, 0, 0) : null;

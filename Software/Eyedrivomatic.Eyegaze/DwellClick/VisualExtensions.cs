@@ -9,40 +9,36 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 {
     public static class VisualExtensions
     {
-        public static bool IsGazeTarget(this UIElement element)
+        public static bool IsGazeTarget([AllowNull]this UIElement element)
         {
-            return Interaction.GetBehaviors(element).OfType<DwellClickBehavior>().Any();
+            return element != null && Interaction.GetBehaviors(element).OfType<DwellClickBehavior>().Any();
         }
 
         [return:AllowNull]
-        public static HitTestResult GazeHitTest(this UIElement element, Point point)
+        public static UIElement GetParentGazeTarget([AllowNull]this UIElement element)
         {
-            HitTestResult gazeTarget = null;
-
-            VisualTreeHelper.HitTest(element, 
-            //    target =>
-            //    {
-            //        return (target as UIElement)?.IsGazeTarget() ?? false
-            //            ? HitTestFilterBehavior.Stop
-            //            : HitTestFilterBehavior.ContinueSkipSelf;
-            //    },
-                null,
-                testResult =>
-                {
-                    if ((testResult.VisualHit as UIElement)?.IsGazeTarget() ?? false)
-                    {
-                        gazeTarget = testResult;
-                        return HitTestResultBehavior.Stop;
-                    }
-                    return HitTestResultBehavior.Continue;
-                },
-                new PointHitTestParameters(point));
-
-            if (gazeTarget != null && !ReferenceEquals(element, gazeTarget.VisualHit))
+            while (element != null && !element.IsGazeTarget())
             {
-                Console.WriteLine($"Gaze over {gazeTarget?.ToString() ?? "NA"}");
+                element = VisualTreeHelper.GetParent(element) as UIElement;
             }
-            return gazeTarget;
+            return element;
+        }
+
+        [return:AllowNull]
+        public static HitTestResult GazeHitTest([AllowNull]this UIElement element, Point point, int radius)
+        {
+            var parameters = radius == 0 
+                ? new PointHitTestParameters(point) as HitTestParameters
+                : new GeometryHitTestParameters(new EllipseGeometry(point, radius, radius));
+
+            UIElement gazeTarget = null;
+            VisualTreeHelper.HitTest(element, null, hitTest =>
+            {
+                gazeTarget = GetParentGazeTarget(hitTest?.VisualHit as UIElement);
+                return gazeTarget != null && !ReferenceEquals(gazeTarget, element) ? HitTestResultBehavior.Stop : HitTestResultBehavior.Continue;
+            }, parameters);
+
+            return gazeTarget == null ? null : new PointHitTestResult(gazeTarget, point);
         }
     }
 }

@@ -45,7 +45,8 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 _dispatcher.InvokeAsync(() =>
                 {
                     if (!_hasGaze) return;
-                    var hitTest = _interactor.Element.GazeHitTest(new Point(x, y));
+                    var point = _interactor.Element.PointFromScreen(new Point(x, y));
+                    var hitTest = _interactor.Element.GazeHitTest(point, 20); //The tobii system seems to add about 20 px of extra area around the edge.
                     if (hitTest != null && !ReferenceEquals(_interactor.Element, hitTest.VisualHit))
                     {
                         Console.WriteLine($"{_interactor.Element.Name} {x}, {y}");

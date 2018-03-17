@@ -62,16 +62,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
             {
                 e.Handled = true;
 
-                var position = e.GetPosition(_element);
-
-                if (!ReferenceEquals(_element, _element.GazeHitTest(position)?.VisualHit))
-                {
-                    //Child element with gaze interaction is selected.
-                    _mouseMoves = 0;
-                    if (_mouseMoves > RequiredMouseMoves) _client.GazeLeave();
-                    return;
-                }
-
                 //Only start the animation when the mouse has moved a specified number of times after MouseEnter or the last click.
                 //This prevents unintended double-clicks if the gaze tracking is lost.
                 if (_mouseMoves == RequiredMouseMoves)

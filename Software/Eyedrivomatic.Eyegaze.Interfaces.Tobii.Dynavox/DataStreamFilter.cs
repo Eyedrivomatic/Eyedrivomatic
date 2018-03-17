@@ -49,7 +49,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
                 var lossOfGazeSent = false;
 
                 var stream = _dataStream
-                        .Select(point => !point.HasValue || !ReferenceEquals(element, element.GazeHitTest(point.Value)?.VisualHit) ? null : point)
+                        .Select(point => !point.HasValue || !ReferenceEquals(element, element.GazeHitTest(point.Value, 20)?.VisualHit) ? null : point)
                         .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null point once to indicate gaze lost.
                         .Do(point => lossOfGazeSent = !point.HasValue);
                 return new TobiiDynavoxProviderRegistration(element, client, stream);
