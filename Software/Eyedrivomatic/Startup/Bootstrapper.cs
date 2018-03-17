@@ -15,7 +15,6 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Windows;
 
-using Microsoft.Practices.ServiceLocation;
 
 using Prism.Logging;
 using Prism.Mef;
@@ -46,7 +45,7 @@ namespace Eyedrivomatic.Startup
 
         protected override DependencyObject CreateShell()
         {
-            return ServiceLocator.Current.GetInstance<Shell>();
+            return Container.GetExportedValue<Shell>();
         }
 
         protected override void InitializeShell()
@@ -94,7 +93,7 @@ namespace Eyedrivomatic.Startup
 
             if (disposing)
             {
-                var modules = ServiceLocator.Current.GetAllInstances<IModule>().OfType<IDisposable>();
+                var modules = Container.GetExportedValues<IModule>().OfType<IDisposable>();
                 foreach (var module in modules)
                 {
                     Log.Debug(this, $"Disposing [{module.GetType().Name}]");
