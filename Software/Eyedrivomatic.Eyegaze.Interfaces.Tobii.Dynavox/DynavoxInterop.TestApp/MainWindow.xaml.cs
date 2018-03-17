@@ -19,8 +19,12 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.DynavoxInterop.TestApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly log4net.ILog Log
+            = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public MainWindow()
         {
+            Log.Debug("Creating Main Window.");
             InitializeComponent();
         }
     }

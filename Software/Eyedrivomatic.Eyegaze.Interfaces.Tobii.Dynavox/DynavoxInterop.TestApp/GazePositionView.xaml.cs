@@ -23,16 +23,21 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.DynavoxInterop.TestApp
     /// </summary>
     public partial class GazePositionView : IObserver<GazeData>
     {
+        private static readonly log4net.ILog Log
+            = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private IDynavoxHost _host;
 
         public GazePositionView()
         {
+            Log.Debug("Created.");
             InitializeComponent();
             GazeStatus.Content = GazeData.TrackingStatus.NoEyesTracked.ToString();
         }
 
         protected override void OnInitialized(EventArgs e)
         {
+            Log.Debug("Initialized.");
             base.OnInitialized(e);
             StartTobii();
             Dispatcher.ShutdownStarted += OnDispatcherShutDownStarted;
@@ -41,22 +46,32 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.DynavoxInterop.TestApp
 
         private void OnDispatcherShutDownStarted(object sender, EventArgs e)
         {
+            Log.Debug("OnDispatcherShutDownStarted Invoked.");
             _host?.Dispose();
         }
 
         private async void StartTobii()
         {
+            Log.Debug("Starting Tobii.");
             try
             {
                 if (!DynavoxHostFactory.IsAvailable)
                 {
+                    Log.Debug("Tobii not detected.");
                     GazeStatus.Content = "Tobii Not Detected";
                     return;
                 }
+                Log.Debug("Creating Host.");
                 _host = DynavoxHostFactory.CreateHost();
+                Log.Debug("Host Created.");
 
+                Log.Debug("Initializing Host.");
                 await _host.InitializeAsync(LoggingCallback);
+                Log.Debug("Host Initialized.");
+
+                Log.Debug("Subscribing to data stream.");
                 _host.DataStream.Subscribe(this);
+                Log.Debug("Subscribed to data stream.");
             }
             catch (Exception exception)
             {
@@ -66,7 +81,23 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.DynavoxInterop.TestApp
 
         private void LoggingCallback(LogLevel logLevel, string message)
         {
-            Log.Text += $"{logLevel}: {message}\n";
+            switch (logLevel)
+            {
+                case LogLevel.Error:
+                    Log.Error(message);
+                    break;
+                case LogLevel.Warning:
+                    Log.Warn(message);
+                    break;
+                case LogLevel.Information:
+                    Log.Info(message);
+                    break;
+                case LogLevel.Diagnostic:
+                    Log.Debug(message);
+                    break;
+            }
+
+            LogView.Text += $"{logLevel}: {message}\n";
             LogScrollViewer.ScrollToBottom();
         }
 

@@ -38,7 +38,7 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Y"/>
         <Label Name="GazeY" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"/>
         <ScrollViewer Name="LogScrollViewer"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,0,0">
-            <TextBlock Name="Log" TextWrapping="Wrap"/>
+            <TextBlock Name="LogView" TextWrapping="Wrap"/>
         </ScrollViewer>
     </Grid>
 </UserControl>
