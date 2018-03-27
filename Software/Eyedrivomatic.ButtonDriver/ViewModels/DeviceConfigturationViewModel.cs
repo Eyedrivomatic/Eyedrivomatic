@@ -22,6 +22,7 @@ using System.Windows.Input;
 
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Configuration;
+using Eyedrivomatic.ButtonDriver.Hardware;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
 using Eyedrivomatic.ButtonDriver.Hardware.Services;
 using Eyedrivomatic.Configuration;
@@ -31,6 +32,7 @@ using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
@@ -39,15 +41,17 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     {
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IDisposable _saveCommandRegistration;
+        private readonly InteractionRequest<INotification> _connectionFailureNotification;
 
         [ImportingConstructor]
         public DeviceConfigturationViewModel(
             IHardwareService hardwareService, 
             IButtonDriverConfigurationService configurationService,
-            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand, InteractionRequest<INotification> connectionFailureNotification)
             : base(hardwareService)
         {
             _configurationService = configurationService;
+            _connectionFailureNotification = connectionFailureNotification;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
 
             RefreshAvailableDeviceListCommand = new DelegateCommand(RefreshAvailableDeviceList, CanRefreshAvailableDeviceList);
@@ -115,9 +119,35 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         protected async void AutoDetectDevice()
         {
-            RefreshAvailableDeviceList();
-            await Driver.AutoConnectAsync(CancellationToken.None);
-            SelectedDevice = AvailableDevices.FirstOrDefault(device => device.ConnectionString == Driver.Connection.ConnectionString);
+            try
+            {
+                RefreshAvailableDeviceList();
+                await Driver.AutoConnectAsync(CancellationToken.None);
+                SelectedDevice =
+                    AvailableDevices.FirstOrDefault(
+                        device => device.ConnectionString == Driver.Connection?.ConnectionString);
+
+            }
+            catch (ConnectionFailedException cfe)
+            {
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = cfe.Message
+                    });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Firmware version check failed! [{ex}]");
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck,
+                            _configurationService.ConnectionString)
+                    });
+            }
         }
 
         protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }

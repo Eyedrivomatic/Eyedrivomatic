@@ -31,7 +31,7 @@ namespace Eyedrivomatic.Hardware.Communications
         private SerialPort _serialPort;
         private readonly IList<IElectronicHandDeviceInfo> _infos;
         private Subject<IObservable<char>> _connectionSubject;
-        private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(20);
+        private readonly TimeSpan _connectionTimeout = TimeSpan.FromSeconds(3);
 
         private bool _disposed;
 
@@ -50,7 +50,7 @@ namespace Eyedrivomatic.Hardware.Communications
             ConnectionStateChanged?.Invoke(this, new EventArgs());
         }
 
-        public Version FirmwareVersion { get; protected set; }
+        public Version FirmwareVersion { get; protected set; } = new Version(0, 0, 0, 0);
 
         private bool _isConnecting;
         public bool IsConnecting
@@ -98,26 +98,18 @@ namespace Eyedrivomatic.Hardware.Communications
             {
                 //Failure is an option.
             }
-
-            var timeoutSource = new CancellationTokenSource(_connectionTimeout);
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutSource.Token);
-
             try
             {
                 IsConnecting = true;
-                _serialPort = await OpenSerialPortAsync(ConnectionString, cts.Token);
+                _serialPort = await OpenSerialPortAsync(ConnectionString, cancellationToken);
                 _connectionSubject?.OnNext(Observable.Defer(CreateDataStream));
             }
-            catch (OperationCanceledException)
+            catch (Exception ex)
             {
                 ConnectionFailed = true;
-                if (timeoutSource.IsCancellationRequested) throw new TimeoutException();
-                throw;
-            }
-            catch
-            {
-                ConnectionFailed = true;
-                throw;
+                Log.Warn(this, $"Failed to connect to deice on {ConnectionString} - [{ex}]");
+                _serialPort?.Dispose();
+                _serialPort = null;
             }
             finally
             {
@@ -156,32 +148,69 @@ namespace Eyedrivomatic.Hardware.Communications
         {
             try
             {
-                var serialPort = new SerialPort(port, 19200)
-                {
-                    DtrEnable = false,
-                    ReadTimeout = 500
-                };
-
                 Log.Info(this, $"Opening port [{port}].");
 
-                // ReSharper disable once AccessToDisposedClosure - closure used locally.
-                using (cancellationToken.Register(() => serialPort.Dispose()))
+                try
                 {
-                    serialPort.Open();
+                    return await OpenSerialPortAsync(port, 19200, cancellationToken);
+                }
+                catch (Exception ex) when (ex is TimeoutException || ex is IOException)
+                {
+                    Log.Warn(this, $"Failed to read first message on [{port}] at [19200] baud. Attempting the slower speed of previous versions of [9600] baud.");
+                    await Task.Delay(500, cancellationToken); //The serial port has a background thread that needs some time to close.
+                    return await OpenSerialPortAsync(port, 9600, cancellationToken);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Access is denied to the port. 
+                // -or -
+                // The current process, or another process on the system, already has the specified COM port open either by a SerialPort instance or in unmanaged code.
+                Log.Error(this, $"COM port [{port}] is in use.");
+                return null;
+            }
+            catch (ArgumentException)
+            {
+                //Configuration shold start with "COM"
+                Log.Error(this, $"Invalid port name [{port}].");
+                return null;
+            }
+            catch (IOException ex)
+            {
 
-                    string firstMessage;
-                    try
-                    {
-                        firstMessage = await ReadFirstMessageAsync(serialPort);
-                    }
-                    catch (IOException)
-                    {
-                        Log.Warn(this, $"Failed to read first message at [{serialPort.BaudRate}] baud. Attempting the slower speed of previous versions of [9600] baud.");
-                        serialPort.Close();
-                        serialPort.BaudRate = 9600;
-                        serialPort.Open();
-                        firstMessage = await ReadFirstMessageAsync(serialPort);
-                    }
+                //The port is in an invalid state.
+                // -or -
+                //An attempt to set the state of the underlying port failed. For example, the parameters passed from this SerialPort object were invalid.
+                Log.Error(this, $"Failed to open the com port [{port}] [{ex}]");
+                return null;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(this, $"Failed to open the com port [{port}] [{ex}]");
+                return null;
+            }
+        }
+
+        private async Task<SerialPort> OpenSerialPortAsync(string port, int speed, CancellationToken cancellationToken)
+        {
+            var serialPort = new SerialPort(port, speed)
+            {
+                DtrEnable = false,
+                ReadTimeout = 500,
+            };
+
+            var timeoutSource = new CancellationTokenSource(_connectionTimeout);
+
+            try
+            {
+                serialPort.Open();
+
+                var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutSource.Token);
+                // ReSharper disable once AccessToDisposedClosure - closure used locally.
+                using (cts.Token.Register(() => serialPort.Dispose()))
+                {
+                    var firstMessage = await ReadFirstMessageAsync(serialPort);
+                    if (cancellationToken.IsCancellationRequested) return null;
 
                     if (!VerifyStartupMessage(firstMessage))
                     {
@@ -191,37 +220,22 @@ namespace Eyedrivomatic.Hardware.Communications
                     }
                 }
 
-                return serialPort;
             }
-            catch (UnauthorizedAccessException)
+            catch (OperationCanceledException)
             {
-                // Access is denied to the port. 
-                // -or -
-                // The current process, or another process on the system, already has the specified COM port open either by a SerialPort instance or in unmanaged code.
-                Log.Error(typeof(ElectronicHandEnumerationService), $"COM port [{port}] is in use.");
-                return null;
+                serialPort.Dispose();
+                if (timeoutSource.IsCancellationRequested) throw new TimeoutException();
+                throw;
             }
-            catch (ArgumentException)
+            catch (Exception)
             {
-                //Configuration shold start with "COM"
-                Log.Error(typeof(ElectronicHandEnumerationService), $"Invalid port name [{port}].");
-                return null;
+                serialPort.Dispose();
+                throw;
             }
-            catch (IOException ex)
-            {
 
-                //The port is in an invalid state.
-                // -or -
-                //An attempt to set the state of the underlying port failed. For example, the parameters passed from this SerialPort object were invalid.
-                Log.Error(typeof(ElectronicHandEnumerationService), $"Failed to open the com port [{ex}]");
-                return null;
-            }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error(typeof(ElectronicHandEnumerationService), $"Failed to open the com port [{ex}]");
-                return null;
-            }
+            return serialPort;
         }
+
 
         private async Task<string> ReadFirstMessageAsync(SerialPort serialPort)
         {
@@ -229,7 +243,7 @@ namespace Eyedrivomatic.Hardware.Communications
             serialPort.DtrEnable = true; //this will reset the Arduino.
 
             if (!serialPort.IsOpen) return null;
-
+            serialPort.BaseStream.ReadTimeout = 500;
             var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
             var firstMessage = await reader.ReadLineAsync();
             if (string.IsNullOrEmpty(firstMessage)) firstMessage = await reader.ReadLineAsync(); //In an earlier version of the software, a newline was sent first.
@@ -278,8 +292,9 @@ namespace Eyedrivomatic.Hardware.Communications
 
         private bool VerifyStartupMessage(string firstMessage)
         {
-            FirmwareVersion = _infos.Select(i => i.VerifyStartupMessage(firstMessage)).FirstOrDefault(v => v != null);
-            return FirmwareVersion != null;
+            var version = _infos.Select(i => i.VerifyStartupMessage(firstMessage)).FirstOrDefault(v => v != null);
+            FirmwareVersion = version ?? new Version(0, 0, 0, 0);
+            return version != null;
         }
 
         public void Dispose()

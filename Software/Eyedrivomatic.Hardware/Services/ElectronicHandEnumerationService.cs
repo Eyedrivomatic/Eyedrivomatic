@@ -68,11 +68,11 @@ namespace Eyedrivomatic.Hardware.Services
 
 
             //Maybe there is a device with an odd hardware ID (it happens).
-            devices = GetAvailableDevices(true).Except(devices).ToList();
+            var otherDevices = GetAvailableDevices(true).Except(devices).ToList();
             cancellationToken.ThrowIfCancellationRequested();
 
-            connections = from device in devices
-                select _connectionFactory.CreateConnection(device);
+            connections = from device in otherDevices
+                          select _connectionFactory.CreateConnection(device);
             connectionTasks = (from connection in connections
                 select new Tuple<IDeviceConnection, Task>(connection, connection.ConnectAsync(cts.Token))).ToList();
 
@@ -84,7 +84,7 @@ namespace Eyedrivomatic.Hardware.Services
                 return foundDevice;
             }
 
-            //OK, last shot, is there any serial port that we can connect to?
+            //OK, is there any serial port with any version of firmware that we can connect to?
             foundDevice = await DetectMinVersionDeviceAsync(null, connectionTasks, cts.Token);
             if (foundDevice != null)
             {
@@ -92,6 +92,16 @@ namespace Eyedrivomatic.Hardware.Services
                 return foundDevice;
             }
 
+            foundCts.Cancel();
+
+            //And last shot, is ther a SINGLE device with the expected hardware ID? This should be an off-the-shelf Arduino UNO.
+            if (devices.Count == 1)
+            {
+                var device = devices.Single();
+                foundDevice = _connectionFactory.CreateConnection(device);
+                Log.Info(this, $"Found device on [{foundDevice.ConnectionString}] with no apparent firmware! This is the only connected device with the expected hardware id.");
+                return foundDevice;
+            }
             return null;
         }
 
@@ -122,7 +132,7 @@ namespace Eyedrivomatic.Hardware.Services
         public IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices)
         {
             var filter = includeAllSerialDevices ? null : _infos.SelectMany(i => i.EyedrivomaticIds.Values).Distinct().ToList();
-            return UsbSerialDeviceEnumerator.EnumerateDevices(filter)
+            return UsbSerialDeviceEnumerator.EnumerateDevices(filter).GroupBy(i => i.ConnectionString).Select(g => g.First()) //groupby.select gets distinct connections.
                 .OfType<DeviceDescriptor>().ToList();
         }
     }

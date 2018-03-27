@@ -59,13 +59,14 @@ namespace Eyedrivomatic
             var message = string.Empty;
             var i = 0;
 
+            Log.Error(typeof(App), $"Unhandled Exception! - [{exception}]");
+            
             while (exception != null)
             {
-                message += new String(' ', i++) + exception.Message + Environment.NewLine;
+                message += new string(' ', i++) + exception.Message + Environment.NewLine;
                 exception = exception.InnerException;
             }
 
-            Log.Error(typeof(App), $"Unhandled Exception! - {message}");
             MessageBox.Show(message, "Exception!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 

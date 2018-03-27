@@ -25,7 +25,7 @@ using NullGuard;
 
 namespace Eyedrivomatic.Hardware
 {
-    public class HardwareIdFilter
+    public class HardwareIdFilter: IEquatable<HardwareIdFilter>
     {
         public HardwareIdFilter(string vid, params string[] pids)
         {
@@ -35,6 +35,29 @@ namespace Eyedrivomatic.Hardware
 
         public string Vid { get; }
         public string[] Pids { get; }
+
+        public bool Equals(HardwareIdFilter other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(Vid, other.Vid) && Equals(Pids, other.Pids);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((HardwareIdFilter) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Vid != null ? Vid.GetHashCode() : 0) * 397) ^ (Pids != null ? Pids.GetHashCode() : 0);
+            }
+        }
     }
 
     public static class ArduinoInfo

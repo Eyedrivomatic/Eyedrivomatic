@@ -28,7 +28,6 @@ using Eyedrivomatic.Hardware.Services;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
-using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
@@ -41,7 +40,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private readonly IDeviceEnumerationService _deviceEnumerationService;
         private readonly IElectronicHandConnectionFactory _connectionFactory;
         private readonly IFirmwareUpdateService _firmwareUpdateService;
-        private readonly InteractionRequest<INotification> _connectionFailureNotification;
         private readonly IBrainBoxCommands _commands;
         private readonly IList<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>> _messageProcessors;
 
@@ -58,8 +56,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             IDeviceSettings deviceSettings, 
             IDeviceEnumerationService deviceEnumerationService, 
             IElectronicHandConnectionFactory connectionFactory, 
-            [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService,
-            InteractionRequest<INotification> connectionFailureNotification )
+            [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService)
         {
             _commands = commandFactory;
             _messageProcessors = new List<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>>(messageProcessors);
@@ -68,7 +65,6 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             _deviceEnumerationService = deviceEnumerationService;
             _connectionFactory = connectionFactory;
             _firmwareUpdateService = firmwareUpdateService;
-            _connectionFailureNotification = connectionFailureNotification;
 
             deviceStatus.PropertyChanged += OnStatusChanged;
         }
@@ -154,52 +150,27 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private async Task<bool> CheckFirmwareVersion(IDeviceConnection connection)
         {
-            try
+            var latestVersion = _firmwareUpdateService.GetLatestVersion();
+
+            //Required update.
+            if (connection.FirmwareVersion < MinFirmwareVersion)
             {
-                var latestVersion = _firmwareUpdateService.GetLatestVersion();
-
-                //Required update.
-                if (connection.FirmwareVersion == null || connection.FirmwareVersion < MinFirmwareVersion)
+                if (latestVersion == null || latestVersion < MinFirmwareVersion)
                 {
-                    if (latestVersion == null || latestVersion < MinFirmwareVersion)
-                    {
-                        Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion?.ToString() ?? "NA"}, However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
-                        throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
-                    }
-
-                    await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true);
-                    return true;
+                    Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion}, However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
+                    throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
                 }
 
-                //Optional update.
-                if (latestVersion != null && latestVersion > connection.FirmwareVersion)
-                {
-                    await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, false);
-                }
+                return await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true);
+            }
 
-                return true;
-            }
-            catch (ConnectionFailedException cfe)
+            //Optional update.
+            if (latestVersion != null && latestVersion > connection.FirmwareVersion)
             {
-                _connectionFailureNotification.Raise(
-                    new Prism.Interactivity.InteractionRequest.Notification
-                    {
-                        Title = Strings.DeviceConnection_Error_Title,
-                        Content = cfe.Message
-                    });
-                return false;
+                await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, false);
             }
-            catch (Exception ex)
-            {
-                Log.Error(this, $"Firmware version check failed! [{ex}]");
-                _connectionFailureNotification.Raise(
-                    new Prism.Interactivity.InteractionRequest.Notification
-                    {
-                        Title = Strings.DeviceConnection_Error_Title,
-                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString)
-                    });
-                return false;
-            }
+
+            return true;
         }
 
         [Export]

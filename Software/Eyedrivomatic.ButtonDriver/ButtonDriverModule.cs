@@ -24,6 +24,7 @@ using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -39,6 +40,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IRegionManager _regionManager;
+        private readonly InteractionRequest<INotification> _connectionFailureNotification;
 
         [Import]
         public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
@@ -48,13 +50,14 @@ namespace Eyedrivomatic.ButtonDriver
 
 
         [ImportingConstructor]
-        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService)
+        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, InteractionRequest<INotification> connectionFailureNotification)
         {
             Log.Debug(this, $"Creating Module {nameof(ButtonDriverModule)}.");
 
             _regionManager = regionManager;
             _hardwareService = hardwareService;
             _configurationService = configurationService;
+            _connectionFailureNotification = connectionFailureNotification;
         }
 
         public async void Initialize()
@@ -74,6 +77,13 @@ namespace Eyedrivomatic.ButtonDriver
                 await _hardwareService.InitializeAsync();
                 Log.Debug(this, $"HardwareService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
 
+                if (_hardwareService.CurrentDriver == null)
+                {
+                    Log.Error(this, "Failed to initialize hardware. No driver selected.");
+                    NavigateToConfiguration();
+                    return;
+                }
+
                 if (_configurationService.AutoConnect)
                 {
                     var connectionString = _configurationService.ConnectionString;
@@ -89,23 +99,28 @@ namespace Eyedrivomatic.ButtonDriver
                         if (!string.IsNullOrEmpty(_hardwareService.CurrentDriver.Connection?.ConnectionString))
                             _configurationService.ConnectionString = _hardwareService.CurrentDriver.Connection.ConnectionString;
                     }
-
-
-                    var connection = _hardwareService.CurrentDriver?.Connection;
-                    if (connection == null)
-                    {
-                        Log.Error(this, "Failed to initialize hardware. No driver selected.");
-                        NavigateToConfiguration();
-                        return;
-                    }
-
                 }
+            }
+            catch (ConnectionFailedException cfe)
+            {
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = cfe.Message
+                    });
+                NavigateToConfiguration();
             }
             catch (Exception ex)
             {
-               Log.Error(this, $"Hardware Initialization Failed - {ex}");
+                Log.Error(this, $"Firmware version check failed! [{ex}]");
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, _configurationService.ConnectionString)
+                    });
                 NavigateToConfiguration();
-                return;
             }
 
             NavigateToCurrentProfile();
