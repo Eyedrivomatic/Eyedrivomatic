@@ -10,11 +10,16 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System;
+
 namespace Eyedrivomatic.Hardware.Commands
 {
     internal class GetStatusCommand : DeviceCommandBase
     {
         public override string Name => "Get Status";
+
+        public override int MaxAttempts => -1; //just keep trying.
+        public override TimeSpan DefaultTimeout => TimeSpan.FromSeconds(3);
 
         public override string ToString()
         {

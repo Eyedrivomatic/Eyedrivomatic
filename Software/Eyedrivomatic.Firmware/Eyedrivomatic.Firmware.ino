@@ -23,6 +23,8 @@
 #include "ActionService.h"
 #include "VersionInfo.h"
 
+#define MOBILITY_CONCEPT_BUILD
+
 void sendStartupInfo();
 
 // the setup function runs once when you press reset or power the board

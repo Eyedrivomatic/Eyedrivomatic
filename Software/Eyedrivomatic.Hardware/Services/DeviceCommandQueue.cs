@@ -51,12 +51,16 @@ namespace Eyedrivomatic.Hardware.Services
             if (_disposed) throw new ObjectDisposedException(nameof(DeviceCommandQueue));
             if (_commandSink == null)
             {
-                Log.Warn(this, $"Failed to send [{command.Name}]. Not connected.");
+                Log.Warn(this, $"Failed to send [{command.Name}]. Device not connected.");
                 return Task.FromResult(false);
             }
 
             var handler = _commandHandlerFactory(command, _commandSink.OnNext);
-            handler.StartTimeoutTimer(command.DefaultTimeout);
+            if (command.DefaultTimeout > TimeSpan.Zero)
+            {
+                Log.Debug(this, $"Command [{command.Name}] will timeout after [{command.DefaultTimeout}]");
+                handler.StartTimeoutTimer(command.DefaultTimeout);
+            }
             _commandQueue.Add(handler, _currentCommandCts.Token);
 
             return handler.CommandTask;

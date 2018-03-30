@@ -95,7 +95,7 @@ namespace Eyedrivomatic.Hardware.Commands
             else
             {
                 Log.Warn(this, $"Fail response received for [{_command.Name}] command.");
-                if (SendAttempt > _command.Retries)
+                if (_command.MaxAttempts > 0 && SendAttempt > _command.MaxAttempts)
                 {
                     Log.Error(this, $"Failed final attempt to send the [{_command.Name}] command.");
                     var ex = new DeviceCommandException(_command, $"Failed to send the [{_command.Name}] command after [{SendAttempt}] tries.");
@@ -125,7 +125,7 @@ namespace Eyedrivomatic.Hardware.Commands
         {
             Log.Error(this, $"The [{_command.Name}] command has timed out while waiting for a response after [{timeout}] on attept [{SendAttempt}].");
 
-            if (SendAttempt > _command.Retries)
+            if (_command.MaxAttempts > 0 && SendAttempt > _command.MaxAttempts)
             {
                 Log.Error(this, $"Failed final attempt to send the [{_command.Name}] command.");
                 _taskCompletionSource.TrySetException(new DeviceCommandException(_command, $"Failed to send the [{_command.Name}] command after [{SendAttempt}] tries."));

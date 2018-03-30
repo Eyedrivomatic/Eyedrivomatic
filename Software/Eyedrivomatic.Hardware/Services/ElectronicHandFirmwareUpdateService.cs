@@ -29,6 +29,14 @@ namespace Eyedrivomatic.Hardware.Services
     [Export(typeof(IFirmwareUpdateService))]
     public class ElectronicHandFirmwareUpdateService : IFirmwareUpdateService
     {
+        private readonly IArduinoUploaderLogger _uploaderLogger;
+
+        [ImportingConstructor]
+        public ElectronicHandFirmwareUpdateService(IArduinoUploaderLogger uploaderLogger)
+        {
+            _uploaderLogger = uploaderLogger;
+        }
+
         public IEnumerable<Version> GetAvailableFirmware()
         {
             var regex = new Regex(@"Eyedrivomatic.Firmware.(?<Version>(?<Major>[0-9]+)\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?).hex");
@@ -54,16 +62,20 @@ namespace Eyedrivomatic.Hardware.Services
             path = Path.Combine(path, "Firmware", $"Eyedrivomatic.Firmware.{version ?? GetLatestVersion()}.hex");
 
             connection.Disconnect();
+            await Task.Delay(TimeSpan.FromSeconds(2));
 
-            var uploader = new ArduinoSketchUploader(
-                new ArduinoSketchUploaderOptions
-                {
-                    FileName = path,
-                    PortName = connection.ConnectionString,
-                    ArduinoModel = ArduinoModel.UnoR3
-                }, null, progress);
+            await Task.Run(() =>
+            {
+                var uploader = new ArduinoSketchUploader(
+                    new ArduinoSketchUploaderOptions
+                    {
+                        FileName = path,
+                        PortName = connection.ConnectionString,
+                        ArduinoModel = ArduinoModel.UnoR3
+                    }, _uploaderLogger, progress);
 
-            uploader.UploadSketch();
+                uploader.UploadSketch();
+            });
 
             await connection.ConnectAsync(CancellationToken.None);
             return connection.State == ConnectionState.Connected;

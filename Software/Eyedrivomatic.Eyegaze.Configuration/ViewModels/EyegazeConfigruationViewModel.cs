@@ -46,10 +46,28 @@ namespace Eyedrivomatic.Eyegaze.Configuration.ViewModels
             _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
+
+        private static readonly Dictionary<string, string[]> ConfigurationPropertyDependencies = new Dictionary<string, string[]>
+        {
+            { nameof(IDwellClickConfigurationService.HasChanges), new [] {nameof(HasChanges)} },
+            { nameof(IDwellClickConfigurationService.Provider), new [] {nameof(SelectedProvider) } },
+            { nameof(IDwellClickConfigurationService.EnableDwellClick), new [] {nameof(DwellClickEnabled) } },
+            { nameof(IDwellClickConfigurationService.StandardDwellTimeMilliseconds), new [] {nameof(StandardDwellTimeMilliseconds) } },
+            { nameof(IDwellClickConfigurationService.StartButtonDwellTimeMilliseconds), new [] {nameof(StartButtonDwellTimeMilliseconds) } },
+            { nameof(IDwellClickConfigurationService.StopButtonDwellTimeMilliseconds), new [] {nameof(StopButtonDwellTimeMilliseconds) } },
+            { nameof(IDwellClickConfigurationService.DirectionButtonDwellTimeMilliseconds), new [] {nameof(DirectionButtonsDwellTimeMilliseconds) } },
+            { nameof(IDwellClickConfigurationService.DwellTimeoutMilliseconds), new [] {nameof(DwellTimeoutMilliseconds) } },
+            { nameof(IDwellClickConfigurationService.RepeatDelayMilliseconds), new [] {nameof(DwellRepeatDelayMilliseconds) } },
+        };
+
         private void DwellClickConfiguration_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
+            if (!ConfigurationPropertyDependencies.ContainsKey(e.PropertyName)) return;
+            foreach (var dep in ConfigurationPropertyDependencies[e.PropertyName])
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(dep);
+            }
         }
 
         public IEnumerable<string> AvailableProviders { get; }

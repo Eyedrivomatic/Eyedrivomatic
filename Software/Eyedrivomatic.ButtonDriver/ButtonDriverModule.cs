@@ -90,14 +90,20 @@ namespace Eyedrivomatic.ButtonDriver
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
                         Log.Info(this, $"Connection string: [{connectionString}]");
-                        await _hardwareService.CurrentDriver.ConnectAsync(connectionString, CancellationToken.None);
+                        await _hardwareService.CurrentDriver.ConnectAsync(connectionString, true,
+                            CancellationToken.None);
                     }
                     else
                     {
                         Log.Warn(this, "Connection string not specified. Attempting to auto-detect.");
-                        await _hardwareService.CurrentDriver.AutoConnectAsync(CancellationToken.None);
+                        await _hardwareService.CurrentDriver.AutoConnectAsync(true, CancellationToken.None);
                         if (!string.IsNullOrEmpty(_hardwareService.CurrentDriver.Connection?.ConnectionString))
-                            _configurationService.ConnectionString = _hardwareService.CurrentDriver.Connection.ConnectionString;
+                        {
+                            //save the connection string for faster connection next time.
+                            _configurationService.ConnectionString =
+                                _hardwareService.CurrentDriver.Connection.ConnectionString;
+                            _configurationService.Save(); 
+                        }
                     }
                 }
             }

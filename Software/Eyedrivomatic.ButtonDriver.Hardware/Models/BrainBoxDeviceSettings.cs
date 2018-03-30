@@ -78,13 +78,21 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
 
         private void OnSettingMessage(object sender, SettingMessageEventArgs args)
         {
-            if (!_messageHandlers.ContainsKey(args.SettingName))
+            try
             {
-                Log.Error(this, $"Invalid Setting [{args.SettingName}] received");
-                return;
+                if (!_messageHandlers.ContainsKey(args.SettingName))
+                {
+                    Log.Error(this, $"Invalid Setting [{args.SettingName}] received");
+                    return;
+                }
+                Log.Info(this, $"Setting [{args.SettingName}] is [{args.SettingValue}]");
+                _messageHandlers[args.SettingName](args.SettingValue);
+
             }
-            Log.Info(this, $"Setting [{args.SettingName}] is [{args.SettingValue}]");
-            _messageHandlers[args.SettingName](args.SettingValue);
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Failed to update [{args.SettingName}]. Value provided was [{args.SettingValue}]. [{ex}]");
+            }
         }
 
         private void OnDisconnected(object sender, EventArgs e)

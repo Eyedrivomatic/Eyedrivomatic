@@ -16,19 +16,31 @@
 #include "State.h"
 #include "Settings.h"
 
-#define SERVO_X 9
-#define SERVO_Y 8
-
 #define SendStatus() SendStatusAction.execute(NULL)
 
 #define SERVO_OFFSET_X 90
 #define SERVO_OFFSET_Y 90
 
+#if defined(MOBILITY_CONCEPT_BUILD)
+#define SERVO_X 5
+#define SERVO_Y 6
+#define SWITCH_1 4
+#define SWITCH_2 8
+#define SWITCH_3 12
+#else
+#define SERVO_X 9
+#define SERVO_Y 8
+#define SWITCH_1 7
+#define SWITCH_2 5
+#define SWITCH_3 3
+#endif
+
+
 const int switchPins[] =
 {
-	7, //Switch1
-	5, //Switch2
-	3, //Switch3
+	SWITCH_1,
+	SWITCH_2,
+	SWITCH_3,
 };
 
 #define SERVO_ENABLE 6

@@ -126,11 +126,11 @@ namespace Eyedrivomatic.Hardware.Communications
             _serialPort = null; //IsConnected will now return false.
             if (tmp != null)
             {
+                tmp.BaseStream.Close();
                 tmp.DtrEnable = false;
                 Thread.Sleep(250);
                 tmp.DtrEnable = true;
                 Thread.Sleep(250);
-                tmp.BaseStream.Close();
                 tmp.Close();
                 tmp.Dispose();
             }
@@ -154,7 +154,7 @@ namespace Eyedrivomatic.Hardware.Communications
                 {
                     return await OpenSerialPortAsync(port, 19200, cancellationToken);
                 }
-                catch (Exception ex) when (ex is TimeoutException || ex is IOException)
+                catch (TimeoutException)
                 {
                     Log.Warn(this, $"Failed to read first message on [{port}] at [19200] baud. Attempting the slower speed of previous versions of [9600] baud.");
                     await Task.Delay(500, cancellationToken); //The serial port has a background thread that needs some time to close.
@@ -175,13 +175,19 @@ namespace Eyedrivomatic.Hardware.Communications
                 Log.Error(this, $"Invalid port name [{port}].");
                 return null;
             }
+            catch (TimeoutException)
+            {
+                Log.Warn(this, $"Failed to read first message on [{port}] at [9600] baud.");
+                return null;
+            }
             catch (IOException ex)
             {
+                cancellationToken.ThrowIfCancellationRequested();
 
                 //The port is in an invalid state.
                 // -or -
                 //An attempt to set the state of the underlying port failed. For example, the parameters passed from this SerialPort object were invalid.
-                Log.Error(this, $"Failed to open the com port [{port}] [{ex}]");
+                Log.Error(this, $"Failed to open the com port [{port}] [{ex.Message}]");
                 return null;
             }
             catch (InvalidOperationException ex)
@@ -196,7 +202,6 @@ namespace Eyedrivomatic.Hardware.Communications
             var serialPort = new SerialPort(port, speed)
             {
                 DtrEnable = false,
-                ReadTimeout = 500,
             };
 
             var timeoutSource = new CancellationTokenSource(_connectionTimeout);
@@ -221,11 +226,10 @@ namespace Eyedrivomatic.Hardware.Communications
                 }
 
             }
-            catch (OperationCanceledException)
+            catch (IOException) when (timeoutSource.IsCancellationRequested)
             {
                 serialPort.Dispose();
-                if (timeoutSource.IsCancellationRequested) throw new TimeoutException();
-                throw;
+                throw new TimeoutException();
             }
             catch (Exception)
             {
@@ -243,7 +247,6 @@ namespace Eyedrivomatic.Hardware.Communications
             serialPort.DtrEnable = true; //this will reset the Arduino.
 
             if (!serialPort.IsOpen) return null;
-            serialPort.BaseStream.ReadTimeout = 500;
             var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.
             var firstMessage = await reader.ReadLineAsync();
             if (string.IsNullOrEmpty(firstMessage)) firstMessage = await reader.ReadLineAsync(); //In an earlier version of the software, a newline was sent first.

@@ -47,7 +47,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public DeviceConfigturationViewModel(
             IHardwareService hardwareService, 
             IButtonDriverConfigurationService configurationService,
-            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand, InteractionRequest<INotification> connectionFailureNotification)
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand,
+            InteractionRequest<INotification> connectionFailureNotification)
             : base(hardwareService)
         {
             _configurationService = configurationService;
@@ -122,11 +123,41 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             try
             {
                 RefreshAvailableDeviceList();
-                await Driver.AutoConnectAsync(CancellationToken.None);
-                SelectedDevice =
-                    AvailableDevices.FirstOrDefault(
-                        device => device.ConnectionString == Driver.Connection?.ConnectionString);
+                await Driver.AutoConnectAsync(true, CancellationToken.None);
+                SelectedDevice = AvailableDevices.FirstOrDefault(device => device.ConnectionString == Driver.Connection?.ConnectionString);
 
+            }
+            catch (ConnectionFailedException cfe)
+            {
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = cfe.Message
+                    });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Unexpected exception while connecting to device! [{ex}]");
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = Strings.DeviceConnection_Error_Auto_NotFound
+                    });
+            }
+        }
+
+        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
+
+        protected async void Connect()
+        {
+            if (SelectedDevice == null) return;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(SelectedDevice?.ConnectionString)) throw new InvalidOperationException("Unable to connect - no device selected.");
+                await Driver.ConnectAsync(SelectedDevice.ConnectionString, true, CancellationToken.None);
             }
             catch (ConnectionFailedException cfe)
             {
@@ -144,18 +175,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                     new Notification
                     {
                         Title = Strings.DeviceConnection_Error_Title,
-                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck,
-                            _configurationService.ConnectionString)
+                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, SelectedDevice?.ConnectionString ?? "N/A")
                     });
             }
-        }
-
-        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
-
-        protected async void Connect()
-        {
-            if (string.IsNullOrWhiteSpace(SelectedDevice?.ConnectionString)) throw new InvalidOperationException("Unable to connect - no device selected.");
-            await Driver.ConnectAsync(SelectedDevice.ConnectionString, CancellationToken.None);
         }
 
         protected bool CanConnect()
@@ -210,11 +232,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public int LeftLimit
         {
             get => -(Driver.DeviceSettings.MinPosX ?? 0);
-            set 
-            {
-                Driver.DeviceSettings.MinPosX = -value;
-                HasChanges = true;
-            }
+            set => Driver.DeviceSettings.MinPosX = -value;
         }
         public int LeftMaxLimit => -Driver.DeviceSettings.HardwareMinPosX;
         public int LeftMinLimit => -(Driver.DeviceSettings.CenterPosX ?? 0) + 1;
@@ -222,11 +240,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public int RightLimit
         {
             get => Driver.DeviceSettings.MaxPosX ?? 0;
-            set
-            {
-                Driver.DeviceSettings.MaxPosX = value;
-                HasChanges = true;
-            }
+            set => Driver.DeviceSettings.MaxPosX = value;
         }
         public int RightMaxLimit => Driver.DeviceSettings.HardwareMaxPosX;
         public int RightMinLimit => (Driver.DeviceSettings.CenterPosX ?? 0) + 1;
@@ -234,11 +248,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public int BackwardLimit
         {
             get => -(Driver.DeviceSettings.MinPosY ?? 0);
-            set
-            {
-                Driver.DeviceSettings.MinPosY = -value;
-                HasChanges = true;
-            }
+            set => Driver.DeviceSettings.MinPosY = -value;
         }
         public int BackwardMaxLimit => -Driver.DeviceSettings.HardwareMinPosY;
         public int BackwardMinLimit => -(Driver.DeviceSettings.CenterPosY ?? 0) + 1;
@@ -246,11 +256,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public int ForwardLimit
         {
             get => Driver.DeviceSettings.MaxPosY ?? 0;
-            set
-            {
-                Driver.DeviceSettings.MaxPosY = value;
-                HasChanges = true;
-            }
+            set => Driver.DeviceSettings.MaxPosY = value;
         }
         public int ForwardMaxLimit => Driver.DeviceSettings.HardwareMaxPosY;
         public int ForwardMinLimit => (Driver.DeviceSettings.CenterPosY ?? 0) + 1;
@@ -290,12 +296,19 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         private static readonly Dictionary<string, string[]> SettingPropertyDependencies = new Dictionary<string, string[]>
         {
-            {nameof(IDeviceSettings.CenterPosX),  new [] {nameof(TrimPosition), nameof(LeftMinLimit), nameof(RightMinLimit)}},
-            {nameof(IDeviceSettings.CenterPosY),  new [] {nameof(TrimPosition), nameof(ForwardMinLimit), nameof(BackwardMinLimit)}},
-            {nameof(IDeviceSettings.MaxPosX), new []{ nameof(RightLimit)} },
-            {nameof(IDeviceSettings.MinPosX), new []{ nameof(LeftLimit)} },
-            {nameof(IDeviceSettings.MaxPosY), new []{ nameof(ForwardLimit)} },
-            {nameof(IDeviceSettings.MinPosY), new []{ nameof(BackwardLimit)} }
+            { nameof(IDeviceSettings.CenterPosX),  new [] {nameof(TrimPosition), nameof(LeftMinLimit), nameof(RightMinLimit)} },
+            { nameof(IDeviceSettings.CenterPosY),  new [] {nameof(TrimPosition), nameof(ForwardMinLimit), nameof(BackwardMinLimit)} },
+            { nameof(IDeviceSettings.MaxPosX), new []{ nameof(RightLimit)} },
+            { nameof(IDeviceSettings.MinPosX), new []{ nameof(LeftLimit)} },
+            { nameof(IDeviceSettings.MaxPosY), new []{ nameof(ForwardLimit)} },
+            { nameof(IDeviceSettings.MinPosY), new []{ nameof(BackwardLimit)} }
+        };
+
+        private static readonly Dictionary<string, string[]> ConfigurationPropertyDependencies = new Dictionary<string, string[]>
+        {
+            { nameof(IButtonDriverConfigurationService.HasChanges), new [] {nameof(HasChanges)} },
+            { nameof(IButtonDriverConfigurationService.AutoConnect), new [] {nameof(AutoConnect)} },
+            { nameof(IButtonDriverConfigurationService.ConnectionString), new [] {nameof(SelectedDevice)} },
         };
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
@@ -304,15 +317,21 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             if (!SettingPropertyDependencies.ContainsKey(e.PropertyName)) return;
             foreach (var dep in SettingPropertyDependencies[e.PropertyName])
             {
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(dep);
             }
+            HasChanges = true;
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         private void ConfigurationService_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
+            if (!ConfigurationPropertyDependencies.ContainsKey(e.PropertyName)) return;
+            foreach (var dep in ConfigurationPropertyDependencies[e.PropertyName])
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(dep);
+            }
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();

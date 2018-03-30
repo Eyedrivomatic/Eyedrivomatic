@@ -10,12 +10,15 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System;
+
 namespace Eyedrivomatic.Hardware.Commands
 {
     internal class StopCommand : DeviceCommandBase
     {
         public override string Name => $"Stop";
 
+        public override TimeSpan DefaultTimeout => TimeSpan.Zero;
         public override string ToString()
         {
             return "STOP";

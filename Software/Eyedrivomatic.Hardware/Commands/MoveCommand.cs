@@ -29,7 +29,7 @@ namespace Eyedrivomatic.Hardware.Commands
 
         public override string Name => "Move";
 
-        public override int Retries => Math.Min(base.Retries, 2); //Move only gets 2 or less tries
+        public override int MaxAttempts => 1; //Move only gets 1 try
 
         public override string ToString()
         {

@@ -44,7 +44,7 @@ namespace Eyedrivomatic.Hardware.Services
 
         public override string ToString()
         {
-            return $"X:{XRelative} ({XAbsolute}), Y:{YRelative} ({YAbsolute}), Switch1:{(Switch1 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, ";
+            return $"X:{XRelative} ({XAbsolute}), Y:{YRelative} ({YAbsolute}), Switch1:{(Switch1 ? "on" : "off")}, Switch2:{(Switch2 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, ";
         }
     }
 }

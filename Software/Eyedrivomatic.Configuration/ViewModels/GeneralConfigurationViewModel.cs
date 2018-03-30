@@ -41,10 +41,25 @@ namespace Eyedrivomatic.Configuration.ViewModels
             _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
 
+
+        private static readonly Dictionary<string, string[]> ConfigurationPropertyDependencies = new Dictionary<string, string[]>
+        {
+            { nameof(IAppearanceConfigurationService.HasChanges), new [] {nameof(HasChanges)} },
+            { nameof(IAppearanceConfigurationService.HideMouseCursor), new [] {nameof(HideMouseCursor) } },
+            { nameof(IAppearanceConfigurationService.CurrentCulture), new [] {nameof(CurrentCulture) } },
+            { nameof(IAppearanceConfigurationService.ThemeColors), new [] {nameof(ThemeColors) } },
+            { nameof(IAppearanceConfigurationService.ThemeImages), new [] {nameof(ThemeImages) } },
+            { nameof(IAppearanceConfigurationService.ThemeStyles), new [] {nameof(ThemeStyles) } },
+        };
+
         private void AppearanceConfigurationPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(string.Empty);
+            if (!ConfigurationPropertyDependencies.ContainsKey(e.PropertyName)) return;
+            foreach (var dep in ConfigurationPropertyDependencies[e.PropertyName])
+            {
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(dep);
+            }
         }
 
         public bool HideMouseCursor
