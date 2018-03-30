@@ -44,9 +44,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices);
 
-        Task AutoConnectAsync(CancellationToken cancellationToken);
+        Task AutoConnectAsync(bool autoUpdateFirmware, CancellationToken cancellationToken);
 
-        Task ConnectAsync(string connectionString, CancellationToken cancellationToken);
+        Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken);
 
         [AllowNull]
         IDeviceConnection Connection { get; }

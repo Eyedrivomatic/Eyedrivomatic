@@ -89,6 +89,7 @@
     <Compile Include="Communications\IDeviceConnection.cs" />
     <Compile Include="Communications\SettingNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArduinoUploadLogger.cs" />
     <Compile Include="Services\DeviceCommandQueue.cs" />
     <Compile Include="Services\DeviceDescriptor.cs" />
     <Compile Include="Services\ElectronicHandEnumerationService.cs" />

@@ -10,6 +10,8 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System;
+
 namespace Eyedrivomatic.Hardware.Commands
 {
     internal class GetConfigurationCommand : DeviceCommandBase
@@ -20,6 +22,9 @@ namespace Eyedrivomatic.Hardware.Commands
         {
             SettingName = settingName;
         }
+
+        public override int MaxAttempts => -1; //just keep trying.
+        public override TimeSpan DefaultTimeout => TimeSpan.FromSeconds(3);
 
         public override string Name => $"Get {SettingName}";
 

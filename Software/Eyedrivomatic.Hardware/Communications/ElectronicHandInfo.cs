@@ -35,6 +35,7 @@ namespace Eyedrivomatic.Hardware.Communications
     [Export(typeof(IElectronicHandDeviceInfo))]
     internal class ElectronicHandDeviceInfoV20 : IElectronicHandDeviceInfo
     {
+        [return:AllowNull]
         public Version VerifyStartupMessage(string firstMessage)
         {
             var regex = new Regex(@"START: Eyedrivomatic - version (?<Version>2\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?)");

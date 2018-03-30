@@ -24,14 +24,15 @@ namespace Eyedrivomatic.Hardware.Commands
         /// <summary>
         /// The number of times the command should be sent before failing.
         /// Includes the first attempt.
+        /// Use 0 to retry indefinately.
         /// </summary>
-        int Retries { get; set; }
+        int MaxAttempts { get; }
 
         /// <summary>
         /// The timeout period for the command.
         /// This time should be greater than the connections send timeout and should account for other potential commands in the queue.
         /// </summary>
-        TimeSpan DefaultTimeout { get; set; }
+        TimeSpan DefaultTimeout { get; }
 
         /// <summary>
         /// Returns the command text as it is sent to the device.

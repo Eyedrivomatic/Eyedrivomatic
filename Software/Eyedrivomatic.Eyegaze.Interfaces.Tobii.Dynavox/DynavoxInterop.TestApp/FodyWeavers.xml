@@ -14,5 +14,5 @@
 
 
 <Weavers>
-  <Costura Unmanaged64Assemblies="DynavoxInterop|TobiiGazeCore64" />
+  <!--<Costura Unmanaged64Assemblies="DynavoxInterop|TobiiGazeCore64" />-->
 </Weavers>

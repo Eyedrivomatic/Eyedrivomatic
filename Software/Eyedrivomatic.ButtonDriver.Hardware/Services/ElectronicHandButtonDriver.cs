@@ -114,7 +114,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             return _deviceEnumerationService.GetAvailableDevices(includeAllSerialDevices);
         }
 
-        public async Task AutoConnectAsync(CancellationToken cancellationToken)
+        public async Task AutoConnectAsync(bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
             Connection = null;
 
@@ -125,13 +125,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 throw new ConnectionFailedException(Strings.DeviceConnection_Error_Auto_NotFound);
             }
 
-            if (await CheckFirmwareVersion(connection)) Connection = connection;
+            await CheckFirmwareVersion(connection, autoUpdateFirmware);
         }
 
-        public async Task ConnectAsync(string connectionString, CancellationToken cancellationToken)
+        public async Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
             Connection = null;
-            var device = GetAvailableDevices(true).FirstOrDefault(d => d.ConnectionString == connectionString);
+            var device = GetAvailableDevices(true).FirstOrDefault(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) == 0);
             if (device == null)
             {
                 Log.Error(this, $"Device [{connectionString}] not found!");
@@ -140,15 +140,18 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
             var connection = _connectionFactory.CreateConnection(device);
             await connection.ConnectAsync(cancellationToken);
+
             if (connection.State != ConnectionState.Connected)
             {
-                throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual, connectionString));
+                if (GetAvailableDevices(false).All(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) != 0))
+                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual, connectionString));
             }
 
-            if (await CheckFirmwareVersion(connection)) Connection = connection;
+            await CheckFirmwareVersion(connection, autoUpdateFirmware);
+            Connection = connection;
         }
 
-        private async Task<bool> CheckFirmwareVersion(IDeviceConnection connection)
+        private async Task CheckFirmwareVersion(IDeviceConnection connection, bool autoUpdateFirmware)
         {
             var latestVersion = _firmwareUpdateService.GetLatestVersion();
 
@@ -160,17 +163,16 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                     Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion}, However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
                     throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
                 }
-
-                return await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true);
+                
+                if (!autoUpdateFirmware || !await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true))
+                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString));
             }
 
             //Optional update.
-            if (latestVersion != null && latestVersion > connection.FirmwareVersion)
+            if (autoUpdateFirmware && latestVersion != null && latestVersion > connection.FirmwareVersion)
             {
                 await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, false);
             }
-
-            return true;
         }
 
         [Export]

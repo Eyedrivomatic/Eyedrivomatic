@@ -122,11 +122,41 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             try
             {
                 RefreshAvailableDeviceList();
-                await Driver.AutoConnectAsync(CancellationToken.None);
-                SelectedDevice =
-                    AvailableDevices.FirstOrDefault(
-                        device => device.ConnectionString == Driver.Connection?.ConnectionString);
+                await Driver.AutoConnectAsync(true, CancellationToken.None);
+                SelectedDevice = AvailableDevices.FirstOrDefault(device => device.ConnectionString == Driver.Connection?.ConnectionString);
 
+            }
+            catch (ConnectionFailedException cfe)
+            {
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = cfe.Message
+                    });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Unexpected exception while connecting to device! [{ex}]");
+                _connectionFailureNotification.Raise(
+                    new Notification
+                    {
+                        Title = Strings.DeviceConnection_Error_Title,
+                        Content = Strings.DeviceConnection_Error_Auto_NotFound
+                    });
+            }
+        }
+
+        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
+
+        protected async void Connect()
+        {
+            if (SelectedDevice == null) return;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(SelectedDevice?.ConnectionString)) throw new InvalidOperationException("Unable to connect - no device selected.");
+                await Driver.ConnectAsync(SelectedDevice.ConnectionString, true, CancellationToken.None);
             }
             catch (ConnectionFailedException cfe)
             {
@@ -144,18 +174,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                     new Notification
                     {
                         Title = Strings.DeviceConnection_Error_Title,
-                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck,
-                            _configurationService.ConnectionString)
+                        Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, SelectedDevice?.ConnectionString ?? "N/A")
                     });
             }
-        }
-
-        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
-
-        protected async void Connect()
-        {
-            if (string.IsNullOrWhiteSpace(SelectedDevice?.ConnectionString)) throw new InvalidOperationException("Unable to connect - no device selected.");
-            await Driver.ConnectAsync(SelectedDevice.ConnectionString, CancellationToken.None);
         }
 
         protected bool CanConnect()

@@ -18,9 +18,9 @@ namespace Eyedrivomatic.Hardware.Commands
     {
         public abstract string Name { get; }
 
-        public virtual int Retries { get; set; } = 3;
+        public virtual int MaxAttempts => 3;
 
-        public virtual TimeSpan DefaultTimeout { get; set; } = TimeSpan.FromMilliseconds(500);
+        public virtual TimeSpan DefaultTimeout => TimeSpan.FromMilliseconds(300);
 
         public override string ToString()
         {
