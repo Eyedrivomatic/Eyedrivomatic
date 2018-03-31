@@ -9,5 +9,6 @@
   </DirectoryMappings>
   <FileMappings />
   <DeploySymbols>true</DeploySymbols>
+  <DeployLocalizations>true</DeployLocalizations>
   <DeployExternalLocalizations>false</DeployExternalLocalizations>
 </Configuration>
