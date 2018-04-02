@@ -26,15 +26,19 @@ namespace Eyedrivomatic.ButtonDriver
     [Export("FirmwareUpdateWithConfirmation", typeof(IFirmwareUpdateService))]
     public class FirmwareUpdateConfirmationDecorator : IFirmwareUpdateService
     {
-        private readonly IFirmwareUpdateService _target;
+        private readonly InteractionRequest<IFirmwareUpdateProgressNotification> _firmwareUpdateProgress;
         private readonly InteractionRequest<IConfirmationWithCustomButtons> _firmwareUpdateRequest;
+        private readonly IFirmwareUpdateService _target;
+
         [ImportingConstructor]
         public FirmwareUpdateConfirmationDecorator(
-            IFirmwareUpdateService target, 
-            InteractionRequest<IConfirmationWithCustomButtons> firmwareUpdateRequest)
+            IFirmwareUpdateService target,
+            InteractionRequest<IConfirmationWithCustomButtons> firmwareUpdateRequest,
+            [Import("FirmwareUpdateProgress")]InteractionRequest<IFirmwareUpdateProgressNotification> firmwareUpdateProgress)
         {
             _target = target;
             _firmwareUpdateRequest = firmwareUpdateRequest;
+            _firmwareUpdateProgress = firmwareUpdateProgress;
         }
 
         public IEnumerable<Version> GetAvailableFirmware()
@@ -48,9 +52,9 @@ namespace Eyedrivomatic.ButtonDriver
             return _target.GetLatestVersion();
         }
 
-        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, IProgress<double> progress = null)
+        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, [AllowNull] IProgress<double> progress)
         {
-            TaskCompletionSource<bool> requestTask = new TaskCompletionSource<bool>();
+            var requestTask = new TaskCompletionSource<bool>();
             _firmwareUpdateRequest.Raise(
                 required
                     ? new ConfirmationWithCustomButtons
@@ -73,7 +77,16 @@ namespace Eyedrivomatic.ButtonDriver
 
             if (!await requestTask.Task) return false;
 
-            return await _target.UpdateFirmwareAsync(connection, version, required, progress);
+            var progressTitle = Translate.Key(nameof(Strings.Firmware_Update_Title));
+            var progressContent = string.Format(Translate.Key(nameof(Strings.Firmware_Update_Versions_Format)),
+                connection.FirmwareVersion.ToString(3),
+                version.ToString(3));
+
+            using (var progressNotification = new FirmwareUpdateProgressNotification(connection.FirmwareVersion, version, progress){Title = progressTitle, Content = progressContent})
+            {
+                _firmwareUpdateProgress.Raise(progressNotification);
+                return await _target.UpdateFirmwareAsync(connection, version, required, progressNotification);
+            }
         }
     }
 }

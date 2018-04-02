@@ -20,7 +20,7 @@ using System.ComponentModel.Composition;
 namespace Eyedrivomatic.ButtonDriver.ViewModels
 {
     [Export]
-    public class FirmwareUpdateViewModel : BindableBase
+    public class FirmwareUpdateRequestViewModel : BindableBase
     {
         private readonly bool _updateRequired;
         private readonly Version _currentVersion;
@@ -30,7 +30,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         /// <summary>
         /// Designer constructor.
         /// </summary>
-        public FirmwareUpdateViewModel()
+        public FirmwareUpdateRequestViewModel()
         {
             _updateRequired = true;
             _currentVersion = new Version(1, 0);
@@ -38,7 +38,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             _connectionString = "COM1";
         }
 
-        public FirmwareUpdateViewModel(bool updateRequired, Version currentVersion, Version updateVersion, string connectionString)
+        public FirmwareUpdateRequestViewModel(bool updateRequired, Version currentVersion, Version updateVersion, string connectionString)
         {
             _currentVersion = currentVersion;
             _updateVersion = updateVersion;

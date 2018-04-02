@@ -554,11 +554,27 @@ Update Version: {2}
  Update Version: {2}</value>
     <comment>The directive text on the firmware update dialog if the update is required.</comment>
   </data>
+  <data name="Firmware_Update_Directive" xml:space="preserve">
+    <value>Updating Firmware.</value>
+    <comment>Displayed while updating the firmware. </comment>
+  </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
     <value>Current Version: {0}. Update Version: {1}</value>
     <comment>The detected and new firmware versions displayed on the firmware update dialog. </comment>
   </data>
-  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+  <data name="DeviceConnection_Disconnected" xml:space="preserve">
+    <value>Disconnected</value>
+    <comment>Displayed when the connection to the device has been lost. </comment>
+  </data>
+  <data name="DeviceConnection_Connected" xml:space="preserve">
+    <value>Connected</value>
+    <comment>Displayed when the connection to the device has been established. </comment>
+  </data>
+  <data name="DeviceConnection_Connecting" xml:space="preserve">
+    <value>Connecting...</value>
+    <comment>Displayed while establishing a connection to the device.. </comment>
+  </data>
+  <data name="DeviceConnection_Error" xml:space="preserve">
     <value>Device Connection Failed</value>
     <comment>Title on the connection failed notification.</comment>
   </data>

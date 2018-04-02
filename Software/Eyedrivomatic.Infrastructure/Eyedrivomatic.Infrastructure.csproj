@@ -79,6 +79,8 @@
     <Compile Include="MultiplierConverter.cs" />
     <Compile Include="NullToVisibilityConverter.cs" />
     <Compile Include="PrismLogger.cs" />
+    <Compile Include="ProgressNotification.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="StringCompareToBoolConverter.cs" />
     <Compile Include="IHeaderInfoProvider.cs" />
     <Compile Include="InfrastructureModule.cs" />

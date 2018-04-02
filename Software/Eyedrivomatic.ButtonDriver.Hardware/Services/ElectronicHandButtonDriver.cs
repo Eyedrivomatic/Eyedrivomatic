@@ -22,12 +22,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Hardware.Models;
+using Eyedrivomatic.Hardware;
 using Eyedrivomatic.Hardware.Commands;
 using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Hardware.Services;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Hardware.Services
@@ -42,6 +44,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private readonly IFirmwareUpdateService _firmwareUpdateService;
         private readonly IBrainBoxCommands _commands;
         private readonly IList<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>> _messageProcessors;
+        private readonly IEventAggregator _eventAggregator;
 
         private IDisposable _connectionDatastream;
 
@@ -56,7 +59,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             IDeviceSettings deviceSettings, 
             IDeviceEnumerationService deviceEnumerationService, 
             IElectronicHandConnectionFactory connectionFactory, 
-            [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService)
+            [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService, 
+            IEventAggregator eventAggregator)
         {
             _commands = commandFactory;
             _messageProcessors = new List<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>>(messageProcessors);
@@ -65,6 +69,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             _deviceEnumerationService = deviceEnumerationService;
             _connectionFactory = connectionFactory;
             _firmwareUpdateService = firmwareUpdateService;
+            _eventAggregator = eventAggregator;
 
             deviceStatus.PropertyChanged += OnStatusChanged;
         }
@@ -105,6 +110,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             RaisePropertyChanged(nameof(ReadyState));
             RaisePropertyChanged(nameof(DeviceStatus));
             RaisePropertyChanged(nameof(Connection));
+            _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(Connection?.State ?? ConnectionState.Disconnected);
         }
 
         #region Connection
@@ -116,40 +122,64 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public async Task AutoConnectAsync(bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
-            Connection = null;
-
-            var connection = await _deviceEnumerationService.DetectDeviceAsync(MinFirmwareVersion, cancellationToken);
-            if (connection == null)
+            try
             {
-                Log.Error(this, "Device not found!");
-                throw new ConnectionFailedException(Strings.DeviceConnection_Error_Auto_NotFound);
-            }
+                Connection = null;
+                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Connecting);
 
-            await CheckFirmwareVersion(connection, autoUpdateFirmware);
-            Connection = connection;
+                var connection = await _deviceEnumerationService.DetectDeviceAsync(MinFirmwareVersion, cancellationToken);
+                if (connection == null)
+                {
+                    Log.Error(this, "Device not found!");
+                    throw new ConnectionFailedException(Strings.DeviceConnection_Error_Auto_NotFound);
+                }
+
+                await CheckFirmwareVersion(connection, autoUpdateFirmware);
+                Connection = connection;
+            }
+            catch (Exception)
+            {
+                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Error);
+                throw;
+            }
         }
 
         public async Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
             Connection = null;
-            var device = GetAvailableDevices(true).FirstOrDefault(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) == 0);
-            if (device == null)
+            _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Connecting);
+            try
             {
-                Log.Error(this, $"Device [{connectionString}] not found!");
-                throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual_NotFound, connectionString));
+                var device = GetAvailableDevices(true).FirstOrDefault(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) == 0);
+                if (device == null)
+                {
+                    Log.Error(this, $"Device [{connectionString}] not found!");
+                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual_NotFound, connectionString));
+                }
+
+                var connection = _connectionFactory.CreateConnection(device);
+                await connection.ConnectAsync(cancellationToken);
+
+                if (connection.State != ConnectionState.Connected)
+                {
+                    if (GetAvailableDevices(false)
+                        .All(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) != 0))
+                    {
+                        Log.Error(this, $"Connection to device [{connectionString}] failed!");
+
+                        throw new ConnectionFailedException(
+                            string.Format(Strings.DeviceConnection_Error_Manual, connectionString));
+                    }
+                }
+
+                await CheckFirmwareVersion(connection, autoUpdateFirmware);
+                Connection = connection;
             }
-
-            var connection = _connectionFactory.CreateConnection(device);
-            await connection.ConnectAsync(cancellationToken);
-
-            if (connection.State != ConnectionState.Connected)
+            catch (Exception)
             {
-                if (GetAvailableDevices(false).All(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) != 0))
-                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual, connectionString));
+                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Error);
+                throw;
             }
-
-            await CheckFirmwareVersion(connection, autoUpdateFirmware);
-            Connection = connection;
         }
 
         private async Task CheckFirmwareVersion(IDeviceConnection connection, bool autoUpdateFirmware)
@@ -161,7 +191,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             {
                 if (latestVersion == null || latestVersion < MinFirmwareVersion)
                 {
-                    Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion}, However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
+                    Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion}], However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
                     throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
                 }
                 

@@ -12,7 +12,6 @@
 
 using System;
 using System.Windows;
-using Eyedrivomatic.Infrastructure;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic

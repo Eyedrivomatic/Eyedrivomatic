@@ -132,7 +132,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = cfe.Message
                     });
             }
@@ -142,7 +142,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = Strings.DeviceConnection_Error_Auto_NotFound
                     });
             }
@@ -164,7 +164,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = cfe.Message
                     });
             }
@@ -174,7 +174,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, SelectedDevice?.ConnectionString ?? "N/A")
                     });
             }

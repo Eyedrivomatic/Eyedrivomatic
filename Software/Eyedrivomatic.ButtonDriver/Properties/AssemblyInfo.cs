@@ -29,5 +29,5 @@ using System.Windows;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None,
-    ResourceDictionaryLocation.ExternalAssembly
+    ResourceDictionaryLocation.SourceAssembly
 )]

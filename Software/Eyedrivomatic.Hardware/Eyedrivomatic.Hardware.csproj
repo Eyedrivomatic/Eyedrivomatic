@@ -94,7 +94,7 @@
     <Compile Include="Communications\IDeviceCommandHandler.cs" />
     <Compile Include="Communications\IDeviceConnection.cs" />
     <Compile Include="Communications\SettingNames.cs" />
-    <Compile Include="Communications\ConnectionStateEvent.cs" />
+    <Compile Include="DeviceConnectionEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArduinoUploadLogger.cs" />
     <Compile Include="Services\DeviceCommandQueue.cs" />

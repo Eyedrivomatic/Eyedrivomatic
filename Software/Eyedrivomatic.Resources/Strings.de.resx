@@ -539,10 +539,22 @@ Neue Version: {2}</value>
   <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
     <value>Firmware Update verfügbar</value>
   </data>
+  <data name="Firmware_Update_Directive" xml:space="preserve">
+    <value>Firmware aktualisieren</value>
+  </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
     <value>Aktuelle Version: {0}. Neue Version : {1}</value>
   </data>
-  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+  <data name="DeviceConnection_Disconnected" xml:space="preserve">
+    <value>Getrennt</value>
+  </data>
+  <data name="DeviceConnection_Connected" xml:space="preserve">
+    <value>Verbunden</value>
+  </data>
+  <data name="DeviceConnection_Connecting" xml:space="preserve">
+    <value>Verbinden...</value>
+  </data>
+  <data name="DeviceConnection_Error" xml:space="preserve">
     <value>Geräteverbindung fehlgeschlagen</value>
   </data>
   <data name="SettingGroupName_Language" xml:space="preserve">

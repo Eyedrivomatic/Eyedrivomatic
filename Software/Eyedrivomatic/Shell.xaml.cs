@@ -13,8 +13,11 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
+using Eyedrivomatic.ButtonDriver;
+using Eyedrivomatic.Hardware;
 using Eyedrivomatic.Infrastructure;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic
@@ -28,7 +31,6 @@ namespace Eyedrivomatic
         public Shell()
         {
             InitializeComponent();
-
             DriveProfileSelection.Items.Clear();
             MainContent.Content = null;
 
@@ -48,8 +50,17 @@ namespace Eyedrivomatic
         [Export]
         public InteractionRequest<IConfirmationWithCustomButtons> CustomConfirmationRequest { get; } = new InteractionRequest<IConfirmationWithCustomButtons>();
 
+        [Export("FirmwareUpdateProgress")]
+        public InteractionRequest<IFirmwareUpdateProgressNotification> FirmwareUpdateProgress => ConnectionDecorator.FirmwareUpdateNotification;
+
         [Export(nameof(ShowDisclaimerCommand))]
         public ICommand ShowDisclaimerCommand => new DelegateCommand(() => CustomNotificationRequest.Raise(new DisclaimerNotification()));
+
+        [Import]
+        public IEventAggregator EventAggregator
+        {
+            set => ConnectionDecorator.SetConnectionEventSource(value.GetEvent<DeviceConnectionEvent>());
+        }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

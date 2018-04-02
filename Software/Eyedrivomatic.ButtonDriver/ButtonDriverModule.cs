@@ -112,7 +112,7 @@ namespace Eyedrivomatic.ButtonDriver
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = cfe.Message
                     });
                 NavigateToConfiguration();
@@ -123,7 +123,7 @@ namespace Eyedrivomatic.ButtonDriver
                 _connectionFailureNotification.Raise(
                     new Notification
                     {
-                        Title = Strings.DeviceConnection_Error_Title,
+                        Title = Strings.DeviceConnection_Error,
                         Content = string.Format(Strings.DeviceConnection_Error_FirmwareCheck, _configurationService.ConnectionString)
                     });
                 NavigateToConfiguration();

@@ -1,0 +1,127 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:prism="http://www.codeplex.com/prism"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:local="clr-namespace:Eyedrivomatic.ButtonDriver"
+    xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+    xmlns:l="http://gu.se/Localization"
+    xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources">
+
+
+    <Style TargetType="{x:Type local:DeviceConnectionDecoratorControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DeviceConnectionDecoratorControl}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState Name="Connected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ConnectingLabel"
+                                            Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{l:Static resources:Strings.DeviceConnection_Connected}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="GrayscaleEffect" Storyboard.TargetProperty="DesaturationFactor" To="1.5" Duration="0:0:1"/>
+                                        <DoubleAnimation Storyboard.TargetName="BlurEffect" Storyboard.TargetProperty="Radius" To="0" Duration="0:0:1.5"/>
+                                        <DoubleAnimation Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:1" />
+                                        <DoubleAnimation Storyboard.TargetName="FirmwareUpdateProgressView" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Disconnected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ConnectingLabel"
+                                            Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{l:Static resources:Strings.DeviceConnection_Disconnected}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="GrayscaleEffect" Storyboard.TargetProperty="DesaturationFactor" To="1" Duration="0:0:0.5"/>
+                                        <DoubleAnimation Storyboard.TargetName="BlurEffect" Storyboard.TargetProperty="Radius" To="0" Duration="0:0:0.5"/>
+                                        <DoubleAnimation Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:3" />
+                                        <DoubleAnimation Storyboard.TargetName="FirmwareUpdateProgressView" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Connecting">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ConnectingLabel"
+                                            Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{l:Static resources:Strings.DeviceConnection_Connecting}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="GrayscaleEffect" Storyboard.TargetProperty="DesaturationFactor" To="0" Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="BlurEffect" Storyboard.TargetProperty="Radius" To="5" Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Error">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ConnectingLabel"
+                                            Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{l:Static resources:Strings.DeviceConnection_Error}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GrayscaleEffect" Storyboard.TargetProperty="DesaturationFactor">
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="BlurEffect" Storyboard.TargetProperty="Radius">
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="5"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:5" Value="5"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+                                            <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="FirmwareUpdateProgressView" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:4" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="FirmwareDownload">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="GrayscaleEffect" Storyboard.TargetProperty="DesaturationFactor" To="0" Duration="0:0:0"/>
+                                        <DoubleAnimation Storyboard.TargetName="BlurEffect" Storyboard.TargetProperty="Radius" To="5" Duration="0:0:0"/>
+                                        <DoubleAnimation Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0" />
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ConnectingLabel"
+                                            Storyboard.TargetProperty="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{l:Static resources:Strings.Firmware_Update_Directive}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="FirmwareUpdateProgressView" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="ConnectingLabel" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border>
+                            <Border.Effect>
+                                <infrastructure:GrayscaleEffect x:Name="GrayscaleEffect" DesaturationFactor="1" />
+                            </Border.Effect>
+                            <Border>
+                                <Border.Effect>
+                                    <BlurEffect x:Name="BlurEffect" Radius="0" KernelType="Box" RenderingBias="Performance" />
+                                </Border.Effect>
+                                <ContentPresenter />
+                            </Border>
+                        </Border>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="0,100,0,0">
+                            <StackPanel.Effect>
+                                <DropShadowEffect RenderingBias="Performance"/>
+                            </StackPanel.Effect>
+                            <Label Name="ConnectingLabel" Opacity="0" Style="{DynamicResource ConnectingTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <StackPanel x:Name="FirmwareUpdateProgressView" Opacity="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ProgressBar Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(FirmwareUpdateProgress).Progress, Mode=OneWay}" Maximum="1"
+                                             Height="25" Width="300" HorizontalAlignment="Center" Margin="0,25,0,0"/>
+                                <Label Style="{DynamicResource ConnectingTextStyle}" FontSize="16" FontWeight="Bold" 
+                                       Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(FirmwareUpdateProgress).Content, Mode=OneWay}" Margin="0,7,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

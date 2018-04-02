@@ -404,13 +404,25 @@ Versión actual: {1} actualización versión: {2}!</value>
   </data>
   <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
     <value>Se detectó un dispositivo en {0}, sin embargo el dispositivo tiene una versión anterior del firmware Eyedrivomatic. Debe actualizar el firmware para continuar.
-    
- Versión actual: versión de actualización {1}: {2}.</value>
+                     
+ Versión actual: {1}, versión de actualización: {2}.</value>
+  </data>
+  <data name="Firmware_Update_Directive" xml:space="preserve">
+    <value>Actualización de firmware.</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
     <value>Versión actual: {0}. actualizar versión: {1}.</value>
   </data>
-  <data name="DeviceConnection_Error_Title" xml:space="preserve">
+  <data name="DeviceConnection_Disconnected" xml:space="preserve">
+    <value>Desconectado</value>
+  </data>
+  <data name="DeviceConnection_Connected" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="DeviceConnection_Connecting" xml:space="preserve">
+    <value>Estableciendo Conexión...</value>
+  </data>
+  <data name="DeviceConnection_Error" xml:space="preserve">
     <value>Error de conexión del dispositivo.</value>
   </data>
   <data name="SettingGroupName_Language" xml:space="preserve">

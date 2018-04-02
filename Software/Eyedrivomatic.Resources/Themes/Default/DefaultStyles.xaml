@@ -18,7 +18,10 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
+                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:prism="http://prismlibrary.com/">
 
     <Thickness x:Key="ButtonBorderThickness" Left="1" Top="1" Right="1" Bottom="1" />
     <CornerRadius x:Key="ButtonBorderCorner" BottomLeft="3" TopLeft="3" BottomRight="3" TopRight="3" />
@@ -39,7 +42,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type infrastructure:TranslationWrapper}">
-        <TextBlock Text="{Binding Translated, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+        <TextBlock Text="{Binding Translated, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
     </DataTemplate>
 
     <Style x:Key="ButtonFocusVisual">
@@ -1139,18 +1142,18 @@
     </Style>
 
     <DataTemplate x:Key="IncreaseGlyphNormalKey">
-        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"/>
+        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}" />
     </DataTemplate>
     <DataTemplate x:Key="IncreaseGlyphDisabledKey">
-        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"/>
+        <Label Content="+" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}" />
     </DataTemplate>
     <DataTemplate x:Key="DecreaseGlyphNormalKey">
-        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"/>
+        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}" />
     </DataTemplate>
     <DataTemplate x:Key="DecreaseGlyphDisabledKey">
-        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"/>
+        <Label Content="-" Foreground="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}" />
     </DataTemplate>
-    
+
     <Style TargetType="xctk:ButtonSpinner">
         <Setter Property="Template">
             <Setter.Value>
@@ -1170,8 +1173,8 @@
                                           IsTabStop="{TemplateBinding IsTabStop}"
                                           ContentTemplate="{StaticResource DecreaseGlyphNormalKey}"
                                           VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center" 
-                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+                                          HorizontalContentAlignment="Center"
+                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
 
                             <ContentPresenter x:Name="contentPresenter"
                                               Grid.Column="1"
@@ -1186,8 +1189,8 @@
                                           IsTabStop="{TemplateBinding IsTabStop}"
                                           ContentTemplate="{StaticResource IncreaseGlyphNormalKey}"
                                           VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center" 
-                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}"/>
+                                          HorizontalContentAlignment="Center"
+                                          dwellClick:DwellClickBehavior.Configuration="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration), Mode=OneWay}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -1216,5 +1219,11 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ConnectingTextStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="ExtraBold"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style> 
 
 </ResourceDictionary>

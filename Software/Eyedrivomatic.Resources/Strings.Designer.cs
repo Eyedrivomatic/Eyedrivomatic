@@ -241,6 +241,42 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connected.
+        /// </summary>
+        public static string DeviceConnection_Connected {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connecting....
+        /// </summary>
+        public static string DeviceConnection_Connecting {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Connecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnected.
+        /// </summary>
+        public static string DeviceConnection_Disconnected {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Connection Failed.
+        /// </summary>
+        public static string DeviceConnection_Error {
+            get {
+                return ResourceManager.GetString("DeviceConnection_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device not found!.
         /// </summary>
         public static string DeviceConnection_Error_Auto_NotFound {
@@ -273,15 +309,6 @@ namespace Eyedrivomatic.Resources {
         public static string DeviceConnection_Error_Manual_NotFound {
             get {
                 return ResourceManager.GetString("DeviceConnection_Error_Manual_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Device Connection Failed.
-        /// </summary>
-        public static string DeviceConnection_Error_Title {
-            get {
-                return ResourceManager.GetString("DeviceConnection_Error_Title", resourceCulture);
             }
         }
         
@@ -405,6 +432,15 @@ namespace Eyedrivomatic.Resources {
         public static string DrivingView_Duration {
             get {
                 return ResourceManager.GetString("DrivingView_Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Firmware..
+        /// </summary>
+        public static string Firmware_Update_Directive {
+            get {
+                return ResourceManager.GetString("Firmware_Update_Directive", resourceCulture);
             }
         }
         

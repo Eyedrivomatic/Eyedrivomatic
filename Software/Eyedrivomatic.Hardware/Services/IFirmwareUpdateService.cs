@@ -24,6 +24,6 @@ namespace Eyedrivomatic.Hardware.Services
 
         [return:AllowNull]
         Version GetLatestVersion();
-        Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, IProgress<double> progress = null);
+        Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, [AllowNull] IProgress<double> progress = null);
     }
 }

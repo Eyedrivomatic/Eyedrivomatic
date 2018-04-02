@@ -13,11 +13,11 @@
 namespace Eyedrivomatic.ButtonDriver.Views
 {
     /// <summary>
-    /// Interaction logic for FirmwareUpdateDlg.xaml
+    /// Interaction logic for FirmwareUpdateRequestDlg.xaml
     /// </summary>
-    public partial class FirmwareUpdateDlg
+    public partial class FirmwareUpdateRequestDlg
     {
-        public FirmwareUpdateDlg()
+        public FirmwareUpdateRequestDlg()
         {
             InitializeComponent();
         }
