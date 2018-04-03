@@ -540,7 +540,7 @@ Neue Version: {2}</value>
     <value>Firmware Update verfügbar</value>
   </data>
   <data name="Firmware_Update_Directive" xml:space="preserve">
-    <value>Firmware aktualisieren</value>
+    <value>Gerät wird aktualisiert ...</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
     <value>Aktuelle Version: {0}. Neue Version : {1}</value>

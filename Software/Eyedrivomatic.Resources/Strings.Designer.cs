@@ -436,7 +436,7 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating Firmware..
+        ///   Looks up a localized string similar to Updating Device..
         /// </summary>
         public static string Firmware_Update_Directive {
             get {

@@ -408,7 +408,7 @@ Versión actual: {1} actualización versión: {2}!</value>
  Versión actual: {1}, versión de actualización: {2}.</value>
   </data>
   <data name="Firmware_Update_Directive" xml:space="preserve">
-    <value>Actualización de firmware.</value>
+    <value>Actualización del dispositivo ...</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
     <value>Versión actual: {0}. actualizar versión: {1}.</value>

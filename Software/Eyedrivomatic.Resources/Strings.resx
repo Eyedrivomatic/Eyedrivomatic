@@ -555,7 +555,7 @@ Update Version: {2}
     <comment>The directive text on the firmware update dialog if the update is required.</comment>
   </data>
   <data name="Firmware_Update_Directive" xml:space="preserve">
-    <value>Updating Firmware.</value>
+    <value>Updating Device.</value>
     <comment>Displayed while updating the firmware. </comment>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">

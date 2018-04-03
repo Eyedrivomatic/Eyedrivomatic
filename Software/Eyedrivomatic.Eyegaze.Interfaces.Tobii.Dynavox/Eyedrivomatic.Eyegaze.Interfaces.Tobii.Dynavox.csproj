@@ -77,10 +77,6 @@
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
       <Name>Eyedrivomatic.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="DynavoxInterop\DynavoxInterop.vcxproj">
-      <Project>{f4aa657b-aff0-4570-a78f-bc0596e6817a}</Project>
-      <Name>DynavoxInterop</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataStreamFilter.cs" />

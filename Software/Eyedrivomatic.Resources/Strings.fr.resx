@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CommandText_AutoDiscover" xml:space="preserve">
+    <value>Rechercher automatiquement le dispositif</value>
+  </data>
+  <data name="CommandText_Connect" xml:space="preserve">
+    <value>Connecter</value>
+  </data>
+  <data name="CommandText_Disconnect" xml:space="preserve">
+    <value>Deconnecter</value>
+  </data>
+  <data name="CycleRelayMacroTask_DefaultNameFormat" xml:space="preserve">
+    <value>Retard des relais {0} on-off</value>
+  </data>
+  <data name="CycleRelayMacroTask_Description" xml:space="preserve">
+    <value>Retard d'un relai. Change l'etat d'un relai entre off-&gt;on-&gt;off avec un retard de 200ms</value>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRelay" xml:space="preserve">
+    <value>Doit etre une valeur entre 1 et {0}.</value>
+  </data>
+  <data name="CycleRelayMacroTask_InvalidRepeat" xml:space="preserve">
+    <value>Doit etre plus élevé que 0</value>
+  </data>
+  <data name="CycleRelayMacroTask_ToStringFormat" xml:space="preserve">
+    <value>Retard du relai{0} pour {1} ms,repeter {2}fois avec un retard de {3} ms entre chaque répétition</value>
+  </data>
+  <data name="DelayTask_DefaultNameFormat" xml:space="preserve">
+    <value>Retard {0:0.00}s</value>
+  </data>
+  <data name="DelayTask_InvalidDelay" xml:space="preserve">
+    <value>Le retard doit etre superieur à 0</value>
+  </data>
+  <data name="DelayTask_ToStringFormat" xml:space="preserve">
+    <value>Pause pour {0:0.00} secondes.</value>
+  </data>
+  <data name="Disclaimer_Button" xml:space="preserve">
+    <value>Je comprends et j'accepte</value>
+  </data>
+  <data name="Disclaimer_Text" xml:space="preserve">
+    <value>{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Consolas;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.15063}\viewkind4\uc1 
+\pard\qc\cf1\b\f0\fs44 AVERTISSEMENT\b0\par
+\par
+
+\pard\fs24 Le système Eyedrivomatic est potentiellement dangereux s'il est utilisé sans précaution. Aucun membre de l'équipe Eyedrivomatic ne poura assumer une responsabilité pour les dommages corporels, les dommages matériels subis lors de l'utilisation ou la mauvaise utilisation de Eyedrivomatic. L'utilisation du système Eyedrivomatic est totalement au risque de l'utilisateur.\par
+\par
+Pour assurer un fonctionnement sûr, les directives suivantes DOIVENT être respectées à tout moment;\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 Les utilisateurs DOIVENT être surveillés en tout temps. \par
+
+\pard\li720\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720 La zone d'utilisation DOIT être entièrement plate. La zone d'utilisation DOIT être dépourvue de personnes, d'animaux ou de tout autre danger potentiel. \par
+
+\pard\li720  \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160 La zone d'utilisation NE DOIT PAS avoir de dangers à ses limites - pentes de toute nature, eau, marches descendantes, routes, personnes, tout ce qui pourrait être endommagé par un fauteuil roulant hors de contrôle ou tout ce qui pourrait endommager l'occupant d'une sortie de fauteuil roulant de contrôle.\par
+
+\pard\sa200\f1\fs22\par
+
+\pard\sa200\sl276\slmult1\cf0\lang9\par
+}</value>
+  </data>
+  <data name="Disclaimer_Title" xml:space="preserve">
+    <value>AVERTISSEMENT</value>
+  </data>
+  <data name="MacroTask_InvalidDisplayName" xml:space="preserve">
+    <value>Nom invalide. L'espace ne peut rester vide ou remplie avec la barre espace.</value>
+  </data>
+  <data name="Macro_InvalidDisplayName" xml:space="preserve">
+    <value>Nom invalide. L'espace ne peut rester vide ou remplie avec la barre espace.</value>
+  </data>
+  <data name="MillisecondsLong" xml:space="preserve">
+    <value>Millisecondes</value>
+  </data>
+  <data name="MillisecondsShort" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="NewTaskViewModelName" xml:space="preserve">
+    <value>Nouvelle tâche</value>
+  </data>
+  <data name="DriveProfileSpeed_Fast" xml:space="preserve">
+    <value>Rapide</value>
+  </data>
+  <data name="DriveProfileSpeed_Slow" xml:space="preserve">
+    <value>Lent</value>
+  </data>
+  <data name="DriveProfileSpeed_Walk" xml:space="preserve">
+    <value>Au pas</value>
+  </data>
+  <data name="SettingGroupName_DeviceConnection" xml:space="preserve">
+    <value>Reglages connexion</value>
+  </data>
+  <data name="SettingGroupName_EyegazeInterface" xml:space="preserve">
+    <value>Interface du système de contrôle oculaire</value>
+  </data>
+  <data name="SettingGroupName_DwellClick" xml:space="preserve">
+    <value>Réglages de l'activation Dwell</value>
+  </data>
+  <data name="SettingGroupName_DwellTimes" xml:space="preserve">
+    <value>Durée activation Dwell</value>
+  </data>
+  <data name="SettingDescription_DwellTimes" xml:space="preserve">
+    <value>La durée d'activation du Dwell, specifie le temps avant que l'activation prenne effet</value>
+  </data>
+  <data name="SettingName_AutoConnect" xml:space="preserve">
+    <value>Connecter automatiquement au démarrage.</value>
+  </data>
+  <data name="SettingGroupName_Camera" xml:space="preserve">
+    <value>Camera de vision frontale</value>
+  </data>
+  <data name="SettingName_CameraEnabled" xml:space="preserve">
+    <value>Camera connectée !</value>
+  </data>
+  <data name="SettingName_CameraOverlayOpacity" xml:space="preserve">
+    <value>Opacité de la vue camera:</value>
+  </data>
+  <data name="SettingDescription_CameraOverlayOpacity" xml:space="preserve">
+    <value>Réglage de la transparence des boutons de direction dans la vue camera: 0 pour complètement transparent, 100 pour complètement opaque.</value>
+  </data>
+  <data name="SettingName_DwellClickEnabled" xml:space="preserve">
+    <value>Activé !</value>
+  </data>
+  <data name="SettingName_DwellClickRepeatDelay" xml:space="preserve">
+    <value>Retard entre chaque répétition de l'activation Dwell</value>
+  </data>
+  <data name="SettingName_DwellClickTime_Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="SettingName_DwellClickTime_DirectionButtons" xml:space="preserve">
+    <value>Boutons de direction</value>
+  </data>
+  <data name="SettingName_DwellClickTime_StartButton" xml:space="preserve">
+    <value>Bouton Start</value>
+  </data>
+  <data name="SettingName_DwellClickTime_StopButton" xml:space="preserve">
+    <value>Bouton Stop</value>
+  </data>
+  <data name="SettingName_DwellClickTimeout" xml:space="preserve">
+    <value>Temps avant remise à zero de l'activation Dwell</value>
+  </data>
+  <data name="ViewName_Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="ViewName_DeviceConfig" xml:space="preserve">
+    <value>Hardware</value>
+  </data>
+  <data name="ViewName_GeneralConfiguration" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="DriveProfile_LargeRoom" xml:space="preserve">
+    <value>Grande pièce</value>
+  </data>
+  <data name="DriveProfile_SmallRoom" xml:space="preserve">
+    <value>Petit pièce</value>
+  </data>
+  <data name="DriveProfile_Hallway" xml:space="preserve">
+    <value>Couloir</value>
+  </data>
+  <data name="ViewName_Macros" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ViewName_MacrosSettings" xml:space="preserve">
+    <value>Modifier les actions</value>
+  </data>
+  <data name="DriveProfile_Default" xml:space="preserve">
+    <value>Conduite</value>
+  </data>
+  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+    <value>Limitations</value>
+  </data>
+  <data name="SettingsGroupName_Trim" xml:space="preserve">
+    <value>Course servo</value>
+  </data>
+  <data name="SettingName_SafetyBypass" xml:space="preserve">
+    <value>Contourner les sécurités</value>
+  </data>
+  <data name="StatusView_Speed_None" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="SettingGroupName_ProfileSelection" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="ViewName_ProfileConfig" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="SettingGroupName_ProfileSettings" xml:space="preserve">
+    <value>Configurer les profils</value>
+  </data>
+  <data name="SettingGroupName_ProfileSpeed_Settings" xml:space="preserve">
+    <value>Configuration du profil de vitesse</value>
+  </data>
+  <data name="SettingName_ProfileName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="CommandText_AddProfileSpeed" xml:space="preserve">
+    <value>Ajouter une vitesse</value>
+  </data>
+  <data name="CommandText_AddProfile" xml:space="preserve">
+    <value>Ajouter un profil</value>
+  </data>
+  <data name="ProfileSpeed_Default" xml:space="preserve">
+    <value>Vitesse</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Name" xml:space="preserve">
+    <value>Le nom du profil vitesse. Sera utiliser pour identifier la vitesse choisie par l'utilisateur.</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_X" xml:space="preserve">
+    <value>Deviation sur l'axe X, lorsque les boutons droit ou gauche sont pressés.</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_X" xml:space="preserve">
+    <value>Gauche/Droite</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_XDiag" xml:space="preserve">
+    <value>La deviation gauche ou droite lorsque l'un des boutons de direction diagonale est pressé</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>La deviation arrière lorsque l'un des boutons de direction diagonale avant est pressé.</value>
+  </data>
+  <data name="SettingDescripion_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>La deviation avant lorsque l'un des boutons de direction de diagonale avant est pressé.</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Backward" xml:space="preserve">
+    <value>La deviation avant lorsque le bouton de direction arrière est pressé</value>
+  </data>
+  <data name="SettingDescription_ProfileSpeed_Forward" xml:space="preserve">
+    <value>La deviation avant lorsque le bouton de direction avant est pressé</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Backward" xml:space="preserve">
+    <value>Vers l'arrière</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_Forward" xml:space="preserve">
+    <value>Vers l'avant</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_XDiag" xml:space="preserve">
+    <value> Diagonale Gauche/droite</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_YBackwardDiag" xml:space="preserve">
+    <value>Diagonale vers l'arrière</value>
+  </data>
+  <data name="SettingName_ProfileSpeed_YForwardDiag" xml:space="preserve">
+    <value>Diagonale vers l'avant</value>
+  </data>
+  <data name="ProfileName_Drive" xml:space="preserve">
+    <value>Conduire</value>
+  </data>
+  <data name="DrivingView_DriveSpeeds" xml:space="preserve">
+    <value>Vitesse de conduite</value>
+  </data>
+  <data name="DrivingView_Duration" xml:space="preserve">
+    <value>Durée de déplacement</value>
+  </data>
+  <data name="SettingName_HideMouse" xml:space="preserve">
+    <value>Cacher le curseur de la souris</value>
+  </data>
+  <data name="SettingDescription_HideMouse" xml:space="preserve">
+    <value>Avec ce paramètre activé, utilisez la touche "ctrl" gauche pour basculer la visibilité du curseur de la souris.</value>
+  </data>
+  <data name="SettingName_EyegazeInterface" xml:space="preserve">
+    <value>Système de contrôle oculaire</value>
+  </data>
+  <data name="SettingGroupName_Appearance" xml:space="preserve">
+    <value>Apparence</value>
+  </data>
+  <data name="SettingName_ThemeColors" xml:space="preserve">
+    <value>Couleurs</value>
+  </data>
+  <data name="SettingName_ThemeImages" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="SettingName_ThemeStyles" xml:space="preserve">
+    <value>Styles</value>
+  </data>
+  <data name="CommandText_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CommandText_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="ViewName_CameraConfiguration" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="ViewName_EyegazeConfig" xml:space="preserve">
+    <value>Regard</value>
+  </data>
+  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+    <value>Ces paramètres contrôlent la distance maximale que la «main électronique de l'eyedrive» déplacera (mesurée en degrés à partir du centre). Le mouvement maximum de la main électronique est de 22 degrés dans chaque direction. Faites très attention à ne pas les dépasser.</value>
+  </data>
+  <data name="SettingDescription_DeviceTrim" xml:space="preserve">
+    <value>Utiliser ceci, pour regler en degré, le point central de la main électronique. Le point central doit être proche de " 0,0" et ne doit pas dépasser les limites de l'appareillage.</value>
+  </data>
+  <data name="DeviceConnection_Error_Auto_NotFound" xml:space="preserve">
+    <value>Appareil non trouvé !</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual_NotFound" xml:space="preserve">
+    <value>L'appareil connecté sur "{0}" , n'a pas été trouvé.</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Title" xml:space="preserve">
+    <value>Necessite une mise à jour du firmware !</value>
+  </data>
+  <data name="Firmware_Update_Title" xml:space="preserve">
+    <value>Mise à jour du firmware</value>
+  </data>
+  <data name="CommandText_Continue" xml:space="preserve">
+    <value>Continuer</value>
+  </data>
+  <data name="DeviceConnection_Error_FirmwareCheck" xml:space="preserve">
+    <value>Impossible de se connecté sur l'appareil en "{0}". La verification du firmware a échoué.</value>
+  </data>
+  <data name="DeviceConnection_Error_Manual" xml:space="preserve">
+    <value>La connection avec l'appareil en "{0}" a échoué</value>
+  </data>
+  <data name="DeviceConnection_MinFirmwareNotAvailable" xml:space="preserve">
+    <value>Un appareil avec un firmware incompatible a été trouvé.Le fichier du firmware installé avec l'application n'a pas été trouvé</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Title" xml:space="preserve">
+    <value>Une nouvelle mise à jour du firmware est disponible !</value>
+  </data>
+  <data name="Firmware_UpdateRequired_Directive_Format" xml:space="preserve">
+    <value>Un appareil a été détecté sur {0}. Voulez vous faire faire la mise à jour de cet appareil?   -  Version actuelle: {1}   -  Version de la mise à jour : {2}  -</value>
+  </data>
+  <data name="Firmware_Update_Versions_Format" xml:space="preserve">
+    <value>Version actuelle: {0}. Version de la mise à jour: {1}.</value>
+  </data>
+  <data name="SettingGroupName_Language" xml:space="preserve">
+    <value>Langues</value>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Directive_Format" xml:space="preserve">
+    <value>Etes vous sur de vouloir effacer la vitesse {0} du profil {1} ?</value>
+  </data>
+  <data name="ConfirmDeleteProfileSpeed_Title" xml:space="preserve">
+    <value>Confirmer la supression du profil de vitesse</value>
+  </data>
+  <data name="ConfirmDeleteProfile_Directive_Format" xml:space="preserve">
+    <value>Etes vous sur de vouloir effacer le profil {0} ?</value>
+  </data>
+  <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
+    <value>Confirmer la suppresion du profil</value>
+  </data>
+  <data name="Firmware_UpdateOptional_Directive_Format" xml:space="preserve">
+    <value>Une mise à jour du microprogramme est disponible pour l'appareil sur {0}. Voulez-vous mettre à jour votre appareil?
+Version actuelle: {1}
+Version de mise à jour: {2}</value>
+  </data>
+  <data name="Firmware_Update_Directive" xml:space="preserve">
+    <value>Mise à jour du périphérique ...</value>
+  </data>
+  <data name="DeviceConnection_Connected" xml:space="preserve">
+    <value>Connecté</value>
+  </data>
+  <data name="DeviceConnection_Connecting" xml:space="preserve">
+    <value>De liaison...</value>
+  </data>
+  <data name="DeviceConnection_Error" xml:space="preserve">
+    <value>Erreur de connexion avec l'appareil</value>
+  </data>
+  <data name="DeviceConnection_Disconnected" xml:space="preserve">
+    <value>Débranché</value>
+  </data>
+</root>

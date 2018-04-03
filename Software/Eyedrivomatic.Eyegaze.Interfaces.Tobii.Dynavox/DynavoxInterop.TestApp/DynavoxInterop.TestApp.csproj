@@ -136,12 +136,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DynavoxInterop\DynavoxInterop.vcxproj">
-      <Project>{f4aa657b-aff0-4570-a78f-bc0596e6817a}</Project>
-      <Name>DynavoxInterop</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\DynavoxInterop\lib\TobiiGazeSdk-CApi-4.0.3.627\lib\TobiiGazeCore64.dll">
       <Link>costura64\TobiiGazeCore64.dll</Link>
     </EmbeddedResource>
