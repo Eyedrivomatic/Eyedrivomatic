@@ -117,9 +117,9 @@ namespace Eyedrivomatic.Hardware.Services
                 var connectionTask = connectionTaskList.First(ct => ct.Item2.IsCompleted);
 
                 if (!connectionTask.Item2.IsFaulted && connectionTask.Item1.State == ConnectionState.Connected &&
-                    (minVersion == null || minVersion <= connectionTask.Item1.FirmwareVersion))
+                    (minVersion == null || minVersion <= connectionTask.Item1.VersionInfo?.Version))
                 {
-                    Log.Info(this, $"Found device on [{connectionTask.Item1.ConnectionString}] with firmware version [{connectionTask.Item1.FirmwareVersion}]!");
+                    Log.Info(this, $"Found device on [{connectionTask.Item1.ConnectionString}] with firmware version [{connectionTask.Item1.VersionInfo}]!");
                     return connectionTask.Item1;
                 }
 

@@ -1,11 +1,11 @@
-using System;
+using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
 {
     public interface IFirmwareUpdateProgressNotification : IProgressNotification<double>
     {
-        Version FromVersion { get; }
-        Version ToVersion { get; }
+        VersionInfo FromVersion { get; }
+        VersionInfo ToVersion { get; }
     }
 }

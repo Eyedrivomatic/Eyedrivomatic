@@ -152,6 +152,13 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         }
         #endregion Change event handlers
 
+        [Export("DeviceVariant")]
+        public string Variant
+        {
+            get => _configuration.Variant;
+            set { if (_configuration.Variant != value)_configuration.Variant = value; }
+        }
+
         public bool AutoConnect
         {
             get => _configuration.AutoConnect;

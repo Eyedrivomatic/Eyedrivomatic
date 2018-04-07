@@ -45,11 +45,12 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private readonly IBrainBoxCommands _commands;
         private readonly IList<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>> _messageProcessors;
         private readonly IEventAggregator _eventAggregator;
+        private readonly string _variant;
 
         private IDisposable _connectionDatastream;
 
         public static uint AvailableRelays = 3;
-        public static Version MinFirmwareVersion = new Version(2, 0, 0);
+        public static Version MinFirmwareVersion = new Version(2, 0, 3);
 
         [ImportingConstructor]
         internal ElectronicHandButtonDriver(
@@ -60,7 +61,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             IDeviceEnumerationService deviceEnumerationService, 
             IElectronicHandConnectionFactory connectionFactory, 
             [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService, 
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            [Import("DeviceVariant")] string variant)
         {
             _commands = commandFactory;
             _messageProcessors = new List<Lazy<IBrainBoxMessageProcessor, IMessageProcessorMetadata>>(messageProcessors);
@@ -70,6 +72,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             _connectionFactory = connectionFactory;
             _firmwareUpdateService = firmwareUpdateService;
             _eventAggregator = eventAggregator;
+            _variant = variant;
 
             deviceStatus.PropertyChanged += OnStatusChanged;
         }
@@ -113,7 +116,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(Connection?.State ?? ConnectionState.Disconnected);
         }
 
-        #region Connection
+#region Connection
 
         public IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices)
         {
@@ -184,14 +187,26 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private async Task CheckFirmwareVersion(IDeviceConnection connection, bool autoUpdateFirmware)
         {
-            var latestVersion = _firmwareUpdateService.GetLatestVersion();
+            var latestVersion = _firmwareUpdateService.GetLatestVersion(_variant);
 
             //Required update.
-            if (connection.FirmwareVersion < MinFirmwareVersion)
+            if (!string.IsNullOrEmpty(_variant) && string.CompareOrdinal(connection.VersionInfo.Variant, _variant) != 0)
             {
-                if (latestVersion == null || latestVersion < MinFirmwareVersion)
+                if (latestVersion == null || latestVersion.Version < MinFirmwareVersion)
                 {
-                    Log.Error(this, $"A device was detected with firmware version [{connection.FirmwareVersion}], However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
+                    Log.Error(this, $"A device was detected with firmware for [{(string.IsNullOrEmpty(connection.VersionInfo.Variant) ? "standard" : connection.VersionInfo.Variant)}] hardware, however firmware for [{_variant}] is required. Unfortunately the firmware file cannot be found.");
+                    throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
+                }
+
+                if (!autoUpdateFirmware || !await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true))
+                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString));
+            }
+
+            if (connection.VersionInfo.Version < MinFirmwareVersion)
+            {
+                if (latestVersion == null || latestVersion.Version < MinFirmwareVersion)
+                {
+                    Log.Error(this, $"A device was detected with firmware version [{connection.VersionInfo.Version}], However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
                     throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
                 }
                 
@@ -199,8 +214,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                     throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString));
             }
 
-            //Optional update.
-            if (autoUpdateFirmware && latestVersion != null && latestVersion > connection.FirmwareVersion)
+            if (autoUpdateFirmware && latestVersion != null && latestVersion.Version > connection.VersionInfo.Version)
             {
                 await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, false);
             }
@@ -231,13 +245,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             }
         }
 
-        #endregion Connection
+#endregion Connection
 
-        #region DeviceInfo
+#region DeviceInfo
         public uint RelayCount => 3;
-        #endregion DeviceInfo
+#endregion DeviceInfo
 
-        #region Status
+#region Status
 
         public IDeviceStatus DeviceStatus { get; }
 
@@ -309,13 +323,13 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             }
         }
 
-        #endregion Status
+#endregion Status
 
-        #region Settings
+#region Settings
 
         public IDeviceSettings DeviceSettings { get; }
 
-        #region Trim
+#region Trim
 
         private Direction _lastDirection;
         private ContinueState _continueState;
@@ -323,7 +337,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private int _nudge;
         private IDeviceConnection _connection;
 
-        #endregion Trim
+#endregion Trim
 
         public Profile Profile
         {
@@ -341,9 +355,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             RaisePropertyChanged(nameof(Profile));
         }
 
-        #endregion Settings
+#endregion Settings
 
-        #region Control
+#region Control
         public void Continue()
         {
             Log.Info(this, "Continue.");
@@ -450,15 +464,15 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 Log.Error(this, $"Failed to toggle relay command - [{e}]");
             }
         }
-        #endregion Control
+#endregion Control
 
-        #region IDisposable
+#region IDisposable
         public void Dispose()
         {
             _connection?.Dispose();
             _connectionDatastream?.Dispose();
             _connectionDatastream = null;
         }
-        #endregion IDisposable
+#endregion IDisposable
     }
 }

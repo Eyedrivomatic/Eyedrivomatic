@@ -48,7 +48,6 @@ namespace Eyedrivomatic.ButtonDriver
         [Import(nameof(ShowDisclaimerCommand))]
         public ICommand ShowDisclaimerCommand { get; set; }
 
-
         [ImportingConstructor]
         public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, InteractionRequest<INotification> connectionFailureNotification)
         {

@@ -11,9 +11,6 @@
     <Setting Name="SafetyBypass" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CommandTimeout" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">500</Value>
-    </Setting>
     <Setting Name="SettingsVersion" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -36,6 +33,12 @@
     &lt;speed name="Fast" x="100" yForward="100" yBackward="50" xDiag="40" yForwardDiag="75" yBackwardDiag="25" nudge="10" /&gt;
   &lt;/profile&gt;
 &lt;/profiles&gt;</Value>
+    </Setting>
+    <Setting Name="CommandTimeout" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="Variant" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

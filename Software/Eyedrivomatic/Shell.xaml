@@ -237,7 +237,7 @@
                               HorizontalAlignment="Right">
                     <ItemsControl.Template>
                         <ControlTemplate>
-                            <UniformGrid Columns="1" VerticalAlignment="Center" IsItemsHost="True" />
+                            <UniformGrid Columns="1" VerticalAlignment="Center" IsItemsHost="True"/>
                         </ControlTemplate>
                     </ItemsControl.Template>
                     <RadioButton Content="Indoors" />

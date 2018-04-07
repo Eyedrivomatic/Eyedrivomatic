@@ -24,9 +24,11 @@ namespace Eyedrivomatic.Hardware.Communications
         private static readonly string StartupMessage = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
         [return:AllowNull]
-        public Version VerifyStartupMessage(string firstMessage)
+        public VersionInfo VerifyStartupMessage(string firstMessage)
         {
-            return string.CompareOrdinal(firstMessage.Substring(0, Math.Min(StartupMessage.Length, firstMessage.Length)), StartupMessage) == 0 ? new Version(1, 0, 0, 0) : null;
+            return string.CompareOrdinal(firstMessage.Substring(0, Math.Min(StartupMessage.Length, firstMessage.Length)), StartupMessage) == 0 
+                ? new VersionInfo(new Version(1, 0, 0, 0)) 
+                : null;
         }
 
         public Dictionary<string, HardwareIdFilter> EyedrivomaticIds => ArduinoInfo.UnoDeviceIds;
@@ -36,11 +38,17 @@ namespace Eyedrivomatic.Hardware.Communications
     internal class ElectronicHandDeviceInfoV20 : IElectronicHandDeviceInfo
     {
         [return:AllowNull]
-        public Version VerifyStartupMessage(string firstMessage)
+        public VersionInfo VerifyStartupMessage(string firstMessage)
         {
-            var regex = new Regex(@"START: Eyedrivomatic - version (?<Version>2\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?)");
+            var regex = new Regex(@"START: Eyedrivomatic (\[(?<Variant>\w+)\] )?- version (?<Version>2\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?)");
             var match = regex.Match(firstMessage);
-            return match.Success ? new Version(match.Groups["Version"].Value) : null;
+            if (!match.Success)
+            {
+                return null;
+            }
+            var version = new Version(match.Groups["Version"].Value);
+            var variant = match.Groups["Variant"].Value;
+            return new VersionInfo(version, variant);
         }
 
         public Dictionary<string, HardwareIdFilter> EyedrivomaticIds => ArduinoInfo.UnoDeviceIds;

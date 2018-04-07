@@ -543,7 +543,7 @@ Neue Version: {2}</value>
     <value>Gerät wird aktualisiert ...</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
-    <value>Aktuelle Version: {0}. Neue Version : {1}</value>
+    <value>Aktuelle Version: {0}, Neue Version : {1}</value>
   </data>
   <data name="DeviceConnection_Disconnected" xml:space="preserve">
     <value>Getrennt</value>
@@ -571,5 +571,9 @@ Neue Version: {2}</value>
   </data>
   <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
     <value>Profil löschen bestätigen</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Disclaimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Docs\de\Disclaimer.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

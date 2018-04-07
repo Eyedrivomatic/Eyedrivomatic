@@ -142,6 +142,9 @@
     <Resource Include="Images\Default\BackwardRight.png" />
     <Resource Include="Images\Default\BackwardLeft.png" />
     <None Include="app.config" />
+    <None Include="Docs\de\Disclaimer.rtf" />
+    <None Include="Docs\fr\Disclaimer.rtf" />
+    <None Include="Docs\en\Disclaimer.rtf" />
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>

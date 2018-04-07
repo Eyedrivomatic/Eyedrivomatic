@@ -5,8 +5,13 @@
     <DirectoryRef Id="APPLICATIONFOLDER">
       <Directory Id="FirmwareFolder" Name="Firmware">
         <Component Id="FirmwareComponent" Guid="{68A65910-B481-43B8-BB72-25E273629DF0}">
-          <File Id="$(var.Eyedrivomatic.Firmware.TargetFileName)" Name="$(var.Eyedrivomatic.Firmware.TargetName).2.0.2$(var.Eyedrivomatic.Firmware.TargetExt)"
-                Source="$(var.Eyedrivomatic.Firmware.TargetPath)" DiskId="1" KeyPath="yes" />
+          <?if $(var.Variant) = MOBILITY_CONCEPT_BUILD ?>
+            <File Id="$(var.Eyedrivomatic.Firmware.TargetFileName)" Name="$(var.Eyedrivomatic.Firmware.TargetName).MC.2.0.3$(var.Eyedrivomatic.Firmware.TargetExt)"
+                  Source="$(var.Eyedrivomatic.Firmware.TargetPath)" DiskId="1" KeyPath="yes" />
+          <?else?>
+            <File Id="$(var.Eyedrivomatic.Firmware.TargetFileName)" Name="$(var.Eyedrivomatic.Firmware.TargetName).2.0.3$(var.Eyedrivomatic.Firmware.TargetExt)"
+                  Source="$(var.Eyedrivomatic.Firmware.TargetPath)" DiskId="1" KeyPath="yes" />
+          <?endif?>
         </Component>
       </Directory>
     </DirectoryRef>

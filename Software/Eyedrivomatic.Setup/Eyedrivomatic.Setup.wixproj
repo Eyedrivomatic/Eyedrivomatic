@@ -13,8 +13,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;Variant=STANDARD_BUILD</DefineConstants>
     <VerboseOutput>True</VerboseOutput>
+    <WixVariables>
+    </WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -25,6 +27,9 @@
     <SuppressAllWarnings>False</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
     <LinkerAdditionalOptions>-v -spdb</LinkerAdditionalOptions>
+    <DefineConstants>Variant=STANDARD_BUILD</DefineConstants>
+    <WixVariables>
+    </WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MobilityConceptBuild|x86' ">
     <Cultures />
@@ -32,8 +37,11 @@
     <SuppressAllWarnings>False</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
     <LinkerAdditionalOptions>-v -spdb</LinkerAdditionalOptions>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>bin\Release\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Variant=MOBILITY_CONCEPT_BUILD</DefineConstants>
+    <WixVariables>
+    </WixVariables>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Drivers.wxs" />

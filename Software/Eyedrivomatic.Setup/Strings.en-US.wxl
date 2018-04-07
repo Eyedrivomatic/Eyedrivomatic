@@ -15,4 +15,5 @@
   <String Id="DriversFeatureDescription">The Windows drivers necessary to communicate with the "Electronic Hand" hardware through USB.</String>
   <String Id="DesktopShortcutsFeatureTitle">Desktop Shortcut</String>
   <String Id="DesktopShortcutsFeatureDescription">A shortcut to the Eyedrivmatic application placed on your desktop.</String>
+  <String Id="LicenseRtf" Overridable="yes">$()\Lang\en-us\EULA_en-us.rtf</String>
 </WixLocalization>

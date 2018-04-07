@@ -12,7 +12,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
     internal sealed partial class ButtonDriverConfiguration : global::System.Configuration.ApplicationSettingsBase {
         
         private static ButtonDriverConfiguration defaultInstance = ((ButtonDriverConfiguration)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new ButtonDriverConfiguration())));
@@ -61,18 +61,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public double CommandTimeout {
-            get {
-                return ((double)(this["CommandTimeout"]));
-            }
-            set {
-                this["CommandTimeout"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SettingsVersion {
             get {
@@ -109,6 +97,30 @@ namespace Eyedrivomatic.ButtonDriver.Configuration {
             }
             set {
                 this["DrivingProfiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public double CommandTimeout {
+            get {
+                return ((double)(this["CommandTimeout"]));
+            }
+            set {
+                this["CommandTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Variant {
+            get {
+                return ((string)(this["Variant"]));
+            }
+            set {
+                this["Variant"] = value;
             }
         }
     }

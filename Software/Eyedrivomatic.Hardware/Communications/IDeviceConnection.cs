@@ -38,9 +38,9 @@ namespace Eyedrivomatic.Hardware.Communications
         DeviceDescriptor Device { get; }
 
         /// <summary>
-        /// The version of the firmware running on the device.
+        /// The version and variant of the firmware running on the device.
         /// </summary>
-        Version FirmwareVersion { get; }
+        VersionInfo VersionInfo { get; }
 
         /// <summary>
         /// The current connection state. 

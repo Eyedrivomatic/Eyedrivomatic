@@ -37,29 +37,38 @@ namespace Eyedrivomatic.Hardware.Services
             _uploaderLogger = uploaderLogger;
         }
 
-        public IEnumerable<Version> GetAvailableFirmware()
+        public IEnumerable<VersionInfo> GetAvailableFirmware()
         {
-            var regex = new Regex(@"Eyedrivomatic.Firmware.(?<Version>(?<Major>[0-9]+)\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?).hex");
+            var regex = new Regex(@"Eyedrivomatic.Firmware.((?<Variant>\w+)\.)?(?<Version>(?<Major>[0-9]+)\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?).hex");
             var files = GetFirmwareFiles().ToList();
 
             foreach (var file in files)
             {
                 var match = regex.Match(file);
                 if (!match.Success) continue;
-                yield return new Version(match.Groups["Version"].Value);
+                var version = new Version(match.Groups["Version"].Value);
+                var variant = match.Groups["Variant"].Value;
+                yield return new VersionInfo(version, variant);
             }
         }
 
         [return:AllowNull]
-        public Version GetLatestVersion()
+        public VersionInfo GetLatestVersion(string variant)
         {   
-            return GetAvailableFirmware().OrderByDescending(v => v).FirstOrDefault();
+            return GetAvailableFirmware()
+                .Where(v => string.IsNullOrEmpty(variant) || string.CompareOrdinal(v.Variant, variant) == 0)
+                .OrderByDescending(v => v).FirstOrDefault();
         }
 
-        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, IProgress<double> progress = null)
+        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, VersionInfo version, bool required, IProgress<double> progress = null)
         {
+            if (version == null) version = GetLatestVersion(null) ?? throw new InvalidOperationException("Version not supplied.");
+            var fileName = string.IsNullOrEmpty(version.Variant)
+                ? $"Eyedrivomatic.Firmware.{version.Version}.hex"
+                : $"Eyedrivomatic.Firmware.{version.Variant}.{version.Version}.hex";
+
             var path = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath) ?? @".\";
-            path = Path.Combine(path, "Firmware", $"Eyedrivomatic.Firmware.{version ?? GetLatestVersion()}.hex");
+            path = Path.Combine(path, "Firmware", fileName);
 
             connection.Disconnect();
             await Task.Delay(TimeSpan.FromSeconds(2));

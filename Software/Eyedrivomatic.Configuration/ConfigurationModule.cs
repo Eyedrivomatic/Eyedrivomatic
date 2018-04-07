@@ -21,7 +21,6 @@ using Eyedrivomatic.Controls;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
-using Gu.Localization;
 using Prism.Commands;
 
 namespace Eyedrivomatic.Configuration

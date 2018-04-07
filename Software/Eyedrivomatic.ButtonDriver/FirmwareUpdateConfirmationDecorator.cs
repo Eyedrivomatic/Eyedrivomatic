@@ -41,18 +41,18 @@ namespace Eyedrivomatic.ButtonDriver
             _firmwareUpdateProgress = firmwareUpdateProgress;
         }
 
-        public IEnumerable<Version> GetAvailableFirmware()
+        public IEnumerable<VersionInfo> GetAvailableFirmware()
         {
             return _target.GetAvailableFirmware();
         }
 
         [return: AllowNull]
-        public Version GetLatestVersion()
+        public VersionInfo GetLatestVersion(string variant)
         {
-            return _target.GetLatestVersion();
+            return _target.GetLatestVersion(variant);
         }
 
-        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, [AllowNull] IProgress<double> progress)
+        public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, VersionInfo version, bool required, [AllowNull] IProgress<double> progress)
         {
             var requestTask = new TaskCompletionSource<bool>();
             _firmwareUpdateRequest.Raise(
@@ -61,16 +61,14 @@ namespace Eyedrivomatic.ButtonDriver
                     {
                         Title = Translate.Key(nameof(Strings.Firmware_UpdateRequired_Title)),
                         Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateRequired_Directive_Format)),
-                            connection.ConnectionString, connection.FirmwareVersion.ToString(3) ?? "N/A",
-                            version.ToString(3)),
+                            connection.ConnectionString, connection.VersionInfo?.ToString() ?? "N/A", version),
                         IgnoreDwellPause = true
                     }
                     : new ConfirmationWithCustomButtons
                     {
                         Title = Translate.Key(nameof(Strings.Firmware_UpdateOptional_Title)),
                         Content = string.Format(Translate.Key(nameof(Strings.Firmware_UpdateOptional_Directive_Format)),
-                            connection.ConnectionString, connection.FirmwareVersion.ToString(3),
-                            version.ToString(3)),
+                            connection.ConnectionString, connection.VersionInfo?.ToString() ?? "N/A", version),
                         IgnoreDwellPause = true
                     },
                 c => requestTask.SetResult(c.Confirmed));
@@ -79,10 +77,10 @@ namespace Eyedrivomatic.ButtonDriver
 
             var progressTitle = Translate.Key(nameof(Strings.Firmware_Update_Title));
             var progressContent = string.Format(Translate.Key(nameof(Strings.Firmware_Update_Versions_Format)),
-                connection.FirmwareVersion.ToString(3),
-                version.ToString(3));
+                connection.VersionInfo,
+                version.Version);
 
-            using (var progressNotification = new FirmwareUpdateProgressNotification(connection.FirmwareVersion, version, progress){Title = progressTitle, Content = progressContent})
+            using (var progressNotification = new FirmwareUpdateProgressNotification(connection.VersionInfo, version, progress){Title = progressTitle, Content = progressContent})
             {
                 _firmwareUpdateProgress.Raise(progressNotification);
                 return await _target.UpdateFirmwareAsync(connection, version, required, progressNotification);

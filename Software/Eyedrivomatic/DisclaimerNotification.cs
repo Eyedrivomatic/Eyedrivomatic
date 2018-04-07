@@ -32,7 +32,7 @@ namespace Eyedrivomatic
         {
             get
             {
-                var text = Translate.Key(nameof(Strings.Disclaimer_Text));
+                var text = Translate.Key(nameof(Strings.Disclaimer));
                 var rtb = new RichTextBox
                 {
                     HorizontalAlignment = HorizontalAlignment.Stretch,

@@ -20,11 +20,11 @@ namespace Eyedrivomatic.Hardware.Services
 {
     public interface IFirmwareUpdateService
     {
-        IEnumerable<Version> GetAvailableFirmware();
+        IEnumerable<VersionInfo> GetAvailableFirmware();
 
         [return:AllowNull]
-        Version GetLatestVersion();
+        VersionInfo GetLatestVersion(string variant);
 
-        Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, Version version, bool required, IProgress<double> progress = null);
+        Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, VersionInfo version, bool required, IProgress<double> progress = null);
     }
 }

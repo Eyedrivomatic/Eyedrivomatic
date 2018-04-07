@@ -411,7 +411,7 @@ Versión actual: {1} actualización versión: {2}!</value>
     <value>Actualización del dispositivo ...</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
-    <value>Versión actual: {0}. actualizar versión: {1}.</value>
+    <value>Versión actual: {0}, actualizar versión: {1}</value>
   </data>
   <data name="DeviceConnection_Disconnected" xml:space="preserve">
     <value>Desconectado</value>

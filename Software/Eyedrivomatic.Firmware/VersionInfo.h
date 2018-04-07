@@ -23,7 +23,11 @@
 
 #define VERSION_MAJOR 2
 #define VERSION_MINOR 0
-#define VERSION_BUILD 2
+#define VERSION_BUILD 3
+
+#ifdef MOBILITY_CONCEPT_BUILD
+#define VERSION_VARIANT "MC"
+#endif
 
 class VersionInfo
 {

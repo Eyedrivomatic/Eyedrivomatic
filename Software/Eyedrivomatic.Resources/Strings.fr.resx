@@ -441,7 +441,7 @@ Pour assurer un fonctionnement sûr, les directives suivantes DOIVENT être resp
     <value>Un appareil a été détecté sur {0}. Voulez vous faire faire la mise à jour de cet appareil?   -  Version actuelle: {1}   -  Version de la mise à jour : {2}  -</value>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
-    <value>Version actuelle: {0}. Version de la mise à jour: {1}.</value>
+    <value>Version actuelle: {0}, Version de la mise à jour: {1}</value>
   </data>
   <data name="SettingGroupName_Language" xml:space="preserve">
     <value>Langues</value>
@@ -477,5 +477,9 @@ Version de mise à jour: {2}</value>
   </data>
   <data name="DeviceConnection_Disconnected" xml:space="preserve">
     <value>Débranché</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Disclaimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Docs\fr\Disclaimer.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

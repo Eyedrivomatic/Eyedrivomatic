@@ -93,7 +93,6 @@
     <Compile Include="ViewModels\ButtonDriverViewModelBase.cs" />
     <Compile Include="ViewModels\DeviceConfigturationViewModel.cs" />
     <Compile Include="ViewModels\DrivingViewModel.cs" />
-    <Compile Include="ViewModels\FirmwareUpdateRequestViewModel.cs" />
     <Compile Include="ViewModels\IDrivingViewModel.cs" />
     <Compile Include="IFirmwareUpdateProgressNotification.cs" />
     <Compile Include="ViewModels\IStatusViewModel.cs" />
@@ -105,9 +104,6 @@
     </Compile>
     <Compile Include="Views\DrivingView.xaml.cs">
       <DependentUpon>DrivingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FirmwareUpdateRequestDlg.xaml.cs">
-      <DependentUpon>FirmwareUpdateRequestDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProfileConfigurationView.xaml.cs">
       <DependentUpon>ProfileConfigurationView.xaml</DependentUpon>
@@ -186,10 +182,6 @@
     <Page Include="Views\DrivingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FirmwareUpdateRequestDlg.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProfileConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>

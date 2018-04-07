@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Eyedrivomatic.Infrastructure.Annotations;
-using NullGuard;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.Infrastructure

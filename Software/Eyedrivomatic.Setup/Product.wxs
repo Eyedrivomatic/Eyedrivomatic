@@ -203,6 +203,12 @@
       <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Guid="{B145123C-4011-40E6-8C64-6052DF552363}">
         <File Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Name="Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb" KeyPath="yes" />
       </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll" Guid="{08C07316-0A7A-417B-A59B-FDE1DF54C7EC}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll" Name="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb" Guid="{8C502981-4B9C-4728-B6A7-C90E86A26903}">
+        <File Id="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb" Name="Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb" KeyPath="yes" />
+      </Component>
       <Component Id="Eyedrivomatic.exe.config" Guid="{AD4A7390-355D-4E05-BDF9-560B05B53C3F}">
         <File Id="Eyedrivomatic.exe.config" Name="Eyedrivomatic.exe.config" Source="$(var.Eyedrivomatic_TargetDir)Eyedrivomatic.exe.config" KeyPath="yes" />
       </Component>
@@ -346,6 +352,15 @@
       </Component>
       <Component Id="Tobii.Interaction.Model.dll" Guid="{F657D054-AFD1-43C5-959D-87B3D79A7283}">
         <File Id="Tobii.Interaction.Model.dll" Name="Tobii.Interaction.Model.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.Interaction.Model.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tobii.EyeX.Client.dll" Guid="{3209D1D6-486A-4042-8D8B-E9CBC41F857D}">
+        <File Id="Tobii.EyeX.Client.dll" Name="Tobii.EyeX.Client.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.EyeX.Client.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tobii.Gaze.Core.Net.dll" Guid="{BCD8FA95-F112-4B3A-BE9D-DBDA5C8E0437}">
+        <File Id="Tobii.Gaze.Core.Net.dll" Name="Tobii.Gaze.Core.Net.dll" Source="$(var.Eyedrivomatic_TargetDir)Tobii.Gaze.Core.Net.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="TobiiGazeCore32.dll" Guid="{4A699D8A-FE75-40C5-82F8-0851179A4CA9}">
+        <File Id="TobiiGazeCore32.dll" Name="TobiiGazeCore32.dll" Source="$(var.Eyedrivomatic_TargetDir)TobiiGazeCore32.dll" KeyPath="yes" />
       </Component>
     </ComponentGroup>
 

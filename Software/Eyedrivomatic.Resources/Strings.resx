@@ -559,7 +559,7 @@ Update Version: {2}
     <comment>Displayed while updating the firmware. </comment>
   </data>
   <data name="Firmware_Update_Versions_Format" xml:space="preserve">
-    <value>Current Version: {0}. Update Version: {1}</value>
+    <value>Current Version: {0}, Update Version: {1}</value>
     <comment>The detected and new firmware versions displayed on the firmware update dialog. </comment>
   </data>
   <data name="DeviceConnection_Disconnected" xml:space="preserve">
@@ -597,5 +597,9 @@ Update Version: {2}
   <data name="ConfirmDeleteProfile_Title" xml:space="preserve">
     <value>Confirm Delete Profile</value>
     <comment>The title text of the "Delete Profile" confirmation dialog.</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Disclaimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Docs\en\Disclaimer.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

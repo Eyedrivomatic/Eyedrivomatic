@@ -18,6 +18,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
 {
     public interface IButtonDriverConfigurationService : INotifyPropertyChanged
     {
+        string Variant { get; set; }
         bool AutoConnect { get; set; }
         string ConnectionString { get; set; }
 

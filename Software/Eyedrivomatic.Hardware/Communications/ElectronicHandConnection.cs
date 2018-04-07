@@ -50,7 +50,7 @@ namespace Eyedrivomatic.Hardware.Communications
             ConnectionStateChanged?.Invoke(this, new EventArgs());
         }
 
-        public Version FirmwareVersion { get; protected set; } = new Version(0, 0, 0, 0);
+        public VersionInfo VersionInfo { get; protected set; } = new VersionInfo(new Version(0, 0, 0, 0));
 
         private bool _isConnecting;
         public bool IsConnecting
@@ -296,7 +296,8 @@ namespace Eyedrivomatic.Hardware.Communications
         private bool VerifyStartupMessage(string firstMessage)
         {
             var version = _infos.Select(i => i.VerifyStartupMessage(firstMessage)).FirstOrDefault(v => v != null);
-            FirmwareVersion = version ?? new Version(0, 0, 0, 0);
+
+            VersionInfo = version ?? VersionInfo.Unknown;
             return version != null;
         }
 
