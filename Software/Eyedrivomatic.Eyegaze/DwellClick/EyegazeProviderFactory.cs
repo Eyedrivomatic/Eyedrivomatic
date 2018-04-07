@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading.Tasks;
 using Eyedrivomatic.Logging;
 using NullGuard;
 
@@ -23,7 +24,7 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
     public class EyegazeProviderFactory : IEyegazeProviderFactory
     {
         private readonly IList<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> _providersFactories;
-        private readonly Dictionary<string, IEyegazeProvider> _providers = new Dictionary<string, IEyegazeProvider>();
+        private readonly Dictionary<string, Tuple<IEyegazeProvider, Task<bool>>> _providers = new Dictionary<string, Tuple<IEyegazeProvider, Task<bool>>>();
 
         [ImportingConstructor]
         public EyegazeProviderFactory(IEnumerable<Lazy<IEyegazeProvider, IEyegazeProviderMetadata>> providerFactories)
@@ -32,9 +33,9 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
         }
 
         [return:AllowNull]
-        public IEyegazeProvider Create(string providerName)
+        public async Task<IEyegazeProvider> CreateAsync(string providerName)
         {
-            if (_providers.ContainsKey(providerName)) return _providers[providerName];
+            if (_providers.ContainsKey(providerName)) return await _providers[providerName].Item2 ? _providers[providerName].Item1 : null;
 
             Log.Debug(this, $"Provider [{providerName}] requested.");
 
@@ -42,21 +43,22 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
                                   ?? _providersFactories.FirstOrDefault(p => p.Metadata.Name == "Mouse")
                                   ?? _providersFactories.First();
 
-            IEyegazeProvider provider;
-
             try
             {
                 Log.Info(this, $"Creating [{providerFactory.Metadata.Name}] eyegaze provider.");
-                if (!providerFactory.IsValueCreated) providerFactory.Value.Initialize();
-                provider = providerFactory.Value;
+
+                var provider = providerFactory.Value;
+                var initializeTask = provider.InitializeAsync();
+                _providers.Add(providerName, new Tuple<IEyegazeProvider, Task<bool>>(provider, initializeTask));
+
+                if (!await initializeTask) return null;
+                return provider;
             }
             catch (Exception ex)
             {
                 Log.Error(this, $"Failed to create eyegaze provider [{providerName}] - [{ex}]");
-                provider = null;
+                return null;
             }
-            _providers.Add(providerName, provider);
-            return provider;
         }
     }
 }

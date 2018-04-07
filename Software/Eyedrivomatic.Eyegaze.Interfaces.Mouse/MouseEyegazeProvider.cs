@@ -12,6 +12,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Threading.Tasks;
 using System.Windows;
 using Eyedrivomatic.Logging;
 
@@ -26,9 +27,9 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
         //[Import(nameof(MouseMoveWatchdogTime))]
         public static TimeSpan MouseMoveWatchdogTime = TimeSpan.FromMilliseconds(400);
 
-        public bool Initialize()
+        public Task<bool> InitializeAsync()
         {
-            return true;
+            return Task.FromResult(true);
         }
 
         public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)

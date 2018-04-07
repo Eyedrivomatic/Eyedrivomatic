@@ -27,9 +27,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
         {
             private readonly WpfInteractor _interactor;
             private readonly IEyegazeClient _client;
+            private readonly Action<TobiiProviderRegistration> _completedCallback;
             private readonly Dispatcher _dispatcher;
 
-            public TobiiProviderRegistration(WpfInteractor interactor, IEyegazeClient client)
+            public TobiiProviderRegistration(WpfInteractor interactor, IEyegazeClient client, Action<TobiiProviderRegistration> completedCallback)
             {
                 _interactor = interactor;
                 _interactor.WithGazeAware().HasGaze(HasGaze).LostGaze(LostGaze).Mode = GazeAwareMode.Normal;
@@ -37,6 +38,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 _interactor.Element.MouseDown += ElementOnMouseDown;
 
                 _client = client;
+                _completedCallback = completedCallback;
                 _dispatcher = Dispatcher.CurrentDispatcher;
             }
 
@@ -87,6 +89,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
             public void Dispose()
             {
                 _interactor.SetIsEnabled(false);
+                _completedCallback(this);
             }
         }
     }

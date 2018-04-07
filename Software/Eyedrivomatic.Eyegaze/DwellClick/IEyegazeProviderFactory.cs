@@ -10,10 +10,12 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System.Threading.Tasks;
+
 namespace Eyedrivomatic.Eyegaze.DwellClick
 {
     public interface IEyegazeProviderFactory
     {
-        IEyegazeProvider Create(string providerName);
+        Task<IEyegazeProvider> CreateAsync(string providerName);
     }
 }

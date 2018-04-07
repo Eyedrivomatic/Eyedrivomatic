@@ -12,50 +12,88 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Eyegaze.Interfaces.Dynavox.Interop;
+using Eyedrivomatic.Logging;
+using Tobii.Gaze.Core;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 {
-    public partial class TobiiDynavoxEyegazeProvider
+    public class DataStreamFilter
     {
-        public class DataStreamFilter
+        private readonly IObservable<Point?> _dataStream;
+        private readonly IEyeTracker _host;
+        private readonly List<IDisposable> _registrations = new List<IDisposable>();
+
+        private static readonly Dictionary<TrackingStatus, Func<GazeData, Point?>> DataFilter = new Dictionary<TrackingStatus, Func<GazeData, Point?>>
         {
-            private readonly IObservable<Point?> _dataStream;
+            { TrackingStatus.NoEyesTracked, data => null },
+            { TrackingStatus.OneEyeTrackedUnknownWhich, data => null },
+            { TrackingStatus.BothEyesTracked, data => new Point((data.Left.GazePointOnDisplayNormalized.X+data.Right.GazePointOnDisplayNormalized.X)/2, (data.Left.GazePointOnDisplayNormalized.Y+data.Right.GazePointOnDisplayNormalized.Y)/2) },
+            { TrackingStatus.OneEyeTrackedProbablyLeft, data => new Point(data.Left.GazePointOnDisplayNormalized.X, data.Left.GazePointOnDisplayNormalized.Y) },
+            { TrackingStatus.OneEyeTrackedProbablyRight, data => new Point(data.Right.GazePointOnDisplayNormalized.X, data.Right.GazePointOnDisplayNormalized.Y ) },
+            { TrackingStatus.OnlyLeftEyeTracked, data => new Point(data.Left.GazePointOnDisplayNormalized.X, data.Right.GazePointOnDisplayNormalized.Y ) },
+            { TrackingStatus.OnlyRightEyeTracked, data => new Point(data.Right.GazePointOnDisplayNormalized.X, data.Right.GazePointOnDisplayNormalized.Y ) }
+        };
 
-            private static readonly Dictionary<GazeData.TrackingStatus, Func<GazeData, Point?>> DataFilter = new Dictionary<GazeData.TrackingStatus, Func<GazeData, Point?>>
+
+        public DataStreamFilter(IEyeTracker host)
+        {
+            _host = host;
+            _dataStream = Observable
+                .FromEvent<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
+                .SubscribeOnDispatcher()
+                .Select(data => DataFilter[data.GazeData.TrackingStatus](data.GazeData))
+                .Select(ScreenPointFromNormal);
+        }
+
+        private static Point? ScreenPointFromNormal(Point? normalizedPoint)
+        {
+            if (normalizedPoint == null) return null;
+
+            var screenPoint = new Point(
+                SystemParameters.PrimaryScreenWidth * normalizedPoint.Value.X,
+                SystemParameters.PrimaryScreenHeight * normalizedPoint.Value.Y);
+            Log.Debug(nameof(DataFilter), $"Gaze Point - Normalized:[{normalizedPoint}], Screen:[{screenPoint}]");
+            return screenPoint;
+        }
+
+        public IDisposable AddRegistration(FrameworkElement element, IEyegazeClient client)
+        {
+            var lossOfGazeSent = false;
+
+            if (!_registrations.Any())
             {
-                { GazeData.TrackingStatus.NoEyesTracked, data => null },
-                { GazeData.TrackingStatus.OneEyeTrackedUnknownWhich, data => null },
-                { GazeData.TrackingStatus.BothEyesTracked, data => new Point((data.GazePointLeft.X+data.GazePointRight.X)/2d, (data.GazePointLeft.Y+data.GazePointRight.Y)/2d) },
-                { GazeData.TrackingStatus.OneEyeTrackedProbablyLeft, data => new Point(data.GazePointLeft.X, data.GazePointLeft.Y) },
-                { GazeData.TrackingStatus.OneEyeTrackedProbablyRight, data => new Point(data.GazePointRight.X, data.GazePointRight.Y ) },
-                { GazeData.TrackingStatus.OnlyLeftEyeTracked, data => new Point(data.GazePointLeft.X, data.GazePointRight.Y ) },
-                { GazeData.TrackingStatus.OnlyRightEyeTracked, data => new Point(data.GazePointRight.X, data.GazePointRight.Y ) }
-            };
-
-
-            public DataStreamFilter(IDynavoxHost host)
-            {
-                _dataStream = host.DataStream
-                    .SubscribeOnDispatcher()
-                    .Select(data => DataFilter[data.Status](data));
+                _host.StartTrackingAsync(code =>
+                {
+                    if (code == ErrorCode.Success) Log.Debug(this, "Tracking started.");
+                    else Log.Error(this, $"Failed to start tracking [{code}]");
+                });
             }
 
-            public IDisposable AddRegistration(FrameworkElement element, IEyegazeClient client)
-            {
-                var lossOfGazeSent = false;
+            var stream = _dataStream
+                    .Select(point => !point.HasValue || !ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point.Value), 20)?.VisualHit) ? null : point)
+                    .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null normalizedPoint once to indicate gaze lost.
+                    .Do(point => lossOfGazeSent = !point.HasValue);
 
-                var stream = _dataStream
-                        .Select(point => !point.HasValue || !ReferenceEquals(element, element.GazeHitTest(point.Value, 20)?.VisualHit) ? null : point)
-                        .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null point once to indicate gaze lost.
-                        .Do(point => lossOfGazeSent = !point.HasValue);
-                return new TobiiDynavoxProviderRegistration(element, client, stream);
-            }
+
+            var registration = new TobiiDynavoxProviderRegistration(element, client, stream, r =>
+            {
+                _registrations.Remove(r);
+                if (!_registrations.Any())
+                {
+                    _host.StopTrackingAsync(code =>
+                    {
+                        if (code == ErrorCode.Success) Log.Debug(this, "Tracking stopped.");
+                        else Log.Error(this, $"Failed to stop tracking [{code}]");
+                    });
+                }
+            });
+            _registrations.Add(registration);
+            return registration;
         }
     }
-
 
 }

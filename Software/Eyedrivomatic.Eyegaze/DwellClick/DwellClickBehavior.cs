@@ -188,14 +188,13 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             AttachProvider(_configuration.Provider);
         }
 
-        private void AttachProvider(string providerName)
+        private async void AttachProvider(string providerName)
         {
             try
             {
                 _providerRegistration?.Dispose();
-                var provider = _providerFactory.Create(providerName);
+                var provider = await _providerFactory.CreateAsync(providerName);
                 _providerRegistration = provider?.RegisterElement(AssociatedObject, this);
-
             }
             catch (Exception ex)
             {

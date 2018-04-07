@@ -11,69 +11,116 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Threading.Tasks;
 using System.Windows;
-using Eyedrivomatic.Eyegaze.Interfaces.Dynavox.Interop;
+using Tobii.Gaze.Core;
 using Eyedrivomatic.Logging;
+using Tobii.Gaze.Core.Internal;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 {
-    [ExportEyegazeProvider("Tobii")]
+    //public static 
+
+    [ExportEyegazeProvider("Tobii Dynavox")]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class TobiiDynavoxEyegazeProvider : IEyegazeProvider
+    public class TobiiDynavoxEyegazeProvider : IEyegazeProvider
     {
-        private IDynavoxHost _host;
-        private readonly Func<IDynavoxHost, DataStreamFilter> _dataStreamFactory;
+        private readonly IEyeTrackerCoreLibrary _library;
+        private IExtendedEyeTracker _eyeTracker;
+        private TaskCompletionSource<bool> _initializingTask; 
+
+        private readonly ITobiiFactory _tobiiFactory;
         private DataStreamFilter _dataStream;
 
-        public TobiiDynavoxEyegazeProvider(Func<IDynavoxHost, DataStreamFilter> dataStreamFactory)
+        [ImportingConstructor]
+        public TobiiDynavoxEyegazeProvider(ITobiiFactory tobiiFactory)
         {
-            _dataStreamFactory = dataStreamFactory;
+            _tobiiFactory = tobiiFactory;
+            _library = CreateLibrary(_tobiiFactory.CreateLibrary);
         }
 
-        public bool Initialize()
+        private static IEyeTrackerCoreLibrary CreateLibrary(Func<IEyeTrackerCoreLibrary> factory)
         {
             try
             {
-                Log.Info(this, "Tobii host initializing.");
-                if (!DynavoxHostFactory.IsAvailable)
-                    Log.Error(this, "Tobii device is not available.");
-                _host = DynavoxHostFactory.CreateHost();
-
-                return _host.Initialize(LoggingCallback);
+                var library = factory();
+                Log.Info(nameof(TobiiDynavoxEyegazeProvider), $"Tobii library version [{library.LibraryVersion()}].");
+                library.SetLogging("TobiiLog.txt", LogLevel.Debug);
+                return library;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Log.Error(this, $"Failed to initialize the Tobii Eyegaze provider: [{ex}].");
-                return false;
+                Log.Error(nameof(TobiiDynavoxEyegazeProvider), $"Failed to create Eyetracker library - [{exception}]");
+                return null;
             }
         }
 
-        private static readonly Dictionary<LogLevel, Action<object, string>> LogHandlers = new Dictionary<LogLevel, Action<object, string>>
+        public Task<bool> InitializeAsync()
         {
-            {LogLevel.Error, Log.Error},
-            {LogLevel.Warning, Log.Warn},
-            {LogLevel.Information, Log.Info},
-            {LogLevel.Diagnostic, Log.Debug}
-        };
+            if (_initializingTask != null) return _initializingTask.Task;
+            _initializingTask = new TaskCompletionSource<bool>();
 
-        private void LoggingCallback(LogLevel logLevel, string message)
-        {
-            LogHandlers[logLevel]?.Invoke(this, message);
+            if (_library == null)
+            {
+                Log.Warn(this, "Unable to start Tobii. library unavailable.");
+                _initializingTask.TrySetResult(false);
+                return _initializingTask.Task;
+            }
+
+            Log.Info(this, "Starting Tobii.");
+            try
+            {
+                var uri = _library.GetConnectedEyeTracker();
+                if (uri == null)
+                {
+                    Log.Debug(this, "Tobii not detected.");
+                    _initializingTask.TrySetResult(false);
+                    return _initializingTask.Task;
+                }
+
+                Log.Debug(this, $"Tracker found at [{uri}].");
+
+                _eyeTracker = _tobiiFactory.CreateEyeTracker(uri);
+                _eyeTracker.EyeTrackerError += (sender, e) => Log.Error(this, $"The Tobii tracker encountered an error - [{e.ErrorCode}: {e.Message}].");
+                Log.Debug(this, "Connecting.");
+
+                _eyeTracker.RunEventLoopOnInternalThread(code =>
+                {
+                    if (code == ErrorCode.Success) Log.Info(this, "Tobii eye tracking thread terminated successfully.");
+                    else
+                    {
+                        Log.Warn(this, $"Tobii eye tracking thread terminated abmormally - [{code}]");
+                        _initializingTask.TrySetResult(false); //if still initializing.
+                    }
+                });
+
+                _eyeTracker.ConnectAsync(code =>
+                {
+                    Log.Info(this, "Connected.");
+                    _initializingTask.TrySetResult(code == ErrorCode.Success);
+                });
+                return _initializingTask.Task;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(this, $"Failed to start eyegaze host [{exception}]");
+                _initializingTask.TrySetResult(false);
+                return _initializingTask.Task;
+            }
         }
 
         public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)
         {
-            if (_dataStream == null) _dataStream = _dataStreamFactory(_host);
+            if (_dataStream == null) _dataStream = _tobiiFactory.CreateDataStream(_eyeTracker);
             return _dataStream.AddRegistration(element, client);
         }
 
         public void Dispose()
         {
-            _host?.Dispose();
+            _eyeTracker?.Dispose();
             _dataStream = null;
-            _host = null;
+            _eyeTracker = null;
         }
     }
 

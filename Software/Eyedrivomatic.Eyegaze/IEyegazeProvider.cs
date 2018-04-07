@@ -11,13 +11,14 @@
 
 
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Eyedrivomatic.Eyegaze
 {
     public interface IEyegazeProvider : IDisposable
     {
-        bool Initialize();
+        Task<bool> InitializeAsync();
         IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client);
     }
 

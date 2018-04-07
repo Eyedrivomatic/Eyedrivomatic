@@ -11,12 +11,8 @@
 
 
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interactivity;
-using System.Windows.Media;
-using Eyedrivomatic.Eyegaze.DwellClick;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 {
@@ -82,10 +78,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Mouse
 
             public void Dispose()
             {
-                _element.MouseEnter += MouseEnterHandler;
-                _element.MouseMove += MouseMoveHandler;
-                _element.MouseLeave += MouseLeaveHandler;
-                _element.MouseDown += MouseDownHandler;
+                _element.MouseEnter -= MouseEnterHandler;
+                _element.MouseMove -= MouseMoveHandler;
+                _element.MouseLeave -= MouseLeaveHandler;
+                _element.MouseDown -= MouseDownHandler;
             }
         }
     }

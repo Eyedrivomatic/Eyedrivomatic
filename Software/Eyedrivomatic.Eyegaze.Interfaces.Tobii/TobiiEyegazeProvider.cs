@@ -13,6 +13,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Tobii.Interaction;
 using Tobii.Interaction.Framework;
@@ -26,13 +28,14 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
     [ExportEyegazeProvider("Tobii"), PartCreationPolicy(CreationPolicy.Shared)]
     public partial class TobiiEyegazeProvider : IEyegazeProvider
     {
+        private readonly List<IDisposable> _registrations = new List<IDisposable>();
         private Host _host;
         private WpfInteractorAgent _interactorAgent;
         private EngineStateObserver<EyeTrackingDeviceStatus> _deviceStatusObserver;
         private EngineStateObserver<UserPresence> _userPresenceObserver;
         private Environment _environment;
 
-        public bool Initialize()
+        public Task<bool> InitializeAsync()
         {
             try
             {
@@ -46,11 +49,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 if (!Environment.IsInitialized)
                 {
                     Log.Error(this, "Failed to initialize the Tobii environment.");
-                    return false;
+                    return Task.FromResult(false);
                 }
 
                 _host = new Host();
-                _host.EnableConnection();
                 Log.Info(this, $"Tobii EyeX Availability: [{Host.EyeXAvailability}]");
                 Log.Info(this, $"Tobii host connection state: [{_host.Context.ConnectionState}]");
                 _host.Context.ConnectionStateChanged += (sender, args) => Log.Info(this, $"Tobii host connection state changed: [{args.State}]");
@@ -61,12 +63,12 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 _userPresenceObserver.WhenChanged(value => Log.Info(this, $"Tobii user presence detection changed: [{value}]."));
 
                 _interactorAgent = _host.InitializeWpfAgent();
-                return Host.EyeXAvailability == EyeXAvailability.Running;
+                return Task.FromResult(Host.EyeXAvailability == EyeXAvailability.Running);
             }
             catch (Exception ex)
             {
                 Log.Error(this, $"Failed to initialize the Tobii Eyegaze provider: [{ex}].");
-                return false;
+                return Task.FromResult(false);
             }
         }
 
@@ -87,7 +89,24 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
         public IDisposable RegisterElement(FrameworkElement element, IEyegazeClient client)
         {
             var interactor = _interactorAgent.AddInteractorFor(element);
-            return new TobiiProviderRegistration(interactor, client);
+
+            var registration = new TobiiProviderRegistration(interactor, client, r =>
+            {
+                _registrations.Remove(r);
+                if (!_registrations.Any())
+                {
+                    Log.Info(this, "Disabling Tobii Connection");
+                    _host.DisableConnection();
+                }
+            });
+
+            if (!_registrations.Any())
+            {
+                Log.Info(this, "Enabling Tobii Connection");
+                _host.EnableConnection();
+            }
+            _registrations.Add(registration);
+            return registration;
         }
 
         public void Dispose()
