@@ -37,7 +37,7 @@
     <Setting Name="CommandTimeout" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="Variant" Type="System.String" Scope="User">
+    <Setting Name="Variant" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

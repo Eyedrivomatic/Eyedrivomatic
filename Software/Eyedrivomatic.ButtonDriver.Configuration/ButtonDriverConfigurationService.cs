@@ -156,7 +156,6 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public string Variant
         {
             get => _configuration.Variant;
-            set { if (_configuration.Variant != value)_configuration.Variant = value; }
         }
 
         public bool AutoConnect

@@ -32,9 +32,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MobilityConceptBuild|AnyCPU'">
+    <OutputPath>bin\MobilityConceptBuild\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gu.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gu.Localization.6.2.2.0\lib\net45\Gu.Localization.dll</HintPath>
+    <Reference Include="Gu.Localization, Version=6.4.0.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gu.Localization.6.4.0.0\lib\net45\Gu.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,12 +120,12 @@
     <Resource Include="Images\Default\Connection_Disconnected.gif" />
     <Resource Include="Images\Default\Connection_RxTx.gif" />
     <Resource Include="Images\Default\DiagonalSpeedReduction.png" />
-    <Resource Include="Images\Logo.ico">
+    <Content Include="Images\Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Logo.png">
+    </Content>
+    <Content Include="Images\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Images\Default\NudgeLeft.png" />
     <Resource Include="Images\Default\NudgeRight.png" />
     <Resource Include="Images\Default\Off.png" />

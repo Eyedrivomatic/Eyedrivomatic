@@ -12,6 +12,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using Eyedrivomatic.Hardware.Communications;
@@ -44,12 +45,12 @@ namespace Eyedrivomatic.Hardware.Services
                 return;
             }
 
-            StatusMessageReceived?.Invoke(this, 
+            StatusMessageReceived?.Invoke(this,
                 new StatusMessageEventArgs(
-                    Convert.ToInt32(match.Groups["XRelative"].Value),
-                    Convert.ToDouble(match.Groups["XAbsolute"].Value),
-                    Convert.ToInt32(match.Groups["YRelative"].Value),
-                    Convert.ToDouble(match.Groups["YAbsolute"].Value),
+                    Int32.Parse(match.Groups["XRelative"].Value, CultureInfo.InvariantCulture),
+                    Double.Parse(match.Groups["XAbsolute"].Value, CultureInfo.InvariantCulture),
+                    Int32.Parse(match.Groups["YRelative"].Value, CultureInfo.InvariantCulture),
+                    Double.Parse(match.Groups["YAbsolute"].Value, CultureInfo.InvariantCulture), 
                     match.Groups["Switch1"].Value == "ON",
                     match.Groups["Switch2"].Value == "ON",
                     match.Groups["Switch3"].Value == "ON"));

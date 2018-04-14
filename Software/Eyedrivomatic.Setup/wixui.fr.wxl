@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<WixLocalization Culture="fr-FR" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="DowngradeErrorMessage">Une version plus récente de Eyedrivomatic est déjà installée.</String>
+  <String Id="CompleteFeatureTitle">Complète</String>
+  <String Id="CompleteFeatureDescription">L'application Eyedrivomatic 2.0 et les composants associés.</String>
+  <String Id="ApplicationFeatureTitle">Application Eyedrivomatic 2.0</String>
+  <String Id="ApplicationFeatureDescription">L'application de bureau autonome Eyedrivomatic 2.0.</String>
+  <String Id="DriversFeatureTitle">Pilotes de périphérique</String>
+  <String Id="DriversFeatureDescription">Les pilotes Windows nécessaires pour communiquer avec la "main électronique".</String>
+  <String Id="DesktopShortcutsFeatureTitle">Raccourci de bureau</String>
+  <String Id="DesktopShortcutsFeatureDescription">Un raccourci vers l'application Eyedrivmatic placé sur votre bureau.</String>
+</WixLocalization>

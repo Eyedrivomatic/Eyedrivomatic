@@ -1,0 +1,239 @@
+﻿using System;
+using System.IO;
+using WixSharp;
+using WixSharp.CommonTasks;
+using File = WixSharp.File;
+
+namespace Eyedrivomatic.Setup
+{
+    internal class Program
+    {
+        private static void Main()
+        {
+#if MOBILITY_CONCEPT
+            var build = @"MobilityConceptBuild";
+            var firmwareVersion = @"MC.2.0.3";
+#elif DEBUG
+            var build = @"Debug";
+            var firmwareVersion = @"2.0.3";
+#else
+            var build = @"Release";
+            var firmwareVersion = @"2.0.3";
+#endif
+
+            var completeFeature = new Feature("!(loc.CompleteFeatureTitle)", "!(loc.CompleteFeatureDescription)");
+            var applicationFeature = new Feature("!(loc.ApplicationFeatureTitle)", "!(loc.ApplicationFeatureDescription)");
+            var desktopShortcutFeature = new Feature("!(loc.DesktopShortcutsFeatureTitle)", "!(loc.DesktopShortcutsFeatureDescription)", false);
+            var driversFeature = new Feature("!(loc.DriversFeatureTitle)", "!(loc.DriversFeatureDescription)");
+
+            var eyedrivomaticTargetDir = $@"..\Eyedrivomatic\bin\{build}\";
+            var resourcesTargetDir = $@"..\Eyedrivomatic.Resources\bin\{build}\";
+            var firmwareTargetDir = $@"..\Eyedrivomatic.Firmware\{build}\";
+
+            var iconfile = $@"{resourcesTargetDir }Images\Logo.ico";
+
+            applicationFeature.Add(desktopShortcutFeature);
+            completeFeature.Add(applicationFeature);
+            completeFeature.Add(driversFeature);
+
+            var project = new ManagedProject("Eyedrivomatic")
+            {
+                GUID = new Guid("60A2BFED-C726-408B-80A1-6340DFFB4DEE"), //never change
+                MajorUpgrade = new MajorUpgrade
+                {
+                    Schedule = UpgradeSchedule.afterInstallInitialize,
+                    AllowSameVersionUpgrades = true,
+                    DowngradeErrorMessage = "!(loc.DowngradeErrorMessage)"
+                },
+                UI = WUI.WixUI_Advanced, //all standard UI dialogs    
+                DefaultFeature = completeFeature,
+                ControlPanelInfo = new ProductInfo
+                {
+                    //Comments = "Simple test msi",
+                    //Readme = "https://eyedrivomatic.org/manual",
+                    //HelpLink = "https://eyedrivomatic.org/support",
+                    //HelpTelephone = "111-222-333-444",
+                    UrlInfoAbout = "https://eyedrivomatic.org/",
+                    //UrlUpdateInfo = "https://eyedrivomatic.org/update",
+                    ProductIcon = iconfile,
+                    Contact = "support@eyedrivomatic.org",
+                    Manufacturer = "Eyedrivomatic.org",
+                    InstallLocation = "[INSTALLDIR]",
+                },
+                BannerImage = @"dialog_banner.png",
+                BackgroundImage = @"dialog_background.png",
+                ValidateBackgroundImage = false, //https://github.com/oleg-shilo/wixsharp/issues/339
+                InstallScope = InstallScope.perMachine
+            };
+            
+            project.AddDir(new Dir(new Id("INSTALLDIR"), applicationFeature, @"%ProgramFiles%\Eyedrivomatic",
+                new ExeFileShortcut("Uninstall Eyedrivomatic", "[System64Folder]msiexec.exe", "/x [ProductCode]"),
+                new File(new Id("Eyedrivomatic_exe"), $@"{eyedrivomaticTargetDir}Eyedrivomatic.exe",
+                    new FileShortcut(desktopShortcutFeature, "%DesktopFolder%") { Advertise = true, WorkingDirectory = "[INSTALL_DIR]", IconFile = iconfile, IconIndex = 0 },
+                    new FileShortcut("Eyedrivomatic", @"%ProgramMenu%\Eyedrivomatic") { Advertise = true, WorkingDirectory = "[INSTALL_DIR]", IconFile = iconfile, IconIndex = 0 }),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.exe.config"),
+                new File($@"{eyedrivomaticTargetDir}Macros.config"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Configuration.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Configuration.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.pdb"),
+                new File($@"{eyedrivomaticTargetDir}GrayscaleEffect.fx"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Hardware.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Hardware.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Infrastructure.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Infrastructure.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Hardware.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Hardware.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Configuration.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Configuration.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Controls.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Controls.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Configuration.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Configuration.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Mouse.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb"),
+
+                //Third party components
+                new File($@"{eyedrivomaticTargetDir}Accord.dll"),
+                new File($@"{eyedrivomaticTargetDir}Accord.dll.config"),
+                new File($@"{eyedrivomaticTargetDir}log4net.dll"),
+                new File($@"{eyedrivomaticTargetDir}Microsoft.Practices.ServiceLocation.dll"),
+                new File($@"{eyedrivomaticTargetDir}Microsoft.Expression.Interactions.dll"),
+                new File($@"{eyedrivomaticTargetDir}ArduinoUploader.dll"),
+                new File($@"{eyedrivomaticTargetDir}IntelHexFormatReader.dll"),
+                new File($@"{eyedrivomaticTargetDir}RJCP.SerialPortStream.dll"),
+                new File($@"{eyedrivomaticTargetDir}Gu.Localization.dll"),
+                new File($@"{eyedrivomaticTargetDir}Gu.Wpf.Localization.dll"),
+                new File($@"{eyedrivomaticTargetDir}Prism.dll"),
+                new File($@"{eyedrivomaticTargetDir}Prism.Mef.Wpf.dll"),
+                new File($@"{eyedrivomaticTargetDir}Prism.Wpf.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Windows.Interactivity.dll"),
+                new File($@"{eyedrivomaticTargetDir}WpfAnimatedGif.dll"),
+                new File($@"{eyedrivomaticTargetDir}Xceed.Wpf.Toolkit.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Threading.Overlapped.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Runtime.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Threading.ThreadPool.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Threading.Thread.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.IO.FileSystem.Primitives.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.IO.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.IO.FileSystem.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Runtime.InteropServices.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Diagnostics.TraceSource.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Collections.Specialized.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Diagnostics.FileVersionInfo.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Security.AccessControl.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Security.Principal.Windows.dll"),
+                new File($@"{eyedrivomaticTargetDir}Microsoft.Win32.Registry.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Runtime.Extensions.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Reactive.Interfaces.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Reactive.Windows.Threading.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Reactive.Linq.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Reactive.Core.dll"),
+                new File($@"{eyedrivomaticTargetDir}System.Reactive.PlatformServices.dll"),
+                new File($@"{eyedrivomaticTargetDir}Accord.Video.DirectShow.dll"),
+                new File($@"{eyedrivomaticTargetDir}Accord.Video.dll"),
+                new File($@"{eyedrivomaticTargetDir}Tobii.Interaction.Net.dll"),
+                new File($@"{eyedrivomaticTargetDir}Tobii.Interaction.Model.dll"),
+                new File($@"{eyedrivomaticTargetDir}Tobii.EyeX.Client.dll"),
+                new File($@"{eyedrivomaticTargetDir}Tobii.Gaze.Core.Net.dll"),
+                new File($@"{eyedrivomaticTargetDir}TobiiGazeCore32.dll"),
+
+                //Localization
+                new Dir(@"en-US",
+                    new File($@"{eyedrivomaticTargetDir}en-US\Eyedrivomatic.Resources.resources.dll")),
+                new Dir(@"de",
+                    new File($@"{eyedrivomaticTargetDir}de\Disclaimer.rtf"),
+                    new File($@"{eyedrivomaticTargetDir}de\Eyedrivomatic.Resources.resources.dll"),
+                    new File($@"{eyedrivomaticTargetDir}de\Microsoft.Expression.Interactions.resources.dll")),
+                new Dir(@"en",
+                    new File($@"{eyedrivomaticTargetDir}en\Disclaimer.rtf"),
+                    //    new File($@"{eyedrivomaticTargetDir}en\Eyedrivomatic.Resources.resources.dll"),
+                    new File($@"{eyedrivomaticTargetDir}en\Microsoft.Expression.Interactions.resources.dll")),
+                new Dir(@"es-MX",
+                    new File($@"{eyedrivomaticTargetDir}es-Mx\Eyedrivomatic.Resources.resources.dll")),
+                new Dir(@"sv",
+                    new File($@"{eyedrivomaticTargetDir}sv\Eyedrivomatic.Resources.resources.dll")),
+                new Dir(@"fr",
+                    new File($@"{eyedrivomaticTargetDir}fr\Disclaimer.rtf"),
+                    new File($@"{eyedrivomaticTargetDir}fr\Eyedrivomatic.Resources.resources.dll"),
+                    new File($@"{eyedrivomaticTargetDir}fr\Microsoft.Expression.Interactions.resources.dll")),
+
+                //Arduino drivers
+                new Dir(driversFeature, @"Drivers",
+                    new Files(@"Drivers\*.*")),
+
+                //Firmware
+                new Dir(@"Firmware",
+                    new File($@"{firmwareTargetDir}Eyedrivomatic.Firmware.{firmwareVersion}.hex")
+                    {
+                        AttributesDefinition = $@"Source={firmwareTargetDir}Eyedrivomatic.Firmware.hex;Name=Eyedrivomatic.Firmware.{firmwareVersion}.hex"
+                    })
+            ));
+
+            project.SetVersionFromFileId(@"Eyedrivomatic_exe");
+            project.Feature = completeFeature;
+            project.AddProperties(
+                new Property("ApplicationFolderName", "Eyedrivomatic Folder"),
+                new Property("WixAppFolder", "WixPerMachineFolder"));
+
+            Compiler.EmitRelativePaths = false;
+            project.PreserveTempFiles = false;
+            project.AfterInstall += Msi_AfterInstall;
+
+            project.Language = "en-US";
+            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\en\";
+            project.OutFileName = "Eyedrivomatic.Setup";
+            project.LicenceFile = $@"{eyedrivomaticTargetDir}en\Disclaimer.rtf";
+            project.LocalizationFile = "wixui.en.wxl";
+            project.BuildMsi();
+
+            project.Language = "de-DE";
+            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\de\";
+            project.OutFileName = "Eyedrivomatic.Setup";
+            project.LicenceFile = $@"{eyedrivomaticTargetDir}de\Disclaimer.rtf";
+            project.LocalizationFile = "wixui.de.wxl";
+            project.BuildMsi();
+
+            project.Language = "fr-FR";
+            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\fr\";
+            project.OutFileName = "Eyedrivomatic.Setup";
+            project.LicenceFile = $@"{eyedrivomaticTargetDir}fr\Disclaimer.rtf";
+            project.LocalizationFile = "wixui.fr.wxl";
+            project.BuildMsi();
+        }
+
+        private static void Msi_AfterInstall(SetupEventArgs e)
+        {
+            if (e.IsInstalling)
+            {
+                var installer = Path.Combine(e.InstallDir,
+                    Environment.Is64BitOperatingSystem
+                        ? @"Drivers\dpinst-amd64.exe"
+                        : @"Drivers\dpinst-x86.exe");
+
+                if (System.IO.File.Exists(installer))
+                {
+                    var args = e.UILevel > 2 ? "/SW" : "/Q";
+                    System.Diagnostics.Process.Start(installer, args)?.WaitForExit();
+                }
+            }
+        }
+    }
+}

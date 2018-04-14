@@ -35,8 +35,8 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gu.Localization, Version=6.2.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gu.Localization.6.2.2.0\lib\net45\Gu.Localization.dll</HintPath>
+    <Reference Include="Gu.Localization, Version=6.4.0.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gu.Localization.6.4.0.0\lib\net45\Gu.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>

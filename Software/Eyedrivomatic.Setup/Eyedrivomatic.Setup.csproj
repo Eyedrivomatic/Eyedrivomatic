@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9A243E5-6443-4A00-ACAC-C20A61286264}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eyedrivomatic.Setup</RootNamespace>
+    <AssemblyName>Eyedrivomatic.Setup</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MobilityConceptBuild|AnyCPU'">
+    <OutputPath>bin\MobilityConceptBuild\</OutputPath>
+    <DefineConstants>TRACE;MOBILITY_CONCEPT</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BootstrapperCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.6.2.1\lib\BootstrapperCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.6.2.1\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WixSharp, Version=1.6.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.6.2.1\lib\WixSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WixSharp.Msi, Version=1.6.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.6.2.1\lib\WixSharp.Msi.dll</HintPath>
+    </Reference>
+    <Reference Include="WixSharp.UI, Version=1.6.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.6.2.1\lib\WixSharp.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Drivers\AdafruitCircuitPlayground.cat" />
+    <None Include="Drivers\amd64\libusb0.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\arduino-org.cat" />
+    <None Include="Drivers\arduino.cat" />
+    <None Include="Drivers\arduino_gemma.cat" />
+    <None Include="Drivers\CP210x_6.7.4\slabvcp.cat" />
+    <None Include="Drivers\CP210x_6.7.4\x64\silabser.sys" />
+    <None Include="Drivers\CP210x_6.7.4\x86\silabser.sys" />
+    <None Include="Drivers\CP210x_6.7\slabvcp.cat" />
+    <None Include="Drivers\CP210x_6.7\x64\silabenm.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\CP210x_6.7\x64\silabser.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Drivers\CP210x_6.7\x86\silabenm.sys" />
+    <None Include="Drivers\CP210x_6.7\x86\silabser.sys" />
+    <None Include="Drivers\FTDI USB Drivers\amd64\ftd2xx.lib" />
+    <None Include="Drivers\FTDI USB Drivers\amd64\ftdibus.sys" />
+    <None Include="Drivers\FTDI USB Drivers\amd64\ftser2k.sys" />
+    <None Include="Drivers\FTDI USB Drivers\ftdibus.cat" />
+    <None Include="Drivers\FTDI USB Drivers\ftdiport.cat" />
+    <None Include="Drivers\FTDI USB Drivers\i386\ftd2xx.lib" />
+    <None Include="Drivers\FTDI USB Drivers\i386\ftdibus.sys" />
+    <None Include="Drivers\FTDI USB Drivers\i386\ftser2k.sys" />
+    <None Include="Drivers\FTDI USB Drivers\LogoVerificationReport.pdf" />
+    <None Include="Drivers\FTDI USB Drivers\Static\amd64\ftd2xx.lib" />
+    <None Include="Drivers\FTDI USB Drivers\Static\i386\ftd2xx.lib" />
+    <None Include="Drivers\genuino.cat" />
+    <None Include="Drivers\ia64\libusb0.sys" />
+    <None Include="Drivers\linino-boards_amd64.cat" />
+    <None Include="Drivers\linino-boards_x86.cat" />
+    <None Include="Drivers\Old_Arduino_Drivers.zip" />
+    <None Include="Drivers\x86\libusb0.sys" />
+    <None Include="packages.config" />
+    <None Include="wixui.de.wxl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wixui.fr.wxl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wixui.en.wxl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Drivers\AdafruitCircuitPlayground.inf" />
+    <Content Include="Drivers\amd64\libusb0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Drivers\arduino-org.inf" />
+    <Content Include="Drivers\arduino.inf" />
+    <Content Include="Drivers\arduino_gemma.inf" />
+    <Content Include="Drivers\CP210x_6.7.4\slabvcp.inf" />
+    <Content Include="Drivers\CP210x_6.7.4\x64\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7.4\x86\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7\ReleaseNotes.txt" />
+    <Content Include="Drivers\CP210x_6.7\slabvcp.inf" />
+    <Content Include="Drivers\CP210x_6.7\SLAB_License_Agreement_VCP_Windows.txt" />
+    <Content Include="Drivers\CP210x_6.7\x64\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\CP210x_6.7\x86\WdfCoInstaller01009.dll" />
+    <Content Include="Drivers\dpinst-amd64.exe" />
+    <Content Include="Drivers\dpinst-x86.exe" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftbusui.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftcserco.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftd2xx64.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftlang.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\amd64\ftserui2.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\ftd2xx.h" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdibus.inf" />
+    <Content Include="Drivers\FTDI USB Drivers\ftdiport.inf" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftbusui.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftcserco.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftd2xx.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftlang.dll" />
+    <Content Include="Drivers\FTDI USB Drivers\i386\ftserui2.dll" />
+    <Content Include="Drivers\genuino.inf" />
+    <Content Include="Drivers\ia64\libusb0.dll" />
+    <Content Include="Drivers\license\libusb0\installer_license.txt" />
+    <Content Include="Drivers\linino.inf" />
+    <Content Include="Drivers\README.txt" />
+    <Content Include="Drivers\x86\libusb0_x86.dll" />
+    <None Include="dialog_banner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dialog_background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <!-- <ItemGroup> -->
+  <!-- <PackageReference Include="WixSharp"> -->
+  <!-- <Version>1.4.8.0</Version> -->
+  <!-- </PackageReference> -->
+  <!-- </ItemGroup> -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\WixSharp.1.6.2.1\build\WixSharp.targets" Condition="Exists('..\packages\WixSharp.1.6.2.1\build\WixSharp.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WixSharp.1.6.2.1\build\WixSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WixSharp.1.6.2.1\build\WixSharp.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <UsingTask AssemblyFile="$(SolutionDir)packages\WixSharp.1.6.2.1\build\SetEnvVar.dll" TaskName="SetEnvVar" />
+</Project>

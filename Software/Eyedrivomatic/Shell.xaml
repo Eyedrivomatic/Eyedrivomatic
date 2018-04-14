@@ -26,7 +26,6 @@
         xmlns:buttonDriver="clr-namespace:Eyedrivomatic.ButtonDriver;assembly=Eyedrivomatic.ButtonDriver"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized"
-        Icon="{StaticResource MainIcon}"
         KeyDown="Window_KeyDown"
         prism:ViewModelLocator.AutoWireViewModel="True">
     <buttonDriver:DeviceConnectionDecoratorControl Name="ConnectionDecorator">
