@@ -19,6 +19,7 @@ namespace FirmwareTests
 {
     [TestFixture]
     [Explicit("Requires connection to device.")]
+    [Category("Firmware")]
     public class CommandTests
     {
         private const int XMin = -22;
