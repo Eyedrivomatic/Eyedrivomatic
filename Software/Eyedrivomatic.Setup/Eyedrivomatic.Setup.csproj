@@ -99,42 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Drivers\AdafruitCircuitPlayground.cat" />
-    <None Include="Drivers\amd64\libusb0.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\arduino-org.cat" />
-    <None Include="Drivers\arduino.cat" />
-    <None Include="Drivers\arduino_gemma.cat" />
-    <None Include="Drivers\CP210x_6.7.4\slabvcp.cat" />
-    <None Include="Drivers\CP210x_6.7.4\x64\silabser.sys" />
-    <None Include="Drivers\CP210x_6.7.4\x86\silabser.sys" />
-    <None Include="Drivers\CP210x_6.7\slabvcp.cat" />
-    <None Include="Drivers\CP210x_6.7\x64\silabenm.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\CP210x_6.7\x64\silabser.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Drivers\CP210x_6.7\x86\silabenm.sys" />
-    <None Include="Drivers\CP210x_6.7\x86\silabser.sys" />
-    <None Include="Drivers\FTDI USB Drivers\amd64\ftd2xx.lib" />
-    <None Include="Drivers\FTDI USB Drivers\amd64\ftdibus.sys" />
-    <None Include="Drivers\FTDI USB Drivers\amd64\ftser2k.sys" />
-    <None Include="Drivers\FTDI USB Drivers\ftdibus.cat" />
-    <None Include="Drivers\FTDI USB Drivers\ftdiport.cat" />
-    <None Include="Drivers\FTDI USB Drivers\i386\ftd2xx.lib" />
-    <None Include="Drivers\FTDI USB Drivers\i386\ftdibus.sys" />
-    <None Include="Drivers\FTDI USB Drivers\i386\ftser2k.sys" />
-    <None Include="Drivers\FTDI USB Drivers\LogoVerificationReport.pdf" />
-    <None Include="Drivers\FTDI USB Drivers\Static\amd64\ftd2xx.lib" />
-    <None Include="Drivers\FTDI USB Drivers\Static\i386\ftd2xx.lib" />
-    <None Include="Drivers\genuino.cat" />
-    <None Include="Drivers\ia64\libusb0.sys" />
-    <None Include="Drivers\linino-boards_amd64.cat" />
-    <None Include="Drivers\linino-boards_x86.cat" />
-    <None Include="Drivers\Old_Arduino_Drivers.zip" />
-    <None Include="Drivers\x86\libusb0.sys" />
     <None Include="packages.config" />
     <None Include="wixui.de.wxl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -160,42 +124,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Drivers\AdafruitCircuitPlayground.inf" />
-    <Content Include="Drivers\amd64\libusb0.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Drivers\arduino-org.inf" />
-    <Content Include="Drivers\arduino.inf" />
-    <Content Include="Drivers\arduino_gemma.inf" />
-    <Content Include="Drivers\CP210x_6.7.4\slabvcp.inf" />
-    <Content Include="Drivers\CP210x_6.7.4\x64\WdfCoInstaller01009.dll" />
-    <Content Include="Drivers\CP210x_6.7.4\x86\WdfCoInstaller01009.dll" />
-    <Content Include="Drivers\CP210x_6.7\ReleaseNotes.txt" />
-    <Content Include="Drivers\CP210x_6.7\slabvcp.inf" />
-    <Content Include="Drivers\CP210x_6.7\SLAB_License_Agreement_VCP_Windows.txt" />
-    <Content Include="Drivers\CP210x_6.7\x64\WdfCoInstaller01009.dll" />
-    <Content Include="Drivers\CP210x_6.7\x86\WdfCoInstaller01009.dll" />
-    <Content Include="Drivers\dpinst-amd64.exe" />
-    <Content Include="Drivers\dpinst-x86.exe" />
-    <Content Include="Drivers\FTDI USB Drivers\amd64\ftbusui.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\amd64\ftcserco.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\amd64\ftd2xx64.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\amd64\ftlang.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\amd64\ftserui2.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\ftd2xx.h" />
-    <Content Include="Drivers\FTDI USB Drivers\ftdibus.inf" />
-    <Content Include="Drivers\FTDI USB Drivers\ftdiport.inf" />
-    <Content Include="Drivers\FTDI USB Drivers\i386\ftbusui.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\i386\ftcserco.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\i386\ftd2xx.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\i386\ftlang.dll" />
-    <Content Include="Drivers\FTDI USB Drivers\i386\ftserui2.dll" />
-    <Content Include="Drivers\genuino.inf" />
-    <Content Include="Drivers\ia64\libusb0.dll" />
-    <Content Include="Drivers\license\libusb0\installer_license.txt" />
-    <Content Include="Drivers\linino.inf" />
-    <Content Include="Drivers\README.txt" />
-    <Content Include="Drivers\x86\libusb0_x86.dll" />
     <None Include="dialog_banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

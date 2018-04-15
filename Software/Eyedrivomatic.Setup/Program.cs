@@ -13,12 +13,15 @@ namespace Eyedrivomatic.Setup
 #if MOBILITY_CONCEPT
             var build = @"MobilityConceptBuild";
             var firmwareVersion = @"MC.2.0.3";
+            var setupDir = @"..\..\Setup\MobilityConcept";
 #elif DEBUG
             var build = @"Debug";
             var firmwareVersion = @"2.0.3";
+            var setupDir = @"..\..\Setup\Debug";
 #else
             var build = @"Release";
             var firmwareVersion = @"2.0.3";
+            var setupDir = @"..\..\Setup\";
 #endif
 
             var completeFeature = new Feature("!(loc.CompleteFeatureTitle)", "!(loc.CompleteFeatureDescription)");
@@ -30,7 +33,8 @@ namespace Eyedrivomatic.Setup
             var resourcesTargetDir = $@"..\Eyedrivomatic.Resources\bin\{build}\";
             var firmwareTargetDir = $@"..\Eyedrivomatic.Firmware\{build}\";
 
-            var iconfile = $@"{resourcesTargetDir }Images\Logo.ico";
+            var iconfile = $@"{resourcesTargetDir}Images\Logo.ico";
+            var libdir = @"..\..\lib\";
 
             applicationFeature.Add(desktopShortcutFeature);
             completeFeature.Add(applicationFeature);
@@ -177,7 +181,7 @@ namespace Eyedrivomatic.Setup
 
                 //Arduino drivers
                 new Dir(driversFeature, @"Drivers",
-                    new Files(@"Drivers\*.*")),
+                    new Files($@"{libdir}ArduinoDrivers\*.*")),
 
                 //Firmware
                 new Dir(@"Firmware",
@@ -198,21 +202,21 @@ namespace Eyedrivomatic.Setup
             project.AfterInstall += Msi_AfterInstall;
 
             project.Language = "en-US";
-            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\en\";
+            project.OutDir = $@"{setupDir}\{project.Version.ToString(3)}\en\";
             project.OutFileName = "Eyedrivomatic.Setup";
             project.LicenceFile = $@"{eyedrivomaticTargetDir}en\Disclaimer.rtf";
             project.LocalizationFile = "wixui.en.wxl";
             project.BuildMsi();
 
             project.Language = "de-DE";
-            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\de\";
+            project.OutDir = $@"{setupDir}\{project.Version.ToString(3)}\de\";
             project.OutFileName = "Eyedrivomatic.Setup";
             project.LicenceFile = $@"{eyedrivomaticTargetDir}de\Disclaimer.rtf";
             project.LocalizationFile = "wixui.de.wxl";
             project.BuildMsi();
 
             project.Language = "fr-FR";
-            project.OutDir = $@"MSI\{project.Version.ToString(3)}\{build}\fr\";
+            project.OutDir = $@"{setupDir}\{project.Version.ToString(3)}\fr\";
             project.OutFileName = "Eyedrivomatic.Setup";
             project.LicenceFile = $@"{eyedrivomaticTargetDir}fr\Disclaimer.rtf";
             project.LocalizationFile = "wixui.fr.wxl";
