@@ -15,7 +15,7 @@ using NUnit.Framework;
 namespace FirmwareTests
 {
     [TestFixture]
-    [Ignore("Requires connection to device.")]
+    [Explicit("Requires connection to device.")]
     public class SettingsTests
     {
         private const int XMin = -22;
