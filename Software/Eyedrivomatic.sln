@@ -79,8 +79,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mouse", "Mouse", "{BA4E36C6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tobii.Dynavox", "Tobii.Dynavox", "{23775EC2-27B7-49DB-89B5-43C9677FA603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoUploader", "..\..\Git-Hub\General-Fault\ArduinoSketchUploader\Source\ArduinoUploader\ArduinoUploader.csproj", "{76B83943-5E26-4A25-A2BC-074C13744150}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Setup", "Eyedrivomatic.Setup\Eyedrivomatic.Setup.csproj", "{C9A243E5-6443-4A00-ACAC-C20A61286264}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1C00CCD6-A19C-4B9E-A203-F053CE0871FF} = {1C00CCD6-A19C-4B9E-A203-F053CE0871FF}
@@ -596,24 +594,6 @@ Global
 		{3AC97279-03D7-4F9A-9C9D-A6A16F7930D7}.Release|x64.ActiveCfg = Release|x86
 		{3AC97279-03D7-4F9A-9C9D-A6A16F7930D7}.Release|x86.ActiveCfg = Release|x86
 		{3AC97279-03D7-4F9A-9C9D-A6A16F7930D7}.Release|x86.Build.0 = Release|x86
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|x64.Build.0 = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Debug|x86.Build.0 = Debug|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|Any CPU.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|Any CPU.Build.0 = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|x64.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|x64.Build.0 = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|x86.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.MobilityConceptBuild|x86.Build.0 = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|x64.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|x64.Build.0 = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|x86.ActiveCfg = Release|Any CPU
-		{76B83943-5E26-4A25-A2BC-074C13744150}.Release|x86.Build.0 = Release|Any CPU
 		{C9A243E5-6443-4A00-ACAC-C20A61286264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9A243E5-6443-4A00-ACAC-C20A61286264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9A243E5-6443-4A00-ACAC-C20A61286264}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -672,7 +652,7 @@ Global
 		{C9A243E5-6443-4A00-ACAC-C20A61286264} = {8C5AD309-7DDC-49DB-91BA-66D8614D5D47}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = MultipleSheets
 		SolutionGuid = {F78FE821-D5B8-4B44-9431-0B75AA03A224}
+		RESX_ExcelExportMode = MultipleSheets
 	EndGlobalSection
 EndGlobal
