@@ -43,9 +43,9 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
         {
             _host = host;
             _dataStream = Observable
-                .FromEvent<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
+                .FromEventPattern<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
                 .SubscribeOnDispatcher()
-                .Select(data => DataFilter[data.GazeData.TrackingStatus](data.GazeData))
+                .Select(e => DataFilter[e.EventArgs.GazeData.TrackingStatus](e.EventArgs.GazeData))
                 .Select(ScreenPointFromNormal);
         }
 
