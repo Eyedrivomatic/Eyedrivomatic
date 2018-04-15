@@ -18,6 +18,7 @@ using System.Threading;
 namespace FirmwareTests
 {
     [TestFixture]
+    [Explicit("Requires connection to device.")]
     public class CommandTests
     {
         private const int XMin = -22;
