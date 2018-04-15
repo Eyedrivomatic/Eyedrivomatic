@@ -46,7 +46,8 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
                 .FromEventPattern<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
                 .SubscribeOnDispatcher()
                 .Select(e => DataFilter[e.EventArgs.GazeData.TrackingStatus](e.EventArgs.GazeData))
-                .Select(ScreenPointFromNormal);
+                .Select(ScreenPointFromNormal)
+                .ObserveOnDispatcher();
         }
 
         private static Point? ScreenPointFromNormal(Point? normalizedPoint)
