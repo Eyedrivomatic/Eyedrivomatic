@@ -1,0 +1,56 @@
+GazeSdk 4.0.3
+=============
+- Bug fix: tobiigaze_get_connected_eye_tracker failed on Windows when the Tobii USB service not installed.
+- Added a tool for calculating the corner points of the active display area.
+
+GazeSdk 4.0.2
+=============
+- Added a calibration sample based on the wxWidgets GUI library.
+- Cleaned up samples.
+- Merged the tools package with the SDK package.
+
+GazeSdk 4.0.0
+=============
+- Change: Upgraded to use the VS2012 build chain. (Affects Windows only)
+- API break: Removed the TobiiGazeConfig subsystem. (Affects Windows only)
+
+GazeSdk 3.1.0
+=============
+- New functionality: Gazedata extensions
+- New functionality: Register settings listener in TobiiGazeConfig
+- API break: Some new arguments added to functions
+- Bug fix: Setting error callback to NULL now works
+
+GazeSdk 2.3.0
+=============
+- New functionality: Possibility to set timeout
+- Bug fix: More coherent timeout handling
+
+GazeSdk 2.1.0
+=============
+- New functionality: Disconnecting the eye tracker will give an error callback, if registered.
+- New functionality: Ability to send custom commands to the eye tracker (for customer-specific extension functions).
+- New functionality: Convenience function run_event_loop_on_internal thread added.
+- New functionality: Function get_url to get the url associated with the eye tracker added.
+- Bug fix: Fixed some issues with functions timing out even when they succeeded.
+
+GazeSdk 2.0.1.296
+=================
+- New functionality: function tobiigaze_get_error_message() to get a string representation of an error code.
+- New functionality: function tobiigaze_get_calibration_point_data_items() to get information about a calibration.
+- Bug fix: tobiigaze_config.h can now be compiled with a C compiler (contained a C++ language feature).
+- Bug fix: tobiigaze_config_prepare_eye_tracker_async has a different callback function type (still same signature though).
+- Bug fix: Incorrect display area is now returned as TOBIIGAZE_CONFIG_INVALID instead of TOBIIGAZE_ERROR_UNKNOWN. 
+- Bug fix: The async function callbacks now always comes from the event loop thread (e.g. the status callback could come from the calling thread under certain circumstances). 
+- Sample bug fix: race condition in tear down code fixed in minimal_tracker_async.cpp
+- Change: log levels for debug logging to log file are now more appropriate.
+
+GazeSdk 1.0.1.40
+===============
+- Bug fix: dll's are now copied for Minimal* samples also in Release mode.
+- Bug fix: dll's are now copied correctly for all samples even if there is a space in the file path.
+- Change: Removed MOCKDebug configuration from the MfcSample project file.
+
+GazeSdk 1.0.0.36
+================
+Initial release.
