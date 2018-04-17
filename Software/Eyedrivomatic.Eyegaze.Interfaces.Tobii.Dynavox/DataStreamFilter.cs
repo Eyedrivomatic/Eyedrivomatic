@@ -47,7 +47,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
                 .SubscribeOnDispatcher()
                 .Select(e => DataFilter[e.EventArgs.GazeData.TrackingStatus](e.EventArgs.GazeData))
                 .Select(ScreenPointFromNormal)
-                .ObserveOnDispatcher();
+                .ObserveOnDispatcher()
+                .Publish();
+
+            Log.Debug(this, $"DataStream  filter created. Screen width [{SystemParameters.PrimaryScreenWidth}] height:[{SystemParameters.PrimaryScreenHeight}]");
         }
 
         private static Point? ScreenPointFromNormal(Point? normalizedPoint)
@@ -57,7 +60,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             var screenPoint = new Point(
                 SystemParameters.PrimaryScreenWidth * normalizedPoint.Value.X,
                 SystemParameters.PrimaryScreenHeight * normalizedPoint.Value.Y);
-            Log.Debug(nameof(DataFilter), $"Gaze Point - Normalized:[{normalizedPoint}], Screen:[{screenPoint}]");
+            //Log.Debug(nameof(DataFilter), $"Gaze Point - Normalized:[{normalizedPoint}], Screen:[{screenPoint}]");
             return screenPoint;
         }
 
