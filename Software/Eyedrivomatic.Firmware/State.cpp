@@ -22,17 +22,19 @@
 #define SERVO_OFFSET_Y 90
 
 #if defined(MOBILITY_CONCEPT_BUILD)
-#define SERVO_X 5
-#define SERVO_Y 6
+#define SERVO_X 6
+#define SERVO_Y 5
 #define SWITCH_1 4
 #define SWITCH_2 8
 #define SWITCH_3 12
+#define SERVO_ENABLE 7
 #else
 #define SERVO_X 9
 #define SERVO_Y 8
 #define SWITCH_1 7
 #define SWITCH_2 5
 #define SWITCH_3 3
+#define SERVO_ENABLE 6
 #endif
 
 
@@ -43,7 +45,6 @@ const int switchPins[] =
 	SWITCH_3,
 };
 
-#define SERVO_ENABLE 6
 
 void StateClass::init()
 {
