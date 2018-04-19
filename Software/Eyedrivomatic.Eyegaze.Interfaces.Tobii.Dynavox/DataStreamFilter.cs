@@ -21,11 +21,12 @@ using Tobii.Gaze.Core;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 {
-    public class DataStreamFilter
+    public class DataStreamFilter : IDisposable
     {
         private readonly IObservable<Point?> _dataStream;
         private readonly IEyeTracker _host;
         private readonly List<IDisposable> _registrations = new List<IDisposable>();
+        private readonly IDisposable _publishRegistration;
 
         private static readonly Dictionary<TrackingStatus, Func<GazeData, Point?>> DataFilter = new Dictionary<TrackingStatus, Func<GazeData, Point?>>
         {
@@ -42,13 +43,16 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
         public DataStreamFilter(IEyeTracker host)
         {
             _host = host;
-            _dataStream = Observable
+            var datastream = Observable
                 .FromEventPattern<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
                 .SubscribeOnDispatcher()
                 .Select(e => DataFilter[e.EventArgs.GazeData.TrackingStatus](e.EventArgs.GazeData))
                 .Select(ScreenPointFromNormal)
                 .ObserveOnDispatcher()
                 .Publish();
+
+            _dataStream = datastream;
+            _publishRegistration = datastream.Connect();
 
             Log.Debug(this, $"DataStream  filter created. Screen width [{SystemParameters.PrimaryScreenWidth}] height:[{SystemParameters.PrimaryScreenHeight}]");
         }
@@ -97,6 +101,11 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             });
             _registrations.Add(registration);
             return registration;
+        }
+
+        public void Dispose()
+        {
+            _publishRegistration?.Dispose();
         }
     }
 

@@ -46,7 +46,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             {
                 var library = factory();
                 Log.Info(nameof(TobiiDynavoxEyegazeProvider), $"Tobii library version [{library.LibraryVersion()}].");
-                library.SetLogging("TobiiLog.txt", LogLevel.Debug);
+                library.SetLogging("TobiiLog.txt", LogLevel.Info);
                 return library;
             }
             catch (Exception exception)
@@ -119,6 +119,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
         public void Dispose()
         {
             _eyeTracker?.Dispose();
+            _dataStream?.Dispose();
             _dataStream = null;
             _eyeTracker = null;
         }
