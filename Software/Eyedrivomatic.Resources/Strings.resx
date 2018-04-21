@@ -602,4 +602,36 @@ Update Version: {2}
   <data name="Disclaimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Docs\en\Disclaimer.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="SettingDescription_CameraStretch" xml:space="preserve">
+    <value>Stretch or zoom the camera image to choose the optimal view.</value>
+    <comment>Description of the camera overlay stretch setting.</comment>
+  </data>
+  <data name="SettingName_CameraStretch" xml:space="preserve">
+    <value>Camera Stretch/Zoom</value>
+    <comment>The name of the camera stretch setting.</comment>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_Fill" xml:space="preserve">
+    <value>Stretch the image to fill the available space without keeping the aspect ratio. The image may appear distorted.</value>
+    <comment>Describes the effect of the Fill stretch setting to the user.</comment>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_Uniform" xml:space="preserve">
+    <value>Stretch the image to its largest size without clipping the image. There may be unused screen space.</value>
+    <comment>Describes the effect of the Uniform stretch setting to the user.</comment>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_UniformToFill" xml:space="preserve">
+    <value>Stretch the image without distortion until all available space is used. Some of the view may be clipped.</value>
+    <comment>Describes the effect of the UniformToFill stretch setting to the user.</comment>
+  </data>
+  <data name="SettingValue_CameraStretch_Fill" xml:space="preserve">
+    <value>Stretch</value>
+    <comment>Describes stretching the image to fill the available space without keeping the aspect ratio. The image may appear distorted.</comment>
+  </data>
+  <data name="SettingValue_CameraStretch_Uniform" xml:space="preserve">
+    <value>Zoom</value>
+    <comment>Describes stretching the image to its largest size without clipping the image. There may be unused screen space.</comment>
+  </data>
+  <data name="SettingValue_CameraStretch_UniformToFill" xml:space="preserve">
+    <value>Zoom to Fill</value>
+    <comment>Describes stretching the image without distortion until all available space is used. Some of the view may be clipped.</comment>
+  </data>
 </root>

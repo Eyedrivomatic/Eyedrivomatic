@@ -12,6 +12,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
 using Accord.Video.DirectShow;
 
 namespace Eyedrivomatic.Camera
@@ -22,6 +23,7 @@ namespace Eyedrivomatic.Camera
         FilterInfo Camera { get; set; }
         IEnumerable<FilterInfo> AvailableCameras { get; }
         double OverlayOpacity { get; set; }
+        Stretch Stretch { get; set; }
 
         bool HasChanges { get; }
         void Save();

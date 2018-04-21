@@ -20,6 +20,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Image x:Name="WebCameraControl" Source="{Binding FrameSource}" RenderOptions.BitmapScalingMode="Linear" Stretch="UniformToFill"/>
+        <Image x:Name="WebCameraControl" Source="{Binding FrameSource}" RenderOptions.BitmapScalingMode="Linear" Stretch="{Binding Stretch}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

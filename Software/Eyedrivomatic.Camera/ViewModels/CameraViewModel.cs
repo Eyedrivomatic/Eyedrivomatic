@@ -11,6 +11,7 @@
 
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -38,6 +39,13 @@ namespace Eyedrivomatic.Camera.ViewModels
             _camera = camera;
             _cameraConfiguration = cameraConfiguration;
             _camera.FrameCaptured += CameraOnFrameCaptured;
+            _cameraConfiguration.PropertyChanged += CameraConfigurationOnPropertyChanged;
+        }
+
+        private void CameraConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            if (propertyChangedEventArgs.PropertyName == nameof(_cameraConfiguration.Stretch)) OnPropertyChanged(nameof(Stretch));
         }
 
         public void StartCapture()
@@ -57,6 +65,8 @@ namespace Eyedrivomatic.Camera.ViewModels
             get => _frameSource;
             private set => SetProperty(ref _frameSource, value as WriteableBitmap);
         }
+
+        public Stretch Stretch => _cameraConfiguration.Stretch;
 
         private void CameraOnFrameCaptured(object sender, Bitmap bitmap)
         {

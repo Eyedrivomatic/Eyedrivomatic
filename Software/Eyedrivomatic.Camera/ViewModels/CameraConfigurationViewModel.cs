@@ -15,10 +15,12 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
 using Accord.Video.DirectShow;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
+using Gu.Localization;
 using NullGuard;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -70,13 +72,46 @@ namespace Eyedrivomatic.Camera.ViewModels
             set => _cameraConfigurationService.Camera = AvailableCameras.FirstOrDefault(c => c.MonikerString == value);
         }
 
+        public Stretch Stretch
+        {
+            get => _cameraConfigurationService.Stretch;
+            set => _cameraConfigurationService.Stretch = value;
+        }
+
+        public class StretchItem
+        {
+            public StretchItem(Stretch value, ITranslation name, ITranslation description)
+            {
+                Value = value;
+                Name = name;
+                Description = description;
+            }
+
+            public Stretch Value { get; }
+            public ITranslation Name{ get; }
+            public ITranslation Description { get; }
+        }
+
+        public IList<StretchItem> StretchItems { get; } = new[]
+        {
+            new StretchItem(Stretch.Fill,
+                Translate.TranslationFor(nameof(Strings.SettingValue_CameraStretch_Fill)),
+                Translate.TranslationFor(nameof(Strings.SettingValueDescription_CameraStretch_Fill))),
+            new StretchItem(Stretch.UniformToFill,
+                Translate.TranslationFor(nameof(Strings.SettingValue_CameraStretch_UniformToFill)),
+                Translate.TranslationFor(nameof(Strings.SettingValueDescription_CameraStretch_UniformToFill))),
+            new StretchItem(Stretch.Uniform,
+                Translate.TranslationFor(nameof(Strings.SettingValue_CameraStretch_Uniform)),
+                Translate.TranslationFor(nameof(Strings.SettingValueDescription_CameraStretch_Uniform))),
+        };
+
         public double OverlayOpacity
         {
             get => _cameraConfigurationService.OverlayOpacity;
             set => _cameraConfigurationService.OverlayOpacity = value;
         }
 
-        public List<FilterInfo> AvailableCameras => _cameraConfigurationService.AvailableCameras.ToList();
+        public IList<FilterInfo> AvailableCameras => _cameraConfigurationService.AvailableCameras.ToList();
 
         public bool HasChanges => _cameraConfigurationService.HasChanges;
 

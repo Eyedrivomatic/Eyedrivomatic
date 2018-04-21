@@ -619,6 +619,15 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stretch or zoom the camera image to choose the optimal view..
+        /// </summary>
+        public static string SettingDescription_CameraStretch {
+            get {
+                return ResourceManager.GetString("SettingDescription_CameraStretch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!.
         /// </summary>
         public static string SettingDescription_DeviceLimits {
@@ -808,6 +817,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingName_CameraOverlayOpacity {
             get {
                 return ResourceManager.GetString("SettingName_CameraOverlayOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera Stretch/Zoom.
+        /// </summary>
+        public static string SettingName_CameraStretch {
+            get {
+                return ResourceManager.GetString("SettingName_CameraStretch", resourceCulture);
             }
         }
         
@@ -1015,6 +1033,60 @@ namespace Eyedrivomatic.Resources {
         public static string SettingsGroupName_Trim {
             get {
                 return ResourceManager.GetString("SettingsGroupName_Trim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch.
+        /// </summary>
+        public static string SettingValue_CameraStretch_Fill {
+            get {
+                return ResourceManager.GetString("SettingValue_CameraStretch_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom.
+        /// </summary>
+        public static string SettingValue_CameraStretch_Uniform {
+            get {
+                return ResourceManager.GetString("SettingValue_CameraStretch_Uniform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom to Fill.
+        /// </summary>
+        public static string SettingValue_CameraStretch_UniformToFill {
+            get {
+                return ResourceManager.GetString("SettingValue_CameraStretch_UniformToFill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch the image to fill the available space without keeping the aspect ratio. The image may appear distorted..
+        /// </summary>
+        public static string SettingValueDescription_CameraStretch_Fill {
+            get {
+                return ResourceManager.GetString("SettingValueDescription_CameraStretch_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch the image to its largest size without clipping the image. There may be unused screen space..
+        /// </summary>
+        public static string SettingValueDescription_CameraStretch_Uniform {
+            get {
+                return ResourceManager.GetString("SettingValueDescription_CameraStretch_Uniform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch the image without distortion until all available space is used. Some of the view may be clipped..
+        /// </summary>
+        public static string SettingValueDescription_CameraStretch_UniformToFill {
+            get {
+                return ResourceManager.GetString("SettingValueDescription_CameraStretch_UniformToFill", resourceCulture);
             }
         }
         

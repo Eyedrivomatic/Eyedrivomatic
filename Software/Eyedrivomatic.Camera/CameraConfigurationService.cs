@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Media;
 using Accord.Video.DirectShow;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
@@ -52,7 +53,8 @@ namespace Eyedrivomatic.Camera
         {
             if (e.PropertyName == nameof(CameraConfiguration.CameraEnabled) ||
                 e.PropertyName == nameof(CameraConfiguration.Camera) ||
-                e.PropertyName == nameof(CameraConfiguration.OverlayOpacity))
+                e.PropertyName == nameof(CameraConfiguration.OverlayOpacity) ||
+                e.PropertyName == nameof(CameraConfiguration.Stretch))
             {
                 HasChanges = true;
                 // ReSharper disable once ExplicitCallerInfoArgument
@@ -77,6 +79,12 @@ namespace Eyedrivomatic.Camera
         {
             get => _configuration.OverlayOpacity;
             set => _configuration.OverlayOpacity = value;
+        }
+
+        public Stretch Stretch
+        {
+            get => (Stretch)Enum.Parse(typeof(Stretch), _configuration.Stretch);
+            set => _configuration.Stretch = value.ToString();
         }
 
         public IEnumerable<FilterInfo> AvailableCameras => _getCameras();
