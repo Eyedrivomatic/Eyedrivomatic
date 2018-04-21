@@ -53,6 +53,9 @@
         <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TextBrushAlt" Color="{StaticResource SecondaryForegroundColor}"/>
+
     <SolidColorBrush x:Key="GroupBoxBorderBrush"  Color="{StaticResource PrimaryBorderColor}"/>
     <SolidColorBrush x:Key="GroupBoxForegroundBrush"  Color="{StaticResource PrimaryForegroundColor}"/>
 

@@ -53,6 +53,9 @@
         <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TextBrushAlt" Color="{StaticResource SecondaryForegroundColor}"/>
+
     <SolidColorBrush x:Key="GroupBoxBorderBrush"  Color="{StaticResource PrimaryBorderColor}"/>
     <SolidColorBrush x:Key="GroupBoxForegroundBrush"  Color="{StaticResource PrimaryForegroundColor}"/>
 
@@ -67,7 +70,7 @@
 
     <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource PrimaryForegroundColor}"/>
     <SolidColorBrush x:Key="ButtonForegroundBrushAlt" Color="{StaticResource SecondaryForegroundColor}"/>
-
+    
     <LinearGradientBrush x:Key="ButtonMouseOverBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.4">
         <GradientStop Color="{StaticResource SecondaryBackgroundColor1}" Offset="0" />
         <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="1" />

@@ -1632,4 +1632,19 @@
         <Setter Property="infrastructure:AncestorOpacityMask.Enabled"
                 Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />-->
     </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    </Style>
+    <Style x:Key="TextBlockAlt" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrushAlt}"/>
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    </Style>
+    <Style x:Key="LabelAlt" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrushAlt}"/>
+    </Style>
+
 </ResourceDictionary>

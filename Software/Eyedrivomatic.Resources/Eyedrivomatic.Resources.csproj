@@ -120,6 +120,8 @@
     <Resource Include="Images\Default\Connection_Disconnected.gif" />
     <Resource Include="Images\Default\Connection_RxTx.gif" />
     <Resource Include="Images\Default\DiagonalSpeedReduction.png" />
+    <Resource Include="Images\Default\EyetrackPause.png" />
+    <Resource Include="Images\Default\EyetrackPlay.png" />
     <Content Include="Images\Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -132,7 +134,6 @@
     <Resource Include="Images\Default\SettingsMenu.png" />
     <Resource Include="Images\Default\Stop.png" />
     <Resource Include="Images\Default\Tilt.png" />
-    <Resource Include="Images\Default\Sleep.png" />
     <Resource Include="Images\Default\SkullAndCrossbones.png" />
     <Resource Include="Images\Default\Safe.png" />
     <Resource Include="Images\Default\RightSmall.png" />

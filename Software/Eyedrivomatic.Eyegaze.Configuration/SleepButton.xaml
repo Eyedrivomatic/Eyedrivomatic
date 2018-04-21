@@ -34,16 +34,26 @@
 
     <ToggleButton
         Name="SleepToggleButton"
-        Style="{DynamicResource FlashingToggleButton}"
         Visibility="{Binding Path=(dwellClick:DwellClickBehavior.DefaultConfiguration).EnableDwellClick, Converter={StaticResource BoolToCollapsedConverter}}"
         IsChecked="{Binding Path=(dwellClick:DwellClickBehavior.Pause)}"
         dwellClick:DwellClickBehavior.IgnorePause="True"
-        Content="{DynamicResource Button.Sleep.Content}">
+        >
         <ToggleButton.Resources>
             <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrush">
                 <GradientStop Color="Red" Offset="0" />
                 <GradientStop Color="Maroon" Offset="1" />
             </LinearGradientBrush>
+            <Style TargetType="ToggleButton" BasedOn="{StaticResource FlashingToggleButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Content" Value="{DynamicResource Button.Eyetrack.Running.Content}"/>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="False">
+                        <Setter Property="Content" Value="{DynamicResource Button.Eyetrack.Paused.Content}"/>
+                    </Trigger>
+                </Style.Triggers>
+
+            </Style>
         </ToggleButton.Resources>
     </ToggleButton>
 

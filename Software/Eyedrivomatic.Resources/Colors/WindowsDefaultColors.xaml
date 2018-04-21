@@ -21,6 +21,9 @@
 
     <SolidColorBrush x:Key="ActionAreaBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}"/>
 
+    <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+    <SolidColorBrush x:Key="TextBrushAlt" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+
     <SolidColorBrush x:Key="GroupBoxBorderBrush"  Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
     <SolidColorBrush x:Key="GroupBoxForegroundBrush"  Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>

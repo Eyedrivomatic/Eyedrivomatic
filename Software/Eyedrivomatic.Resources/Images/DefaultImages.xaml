@@ -20,8 +20,9 @@
     <BitmapImage x:Key="Button.Continue.Content" UriSource="Default/Continue.png"/>
     <BitmapImage x:Key="Button.Stop.Content" UriSource="Default/Stop.png"/>
 
-    <BitmapImage x:Key="Button.Sleep.Content" UriSource="Default/Sleep.png"/>
-    
+    <BitmapImage x:Key="Button.Eyetrack.Running.Content" UriSource="Default/EyetrackPause.png"/>
+    <BitmapImage x:Key="Button.Eyetrack.Paused.Content" UriSource="Default/EyetrackPlay.png"/>
+
     <BitmapImage x:Key="Button.Macro.Off.Content" UriSource="Default/Off.png"/>
     <BitmapImage x:Key="Button.Macro.Tilt.Content" UriSource="Default/Tilt.png"/>
 
