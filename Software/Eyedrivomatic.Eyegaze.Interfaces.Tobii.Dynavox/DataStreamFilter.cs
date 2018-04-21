@@ -82,10 +82,9 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             }
 
             var stream = _dataStream
-                    .Select(point => !point.HasValue || !ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point.Value), 20)?.VisualHit) ? null : point)
+                    .Select(point => point.HasValue && IsGazeTarget(element, point.Value) ? point : null)
                     .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null normalizedPoint once to indicate gaze lost.
                     .Do(point => lossOfGazeSent = !point.HasValue);
-
 
             var registration = new TobiiDynavoxProviderRegistration(element, client, stream, r =>
             {
@@ -101,6 +100,12 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             });
             _registrations.Add(registration);
             return registration;
+        }
+
+        private static bool IsGazeTarget(UIElement element, Point point)
+        {
+            if (PresentationSource.FromVisual(element) == null) return false;
+            return ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point), 20)?.VisualHit);
         }
 
         public void Dispose()
