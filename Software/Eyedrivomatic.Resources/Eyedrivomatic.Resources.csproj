@@ -160,7 +160,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Images\3DLightImages.xaml">
+    <Page Include="Colors\HighContrastColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Colors\NaturalColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\3DDarkImages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -180,11 +188,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Clean\CleanStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Default\DefaultStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Images\3DDarkImages.xaml">
+    <Page Include="Images\3DLightImages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -228,9 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Original\" />
-    <Folder Include="Styles\" />
-    <Folder Include="Themes\Default\Images\" />
-    <Folder Include="Themes\LightStyle\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\3DLight\BackwardLeft.png" />

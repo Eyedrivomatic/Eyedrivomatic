@@ -36,6 +36,7 @@ namespace Eyedrivomatic.Infrastructure
                 animationClock);
         }
 
+        [return: AllowNull]
         public object GetCurrentValue([AllowNull] Brush defaultOriginValue,
             [AllowNull] Brush defaultDestinationValue,
             AnimationClock animationClock)

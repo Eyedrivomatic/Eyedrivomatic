@@ -24,7 +24,9 @@ namespace Eyedrivomatic.Resources
     {
         public IList<ThemeColorsResourceDictionary> Colors { get; } = new List<ThemeColorsResourceDictionary>
         {
-            new ThemeColorsResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Colors/WindowsDefaultColors.xaml"), "Windows Default")
+            new ThemeColorsResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Colors/WindowsDefaultColors.xaml"), "Windows Default"),
+            new ThemeColorsResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Colors/NaturalColors.xaml"), "Natural"),
+            new ThemeColorsResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Colors/HighContrastColors.xaml"), "High Contrast")
         };
 
         public IList<ThemeImagesResourceDictionary> Images { get; } = new List<ThemeImagesResourceDictionary>
@@ -36,7 +38,8 @@ namespace Eyedrivomatic.Resources
 
         public List<ThemeStylesResourceDictionary> Styles { get; } = new List<ThemeStylesResourceDictionary>
         {
-            new ThemeStylesResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultStyles.xaml"), "Default")
+            new ThemeStylesResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultStyles.xaml"), "Default"),
+            new ThemeStylesResourceDictionary(new Uri("pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Clean/CleanStyles.xaml"), "Clean")
         };
 
     }

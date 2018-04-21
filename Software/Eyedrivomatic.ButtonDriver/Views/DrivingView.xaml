@@ -282,13 +282,13 @@
                     <DataTemplate DataType="configuration:ProfileSpeed">
                         <RadioButton Content="{Binding Path=Name, Converter={StaticResource LocalizedDriveSpeeds}}"
                                      IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}"
-                                     GroupName="ProfileSpeeds" />
+                                     GroupName="ProfileSpeeds"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
             <ItemsControl Name="Actions" Grid.Row="1" ItemsSource="{Binding Macros}"
-                          Background="{DynamicResource ButtonBackgroundBrushAlt}">
+                          Background="{DynamicResource ActionAreaBackgroundBrush}">
                 <ItemsControl.Resources>
                     <infrastructure:LocalizedStringOrImageConverter x:Key="LocalizedMacroName"
                                                                     ResourcePattern="MacrosName_{0}"
@@ -305,8 +305,7 @@
                             Content="{Binding DisplayName, Converter={StaticResource LocalizedMacroName}}"
                             Command="{Binding RelativeSource={RelativeSource AncestorType=views:DrivingView}, Path=ViewModel.ExecuteMacroCommand}"
                             CommandParameter="{Binding}"
-                            Background="{DynamicResource ButtonBackgroundBrushAlt}"
-                            Foreground="{DynamicResource ButtonForegroundBrushAlt}" />
+                            Style="{DynamicResource ButtonAltStyle}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

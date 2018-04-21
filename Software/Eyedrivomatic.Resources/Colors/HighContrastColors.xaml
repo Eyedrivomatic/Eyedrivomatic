@@ -1,0 +1,170 @@
+﻿<!--
+	Copyright (c) 2018 Eyedrivomatic Authors
+
+	This file is part of the 'Eyedrivomatic' PC application.
+
+	This program is intended for use as part of the 'Eyedrivomatic System' for 
+	controlling an electric wheelchair using soley the user's eyes. 
+
+	Eyedrivomaticis distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+-->
+
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="PrimaryBackgroundColor1">Black</Color>
+    <Color x:Key="PrimaryBackgroundColor2">Black</Color>
+
+    <Color x:Key="SecondaryBackgroundColor1">#2F2F2F</Color>
+    <Color x:Key="SecondaryBackgroundColor2">#0F0F0F</Color>
+
+    <Color x:Key="PrimaryForegroundColor">WhiteSmoke</Color>
+    <Color x:Key="SecondaryForegroundColor">White</Color>
+
+    <Color x:Key="PrimaryHighlightColor1">Gray</Color>
+    <Color x:Key="PrimaryHighlightColor2">Gray</Color>
+    <Color x:Key="SecondaryHighlightColor1">Gray</Color>
+    <Color x:Key="SecondaryHighlightColor2">Gray</Color>
+
+    <Color x:Key="PrimaryComplimentColor">Gray</Color>
+    <Color x:Key="SecondaryComplimentColor">LightGray</Color>
+
+    <Color x:Key="PrimaryBorderColor">WhiteSmoke</Color>
+    <Color x:Key="SecondaryBorderColor">White</Color>
+
+    <LinearGradientBrush x:Key="WindowBackgroundBrush"
+                         StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NavigationAreaBackgroundBrush"
+                         StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ActionAreaBackgroundBrush"
+                         StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="GroupBoxBorderBrush"  Color="{StaticResource PrimaryBorderColor}"/>
+    <SolidColorBrush x:Key="GroupBoxForegroundBrush"  Color="{StaticResource PrimaryForegroundColor}"/>
+
+    <SolidColorBrush x:Key="ActiveBorderBrush" Color="{StaticResource PrimaryBorderColor}"/>
+    <SolidColorBrush x:Key="ActiveBorderBrushAlt" Color="{StaticResource SecondaryBorderColor}"/>
+
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource PrimaryBorderColor}"/>
+    <SolidColorBrush x:Key="ButtonBorderBrushAlt" Color="{StaticResource SecondaryBorderColor}"/>
+
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ButtonBackgroundBrushAlt" Color="Transparent"/>
+
+    <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ButtonForegroundBrushAlt" Color="{StaticResource SecondaryForegroundColor}"/>
+
+    <LinearGradientBrush x:Key="ButtonMouseOverBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.4">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonMouseOverBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.4">
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonMouseOverBorderBrush" Color="{StaticResource PrimaryComplimentColor}"/>
+    <SolidColorBrush x:Key="ButtonMouseOverBorderBrushAlt" Color="{StaticResource PrimaryComplimentColor}"/>
+
+    <SolidColorBrush x:Key="ButtonMouseOverForegroundBrush" Color="{StaticResource PrimaryComplimentColor}"/>
+    <SolidColorBrush x:Key="ButtonMouseOverForegroundBrushAlt" Color="{StaticResource PrimaryComplimentColor}"/>
+
+    <LinearGradientBrush x:Key="ButtonPressedBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonPressedBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonPressedBorderBrush" Color="{StaticResource SecondaryBorderColor}"/>
+    <SolidColorBrush x:Key="ButtonPressedBorderBrushAlt" Color="{StaticResource PrimaryBorderColor}"/>
+
+    <SolidColorBrush x:Key="ButtonPressedForegroundBrush" Color="{StaticResource SecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ButtonPressedForegroundBrushAlt" Color="{StaticResource PrimaryForegroundColor}"/>
+
+    <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource PrimaryBackgroundColor2}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ToggleButtonCheckedBorderBrush" Color="{StaticResource SecondaryBorderColor}"/>
+    <SolidColorBrush x:Key="ToggleButtonCheckedBorderBrushAlt" Color="{StaticResource PrimaryBorderColor}"/>
+
+    <SolidColorBrush x:Key="DisabledOverlayBrush" Color="#4CE8EDF9"/>
+
+    <SolidColorBrush x:Key="ListBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor1}"/>
+    <SolidColorBrush x:Key="ListBorderBrush" Color="{DynamicResource PrimaryBorderColor}"/>
+
+    <SolidColorBrush x:Key="ItemBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ItemBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ItemForegroundBrush" Color="{DynamicResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="SelectedBorderBrush" Color="Transparent"/>
+
+    <LinearGradientBrush x:Key="SelectedBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{StaticResource PrimaryHighlightColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource PrimaryHighlightColor2}" Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SelectedForegroundBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+
+    <SolidColorBrush x:Key="SelectedUnfocusedBrush" Color="{StaticResource PrimaryHighlightColor1}"/>
+    <SolidColorBrush x:Key="SelectedUnfocusedForegroundBrush" Color="{StaticResource PrimaryHighlightColor1}"/>
+
+    <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="{StaticResource PrimaryComplimentColor}"/>
+    <SolidColorBrush x:Key="HeaderForegroundBrush" Color="{StaticResource SecondaryForegroundColor}"/>
+
+    <RadialGradientBrush x:Key="DwellClickFillBrush">
+        <GradientStop Color="#FF6B9900"/>
+        <GradientStop Color="#50557A00"/>
+    </RadialGradientBrush>
+
+    <LinearGradientBrush x:Key="ScrollBar.Static.Background"
+                         StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor1}"/>
+        <GradientStop Color="{StaticResource SecondaryBackgroundColor2}" Offset="0.5"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ScrollBar.Static.Border" Color="{StaticResource PrimaryBorderColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Glyph" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Glyph" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Disabled.Glyph" Color="{StaticResource SecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Glyph" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Background" Color="{StaticResource SecondaryBackgroundColor2}"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Border" Color="{StaticResource SecondaryBorderColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Background" Color="{StaticResource PrimaryHighlightColor1}"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Border" Color="{StaticResource PrimaryBorderColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Disabled.Background" Color="{StaticResource SecondaryBackgroundColor1}"/>
+    <SolidColorBrush x:Key="ScrollBar.Disabled.Border" Color="{StaticResource SecondaryBorderColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Thumb" Color="{StaticResource SecondaryComplimentColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Thumb" Color="{StaticResource PrimaryComplimentColor}"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="{StaticResource PrimaryComplimentColor}"/>
+
+    <!--Navigation Buttons-->
+    <SolidColorBrush x:Key="NavigationButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="NavigationButtonForegroundBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+    <SolidColorBrush x:Key="NavigationButtonCheckedBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="NavigationButtonCheckedBorderBrush" Color="{StaticResource SecondaryBorderColor}"/>
+    <!--/Navigation Buttons-->
+
+    <SolidColorBrush x:Key="StatusTextBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+
+</ResourceDictionary>

@@ -18,14 +18,12 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-                    xmlns:prism="http://prismlibrary.com/">
+                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
 
     <Thickness x:Key="ButtonBorderThickness" Left="1" Top="1" Right="1" Bottom="1" />
     <CornerRadius x:Key="ButtonBorderCorner" BottomLeft="3" TopLeft="3" BottomRight="3" TopRight="3" />
     <Thickness x:Key="DefaultMargin" Left="2" Top="2" Right="2" Bottom="2" />
+    <Thickness x:Key="GroupBorderThickness" Left="1" Top="1" Right="1" Bottom="1" />
 
     <Thickness x:Key="ItemBorderThickness" Left="0" Top="0" Right="0" Bottom="0" />
 
@@ -52,7 +50,19 @@
                     <Border>
                         <Rectangle Margin="2"
                                    StrokeThickness="1"
-                                   Stroke="{DynamicResource SelectedBackgroundBrush}"
+                                   StrokeDashArray="1 2" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ButtonFocusVisualAlt">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle Margin="2"
+                                   StrokeThickness="1"
                                    StrokeDashArray="1 2" />
                     </Border>
                 </ControlTemplate>
@@ -93,6 +103,9 @@
                                         <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -100,6 +113,9 @@
                                         <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -107,6 +123,9 @@
                                         <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -125,7 +144,7 @@
                                 BorderBrush="{TemplateBinding BorderBrush}" />
                         <Border x:Name="PressedVisualElement"
                                 CornerRadius="{DynamicResource ButtonBorderCorner}"
-                                Background="{DynamicResource ButtonPressedBackgroundBrush}"
+                                Background="{DynamicResource ButtonPressedBorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                 Opacity="0" />
@@ -148,6 +167,106 @@
                                 Background="{DynamicResource DisabledOverlayBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{DynamicResource ToggleButtonCheckedBorderBrush}"
+                                Opacity="0" />
+                        <AdornerDecorator />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefault" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush"
+                                    Value="{DynamicResource ActiveBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonAltStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisualAlt}" />
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrushAlt}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushAlt}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrushAlt}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}" />
+                        <Border x:Name="PressedVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrushAlt}"
+                                Opacity="0" />
+                        <Border x:Name="MouseOverVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonMouseOverBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonMouseOverBorderBrushAlt}"
+                                Opacity="0" />
+                        <Viewbox Stretch="Uniform">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" />
+                        </Viewbox>
+                        <Border x:Name="DisabledVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource DisabledOverlayBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ToggleButtonCheckedBorderBrushAlt}"
                                 Opacity="0" />
                         <AdornerDecorator />
                     </Grid>
@@ -194,6 +313,9 @@
                                         <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -201,6 +323,9 @@
                                         <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -208,6 +333,9 @@
                                         <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -281,6 +409,123 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ToggleButtonAltStyle" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrushAlt}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushAlt}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrushAlt}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="Border"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}" />
+                        <Border x:Name="PressedVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrushAlt}"
+                                Opacity="0" />
+                        <Border x:Name="MouseOverVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonMouseOverBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonMouseOverBorderBrushAlt}"
+                                Opacity="0" />
+                        <Border x:Name="CheckedVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ToggleButtonCheckedBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ToggleButtonCheckedBorderBrush}"
+                                Opacity="0" />
+                        <Viewbox Stretch="Uniform">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" />
+                        </Viewbox>
+                        <Border x:Name="DisabledVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource DisabledOverlayBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource AltToggleButtonCheckedBorderBrush}"
+                                Opacity="0" />
+                        <AdornerDecorator />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CheckedToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="Template">
             <Setter.Value>
@@ -303,6 +548,9 @@
                                         <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -310,6 +558,9 @@
                                         <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -317,6 +568,9 @@
                                         <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -412,8 +666,149 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="CheckedToggleButtonAltStyle" TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonAltStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0" To="Pressed" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrushAlt}"
+                                                                       Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="UncheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="UncheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="CheckedImage"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="Border"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}" />
+                        <Border x:Name="PressedVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrushAlt}"
+                                Opacity="0" />
+                        <Border x:Name="MouseOverVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource ButtonMouseOverBackgroundBrushAlt}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ButtonMouseOverBorderBrushAlt}"
+                                Opacity="0" />
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="CheckedImage"
+                                   Grid.Column="0"
+                                   Source="{DynamicResource ToggleButton.Checked.Image}"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="5"
+                                   Opacity="0" />
+                            <Image x:Name="UncheckedImage"
+                                   Grid.Column="0"
+                                   Source="{DynamicResource ToggleButton.Unchecked.Image}"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="5" />
+                            <Viewbox Grid.Column="1" Stretch="Uniform">
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}" />
+                            </Viewbox>
+                        </Grid>
+                        <Border x:Name="DisabledVisualElement"
+                                CornerRadius="{DynamicResource ButtonBorderCorner}"
+                                Background="{DynamicResource DisabledOverlayBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ToggleButtonCheckedBorderBrushAlt}"
+                                Opacity="0" />
+                        <AdornerDecorator />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}" />
+    <Style x:Key="RadioButtonAltStyle" TargetType="RadioButton" BasedOn="{StaticResource ToggleButtonAltStyle}" />
 
     <Style x:Key="FlashingToggleButton" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="Template">
@@ -433,6 +828,9 @@
                                         <DoubleAnimation Storyboard.TargetName="DisabledVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0" Duration="0:0:0" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{TemplateBinding Foreground}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -440,6 +838,9 @@
                                         <DoubleAnimation Storyboard.TargetName="MouseOverVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonMouseOverForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -447,6 +848,9 @@
                                         <DoubleAnimation Storyboard.TargetName="PressedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1" Duration="0:0:0.2" />
+                                        <infrastructure:BrushAnimation Storyboard.TargetProperty="(Control.Foreground)"
+                                                                       To="{DynamicResource ButtonPressedForegroundBrush}"
+                                                                       Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -605,7 +1009,7 @@
                                                          To="0" Duration="0:0:0.2" />
                                         <infrastructure:BrushAnimation Duration="0:0:0.2"
                                                                        Storyboard.TargetProperty="(ListBoxItem.Foreground)"
-                                                                       To="{DynamicResource ItemForegroundBrush}" />
+                                                                       To="{TemplateBinding Foreground}" />
                                         <DoubleAnimation Storyboard.TargetName="UnfocusedVisualElement"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0" Duration="0:0:0.2" />
@@ -673,20 +1077,10 @@
     <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderBrush" Value="{DynamicResource GroupBoxBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{DynamicResource GroupBorderThickness}" />
+        <Setter Property="Foreground" Value="{DynamicResource GroupBoxForegroundBrush}" />
         <Setter Property="Margin" Value="10" />
         <Setter Property="Padding" Value="15" />
-    </Style>
-
-    <Style x:Key="RegionNavigationButtonStyle" TargetType="RadioButton"
-           BasedOn="{StaticResource {x:Type ToggleButton}}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrushAlt}" />
-        <Setter Property="Margin" Value="10,5,0,5" />
-        <!--<Setter Property="infrastructure:AncestorOpacityMask.Maskable"
-                Value="{Binding ElementName=NaviagationAreaBackground}" />
-        <Setter Property="infrastructure:AncestorOpacityMask.Enabled"
-                Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />-->
     </Style>
 
     <Style x:Key="FocusVisual">
@@ -1224,6 +1618,18 @@
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontWeight" Value="ExtraBold"/>
         <Setter Property="Foreground" Value="White"/>
-    </Style> 
+    </Style>
 
+    <Style x:Key="ProfileSpeedButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}"/>
+    <Style x:Key="ActionButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonAltStyle}"/>
+    <Style x:Key="RegionNavigationButtonStyle" TargetType="RadioButton"
+           BasedOn="{StaticResource RadioButtonAltStyle}">
+        <Setter Property="Background" Value="{DynamicResource NavigationButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource NavigationButtonForegroundBrush}" />
+        <Setter Property="Margin" Value="10,5,0,5" />
+        <!--<Setter Property="infrastructure:AncestorOpacityMask.Maskable"
+                Value="{Binding ElementName=NaviagationAreaBackground}" />
+        <Setter Property="infrastructure:AncestorOpacityMask.Enabled"
+                Value="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />-->
+    </Style>
 </ResourceDictionary>

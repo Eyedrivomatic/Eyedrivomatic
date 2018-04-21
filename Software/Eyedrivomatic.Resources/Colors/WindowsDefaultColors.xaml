@@ -19,13 +19,27 @@
 
     <SolidColorBrush x:Key="NavigationAreaBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}"/>
 
+    <SolidColorBrush x:Key="ActionAreaBackgroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}"/>
+
     <SolidColorBrush x:Key="GroupBoxBorderBrush"  Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+    <SolidColorBrush x:Key="GroupBoxForegroundBrush"  Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-    
+    <SolidColorBrush x:Key="ButtonBorderBrushAlt" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+
+    <SolidColorBrush x:Key="ActiveBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+    <SolidColorBrush x:Key="ActiveBorderBrushAlt" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+
     <LinearGradientBrush x:Key="ButtonBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}" Offset="0" />
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
     </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ProfileSpeedButtonBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}" Offset="0" />
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ProfileSpeedButtonBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+    <SolidColorBrush x:Key="ProfileSpeedButtonForegroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
 
     <LinearGradientBrush x:Key="ButtonBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}" Offset="0" />
@@ -39,22 +53,43 @@
         <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="0" />
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
     </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonMouseOverBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="0" />
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
+    </LinearGradientBrush>
 
     <SolidColorBrush x:Key="ButtonMouseOverBorderBrush" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+    <SolidColorBrush x:Key="ButtonMouseOverBorderBrushAlt" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+
+    <SolidColorBrush x:Key="ButtonMouseOverForegroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+    <SolidColorBrush x:Key="ButtonMouseOverForegroundBrushAlt" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
 
     <LinearGradientBrush x:Key="ButtonPressedBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="0" />
         <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="1" />
     </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonPressedBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="0" />
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="1" />
+    </LinearGradientBrush>
 
     <SolidColorBrush x:Key="ButtonPressedBorderBrush" Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+    <SolidColorBrush x:Key="ButtonPressedBorderBrushAlt" Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+
+    <SolidColorBrush x:Key="ButtonPressedForegroundBrush" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
+    <SolidColorBrush x:Key="ButtonPressedForegroundBrushAlt" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}"/>
 
     <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="0" />
         <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
     </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ToggleButtonCheckedBackgroundBrushAlt" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Offset="0" />
+        <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" Offset="1" />
+    </LinearGradientBrush>
 
     <SolidColorBrush x:Key="ToggleButtonCheckedBorderBrush" Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+    <SolidColorBrush x:Key="ToggleButtonCheckedBorderBrushAlt" Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
 
     <SolidColorBrush x:Key="DisabledOverlayBrush" Color="#4CE8EDF9"/>
 
@@ -75,8 +110,8 @@
     <SolidColorBrush x:Key="HeaderForegroundBrush" Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
 
     <RadialGradientBrush x:Key="DwellClickFillBrush">
-        <GradientStop Color="#F02BFF"/>
-        <GradientStop Color="#AF20BC"/>
+        <GradientStop Color="#F0F02BFF"/>
+        <GradientStop Color="#F0AF20BC"/>
     </RadialGradientBrush>
 
     <SolidColorBrush x:Key="ScrollBar.Static.Background" Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>

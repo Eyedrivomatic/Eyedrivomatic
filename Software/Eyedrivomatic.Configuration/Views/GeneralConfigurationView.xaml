@@ -84,13 +84,9 @@
                                  Grid.Row="2" Grid.Column="0"
                                  ItemsSource="{Binding AvailableThemeColors, Mode=OneTime}"
                                  SelectedValue="{Binding ThemeColors}"
+                                 DisplayMemberPath="ThemeName"
                                  MinHeight="100"
                                  Height="Auto">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="infrastructure:ThemeColorsResourceDictionary">
-                                    <Label Content="{Binding ThemeName}" Height="50" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
                         </ListBox>
 
                         <Label x:Name="ThemeImagesLabel"
@@ -104,13 +100,9 @@
                                  Grid.Row="4" Grid.Column="0"
                                  ItemsSource="{Binding AvailableThemeImages}"
                                  SelectedValue="{Binding ThemeImages}"
+                                 DisplayMemberPath="ThemeName"
                                  MinHeight="100"
                                  Height="Auto">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="infrastructure:ThemeImagesResourceDictionary">
-                                    <Label Content="{Binding ThemeName}" Height="50" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
                         </ListBox>
 
                         <Label x:Name="ThemeStylesLabel"
@@ -124,13 +116,9 @@
                                  Grid.Row="6" Grid.Column="0"
                                  ItemsSource="{Binding AvailableThemeStyles}"
                                  SelectedValue="{Binding ThemeStyles}"
+                                 DisplayMemberPath="ThemeName"
                                  MinHeight="100"
                                  Height="Auto">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="infrastructure:ThemeStylesResourceDictionary">
-                                    <Label Content="{Binding ThemeName}" Height="50" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
                 </StackPanel>
