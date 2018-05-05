@@ -12,15 +12,15 @@ namespace Eyedrivomatic.Setup
         {
 #if MOBILITY_CONCEPT
             var build = @"MobilityConceptBuild";
-            var firmwareVersion = @"MC.2.0.3";
+            var firmwareVersion = @"MC.2.0.4";
             var setupDir = @"..\..\Setup\MobilityConcept";
 #elif DEBUG
             var build = @"Debug";
-            var firmwareVersion = @"2.0.3";
+            var firmwareVersion = @"2.0.4";
             var setupDir = @"..\..\Setup\Debug";
 #else
             var build = @"Release";
-            var firmwareVersion = @"2.0.3";
+            var firmwareVersion = @"2.0.4";
             var setupDir = @"..\..\Setup\";
 #endif
 
