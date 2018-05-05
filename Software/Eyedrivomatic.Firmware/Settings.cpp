@@ -40,11 +40,17 @@ void SettingsClass::reset()
 	CenterPos_X = 0;
 	MinPos_X = HARDWARE_MIN_X;
 	MaxPos_X = HARDWARE_MAX_X;
-	Invert_X = true;
 	CenterPos_Y = 0;
 	MinPos_Y = HARDWARE_MIN_Y;
 	MaxPos_Y = HARDWARE_MAX_Y;
+
+#ifdef MOBILITY_CONCEPT_BUILD
+	Invert_X = false;
+	Invert_Y = true;
+#else
+	Invert_X = true;
 	Invert_Y = false;
+#endif
 
 	DefaultSwitchStates[HardwareSwitch::Switch1] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch2] = false;
