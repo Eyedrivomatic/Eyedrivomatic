@@ -27,6 +27,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
         private readonly IEyeTracker _host;
         private readonly List<IDisposable> _registrations = new List<IDisposable>();
         private readonly IDisposable _publishRegistration;
+        private readonly IDisposable _loggerSubscription;
 
         private static readonly Dictionary<TrackingStatus, Func<GazeData, Point?>> DataFilter = new Dictionary<TrackingStatus, Func<GazeData, Point?>>
         {
@@ -51,6 +52,11 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
                 .ObserveOnDispatcher()
                 .Publish();
 
+            _loggerSubscription = datastream.Subscribe(
+                point => Log.Debug(this, $"Gaze point - [{point}]."),
+                ex => Log.Error(this, $"Gaze data stream error - [{ex}]."),
+                () => Log.Debug(this, "Gaze data stream completed."));
+
             _dataStream = datastream;
             _publishRegistration = datastream.Connect();
 
@@ -64,7 +70,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             var screenPoint = new Point(
                 SystemParameters.PrimaryScreenWidth * normalizedPoint.Value.X,
                 SystemParameters.PrimaryScreenHeight * normalizedPoint.Value.Y);
-            //Log.Debug(nameof(DataFilter), $"Gaze Point - Normalized:[{normalizedPoint}], Screen:[{screenPoint}]");
             return screenPoint;
         }
 
@@ -83,7 +88,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 
             var stream = _dataStream
                     .Select(point => point.HasValue && IsGazeTarget(element, point.Value) ? point : null)
-                    .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null normalizedPoint once to indicate gaze lost.
+                    .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null once to indicate gaze lost.
                     .Do(point => lossOfGazeSent = !point.HasValue);
 
             var registration = new TobiiDynavoxProviderRegistration(element, client, stream, r =>
@@ -104,13 +109,20 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 
         private static bool IsGazeTarget(UIElement element, Point point)
         {
-            if (PresentationSource.FromVisual(element) == null) return false;
-            return ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point), 20)?.VisualHit);
+            if (element != null && element.IsVisible && PresentationSource.FromVisual(element) != null &&
+                ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point), 20)?.VisualHit))
+            {
+                Log.Debug(nameof(DataStreamFilter), $"Gaze over element [{element}].");
+                return true;
+            }
+
+            return false;
         }
 
         public void Dispose()
         {
             _publishRegistration?.Dispose();
+            _loggerSubscription?.Dispose();
         }
     }
 
