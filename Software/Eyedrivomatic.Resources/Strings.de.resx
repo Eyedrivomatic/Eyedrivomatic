@@ -576,4 +576,28 @@ Neue Version: {2}</value>
   <data name="Disclaimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Docs\de\Disclaimer.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="SettingDescription_CameraStretch" xml:space="preserve">
+    <value>Dehnen oder zoomen Sie das Kamerabild, um die optimale Ansicht zu wählen.</value>
+  </data>
+  <data name="SettingName_CameraStretch" xml:space="preserve">
+    <value>Kamera Stretch/Zoom</value>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_Fill" xml:space="preserve">
+    <value>Dehnen Sie das Bild, um den verfügbaren Platz zu füllen, ohne das Seitenverhältnis beizubehalten. Das Bild kann verzerrt erscheinen.</value>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_Uniform" xml:space="preserve">
+    <value>Dehnen Sie das Bild auf seine größte Größe, ohne das Bild zu beschneiden. Möglicherweise ist ungenutzter Bildschirmplatz vorhanden.</value>
+  </data>
+  <data name="SettingValueDescription_CameraStretch_UniformToFill" xml:space="preserve">
+    <value>Dehnen Sie das Bild verzerrungsfrei, bis der gesamte verfügbare Platz ausgeschöpft ist. Ein Teil der Ansicht kann abgeschnitten werden. </value>
+  </data>
+  <data name="SettingValue_CameraStretch_Fill" xml:space="preserve">
+    <value>Dehnen</value>
+  </data>
+  <data name="SettingValue_CameraStretch_UniformToFill" xml:space="preserve">
+    <value>Zum Füllen zoomen</value>
+  </data>
+  <data name="SettingValue_CameraStretch_Uniform" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
 </root>
