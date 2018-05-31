@@ -78,6 +78,10 @@
       <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
       <Name>Eyedrivomatic.Eyegaze</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+      <Project>{E579FF61-CAAB-4DA3-8F05-CF21197DF5D4}</Project>
+      <Name>Eyedrivomatic.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
       <Name>Eyedrivomatic.Logging</Name>

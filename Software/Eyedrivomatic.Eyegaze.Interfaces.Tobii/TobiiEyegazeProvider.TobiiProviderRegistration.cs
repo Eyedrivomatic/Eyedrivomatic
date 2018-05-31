@@ -35,24 +35,42 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
                 _interactor = interactor;
                 _interactor.WithGazeAware().HasGaze(HasGaze).LostGaze(LostGaze).Mode = GazeAwareMode.Normal;
                 _interactor.GetGazePointDataStream().GazePoint(GazePoint);
+
                 _interactor.Element.MouseDown += ElementOnMouseDown;
+
+                _interactor.SetIsEnabled(_interactor.Element.IsVisible);
+                _interactor.Element.IsVisibleChanged += ElementOnIsVisibleChanged;
 
                 _client = client;
                 _completedCallback = completedCallback;
                 _dispatcher = Dispatcher.CurrentDispatcher;
             }
 
+            private void ElementOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+            {
+                _interactor.SetIsEnabled(_interactor.Element.IsVisible);
+            }
+
             private void GazePoint(double x, double y, double timestamp)
             {
-                _dispatcher.InvokeAsync(() =>
+                if (!_hasGaze) return;
+
+                _dispatcher.Invoke(() =>
                 {
                     if (!_hasGaze) return;
-                    var point = _interactor.Element.PointFromScreen(new Point(x, y));
-                    var hitTest = _interactor.Element.GazeHitTest(point, 20); //The tobii system seems to add about 20 px of extra area around the edge.
-                    if (hitTest != null && !ReferenceEquals(_interactor.Element, hitTest.VisualHit))
+                    var element = _interactor.Element;
+                    if (!element.IsVisible) return;
+
+                    var point = element.PointFromScreen(new Point(x, y));
+                    var hitTest = element.GazeHitTest(point);
+
+                    if (hitTest != null && !ReferenceEquals(element, hitTest.VisualHit))
                     {
-                        Console.WriteLine($"{_interactor.Element.Name} {x}, {y}");
-                        return; //child element.
+                        //visual child has gaze.
+                        //Console.WriteLine($"Child has gaze - {element.LoggingToString()} {x}, {y}");
+                        _hasGaze = false;
+                        _client.GazeLeave();
+                        return;
                     }
                     _client.GazeContinue();
                 });
@@ -62,22 +80,16 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
 
             private void LostGaze()
             {
-                _dispatcher.InvokeAsync(() =>
-                {
-                    if (!_hasGaze) return;
-                    _hasGaze = false;
-                    _client.GazeLeave();
-                });
+                if (!_hasGaze) return;
+                _hasGaze = false;
+                _dispatcher.Invoke(_client.GazeLeave);
             }
 
             private void HasGaze()
             {
-                _dispatcher.InvokeAsync(() =>
-                {
-                    if (_hasGaze) return;
-                    _hasGaze = true;
-                    _client.GazeEnter();
-                });
+                if (_hasGaze) return;
+                _hasGaze = true;
+                _dispatcher.Invoke(_client.GazeEnter);
             }
 
             private void ElementOnMouseDown(object sender, MouseButtonEventArgs e)
@@ -89,6 +101,8 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii
             public void Dispose()
             {
                 _interactor.SetIsEnabled(false);
+                _interactor.Element.IsVisibleChanged -= ElementOnIsVisibleChanged;
+                _interactor.Element.MouseDown -= ElementOnMouseDown;
                 _completedCallback(this);
             }
         }

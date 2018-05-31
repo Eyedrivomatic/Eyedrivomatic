@@ -9,11 +9,12 @@
 //	but WITHOUT ANY WARRANTY; without even the implied warranty of
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
-
 using System;
+using System.Reactive;
 using System.Windows;
 using System.Windows.Input;
 using Eyedrivomatic.Eyegaze.DwellClick;
+using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
@@ -25,7 +26,10 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
         private readonly IDisposable _dataSourceRegistration;
         private readonly Action<TobiiDynavoxProviderRegistration> _completeCallback;
 
-        public TobiiDynavoxProviderRegistration(FrameworkElement element, IEyegazeClient client, IObservable<Point?> dataSource, Action<TobiiDynavoxProviderRegistration> completeCallback)
+        private bool _hasGaze;
+
+        public TobiiDynavoxProviderRegistration(FrameworkElement element, IEyegazeClient client, IObservable<Timestamped<Point?>> dataSource, 
+            Action<TobiiDynavoxProviderRegistration> completeCallback)
         {
             _element = element;
             _client = client;
@@ -35,8 +39,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 
             _element.MouseDown += ElementOnMouseDown;
         }
-
-        private bool _hasGaze;
 
         private void ElementOnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -51,26 +53,43 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             _completeCallback(this);
         }
 
-        private void OnNext(Point? point)
+        private void OnNext(Timestamped<Point?> gazePoint)
         {
-            if (point == null || !GazeHitTest(point.Value))
+            try
             {
-                if (_hasGaze) _client.GazeLeave();
-                _hasGaze = false;
-                return;
-            }
+                var point = gazePoint.Value;
+                var hitTest = point != null && GazeHitTest(point.Value);
 
-            if (!_hasGaze)
-            {
-                _hasGaze = true;
-                _client.GazeEnter();
+                if (!hitTest)
+                {
+                    if (!_hasGaze) return;
+
+                    _client.GazeLeave();
+                    _hasGaze = false;
+                    Log.Debug(this, $"Gaze lost for element [{_element.LoggingToString()}].");
+                    return;
+                }
+
+                if (!_hasGaze)
+                {
+                    Log.Debug(this, $"Gaze over element [{_element.LoggingToString()}].");
+
+                    _hasGaze = true;
+                    _client.GazeEnter();
+                    return;
+                }
+
+                _client.GazeContinue();
             }
-            _client.GazeContinue();
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Failed to process point on [{_element.LoggingToString()}] - [{ex}].");
+            }
         }
 
         private void OnError(Exception error)
         {
-            Log.Error(this, $"Gaze data source error [{error}].");
+            Log.Error(this, $"Gaze data stream error for element [{_element.LoggingToString()}] - [{error}].");
             if (!_hasGaze) return;
             _hasGaze = false;
             _client.GazeLeave();
@@ -81,12 +100,22 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             if (!_hasGaze) return;
             _hasGaze = false;
             _client.GazeLeave();
+            Log.Debug(this, $"Gaze stream completed for element [{_element.LoggingToString()}].");
         }
 
         private bool GazeHitTest(Point point)
         {
-            var hitTest = _element.GazeHitTest(point, 20);
-            return ReferenceEquals(_element, hitTest?.VisualHit);
+            try
+            {
+                if (!_element.IsVisible || !_element.IsEnabled) return false;
+                var hitTest = _element.GazeHitTest(_element.PointFromScreen(point));
+                return ReferenceEquals(_element, hitTest?.VisualHit);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(this, $"Gaze hit test error for element [{_element.LoggingToString()}]. Visible:[{_element.IsVisible}] - [{ex.Message}]");
+                return false;
+            }
         }
     }
 }

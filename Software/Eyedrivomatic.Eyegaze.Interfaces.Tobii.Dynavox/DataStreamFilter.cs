@@ -13,9 +13,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
-using Eyedrivomatic.Eyegaze.DwellClick;
+using System.Windows.Threading;
 using Eyedrivomatic.Logging;
 using Tobii.Gaze.Core;
 
@@ -23,7 +24,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 {
     public class DataStreamFilter : IDisposable
     {
-        private readonly IObservable<Point?> _dataStream;
+        private readonly IObservable<Timestamped<Point?>> _dataStream;
         private readonly IEyeTracker _host;
         private readonly List<IDisposable> _registrations = new List<IDisposable>();
         private readonly IDisposable _publishRegistration;
@@ -46,14 +47,16 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             _host = host;
             var datastream = Observable
                 .FromEventPattern<EventHandler<GazeDataEventArgs>, GazeDataEventArgs>(o => host.GazeData += o, o => host.GazeData -= o)
-                .SubscribeOnDispatcher()
+                .Throttle(TimeSpan.FromMilliseconds(10))
                 .Select(e => DataFilter[e.EventArgs.GazeData.TrackingStatus](e.EventArgs.GazeData))
                 .Select(ScreenPointFromNormal)
-                .ObserveOnDispatcher()
+                .Timestamp()
+                .ObserveOnDispatcher(DispatcherPriority.Input)
+                .Where(pt => pt.Timestamp >= DateTime.Now.AddMilliseconds(-100))
                 .Publish();
 
             _loggerSubscription = datastream.Subscribe(
-                point => Log.Debug(this, $"Gaze point - [{point}]."),
+                point => { },//Log.Debug(this, $"Gaze point - [{point}]."),
                 ex => Log.Error(this, $"Gaze data stream error - [{ex}]."),
                 () => Log.Debug(this, "Gaze data stream completed."));
 
@@ -75,8 +78,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
 
         public IDisposable AddRegistration(FrameworkElement element, IEyegazeClient client)
         {
-            var lossOfGazeSent = false;
-
             if (!_registrations.Any())
             {
                 _host.StartTrackingAsync(code =>
@@ -86,12 +87,7 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
                 });
             }
 
-            var stream = _dataStream
-                    .Select(point => point.HasValue && IsGazeTarget(element, point.Value) ? point : null)
-                    .Where(point => point.HasValue || !lossOfGazeSent) //don't hound our elements. Just send a null once to indicate gaze lost.
-                    .Do(point => lossOfGazeSent = !point.HasValue);
-
-            var registration = new TobiiDynavoxProviderRegistration(element, client, stream, r =>
+            var registration = new TobiiDynavoxProviderRegistration(element, client, _dataStream, r =>
             {
                 _registrations.Remove(r);
                 if (!_registrations.Any())
@@ -107,17 +103,6 @@ namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox
             return registration;
         }
 
-        private static bool IsGazeTarget(UIElement element, Point point)
-        {
-            if (element != null && element.IsVisible && PresentationSource.FromVisual(element) != null &&
-                ReferenceEquals(element, element.GazeHitTest(element.PointFromScreen(point), 20)?.VisualHit))
-            {
-                Log.Debug(nameof(DataStreamFilter), $"Gaze over element [{element}].");
-                return true;
-            }
-
-            return false;
-        }
 
         public void Dispose()
         {
