@@ -75,15 +75,6 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
         }
 
-//        public override void Run(bool runWithDefaultConfiguration)
-//        {
-//            base.Run(runWithDefaultConfiguration);
-//#if !DEBUG
-//            var disclaimer = new DisclaimerWindow();
-//            disclaimer.ShowDialog();
-//#endif
-//        }
-
         #region IDisposable Support
         private bool _disposed;
         private void Dispose(bool disposing)

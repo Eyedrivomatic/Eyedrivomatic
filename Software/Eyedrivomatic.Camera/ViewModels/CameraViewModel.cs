@@ -45,7 +45,7 @@ namespace Eyedrivomatic.Camera.ViewModels
         private void CameraConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            if (propertyChangedEventArgs.PropertyName == nameof(_cameraConfiguration.Stretch)) OnPropertyChanged(nameof(Stretch));
+            if (propertyChangedEventArgs.PropertyName == nameof(_cameraConfiguration.Stretch)) RaisePropertyChanged(nameof(Stretch));
         }
 
         public void StartCapture()

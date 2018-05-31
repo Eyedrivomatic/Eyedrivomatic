@@ -13,7 +13,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eyedrivomatic.Infrastructure.Extensions
+namespace Eyedrivomatic.Common.Extensions
 {
     public static class CancellationTokenExtensions
     {

@@ -16,10 +16,10 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Eyedrivomatic.Common.Extensions;
 using Eyedrivomatic.Hardware.Communications;
 using Eyedrivomatic.Logging;
 using NullGuard;
-using Eyedrivomatic.Infrastructure.Extensions;
 
 namespace Eyedrivomatic.Hardware.Services
 {

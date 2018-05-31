@@ -42,16 +42,26 @@ namespace Eyedrivomatic.Infrastructure
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event EventHandler OnDone;
 
+        ~ProgressNotification()
+        {
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            OnDone?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+                OnDone?.Invoke(this, EventArgs.Empty);
         }
     }
 }

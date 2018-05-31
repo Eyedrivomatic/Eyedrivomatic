@@ -74,10 +74,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             _eventAggregator = eventAggregator;
             _variant = variant;
 
-            deviceStatus.PropertyChanged += OnStatusChanged;
+            deviceStatus.PropertyChanged += OnDeviceStatusChanged;
         }
 
-        private void OnStatusChanged(object sender, PropertyChangedEventArgs e)
+        private void OnDeviceStatusChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DeviceStatus.IsKnown))
             {
@@ -108,15 +108,10 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private void OnConnectionStateChanged(object sender, EventArgs eventArgs)
         {
-            RaisePropertyChanged(nameof(CurrentDirection));
-            RaisePropertyChanged(nameof(HardwareReady));
-            RaisePropertyChanged(nameof(ReadyState));
-            RaisePropertyChanged(nameof(DeviceStatus));
-            RaisePropertyChanged(nameof(Connection));
-            _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(Connection?.State ?? ConnectionState.Disconnected);
+            ConnectionState = Connection?.State ?? ConnectionState.Disconnected;
         }
 
-#region Connection
+        #region Connection
 
         public IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices)
         {
@@ -127,6 +122,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             try
             {
+                ConnectionState = ConnectionState.Connecting;
+
                 Connection = null;
                 _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Connecting);
 
@@ -143,6 +140,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             catch (Exception)
             {
                 _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Error);
+                ConnectionState = ConnectionState.Disconnected;
                 throw;
             }
         }
@@ -150,7 +148,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         public async Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
             Connection = null;
-            _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Connecting);
+            ConnectionState = ConnectionState.Connecting;
             try
             {
                 var device = GetAvailableDevices(true).FirstOrDefault(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) == 0);
@@ -255,6 +253,21 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public IDeviceStatus DeviceStatus { get; }
 
+        public ConnectionState ConnectionState
+        {
+            get => _connectionState;
+            private set
+            {
+                if (!SetProperty(ref _connectionState, value)) return;
+
+                RaisePropertyChanged(nameof(CurrentDirection));
+                RaisePropertyChanged(nameof(HardwareReady));
+                RaisePropertyChanged(nameof(ReadyState));
+                RaisePropertyChanged(nameof(DeviceStatus));
+                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(value);
+            }
+        }
+
         public bool HardwareReady => Connection?.State == ConnectionState.Connected && DeviceStatus.IsKnown;
 
         public ReadyState ReadyState
@@ -336,8 +349,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         private Profile _profile;
         private int _nudge;
         private IDeviceConnection _connection;
+        private ConnectionState _connectionState;
 
-#endregion Trim
+        #endregion Trim
 
         public Profile Profile
         {

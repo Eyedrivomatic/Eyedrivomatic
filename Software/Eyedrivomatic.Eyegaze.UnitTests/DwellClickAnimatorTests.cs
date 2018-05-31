@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using FakeItEasy;
 using NUnit.Framework;
 using System.Windows;
+using System.Windows.Threading;
 using Eyedrivomatic.Eyegaze.DwellClick;
 
 namespace Eyedrivomatic.Eyegaze.UnitTests
@@ -23,35 +24,37 @@ namespace Eyedrivomatic.Eyegaze.UnitTests
     [TestFixture, Apartment(ApartmentState.STA)]
     public class DwellClickAnimatorTests
     {
-        [Fake] public UIElement AdornedElement { get; set; }
-        [Fake] public DwellClickAdorner Adorner { get; set; }
-
-        [UnderTest] public DwellClickAnimator Animator { get; set; }
-
         [SetUp]
         public void SetUp()
         {
-            Fake.InitializeFixture(this);
         }
 
-        [Test, Timeout(200)]
+        [Test]
+        //[Timeout(200)]
         public async Task TestRunAnimation()
         {
-            var tcs = new TaskCompletionSource<bool>();
-            Action callback = () => tcs.TrySetResult(true);
+            var adorner = A.Fake<DwellClickAdorner>();
 
-            Animator.StartAnimation(Adorner, TimeSpan.FromMilliseconds(100), callback);
+            object Test(object o)
+            {
+                var animator = new DwellClickAnimator();
+                animator.StartAnimation(adorner, TimeSpan.FromMilliseconds(100), () => Dispatcher.ExitAllFrames());
 
-            //TODO: Figure out why the storyboard doesn't run.
-            // I think this has to do with the Dispatcher interaction as the storyboard is normally created on the UI thread.
-            // Whereas in NUnit it is created on a threadpool thread. 
-            await tcs.Task;
+                return null;
+            }
 
-            Assert.That(tcs.Task.Status == TaskStatus.RanToCompletion);
+            var dispatcherTask = Dispatcher.CurrentDispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new DispatcherOperationCallback(Test),
+                null);
 
-            Assert.That(Adorner.DwellProgress, Is.EqualTo(100));
-            A.CallToSet<Visibility>(() => Adorner.ProgressIndicatorVisible).To(Visibility.Visible).MustHaveHappened();
-            A.CallToSet<Visibility>(() => Adorner.ProgressIndicatorVisible).To(Visibility.Hidden).MustHaveHappened();
+            Dispatcher.Run();
+
+            await dispatcherTask;
+
+            Assert.That(adorner.DwellProgress, Is.EqualTo(100));
+            A.CallToSet(() => adorner.ProgressIndicatorVisible).To(Visibility.Visible).MustHaveHappened();
+            A.CallToSet(() => adorner.ProgressIndicatorVisible).To(Visibility.Hidden).MustHaveHappened();
         }
 
         [Test]

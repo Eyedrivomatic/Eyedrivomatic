@@ -14,6 +14,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
+using Eyedrivomatic.Logging;
 using Prism.Regions;
 
 namespace Eyedrivomatic.Controls
@@ -107,7 +108,10 @@ namespace Eyedrivomatic.Controls
         {
             base.OnChecked(e);
 
-            if (IsChecked ?? false) _regionManager.RequestNavigate(RegionName, Target);
+            if (!(IsChecked ?? false)) return;
+
+            Log.Debug(this, $"Navigating to [{Target}]");
+            _regionManager.RequestNavigate(RegionName, Target);
         }
     }
 }

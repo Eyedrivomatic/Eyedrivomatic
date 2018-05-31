@@ -72,6 +72,7 @@
     <Compile Include="BrushAnimation.cs" />
     <Compile Include="CompositeCommandRegistration.cs" />
     <Compile Include="ConfirmationWithCustomButtons.cs" />
+    <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="GridLengthAnimation.cs" />
     <Compile Include="IConfirmationWithCustomButtons.cs" />
@@ -111,10 +112,6 @@
     <Content Include="GrayscaleEffect.fx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eyedrivomatic.Common\Eyedrivomatic.Common.csproj">
-      <Project>{fabe3103-3b06-420f-84c7-62b148f60ae9}</Project>
-      <Name>Eyedrivomatic.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
       <Name>Eyedrivomatic.Logging</Name>

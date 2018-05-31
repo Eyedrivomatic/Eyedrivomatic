@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
+using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using NullGuard;
 
@@ -228,51 +229,75 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
 
         private void StartDwellClick(TimeSpan dwellTime)
         {
-            _moveWatchdogRegistration?.Dispose();
-
-            if (_adorner == null)
+            try
             {
-                Log.Info(this, $"Starting dwell click on [{GetAssociatedObjectLoggingName()}]");
-                CreateAdorner();
+                _moveWatchdogRegistration?.Dispose();
+
                 if (_adorner == null)
                 {
-                    Log.Warn(this, $"Failed to create adorner on [{GetAssociatedObjectLoggingName()}]");
-                    return;
+                    //Log.Info(this, $"Starting dwell click on [{AssociatedObject.LoggingToString()}]");
+                    CreateAdorner();
+                    if (_adorner == null)
+                    {
+                        Log.Warn(this, $"Failed to create adorner on [{AssociatedObject.LoggingToString()}]");
+                        return;
+                    }
+                    _animator.StartAnimation(_adorner, dwellTime, DoClick);
                 }
-                _animator.StartAnimation(_adorner, dwellTime, DoClick);
+                else
+                {
+                    //Log.Info(this, $"Resuming dwell click on [{AssociatedObject.LoggingToString()}]");
+                    //re-entry before the cancel timer has fired.
+                    ShowAdorner();
+                    _animator.ResumeAnimation();
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                Log.Info(this, $"Resuming dwell click on [{GetAssociatedObjectLoggingName()}]");
-                //re-entry before the cancel timer has fired.
-                ShowAdorner();
-                _animator.ResumeAnimation();
+                Log.Error(this, $"Failed to start dwell click on [{AssociatedObject.LoggingToString()}] - [{ex}].");
+                CancelDwellClick();
             }
         }
 
         private void CancelDwellClick()
         {
-            _animator?.StopAnimation();
-            RemoveAdorner();
-            //Log.Debug(this, $"Canceled dwell click on [{AssociatedObject}]");
+            try
+            {
+                _animator?.StopAnimation();
+                RemoveAdorner();
+                //Log.Debug(this, $"Canceled dwell click on [{AssociatedObject.LoggingToString()}]");
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Failed to cancel dwell click on [{AssociatedObject.LoggingToString()}] - [{ex}].");
+            }
         }
 
         private void DoClick()
         {
-            RemoveAdorner();
-
-            if (!AssociatedObject.IsEnabled)
+            try
             {
-                Log.Warn(this, $"Dwell Click ignored because element [{GetAssociatedObjectLoggingName()}] is not enabled.");
-                return;
+                RemoveAdorner();
+
+                if (!AssociatedObject.IsEnabled)
+                {
+                    Log.Warn(this, $"Dwell Click ignored because element [{AssociatedObject.LoggingToString()}] is not enabled.");
+                    return;
+                }
+
+                Log.Info(this, $"Performing dwell click on [{AssociatedObject.LoggingToString()}]");
+
+                if (!DwellClicker.Click(AssociatedObject)) Log.Warn(this, $"Failed to perform dwell click on [{AssociatedObject.LoggingToString()}].");
+
+                _moveWatchdogRegistration?.Dispose();
+                RepeatDwellAnimationAfter(TimeSpan.FromMilliseconds(_configuration.RepeatDelayMilliseconds));
             }
-
-            Log.Info(this, $"Performing dwell click on [{GetAssociatedObjectLoggingName()}]");
-
-            if (!DwellClicker.Click(AssociatedObject)) Log.Warn(this, $"Failed to perform dwell click on [{GetAssociatedObjectLoggingName()}].");
-
-            _moveWatchdogRegistration?.Dispose();
-            RepeatDwellAnimationAfter(TimeSpan.FromMilliseconds(_configuration.RepeatDelayMilliseconds));
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Dwell click on [{AssociatedObject.LoggingToString()}] failed - [{ex}].");
+            }
         }
 
         private async void RepeatDwellAnimationAfter(TimeSpan repeatDelay)
@@ -286,16 +311,17 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
                 StartMovementWatchdog(repeatDelay);
                 await Task.Delay(repeatDelay, _repeatCancelSource.Token);
 
+                if (!AssociatedObject.IsVisible) return;
                 if (!AssociatedObject.IsEnabled) return;
                 if (!_configuration.EnableDwellClick || Paused) return;
 
-                Log.Info(this, "Repeat-click start.");
+                //Log.Info(this, "Repeat-click start.");
                 StartDwellClick(GetDwellTime(_configuration, GetRole(AssociatedObject)));
             }
             catch (OperationCanceledException)
             {
                 //click repeat cancelled.
-                Log.Debug(this, $"ClickRepeat canceled on [{GetAssociatedObjectLoggingName()}].");
+                Log.Debug(this, $"ClickRepeat canceled on [{AssociatedObject.LoggingToString()}].");
             }
         }
 
@@ -362,8 +388,10 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             _dwellCancelRegistration = null;
             _moveWatchdogRegistration?.Dispose();
 
-            if (!AssociatedObject.IsEnabled) return;
-            if (!_configuration.EnableDwellClick || Paused) return;
+            if (!AssociatedObject.IsVisible) { Log.Debug(this, $"Target [{AssociatedObject.LoggingToString()}] is not visible"); return; }
+            if (!AssociatedObject.IsEnabled) {Log.Debug(this, $"Target [{AssociatedObject.LoggingToString()}] is not enabled"); return;}
+            if (!_configuration.EnableDwellClick) { Log.Debug(this, $"Dwell click for [{AssociatedObject.LoggingToString()}] is not enabled"); return; }
+            if (Paused) { Log.Debug(this, "Dwell click paused."); return; } 
 
             var role = GetRole(AssociatedObject);
             var dwellTime = GetDwellTime(_configuration, role);
@@ -403,14 +431,6 @@ namespace Eyedrivomatic.Eyegaze.DwellClick
             var watchdogTime = Math.Max(dwellTime.TotalMilliseconds / 3d, 200);
             var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(watchdogTime));
             _moveWatchdogRegistration = cts.Token.Register(GazeLeave, true);
-        }
-
-        private string GetAssociatedObjectLoggingName()
-        {
-            if (AssociatedObject == null) return "NULL";
-
-            if (!string.IsNullOrEmpty(AssociatedObject.Name)) return AssociatedObject.Name;
-            return AssociatedObject.ToString();
         }
     }
 }

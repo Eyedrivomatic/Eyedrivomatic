@@ -129,13 +129,13 @@ namespace FirmwareTests
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             var responseTime = (DateTime.Now - start).TotalMilliseconds;
-            Assert.That(responseTime, Is.InRange(1000, 1150)); //Give a few ms for message transmission and processing, but not enough for the first move command to complete.
+            Assert.That(responseTime, Is.InRange(1000, 1250)); //Give a few ms for message transmission and processing, but not enough for the first move command to complete.
             Console.WriteLine($"Message received in {responseTime} ms.");
             VerifyStatus(message, -100, -100);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             responseTime = (DateTime.Now - start).TotalMilliseconds;
-            Assert.That(responseTime, Is.InRange(2000, 2150)); //Give a few ms for message transmission and processing
+            Assert.That(responseTime, Is.InRange(2000, 2250)); //Give a few ms for message transmission and processing
             Console.WriteLine($"Message received in {responseTime} ms.");
             VerifyStatus(message, XCenter, YCenter);
         }

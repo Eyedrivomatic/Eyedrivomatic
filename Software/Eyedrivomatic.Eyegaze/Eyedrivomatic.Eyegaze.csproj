@@ -62,6 +62,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistributionPointFilter.cs" />
     <Compile Include="DwellClick\DwellClickAdornerFactory.cs" />
     <Compile Include="DwellClick\EyegazeProviderFactory.cs" />
     <Compile Include="DwellClick\VisualExtensions.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="DwellClick\IDwellClickConfigurationService.cs" />
     <Compile Include="DwellClick\PieSlice.cs" />
     <Compile Include="IEyegazeProvider.cs" />
+    <Compile Include="IPointFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

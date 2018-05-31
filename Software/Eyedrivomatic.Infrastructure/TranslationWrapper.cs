@@ -44,7 +44,14 @@ namespace Eyedrivomatic.Infrastructure
 
         public override string ToString()
         {
-            return Translated;
+            try
+            {
+                return Translated;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return Key;
+            }
         }
     }
 }

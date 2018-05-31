@@ -57,6 +57,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DispatcherUtil.cs" />
+    <Compile Include="DistributionPointFilterTests.cs" />
     <Compile Include="DwellClickAnimatorTests.cs" />
     <Compile Include="DwellClickBehaviorTests.cs" />
     <Compile Include="LoggingSetup.cs" />

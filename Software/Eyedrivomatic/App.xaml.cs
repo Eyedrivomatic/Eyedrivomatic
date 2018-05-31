@@ -39,27 +39,30 @@ namespace Eyedrivomatic
             var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
 
             base.OnStartup(e);
             _bootstrapper.Run();
         }
 
-        private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             HandleException(e.ExceptionObject as Exception);
+            if (e.IsTerminating) Log.Warn(nameof(App), "Exception has caused application to terminate.");
         }
 
-        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             HandleException(e.Exception);
+            e.Handled = true;
         }
 
         private static void HandleException(Exception exception)
         {
-            var message = string.Empty;
-            var i = 0;
-
             Log.Error(typeof(App), $"Unhandled Exception! - [{exception}]");
+
+            var message = "Unhandled Exception!" + Environment.NewLine;
+            var i = 0;
             
             while (exception != null)
             {
@@ -72,6 +75,7 @@ namespace Eyedrivomatic
 
         protected override void OnExit(ExitEventArgs e)
         {
+            Log.Info(nameof(App), $"Exiting - Exit Code: [{e.ApplicationExitCode}]");
             Dispose();
             base.OnExit(e);
         }
