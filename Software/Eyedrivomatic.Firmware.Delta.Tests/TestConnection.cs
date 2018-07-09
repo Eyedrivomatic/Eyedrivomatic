@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace FirmwareTests
+namespace Eyedrivomatic.Firmware.Delta.Tests
 {
     public class TestConnection
     {
@@ -31,7 +31,7 @@ namespace FirmwareTests
 
         public void Initialize()
         {
-            Serial = new SerialPort("COM4", 19200) { Encoding = Encoding.ASCII, ReadTimeout = 3000 };
+            Serial = new SerialPort("COM6", 19200) { Encoding = Encoding.ASCII, ReadTimeout = 3000 };
             Serial.Open();
             Serial.DiscardInBuffer();
             Serial.DiscardOutBuffer();

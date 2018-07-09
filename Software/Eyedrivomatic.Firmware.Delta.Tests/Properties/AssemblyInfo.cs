@@ -13,12 +13,12 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Eyedrivomatic.FirmwareTests")]
+[assembly: AssemblyTitle("Eyedrivomatic.Firmware.Delta.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Eyedrivomatic")]
 [assembly: AssemblyProduct("Eyedrivomatic")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

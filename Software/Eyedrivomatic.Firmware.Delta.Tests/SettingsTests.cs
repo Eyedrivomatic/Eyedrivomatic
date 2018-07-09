@@ -12,7 +12,7 @@
 
 using NUnit.Framework;
 
-namespace FirmwareTests
+namespace Eyedrivomatic.Firmware.Delta.Tests
 {
     [TestFixture]
     [Explicit("Requires connection to device.")]

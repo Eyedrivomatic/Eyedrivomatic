@@ -12,10 +12,10 @@
 
 using System;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
 using System.Threading;
+using NUnit.Framework;
 
-namespace FirmwareTests
+namespace Eyedrivomatic.Firmware.Mk1.Tests
 {
     [TestFixture]
     [Explicit("Requires connection to device.")]
