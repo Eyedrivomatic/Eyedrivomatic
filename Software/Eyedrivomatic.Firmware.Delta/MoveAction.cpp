@@ -15,7 +15,7 @@
 // 
 
 #include "LoggerService.h"
-#include "MoveServoAction.h"
+#include "MoveAction.h"
 #include "SendStatusAction.h"
 #include "Response.h"
 #include "State.h"
@@ -34,10 +34,10 @@
 // D X Y
 // Where each pair is a Hex byte and
 //  D = Duration in milliseconds. Unsigned value from 0 to 10000;
-//  X = Position of X servo from -100 to 100. 
-//  Y = Position of Y servo from -100 to 100. 
+//  X = Position of X servo from -100.0 to 100.0. 
+//  Y = Position of Y servo from -100.0 to 100.0. 
 // Resets servo positions if duration or servo position is out of range.
-void MoveServoActionClass::execute(const char * parameters)
+void MoveActionClass::execute(const char * parameters)
 {
 	if (parameters == NULL) { CancelWithError(PSTR("ERROR: MISSING PARAMETERS")); }
 
@@ -48,37 +48,37 @@ void MoveServoActionClass::execute(const char * parameters)
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DURATION")); }
 	if (duration < 0 || duration > 10000) { CancelWithError(PSTR("ERROR: DURATION OUT OF RANGE %d"), duration); }
 
-	long xPos = strtol(startPos = endPos, &endPos, 10);
+	float xPos = strtof(startPos = endPos, &endPos);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING XPOS")); }
-	if (-100 > xPos || 100 < xPos) { CancelWithError(PSTR("ERROR: XPOS OUT OF RANGE %d"), xPos); }
+	if (-100.0f > xPos || 100.0f < xPos) { CancelWithError(PSTR("ERROR: XPOS OUT OF RANGE %f"), xPos); }
 
-	long yPos = strtol(startPos = endPos, &endPos, 10);
+	float yPos = strtof(startPos = endPos, &endPos);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING YPOS")); }
-	if (-100 > yPos || 100 < yPos) { CancelWithError(PSTR("ERROR: YPOS OUT OF RANGE %d"), yPos); }
-
+	if (-100.0f > yPos || 100.0f < yPos) { CancelWithError(PSTR("ERROR: YPOS OUT OF RANGE %f"), yPos); }
+	LoggerService.debug_P(PSTR("Moving to %.1f, %.1f for %d ms"), xPos, yPos, duration);
 	cancel(false);
 
-	State.setServoPositionsRelative(xPos, yPos);
+	State.setPosition(xPos, yPos);
 
 	if (duration == 0) return; 
 	TimerService.addTimer(timer_interupt, static_cast<unsigned long>(duration));
 }
 
-void MoveServoActionClass::cancel(bool reset)
+void MoveActionClass::cancel(bool reset)
 {
 	TimerService.removeTimer(timer_interupt);
 	if (reset) State.resetServoPositions();
 }
 
 //static
-void MoveServoActionClass::timer_interupt()
+void MoveActionClass::timer_interupt()
 {
 	LoggerService.shouldQueueLogs(true);
 
-	MoveServoAction.cancel(true);
+	MoveAction.cancel(true);
 
 	LoggerService.shouldQueueLogs(false);
 }
 
-MoveServoActionClass MoveServoAction;
+MoveActionClass MoveAction;
 

@@ -33,18 +33,18 @@
 #define ReadAndValidate_ul(parameters, minValue, maxValue, settingName, setting) \
 unsigned long value = strtoul(parameters, NULL, 10); \
 if (value >= minValue && value <= maxValue) setting = value;\
-else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %S"), parameters, minValue, maxValue, settingName)\
+else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %s"), parameters, minValue, maxValue, settingName)\
 
 #define ReadAndValidate_l(parameters, minValue, maxValue, settingName, setting) \
 long value = strtol(parameters, NULL, 10); \
 if (value >= minValue && value <= maxValue) setting = value;\
-else LogError(PSTR("ERROR: '%li' is out of range (%i to %i) for %S"), value, minValue, maxValue, settingName)\
+else LogError(PSTR("ERROR: '%li' is out of range (%i to %i) for %s"), value, minValue, maxValue, settingName)\
 
 #define ReadAndValidate_b(parameters, settingName, setting) \
 while (*parameters == ' ') parameters++; \
 if (strncmp_P(parameters, OnString, strlen_P(OffString)) == 0) setting = true; \
 else if (strncmp_P(parameters, OffString, strlen_P(OffString)) == 0) setting = false; \
-else LogError(PSTR("ERROR: '%s' is not a valid value for %S"), parameters, settingName);
+else LogError(PSTR("ERROR: '%s' is not a valid value for %s"), parameters, settingName);
 
 struct SetSettingsAction
 {

@@ -44,6 +44,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
 
         public void Stop()
         {
+            Serial.BaseStream.Flush();
             Serial.DtrEnable = true;
             Thread.Sleep(100);
             Serial.DtrEnable = false; //reset device prevents serial buffer overflow into the next test.
@@ -66,6 +67,11 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             }
 
             return ReadMessage(out message) && message.StartsWith("STATUS:");
+        }
+
+        public bool EnableLog(bool enable = true)
+        {
+            return SendMessage(enable ? "LOG" : "LOG OFF");
         }
 
         private static byte GetCheckChar(string msg)
@@ -107,7 +113,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             return true;
         }
 
-        public bool SendMessage(string message, bool? useChecksum = null, bool? expectResponse = null)
+        public bool SendMessage(string message, bool? useChecksum = null)
         {
             if (useChecksum ?? DefaultUseChecksum) message = $"{message}#{GetCheckChar(message):X2}";
             Console.WriteLine($"<<{message}");
@@ -117,15 +123,10 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             {
                 var response = Reader.Read();
                 if (response == Ack) return  true;
-                if (response == Nak)
-                {
-                    var logProbably = Reader.ReadLine();
-                    Console.WriteLine(logProbably);
-                    return false;
-                }
+                if (response == Nak) return false;
 
                 var restOfLogProbably = Reader.ReadLine();
-                Console.WriteLine((char)response + restOfLogProbably);
+                Console.WriteLine("LOG???" + (char)response + restOfLogProbably);
             }
         }
 

@@ -22,6 +22,7 @@ HostConnectionServiceClass::HostConnectionServiceClass()
 
 HostConnectionServiceClass::~HostConnectionServiceClass()
 {
+	Serial.end();
 }
 
 void HostConnectionServiceClass::MonitorConnection()
@@ -31,6 +32,12 @@ void HostConnectionServiceClass::MonitorConnection()
 		SendStartupInfo();
 		SendStatusAction.execute(NULL);
 	}
+	if (!Serial && _available)
+	{
+		Serial.flush();
+		Serial.clear();
+	}
+
 	_available = Serial;
 }
 

@@ -53,6 +53,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Status_RespondsWithStatus()
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage("STATUS"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
@@ -68,6 +70,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Move_BasicallyWorks(int duration, int x, int y)
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage($"MOVE {duration} {x} {y}"), Is.True);
 
             var start = DateTime.Now;
@@ -79,44 +83,12 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             VerifyStatus(message, XCenter, YCenter);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Test_Move_Invert_IsApplied(bool invertBothAxis)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET INVERT_X {(invertBothAxis ? "ON" : "OFF")}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_X {(invertBothAxis ? "ON" : "OFF")}"));
-
-            Assert.That(_testConnection.SendMessage($"SET INVERT_Y {(invertBothAxis ? "ON" : "OFF")}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_Y {(invertBothAxis ? "ON" : "OFF")}"));
-
-
-            Assert.That(_testConnection.SendMessage("MOVE 1000 50 -50"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-
-            //The status does not show a difference.
-            VerifyStatus(message, 50, -50);
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-
-            Assert.That(_testConnection.SendMessage("MOVE 1000 -50 50"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-
-            //The status does not show a difference.
-            VerifyStatus(message, -50, 50);
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-        }
-
         [Test]
         public void Test_Move_NewMoveOverrides()
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage("MOVE 3000 100 100"), Is.True);
 
             var start = DateTime.Now;
@@ -144,6 +116,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Move_RangeAndExpectedRounding()
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog(false);
 
             for (var pos = -100; pos <= 100; pos++)
             {
@@ -151,7 +124,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
                 Assert.That(_testConnection.ReadMessage(out string message), Is.True);
                 //Assert.That(message, Is.EqualTo($"STATUS: SERVO_X={pos}({xAbs:F1}),SERVO_Y={-pos}({yAbs:F1}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
 
-                VerifyStatus(message, pos, -pos);
+                //VerifyStatus(message, pos, -pos);
             }
         }
 
@@ -161,6 +134,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_MoveDurationOutOfRange_RespondsWithError(int duration)
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage($"MOVE {duration} 10 10"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
@@ -173,6 +148,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_MovePositionOutOfRange_RespondsWithError(int position)
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage($"MOVE 0 {position} 0"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
@@ -194,6 +171,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_SwitchToggle_CanHaveOverlappingTimes()
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
 
             var start = DateTime.Now;
             Assert.That(_testConnection.SendMessage("SWITCH 2000 2"), Is.True);
@@ -228,7 +206,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_SwitchToggle_OutOfRangeResponseWithError(int switchNumber)
         {
             _testConnection.ReadStartup();
-
+            _testConnection.EnableLog();
 
             Assert.That(_testConnection.SendMessage($"SWITCH 0 {switchNumber}"), Is.True);
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
@@ -239,6 +217,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Stop_ImmediatelyStops()
         {
             _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
             Assert.That(_testConnection.SendMessage("MOVE 10000 100 -100"), Is.True);
 
             var start = DateTime.Now;
@@ -256,7 +236,8 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_NothingToStop_RespondsWithStatus()
         {
             _testConnection.ReadStartup();
-        
+            _testConnection.EnableLog();
+
             var start = DateTime.Now;
 
             Assert.That(_testConnection.SendMessage("STOP"), Is.True);
@@ -270,6 +251,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_DeviceSendsStartupInfoOnReconnect()
         {
             Assert.That(_testConnection.ReadStartup(), Is.True);
+            _testConnection.EnableLog();
 
             _testConnection.Stop();
             _testConnection.Initialize();
@@ -282,27 +264,27 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             VerifyStatus(message, xRel, yRel, false, false, false);
         }
 
-        private static void VerifyStatus(string message, int xRel, int yRel, bool switch1, bool switch2, bool switch3)
+        private static void VerifyStatus(string message, int x, int y, bool switch1, bool switch2, bool switch3)
         {
-            var regex = new Regex(@"^STATUS: SERVO_X=(?<XRelative>-?\d+)\((?<XAbsolute>-?\d{1,3}\.\d)\),SERVO_Y=(?<YRelative>-?\d+)\((?<YAbsolute>-?\d{1,3}\.\d)\),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF)$");
+            var regex = new Regex(@"^STATUS: POS=(?<X>-?\d{1,3}\.\d),(?<Y>-?\d{1,3}\.\d)\((?<XDevice>-?\d{1,2}\.\d)(?<YDevice>-?\d{1,2}\.\d)\),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF)$");
             var match = regex.Match(message);
             Assert.That(match.Success, Is.True);
-            Assert.That(int.Parse(match.Groups["XRelative"].Value), Is.EqualTo(xRel));
-            Assert.That(int.Parse(match.Groups["YRelative"].Value), Is.EqualTo(yRel));
+            Assert.That(int.Parse(match.Groups["X"].Value), Is.EqualTo(x));
+            Assert.That(int.Parse(match.Groups["Y"].Value), Is.EqualTo(y));
 
-            var xAbs = xRel >= 0
-                ? XCenter + (XMax - XCenter) * (xRel / 100m)
-                : XCenter + (XCenter - XMin) * (xRel / 100m);
-            xAbs = Math.Round(xAbs, 1, MidpointRounding.AwayFromZero);
+            var xDevice = x >= 0
+                ? XCenter + (XMax - XCenter) * (x / 100m)
+                : XCenter + (XCenter - XMin) * (x / 100m);
+            xDevice = Math.Round(xDevice, 1, MidpointRounding.AwayFromZero);
 
-            var yAbs = yRel >= 0
-                ? YCenter + (YMax - YCenter) * (yRel / 100m)
-                : YCenter + (YCenter - YMin) * (yRel / 100m);
-            yAbs = Math.Round(yAbs, 1, MidpointRounding.AwayFromZero);
+            var yDevice = y >= 0
+                ? YCenter + (YMax - YCenter) * (y / 100m)
+                : YCenter + (YCenter - YMin) * (y / 100m);
+            yDevice = Math.Round(yDevice, 1, MidpointRounding.AwayFromZero);
 
-            //Ugly, but there are minor rounding errors that are difficult to account for. Let's just make sure we are within 0.2 deg of expected.
-            Assert.That(decimal.Parse(match.Groups["XAbsolute"].Value), Is.EqualTo(xAbs).Within(0.1m));
-            Assert.That(decimal.Parse(match.Groups["YAbsolute"].Value), Is.EqualTo(yAbs).Within(0.1m));
+            //Ugly, but there are minor rounding errors that are difficult to account for. Let's just make sure we are within 0.1 deg of expected.
+            Assert.That(decimal.Parse(match.Groups["XDevice"].Value), Is.EqualTo(xDevice).Within(0.1m));
+            Assert.That(decimal.Parse(match.Groups["YDevice"].Value), Is.EqualTo(yDevice).Within(0.1m));
 
             Assert.That(match.Groups["Switch1"].Value, Is.EqualTo(switch1 ? "ON" : "OFF"));
             Assert.That(match.Groups["Switch2"].Value, Is.EqualTo(switch2 ? "ON" : "OFF"));

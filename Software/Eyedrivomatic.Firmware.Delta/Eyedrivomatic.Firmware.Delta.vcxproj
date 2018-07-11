@@ -83,6 +83,8 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="ServoPositionConverter.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Eyedrivomatic.Firmware.Delta.ino" />
     <ClInclude Include="HostConnectionService.h" />
     <ClInclude Include="__vm\.Eyedrivomatic.Firmware.Delta.vsarduino.h" />
@@ -99,7 +101,7 @@
     <ClInclude Include="LoggerService.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageProcessor.h" />
-    <ClInclude Include="MoveServoAction.h" />
+    <ClInclude Include="MoveAction.h" />
     <ClInclude Include="NoAction.h" />
     <ClInclude Include="Response.h" />
     <ClInclude Include="SaveSettingsAction.h" />
@@ -107,7 +109,6 @@
     <ClInclude Include="SetSettingAction.h" />
     <ClInclude Include="SettingActionBase.h" />
     <ClInclude Include="Settings.h" />
-    <ClInclude Include="State.h" />
     <ClInclude Include="StopAction.h" />
     <ClInclude Include="TimerService.h" />
     <ClInclude Include="ToggleSwitchAction.h" />
@@ -117,13 +118,15 @@
     <ClCompile Include="ActionService.cpp" />
     <ClCompile Include="ConfigureChecksumAction.cpp" />
     <ClCompile Include="ConfigureResponseAction.cpp" />
+    <ClCompile Include="ServoPositionConverter.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="EnableLogAction.cpp" />
     <ClCompile Include="GetSettingAction.cpp" />
     <ClCompile Include="InvalidAction.cpp" />
     <ClCompile Include="LoggerService.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageProcessor.cpp" />
-    <ClCompile Include="MoveServoAction.cpp" />
+    <ClCompile Include="MoveAction.cpp" />
     <ClCompile Include="NoAction.cpp" />
     <ClCompile Include="HostConnectionService.cpp" />
     <ClCompile Include="Response.cpp" />
@@ -132,7 +135,6 @@
     <ClCompile Include="SetSettingAction.cpp" />
     <ClCompile Include="SettingActionBase.cpp" />
     <ClCompile Include="Settings.cpp" />
-    <ClCompile Include="State.cpp" />
     <ClCompile Include="StopAction.cpp" />
     <ClCompile Include="TimerService.cpp" />
     <ClCompile Include="ToggleSwitchAction.cpp" />

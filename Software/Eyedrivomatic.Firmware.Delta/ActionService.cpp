@@ -23,7 +23,7 @@
 #include "SaveSettingsAction.h"
 #include "SendStatusAction.h"
 #include "EnableLogAction.h"
-#include "MoveServoAction.h"
+#include "MoveAction.h"
 #include "InvalidAction.h"
 #include "StopAction.h"
 #include "LoggerService.h"
@@ -57,7 +57,7 @@ const CommandMapEntry CommandMap[] PROGMEM =
 	CommandMapEntry(ActionName_SendStatus, SendStatusAction),
 	CommandMapEntry(ActionName_EnableLog, EnableLogAction),
 	CommandMapEntry(ActionName_Stop, StopAction),
-	CommandMapEntry(ActionName_Move, MoveServoAction),
+	CommandMapEntry(ActionName_Move, MoveAction),
 	CommandMapEntry(ActionName_Switch, ToggleSwitchAction),
 	CommandMapEntry(ActionName_Set, SetSettingAction),
 	CommandMapEntry(ActionName_Get, GetSettingAction),

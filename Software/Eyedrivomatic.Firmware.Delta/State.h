@@ -12,8 +12,7 @@
 
 // State.h
 
-#ifndef _STATE_h
-#define _STATE_h
+#pragma once
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "arduino.h"
@@ -38,11 +37,8 @@ public:
 	void init();
 	void reset();
 
-	void getServoPositions(float & xPos, float & yPos);
-	void getServoPositionsRelative(int8_t & xPos, int8_t & yPos);
-
-	void setServoPositions(int8_t xPos, int8_t yPos);
-	void setServoPositionsRelative(int8_t xPos, int8_t yPos);
+	void getPosition(float & xPos, float & yPos);
+	void setPosition(float xPos, float yPos);
 
 	void resetServoPositions();
 
@@ -57,6 +53,4 @@ private:
 };
 
 extern StateClass State;
-
-#endif
 

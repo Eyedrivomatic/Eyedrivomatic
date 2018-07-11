@@ -10,14 +10,13 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
-// MoveServoAction.h
+// MoveAction.h
 
-#ifndef _MOVESERVOACTION_h
-#define _MOVESERVOACTION_h
+#pragma once
 
 #include "Action.h"
 
-class MoveServoActionClass : public ActionClass
+class MoveActionClass : public ActionClass
 {
 public:
 	virtual void execute(const char * parameters);
@@ -27,7 +26,4 @@ protected:
 	static void timer_interupt();
 };
 
-extern MoveServoActionClass MoveServoAction;
-
-#endif
-
+extern MoveActionClass MoveAction;
