@@ -37,7 +37,8 @@ TimerCallback ToggleSwitchActionClass::CallbackRoutines[] =
 {
 	ToggleSwitchActionClass::switch1_timer_interupt,
 	ToggleSwitchActionClass::switch2_timer_interupt,
-	ToggleSwitchActionClass::switch3_timer_interupt
+	ToggleSwitchActionClass::switch3_timer_interupt,
+	ToggleSwitchActionClass::switch4_timer_interupt
 };
 
 //Parameters:
@@ -60,7 +61,7 @@ void ToggleSwitchActionClass::execute(const char * parameters)
 
 	auto switchNum = strtol(startPos = endPos, &endPos, 10)-1;
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING SWITCH NUMBER")); }
-	if (switchNum < HardwareSwitch::Switch1 || switchNum > HardwareSwitch::Switch3) { CancelWithError(PSTR("ERROR: SWITCH NUMBER OUT OF RANGE %d"), switchNum+1); }
+	if (switchNum < HardwareSwitch::Switch1 || switchNum > HardwareSwitch::Switch4) { CancelWithError(PSTR("ERROR: SWITCH NUMBER OUT OF RANGE %d"), switchNum+1); }
 
 	HardwareSwitch hardwareSwitch = static_cast<HardwareSwitch>(switchNum);
 	cancel(hardwareSwitch, false);
@@ -75,12 +76,13 @@ void ToggleSwitchActionClass::cancel_all(bool reset)
 	cancel(HardwareSwitch::Switch1, reset);
 	cancel(HardwareSwitch::Switch2, reset);
 	cancel(HardwareSwitch::Switch3, reset);
+	cancel(HardwareSwitch::Switch4, reset);
 }
 
 
 void ToggleSwitchActionClass::cancel(HardwareSwitch hardwareSwitch, bool reset)
 {
-	if (hardwareSwitch < HardwareSwitch::Switch1 || hardwareSwitch > HardwareSwitch::Switch3) return;
+	if (hardwareSwitch < HardwareSwitch::Switch1 || hardwareSwitch > HardwareSwitch::Switch4) return;
 	TimerService.removeTimer(CallbackRoutines[hardwareSwitch]);
 	if (reset) State.setSwitchState(hardwareSwitch, Settings.DefaultSwitchStates[hardwareSwitch]);
 }
@@ -109,6 +111,15 @@ void ToggleSwitchActionClass::switch3_timer_interupt()
 	LoggerService.shouldQueueLogs(true);
 
 	ToggleSwitchAction.cancel(HardwareSwitch::Switch3, true);
+
+	LoggerService.shouldQueueLogs(false);
+}
+
+void ToggleSwitchActionClass::switch4_timer_interupt()
+{
+	LoggerService.shouldQueueLogs(true);
+
+	ToggleSwitchAction.cancel(HardwareSwitch::Switch4, true);
 
 	LoggerService.shouldQueueLogs(false);
 }

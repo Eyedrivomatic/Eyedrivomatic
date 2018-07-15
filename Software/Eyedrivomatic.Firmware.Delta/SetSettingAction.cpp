@@ -101,7 +101,7 @@ void SetSettingActionClass::execute(const char * parameters)
 
 void SetSettingActionClass::setXMin(const char * parameters)
 {
-	ReadAndValidate_l(parameters, HARDWARE_MIN_X, Settings.CenterPos_X, SettingName_MinPosX, Settings.MinPos_X);
+	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosX, Settings.MinPos_X);
 	GetSettingActionClass::getXMin(NULL);
 }
 
@@ -114,13 +114,13 @@ void SetSettingActionClass::setXCenter(const char * parameters)
 
 void SetSettingActionClass::setXMax(const char * parameters)
 {
-	ReadAndValidate_l(parameters, Settings.CenterPos_X, HARDWARE_MAX_X, SettingName_MaxPosX, Settings.MaxPos_X);
+	ReadAndValidate_l(parameters, Settings.CenterPos_X, 180, SettingName_MaxPosX, Settings.MaxPos_X);
 	GetSettingActionClass::getXMax(NULL);
 }
 
 void SetSettingActionClass::setYMin(const char * parameters)
 {
-	ReadAndValidate_l(parameters, HARDWARE_MIN_Y, Settings.CenterPos_X, SettingName_MinPosY, Settings.MinPos_Y);
+	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosY, Settings.MinPos_Y);
 	GetSettingActionClass::getYMin(NULL);
 }
 
@@ -140,7 +140,7 @@ void SetSettingActionClass::setYCenter(const char * parameters)
 
 void SetSettingActionClass::setYMax(const char * parameters)
 {
-	ReadAndValidate_l(parameters, Settings.CenterPos_Y, HARDWARE_MAX_Y, SettingName_MaxPosY, Settings.MaxPos_Y);
+	ReadAndValidate_l(parameters, Settings.CenterPos_Y, 180, SettingName_MaxPosY, Settings.MaxPos_Y);
 	GetSettingActionClass::getYMax(NULL);
 }
 

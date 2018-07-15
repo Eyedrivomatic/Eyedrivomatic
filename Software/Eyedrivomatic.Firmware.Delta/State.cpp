@@ -15,7 +15,7 @@
 #include "SendStatusAction.h"
 #include "State.h"
 #include "Settings.h"
-#include "ServoPositionConverter.h"
+#include "DeltaPositionConverter.h"
 
 
 #define SendStatus() SendStatusAction.execute(NULL)
@@ -26,12 +26,10 @@
 #define SERVO_X 7
 #define SERVO_Y 8
 
-#define SERVO_OFFSET_X 90.0f
-#define SERVO_OFFSET_Y 90.0f
-
 #define SWITCH_1 7
 #define SWITCH_2 5
 #define SWITCH_3 3
+#define SWITCH_4 4
 #define SERVO_ENABLE 6
 
 
@@ -40,6 +38,7 @@ const int switchPins[] =
 	SWITCH_1,
 	SWITCH_2,
 	SWITCH_3,
+	SWITCH_4,
 };
 
 
@@ -55,6 +54,7 @@ void StateClass::init()
 	pinMode(switchPins[HardwareSwitch::Switch1], OUTPUT);
 	pinMode(switchPins[HardwareSwitch::Switch2], OUTPUT);
 	pinMode(switchPins[HardwareSwitch::Switch3], OUTPUT);
+	pinMode(switchPins[HardwareSwitch::Switch4], OUTPUT);
 }
 
 void StateClass::reset()
@@ -63,6 +63,7 @@ void StateClass::reset()
 	digitalWrite(switchPins[HardwareSwitch::Switch1], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch2], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch3], LOW);
+	digitalWrite(switchPins[HardwareSwitch::Switch4], LOW);
 	resetServoPositions(); //queues a status message.
 	digitalWrite(SERVO_ENABLE, HIGH);
 }
@@ -70,7 +71,7 @@ void StateClass::reset()
 int AngleToMicroseconds(float value)
 {
 	value = constrain(value, 0, 180);
-	return (int)round(MAP(value, 0.0f, 180.0f, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH));
+	return (int)round(MAP(value, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH));
 }
 
 float MicrosecondsToAngle(int value)
@@ -82,24 +83,26 @@ float MicrosecondsToAngle(int value)
 
 void StateClass::getPosition(float & xPos, float & yPos)
 {
-	float xServoAngle = MicrosecondsToAngle(xServo.readMicroseconds()) - SERVO_OFFSET_X;
-	float yServoAngle = MicrosecondsToAngle(yServo.readMicroseconds()) - SERVO_OFFSET_Y;
-	ServoPositionConverter.getCartesianFromServo(xServoAngle, yServoAngle, xPos, yPos);
+	float xServoAngle = MicrosecondsToAngle(leftServo.readMicroseconds());
+	float yServoAngle = MicrosecondsToAngle(rightServo.readMicroseconds());
+	DeltaPositionConverter.getCartesianFromServo(xServoAngle, yServoAngle, xPos, yPos);
+
+	LoggerService.debug_P(PSTR("POS %3.1f,%3.1f = %3.1f,%3.1f"), xPos, yPos, xServoAngle, yServoAngle);
 }
 
 void StateClass::setPosition(float xPos, float yPos)
 {
-	float xServoAngle, yServoAngle;
-	ServoPositionConverter.getServoPosFromCartesian(xPos, yPos, xServoAngle, yServoAngle);
+	float leftServoAngle, rightServoAngle;
+	DeltaPositionConverter.getServoPosFromCartesian(xPos, yPos, leftServoAngle, rightServoAngle);
 
-	int xUs = AngleToMicroseconds(xServoAngle + SERVO_OFFSET_X);
-	int yUs = AngleToMicroseconds(yServoAngle + SERVO_OFFSET_Y);
+	int leftUs = AngleToMicroseconds(leftServoAngle);
+	int rightUs = AngleToMicroseconds(rightServoAngle);
 
-	if (!xServo.attached()) xServo.attach(SERVO_X);
-	if (!yServo.attached()) yServo.attach(SERVO_Y);
+	if (!leftServo.attached()) leftServo.attach(SERVO_X);
+	if (!rightServo.attached()) rightServo.attach(SERVO_Y);
 
-	xServo.writeMicroseconds(xUs);
-	yServo.writeMicroseconds(yUs);
+	leftServo.writeMicroseconds(leftUs);
+	rightServo.writeMicroseconds(rightUs);
 
 	SendStatus();
 }
@@ -127,15 +130,14 @@ size_t StateClass::toString(char * buffer, size_t size)
 {
 	float xPos, yPos;
 	getPosition(xPos, yPos);
-	float xServoAngle = MicrosecondsToAngle(xServo.readMicroseconds()) - SERVO_OFFSET_X;
-	float yServoAngle = MicrosecondsToAngle(yServo.readMicroseconds()) - SERVO_OFFSET_Y;
 
 	return snprintf_P(buffer, size,
-		PSTR("STATUS: POS=%3.1f,%3.1f(%3.1f,%3.1f),%s=%s,%s=%s,%s=%s"), 
-		xPos, yPos, xServoAngle, yServoAngle,
+		PSTR("STATUS: POS=%3.1f,%3.1f,%s=%s,%s=%s,%s=%s,%s=%s"), 
+		xPos, yPos,
 		HardwareSwitchNames[HardwareSwitch::Switch1], getSwitchState(HardwareSwitch::Switch1) ? OnString : OffString,
 		HardwareSwitchNames[HardwareSwitch::Switch2], getSwitchState(HardwareSwitch::Switch2) ? OnString : OffString,
-		HardwareSwitchNames[HardwareSwitch::Switch3], getSwitchState(HardwareSwitch::Switch3) ? OnString : OffString
+		HardwareSwitchNames[HardwareSwitch::Switch3], getSwitchState(HardwareSwitch::Switch3) ? OnString : OffString,
+		HardwareSwitchNames[HardwareSwitch::Switch4], getSwitchState(HardwareSwitch::Switch4) ? OnString : OffString
 	);
 }
 

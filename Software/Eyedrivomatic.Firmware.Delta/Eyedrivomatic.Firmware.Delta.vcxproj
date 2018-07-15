@@ -83,7 +83,8 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <ClInclude Include="ServoPositionConverter.h" />
+    <ClInclude Include="DeltaPositionConverter.h" />
+    <ClInclude Include="GimbalPositionConverter.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Eyedrivomatic.Firmware.Delta.ino" />
     <ClInclude Include="HostConnectionService.h" />
@@ -118,7 +119,8 @@
     <ClCompile Include="ActionService.cpp" />
     <ClCompile Include="ConfigureChecksumAction.cpp" />
     <ClCompile Include="ConfigureResponseAction.cpp" />
-    <ClCompile Include="ServoPositionConverter.cpp" />
+    <ClCompile Include="DeltaPositionConverter.cpp" />
+    <ClCompile Include="GimbalPositionConverter.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="EnableLogAction.cpp" />
     <ClCompile Include="GetSettingAction.cpp" />

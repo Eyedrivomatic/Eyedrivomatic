@@ -31,6 +31,7 @@ protected:
 	static void switch1_timer_interupt();
 	static void switch2_timer_interupt();
 	static void switch3_timer_interupt();
+	static void switch4_timer_interupt();
 };
 
 extern ToggleSwitchActionClass ToggleSwitchAction;

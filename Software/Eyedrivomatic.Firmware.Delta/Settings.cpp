@@ -13,6 +13,7 @@
 #include "Settings.h"
 #include "State.h"
 #include "LoggerService.h"
+#include "DeltaPositionConverter.h"
 
 #include <EEPROM.h>
 
@@ -38,11 +39,8 @@ void SettingsClass::reset()
 	strcpy_P(CheckValue, EEPROMCheckValue);
 	Version = EEPROM_SETTINGS_VERSION;
 	CenterPos_X = 0;
-	MinPos_X = HARDWARE_MIN_X;
-	MaxPos_X = HARDWARE_MAX_X;
 	CenterPos_Y = 0;
-	MinPos_Y = HARDWARE_MIN_Y;
-	MaxPos_Y = HARDWARE_MAX_Y;
+	DeltaPositionConverter.getLimits(MinPos_X, MaxPos_X, MinPos_Y, MaxPos_Y);
 
 #ifdef MOBILITY_CONCEPT_BUILD
 	Invert_X = false;

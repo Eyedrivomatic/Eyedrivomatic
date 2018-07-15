@@ -21,12 +21,13 @@
 	#include "WProgram.h"
 #endif
 
-enum HardwareSwitch { Switch1, Switch2, Switch3 };
+enum HardwareSwitch { Switch1, Switch2, Switch3, Switch4 };
 
 const char SwitchName_1[] PROGMEM = "SWITCH 1";
 const char SwitchName_2[] PROGMEM = "SWITCH 2";
 const char SwitchName_3[] PROGMEM = "SWITCH 3";
-const char * const HardwareSwitchNames[] = { SwitchName_1, SwitchName_2, SwitchName_3 };
+const char SwitchName_4[] PROGMEM = "SWITCH 4";
+const char * const HardwareSwitchNames[] = { SwitchName_1, SwitchName_2, SwitchName_3, SwitchName_4 };
 
 const char OnString[] PROGMEM = "ON";
 const char OffString[] PROGMEM = "OFF";
@@ -48,8 +49,8 @@ public:
 	size_t toString(char * buffer, size_t size);
 
 private:
-	Servo xServo;  // servo object to control the x servo
-	Servo yServo;  // servo object to control the y servo
+	Servo leftServo;  // servo object to control the x servo
+	Servo rightServo;  // servo object to control the y servo
 };
 
 extern StateClass State;
