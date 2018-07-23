@@ -19,18 +19,16 @@
 
 
 #define SendStatus() SendStatusAction.execute(NULL)
-//#define MAP(x, in_min, in_max, out_min, out_max) ((map(x, in_min, in_max, out_min*2, out_max*2) + (x >= 0 ? 1 : -1)) / 2)
-#define MAP(x, in_min, in_max, out_min, out_max) (map(x, in_min, in_max, out_min, out_max))
 
 
-#define SERVO_X 7
-#define SERVO_Y 8
+#define SERVO_LEFT 7
+#define SERVO_RIGHT 8
 
-#define SWITCH_1 7
-#define SWITCH_2 5
-#define SWITCH_3 3
-#define SWITCH_4 4
-#define SERVO_ENABLE 6
+#define SWITCH_1 20
+#define SWITCH_2 14
+#define SWITCH_3 21
+#define SWITCH_4 15
+#define SERVO_ENABLE 10
 
 
 const int switchPins[] =
@@ -45,11 +43,11 @@ const int switchPins[] =
 void StateClass::init()
 {
 	pinMode(SERVO_ENABLE, OUTPUT);
-	pinMode(SERVO_X, OUTPUT);
-	pinMode(SERVO_Y, OUTPUT);
+	pinMode(SERVO_LEFT, OUTPUT);
+	pinMode(SERVO_RIGHT, OUTPUT);
 	digitalWrite(SERVO_ENABLE, LOW);
-	digitalWrite(SERVO_X, LOW);
-	digitalWrite(SERVO_Y, LOW);
+	digitalWrite(SERVO_LEFT, LOW);
+	digitalWrite(SERVO_RIGHT, LOW);
 
 	pinMode(switchPins[HardwareSwitch::Switch1], OUTPUT);
 	pinMode(switchPins[HardwareSwitch::Switch2], OUTPUT);
@@ -66,50 +64,80 @@ void StateClass::reset()
 	digitalWrite(switchPins[HardwareSwitch::Switch4], LOW);
 	resetServoPositions(); //queues a status message.
 	digitalWrite(SERVO_ENABLE, HIGH);
+	SendStatus();
 }
 
-int AngleToMicroseconds(float value)
+int AngleToMicroseconds(double angle)
 {
-	value = constrain(value, 0, 180);
-	return (int)round(MAP(value, 0, 180, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH));
+	angle = constrain(angle, -90, 90);
+	return static_cast<int>(round(map(angle, 90, -90, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH)));
 }
 
-float MicrosecondsToAngle(int value)
+double MicrosecondsToAngle(int uS)
 {
-	value = constrain(value, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
-	auto angle = MAP((float)value, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180);
-	return angle;
+	uS = constrain(uS, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+	return map(static_cast<double>(uS), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 90, -90);
 }
 
-void StateClass::getPosition(float & xPos, float & yPos)
+void StateClass::getPosition(double & xPos, double & yPos)
 {
-	float xServoAngle = MicrosecondsToAngle(leftServo.readMicroseconds());
-	float yServoAngle = MicrosecondsToAngle(rightServo.readMicroseconds());
-	DeltaPositionConverter.getCartesianFromServo(xServoAngle, yServoAngle, xPos, yPos);
+	if (!leftServo.attached()) leftServo.attach(SERVO_LEFT);
+	if (!rightServo.attached()) rightServo.attach(SERVO_RIGHT);
 
-	LoggerService.debug_P(PSTR("POS %3.1f,%3.1f = %3.1f,%3.1f"), xPos, yPos, xServoAngle, yServoAngle);
+	double leftAngle = MicrosecondsToAngle(leftServo.readMicroseconds());
+	double rightAngle = MicrosecondsToAngle(rightServo.readMicroseconds());
+	DeltaPositionConverter.getCartesianFromServo(leftAngle, rightAngle, xPos, yPos);
 }
 
-void StateClass::setPosition(float xPos, float yPos)
+void StateClass::setPosition(double xPos, double yPos)
 {
-	float leftServoAngle, rightServoAngle;
-	DeltaPositionConverter.getServoPosFromCartesian(xPos, yPos, leftServoAngle, rightServoAngle);
+	double leftAngle, rightAngle;
+	DeltaPositionConverter.getServoPosFromCartesian(xPos, yPos, leftAngle, rightAngle);
 
-	int leftUs = AngleToMicroseconds(leftServoAngle);
-	int rightUs = AngleToMicroseconds(rightServoAngle);
+	int leftUs = AngleToMicroseconds(leftAngle);
+	int rightUs = AngleToMicroseconds(rightAngle);
 
-	if (!leftServo.attached()) leftServo.attach(SERVO_X);
-	if (!rightServo.attached()) rightServo.attach(SERVO_Y);
+	if (!leftServo.attached()) leftServo.attach(SERVO_LEFT);
+	if (!rightServo.attached()) rightServo.attach(SERVO_RIGHT);
 
 	leftServo.writeMicroseconds(leftUs);
 	rightServo.writeMicroseconds(rightUs);
+	lastWasVector = false;
 
 	SendStatus();
 }
 
+void StateClass::getVector(double & direction, double & speed)
+{
+	if (!leftServo.attached()) leftServo.attach(SERVO_LEFT);
+	if (!rightServo.attached()) rightServo.attach(SERVO_RIGHT);
+
+	double leftAngle = MicrosecondsToAngle(leftServo.readMicroseconds());
+	double rightAngle = MicrosecondsToAngle(rightServo.readMicroseconds());
+	DeltaPositionConverter.getVectorFromServo(leftAngle, rightAngle, direction, speed);
+}
+
+void StateClass::setVector(double direction, double speed)
+{
+	double leftAngle, rightAngle;
+	DeltaPositionConverter.getServoPosFromVector(direction, speed, leftAngle, rightAngle);
+
+	int leftUs = AngleToMicroseconds(leftAngle);
+	int rightUs = AngleToMicroseconds(rightAngle);
+
+	if (!leftServo.attached()) leftServo.attach(SERVO_LEFT);
+	if (!rightServo.attached()) rightServo.attach(SERVO_RIGHT);
+
+	leftServo.writeMicroseconds(leftUs);
+	rightServo.writeMicroseconds(rightUs);
+	lastWasVector = true;
+	SendStatus();
+}
+
+
 void StateClass::resetServoPositions()
 {
-	setPosition(0, 0);
+	setVector(0, 0);
 }
 
 bool StateClass::getSwitchState(HardwareSwitch hardwareSwitch)
@@ -128,17 +156,30 @@ void StateClass::setSwitchState(HardwareSwitch hardwareSwitch, bool state)
 
 size_t StateClass::toString(char * buffer, size_t size)
 {
-	float xPos, yPos;
-	getPosition(xPos, yPos);
+	if (!lastWasVector)
+	{
+		double xPos, yPos;
+		getPosition(xPos, yPos);
+
+		return snprintf_P(buffer, size,
+			PSTR("STATUS: POS=%3.1f,%3.1f,%s=%s,%s=%s,%s=%s,%s=%s"),
+			xPos, yPos,
+			HardwareSwitchNames[HardwareSwitch::Switch1], getSwitchState(HardwareSwitch::Switch1) ? OnString : OffString,
+			HardwareSwitchNames[HardwareSwitch::Switch2], getSwitchState(HardwareSwitch::Switch2) ? OnString : OffString,
+			HardwareSwitchNames[HardwareSwitch::Switch3], getSwitchState(HardwareSwitch::Switch3) ? OnString : OffString,
+			HardwareSwitchNames[HardwareSwitch::Switch4], getSwitchState(HardwareSwitch::Switch4) ? OnString : OffString);
+	}
+	
+	double direction, speed;
+	getVector(direction, speed);
 
 	return snprintf_P(buffer, size,
-		PSTR("STATUS: POS=%3.1f,%3.1f,%s=%s,%s=%s,%s=%s,%s=%s"), 
-		xPos, yPos,
+		PSTR("STATUS: VECTOR=%3.1f,%3.1f,%s=%s,%s=%s,%s=%s,%s=%s"),
+		direction, speed,
 		HardwareSwitchNames[HardwareSwitch::Switch1], getSwitchState(HardwareSwitch::Switch1) ? OnString : OffString,
 		HardwareSwitchNames[HardwareSwitch::Switch2], getSwitchState(HardwareSwitch::Switch2) ? OnString : OffString,
 		HardwareSwitchNames[HardwareSwitch::Switch3], getSwitchState(HardwareSwitch::Switch3) ? OnString : OffString,
-		HardwareSwitchNames[HardwareSwitch::Switch4], getSwitchState(HardwareSwitch::Switch4) ? OnString : OffString
-	);
+		HardwareSwitchNames[HardwareSwitch::Switch4], getSwitchState(HardwareSwitch::Switch4) ? OnString : OffString);
 }
 
 StateClass State;

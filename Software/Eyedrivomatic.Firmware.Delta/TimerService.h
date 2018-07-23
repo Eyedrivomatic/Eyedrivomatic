@@ -12,8 +12,7 @@
 
 // TimerService.h
 
-#ifndef _TIMERSERVICE_h
-#define _TIMERSERVICE_h
+#pragma once
 
 #define TIMER_REGISTRATION_QUEUE_SIZE 4
 
@@ -43,6 +42,3 @@ protected:
 };
 
 extern TimerServiceClass TimerService;
-
-#endif
-

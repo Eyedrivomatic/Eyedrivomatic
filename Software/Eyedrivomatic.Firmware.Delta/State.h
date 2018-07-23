@@ -38,8 +38,11 @@ public:
 	void init();
 	void reset();
 
-	void getPosition(float & xPos, float & yPos);
-	void setPosition(float xPos, float yPos);
+	void getPosition(double & xPos, double & yPos);
+	void setPosition(double xPos, double yPos);
+
+	void getVector(double & direction, double & speed);
+	void setVector(double direction, double speed);
 
 	void resetServoPositions();
 
@@ -51,6 +54,7 @@ public:
 private:
 	Servo leftServo;  // servo object to control the x servo
 	Servo rightServo;  // servo object to control the y servo
+	bool lastWasVector = true;
 };
 
 extern StateClass State;

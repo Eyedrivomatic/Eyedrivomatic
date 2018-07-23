@@ -27,7 +27,6 @@
 #include "WProgram.h"
 #endif
 
-//#include <MsTimer2.h>
 #include "TimerService.h"
 
 

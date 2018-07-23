@@ -19,13 +19,13 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
     [Category("Firmware")]
     public class SettingsTests
     {
-        private const int XMin = -22;
+        private const int XMin = -50;
         private const int XCenter = 0;
-        private const int XMax = 22;
+        private const int XMax = 50;
         //private const bool XInvert = false;
-        private const int YMin = -22;
+        private const int YMin = -50;
         private const int YCenter = 0;
-        private const int YMax = 22;
+        private const int YMax = 50;
         //private const bool YInvert = true;
         private readonly bool[] _switchStates = { false, false, false };
 

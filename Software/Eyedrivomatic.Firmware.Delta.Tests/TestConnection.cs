@@ -126,7 +126,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
                 if (response == Nak) return false;
 
                 var restOfLogProbably = Reader.ReadLine();
-                Console.WriteLine("LOG???" + (char)response + restOfLogProbably);
+                Console.WriteLine(">>" + (char)response + restOfLogProbably);
             }
         }
 

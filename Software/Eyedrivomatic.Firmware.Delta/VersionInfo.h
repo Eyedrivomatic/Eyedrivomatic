@@ -21,13 +21,9 @@
 	#include "WProgram.h"
 #endif
 
-#define VERSION_MAJOR 2
+#define VERSION_MAJOR 1
 #define VERSION_MINOR 0
-#define VERSION_BUILD 4
-
-#ifdef MOBILITY_CONCEPT_BUILD
-#define VERSION_VARIANT "MC"
-#endif
+#define VERSION_BUILD 0
 
 class VersionInfo
 {

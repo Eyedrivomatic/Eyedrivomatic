@@ -17,8 +17,8 @@
 
 #include <EEPROM.h>
 
-const char EEPROMCheckValue[] PROGMEM = "EYEDRIVE";
-#define EEPROM_SETTINGS_VERSION 3
+const char EEPROMCheckValue[] PROGMEM = "mEyeDriveHand_Mk";
+#define EEPROM_SETTINGS_VERSION 0
 
 void SettingsClass::init()
 {
@@ -42,14 +42,6 @@ void SettingsClass::reset()
 	CenterPos_Y = 0;
 	DeltaPositionConverter.getLimits(MinPos_X, MaxPos_X, MinPos_Y, MaxPos_Y);
 
-#ifdef MOBILITY_CONCEPT_BUILD
-	Invert_X = false;
-	Invert_Y = true;
-#else
-	Invert_X = true;
-	Invert_Y = false;
-#endif
-
 	DefaultSwitchStates[HardwareSwitch::Switch1] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch2] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch3] = false;
@@ -65,20 +57,12 @@ void SettingsClass::save()
 
 void SettingsClass::upgrade()
 {
-	if (Version < 3)
+	if (Version < 0)
 	{
-		DefaultSwitchStates[HardwareSwitch::Switch1] = false;
-		DefaultSwitchStates[HardwareSwitch::Switch2] = false;
-		DefaultSwitchStates[HardwareSwitch::Switch3] = false;
+		//Do something.
 	}
 
-	if (Version < 4)
-	{
-		Invert_X = true;
-		Invert_Y = false;
-	}
-
-	Version = 4;
+	Version = 0;
 
 	save();
 }

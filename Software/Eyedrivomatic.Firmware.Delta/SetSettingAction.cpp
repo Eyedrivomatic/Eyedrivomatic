@@ -66,12 +66,10 @@ const SetSettingsAction SettingsActions[] PROGMEM =
 	SetSettingsAction(SettingName_MinPosX, SetSettingActionClass::setXMin),
 	SetSettingsAction(SettingName_CenterPosX, SetSettingActionClass::setXCenter),
 	SetSettingsAction(SettingName_MaxPosX, SetSettingActionClass::setXMax),
-	SetSettingsAction(SettingName_InvertX, SetSettingActionClass::setXInvert),
 
 	SetSettingsAction(SettingName_MinPosY, SetSettingActionClass::setYMin),
 	SetSettingsAction(SettingName_CenterPosY, SetSettingActionClass::setYCenter),
 	SetSettingsAction(SettingName_MaxPosY, SetSettingActionClass::setYMax),
-	SetSettingsAction(SettingName_InvertY, SetSettingActionClass::setYInvert),
 
 	SetSettingsAction(SettingName_SwitchDefault, SetSettingActionClass::setSwitch),
 
@@ -102,53 +100,39 @@ void SetSettingActionClass::execute(const char * parameters)
 void SetSettingActionClass::setXMin(const char * parameters)
 {
 	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosX, Settings.MinPos_X);
-	GetSettingActionClass::getXMin(NULL);
+	GetSettingAction.getXMin(NULL);
 }
 
 void SetSettingActionClass::setXCenter(const char * parameters)
 {
 	ReadAndValidate_l(parameters, Settings.MinPos_X, Settings.MaxPos_X, SettingName_CenterPosX, Settings.CenterPos_X);
 	State.resetServoPositions();
-	GetSettingActionClass::getXCenter(NULL);
+	GetSettingAction.getXCenter(NULL);
 }
 
 void SetSettingActionClass::setXMax(const char * parameters)
 {
 	ReadAndValidate_l(parameters, Settings.CenterPos_X, 180, SettingName_MaxPosX, Settings.MaxPos_X);
-	GetSettingActionClass::getXMax(NULL);
+	GetSettingAction.getXMax(NULL);
 }
 
 void SetSettingActionClass::setYMin(const char * parameters)
 {
 	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosY, Settings.MinPos_Y);
-	GetSettingActionClass::getYMin(NULL);
-}
-
-void SetSettingActionClass::setYInvert(const char * parameters)
-{
-	ReadAndValidate_b(parameters, SettingName_InvertY, Settings.Invert_Y);
-	State.resetServoPositions();
-	GetSettingActionClass::getYInvert(NULL);
+	GetSettingAction.getYMin(NULL);
 }
 
 void SetSettingActionClass::setYCenter(const char * parameters)
 {
 	ReadAndValidate_l(parameters, Settings.MinPos_Y, Settings.MaxPos_Y, SettingName_CenterPosY, Settings.CenterPos_Y);
 	State.resetServoPositions();
-	GetSettingActionClass::getYCenter(NULL);
+	GetSettingAction.getYCenter(NULL);
 }
 
 void SetSettingActionClass::setYMax(const char * parameters)
 {
 	ReadAndValidate_l(parameters, Settings.CenterPos_Y, 180, SettingName_MaxPosY, Settings.MaxPos_Y);
-	GetSettingActionClass::getYMax(NULL);
-}
-
-void SetSettingActionClass::setXInvert(const char * parameters)
-{
-	ReadAndValidate_b(parameters, SettingName_InvertX, Settings.Invert_X);
-	State.resetServoPositions();
-	GetSettingActionClass::getXInvert(NULL);
+	GetSettingAction.getYMax(NULL);
 }
 
 void SetSettingActionClass::setSwitch(const char * parameters)
@@ -164,7 +148,7 @@ void SetSettingActionClass::setSwitch(const char * parameters)
 	{
 		LogErrorAndReturn(PSTR("ERROR: INVALID SWITCH STATE '%s'"), parameters);
 	}
-	GetSettingActionClass::getSwitch(cache);
+	GetSettingAction.getSwitch(cache);
 }
 
 void SetSettingActionClass::setDefaults(const char * parameters)
@@ -172,7 +156,8 @@ void SetSettingActionClass::setDefaults(const char * parameters)
 	LoggerService.debug_P(PSTR("Loading Factory Default Settings"));
 	Settings.reset();
 
-	GetSettingActionClass::getAll(parameters);
+	GetSettingAction.getAll(parameters);
+	State.reset();
 }
 
 SetSettingActionClass SetSettingAction;

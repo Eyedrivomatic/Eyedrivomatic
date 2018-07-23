@@ -19,13 +19,14 @@ public:
 	DeltaPositionConverterClass();
 	~DeltaPositionConverterClass();
 
-	void getServoPosFromCartesian(float x, float y, float & servo_x, float & servo_y);
-	void getCartesianFromServo(float servo_x, float servo_y, float & x, float & y);
+	void getServoPosFromCartesian(double x, double y, double & leftAngle, double & rightAngle);
+	void getCartesianFromServo(double rightAngle, double leftAngle, double & x, double & y);
 
-	void getServoPosFromVector(float theta, float mag, float & servo_x, float & servo_y);
-	void getVectorFromServo(float servo_x, float servo_y, float & theta, float & mag);
+	void getServoPosFromVector(double direction, double speed, double & leftAngle , double & rightAngle);
+	void getVectorFromServo(double leftAngle, double rightAngle, double & direction, double & speed);
 
-	void getLimits(int8_t & min_x, int8_t & max_x, int8_t & min_y, int8_t & max_y);
+	void getLimits(double & min_x, double & max_x, double & min_y, double & max_y);
+	void getLimits(double & maxSpeed);
 };
 
 extern DeltaPositionConverterClass DeltaPositionConverter;

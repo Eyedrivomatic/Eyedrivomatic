@@ -27,23 +27,18 @@ HostConnectionServiceClass::~HostConnectionServiceClass()
 
 void HostConnectionServiceClass::MonitorConnection()
 {
-	if (Serial && !_available)
+	auto dtr = Serial && Serial.dtr();
+	if (!dtr && _dtrEnable)
 	{
 		SendStartupInfo();
 		SendStatusAction.execute(NULL);
 	}
-	if (!Serial && _available)
-	{
-		Serial.flush();
-		Serial.clear();
-	}
-
-	_available = Serial;
+	_dtrEnable = dtr;
 }
 
 bool HostConnectionServiceClass::IsAvailable()
 {
-	return _available;
+	return Serial;
 }
 
 void HostConnectionServiceClass::SendStartupInfo()

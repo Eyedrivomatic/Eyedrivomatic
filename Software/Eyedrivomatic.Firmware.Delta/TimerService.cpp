@@ -20,18 +20,19 @@
 #include "WProgram.h"
 #endif
 
-#include <MsTimer2.h>
+#include <IntervalTimer.h>
 
 #include "TimerService.h"
 #include "LoggerService.h"
 
 #define TimeToTrigger(reg) (reg.durrationMs > reg.start) ? 
+IntervalTimer Timer;
 
 void TimerServiceClass::addTimer(TimerCallback callback, unsigned long milliseconds)
 {
 	unsigned long now = millis();
 
-	MsTimer2::stop();
+	Timer.end();
 
 	for (int i = 0; i< TIMER_REGISTRATION_QUEUE_SIZE; i++)
 	{ 
@@ -50,7 +51,7 @@ void TimerServiceClass::addTimer(TimerCallback callback, unsigned long milliseco
 void TimerServiceClass::removeTimer(TimerCallback callback)
 {
 	unsigned long now = millis();
-	MsTimer2::stop();
+	Timer.end();
 
 	if (_nextTimer != NULL && _nextTimer->callback == callback) _nextTimer = NULL;
 
@@ -87,14 +88,12 @@ void TimerServiceClass::set_next_timer(unsigned long now)
 
 	if (_nextTimer == NULL) return;
 
-	MsTimer2::set(_nextTimer->triggerTime - now, TimerServiceClass::timer_interrupt);
-	MsTimer2::start();
-
+	Timer.begin(TimerServiceClass::timer_interrupt, (_nextTimer->triggerTime - now) * 1000);
 }
 
 void TimerServiceClass::timer_interrupt()
 {
-	MsTimer2::stop();
+	Timer.end();
 	TimerService.trigger_timer(millis());
 }
 

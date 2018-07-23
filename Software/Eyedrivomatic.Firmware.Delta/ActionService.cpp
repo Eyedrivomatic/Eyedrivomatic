@@ -24,6 +24,7 @@
 #include "SendStatusAction.h"
 #include "EnableLogAction.h"
 #include "MoveAction.h"
+#include "GoAction.h"
 #include "InvalidAction.h"
 #include "StopAction.h"
 #include "LoggerService.h"
@@ -45,6 +46,7 @@ const char ActionName_SendStatus[] PROGMEM = "STATUS";
 const char ActionName_EnableLog[] PROGMEM = "LOG";
 const char ActionName_Stop[] PROGMEM = "STOP";
 const char ActionName_Move[] PROGMEM = "MOVE";
+const char ActionName_Go[] PROGMEM = "GO";
 const char ActionName_Switch[] PROGMEM = "SWITCH";
 const char ActionName_Set[] PROGMEM = "SET";
 const char ActionName_Get[] PROGMEM = "GET";
@@ -58,6 +60,7 @@ const CommandMapEntry CommandMap[] PROGMEM =
 	CommandMapEntry(ActionName_EnableLog, EnableLogAction),
 	CommandMapEntry(ActionName_Stop, StopAction),
 	CommandMapEntry(ActionName_Move, MoveAction),
+	CommandMapEntry(ActionName_Go, GoAction),
 	CommandMapEntry(ActionName_Switch, ToggleSwitchAction),
 	CommandMapEntry(ActionName_Set, SetSettingAction),
 	CommandMapEntry(ActionName_Get, GetSettingAction),

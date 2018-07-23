@@ -11,7 +11,6 @@
 #include "WProgram.h"
 #endif
 
-#include <MsTimer2.h>
 #include <avr/wdt.h>
 
 #include "Message.h"
@@ -28,13 +27,14 @@ void sendStartupInfo();
 // the setup function runs once when you press reset or power the board
 void setup() 
 {
+	LoggerService.shouldQueueLogs(false); //logs are queued in interrupts.
+
 	State.init();
 	Settings.init();
 	State.reset();
 
 	wdt_enable(WDTO_1S);
 
-	LoggerService.shouldQueueLogs(false);
 	LoggerService.sendQueuedLogs();
 }
 

@@ -15,7 +15,7 @@
 // 
 
 #include "LoggerService.h"
-#include "MoveAction.h"
+#include "GoAction.h"
 #include "SendStatusAction.h"
 #include "Response.h"
 #include "State.h"
@@ -31,54 +31,56 @@
 #define CancelWithError(msg, ...) Response.SendResponse_P( msg, ##__VA_ARGS__); cancel(true); return;
 
 //Parameters:
-// D X Y
+// Dir Speed Duration
 // Where each pair is a Hex byte and
+//  Dir = Direction of movement from -180.0 to 180.0. 
+//  Speed = Magnitude of movement from 0 to 100. 
 //  D = Duration in milliseconds. Unsigned value from 0 to 10000;
-//  X = Position of X servo from -100.0 to 100.0. 
-//  Y = Position of Y servo from -100.0 to 100.0. 
 // Resets servo positions if duration or servo position is out of range.
-void MoveActionClass::execute(const char * parameters)
+void GoActionClass::execute(const char * parameters)
 {
 	if (parameters == NULL) { CancelWithError(PSTR("ERROR: MISSING PARAMETERS")); }
 
 	const char* startPos = parameters;
 	char* endPos;
 
-	long duration = strtoul(startPos, &endPos, 10);
+	auto direction = strtof(startPos, &endPos);
+	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DIRECTION")); }
+	//if (-180.0f > direction || 180.0f < direction) { CancelWithError(PSTR("ERROR: DIRECTION OUT OF RANGE %f"), direction); }
+	//direction = fmod(direction, 180);
+
+	auto speed = strtof(startPos = endPos, &endPos);
+	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING SPEED")); }
+	if (0 > speed || 100.0f < speed) { CancelWithError(PSTR("ERROR: SPEED OUT OF RANGE %3.1f"), speed); }
+
+	long duration = strtoul(startPos = endPos, &endPos, 10);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DURATION")); }
 	if (duration < 0 || duration > 10000) { CancelWithError(PSTR("ERROR: DURATION OUT OF RANGE %d"), duration); }
 
-	double xPos = strtof(startPos = endPos, &endPos);
-	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING XPOS")); }
-	if (-100.0f > xPos || 100.0f < xPos) { CancelWithError(PSTR("ERROR: XPOS OUT OF RANGE %.1f"), xPos); }
-
-	double yPos = strtof(startPos = endPos, &endPos);
-	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING YPOS")); }
-	if (-100.0f > yPos || 100.0f < yPos) { CancelWithError(PSTR("ERROR: YPOS OUT OF RANGE %.1f"), yPos); }
-	LoggerService.debug_P(PSTR("Moving to %.1f, %.1f for %d ms"), xPos, yPos, duration);
+	LoggerService.debug_P(PSTR("Moving %.1f, at %.1f for %d ms"), direction, speed, duration);
 	cancel(false);
 
-	State.setPosition(xPos, yPos);
+	State.setVector(direction, speed);
 
 	if (duration == 0) return; 
 	TimerService.addTimer(timer_interupt, static_cast<unsigned long>(duration));
 }
 
-void MoveActionClass::cancel(bool reset)
+void GoActionClass::cancel(bool reset)
 {
 	TimerService.removeTimer(timer_interupt);
 	if (reset) State.resetServoPositions();
 }
 
 //static
-void MoveActionClass::timer_interupt()
+void GoActionClass::timer_interupt()
 {
 	LoggerService.shouldQueueLogs(true);
 
-	MoveAction.cancel(true);
+	GoAction.cancel(true);
 
 	LoggerService.shouldQueueLogs(false);
 }
 
-MoveActionClass MoveAction;
+GoActionClass GoAction;
 

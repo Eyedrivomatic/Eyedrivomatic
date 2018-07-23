@@ -19,7 +19,7 @@
 #include "WProgram.h"
 #endif
 
-#define LOG_QUEUE_SIZE 256
+#define LOG_QUEUE_SIZE 2048
 
 enum LogSeverity
 {

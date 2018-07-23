@@ -16,7 +16,7 @@
 
 #include "LoggerService.h"
 
-#define LOG_BUFFER_SIZE 128
+#define LOG_BUFFER_SIZE 512
 
 const char DebugLogPrefix[] PROGMEM = "LOG: DEBUG - ";
 const char InfoLogPrefix[] PROGMEM = "LOG: INFO - ";

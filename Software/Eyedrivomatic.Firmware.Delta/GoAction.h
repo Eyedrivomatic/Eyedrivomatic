@@ -10,28 +10,20 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
-// ResetDeviceService.h
+// GoAction.h
+
 #pragma once
 
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "arduino.h"
-#else
-#include "WProgram.h"
-#endif
+#include "Action.h"
 
-class HostConnectionServiceClass
+class GoActionClass : public ActionClass
 {
 public:
-	HostConnectionServiceClass();
-	~HostConnectionServiceClass();
+	virtual void execute(const char * parameters);
+	virtual void cancel(bool reset);
 
-	void MonitorConnection();
-	void SendStartupInfo();
-	
-	bool IsAvailable();
-private:
-	bool _dtrEnable = true;
+protected:
+	static void timer_interupt();
 };
 
-
-extern HostConnectionServiceClass HostConnectionService;
+extern GoActionClass GoAction;
