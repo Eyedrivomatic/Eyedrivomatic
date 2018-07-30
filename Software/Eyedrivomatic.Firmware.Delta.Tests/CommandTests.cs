@@ -30,7 +30,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.Initialize();
             if (_testConnection.SendMessage("SET DEFAULTS"))
             {
-                while (_testConnection.ReadMessage(out string msg) && msg.StartsWith("SETTING")){};
+                while (_testConnection.ReadMessage(out string msg) && msg.StartsWith("SETTING")){}
             }
             _testConnection.Stop();
             Thread.Sleep(100);
