@@ -10,6 +10,7 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using Gu.Localization;
@@ -48,9 +49,16 @@ namespace Eyedrivomatic.Infrastructure
             {
                 return Translated;
             }
-            catch (System.InvalidOperationException)
+            catch (InvalidOperationException)
             {
-                return Key;
+                try
+                {
+                    return Key;
+                }
+                catch (InvalidOperationException)
+                {
+                    return "INVALID";
+                }
             }
         }
     }

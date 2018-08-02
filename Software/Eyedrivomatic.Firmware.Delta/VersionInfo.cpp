@@ -21,9 +21,6 @@
 #define str(a) #a
 #define VERSION xstr(VERSION_MAJOR) "." xstr(VERSION_MINOR) "." xstr(VERSION_BUILD)
 
-#ifdef VERSION_VARIANT
-const char VersionInfo::Application[] = "Eyedrivomatic [" VERSION_VARIANT "]";
-#else
 const char VersionInfo::Application[] = "Eyedrivomatic";
-#endif
 const char VersionInfo::Version[] = VERSION;
+const char VersionInfo::Model[] = VERSION_MODEL;

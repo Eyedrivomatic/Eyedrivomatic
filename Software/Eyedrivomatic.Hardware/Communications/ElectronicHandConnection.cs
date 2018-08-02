@@ -50,7 +50,7 @@ namespace Eyedrivomatic.Hardware.Communications
             ConnectionStateChanged?.Invoke(this, new EventArgs());
         }
 
-        public VersionInfo VersionInfo { get; protected set; } = new VersionInfo(new Version(0, 0, 0, 0));
+        public VersionInfo VersionInfo { get; protected set; } = VersionInfo.Unknown;
 
         private bool _isConnecting;
         public bool IsConnecting
@@ -245,6 +245,8 @@ namespace Eyedrivomatic.Hardware.Communications
         {
             serialPort.DiscardInBuffer();
             serialPort.DtrEnable = true; //this will reset the Arduino.
+            await Task.Delay(100);
+            serialPort.DtrEnable = false;
 
             if (!serialPort.IsOpen) return null;
             var reader = new StreamReader(serialPort.BaseStream, Encoding.ASCII); //Do not dispose. It will close the underlying stream.

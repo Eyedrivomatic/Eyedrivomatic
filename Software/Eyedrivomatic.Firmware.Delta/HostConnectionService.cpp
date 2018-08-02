@@ -43,7 +43,7 @@ bool HostConnectionServiceClass::IsAvailable()
 
 void HostConnectionServiceClass::SendStartupInfo()
 {
-	Response.SendResponse_P(PSTR("START: %s - version %s"), VersionInfo::Application, VersionInfo::Version);
+	Response.SendResponse_P(PSTR("START: %s %s - version %s"), VersionInfo::Application, VersionInfo::Model, VersionInfo::Version);
 }
 
 HostConnectionServiceClass HostConnectionService;

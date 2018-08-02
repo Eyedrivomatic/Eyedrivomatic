@@ -27,7 +27,7 @@ namespace Eyedrivomatic.Hardware.Communications
         public VersionInfo VerifyStartupMessage(string firstMessage)
         {
             return string.CompareOrdinal(firstMessage.Substring(0, Math.Min(StartupMessage.Length, firstMessage.Length)), StartupMessage) == 0 
-                ? new VersionInfo(new Version(1, 0, 0, 0)) 
+                ? new VersionInfo("Original", new Version(1, 0, 0, 0)) 
                 : null;
         }
 
@@ -48,9 +48,29 @@ namespace Eyedrivomatic.Hardware.Communications
             }
             var version = new Version(match.Groups["Version"].Value);
             var variant = match.Groups["Variant"].Value;
-            return new VersionInfo(version, variant);
+            return new VersionInfo("MK1", version, variant);
         }
 
         public Dictionary<string, HardwareIdFilter> EyedrivomaticIds => ArduinoInfo.UnoDeviceIds;
+    }
+
+    [Export(typeof(IElectronicHandDeviceInfo))]
+    internal class ElectronicHandDeviceInfoDeltaV10 : IElectronicHandDeviceInfo
+    {
+        [return: AllowNull]
+        public VersionInfo VerifyStartupMessage(string firstMessage)
+        {
+            var regex = new Regex(@"START: Eyedrivomatic Delta (\[(?<Variant>\w+)\] )?- version (?<Version>(?<Major>[0-9]+)\.(?<Minor>[0-9]+)\.(?<Build>[0-9]+)(\.(?<Revision>[0-9]+))?)");
+            var match = regex.Match(firstMessage);
+            if (!match.Success)
+            {
+                return null;
+            }
+            var version = new Version(match.Groups["Version"].Value);
+            var variant = match.Groups["Variant"].Value;
+            return new VersionInfo("Delta", version, variant);
+        }
+
+        public Dictionary<string, HardwareIdFilter> EyedrivomaticIds => ArduinoInfo.TeencyDeviceIds;
     }
 }

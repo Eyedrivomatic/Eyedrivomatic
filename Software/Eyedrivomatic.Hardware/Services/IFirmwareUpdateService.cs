@@ -23,7 +23,7 @@ namespace Eyedrivomatic.Hardware.Services
         IEnumerable<VersionInfo> GetAvailableFirmware();
 
         [return:AllowNull]
-        VersionInfo GetLatestVersion(string variant);
+        VersionInfo GetLatestVersion(string model, string variant);
 
         Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, VersionInfo version, bool required, IProgress<double> progress = null);
     }

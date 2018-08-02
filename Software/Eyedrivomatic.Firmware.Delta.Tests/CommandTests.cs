@@ -121,7 +121,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Move_RangeAndExpectedRounding()
         {
             _testConnection.ReadStartup();
-            _testConnection.EnableLog(true);
+            _testConnection.EnableLog();
             
 
             for (var pos = -100; pos <= 100; pos++)
@@ -241,7 +241,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
         public void Test_Go_RangeAndExpectedRounding()
         {
             _testConnection.ReadStartup();
-            _testConnection.EnableLog(true);
+            _testConnection.EnableLog();
 
             for (var speed = 10; speed < 100; speed += 10)
             {
@@ -311,11 +311,11 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             var start = DateTime.Now;
             Assert.That(_testConnection.SendMessage("SWITCH 2000 2"), Is.True);
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyMoveStatus(message, 0, 0, false, true, false);
+            VerifyMoveStatus(message, 0, 0, false, true);
 
             Assert.That(_testConnection.SendMessage("SWITCH 1000 1"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyMoveStatus(message, 0, 0, true, true, false);
+            VerifyMoveStatus(message, 0, 0, true, true);
 
             Assert.That(_testConnection.SendMessage("SWITCH 3000 3"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);

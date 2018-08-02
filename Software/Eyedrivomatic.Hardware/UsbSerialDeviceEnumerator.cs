@@ -68,6 +68,12 @@ namespace Eyedrivomatic.Hardware
                 {"Arduino Uno R3", new HardwareIdFilter("2341", "0001", "0043", "0243")},
                 {"Genuino Uno R3", new HardwareIdFilter("2A03", "0001", "0043", "0243")}
             };
+
+        public static readonly Dictionary<string, HardwareIdFilter> TeencyDeviceIds =
+            new Dictionary<string, HardwareIdFilter>
+            {
+                {"Teencyduino Serial", new HardwareIdFilter("16C0", "0483")}
+            };
     }
 
     public class UsbSerialDevice : DeviceDescriptor

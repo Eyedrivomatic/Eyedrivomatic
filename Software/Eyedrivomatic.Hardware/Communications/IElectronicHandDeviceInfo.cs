@@ -17,22 +17,24 @@ namespace Eyedrivomatic.Hardware.Communications
 {
     public class VersionInfo
     {
-        public static VersionInfo Unknown = new VersionInfo(new Version(0,0,0));
+        public static VersionInfo Unknown = new VersionInfo("N/A", new Version(0,0,0));
 
-        public VersionInfo(Version version, string variant = null)
+        public VersionInfo(string model, Version version, string variant = null)
         {
+            Model = model;
             Variant = variant ?? string.Empty;
             Version = version;
         }
 
+        public string Model { get; }
         public string Variant { get; }
         public Version Version { get; }
 
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Variant) 
-                ? Version.ToString(3)
-                : $"{Version.ToString(3)} ({Variant} build)";
+            return string.IsNullOrEmpty(Variant)
+                ? $"{Model} {Version.ToString(3)}"
+                : $"{Model} {Version.ToString(3)} ({Variant} build)";
         }
     }
 

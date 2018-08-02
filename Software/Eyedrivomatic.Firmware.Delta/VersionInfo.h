@@ -21,15 +21,18 @@
 	#include "WProgram.h"
 #endif
 
-#define VERSION_MAJOR 1
-#define VERSION_MINOR 0
+#define VERSION_MAJOR 2
+#define VERSION_MINOR 1
 #define VERSION_BUILD 0
+
+#define VERSION_MODEL "Delta"
 
 class VersionInfo
 {
 public:
 	static const char Application[];
 	static const char Version[];
+	static const char Model[];
 };
 #endif
 

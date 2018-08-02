@@ -47,9 +47,9 @@ namespace Eyedrivomatic.ButtonDriver
         }
 
         [return: AllowNull]
-        public VersionInfo GetLatestVersion(string variant)
+        public VersionInfo GetLatestVersion(string model, string variant)
         {
-            return _target.GetLatestVersion(variant);
+            return _target.GetLatestVersion(model, variant);
         }
 
         public async Task<bool> UpdateFirmwareAsync(IDeviceConnection connection, VersionInfo version, bool required, [AllowNull] IProgress<double> progress)

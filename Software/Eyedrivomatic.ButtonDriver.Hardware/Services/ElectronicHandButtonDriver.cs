@@ -49,8 +49,8 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private IDisposable _connectionDatastream;
 
-        public static uint AvailableRelays = 3;
-        public static Version MinFirmwareVersion = new Version(2, 0, 3);
+        public static uint AvailableRelays = 4;
+        public static Version MinFirmwareVersion = new Version(2, 1, 0);
 
         [ImportingConstructor]
         internal ElectronicHandButtonDriver(
@@ -185,7 +185,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         private async Task CheckFirmwareVersion(IDeviceConnection connection, bool autoUpdateFirmware)
         {
-            var latestVersion = _firmwareUpdateService.GetLatestVersion(_variant);
+            var latestVersion = _firmwareUpdateService.GetLatestVersion(connection.VersionInfo.Model, _variant);
 
             //Required update.
             if (!string.IsNullOrEmpty(_variant) && string.CompareOrdinal(connection.VersionInfo.Variant, _variant) != 0)
