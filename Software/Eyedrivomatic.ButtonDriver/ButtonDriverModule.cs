@@ -16,8 +16,8 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.Views;
 using Eyedrivomatic.Controls;
@@ -33,10 +33,10 @@ namespace Eyedrivomatic.ButtonDriver
 {
     [ModuleExport(typeof(ButtonDriverModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames = new[] { nameof(ButtonDriverHardwareModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule), nameof(MacrosModule) })]
+        DependsOnModuleNames = new[] { nameof(ButtonDriverDeviceModule), nameof(ButtonDriverConfigurationModule), nameof(InfrastructureModule), nameof(MacrosModule) })]
     public class ButtonDriverModule : IModule, IDisposable
     {
-        private readonly IHardwareService _hardwareService;
+        private readonly IDeviceInitializationService _deviceInitializationService;
 
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IRegionManager _regionManager;
@@ -49,12 +49,12 @@ namespace Eyedrivomatic.ButtonDriver
         public ICommand ShowDisclaimerCommand { get; set; }
 
         [ImportingConstructor]
-        public ButtonDriverModule(IRegionManager regionManager, IHardwareService hardwareService, IButtonDriverConfigurationService configurationService, InteractionRequest<INotification> connectionFailureNotification)
+        public ButtonDriverModule(IRegionManager regionManager, IDeviceInitializationService deviceInitializationService, IButtonDriverConfigurationService configurationService, InteractionRequest<INotification> connectionFailureNotification)
         {
             Log.Debug(this, $"Creating Module {nameof(ButtonDriverModule)}.");
 
             _regionManager = regionManager;
-            _hardwareService = hardwareService;
+            _deviceInitializationService = deviceInitializationService;
             _configurationService = configurationService;
             _connectionFailureNotification = connectionFailureNotification;
         }
@@ -73,10 +73,10 @@ namespace Eyedrivomatic.ButtonDriver
 
             try
             {
-                await _hardwareService.InitializeAsync();
-                Log.Debug(this, $"HardwareService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
+                await _deviceInitializationService.InitializeAsync();
+                Log.Debug(this, $"DeviceInitializationService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
 
-                if (_hardwareService.CurrentDriver == null)
+                if (_deviceInitializationService.LoadedButtonDriver == null)
                 {
                     Log.Error(this, "Failed to initialize hardware. No driver selected.");
                     NavigateToConfiguration();
@@ -89,18 +89,18 @@ namespace Eyedrivomatic.ButtonDriver
                     if (!string.IsNullOrWhiteSpace(connectionString))
                     {
                         Log.Info(this, $"Connection string: [{connectionString}]");
-                        await _hardwareService.CurrentDriver.ConnectAsync(connectionString, true,
+                        await _deviceInitializationService.LoadedButtonDriver.ConnectAsync(connectionString, true,
                             CancellationToken.None);
                     }
                     else
                     {
                         Log.Warn(this, "Connection string not specified. Attempting to auto-detect.");
-                        await _hardwareService.CurrentDriver.AutoConnectAsync(true, CancellationToken.None);
-                        if (!string.IsNullOrEmpty(_hardwareService.CurrentDriver.Connection?.ConnectionString))
+                        await _deviceInitializationService.LoadedButtonDriver.AutoConnectAsync(true, CancellationToken.None);
+                        if (!string.IsNullOrEmpty(_deviceInitializationService.LoadedButtonDriver.Connection?.ConnectionString))
                         {
                             //save the connection string for faster connection next time.
                             _configurationService.ConnectionString =
-                                _hardwareService.CurrentDriver.Connection.ConnectionString;
+                                _deviceInitializationService.LoadedButtonDriver.Connection.ConnectionString;
                             _configurationService.Save(); 
                         }
                     }
@@ -163,7 +163,7 @@ namespace Eyedrivomatic.ButtonDriver
                 Translate.TranslationFor($"DriveProfile_{profile.Name.Replace(" ", "")}", profile.Name),
                 RegionNames.MainContentRegion,
                 GetNavigationUri(profile), 1);
-            button.CanNavigate = () => _hardwareService?.CurrentDriver?.HardwareReady ?? false;
+            button.CanNavigate = () => _deviceInitializationService?.LoadedButtonDriver?.DeviceReady ?? false;
 
             return button;
         }
@@ -200,7 +200,7 @@ namespace Eyedrivomatic.ButtonDriver
 
         public void Dispose()
         {
-            _hardwareService?.Dispose();
+            _deviceInitializationService?.Dispose();
         }
     }
 }

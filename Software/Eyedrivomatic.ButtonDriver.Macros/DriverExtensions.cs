@@ -12,7 +12,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Logging;
 

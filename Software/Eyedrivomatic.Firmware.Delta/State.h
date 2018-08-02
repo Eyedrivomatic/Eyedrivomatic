@@ -49,12 +49,11 @@ public:
 	bool getSwitchState(HardwareSwitch hardwareSwitch);
 	void setSwitchState(HardwareSwitch hardwareSwitch, bool state);
 
-	size_t toString(char * buffer, size_t size);
+	size_t toString(bool vector, char * buffer, size_t size);
 
 private:
 	Servo leftServo;  // servo object to control the x servo
 	Servo rightServo;  // servo object to control the y servo
-	bool lastWasVector = true;
 };
 
 extern StateClass State;

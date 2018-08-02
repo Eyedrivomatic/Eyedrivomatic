@@ -28,8 +28,10 @@
 
 void SendStatusActionClass::execute(const char * parameters)
 {
+	bool vector = strncmp_P(parameters, PSTR("VECTOR"), strlen_P(OnString)) == 0;
+
 	static char messageBuffer[WRITE_BUFFER_SIZE];
-	State.toString(messageBuffer, WRITE_BUFFER_SIZE);
+	State.toString(vector, messageBuffer, WRITE_BUFFER_SIZE);
 	Response.QueueResponse(messageBuffer);
 }
 

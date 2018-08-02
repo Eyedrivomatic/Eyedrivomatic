@@ -14,8 +14,8 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
-using Eyedrivomatic.Hardware.Communications;
+using Eyedrivomatic.ButtonDriver.Device.Services;
+using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
@@ -24,8 +24,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public class StatusViewModel : ButtonDriverViewModelBase, IStatusViewModel
     {
         [ImportingConstructor]
-        public StatusViewModel(IHardwareService hardwareService)
-            : base(hardwareService)
+        public StatusViewModel(IDeviceInitializationService deviceInitializationService)
+            : base(deviceInitializationService)
         {
 
         }
@@ -59,7 +59,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
 
         public Direction CurrentDirection => Driver?.CurrentDirection ?? Direction.None;
-        public Point JoystickPosition => Driver == null ? new Point() : new Point(Driver.DeviceStatus.XPosition, Driver.DeviceStatus.YPosition);
+        public Point JoystickPosition => Driver == null ? new Point() : Driver.DeviceStatus.Position;
         public bool Switch1 => Driver?.DeviceStatus.Switch1 ?? false;
         public bool Switch2 => Driver?.DeviceStatus.Switch2 ?? false;
         public bool Switch3 => Driver?.DeviceStatus.Switch3 ?? false;

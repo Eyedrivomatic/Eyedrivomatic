@@ -15,8 +15,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
-                    xmlns:communications="clr-namespace:Eyedrivomatic.Hardware.Communications;assembly=Eyedrivomatic.Hardware"
+                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Device.Services;assembly=Eyedrivomatic.ButtonDriver.Device"
+                    xmlns:communications="clr-namespace:Eyedrivomatic.Device.Communications;assembly=Eyedrivomatic.Device"
                     xmlns:gif="http://wpfanimatedgif.codeplex.com">
 
     <infrastructure:ValueToImageConverter x:Key="DirectionToImageConverter">

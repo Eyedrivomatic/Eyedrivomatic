@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 using Eyedrivomatic.Resources;
 using System.Xml.Serialization;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {

@@ -13,7 +13,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("EyeDrivomatic.ButtonDriver.Hardware.UnitTests")]
+[assembly: AssemblyTitle("EyeDrivomatic.ButtonDriver.Device.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

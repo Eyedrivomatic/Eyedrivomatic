@@ -14,7 +14,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Prism.Mvvm;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.Logging;
 
 
@@ -24,7 +24,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     {
         private IButtonDriver _driver;
 
-        protected IHardwareService HardwareService { get; }
+        protected IDeviceInitializationService DeviceInitializationService { get; }
 
         protected IButtonDriver Driver
         {
@@ -45,11 +45,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        protected ButtonDriverViewModelBase(IHardwareService hardwareService)
+        protected ButtonDriverViewModelBase(IDeviceInitializationService deviceInitializationService)
         {
-            HardwareService = hardwareService;
-            HardwareService.CurrentDriverChanged += (sender, args) => Driver = hardwareService.CurrentDriver;
-            Driver = HardwareService.CurrentDriver;
+            DeviceInitializationService = deviceInitializationService;
+            DeviceInitializationService.CurrentDriverChanged += (sender, args) => Driver = deviceInitializationService.LoadedButtonDriver;
+            Driver = DeviceInitializationService.LoadedButtonDriver;
         }
 
         protected virtual void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)

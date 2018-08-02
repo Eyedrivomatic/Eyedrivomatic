@@ -14,7 +14,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver;
-using Eyedrivomatic.Hardware;
+using Eyedrivomatic.Device;
 using Eyedrivomatic.Infrastructure;
 using Prism.Commands;
 using Prism.Events;

@@ -12,8 +12,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Windows;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware.Models
+namespace Eyedrivomatic.ButtonDriver.Device.Models
 {
     /// <summary>
     /// Represents the stauts of the device.
@@ -32,14 +33,9 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
         bool IsKnown { get; }
 
         /// <summary>
-        /// The Relative position of the X (left/right) servo.
+        /// The Relative position of the wheelchair joystick.
         /// </summary>
-        int XPosition { get; }
-
-        /// <summary>
-        /// The relative position of the Y (forward/backward) servo.
-        /// </summary>
-        int YPosition { get; }
+        Point Position { get; }
 
         /// <summary>
         /// The on/off state of switch 1. True = on.

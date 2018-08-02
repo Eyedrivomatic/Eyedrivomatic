@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware.Services
+namespace Eyedrivomatic.ButtonDriver.Device.Services
 {
     interface IFirmwareUpdateInteractionService
     {

@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware
+namespace Eyedrivomatic.ButtonDriver.Device
 {
     public class ConnectionFailedException : ApplicationException
     {

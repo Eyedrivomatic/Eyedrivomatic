@@ -13,12 +13,13 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using Eyedrivomatic.Hardware.Commands;
-using Eyedrivomatic.Hardware.Services;
+using System.Windows;
+using Eyedrivomatic.Device.Commands;
+using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 using Prism.Mvvm;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware.Models
+namespace Eyedrivomatic.ButtonDriver.Device.Models
 {
     [Export(typeof(IDeviceStatus))]
     [PartCreationPolicy(CreationPolicy.Shared)]
@@ -44,15 +45,15 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             private set => SetProperty(ref _isKnown , value);
         }
 
-        public int XPosition { get; private set; }
-
-        public int YPosition { get; private set; }
+        public Point Position { get; private set; }
 
         public bool Switch1 { get; private set; }
 
         public bool Switch2 { get; private set; }
 
         public bool Switch3 { get; private set; }
+
+        public bool Switch4 { get; private set; }
 
         internal TimeSpan RetryDelay { get; set; } = TimeSpan.FromSeconds(1);
 
@@ -61,11 +62,11 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Models
             Log.Info(this, $"Device status message received - {statusMessageEventArgs}");
             //Set all, then send a propery changed event.
             //This prevents the "double" updates on bound members.
-            XPosition = statusMessageEventArgs.XRelative;
-            YPosition = statusMessageEventArgs.YRelative;
+            Position = statusMessageEventArgs.Position;
             Switch1 = statusMessageEventArgs.Switch1;
             Switch2 = statusMessageEventArgs.Switch2;
             Switch3 = statusMessageEventArgs.Switch3;
+            Switch4 = statusMessageEventArgs.Switch4;
             IsKnown = true;
 
             // ReSharper disable once ExplicitCallerInfoArgument

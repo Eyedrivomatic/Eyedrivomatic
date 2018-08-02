@@ -16,12 +16,12 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware.Models;
-using Eyedrivomatic.Hardware.Communications;
-using Eyedrivomatic.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Models;
+using Eyedrivomatic.Device.Communications;
+using Eyedrivomatic.Device.Services;
 using NullGuard;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware.Services
+namespace Eyedrivomatic.ButtonDriver.Device.Services
 {
     #region Enums
     public enum ReadyState { None, Any, Continue }
@@ -67,7 +67,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         /// <summary>
         /// The device is currently sending valid status messages.
         /// </summary>
-        bool HardwareReady { get; }
+        bool DeviceReady { get; }
 
         /// <summary>
         /// Indicates which next actions are valid.

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Resources", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Controls", "Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj", "{7B85DEF1-07A1-4EA8-A5FC-269FAD82DD38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Hardware", "Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Hardware.csproj", "{9985222B-9BB5-4B68-9342-764C295D7FA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Device", "Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Device.csproj", "{9985222B-9BB5-4B68-9342-764C295D7FA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Configuration", "Eyedrivomatic.ButtonDriver.Configuration\Eyedrivomatic.ButtonDriver.Configuration.csproj", "{C22CE76F-B9BB-441C-982E-5859E7EF531B}"
 EndProject
@@ -55,9 +55,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Eyegaze.Confi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{8C5AD309-7DDC-49DB-91BA-66D8614D5D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Hardware", "Eyedrivomatic.Hardware\Eyedrivomatic.Hardware.csproj", "{CAAD25FE-1FB3-4B50-9D6F-DD1681E1BEA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Device", "Eyedrivomatic.Device\Eyedrivomatic.Device.csproj", "{CAAD25FE-1FB3-4B50-9D6F-DD1681E1BEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Hardware.UnitTests", "Eyedrivomatic.Hardware.UnitTests\Eyedrivomatic.Hardware.UnitTests.csproj", "{EB170822-418B-47F9-8B8A-B456516295C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Device.UnitTests", "Eyedrivomatic.Device.UnitTests\Eyedrivomatic.Device.UnitTests.csproj", "{EB170822-418B-47F9-8B8A-B456516295C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.Logging", "Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj", "{785AB166-FD30-487D-A963-9AD39D9979A5}"
 EndProject
@@ -692,7 +692,7 @@ Global
 		{DC0082DE-C0F9-45B2-8F01-4B55879A142A} = {65D2AEA3-3247-4474-A882-4B1542CB32EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F78FE821-D5B8-4B44-9431-0B75AA03A224}
 		RESX_ExcelExportMode = MultipleSheets
+		SolutionGuid = {F78FE821-D5B8-4B44-9431-0B75AA03A224}
 	EndGlobalSection
 EndGlobal

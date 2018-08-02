@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using Eyedrivomatic.Hardware;
+using Eyedrivomatic.Device;
 using Eyedrivomatic.Infrastructure.Annotations;
 using NullGuard;
 using Prism.Events;

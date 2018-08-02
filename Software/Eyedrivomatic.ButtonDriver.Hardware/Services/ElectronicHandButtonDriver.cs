@@ -20,19 +20,20 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware.Models;
-using Eyedrivomatic.Hardware;
-using Eyedrivomatic.Hardware.Commands;
-using Eyedrivomatic.Hardware.Communications;
-using Eyedrivomatic.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Models;
+using Eyedrivomatic.Device;
+using Eyedrivomatic.Device.Commands;
+using Eyedrivomatic.Device.Communications;
+using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using NullGuard;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace Eyedrivomatic.ButtonDriver.Hardware.Services
+namespace Eyedrivomatic.ButtonDriver.Device.Services
 {
     [Export(typeof(IButtonDriver))]
     [PartCreationPolicy(CreationPolicy.Shared)]
@@ -81,7 +82,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             if (e.PropertyName == nameof(DeviceStatus.IsKnown))
             {
-                RaisePropertyChanged(nameof(HardwareReady));
+                RaisePropertyChanged(nameof(DeviceReady));
             }
 
             RaisePropertyChanged(nameof(CurrentDirection));
@@ -261,20 +262,20 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
                 if (!SetProperty(ref _connectionState, value)) return;
 
                 RaisePropertyChanged(nameof(CurrentDirection));
-                RaisePropertyChanged(nameof(HardwareReady));
+                RaisePropertyChanged(nameof(DeviceReady));
                 RaisePropertyChanged(nameof(ReadyState));
                 RaisePropertyChanged(nameof(DeviceStatus));
                 _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(value);
             }
         }
 
-        public bool HardwareReady => Connection?.State == ConnectionState.Connected && DeviceStatus.IsKnown;
+        public bool DeviceReady => Connection?.State == ConnectionState.Connected && DeviceStatus.IsKnown;
 
         public ReadyState ReadyState
         {
             get
             {
-                if (!HardwareReady) return ReadyState.None;
+                if (!DeviceReady) return ReadyState.None;
 
                 if (Profile.SafetyBypass) return ReadyState.Any;
 
@@ -287,29 +288,29 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
         {
             get
             {
-                if (!HardwareReady) return Direction.None;
+                if (!DeviceReady) return Direction.None;
 
-                if (DeviceStatus.YPosition < 0)
+                if (DeviceStatus.Position.Y < 0)
                 {
-                    return DeviceStatus.XPosition == 0
+                    return Math.Abs(DeviceStatus.Position.Y) < 0.1
                         ? Direction.Backward
-                        : DeviceStatus.XPosition > 0
+                        : DeviceStatus.Position.Y > 0
                             ? Direction.BackwardRight
                             : Direction.BackwardLeft;
                 }
 
-                if (DeviceStatus.YPosition > 0)
+                if (DeviceStatus.Position.Y > 0)
                 {
-                    return DeviceStatus.XPosition == 0
+                    return Math.Abs(DeviceStatus.Position.Y) < 0.1
                         ? Direction.Forward
-                        : DeviceStatus.XPosition > 0
+                        : DeviceStatus.Position.Y > 0
                             ? Direction.ForwardRight
                             : Direction.ForwardLeft;
                 }
 
-                return DeviceStatus.XPosition == 0
+                return Math.Abs(DeviceStatus.Position.Y) < 0.1
                     ? Direction.None
-                    : DeviceStatus.XPosition > 0
+                    : DeviceStatus.Position.Y > 0
                         ? Direction.Right
                         : Direction.Left;
             }
@@ -401,7 +402,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
             try
             {
                 _nudge += direction == XDirection.Right ? Profile.CurrentSpeed.Nudge : -Profile.CurrentSpeed.Nudge;
-                if (!await _commands.Move(_nudge, Profile.CurrentSpeed.YForward, duration))
+                if (!await _commands.Move(new Point(_nudge, Profile.CurrentSpeed.YForward), duration))
                 {
                     Log.Error(this, $"Failed to send nudge [{direction}] command.");
                 }
@@ -414,7 +415,7 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
         public bool CanMove(Direction direction)
         {
-            return HardwareReady &&
+            return DeviceReady &&
                 (Profile.SafetyBypass
                 || ContinueState == ContinueState.Continued
                 || LastDirection != direction);
@@ -432,14 +433,14 @@ namespace Eyedrivomatic.ButtonDriver.Hardware.Services
 
             var directionCommands = new Dictionary<Direction, Func<Task<bool>>>
                 {
-                    {Direction.Forward,       () => _commands.Move(_nudge, speed.YForward, duration)},
-                    {Direction.ForwardRight,  () => _commands.Move(speed.XDiag, speed.YForwardDiag, duration)},
-                    {Direction.Right,         () => _commands.Move(speed.X, 0, duration)},
-                    {Direction.BackwardRight, () => _commands.Move(speed.XDiag,  -speed.YBackwardDiag, duration)},
-                    {Direction.Backward,      () => _commands.Move(0, -speed.YBackward, duration)},
-                    {Direction.BackwardLeft,  () => _commands.Move(-speed.XDiag, -speed.YBackwardDiag, duration)},
-                    {Direction.Left,          () => _commands.Move(-speed.X, 0, duration)},
-                    {Direction.ForwardLeft,   () => _commands.Move(-speed.XDiag, speed.YForwardDiag, duration)},
+                    {Direction.Forward,       () => _commands.Move(new Point(_nudge, speed.YForward), duration)},
+                    {Direction.ForwardRight,  () => _commands.Move(new Point(speed.XDiag, speed.YForwardDiag), duration)},
+                    {Direction.Right,         () => _commands.Move(new Point(speed.X, 0), duration)},
+                    {Direction.BackwardRight, () => _commands.Move(new Point(speed.XDiag,  -speed.YBackwardDiag), duration)},
+                    {Direction.Backward,      () => _commands.Move(new Point(0, -speed.YBackward), duration)},
+                    {Direction.BackwardLeft,  () => _commands.Move(new Point(-speed.XDiag, -speed.YBackwardDiag), duration)},
+                    {Direction.Left,          () => _commands.Move(new Point(-speed.X, 0), duration)},
+                    {Direction.ForwardLeft,   () => _commands.Move(new Point(-speed.XDiag, speed.YForwardDiag), duration)},
                 };
 
             if (!directionCommands.ContainsKey(direction)) throw new InvalidEnumArgumentException(nameof(direction), (int)direction, typeof(Direction));

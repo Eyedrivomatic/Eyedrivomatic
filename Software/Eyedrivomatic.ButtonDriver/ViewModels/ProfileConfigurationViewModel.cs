@@ -17,7 +17,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.Common.Extensions;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Infrastructure;
@@ -40,11 +40,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         private readonly InteractionRequest<IConfirmationWithCustomButtons> _confirmationRequest;
 
         [ImportingConstructor]
-        public ProfileConfigurationViewModel(IHardwareService hardwareService,
+        public ProfileConfigurationViewModel(IDeviceInitializationService deviceInitializationService,
             IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory,
             [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand, 
             InteractionRequest<IConfirmationWithCustomButtons> confirmationRequest)
-            : base(hardwareService)
+            : base(deviceInitializationService)
         {
             _configurationService = configurationService;
             _profileFactory = profileFactory;

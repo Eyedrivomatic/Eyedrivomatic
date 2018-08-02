@@ -18,7 +18,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Hardware.Services;assembly=Eyedrivomatic.ButtonDriver.Hardware"
+             xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Device.Services;assembly=Eyedrivomatic.ButtonDriver.Device"
              xmlns:viewModels="clr-namespace:Eyedrivomatic.ButtonDriver.ViewModels"
              xmlns:models="clr-namespace:Eyedrivomatic.ButtonDriver.Macros.Models;assembly=Eyedrivomatic.ButtonDriver.Macros"
              xmlns:views="clr-namespace:Eyedrivomatic.ButtonDriver.Views"

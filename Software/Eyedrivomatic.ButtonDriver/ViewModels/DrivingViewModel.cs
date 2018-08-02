@@ -19,7 +19,7 @@ using System.Linq;
 using System.Windows.Input;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Prism.Commands;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Resources;
@@ -38,12 +38,12 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         private double _duration;
 
         [ImportingConstructor]
-        public DrivingViewModel(IHardwareService hardwareService,
+        public DrivingViewModel(IDeviceInitializationService deviceInitializationService,
             [Import("ExecuteMacroCommand")]ICommand executeMacroCommand,
             IMacroSerializationService macroSerializationService,
             IEnumerable<Profile> profiles,
             ICamera camera)
-            : base (hardwareService)
+            : base (deviceInitializationService)
         {
             _profiles = profiles;
             _camera = camera;
@@ -55,7 +55,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
-        public bool IsOnline => Driver?.HardwareReady ?? false;
+        public bool IsOnline => Driver?.DeviceReady ?? false;
 
         public bool ShowForwardView => _camera.IsCapturing;
 
@@ -70,7 +70,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             }
         }
 
-        public IEnumerable<ProfileSpeed> Speeds => HardwareService.CurrentDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
+        public IEnumerable<ProfileSpeed> Speeds => DeviceInitializationService.LoadedButtonDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
 
         [AllowNull]
         public ProfileSpeed CurrentSpeed

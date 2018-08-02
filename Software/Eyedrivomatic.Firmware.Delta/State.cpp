@@ -18,7 +18,7 @@
 #include "DeltaPositionConverter.h"
 
 
-#define SendStatus() SendStatusAction.execute(NULL)
+#define SendStatus(vector) SendStatusAction.execute(vector ? "VECTOR" : NULL)
 
 
 #define SERVO_LEFT 7
@@ -64,7 +64,7 @@ void StateClass::reset()
 	digitalWrite(switchPins[HardwareSwitch::Switch4], LOW);
 	resetServoPositions(); //queues a status message.
 	digitalWrite(SERVO_ENABLE, HIGH);
-	SendStatus();
+	SendStatus(true);
 }
 
 int AngleToMicroseconds(double angle)
@@ -102,9 +102,8 @@ void StateClass::setPosition(double xPos, double yPos)
 
 	leftServo.writeMicroseconds(leftUs);
 	rightServo.writeMicroseconds(rightUs);
-	lastWasVector = false;
 
-	SendStatus();
+	SendStatus(false);
 }
 
 void StateClass::getVector(double & direction, double & speed)
@@ -130,8 +129,7 @@ void StateClass::setVector(double direction, double speed)
 
 	leftServo.writeMicroseconds(leftUs);
 	rightServo.writeMicroseconds(rightUs);
-	lastWasVector = true;
-	SendStatus();
+	SendStatus(true);
 }
 
 
@@ -151,12 +149,12 @@ void StateClass::setSwitchState(HardwareSwitch hardwareSwitch, bool state)
 	if (hardwareSwitch < 0 || hardwareSwitch > sizeof(switchPins)) return;
 
 	digitalWrite(switchPins[hardwareSwitch], state ? HIGH : LOW);
-	SendStatus();
+	SendStatus(true);
 }
 
-size_t StateClass::toString(char * buffer, size_t size)
+size_t StateClass::toString(bool vector, char * buffer, size_t size)
 {
-	if (!lastWasVector)
+	if (!vector)
 	{
 		double xPos, yPos;
 		getPosition(xPos, yPos);

@@ -22,12 +22,12 @@ using System.Windows.Input;
 
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Configuration;
-using Eyedrivomatic.ButtonDriver.Hardware;
-using Eyedrivomatic.ButtonDriver.Hardware.Models;
-using Eyedrivomatic.ButtonDriver.Hardware.Services;
+using Eyedrivomatic.ButtonDriver.Device;
+using Eyedrivomatic.ButtonDriver.Device.Models;
+using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.Configuration;
-using Eyedrivomatic.Hardware.Communications;
-using Eyedrivomatic.Hardware.Services;
+using Eyedrivomatic.Device.Communications;
+using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
@@ -45,11 +45,11 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         [ImportingConstructor]
         public DeviceConfigturationViewModel(
-            IHardwareService hardwareService, 
+            IDeviceInitializationService deviceInitializationService, 
             IButtonDriverConfigurationService configurationService,
             [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand,
             InteractionRequest<INotification> connectionFailureNotification)
-            : base(hardwareService)
+            : base(deviceInitializationService)
         {
             _configurationService = configurationService;
             _connectionFailureNotification = connectionFailureNotification;
@@ -82,7 +82,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         public bool Connecting => Driver?.Connection?.State == ConnectionState.Connecting;
         public bool Connected => Driver?.Connection?.State == ConnectionState.Connected;
-        public bool Ready => Driver.HardwareReady;
+        public bool Ready => Driver.DeviceReady;
         
         private IList<DeviceDescriptor> _availableDevices;
         public IList<DeviceDescriptor> AvailableDevices
@@ -234,7 +234,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => -(Driver.DeviceSettings.MinPosX ?? 0);
             set => Driver.DeviceSettings.MinPosX = -value;
         }
-        public int LeftMaxLimit => -Driver.DeviceSettings.HardwareMinPosX;
+        public int LeftMaxLimit => -Driver.DeviceSettings.DeviceMinPosX;
         public int LeftMinLimit => -(Driver.DeviceSettings.CenterPosX ?? 0) + 1;
 
         public int RightLimit
@@ -242,7 +242,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => Driver.DeviceSettings.MaxPosX ?? 0;
             set => Driver.DeviceSettings.MaxPosX = value;
         }
-        public int RightMaxLimit => Driver.DeviceSettings.HardwareMaxPosX;
+        public int RightMaxLimit => Driver.DeviceSettings.DeviceMaxPosX;
         public int RightMinLimit => (Driver.DeviceSettings.CenterPosX ?? 0) + 1;
 
         public int BackwardLimit
@@ -250,7 +250,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => -(Driver.DeviceSettings.MinPosY ?? 0);
             set => Driver.DeviceSettings.MinPosY = -value;
         }
-        public int BackwardMaxLimit => -Driver.DeviceSettings.HardwareMinPosY;
+        public int BackwardMaxLimit => -Driver.DeviceSettings.DeviceMinPosY;
         public int BackwardMinLimit => -(Driver.DeviceSettings.CenterPosY ?? 0) + 1;
 
         public int ForwardLimit
@@ -258,7 +258,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             get => Driver.DeviceSettings.MaxPosY ?? 0;
             set => Driver.DeviceSettings.MaxPosY = value;
         }
-        public int ForwardMaxLimit => Driver.DeviceSettings.HardwareMaxPosY;
+        public int ForwardMaxLimit => Driver.DeviceSettings.DeviceMaxPosY;
         public int ForwardMinLimit => (Driver.DeviceSettings.CenterPosY ?? 0) + 1;
 
         private bool _deviceHasChanges;
@@ -280,7 +280,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         {
             base.OnDriverStateChanged(sender, e);
 
-            if (e.PropertyName == nameof(Driver.HardwareReady)) RaisePropertyChanged(nameof(Ready));
+            if (e.PropertyName == nameof(Driver.DeviceReady)) RaisePropertyChanged(nameof(Ready));
 
             if (e.PropertyName == nameof(Driver.Connection))
             {

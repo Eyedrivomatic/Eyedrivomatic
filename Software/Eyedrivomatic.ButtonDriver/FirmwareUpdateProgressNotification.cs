@@ -1,5 +1,5 @@
 using System;
-using Eyedrivomatic.Hardware.Communications;
+using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Infrastructure;
 
 namespace Eyedrivomatic.ButtonDriver
