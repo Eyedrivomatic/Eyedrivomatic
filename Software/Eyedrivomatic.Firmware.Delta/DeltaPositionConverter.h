@@ -26,7 +26,7 @@ public:
 	void getVectorFromServo(double leftAngle, double rightAngle, double & direction, double & speed);
 
 	void getLimits(double & min_x, double & max_x, double & min_y, double & max_y);
-	void getLimits(double & maxSpeed);
+	void getLimits(double & max_speed);
 };
 
 extern DeltaPositionConverterClass DeltaPositionConverter;

@@ -12,7 +12,7 @@
 
 using System;
 using System.ComponentModel;
-using System.Windows;
+using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.ButtonDriver.Device.Models
 {
@@ -33,9 +33,9 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
         bool IsKnown { get; }
 
         /// <summary>
-        /// The Relative position of the wheelchair joystick.
+        /// The direction and speed applied to the wheelchair joystick.
         /// </summary>
-        Point Position { get; }
+        Vector Vector { get; }
 
         /// <summary>
         /// The on/off state of switch 1. True = on.
@@ -51,5 +51,10 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
         /// The on/off state of switch 3. True = on.
         /// </summary>
         bool Switch3 { get; }
+
+        /// <summary>
+        /// The on/off state of switch 4. True = on.
+        /// </summary>
+        bool Switch4 { get; }
     }
 }

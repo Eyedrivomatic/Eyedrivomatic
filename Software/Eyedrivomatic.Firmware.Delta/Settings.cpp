@@ -17,7 +17,7 @@
 
 #include <EEPROM.h>
 
-const char EEPROMCheckValue[] PROGMEM = "mEyeDriveHand_Mk";
+const char EEPROMCheckValue[] PROGMEM = "mEyeDriveHand_Delta";
 #define EEPROM_SETTINGS_VERSION 0
 
 void SettingsClass::init()
@@ -40,11 +40,13 @@ void SettingsClass::reset()
 	Version = EEPROM_SETTINGS_VERSION;
 	CenterPos_X = 0;
 	CenterPos_Y = 0;
-	DeltaPositionConverter.getLimits(MinPos_X, MaxPos_X, MinPos_Y, MaxPos_Y);
+	Orientation = 0;
+	DeltaPositionConverter.getLimits(Max_Speed);
 
 	DefaultSwitchStates[HardwareSwitch::Switch1] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch2] = false;
 	DefaultSwitchStates[HardwareSwitch::Switch3] = false;
+	DefaultSwitchStates[HardwareSwitch::Switch4] = false;
 
 	save();
 }

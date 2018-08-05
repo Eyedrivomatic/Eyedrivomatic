@@ -136,10 +136,12 @@
     <Compile Include="Commands\IBrainBoxCommands.cs" />
     <Compile Include="Commands\GoCommand.cs" />
     <Compile Include="Commands\MoveCommand.cs" />
+    <Compile Include="Commands\Point.cs" />
     <Compile Include="Commands\SaveConfigurationCommand.cs" />
     <Compile Include="Commands\SetConfigurationCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\ToggleRelayCommand.cs" />
+    <Compile Include="Commands\Vector.cs" />
     <Compile Include="Communications\ElectronicHandInfo.cs" />
     <Compile Include="Communications\ElectronicHandConnection.cs" />
     <Compile Include="Communications\ChecksumProcessor.cs" />

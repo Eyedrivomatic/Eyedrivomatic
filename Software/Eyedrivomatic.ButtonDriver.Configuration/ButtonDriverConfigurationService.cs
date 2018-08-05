@@ -153,10 +153,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         #endregion Change event handlers
 
         [Export("DeviceVariant")]
-        public string Variant
-        {
-            get => _configuration.Variant;
-        }
+        public string Variant => _configuration.Variant;
 
         public bool AutoConnect
         {

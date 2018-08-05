@@ -49,6 +49,9 @@ public:
 	bool getSwitchState(HardwareSwitch hardwareSwitch);
 	void setSwitchState(HardwareSwitch hardwareSwitch, bool state);
 
+	void getSpeedLimit(double & max_speed);
+	void getCenterLimit(double & min_x, double & max_x, double & min_y, double & max_y);
+
 	size_t toString(bool vector, char * buffer, size_t size);
 
 private:

@@ -189,8 +189,8 @@ void DeltaPositionConverterClass::getServoPosFromCartesian(double x, double y, d
 {
 	auto runtime = millis();
 	point target;
-	target.x = toAbsolutePosition(x, Settings.MinPos_X, Settings.CenterPos_X, Settings.MaxPos_X);
-	target.y = toAbsolutePosition(y, Settings.MinPos_Y, Settings.CenterPos_Y, Settings.MaxPos_Y);
+	target.x = toAbsolutePosition(x, Settings.CenterPos_X - Settings.Max_Speed, Settings.CenterPos_X, Settings.CenterPos_X + Settings.Max_Speed);
+	target.y = toAbsolutePosition(y, Settings.CenterPos_Y - Settings.Max_Speed, Settings.CenterPos_Y, Settings.CenterPos_Y + Settings.Max_Speed);
 
 	//LoggerService.debug_P(PSTR("getServoPosFromCartesian: absolute pos=[%3.3f, %3.3f]"), target.x, target.y);
 
@@ -229,8 +229,8 @@ void DeltaPositionConverterClass::getCartesianFromServo(double leftAngle, double
 
 	//LoggerService.debug_P(PSTR("getCartesianFromServo: absolute pos=[%3.3f, %3.3f]"), position.x, position.y);
 
-	x = toRelativePosition(position.x, Settings.MinPos_X, Settings.CenterPos_X, Settings.MaxPos_X);
-	y = toRelativePosition(position.y, Settings.MinPos_Y, Settings.CenterPos_Y, Settings.MaxPos_Y);
+	x = toRelativePosition(position.x, Settings.CenterPos_X - Settings.Max_Speed, Settings.CenterPos_X, Settings.CenterPos_X + Settings.Max_Speed);
+	y = toRelativePosition(position.y, Settings.CenterPos_Y - Settings.Max_Speed, Settings.CenterPos_Y, Settings.CenterPos_Y + Settings.Max_Speed);
 
 	runtime = millis() - runtime;
 	LoggerService.debug_P(PSTR("getCartesianFromServo took [%d] milliseconds to run. Result: left angle=[%3.3f], right angle=[%3.3f], pos=[%3.3f, %3.3f]"), runtime, leftAngle, rightAngle, x, y);
@@ -260,26 +260,16 @@ void DeltaPositionConverterClass::getVectorFromServo(double leftServo, double ri
 
 void DeltaPositionConverterClass::getLimits(double & min_x, double & max_x, double & min_y, double & max_y)
 {
-	min_x = -MAX_MOVE_ABS;
-	max_x = MAX_MOVE_ABS;
-	min_y = -MAX_MOVE_ABS;
-	max_y = MAX_MOVE_ABS;
-	//double temp;
-	//double min,max;
-	//getCartesianFromServo(0, 180, min, temp);
-	//getCartesianFromServo(180, 0, max, temp);
-	//min_x = static_cast<int8_t>(ceil(min));
-	//max_x = static_cast<int8_t>(floor(max));
-
-	//getCartesianFromServo(0, 0, temp, min);
-	//getCartesianFromServo(180, 180, temp, max);
-	//min_y = static_cast<int8_t>(ceil(min));
-	//max_y = static_cast<int8_t>(floor(max));
+	min_x = -MAX_MOVE_ABS + Settings.CenterPos_X;
+	max_x = MAX_MOVE_ABS - Settings.CenterPos_X;
+	min_y = -MAX_MOVE_ABS + Settings.CenterPos_Y;
+	max_y = MAX_MOVE_ABS - Settings.CenterPos_Y;
 }
 
 void DeltaPositionConverterClass::getLimits(double & maxSpeed)
 {
-	maxSpeed = MAX_MOVE_ABS;
+	double centerDeflection = hypot(Settings.CenterPos_X, Settings.CenterPos_Y);
+	maxSpeed = MAX_MOVE_ABS - abs(centerDeflection);
 }
 
 DeltaPositionConverterClass DeltaPositionConverter;

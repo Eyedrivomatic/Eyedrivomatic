@@ -50,7 +50,7 @@ bool SettingActionBaseClass::getHardwareSwitch(const char ** parameters, Hardwar
 	long switchNum = strtol(start, &numEnd, 10)-1;
 	if (start == numEnd) return false;
 	
-	if (switchNum < HardwareSwitch::Switch1 || switchNum > HardwareSwitch::Switch3) return false;
+	if (switchNum < HardwareSwitch::Switch1 || switchNum > HardwareSwitch::Switch4) return false;
 
 	hardwareSwitch = static_cast<HardwareSwitch>(switchNum);
 	*parameters = numEnd;

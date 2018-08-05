@@ -12,10 +12,9 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Globalization;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
+using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Logging;
 
@@ -27,7 +26,7 @@ namespace Eyedrivomatic.Device.Services
     internal class StatusMessageProcessor : LineMessageProcessor, IStatusMessageSource
     {
         public const string MessagePrefix = "STATUS:";
-        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix} POS=(?<XPos>-?\d{{1,3}}\.\d{{1,3}}),(?<YPos>-?\d{{1,3}}\.\d{{1,3}}),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF),SWITCH 4=(?<Switch3>ON|OFF)$");
+        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix} POS=(?<Pos>-?\d{{1,3}}\.\d{{1,3}},-?\d{{1,3}}\.\d{{1,3}}),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF),SWITCH 4=(?<Switch3>ON|OFF)$");
 
         internal void Process(string message)
         {
@@ -48,8 +47,7 @@ namespace Eyedrivomatic.Device.Services
 
             StatusMessageReceived?.Invoke(this,
                 new StatusMessageEventArgs(
-                    new Point(Double.Parse(match.Groups["XPos"].Value, CultureInfo.InvariantCulture),
-                              Double.Parse(match.Groups["YPos"].Value, CultureInfo.InvariantCulture)),
+                    Point.Parse(match.Groups["Pos"].Value),
                     match.Groups["Switch1"].Value == "ON",
                     match.Groups["Switch2"].Value == "ON",
                     match.Groups["Switch3"].Value == "ON",

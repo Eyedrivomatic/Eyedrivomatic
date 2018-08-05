@@ -21,12 +21,11 @@
 #include "WProgram.h"
 #endif
 
-const char SettingName_CenterPosX[] PROGMEM = "CENTER_X";
-const char SettingName_MinPosX[] PROGMEM = "MIN_X";
-const char SettingName_MaxPosX[] PROGMEM = "MAX_X";
-const char SettingName_CenterPosY[] PROGMEM = "CENTER_Y";
-const char SettingName_MinPosY[] PROGMEM = "MIN_Y";
-const char SettingName_MaxPosY[] PROGMEM = "MAX_Y";
+const char SettingName_Center[] PROGMEM = "CENTER";
+const char SettingName_CenterX[] PROGMEM = "CENTER Y";
+const char SettingName_CenterY[] PROGMEM = "CENTER X";
+const char SettingName_MaxSpeed[] PROGMEM = "MAX_SPEED";
+const char SettingName_Orientation[] PROGMEM = "ORIENTATION";
 const char SettingName_SwitchDefault[] PROGMEM = "SWITCH";
 
 struct SettingsClass
@@ -36,14 +35,11 @@ public:
 	uint8_t Version;
 
 	double CenterPos_X;
-	double MinPos_X;
-	double MaxPos_X;
-
 	double CenterPos_Y;
-	double MinPos_Y;
-	double MaxPos_Y;
+	double Max_Speed;
+	unsigned int Orientation;
 
-	bool DefaultSwitchStates[3]; 
+	bool DefaultSwitchStates[4]; 
 
 public:
 	// attempt to read the device settings from memory.

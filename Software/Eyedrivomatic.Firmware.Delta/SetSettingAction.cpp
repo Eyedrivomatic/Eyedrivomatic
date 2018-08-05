@@ -30,15 +30,43 @@
 
 #define LogErrorAndReturn(msg, ...) LogError(msg, ##__VA_ARGS__) return;
 
-#define ReadAndValidate_ul(parameters, minValue, maxValue, settingName, setting) \
-unsigned long value = strtoul(parameters, NULL, 10); \
-if (value >= minValue && value <= maxValue) setting = value;\
-else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %s"), parameters, minValue, maxValue, settingName)\
+#define ReadAndValidate_ul(parameters, minValue, maxValue, settingName, setting, nextParam) \
+{\
+	unsigned long value = strtoul(parameters, &nextParam, 10); \
+	if (parameters == nextParam) { LogErrorAndReturn(PSTR("ERROR: MISSING {%s} VALUE"), settingName); }\
+	if (value >= minValue && value <= maxValue) setting = value; \
+	else LogError(PSTR("ERROR: '%s' is out of range (%u to %u) for %s"), parameters, minValue, maxValue, settingName)\
+}\
 
-#define ReadAndValidate_l(parameters, minValue, maxValue, settingName, setting) \
-long value = strtol(parameters, NULL, 10); \
-if (value >= minValue && value <= maxValue) setting = value;\
-else LogError(PSTR("ERROR: '%li' is out of range (%i to %i) for %s"), value, minValue, maxValue, settingName)\
+#define ReadAndValidate_lst(parameters, allowed, settingName, setting, nextParam) \
+{\
+	unsigned long value = strtoul(parameters, &nextParam, 10); \
+	if (parameters == nextParam) { LogErrorAndReturn(PSTR("ERROR: MISSING {%s} VALUE"), settingName); }\
+	for (auto item : allowed)\
+	{\
+		if (value == item)\
+		{\
+			setting = value;\
+			break;\
+		}\
+	}\
+	if (setting != value) LogError(PSTR("ERROR: '%s' is not a valid value for %s"), parameters, settingName);\
+}\
+
+#define ReadAndValidate_l(parameters, minValue, maxValue, settingName, setting, nextParam) \
+{\
+	long value = strtol(parameters, &nextParam, 10); \
+	if (parameters == nextParam) { LogErrorAndReturn(PSTR("ERROR: MISSING {%s} VALUE"), settingName); }\
+	if (value >= minValue && value <= maxValue) setting = value; \
+	else LogError(PSTR("ERROR: '%li' is out of range (%i to %i) for %s"), value, minValue, maxValue, settingName)\
+}\
+
+#define ReadAndValidate_d(parameters, minValue, maxValue, settingName, setting, nextParam) {\
+	double value = strtod(parameters, &nextParam); \
+	if (parameters == nextParam) { LogErrorAndReturn(PSTR("ERROR: MISSING {%s} VALUE"), settingName); }\
+	if (value >= minValue && value <= maxValue) setting = value; \
+	else LogError(PSTR("ERROR: '%3.1f' is out of range (%3.1f to %3.1f) for %s"), value, minValue, maxValue, settingName)\
+}\
 
 #define ReadAndValidate_b(parameters, settingName, setting) \
 while (*parameters == ' ') parameters++; \
@@ -63,13 +91,9 @@ const char SettingName_ResetDefaults[] PROGMEM = "DEFAULTS";
 
 const SetSettingsAction SettingsActions[] PROGMEM =
 {
-	SetSettingsAction(SettingName_MinPosX, SetSettingActionClass::setXMin),
-	SetSettingsAction(SettingName_CenterPosX, SetSettingActionClass::setXCenter),
-	SetSettingsAction(SettingName_MaxPosX, SetSettingActionClass::setXMax),
-
-	SetSettingsAction(SettingName_MinPosY, SetSettingActionClass::setYMin),
-	SetSettingsAction(SettingName_CenterPosY, SetSettingActionClass::setYCenter),
-	SetSettingsAction(SettingName_MaxPosY, SetSettingActionClass::setYMax),
+	SetSettingsAction(SettingName_Center, SetSettingActionClass::setCenter),
+	SetSettingsAction(SettingName_MaxSpeed, SetSettingActionClass::setMaxSpeed),
+	SetSettingsAction(SettingName_Orientation, SetSettingActionClass::setOrientation),
 
 	SetSettingsAction(SettingName_SwitchDefault, SetSettingActionClass::setSwitch),
 
@@ -97,42 +121,36 @@ void SetSettingActionClass::execute(const char * parameters)
 }
 
 
-void SetSettingActionClass::setXMin(const char * parameters)
+void SetSettingActionClass::setCenter(const char * parameters)
 {
-	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosX, Settings.MinPos_X);
-	GetSettingAction.getXMin(NULL);
-}
+	double min_x, max_x, min_y, max_y;
+	State.getCenterLimit(min_x, max_x, min_y, max_y);
+	char * nextParam;
 
-void SetSettingActionClass::setXCenter(const char * parameters)
-{
-	ReadAndValidate_l(parameters, Settings.MinPos_X, Settings.MaxPos_X, SettingName_CenterPosX, Settings.CenterPos_X);
+	ReadAndValidate_d(parameters, min_x, max_x, SettingName_CenterX, Settings.CenterPos_X, nextParam);
+	if (*nextParam == ',') nextParam++;
+	ReadAndValidate_d(nextParam, min_y, max_y, SettingName_CenterY, Settings.CenterPos_Y, nextParam);
 	State.resetServoPositions();
-	GetSettingAction.getXCenter(NULL);
+	GetSettingAction.getCenter(NULL);
 }
 
-void SetSettingActionClass::setXMax(const char * parameters)
+void SetSettingActionClass::setOrientation(const char * parameters)
 {
-	ReadAndValidate_l(parameters, Settings.CenterPos_X, 180, SettingName_MaxPosX, Settings.MaxPos_X);
-	GetSettingAction.getXMax(NULL);
-}
+	char * nextParam;
+	unsigned long allowed[] = { 0, 90, 180, 270 };
 
-void SetSettingActionClass::setYMin(const char * parameters)
-{
-	ReadAndValidate_l(parameters, 0, Settings.CenterPos_X, SettingName_MinPosY, Settings.MinPos_Y);
-	GetSettingAction.getYMin(NULL);
-}
-
-void SetSettingActionClass::setYCenter(const char * parameters)
-{
-	ReadAndValidate_l(parameters, Settings.MinPos_Y, Settings.MaxPos_Y, SettingName_CenterPosY, Settings.CenterPos_Y);
+	ReadAndValidate_lst(parameters, allowed, SettingName_Orientation, Settings.Orientation, nextParam);
 	State.resetServoPositions();
-	GetSettingAction.getYCenter(NULL);
+	GetSettingAction.getOrientation(NULL);
 }
 
-void SetSettingActionClass::setYMax(const char * parameters)
+void SetSettingActionClass::setMaxSpeed(const char * parameters)
 {
-	ReadAndValidate_l(parameters, Settings.CenterPos_Y, 180, SettingName_MaxPosY, Settings.MaxPos_Y);
-	GetSettingAction.getYMax(NULL);
+	double max_speed;
+	State.getSpeedLimit(max_speed);
+	char * nextParam;
+	ReadAndValidate_d(parameters, 0L, max_speed, SettingName_MaxSpeed, Settings.Max_Speed, nextParam);
+	GetSettingAction.getMaxSpeed(NULL);
 }
 
 void SetSettingActionClass::setSwitch(const char * parameters)

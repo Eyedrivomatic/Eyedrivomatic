@@ -16,15 +16,13 @@ namespace Eyedrivomatic.Device.Commands
 {
     internal class GoCommand : DeviceCommandBase
     {
-        internal GoCommand(double direction, double speed, TimeSpan duration)
+        internal GoCommand(Vector vector, TimeSpan duration)
         {
-            Direction = direction;
-            Speed = speed;
+            Vector = vector;
             Duration = duration;
         }
 
-        public double Direction { get; }
-        public double Speed { get; }
+        public Vector Vector { get; }
         public TimeSpan Duration { get; }
 
         public override string Name => "Go";
@@ -33,7 +31,7 @@ namespace Eyedrivomatic.Device.Commands
 
         public override string ToString()
         {
-            return $"GO {Direction} {Speed} {Duration.TotalMilliseconds}";
+            return $"GO {Vector} {Duration.TotalMilliseconds}";
         }
     }
 }

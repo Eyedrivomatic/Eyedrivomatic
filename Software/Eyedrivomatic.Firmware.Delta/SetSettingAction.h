@@ -23,12 +23,9 @@ class SetSettingActionClass : public SettingActionBaseClass
  public:
 	virtual void execute(const char * parameters) override;
 
-	static void setXMin(const char * parameters);
-	static void setXCenter(const char * parameters);
-	static void setXMax(const char * parameters);
-	static void setYMin(const char * parameters);
-	static void setYCenter(const char * parameters);
-	static void setYMax(const char * parameters);
+	static void setCenter(const char * parameters);
+	static void setOrientation(const char * parameters);
+	static void setMaxSpeed(const char * parameters);
 	static void setSwitch(const char * parameters);
 	static void setDefaults(const char * parameters);
 };

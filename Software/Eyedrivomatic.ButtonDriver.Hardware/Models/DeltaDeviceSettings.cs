@@ -23,29 +23,22 @@ using Prism.Mvvm;
 
 namespace Eyedrivomatic.ButtonDriver.Device.Models
 {
-    [Export(typeof(IDeviceSettings))]
+    [Export("Delta", typeof(IDeviceSettings))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    internal class BrainBoxDeviceSettings : BindableBase, IDeviceSettings
+    internal class DeltaDeviceSettings : BindableBase, IDeviceSettings
     {
         private readonly Func<string, string, Task<bool>> _setConfigurationCommand;
         private readonly Func<Task<bool>> _saveConfigurationCommand;
         private readonly ISettingsMessageSource _settingsMessageSource;
         private readonly Dictionary<string, Action<string>> _messageHandlers;
-        private int? _centerPosX;
-        private int? _minPosX;
-        private int? _maxPosX;
-        private int? _centerPosY;
-        private int? _minPosY;
-        private int? _maxPosY;
+        private Point? _centerPos;
+        private decimal? _maxSpeed;
         private readonly bool?[] _switchDefaults = new bool?[4];
-
-        public int DeviceMaxPosX => 22;
-        public int DeviceMinPosX => -22;
-        public int DeviceMaxPosY => 22;
-        public int DeviceMinPosY => -22;
+        private DeviceOrientation _orientation = DeviceOrientation.Rotate0Deg;
+        public decimal DeviceMaxSpeed => 20;
 
         [ImportingConstructor]
-        internal BrainBoxDeviceSettings(
+        internal DeltaDeviceSettings(
             [Import(nameof(IBrainBoxCommands.SetConfiguration))] Func<string, string, Task<bool>> setConfigurationCommand,
             [Import(nameof(IBrainBoxCommands.SaveConfiguration))] Func<Task<bool>> saveConfigurationCommand,
             ISettingsMessageSource settingsMessageSource)
@@ -59,12 +52,9 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
             // ReSharper disable ExplicitCallerInfoArgument
             _messageHandlers = new Dictionary<string, Action<string>>
             {
-                { SettingNames.CenterPosX, s => SetProperty(ref _centerPosX, int.Parse(s), nameof(CenterPosX))},
-                { SettingNames.MinPosX, s => SetProperty(ref _minPosX, int.Parse(s), nameof(MinPosX))},
-                { SettingNames.MaxPosX, s => SetProperty(ref _maxPosX, int.Parse(s), nameof(MaxPosX))},
-                { SettingNames.CenterPosY, s => SetProperty(ref _centerPosY, int.Parse(s), nameof(CenterPosY))},
-                { SettingNames.MinPosY, s => SetProperty(ref _minPosY, int.Parse(s), nameof(MinPosY))},
-                { SettingNames.MaxPosY, s => SetProperty(ref _maxPosY, int.Parse(s), nameof(MaxPosY))},
+                { SettingNames.CenterPos, s => SetProperty(ref _centerPos, Point.Parse(s), nameof(CenterPos))},
+                { SettingNames.MaxSpeed, s => SetProperty(ref _maxSpeed, decimal.Parse(s), nameof(MaxSpeed))},
+                { SettingNames.Orientation, s => SetProperty(ref _orientation, (DeviceOrientation)int.Parse(s), nameof(Orientation))},
                 { SettingNames.Switch1Default, s => SetProperty(ref _switchDefaults[0], s == "ON", nameof(Switch1Default))},
                 { SettingNames.Switch2Default, s => SetProperty(ref _switchDefaults[1], s == "ON", nameof(Switch2Default))},
                 { SettingNames.Switch3Default, s => SetProperty(ref _switchDefaults[2], s == "ON", nameof(Switch3Default))},
@@ -94,44 +84,25 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
 
         private void OnDisconnected(object sender, EventArgs e)
         {
-            CenterPosX = null;
-            CenterPosY = null;
+            CenterPos = null;
         }
 
-        public int? CenterPosX
+        public Point? CenterPos
         {
-            get => _centerPosX;
-            set => SendConfiguration(SettingNames.CenterPosX, value ?? 0);
+            get => _centerPos;
+            set => SendConfiguration(SettingNames.CenterPos, value ?? new Point(0,0));
         }
 
-        public int? MinPosX
+        public decimal? MaxSpeed
         {
-            get => _minPosX;
-            set => SendConfiguration(SettingNames.MinPosX, value ?? -22);
+            get => _maxSpeed;
+            set => SendConfiguration(SettingNames.MaxSpeed, value ?? 22m);
         }
 
-        public int? MaxPosX
+        public DeviceOrientation Orientation
         {
-            get => _maxPosX;
-            set => SendConfiguration(SettingNames.MaxPosX, value ?? 22);
-        }
-
-        public int? CenterPosY
-        {
-            get => _centerPosY;
-            set => SendConfiguration(SettingNames.CenterPosY, value ?? 0);
-        }
-
-        public int? MinPosY
-        {
-            get => _minPosY;
-            set => SendConfiguration(SettingNames.MinPosY, value ?? -22);
-        }
-
-        public int? MaxPosY
-        {
-            get => _maxPosY;
-            set => SendConfiguration(SettingNames.MaxPosY, value ?? 22);
+            get => _orientation;
+            set => SendConfiguration(SettingNames.Orientation, (int)value);
         }
 
         public bool? Switch1Default
@@ -152,7 +123,7 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
         }
         public bool? Switch4Default
         {
-            get => _switchDefaults[2];
+            get => _switchDefaults[3];
             set => SendConfiguration(SettingNames.Switch4Default, value ?? false);
         }
 
@@ -161,9 +132,19 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
             return _saveConfigurationCommand?.Invoke();
         }
 
+        private void SendConfiguration(string name, Point value, [CallerMemberName] string propertyName = null)
+        {
+            SendConfigurationInternal(name, $"{value.X:F1},{value.Y:F1}", propertyName);
+        }
+
+        private void SendConfiguration(string name, decimal value, [CallerMemberName] string propertyName = null)
+        {
+            SendConfigurationInternal(name, value.ToString("F1"), propertyName);
+        }
+
         private void SendConfiguration(string name, int value, [CallerMemberName] string propertyName = null)
         {
-            SendConfigurationInternal(name, value.ToString("D"), propertyName);
+            SendConfigurationInternal(name, value.ToString("0"), propertyName);
         }
 
         private void SendConfiguration(string name, bool value, [CallerMemberName] string propertyName = null)

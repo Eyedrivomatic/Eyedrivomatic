@@ -11,7 +11,6 @@
 
 
 using System;
-using System.Windows;
 
 namespace Eyedrivomatic.Device.Commands
 {
@@ -32,7 +31,7 @@ namespace Eyedrivomatic.Device.Commands
 
         public override string ToString()
         {
-            return $"MOVE {Duration.TotalMilliseconds} {Position.X:F1} {Position.Y:F1}";
+            return $"MOVE {Position} {Duration.TotalMilliseconds}";
         }
     }
 }

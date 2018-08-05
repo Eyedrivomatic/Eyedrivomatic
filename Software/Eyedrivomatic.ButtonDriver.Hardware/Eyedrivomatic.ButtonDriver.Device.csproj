@@ -89,7 +89,8 @@
     <Compile Include="ButtonDriverDeviceModule.cs" />
     <Compile Include="Models\BrainBoxDeviceStatus.cs" />
     <Compile Include="Models\IDeviceStatus.cs" />
-    <Compile Include="Models\BrainBoxDeviceSettings.cs" />
+    <Compile Include="Models\DeltaDeviceSettings.cs" />
+    <Compile Include="Models\Mk1DeviceSettings.cs" />
     <Compile Include="Models\IDeviceSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConnectionFailedException.cs" />

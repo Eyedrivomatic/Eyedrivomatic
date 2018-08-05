@@ -32,6 +32,7 @@ void HostConnectionServiceClass::MonitorConnection()
 	{
 		SendStartupInfo();
 		SendStatusAction.execute(NULL);
+		SendStatusAction.execute("VECTOR");
 	}
 	_dtrEnable = dtr;
 }

@@ -44,6 +44,7 @@
       <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -62,6 +63,12 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eyedrivomatic.Device\Eyedrivomatic.Device.csproj">
+      <Project>{caad25fe-1fb3-4b50-9d6f-dd1681e1bea1}</Project>
+      <Name>Eyedrivomatic.Device</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

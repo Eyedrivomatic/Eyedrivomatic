@@ -54,13 +54,13 @@ void ToggleSwitchActionClass::execute(const char * parameters)
 	auto startPos = parameters;
 	char* endPos;
 
-	auto duration = strtoul(startPos, &endPos, 10);
-	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DURATION")); }
-	if (duration < 0 || duration > 10000) { CancelWithError(PSTR("ERROR: DURATION OUT OF RANGE %d"), duration); }
-
-	auto switchNum = strtol(startPos = endPos, &endPos, 10)-1;
+	auto switchNum = strtol(startPos, &endPos, 10)-1;
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING SWITCH NUMBER")); }
 	if (switchNum < HardwareSwitch::Switch1 || switchNum > HardwareSwitch::Switch4) { CancelWithError(PSTR("ERROR: SWITCH NUMBER OUT OF RANGE %d"), switchNum+1); }
+
+	auto duration = strtoul(startPos = endPos, &endPos, 10);
+	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DURATION")); }
+	if (duration < 0 || duration > 10000) { CancelWithError(PSTR("ERROR: DURATION OUT OF RANGE %d"), duration); }
 
 	HardwareSwitch hardwareSwitch = static_cast<HardwareSwitch>(switchNum);
 	cancel(hardwareSwitch, false);

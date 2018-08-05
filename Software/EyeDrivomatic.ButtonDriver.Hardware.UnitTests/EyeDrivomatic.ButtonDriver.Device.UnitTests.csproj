@@ -8,8 +8,8 @@
     <ProjectGuid>{F2BEBACC-B1A4-4710-BA71-811432687B50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EyeDrivomatic.ButtonDriver.Hardware.UnitTests</RootNamespace>
-    <AssemblyName>EyeDrivomatic.ButtonDriver.Hardware.UnitTests</AssemblyName>
+    <RootNamespace>EyeDrivomatic.ButtonDriver.Driver.UnitTests</RootNamespace>
+    <AssemblyName>EyeDrivomatic.ButtonDriver.Driver.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

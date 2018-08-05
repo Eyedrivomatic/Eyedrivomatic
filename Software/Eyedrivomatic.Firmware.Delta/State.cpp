@@ -30,6 +30,7 @@
 #define SWITCH_4 15
 #define SERVO_ENABLE 10
 
+#define MAX_MOVE_ABS 16.0L
 
 const int switchPins[] =
 {
@@ -179,6 +180,18 @@ size_t StateClass::toString(bool vector, char * buffer, size_t size)
 		HardwareSwitchNames[HardwareSwitch::Switch3], getSwitchState(HardwareSwitch::Switch3) ? OnString : OffString,
 		HardwareSwitchNames[HardwareSwitch::Switch4], getSwitchState(HardwareSwitch::Switch4) ? OnString : OffString);
 }
+
+void StateClass::getSpeedLimit(double & maxSpeed)
+{
+	DeltaPositionConverter.getLimits(maxSpeed);
+}
+
+void StateClass::getCenterLimit(double & min_x, double & max_x, double & min_y, double & max_y)
+{
+	DeltaPositionConverter.getLimits(min_x, max_x, min_y, max_y);
+}
+
+
 
 StateClass State;
 

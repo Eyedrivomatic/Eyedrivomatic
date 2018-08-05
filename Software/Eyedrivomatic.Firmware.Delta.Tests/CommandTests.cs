@@ -14,6 +14,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.Firmware.Delta.Tests
 {
@@ -64,7 +65,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             Assert.That(_testConnection.SendMessage("STATUS"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
 
@@ -77,15 +78,15 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.EnableLog();
 
             var start = DateTime.Now;
-            Assert.That(_testConnection.SendMessage($"MOVE {duration} {x} {y}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"MOVE {x},{y} {duration}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyMoveStatus(message, x, y);
+            VerifyMoveStatus(message, new Point(x, y));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(duration, duration+50)); //Give a few ms for message transmission and processing
             Console.WriteLine($"Move completed in {duration} ms.");
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
         [Test]
@@ -94,27 +95,27 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage("MOVE 3000 100 100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE 100,100 3000"), Is.True);
 
             var start = DateTime.Now;
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
-            VerifyMoveStatus(message, 100, 100);
+            VerifyMoveStatus(message, new Point(100, 100));
 
             Thread.Sleep(1000);
-            Assert.That(_testConnection.SendMessage("MOVE 1000 -100 -100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE -100,-100 1000"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             var responseTime = (DateTime.Now - start).TotalMilliseconds;
             Assert.That(responseTime, Is.InRange(1000, 1250)); //Give a few ms for message transmission and processing, but not enough for the first move command to complete.
             Console.WriteLine($"Message received in {responseTime} ms.");
-            VerifyMoveStatus(message, -100, -100);
+            VerifyMoveStatus(message, new Point(-100, -100));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             responseTime = (DateTime.Now - start).TotalMilliseconds;
             Assert.That(responseTime, Is.InRange(2000, 2250)); //Give a few ms for message transmission and processing
             Console.WriteLine($"Message received in {responseTime} ms.");
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
         [Test]
@@ -126,20 +127,20 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
 
             for (var pos = -100; pos <= 100; pos++)
             {
-                Assert.That(_testConnection.SendMessage($"MOVE 100 0 {pos}"), Is.True);
+                Assert.That(_testConnection.SendMessage($"MOVE 0,{pos} 100"), Is.True);
                 Assert.That(_testConnection.ReadMessage(out string message), Is.True);
                 //Assert.That(message, Is.EqualTo($"STATUS: SERVO_X={pos}({xAbs:F1}),SERVO_Y={-pos}({yAbs:F1}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
                 Thread.Sleep(50);
-                VerifyMoveStatus(message, 0, pos);
+                VerifyMoveStatus(message, new Point(0, pos));
             }
             for (var pos = -100; pos <= 100; pos++)
             {
-                Assert.That(_testConnection.SendMessage($"MOVE 100 {pos} 0"), Is.True);
+                Assert.That(_testConnection.SendMessage($"MOVE {pos},0 100"), Is.True);
                 Assert.That(_testConnection.ReadMessage(out string message), Is.True);
                 //Assert.That(message, Is.EqualTo($"STATUS: SERVO_X={pos}({xAbs:F1}),SERVO_Y={-pos}({yAbs:F1}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
                 Thread.Sleep(50);
 
-                VerifyMoveStatus(message, pos, 0);
+                VerifyMoveStatus(message, new Point(pos, 0));
             }
         }
 
@@ -151,7 +152,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"MOVE {duration} 10 10"), Is.True);
+            Assert.That(_testConnection.SendMessage($"MOVE 10,10 {duration}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: DURATION OUT OF RANGE {duration}"));
@@ -165,21 +166,21 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"MOVE 0 {position} 0"), Is.True);
+            Assert.That(_testConnection.SendMessage($"MOVE {position},0 0"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: XPOS OUT OF RANGE {position:f1}"));
+            Assert.That(message, Is.EqualTo($"ERROR: X VALUE OUT OF RANGE {position:f1}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
 
-            Assert.That(_testConnection.SendMessage($"MOVE 0 0 {position}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: YPOS OUT OF RANGE {position:f1}"));
+            Assert.That(_testConnection.SendMessage($"MOVE 0,{position} 0"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyVectorStatus(message, 0, 0);
+            Assert.That(message, Is.EqualTo($"ERROR: Y VALUE OUT OF RANGE {position:f1}"));
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
 
@@ -197,15 +198,15 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"GO {direction} {speed} {duration} "), Is.True);
-
             var start = DateTime.Now;
+            Assert.That(_testConnection.SendMessage($"GO {direction},{speed} {duration} "), Is.True);
+
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyVectorStatus(message, direction, speed);
+            VerifyVectorStatus(message, new Vector(direction, speed));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(duration, duration + 50)); //Give a few ms for message transmission and processing
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
         [Test]
@@ -215,26 +216,26 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.EnableLog();
 
             var start = DateTime.Now;
-            Assert.That(_testConnection.SendMessage("GO 0 50 3000 "), Is.True);
+            Assert.That(_testConnection.SendMessage("GO 0,50 3000 "), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
-            VerifyVectorStatus(message, 0, 50);
+            VerifyVectorStatus(message, new Vector(0, 50));
 
             Thread.Sleep(1000 - (int)(DateTime.Now - start).TotalMilliseconds);
-            Assert.That(_testConnection.SendMessage("GO -180 50 1000"), Is.True);
+            Assert.That(_testConnection.SendMessage("GO -180,50 1000"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             var responseTime = (DateTime.Now - start).TotalMilliseconds;
             Assert.That(responseTime, Is.InRange(1000, 1100)); //Give a few ms for message processing, but not enough for the first move command to complete.
             Console.WriteLine($"Message received in {responseTime} ms.");
-            VerifyVectorStatus(message, -180, 50);
+            VerifyVectorStatus(message, new Vector(-180, 50));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             responseTime = (DateTime.Now - start).TotalMilliseconds;
             Assert.That(responseTime, Is.InRange(2000, 2100)); //Give a few ms for message transmission and processing
             Console.WriteLine($"Message received in {responseTime} ms.");
-            VerifyVectorStatus(message, 0,  0);
+            VerifyVectorStatus(message, new Vector(0,  0));
         }
 
         [Test]
@@ -247,11 +248,11 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             {
                 for (var direction = 180; direction >= -180; direction--)
                 {
-                    Assert.That(_testConnection.SendMessage($"GO {direction} {speed} 100"), Is.True);
+                    Assert.That(_testConnection.SendMessage($"GO {direction},{speed} 100"), Is.True);
                     Assert.That(_testConnection.ReadMessage(out string message), Is.True);
                     //Assert.That(message, Is.EqualTo($"STATUS: SERVO_X={pos}({xAbs:F1}),SERVO_Y={-pos}({yAbs:F1}),SWITCH 1=OFF,SWITCH 2=OFF,SWITCH 3=OFF"));
                     //Thread.Sleep(10);
-                    VerifyVectorStatus(message, direction, speed);
+                    VerifyVectorStatus(message, new Vector(direction, speed));
                 }
             }
         }
@@ -264,7 +265,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"GO 100 10 {duration}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"GO 100,10 {duration}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: DURATION OUT OF RANGE {duration}"));
@@ -278,7 +279,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"GO 0 {speed} 0"), Is.True);
+            Assert.That(_testConnection.SendMessage($"GO 0,{speed} 0"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: SPEED OUT OF RANGE {speed:f1}"));
@@ -293,14 +294,11 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"GO {direction} 100 100"), Is.True);
+            Assert.That(_testConnection.SendMessage($"GO {direction},100 100"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyVectorStatus(message, expectedDirection, 100);
+            VerifyVectorStatus(message, new Vector(expectedDirection, 100));
         }
-
-
-
 
         [Test, Timeout(5000)]
         public void Test_SwitchToggle_CanHaveOverlappingTimes()
@@ -308,63 +306,107 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            var start = DateTime.Now;
-            Assert.That(_testConnection.SendMessage("SWITCH 2000 2"), Is.True);
+
+            //switch 1 on
+            var start1 = DateTime.Now;
+            Assert.That(_testConnection.SendMessage("SWITCH 1 100"), Is.True);
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyMoveStatus(message, 0, 0, false, true);
+            VerifyMoveStatus(message, new Point(0, 0), true);
 
-            Assert.That(_testConnection.SendMessage("SWITCH 1000 1"), Is.True);
+            //switch 2 on
+            var start2 = DateTime.Now;
+            Assert.That(_testConnection.SendMessage("SWITCH 2 200"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyMoveStatus(message, 0, 0, true, true);
+            VerifyMoveStatus(message, new Point(0, 0), true, true);
 
-            Assert.That(_testConnection.SendMessage("SWITCH 3000 3"), Is.True);
+            //switch 3 on
+            var start3 = DateTime.Now;
+            Assert.That(_testConnection.SendMessage("SWITCH 3 300"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyMoveStatus(message, 0, 0, true, true, true);
+            VerifyMoveStatus(message, new Point(0, 0), true, true, true);
 
+            //switch 4 on
+            var start4 = DateTime.Now;
+            Assert.That(_testConnection.SendMessage("SWITCH 4 150"), Is.True);
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyMoveStatus(message, 0, 0, false, true, true);
-            Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(1000, 1150)); //Give a few ms for message transmission and processing
+            VerifyMoveStatus(message, new Point(0, 0), true, true, true, true);
 
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyMoveStatus(message, 0, 0, false, false, true);
-            Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(2000, 2150)); //Give a few ms for message transmission and processing
 
+            //switch 1 off
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            VerifyVectorStatus(message, 0, 0);
-            Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(3000, 3200)); //Give a few ms for message transmission and processing
+            Assert.That((DateTime.Now - start1).TotalMilliseconds, Is.InRange(100, 125)); //Give a few ms for message transmission and processing
+            VerifyMoveStatus(message, new Point(0, 0), false, true, true, true);
+            Console.WriteLine($"SWITCH 1 OFF After {(DateTime.Now - start1).TotalMilliseconds}");
+
+            //switch 4 off
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That((DateTime.Now - start2).TotalMilliseconds, Is.InRange(150, 175)); //Give a few ms for message transmission and processing
+            VerifyMoveStatus(message, new Point(0, 0), false, true, true);
+            Console.WriteLine($"SWITCH 4 OFF After {(DateTime.Now - start2).TotalMilliseconds}");
+
+            //switch 2 off
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That((DateTime.Now - start3).TotalMilliseconds, Is.InRange(200, 225)); //Give a few ms for message transmission and processing
+            VerifyVectorStatus(message, new Vector(0, 0), false, false, true);
+            Console.WriteLine($"SWITCH 2 OFF After {(DateTime.Now - start3).TotalMilliseconds}");
+
+            //switch 3 off
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That((DateTime.Now - start4).TotalMilliseconds, Is.InRange(300, 325)); //Give a few ms for message transmission and processing
+            VerifyVectorStatus(message, new Vector(0, 0));
+            Console.WriteLine($"SWITCH 3 OFF After {(DateTime.Now - start4).TotalMilliseconds}");
         }
 
         [Test, Timeout(5000)]
         [TestCase(-1)]
         [TestCase(0)]
-        [TestCase(4)]
+        [TestCase(5)]
         public void Test_SwitchToggle_OutOfRangeResponseWithError(int switchNumber)
         {
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage($"SWITCH 0 {switchNumber}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SWITCH {switchNumber} 0"), Is.True);
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That(message, Is.EqualTo($"ERROR: SWITCH NUMBER OUT OF RANGE {switchNumber}"));
         }
 
         [Test]
-        public void Test_Stop_ImmediatelyStops()
+        public void Test_MoveStop_ImmediatelyStops()
         {
             _testConnection.ReadStartup();
             _testConnection.EnableLog();
 
-            Assert.That(_testConnection.SendMessage("MOVE 10000 100 -100"), Is.True);
+            Assert.That(_testConnection.SendMessage("MOVE 100,-100 10000"), Is.True);
 
             var start = DateTime.Now;
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            VerifyMoveStatus(message, 100, -100);
+            VerifyMoveStatus(message, new Point(100, -100));
 
             Assert.That(_testConnection.SendMessage("STOP"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
+        }
+
+        [Test]
+        public void Test_GoStop_ImmediatelyStops()
+        {
+            _testConnection.ReadStartup();
+            _testConnection.EnableLog();
+
+            Assert.That(_testConnection.SendMessage("GO 90,50 10000"), Is.True);
+
+            var start = DateTime.Now;
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            VerifyVectorStatus(message, new Vector(90, 50));
+
+            Assert.That(_testConnection.SendMessage("STOP"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
         [Test]
@@ -379,7 +421,7 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
             Assert.That((DateTime.Now - start).TotalMilliseconds, Is.InRange(0, 100)); //Give a few ms for message transmission and processing
-            VerifyVectorStatus(message, 0, 0);
+            VerifyVectorStatus(message, new Vector(0, 0));
         }
 
         [Test]
@@ -395,14 +437,20 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             Assert.That(_testConnection.ReadStartup(), Is.True);
         }
 
-        private static void VerifyMoveStatus(string message, decimal x, decimal y, bool switch1 = false, bool switch2 = false, bool switch3 = false, bool switch4 = false)
+        private static void VerifyMoveStatus(string message, Point position, bool switch1 = false, bool switch2 = false, bool switch3 = false, bool switch4 = false)
         {
+            if (message.StartsWith("STATUS: VECTOR="))
+            {
+                VerifyVectorStatus(message, position, switch1, switch2, switch3, switch4);
+                return;
+            }
+
             var regex = new Regex(@"^STATUS: POS=(?<X>-?\d{1,3}\.\d),(?<Y>-?\d{1,3}\.\d),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF),SWITCH 4=(?<Switch4>ON|OFF)$");
             var match = regex.Match(message);
             Assert.That(match.Success, Is.True);
 
-            Assert.That(decimal.Parse(match.Groups["X"].Value), Is.EqualTo(x).Within(0.2m));
-            Assert.That(decimal.Parse(match.Groups["Y"].Value), Is.EqualTo(y).Within(0.2m));
+            Assert.That(double.Parse(match.Groups["X"].Value), Is.EqualTo(position.X).Within(0.5m));
+            Assert.That(double.Parse(match.Groups["Y"].Value), Is.EqualTo(position.Y).Within(0.5m));
 
 
             Assert.That(match.Groups["Switch1"].Value, Is.EqualTo(switch1 ? "ON" : "OFF"));
@@ -411,22 +459,28 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             Assert.That(match.Groups["Switch4"].Value, Is.EqualTo(switch4 ? "ON" : "OFF"));
         }
 
-        private static void VerifyVectorStatus(string message, decimal direction, decimal speed, bool switch1 = false, bool switch2 = false, bool switch3 = false, bool switch4 = false)
+        private static void VerifyVectorStatus(string message, Vector vector, bool switch1 = false, bool switch2 = false, bool switch3 = false, bool switch4 = false)
         {
+            if (message.StartsWith("STATUS: POS="))
+            {
+                VerifyMoveStatus(message, vector, switch1, switch2, switch3, switch4);
+                return;
+            }
+
             var regex = new Regex(@"^STATUS: VECTOR=(?<DIR>-?\d{1,3}\.\d),(?<SPEED>-?\d{1,3}\.\d),SWITCH 1=(?<Switch1>ON|OFF),SWITCH 2=(?<Switch2>ON|OFF),SWITCH 3=(?<Switch3>ON|OFF),SWITCH 4=(?<Switch4>ON|OFF)$");
             var match = regex.Match(message);
             Assert.That(match.Success, Is.True);
 
-            if (Math.Abs(direction) == 180)
+            if (Math.Abs(vector.Direction) == 180.0m)
             {
-                Assert.That(Math.Abs(decimal.Parse(match.Groups["DIR"].Value)), Is.EqualTo(180).Within(1m));
+                Assert.That(Math.Abs(double.Parse(match.Groups["DIR"].Value)), Is.EqualTo(180).Within(1m));
             }
             else
             {
-                Assert.That(decimal.Parse(match.Groups["DIR"].Value), Is.EqualTo(direction).Within(1m));
+                Assert.That(decimal.Parse(match.Groups["DIR"].Value), Is.EqualTo(vector.Direction).Within(1m));
             }
 
-            Assert.That(decimal.Parse(match.Groups["SPEED"].Value), Is.EqualTo(speed).Within(1m));
+            Assert.That(decimal.Parse(match.Groups["SPEED"].Value), Is.EqualTo(vector.Speed).Within(1m));
 
             Assert.That(match.Groups["Switch1"].Value, Is.EqualTo(switch1 ? "ON" : "OFF"));
             Assert.That(match.Groups["Switch2"].Value, Is.EqualTo(switch2 ? "ON" : "OFF"));

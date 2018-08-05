@@ -27,6 +27,9 @@
 
 const char SettingsResponseFormatString[] PROGMEM = "SETTING: %s %s";
 const char SettingsResponseFormatInt[] PROGMEM = "SETTING: %s %d";
+const char SettingsResponseFormatDouble1[] PROGMEM = "SETTING: %s %3.1f";
+const char SettingsResponseFormatPos[] PROGMEM = "SETTING: %s %3.1f,%3.1f";
+
 
 #define LogErrorAndReturn(msg, ...) Response.SendResponse_P(msg, ##__VA_ARGS__); return;
 
@@ -46,13 +49,9 @@ const char SettingName_All[] PROGMEM = "ALL";
 
 const GetSettingsAction SettingsActions[] PROGMEM =
 {
-	GetSettingsAction(SettingName_MinPosX, GetSettingActionClass::getXMin),
-	GetSettingsAction(SettingName_CenterPosX, GetSettingActionClass::getXCenter),
-	GetSettingsAction(SettingName_MaxPosX, GetSettingActionClass::getXMax),
-
-	GetSettingsAction(SettingName_MinPosY, GetSettingActionClass::getYMin),
-	GetSettingsAction(SettingName_CenterPosY, GetSettingActionClass::getYCenter),
-	GetSettingsAction(SettingName_MaxPosY, GetSettingActionClass::getYMax),
+	GetSettingsAction(SettingName_Center, GetSettingActionClass::getCenter),
+	GetSettingsAction(SettingName_MaxSpeed, GetSettingActionClass::getMaxSpeed),
+	GetSettingsAction(SettingName_Orientation, GetSettingActionClass::getOrientation),
 
 	GetSettingsAction(SettingName_SwitchDefault, GetSettingActionClass::getSwitch),
 
@@ -80,34 +79,19 @@ void GetSettingActionClass::execute(const char * parameters)
 }
 
 
-void GetSettingActionClass::getXMin(const char * parameters)
+void GetSettingActionClass::getCenter(const char * parameters)
 {
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MinPosX, Settings.MinPos_X);
+	Response.SendResponse_P(SettingsResponseFormatPos, SettingName_Center, Settings.CenterPos_X, Settings.CenterPos_Y);
 }
 
-void GetSettingActionClass::getXCenter(const char * parameters)
+void GetSettingActionClass::getMaxSpeed(const char * parameters)
 {
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_CenterPosX, Settings.CenterPos_X);
+	Response.SendResponse_P(SettingsResponseFormatDouble1, SettingName_MaxSpeed, Settings.Max_Speed);
 }
 
-void GetSettingActionClass::getXMax(const char * parameters)
+void GetSettingActionClass::getOrientation(const char * parameters)
 {
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MaxPosX, Settings.MaxPos_X);
-}
-
-void GetSettingActionClass::getYMin(const char * parameters)
-{
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MinPosY, Settings.MinPos_Y);
-}
-
-void GetSettingActionClass::getYCenter(const char * parameters)
-{
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_CenterPosY, Settings.CenterPos_Y);
-}
-
-void GetSettingActionClass::getYMax(const char * parameters)
-{
-	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_MaxPosY, Settings.MaxPos_Y);
+	Response.SendResponse_P(SettingsResponseFormatInt, SettingName_Orientation, Settings.Orientation);
 }
 
 void GetSettingActionClass::getSwitch(const char * parameters)
@@ -121,12 +105,9 @@ void GetSettingActionClass::getSwitch(const char * parameters)
 
 void GetSettingActionClass::getAll(const char * parameters)
 {
-	getXMin(NULL);
-	getXCenter(NULL);
-	getXMax(NULL);
-	getYMin(NULL);
-	getYCenter(NULL);
-	getYMax(NULL);
+	getCenter(NULL);
+	getMaxSpeed(NULL);
+	getOrientation(NULL);
 
 	Response.SendResponse_P(SettingsResponseFormatString, HardwareSwitchNames[HardwareSwitch::Switch1],
 		Settings.DefaultSwitchStates[HardwareSwitch::Switch1] ? OnString : OffString);
@@ -134,6 +115,8 @@ void GetSettingActionClass::getAll(const char * parameters)
 		Settings.DefaultSwitchStates[HardwareSwitch::Switch2] ? OnString : OffString);
 	Response.SendResponse_P(SettingsResponseFormatString, HardwareSwitchNames[HardwareSwitch::Switch3],
 		Settings.DefaultSwitchStates[HardwareSwitch::Switch3] ? OnString : OffString);
+	Response.SendResponse_P(SettingsResponseFormatString, HardwareSwitchNames[HardwareSwitch::Switch4],
+		Settings.DefaultSwitchStates[HardwareSwitch::Switch4] ? OnString : OffString);
 }
 
 GetSettingActionClass GetSettingAction;

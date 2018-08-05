@@ -10,8 +10,8 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
-using System.Windows;
 using Eyedrivomatic.ButtonDriver.Device.Services;
+using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.Device.Communications;
 
 namespace Eyedrivomatic.ButtonDriver.ViewModels
@@ -19,7 +19,8 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
     public interface IStatusViewModel
     {
         ConnectionState ConnectionState { get; }
-        Point JoystickPosition { get; }
+        Vector JoystickVector { get; }
+
         Direction CurrentDirection { get; }
         string Profile { get; }
         ReadyState ReadyState { get; }
@@ -29,12 +30,13 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         bool Switch1 { get; }
         bool Switch2 { get; }
         bool Switch3 { get; }
+        bool Switch4 { get; }
     }
 
     class DesignStatusViewModel : IStatusViewModel
     {
         public ConnectionState ConnectionState => ConnectionState.Connecting;
-        public Point JoystickPosition => new Point(7, 12);
+        public Vector JoystickVector => new Vector(45, 50);
         public Direction CurrentDirection => Direction.BackwardRight;
         public string Profile => "Indoors";
         public ReadyState ReadyState => ReadyState.Continue;
@@ -43,5 +45,6 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
         public bool Switch1 => false;
         public bool Switch2 => true;
         public bool Switch3 => false;
+        public bool Switch4 => false;
     }
 }

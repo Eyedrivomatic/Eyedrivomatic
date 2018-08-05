@@ -13,7 +13,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Eyedrivomatic.Device.Commands
 {
@@ -37,9 +36,9 @@ namespace Eyedrivomatic.Device.Commands
         }
 
         [Export(nameof(IBrainBoxCommands.Go))]
-        public Task<bool> Go(double direction, double speed, TimeSpan duration)
+        public Task<bool> Go(Vector vector, TimeSpan duration)
         {
-            var command = new GoCommand(direction, speed, duration);
+            var command = new GoCommand(vector, duration);
             return _executeCommand(command);
         }
 

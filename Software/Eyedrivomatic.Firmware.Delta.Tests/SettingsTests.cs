@@ -10,6 +10,7 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System.Windows;
 using NUnit.Framework;
 
 namespace Eyedrivomatic.Firmware.Delta.Tests
@@ -19,15 +20,10 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
     [Category("Firmware")]
     public class SettingsTests
     {
-        private const int XMin = -50;
-        private const int XCenter = 0;
-        private const int XMax = 50;
-        //private const bool XInvert = false;
-        private const int YMin = -50;
-        private const int YCenter = 0;
-        private const int YMax = 50;
-        //private const bool YInvert = true;
-        private readonly bool[] _switchStates = { false, false, false };
+        private static readonly Point Center = new Point(0, 0);
+        private const double MaxSpeed = 16;
+
+        private readonly bool[] _switchStates = { false, false, false, false };
 
         private readonly TestConnection _testConnection = new TestConnection();
 
@@ -45,98 +41,41 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             _testConnection.Stop();
         }
 
-
         [Test]
-        public void Test_GetMinX_Works()
+        public void Test_GetCenter_Works()
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("GET MIN_X"), Is.True);
+            Assert.That(_testConnection.SendMessage("GET CENTER"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MIN_X {XMin}"));
+            Assert.That(message, Is.EqualTo($"SETTING: CENTER {Center.X:F1},{Center.Y:F1}"));
         }
 
         [Test]
-        public void Test_GetCenterX_Works()
+        public void Test_GetMaxSpeed_Works()
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("GET CENTER_X"), Is.True);
+            Assert.That(_testConnection.SendMessage("GET MAX_SPEED"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_X {XCenter}"));
+            Assert.That(message, Is.EqualTo($"SETTING: MAX_SPEED {MaxSpeed:F1}"));
         }
 
         [Test]
-        public void Test_GetMaxX_Works()
+        public void Test_GetOrientation_Works()
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("GET MAX_X"), Is.True);
+            Assert.That(_testConnection.SendMessage("GET ORIENTATION"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MAX_X {XMax}"));
+            Assert.That(message, Is.EqualTo("SETTING: ORIENTATION 0"));
         }
 
         [Test]
-        public void Test_GetInvertX_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("GET INVERT_X"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_X ON"));
-        }
-
-        [Test]
-        public void Test_GetMinY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("GET MIN_Y"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MIN_Y {YMin}"));
-        }
-
-        [Test]
-        public void Test_GetCenterY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("GET CENTER_Y"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_Y {YCenter}"));
-        }
-
-        [Test]
-        public void Test_GetMaxY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("GET MAX_Y"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MAX_Y {YMax}"));
-        }
-
-        [Test]
-        public void Test_GetInvertY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("GET INVERT_Y"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y OFF"));
-        }
-
-
-        [Test]
-        public void Test_GetSwitchDefault_Works([Range(1, 3)] int switchNumber)
+        public void Test_GetSwitchDefault_Works([Range(1, 4)] int switchNumber)
         {
             _testConnection.ReadStartup();
 
@@ -154,28 +93,13 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             Assert.That(_testConnection.SendMessage("GET ALL"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MIN_X {XMin}"));
+            Assert.That(message, Is.EqualTo($"SETTING: CENTER {Center.X:F1},{Center.Y:F1}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_X {XCenter}"));
+            Assert.That(message, Is.EqualTo($"SETTING: MAX_SPEED {MaxSpeed:F1}"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MAX_X {XMax}"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_X ON"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MIN_Y {YMin}"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_Y {YCenter}"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: MAX_Y {YMax}"));
-
-            Assert.That(_testConnection.ReadMessage(out message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: INVERT_Y OFF"));
+            Assert.That(message, Is.EqualTo("SETTING: ORIENTATION 0"));
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: SWITCH 1 {(_switchStates[0] ? "ON" : "OFF")}"));
@@ -185,197 +109,112 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
 
             Assert.That(_testConnection.ReadMessage(out message), Is.True);
             Assert.That(message, Is.EqualTo($"SETTING: SWITCH 3 {(_switchStates[2] ? "ON" : "OFF")}"));
+
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: SWITCH 4 {(_switchStates[3] ? "ON" : "OFF")}"));
         }
 
 
         [Test]
-        public void Test_SetMinX_Works()
+        public void Test_SetCenter_Works()
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MIN_X -15"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET CENTER -2.5,1"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MIN_X -15"));
-        }
-
-        [TestCase(-26)]
-        [TestCase(1)]
-        public void Test_SetMinX_OutOfRange_Is_Ignored(int value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET MIN_X {value}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 0) for MIN_X"));
-        }
-
-        [TestCase(5)]
-        [TestCase(-5)]
-        public void Test_SetCenterX_Works(int center)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET CENTER_X {center}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_X {center}"));
+            Assert.That(message, Is.EqualTo("SETTING: CENTER -2.5,1.0"));
         }
 
         [TestCase(-26)]
         [TestCase(26)]
-        public void Test_SetCenterX_OutOfRange_Is_Ignored(int value)
+        public void Test_SetMaxSpeed_OutOfRange_Is_Ignored(int value)
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage($"SET CENTER_X {value}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET MAX_SPEED {value}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 22) for CENTER_X"));
+            Assert.That(message, Is.EqualTo($"ERROR: '{value:F1}' is out of range (0.0 to 16.0) for MAX_SPEED"));
+        }
+
+        [TestCase(5.5,2)]
+        [TestCase(-2,5.5)]
+        public void Test_SetCenter_Works(double centerX, double centerY)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER {centerX:F1},{centerY:F1}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: CENTER {centerX:F1},{centerY:F1}"));
+        }
+
+        [TestCase(-26)]
+        [TestCase(26)]
+        public void Test_SetCenter_OutOfRange_Is_Ignored(double value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET CENTER {value:F1},{value:F1}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value:F1}' is out of range (-16.0 to 16.0) for CENTER Y"));
+            Assert.That(_testConnection.ReadMessage(out message), Is.True);
+            Assert.That(message, Is.EqualTo($"ERROR: '{value:F1}' is out of range (-16.0 to 16.0) for CENTER X"));
         }
 
         [Test]
-        public void Test_SetMaxX_Works()
+        public void Test_SetMaxSpeed_Works()
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage("SET MAX_X 15"), Is.True);
+            Assert.That(_testConnection.SendMessage("SET MAX_SPEED 15.0"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MAX_X 15"));
+            Assert.That(message, Is.EqualTo("SETTING: MAX_SPEED 15.0"));
         }
 
+
+        [TestCase(0)]
+        [TestCase(90)]
+        [TestCase(180)]
+        [TestCase(270)]
+        public void Test_SetOrientation_Works(int value)
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage($"SET ORIENTATION {value}"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo($"SETTING: ORIENTATION {value}"));
+        }
+
+        public void Test_SetOrientation_Ignores_Invalid_Value()
+        {
+            _testConnection.ReadStartup();
+
+            Assert.That(_testConnection.SendMessage("SET ORIENTATION FOO"), Is.True);
+
+            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
+            Assert.That(message, Is.EqualTo("ERROR: 'FOO' is not a valid value for ORIENTATION"));
+        }
+
+        [TestCase(91)]
         [TestCase(-1)]
-        [TestCase(26)]
-        public void Test_SetMaxX_OutOfRange_Is_Ignored(int value)
+        [TestCase(360)]
+        public void Test_SetOrientation_Ignores_OutOfRange(int value)
         {
             _testConnection.ReadStartup();
 
-            Assert.That(_testConnection.SendMessage($"SET MAX_X {value}"), Is.True);
+            Assert.That(_testConnection.SendMessage($"SET ORIENTATION {value}"), Is.True);
 
             Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (0 to 22) for MAX_X"));
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Test_SetInvertX_Works(bool value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET INVERT_X {(value ? "ON" : "OFF")}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_X {(value ? "ON" : "OFF")}"));
+            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is not a valid value for ORIENTATION"));
         }
 
         [Test]
-        public void Test_SetInvertX_Ignores_Invalid_Value()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("SET INVERT_X FOO"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("ERROR: 'FOO' is not a valid value for INVERT_X"));
-        }
-
-        [Test]
-        public void Test_SetMinY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("SET MIN_Y -15"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MIN_Y -15"));
-        }
-
-        [TestCase(-26)]
-        [TestCase(1)]
-        public void Test_SetMinY_OutOfRange_Is_Ignored(int value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET MIN_Y {value}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 0) for MIN_Y"));
-        }
-
-        [TestCase(5)]
-        [TestCase(-5)]
-        public void Test_SetCenterY_Works(int center)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET CENTER_Y {center}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: CENTER_Y {center}"));
-        }
-
-        [TestCase(-26)]
-        [TestCase(26)]
-        public void Test_SetCenterY_OutOfRange_Is_Ignored(int value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET CENTER_Y {value}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (-22 to 22) for CENTER_Y"));
-        }
-
-        [Test]
-        public void Test_SetMaxY_Works()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("SET MAX_Y 15"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("SETTING: MAX_Y 15"));
-        }
-
-        [TestCase(-1)]
-        [TestCase(26)]
-        public void Test_SetMaxY_OutOfRange_Is_Ignored(int value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET MAX_Y {value}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"ERROR: '{value}' is out of range (0 to 22) for MAX_Y"));
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Test_SetInvertY_Works(bool value)
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage($"SET INVERT_Y {(value ? "ON" : "OFF")}"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo($"SETTING: INVERT_Y {(value ? "ON" : "OFF")}"));
-        }
-
-        [Test]
-        public void Test_SetInvertY_Ignores_Invalid_Value()
-        {
-            _testConnection.ReadStartup();
-
-            Assert.That(_testConnection.SendMessage("SET INVERT_Y FOO"), Is.True);
-
-            Assert.That(_testConnection.ReadMessage(out string message), Is.True);
-            Assert.That(message, Is.EqualTo("ERROR: 'FOO' is not a valid value for INVERT_Y"));
-        }
-
-        [Test]
-        public void Test_SetSwitchDefault_Works([Range(1, 3)] int switchNumber)
+        public void Test_SetSwitchDefault_Works([Range(1, 4)] int switchNumber)
         {
             _testConnection.ReadStartup();
 

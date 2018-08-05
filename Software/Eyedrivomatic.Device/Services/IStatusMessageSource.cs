@@ -11,7 +11,7 @@
 
 
 using System;
-using System.Windows;
+using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.Device.Services
 {
@@ -24,15 +24,24 @@ namespace Eyedrivomatic.Device.Services
 
     public class StatusMessageEventArgs : EventArgs
     {
-        public Point Position { get; }
+        public Vector Vector { get; }
         public bool Switch1 { get; }
         public bool Switch2 { get; }
         public bool Switch3 { get; }
         public bool Switch4 { get; }
 
+        public StatusMessageEventArgs(Vector vector, bool switch1, bool switch2, bool switch3, bool switch4)
+        {
+            Vector = vector;
+            Switch1 = switch1;
+            Switch2 = switch2;
+            Switch3 = switch3;
+            Switch4 = switch4;
+        }
+
         public StatusMessageEventArgs(Point position, bool switch1, bool switch2, bool switch3, bool switch4)
         {
-            Position = position;
+            Vector = position;
             Switch1 = switch1;
             Switch2 = switch2;
             Switch3 = switch3;
@@ -41,7 +50,7 @@ namespace Eyedrivomatic.Device.Services
 
         public override string ToString()
         {
-            return $"X:{Position.X:F1} , Y:{Position.Y:F1} Switch1:{(Switch1 ? "on" : "off")}, Switch2:{(Switch2 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, Switch4:{(Switch4 ? "on" : "off")}";
+            return $"Vector:{Vector} Switch1:{(Switch1 ? "on" : "off")}, Switch2:{(Switch2 ? "on" : "off")}, Switch3:{(Switch3 ? "on" : "off")}, Switch4:{(Switch4 ? "on" : "off")}";
         }
     }
 }

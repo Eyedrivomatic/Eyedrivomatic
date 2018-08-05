@@ -13,23 +13,25 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.ButtonDriver.Device.Models
 {
+    public enum DeviceOrientation
+    {
+        Rotate0Deg = 0,
+        Rotate90Deg = 90,
+        Rotate180Deg = 180,
+        Rotate270Deg = 270
+    }
+
     public interface IDeviceSettings : INotifyPropertyChanged, IDisposable
     {
-        int DeviceMaxPosX { get; }
-        int DeviceMinPosX { get; }
-        int DeviceMaxPosY { get; }
-        int DeviceMinPosY { get; }
+        decimal DeviceMaxSpeed { get; }
 
-        int? CenterPosX { get; set; }
-        int? MinPosX { get; set; }
-        int? MaxPosX { get; set; }
-
-        int? CenterPosY { get; set; }
-        int? MinPosY { get; set; }
-        int? MaxPosY { get; set; }
+        Point? CenterPos { get; set; }
+        decimal? MaxSpeed { get; set; }
+        DeviceOrientation Orientation { get; set; }
 
         bool? Switch1Default { get; set; }
         bool? Switch2Default { get; set; }

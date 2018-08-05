@@ -20,7 +20,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Device.Models;
 using Eyedrivomatic.Device;
@@ -290,32 +289,10 @@ namespace Eyedrivomatic.ButtonDriver.Device.Services
             {
                 if (!DeviceReady) return Direction.None;
 
-                if (DeviceStatus.Position.Y < 0)
-                {
-                    return Math.Abs(DeviceStatus.Position.Y) < 0.1
-                        ? Direction.Backward
-                        : DeviceStatus.Position.Y > 0
-                            ? Direction.BackwardRight
-                            : Direction.BackwardLeft;
-                }
-
-                if (DeviceStatus.Position.Y > 0)
-                {
-                    return Math.Abs(DeviceStatus.Position.Y) < 0.1
-                        ? Direction.Forward
-                        : DeviceStatus.Position.Y > 0
-                            ? Direction.ForwardRight
-                            : Direction.ForwardLeft;
-                }
-
-                return Math.Abs(DeviceStatus.Position.Y) < 0.1
-                    ? Direction.None
-                    : DeviceStatus.Position.Y > 0
-                        ? Direction.Right
-                        : Direction.Left;
+                if (DeviceStatus.Vector.Speed < 0.1m) return Direction.None;
+                return _lastDirection;
             }
         }
-
 
         public Direction LastDirection
         {

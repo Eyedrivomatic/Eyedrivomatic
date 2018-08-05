@@ -17,12 +17,12 @@ using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using System.Windows.Input;
 
 using Prism.Commands;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Device;
+using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.ButtonDriver.Device.Models;
 using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.Configuration;
@@ -61,10 +61,7 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
             TrimCommand = new DelegateCommand<Direction?>(Trim, CanTrim)
                 .ObservesProperty(() => TrimPosition)
-                .ObservesProperty(() => LeftLimit)
-                .ObservesProperty(() => RightLimit)
-                .ObservesProperty(() => ForwardLimit)
-                .ObservesProperty(() => BackwardLimit);
+                .ObservesProperty(() => MaxSpeed);
 
             RefreshAvailableDeviceList();
 
@@ -195,22 +192,25 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
             return Connected;
         }
 
-        public Point TrimPosition => Driver == null ? new Point(0, 0) : new Point(Driver.DeviceSettings.CenterPosX ?? 0, Driver.DeviceSettings.CenterPosY ?? 0);
+        public Point TrimPosition => Driver?.DeviceSettings?.CenterPos ?? new Point(0,0);
 
         protected void Trim(Direction? direction)
         {
-            if (!Connected || direction == null) return;
+            if (!Connected || direction == null || Driver.DeviceSettings?.CenterPos == null) return;
+
+            var centerPos = Driver.DeviceSettings.CenterPos.Value;
 
             var actionDictionary = new Dictionary<Direction, Action>
             {
-                { Direction.Forward, () => Driver.DeviceSettings.CenterPosY++ },
-                { Direction.Backward, () => Driver.DeviceSettings.CenterPosY-- },
-                { Direction.Right, () => Driver.DeviceSettings.CenterPosX++ },
-                { Direction.Left, () => Driver.DeviceSettings.CenterPosX-- }
+                { Direction.Forward, () => centerPos.Y++ },
+                { Direction.Backward, () => centerPos.Y-- },
+                { Direction.Right, () => centerPos.X++ },
+                { Direction.Left, () => centerPos.X-- }
             };
-
             if (!actionDictionary.ContainsKey(direction.Value)) return;
             actionDictionary[direction.Value]();
+
+            Driver.DeviceSettings.CenterPos = centerPos;
         }
 
         protected bool CanTrim(Direction? direction)
@@ -219,47 +219,28 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
             var testDictionary = new Dictionary<Direction, Func<bool>>
             {
-                { Direction.Forward, () => Driver.DeviceSettings.CenterPosY < Driver.DeviceSettings.MaxPosY },
-                { Direction.Backward, () => Driver.DeviceSettings.CenterPosY > Driver.DeviceSettings.MinPosY },
-                { Direction.Right, () => Driver.DeviceSettings.CenterPosX < Driver.DeviceSettings.MaxPosX },
-                { Direction.Left, () => Driver.DeviceSettings.CenterPosX > Driver.DeviceSettings.MinPosX }
+                { Direction.Forward, () => Driver.DeviceSettings.MaxSpeed > 0 },
+                { Direction.Backward, () => Driver.DeviceSettings.MaxSpeed > 0 },
+                { Direction.Right, () => Driver.DeviceSettings.MaxSpeed > 0 },
+                { Direction.Left, () => Driver.DeviceSettings.MaxSpeed > 0 }
             };
 
             if (!testDictionary.ContainsKey(direction.Value)) return false;
             return testDictionary[direction.Value]();
         }
 
-        public int LeftLimit
+        public decimal MaxSpeed
         {
-            get => -(Driver.DeviceSettings.MinPosX ?? 0);
-            set => Driver.DeviceSettings.MinPosX = -value;
+            get => Driver?.DeviceSettings?.MaxSpeed ?? 0;
+            set => Driver.DeviceSettings.MaxSpeed = value;
         }
-        public int LeftMaxLimit => -Driver.DeviceSettings.DeviceMinPosX;
-        public int LeftMinLimit => -(Driver.DeviceSettings.CenterPosX ?? 0) + 1;
+        public decimal DeviceSpeedLimit => Driver.DeviceSettings.DeviceMaxSpeed;
 
-        public int RightLimit
+        public DeviceOrientation Orientation
         {
-            get => Driver.DeviceSettings.MaxPosX ?? 0;
-            set => Driver.DeviceSettings.MaxPosX = value;
+            get => Driver?.DeviceSettings?.Orientation ?? DeviceOrientation.Rotate0Deg;
+            set => Driver.DeviceSettings.Orientation = value;
         }
-        public int RightMaxLimit => Driver.DeviceSettings.DeviceMaxPosX;
-        public int RightMinLimit => (Driver.DeviceSettings.CenterPosX ?? 0) + 1;
-
-        public int BackwardLimit
-        {
-            get => -(Driver.DeviceSettings.MinPosY ?? 0);
-            set => Driver.DeviceSettings.MinPosY = -value;
-        }
-        public int BackwardMaxLimit => -Driver.DeviceSettings.DeviceMinPosY;
-        public int BackwardMinLimit => -(Driver.DeviceSettings.CenterPosY ?? 0) + 1;
-
-        public int ForwardLimit
-        {
-            get => Driver.DeviceSettings.MaxPosY ?? 0;
-            set => Driver.DeviceSettings.MaxPosY = value;
-        }
-        public int ForwardMaxLimit => Driver.DeviceSettings.DeviceMaxPosY;
-        public int ForwardMinLimit => (Driver.DeviceSettings.CenterPosY ?? 0) + 1;
 
         private bool _deviceHasChanges;
 
@@ -296,12 +277,9 @@ namespace Eyedrivomatic.ButtonDriver.ViewModels
 
         private static readonly Dictionary<string, string[]> SettingPropertyDependencies = new Dictionary<string, string[]>
         {
-            { nameof(IDeviceSettings.CenterPosX),  new [] {nameof(TrimPosition), nameof(LeftMinLimit), nameof(RightMinLimit)} },
-            { nameof(IDeviceSettings.CenterPosY),  new [] {nameof(TrimPosition), nameof(ForwardMinLimit), nameof(BackwardMinLimit)} },
-            { nameof(IDeviceSettings.MaxPosX), new []{ nameof(RightLimit)} },
-            { nameof(IDeviceSettings.MinPosX), new []{ nameof(LeftLimit)} },
-            { nameof(IDeviceSettings.MaxPosY), new []{ nameof(ForwardLimit)} },
-            { nameof(IDeviceSettings.MinPosY), new []{ nameof(BackwardLimit)} }
+            { nameof(IDeviceSettings.CenterPos),  new [] {nameof(TrimPosition), nameof(MaxSpeed)} },
+            { nameof(IDeviceSettings.MaxSpeed), new []{ nameof(MaxSpeed)} },
+            { nameof(IDeviceSettings.Orientation), new []{ nameof(Orientation)} },
         };
 
         private static readonly Dictionary<string, string[]> ConfigurationPropertyDependencies = new Dictionary<string, string[]>

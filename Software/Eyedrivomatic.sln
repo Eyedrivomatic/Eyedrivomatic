@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ButtonDriver", "ButtonDrive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver.Macros.UnitTests", "Eyedrivomatic.ButtonDriver.Macros.UnitTests\Eyedrivomatic.ButtonDriver.Macros.UnitTests.csproj", "{10B01908-1866-4AC0-A143-308E1FA854FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeDrivomatic.ButtonDriver.Hardware.UnitTests", "EyeDrivomatic.ButtonDriver.Hardware.UnitTests\EyeDrivomatic.ButtonDriver.Hardware.UnitTests.csproj", "{F2BEBACC-B1A4-4710-BA71-811432687B50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeDrivomatic.ButtonDriver.Device.UnitTests", "EyeDrivomatic.ButtonDriver.Hardware.UnitTests\EyeDrivomatic.ButtonDriver.Device.UnitTests.csproj", "{F2BEBACC-B1A4-4710-BA71-811432687B50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedrivomatic.ButtonDriver", "Eyedrivomatic.ButtonDriver\Eyedrivomatic.ButtonDriver.csproj", "{BA183B57-B10F-43F8-B6C7-5B362F1666AC}"
 EndProject

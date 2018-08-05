@@ -35,7 +35,7 @@ namespace Eyedrivomatic.Device.UnitTests
                 new AnonymousObserver<string>(message => Console.WriteLine($"MESSAGE => {message}")));
 
             Assert.That(receievedArgs, Is.Not.Null);
-            Assert.That(receievedArgs.Position, Is.EqualTo(new Point(4,-4)));
+            Assert.That(receievedArgs.Vector, Is.EqualTo((Vector)new Point(4,-4)));
             Assert.That(receievedArgs.Switch1, Is.False);
             Assert.That(receievedArgs.Switch2, Is.True);
             Assert.That(receievedArgs.Switch3, Is.False);

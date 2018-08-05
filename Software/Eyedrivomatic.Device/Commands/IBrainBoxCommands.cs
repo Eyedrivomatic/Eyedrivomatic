@@ -13,7 +13,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Eyedrivomatic.Device.Commands
 {
@@ -23,7 +22,7 @@ namespace Eyedrivomatic.Device.Commands
         Task<bool> Move(Point position, TimeSpan duration);
 
         [Export(nameof(Go))]
-        Task<bool> Go(double direction, double speed, TimeSpan duration);
+        Task<bool> Go(Vector vector, TimeSpan duration);
 
         [Export(nameof(ToggleRelay))]
         Task<bool> ToggleRelay(uint relay, TimeSpan duration);

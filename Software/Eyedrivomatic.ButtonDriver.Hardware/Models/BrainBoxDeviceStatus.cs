@@ -13,7 +13,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using System.Windows;
 using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
@@ -45,7 +44,7 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
             private set => SetProperty(ref _isKnown , value);
         }
 
-        public Point Position { get; private set; }
+        public Vector Vector { get; private set; }
 
         public bool Switch1 { get; private set; }
 
@@ -62,7 +61,7 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
             Log.Info(this, $"Device status message received - {statusMessageEventArgs}");
             //Set all, then send a propery changed event.
             //This prevents the "double" updates on bound members.
-            Position = statusMessageEventArgs.Position;
+            Vector = statusMessageEventArgs.Vector;
             Switch1 = statusMessageEventArgs.Switch1;
             Switch2 = statusMessageEventArgs.Switch2;
             Switch3 = statusMessageEventArgs.Switch3;
@@ -83,7 +82,7 @@ namespace Eyedrivomatic.ButtonDriver.Device.Models
 
             while (!await _getStatusCommand())
             {
-                Log.Error(this, $"Status error. Failed to send 'get' status request.");
+                Log.Error(this, "Status error. Failed to send 'get' status request.");
                 if (RetryDelay > TimeSpan.Zero) await Task.Delay(RetryDelay);
             }
         }

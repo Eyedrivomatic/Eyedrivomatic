@@ -44,18 +44,21 @@ void MoveActionClass::execute(const char * parameters)
 	const char* startPos = parameters;
 	char* endPos;
 
-	long duration = strtoul(startPos, &endPos, 10);
+	double xPos = strtof(startPos, &endPos);
+	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING X VALUE")); }
+	if (-100.0f > xPos || 100.0f < xPos) { CancelWithError(PSTR("ERROR: X VALUE OUT OF RANGE %.1f"), xPos); }
+
+	if (*endPos == ',') endPos++;
+
+	double yPos = strtof(startPos = endPos, &endPos);
+	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING Y VALUE")); }
+	if (-100.0f > yPos || 100.0f < yPos) { CancelWithError(PSTR("ERROR: Y VALUE OUT OF RANGE %.1f"), yPos); }
+
+	long duration = strtoul(startPos = endPos, &endPos, 10);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DURATION")); }
 	if (duration < 0 || duration > 10000) { CancelWithError(PSTR("ERROR: DURATION OUT OF RANGE %d"), duration); }
 
-	double xPos = strtof(startPos = endPos, &endPos);
-	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING XPOS")); }
-	if (-100.0f > xPos || 100.0f < xPos) { CancelWithError(PSTR("ERROR: XPOS OUT OF RANGE %.1f"), xPos); }
-
-	double yPos = strtof(startPos = endPos, &endPos);
-	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING YPOS")); }
-	if (-100.0f > yPos || 100.0f < yPos) { CancelWithError(PSTR("ERROR: YPOS OUT OF RANGE %.1f"), yPos); }
-	LoggerService.debug_P(PSTR("Moving to %.1f, %.1f for %d ms"), xPos, yPos, duration);
+	LoggerService.debug_P(PSTR("Moving to %.1f,%.1f for %d ms"), xPos, yPos, duration);
 	cancel(false);
 
 	State.setPosition(xPos, yPos);

@@ -44,12 +44,14 @@ void GoActionClass::execute(const char * parameters)
 	const char* startPos = parameters;
 	char* endPos;
 
-	auto direction = strtof(startPos, &endPos);
+	auto direction = strtod(startPos, &endPos);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING DIRECTION")); }
 	//if (-180.0f > direction || 180.0f < direction) { CancelWithError(PSTR("ERROR: DIRECTION OUT OF RANGE %f"), direction); }
 	//direction = fmod(direction, 180);
 
-	auto speed = strtof(startPos = endPos, &endPos);
+	if (*endPos == ',') endPos++;
+
+	auto speed = strtod(startPos = endPos, &endPos);
 	if (endPos == startPos) { CancelWithError(PSTR("ERROR: MISSING SPEED")); }
 	if (0 > speed || 100.0f < speed) { CancelWithError(PSTR("ERROR: SPEED OUT OF RANGE %3.1f"), speed); }
 
