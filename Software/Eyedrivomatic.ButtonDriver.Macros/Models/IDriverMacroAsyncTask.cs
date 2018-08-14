@@ -11,7 +11,7 @@
 
 
 using System.Threading.Tasks;
-using Eyedrivomatic.ButtonDriver.Device.Services;
+using Eyedrivomatic.ButtonDriver.Services;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.Models
 {

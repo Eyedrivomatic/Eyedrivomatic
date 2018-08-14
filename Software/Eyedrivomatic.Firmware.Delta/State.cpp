@@ -58,15 +58,25 @@ void StateClass::init()
 
 void StateClass::reset()
 {
-	digitalWrite(SERVO_ENABLE, LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch1], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch2], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch3], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch4], LOW);
 	resetServoPositions(); //queues a status message.
-	digitalWrite(SERVO_ENABLE, HIGH);
+	digitalWrite(SERVO_ENABLE, LOW);
 	SendStatus(true);
 }
+
+void StateClass::getServoEnabled(bool & enable)
+{
+	enable = digitalRead(SERVO_ENABLE);
+}
+
+void StateClass::setServoEnabled(bool enable)
+{
+	digitalWrite(SERVO_ENABLE, enable ? HIGH : LOW);
+}
+
 
 int AngleToMicroseconds(double angle)
 {

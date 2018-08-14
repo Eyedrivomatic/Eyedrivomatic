@@ -335,7 +335,7 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Driving</value>
     <comment>The name of the default driving view.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+  <data name="SettingsGroupName_Mk1DeviceLimits" xml:space="preserve">
     <value>Limits</value>
     <comment>The name of the device limits settings group.</comment>
   </data>
@@ -495,7 +495,11 @@ The "Start" button should have a very long dwell time to prevent accidental acti
     <value>Eyegaze</value>
     <comment>The name of the eyegaze configuration view.</comment>
   </data>
-  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+  <data name="SettingDescription_DeltaDeviceSettings" xml:space="preserve">
+    <value>These settings control the movement of the joystick and default state for the switches.</value>
+    <comment>The description of the "device settings" section for "Delta" devices.</comment>
+  </data>
+  <data name="SettingDescription_Mk1DeviceLimits" xml:space="preserve">
     <value>These settings control the maximum distance that the "Electronic Hand" will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!</value>
     <comment>The description of the "device limits" settings.</comment>
   </data>

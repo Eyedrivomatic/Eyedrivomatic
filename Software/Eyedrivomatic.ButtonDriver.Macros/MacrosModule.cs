@@ -18,18 +18,16 @@ using System.Reflection;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
-
-using Eyedrivomatic.ButtonDriver.Device;
-using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
+using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros
 {
     [ModuleExport(typeof(MacrosModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames = new[] { nameof(ButtonDriverDeviceModule), nameof(InfrastructureModule) })]
+        DependsOnModuleNames = new[] { nameof(ButtonDriverModule), nameof(CommonUiModule) })]
     public class MacrosModule : IModule
     {
         private readonly IRegionManager _regionManager;
@@ -39,7 +37,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros
         public IMacro DrivingPageMacro => _serializationService.LoadMacros().FirstOrDefault();
 
         [ImportingConstructor]
-        public MacrosModule(IRegionManager regionManager, IDeviceInitializationService deviceInitializationService, IMacroSerializationService serializationService)
+        public MacrosModule(IRegionManager regionManager, IDeviceService deviceInitializationService, IMacroSerializationService serializationService)
         {
             Log.Info(this, $"Creating Module {nameof(MacrosModule)}.");
 

@@ -16,8 +16,8 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Accord.Video.DirectShow;
 using Eyedrivomatic.Camera.Views;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Controls;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -27,7 +27,7 @@ namespace Eyedrivomatic.Camera
 {
     [ModuleExport(typeof(CameraModule),
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames = new[] { nameof(InfrastructureModule) })]
+        DependsOnModuleNames = new[] { nameof(CommonUiModule) })]
     public class CameraModule : IModule
     {
         private readonly IRegionManager _regionManager;

@@ -12,13 +12,13 @@
 
 using System;
 using System.ComponentModel.Composition;
+using Eyedrivomatic.Common.UI;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
 
 using Eyedrivomatic.Configuration.Views;
 using Eyedrivomatic.Controls;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using Prism.Commands;
@@ -27,7 +27,7 @@ namespace Eyedrivomatic.Configuration
 {
     [ModuleExport(typeof(ConfigurationModule), 
         InitializationMode = InitializationMode.WhenAvailable, 
-        DependsOnModuleNames = new[] { nameof(InfrastructureModule), nameof(ControlsModule) })]
+        DependsOnModuleNames = new[] { nameof(CommonUiModule), nameof(ControlsModule) })]
     public class ConfigurationModule : IModule
     {
         private readonly IRegionManager _regionManager;

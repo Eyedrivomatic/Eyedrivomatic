@@ -292,7 +292,7 @@ Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit e
     <value>Setzen Sie die Transparenz der Fahrtaster, die über das Kamerabild gezeichnet werden. Verwenden Sie 0 für voll transparent und 100 für voll undurchsichtig.</value>
     <comment>Description of the camera overlay opacity setting.</comment>
   </data>
-  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+  <data name="SettingDescription_MK1DeviceLimits" xml:space="preserve">
     <value>Diese Einstellungen steuern den maximalen Ausschlag, den die "Elektronische Hand" in Grad von der Mitte aus bewegt. Die maximale Bewegung der elektrischen Hand beträgt in jeder Richtung 22 Grad. Seien Sie  sehr vorsichtig, die physischen Grenzen deiner Joystick-Hardware nicht zu überschreiten!</value>
     <comment>The description of the "device limits" settings.</comment>
   </data>
@@ -456,7 +456,7 @@ Um einen sicheren Betrieb zu gewährleisten, MÜSSEN folgende Regeln jederzeit e
     <value>Stil</value>
     <comment>The label text displayed for the theme "Styles" setting.</comment>
   </data>
-  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+  <data name="SettingsGroupName_Mk1DeviceLimits" xml:space="preserve">
     <value>Grenzen</value>
     <comment>The name of the device limits settings group.</comment>
   </data>

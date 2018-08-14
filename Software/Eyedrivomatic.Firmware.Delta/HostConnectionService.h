@@ -31,6 +31,7 @@ public:
 	bool IsAvailable();
 private:
 	bool _dtrEnable = true;
+	bool _connected = false;
 };
 
 

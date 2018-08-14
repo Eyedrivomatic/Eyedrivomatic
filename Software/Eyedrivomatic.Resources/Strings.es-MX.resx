@@ -244,7 +244,7 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="DriveProfile_Default" xml:space="preserve">
     <value>IMPULSOR</value>
   </data>
-  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+  <data name="SettingsGroupName_Mk1DeviceLimits" xml:space="preserve">
     <value>Límites</value>
   </data>
   <data name="SettingsGroupName_Trim" xml:space="preserve">
@@ -364,7 +364,7 @@ El botón "Inicio" debe tener un tiempo muy largo para prevenir una activación 
   <data name="ViewName_EyegazeConfig" xml:space="preserve">
     <value>Eyegaze Edge</value>
   </data>
-  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+  <data name="SettingDescription_Mk1DeviceLimits" xml:space="preserve">
     <value>Estos ajustes controlan la distancia máxima que medio"electrónico" se mide en grados desde el centro. El máximo movimiento de la mano eléctrica es de 22 grados en cada dirección. Ten cuidado que no excedan los límites físicos de su hardware de joystick!!</value>
   </data>
   <data name="SettingDescription_DeviceTrim" xml:space="preserve">

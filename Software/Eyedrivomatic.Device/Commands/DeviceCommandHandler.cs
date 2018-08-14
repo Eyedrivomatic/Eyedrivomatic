@@ -15,21 +15,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Logging;
-using System.ComponentModel.Composition;
 
 namespace Eyedrivomatic.Device.Commands
 {
-    [Export]
-    internal class DeviceCommandHandlerFactory
-    {
-        [Export("DeviceCommandHandlerFactory")]
-        public virtual IDeviceCommandHandler CreateBrainBoxCommandHandler(IDeviceCommand command, Action<string> sendFunc)
-        { 
-            return new DeviceCommandHandler(s => sendFunc(ChecksumProcessor.ApplyChecksum(s)), command);
-        }
-    }
-
-    internal class DeviceCommandHandler : IDeviceCommandHandler
+    public class DeviceCommandHandler : IDeviceCommandHandler
     {
         private readonly TaskCompletionSource<bool> _taskCompletionSource = new TaskCompletionSource<bool>();
         private TaskCompletionSource<bool> _sendTaskCompletionSource;
@@ -37,7 +26,7 @@ namespace Eyedrivomatic.Device.Commands
         private readonly IDeviceCommand _command;
         private readonly Action<string> _sendFunc;
 
-        internal DeviceCommandHandler(Action<string> sendFunc, IDeviceCommand command)
+        public DeviceCommandHandler(Action<string> sendFunc, IDeviceCommand command)
         {
             _sendFunc = sendFunc;
             _command = command;

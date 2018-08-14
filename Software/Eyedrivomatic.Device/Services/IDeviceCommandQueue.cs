@@ -15,7 +15,7 @@ using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.Device.Services
 {
-    internal interface IDeviceCommandQueue : IBrainBoxMessageProcessor
+    public interface IDeviceCommandQueue
     {
         Task<bool> SendCommand(IDeviceCommand command);
     }

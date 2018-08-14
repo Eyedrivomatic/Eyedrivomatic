@@ -67,7 +67,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
 
         string ValidateDelayTime()
         {
-            if (DelayMs <= 0) return string.Format(Strings.CycleRelayMacroTask_InvalidRelay, DelayMs);
+            if (DelayMs <= 0) return string.Format(Strings.CycleSwitchMacroTask_InvalidSwitch, DelayMs);
             return null;
         }
 

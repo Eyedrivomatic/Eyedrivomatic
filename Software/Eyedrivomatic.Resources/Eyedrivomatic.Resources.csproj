@@ -32,18 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MobilityConceptBuild|AnyCPU'">
-    <OutputPath>bin\MobilityConceptBuild\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gu.Localization, Version=6.4.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gu.Localization.6.4.2.0\lib\net45\Gu.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -222,9 +216,9 @@
       <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
       <Name>Eyedrivomatic.Eyegaze</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.Common.UI\Eyedrivomatic.Common.UI.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
+      <Name>Eyedrivomatic.Common.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785AB166-FD30-487D-A963-9AD39D9979A5}</Project>

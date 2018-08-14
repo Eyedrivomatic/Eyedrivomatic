@@ -12,11 +12,11 @@
 
 using System;
 using System.ComponentModel.Composition;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Eyegaze.Configuration.Views;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -29,7 +29,7 @@ namespace Eyedrivomatic.Eyegaze.Configuration
     /// </summary>
     [ModuleExport(typeof(EyegazeConfigurationModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames =  new[] { nameof(InfrastructureModule), nameof(ControlsModule), nameof(ConfigurationModule), nameof(EyegazeModule) })]
+        DependsOnModuleNames =  new[] { nameof(CommonUiModule), nameof(ControlsModule), nameof(ConfigurationModule), nameof(EyegazeModule) })]
     public class EyegazeConfigurationModule : IModule, IDisposable
     {
         [ImportingConstructor]

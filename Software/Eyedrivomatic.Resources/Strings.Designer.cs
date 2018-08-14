@@ -169,47 +169,47 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cycle Relay {0} on-off..
+        ///   Looks up a localized string similar to Cycle Switch {0} on-off..
         /// </summary>
-        public static string CycleRelayMacroTask_DefaultNameFormat {
+        public static string CycleSwitchMacroTask_DefaultNameFormat {
             get {
-                return ResourceManager.GetString("CycleRelayMacroTask_DefaultNameFormat", resourceCulture);
+                return ResourceManager.GetString("CycleSwitchMacroTask_DefaultNameFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cycle a relay. This changes the state of the relay off-&gt;on-&gt;off with a 200ms delay..
         /// </summary>
-        public static string CycleRelayMacroTask_Description {
+        public static string CycleSwitchMacroTask_Description {
             get {
-                return ResourceManager.GetString("CycleRelayMacroTask_Description", resourceCulture);
+                return ResourceManager.GetString("CycleSwitchMacroTask_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Must be a value between 1 and {0}..
         /// </summary>
-        public static string CycleRelayMacroTask_InvalidRelay {
+        public static string CycleSwitchMacroTask_InvalidSwitch {
             get {
-                return ResourceManager.GetString("CycleRelayMacroTask_InvalidRelay", resourceCulture);
+                return ResourceManager.GetString("CycleSwitchMacroTask_InvalidSwitch", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Must be greater than 0..
         /// </summary>
-        public static string CycleRelayMacroTask_InvalidRepeat {
+        public static string CycleSwitchMacroTask_InvalidRepeat {
             get {
-                return ResourceManager.GetString("CycleRelayMacroTask_InvalidRepeat", resourceCulture);
+                return ResourceManager.GetString("CycleSwitchMacroTask_InvalidRepeat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cycle Relay {0} for {1} ms, repeat {2} times with a delay of {3} ms between repeats..
+        ///   Looks up a localized string similar to Cycle Switch {0} for {1} ms, repeat {2} times with a delay of {3} ms between repeats..
         /// </summary>
-        public static string CycleRelayMacroTask_ToStringFormat {
+        public static string CycleSwitchMacroTask_ToStringFormat {
             get {
-                return ResourceManager.GetString("CycleRelayMacroTask_ToStringFormat", resourceCulture);
+                return ResourceManager.GetString("CycleSwitchMacroTask_ToStringFormat", resourceCulture);
             }
         }
         
@@ -628,11 +628,11 @@ namespace Eyedrivomatic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!.
+        ///   Looks up a localized string similar to These settings control the movement of the joystick and default state for the switches..
         /// </summary>
-        public static string SettingDescription_DeviceLimits {
+        public static string SettingDescription_DeltaDeviceSettings {
             get {
-                return ResourceManager.GetString("SettingDescription_DeviceLimits", resourceCulture);
+                return ResourceManager.GetString("SettingDescription_DeltaDeviceSettings", resourceCulture);
             }
         }
         
@@ -664,6 +664,15 @@ namespace Eyedrivomatic.Resources {
         public static string SettingDescription_HideMouse {
             get {
                 return ResourceManager.GetString("SettingDescription_HideMouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These settings control the maximum distance that the &quot;Electronic Hand&quot; will move measured in degrees from the center. The maximum movement of the electric hand is 22 degrees in each direction. Be very careful not to exceed the physical limits of your joystick hardware!.
+        /// </summary>
+        public static string SettingDescription_Mk1DeviceLimits {
+            get {
+                return ResourceManager.GetString("SettingDescription_Mk1DeviceLimits", resourceCulture);
             }
         }
         
@@ -1021,9 +1030,9 @@ namespace Eyedrivomatic.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Limits.
         /// </summary>
-        public static string SettingsGroupName_DeviceLimits {
+        public static string SettingsGroupName_Mk1DeviceLimits {
             get {
-                return ResourceManager.GetString("SettingsGroupName_DeviceLimits", resourceCulture);
+                return ResourceManager.GetString("SettingsGroupName_Mk1DeviceLimits", resourceCulture);
             }
         }
         

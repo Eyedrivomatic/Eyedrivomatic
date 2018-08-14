@@ -12,6 +12,7 @@
 
 using System;
 using System.Linq;
+using Eyedrivomatic.Device.Services;
 using NUnit.Framework;
 
 namespace Eyedrivomatic.Device.UnitTests

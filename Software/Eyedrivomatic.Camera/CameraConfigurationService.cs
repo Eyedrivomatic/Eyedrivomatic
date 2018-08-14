@@ -17,7 +17,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Media;
 using Accord.Video.DirectShow;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Logging;
 using Prism.Mvvm;
 using NullGuard;

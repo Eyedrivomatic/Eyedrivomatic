@@ -18,10 +18,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:l="http://gu.se/Localization"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
+             xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
              mc:Ignorable="d"
              d:DesignWidth="869"
              prism:ViewModelLocator.AutoWireViewModel="True">
@@ -30,7 +30,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Eyedrivomatic.Configuration;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <infrastructure:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter"
+            <commonUi:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter"
                                                       VisibilityIfTrue="{x:Static Visibility.Visible}"
                                                       VisibilityIfFalse="{x:Static Visibility.Collapsed}" />
 

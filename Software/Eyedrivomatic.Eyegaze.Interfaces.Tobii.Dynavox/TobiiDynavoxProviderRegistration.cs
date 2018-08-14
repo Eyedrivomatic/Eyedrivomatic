@@ -13,8 +13,8 @@ using System;
 using System.Reactive;
 using System.Windows;
 using System.Windows.Input;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox

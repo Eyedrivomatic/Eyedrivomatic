@@ -11,11 +11,11 @@
 
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Windows;
 
-[assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver")]
-[assembly: AssemblyDescription("Handles the UI and logic for the Eyedrivomatic system.")]
+[assembly: AssemblyTitle("Eyedrivomatic.ButtonDriver.Device")]
+[assembly: AssemblyDescription("Implements the hardware interface for the Eyedrivomatic system.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Eyedrivomatic")]
 [assembly: AssemblyProduct("Eyedrivomatic")]
@@ -27,7 +27,5 @@ using System.Windows;
 
 [assembly: AssemblyVersion("2.0.*")]
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None,
-    ResourceDictionaryLocation.SourceAssembly
-)]
+[assembly: InternalsVisibleTo("Eyedrivomatic.ButtonDriver.Device.UnitTests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

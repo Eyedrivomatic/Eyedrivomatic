@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Logging;
 using NullGuard;
 

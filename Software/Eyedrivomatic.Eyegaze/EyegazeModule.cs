@@ -18,8 +18,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -32,7 +32,7 @@ namespace Eyedrivomatic.Eyegaze
     /// </summary>
     [ModuleExport(typeof(EyegazeModule), 
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames =  new[] { nameof(InfrastructureModule) })]
+        DependsOnModuleNames =  new[] { nameof(CommonUiModule) })]
     public class EyegazeModule : IModule, IDisposable
     {
         [ImportingConstructor]

@@ -36,9 +36,9 @@ namespace Eyedrivomatic.ButtonDriver.Macros.UnitTests
                     DisplayName = "TestMacro1",
                     Tasks = 
                     {
-                        new CycleRelayTask { DisplayName = "Cycle Relay 1 a few times.", Relay = 1, ToggleDelayMs = 100, Repeat = 3 },
+                        new CycleSwitchTask { DisplayName = "Cycle SwitchNumber 1 a few times.", SwitchNumber = 1, ToggleDelayMs = 100, Repeat = 3 },
                         new DelayTask { DisplayName = "Wait for a second.", DelayMs = 1000 },
-                        new CycleRelayTask { DisplayName = "Cycle Relay 2 once.", Relay = 2 }
+                        new CycleSwitchTask { DisplayName = "Cycle SwitchNumber 2 once.", SwitchNumber = 2 }
                     }
                 },
                 new Macros.Models.UserMacro
@@ -71,9 +71,9 @@ namespace Eyedrivomatic.ButtonDriver.Macros.UnitTests
                         DisplayName = "TestMacro1",
                         Tasks =
                         {
-                            new CycleRelayTask { DisplayName = "Cycle Relay 1 a few times.", Relay = 1, ToggleDelayMs = 100, Repeat = 3 },
+                            new CycleSwitchTask { DisplayName = "Cycle SwitchNumber 1 a few times.", SwitchNumber = 1, ToggleDelayMs = 100, Repeat = 3 },
                             new DelayTask { DisplayName = "Wait for a second.", DelayMs = 1000 },
-                            new CycleRelayTask { DisplayName = "Cycle Relay 2 once.", Relay = 2 }
+                            new CycleSwitchTask { DisplayName = "Cycle SwitchNumber 2 once.", SwitchNumber = 2 }
                         }
                     } as IMacro,
                     new Macros.Models.UserMacro

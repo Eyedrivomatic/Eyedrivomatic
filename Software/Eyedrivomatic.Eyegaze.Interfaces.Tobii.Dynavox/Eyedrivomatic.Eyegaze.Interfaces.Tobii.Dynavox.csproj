@@ -33,6 +33,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="NullGuard, Version=1.8.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
       <HintPath>..\packages\NullGuard.Fody.1.8.0\lib\net452\NullGuard.dll</HintPath>
     </Reference>
@@ -82,9 +85,9 @@
       <Project>{99689bc3-301b-4fc7-9d5f-2ad2beeb0fd6}</Project>
       <Name>Eyedrivomatic.Eyegaze</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.Common.UI\Eyedrivomatic.Common.UI.csproj">
       <Project>{E579FF61-CAAB-4DA3-8F05-CF21197DF5D4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
+      <Name>Eyedrivomatic.Common.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>

@@ -17,8 +17,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Eyedrivomatic.Common.UI;
 using Prism.Mvvm;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 using NullGuard;
 
@@ -152,34 +152,11 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         }
         #endregion Change event handlers
 
-        [Export("DeviceVariant")]
-        public string Variant => _configuration.Variant;
-
-        public bool AutoConnect
-        {
-            get => _configuration.AutoConnect;
-            set { if (_configuration.AutoConnect != value) _configuration.AutoConnect = value; }
-        }
-
-        public string ConnectionString
-        {
-            get => _configuration.ConnectionString;
-            set { if (_configuration.ConnectionString != value) _configuration.ConnectionString = value; }
-        }
-
         public bool SafetyBypass
         {
             get => _configuration.SafetyBypass;
             set { if (_configuration.SafetyBypass != value) _configuration.SafetyBypass = value; }
         }
-
-        [Export(nameof(CommandTimeout))]
-        public TimeSpan CommandTimeout
-        {
-            get => TimeSpan.FromMilliseconds(_configuration.CommandTimeout);
-            set { if (Math.Abs(_configuration.CommandTimeout - value.TotalMilliseconds) >= 1) _configuration.CommandTimeout = value.TotalMilliseconds; }
-        }
-
         [Export(typeof(IEnumerable<Profile>))]
         public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
 

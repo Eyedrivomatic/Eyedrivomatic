@@ -39,6 +39,9 @@
     <Reference Include="Gu.Wpf.Localization, Version=6.4.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gu.Wpf.Localization.6.4.2.0\lib\net45\Gu.Wpf.Localization.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -101,9 +104,9 @@
       <Project>{FABE3103-3B06-420F-84C7-62B148F60AE9}</Project>
       <Name>Eyedrivomatic.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.Common.UI\Eyedrivomatic.Common.UI.csproj">
       <Project>{E579FF61-CAAB-4DA3-8F05-CF21197DF5D4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
+      <Name>Eyedrivomatic.Common.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785AB166-FD30-487D-A963-9AD39D9979A5}</Project>

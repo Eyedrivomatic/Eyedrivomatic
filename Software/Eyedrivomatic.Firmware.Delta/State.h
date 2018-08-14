@@ -38,6 +38,9 @@ public:
 	void init();
 	void reset();
 
+	void getServoEnabled(bool & enable);
+	void setServoEnabled(bool enable);
+
 	void getPosition(double & xPos, double & yPos);
 	void setPosition(double xPos, double yPos);
 

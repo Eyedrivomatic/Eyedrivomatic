@@ -57,17 +57,6 @@
   <PropertyGroup>
     <ApplicationIcon>..\Eyedrivomatic.Resources\Images\Logo.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MobilityConceptBuild|AnyCPU'">
-    <OutputPath>bin\MobilityConceptBuild\</OutputPath>
-    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
@@ -90,17 +79,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MobilityConceptBuild|x86'">
-    <OutputPath>bin\MobilityConceptBuild\</OutputPath>
-    <DefineConstants>CODE_ANALYSIS;CODE_ANALYSIS;TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gu.Localization, Version=6.4.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gu.Localization.6.4.2.0\lib\net45\Gu.Localization.dll</HintPath>
@@ -110,6 +88,9 @@
     </Reference>
     <Reference Include="IntelHexFormatReader, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IntelHexFormatReader.2.2.3\lib\net46\IntelHexFormatReader.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -268,9 +249,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="..\Eyedrivomatic.Infrastructure\GrayscaleEffect.fx">
+    <Content Include="..\Eyedrivomatic.Common.UI\GrayscaleEffect.fx">
       <Link>GrayscaleEffect.fx</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="..\Eyedrivomatic.Resources\Docs\de\Disclaimer.rtf">
       <Link>de\Disclaimer.rtf</Link>
@@ -285,10 +266,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="App.Debug.config">
-      <DependentUpon>App.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App.MobilityConceptBuild.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
@@ -325,21 +302,25 @@
       <Project>{c22ce76f-b9bb-441c-982e-5859e7ef531b}</Project>
       <Name>Eyedrivomatic.ButtonDriver.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Device.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver\Eyedrivomatic.ButtonDriver.csproj">
       <Project>{9985222b-9bb5-4b68-9342-764c295d7fa9}</Project>
-      <Name>Eyedrivomatic.ButtonDriver.Device</Name>
+      <Name>Eyedrivomatic.ButtonDriver</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Macros\Eyedrivomatic.ButtonDriver.Macros.csproj">
       <Project>{09a69359-7ad0-47b0-b6f5-ab6a2a1ed1b8}</Project>
       <Name>Eyedrivomatic.ButtonDriver.Macros</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver\Eyedrivomatic.ButtonDriver.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.UI\Eyedrivomatic.ButtonDriver.UI.csproj">
       <Project>{ba183b57-b10f-43f8-b6c7-5b362f1666ac}</Project>
-      <Name>Eyedrivomatic.ButtonDriver</Name>
+      <Name>Eyedrivomatic.ButtonDriver.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Camera\Eyedrivomatic.Camera.csproj">
       <Project>{e0c9704e-0907-4afc-98c8-33ba52998ea7}</Project>
       <Name>Eyedrivomatic.Camera</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Common\Eyedrivomatic.Common.csproj">
+      <Project>{fabe3103-3b06-420f-84c7-62b148f60ae9}</Project>
+      <Name>Eyedrivomatic.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Configuration\Eyedrivomatic.Configuration.csproj">
       <Project>{3f7b0b08-3953-4b33-a223-faf5497634f1}</Project>
@@ -348,6 +329,22 @@
     <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
       <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
       <Name>Eyedrivomatic.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Device.Configuration\Eyedrivomatic.Device.Configuration.csproj">
+      <Project>{1857e33c-14b0-4d65-a61b-6de3205d990b}</Project>
+      <Name>Eyedrivomatic.Device.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Device.Delta\Eyedrivomatic.Device.Delta.csproj">
+      <Project>{0279e3a3-a67b-44e0-b926-ef2a54ec2fee}</Project>
+      <Name>Eyedrivomatic.Device.Delta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Device.Mk1\Eyedrivomatic.Device.Mk1.csproj">
+      <Project>{fd2af270-e98a-4865-81c0-6e933c7c530c}</Project>
+      <Name>Eyedrivomatic.Device.Mk1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Device.Serial\Eyedrivomatic.Device.Serial.csproj">
+      <Project>{b2b3ea2f-a3c6-4d48-872c-d05be6481d09}</Project>
+      <Name>Eyedrivomatic.Device.Serial</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Eyegaze.Configuration\Eyedrivomatic.Eyegaze.Configuration.csproj">
       <Project>{c9ca6046-c7ee-4194-821b-9570a6299734}</Project>
@@ -373,9 +370,9 @@
       <Project>{CAAD25FE-1FB3-4B50-9D6F-DD1681E1BEA1}</Project>
       <Name>Eyedrivomatic.Device</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.Common.UI\Eyedrivomatic.Common.UI.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
+      <Name>Eyedrivomatic.Common.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>

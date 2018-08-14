@@ -18,7 +18,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:regions="http://prismlibrary.com/"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:common_ui="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
              xmlns:l="http://gu.se/Localization"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
              mc:Ignorable="d"
@@ -35,7 +35,7 @@
                       HorizontalContentAlignment="Stretch">
             <ContentControl x:Name="ConfigurationContent"
                             HorizontalAlignment="Left"
-                            regions:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationContentRegion}"/>
+                            regions:RegionManager.RegionName="{x:Static common_ui:RegionNames.ConfigurationContentRegion}"/>
         </ScrollViewer>
 
         <UniformGrid Rows="1" Grid.Row="1" Width="550" HorizontalAlignment="Right">

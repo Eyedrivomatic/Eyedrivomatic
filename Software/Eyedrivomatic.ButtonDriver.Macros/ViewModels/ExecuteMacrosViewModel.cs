@@ -18,7 +18,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 
 using Eyedrivomatic.ButtonDriver.Macros.Models;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Resources;
 
 namespace Eyedrivomatic.ButtonDriver.Macros.ViewModels

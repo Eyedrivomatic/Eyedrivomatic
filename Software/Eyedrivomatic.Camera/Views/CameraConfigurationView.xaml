@@ -19,7 +19,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:l="http://gu.se/Localization"
              xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
@@ -79,7 +79,7 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
                     <StackPanel.Resources>
-                        <infrastructure:MultiplierConverter x:Key="MultiplierConverter"/>
+                        <commonUi:MultiplierConverter x:Key="MultiplierConverter"/>
                     </StackPanel.Resources>
                     <Label Content="{l:Static resources:Strings.SettingName_CameraOverlayOpacity}" VerticalAlignment="Center"/>
                     <xctk:DoubleUpDown

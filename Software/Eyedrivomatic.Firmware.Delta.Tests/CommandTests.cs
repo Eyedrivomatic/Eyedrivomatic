@@ -14,7 +14,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
-using Eyedrivomatic.Device.Commands;
+//using Eyedrivomatic.Device.Commands;
 
 namespace Eyedrivomatic.Firmware.Delta.Tests
 {
@@ -486,6 +486,67 @@ namespace Eyedrivomatic.Firmware.Delta.Tests
             Assert.That(match.Groups["Switch2"].Value, Is.EqualTo(switch2 ? "ON" : "OFF"));
             Assert.That(match.Groups["Switch3"].Value, Is.EqualTo(switch3 ? "ON" : "OFF"));
             Assert.That(match.Groups["Switch4"].Value, Is.EqualTo(switch4 ? "ON" : "OFF"));
+        }
+    }
+
+    public struct Point
+    {
+        public decimal X;
+        public decimal Y;
+
+        public Point(decimal x, decimal y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public static implicit operator Vector(Point point)
+        {
+            return new Vector(
+                (decimal)Math.Atan2((double)point.Y, (double)point.X),
+                (decimal)Math.Sqrt(Math.Pow((double)point.X, 2) + Math.Pow((double)point.Y, 2)));
+        }
+
+        public override string ToString()
+        {
+            return $"{X:F1},{X:F1}";
+        }
+
+        public static Point Parse(string str)
+        {
+            var parts = str.Split(',');
+            if (parts.Length != 2) throw new ArgumentException();
+            if (!decimal.TryParse(parts[0], out decimal x)) throw new ArgumentException();
+            if (!decimal.TryParse(parts[1], out decimal y)) throw new ArgumentException();
+            return new Point(x, y);
+        }
+    }
+
+    public struct Vector
+    {
+        public decimal Direction;
+        public decimal Speed;
+
+        public Vector(decimal direction, decimal speed)
+        {
+            Direction = direction;
+            Speed = speed;
+        }
+
+        public static implicit operator Point(Vector vector)
+        {
+            return new Point(
+                (decimal)Math.Cos((double)vector.Direction) * vector.Speed,
+                (decimal)Math.Sin((double)vector.Direction) * vector.Speed);
+        }
+
+        public static Vector Parse(string str)
+        {
+            var parts = str.Split(',');
+            if (parts.Length != 2) throw new ArgumentException();
+            if (!decimal.TryParse(parts[0], out decimal direction)) throw new ArgumentException();
+            if (!decimal.TryParse(parts[1], out decimal speed)) throw new ArgumentException();
+            return new Vector(direction, speed);
         }
     }
 }

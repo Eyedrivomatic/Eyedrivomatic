@@ -14,9 +14,8 @@ using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
-using Eyedrivomatic.ButtonDriver.Device.Services;
 using Eyedrivomatic.ButtonDriver.Macros.Models;
+using Eyedrivomatic.ButtonDriver.Services;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.ButtonDriver.Macros

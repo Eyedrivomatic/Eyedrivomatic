@@ -15,15 +15,15 @@
 <Application x:Class="Eyedrivomatic.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
+             xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
              xmlns:dwellClick="clr-namespace:Eyedrivomatic.Eyegaze.DwellClick;assembly=Eyedrivomatic.Eyegaze">
     <Application.Resources>
         <!--Global View Model Locator-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <infrastructure:ThemeColorsResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Colors/WindowsDefaultColors.xaml"/>
-                <infrastructure:ThemeImagesResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images/OriginalImages.xaml"/>
-                <infrastructure:ThemeStylesResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultStyles.xaml"/>
+                <commonUi:ThemeColorsResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Colors/WindowsDefaultColors.xaml"/>
+                <commonUi:ThemeImagesResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Images/OriginalImages.xaml"/>
+                <commonUi:ThemeStylesResourceDictionary Source="pack://application:,,,/Eyedrivomatic.Resources;component/Themes/Default/DefaultStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
      </ResourceDictionary>
         

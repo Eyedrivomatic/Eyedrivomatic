@@ -12,8 +12,8 @@
 
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Eyegaze.DwellClick;
-using Eyedrivomatic.Infrastructure;
 using Prism.Mvvm;
 using Eyedrivomatic.Logging;
 

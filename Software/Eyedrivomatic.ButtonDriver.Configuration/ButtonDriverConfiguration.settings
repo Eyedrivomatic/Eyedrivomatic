@@ -2,12 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Eyedrivomatic.ButtonDriver.Configuration" GeneratedClassName="ButtonDriverConfiguration">
   <Profiles />
   <Settings>
-    <Setting Name="ConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="AutoConnect" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SafetyBypass" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -16,29 +10,7 @@
     </Setting>
     <Setting Name="DrivingProfiles" Type="Eyedrivomatic.ButtonDriver.Configuration.ProfileCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;profiles currentProfile="Large Room"&gt;
-  &lt;profile name="Large Room" CurrentSpeed="Slow"&gt;
-    &lt;speed name="Slow" x="60" yForward="40" yBackward="40" xDiag="50" yForwardDiag="25" yBackwardDiag="25" nudge="10" /&gt;
-    &lt;speed name="Walk" x="80" yForward="60" yBackward="60" xDiag="70" yForwardDiag="50" yBackwardDiag="45" nudge="10" /&gt;
-    &lt;speed name="Fast" x="100" yForward="100" yBackward="100" xDiag="75" yForwardDiag="75" yBackwardDiag="65" nudge="10" /&gt;
-  &lt;/profile&gt;
-  &lt;profile name="Small Room" CurrentSpeed="Slow"&gt;
-    &lt;speed name="Slow" x="30" yForward="20" yBackward="10" xDiag="25" yForwardDiag="15" yBackwardDiag="10" nudge="5" /&gt;
-    &lt;speed name="Walk" x="40" yForward="40" yBackward="20" xDiag="30" yForwardDiag="30" yBackwardDiag="20" nudge="5" /&gt;
-    &lt;speed name="Fast" x="50" yForward="50" yBackward="30" xDiag="40" yForwardDiag="40" yBackwardDiag="25" nudge="5" /&gt;
-  &lt;/profile&gt;
-  &lt;profile name="Hallway" CurrentSpeed="Slow"&gt;
-    &lt;speed name="Slow" x="80" yForward="40" yBackward="20" xDiag="20" yForwardDiag="35" yBackwardDiag="15" nudge="10" /&gt;
-    &lt;speed name="Walk" x="90" yForward="60" yBackward="30" xDiag="30" yForwardDiag="50" yBackwardDiag="20" nudge="10" /&gt;
-    &lt;speed name="Fast" x="100" yForward="100" yBackward="50" xDiag="40" yForwardDiag="75" yBackwardDiag="25" nudge="10" /&gt;
-  &lt;/profile&gt;
-&lt;/profiles&gt;</Value>
-    </Setting>
-    <Setting Name="CommandTimeout" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1000</Value>
-    </Setting>
-    <Setting Name="Variant" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+&lt;profiles currentProfile="" /&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

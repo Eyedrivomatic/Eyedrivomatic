@@ -13,6 +13,7 @@
 #include "Response.h"
 #include "VersionInfo.h"
 #include "SendStatusAction.h"
+#include "State.h"
 
 HostConnectionServiceClass::HostConnectionServiceClass()
 {
@@ -27,19 +28,28 @@ HostConnectionServiceClass::~HostConnectionServiceClass()
 
 void HostConnectionServiceClass::MonitorConnection()
 {
-	auto dtr = Serial && Serial.dtr();
+	if (Serial.available() != 0)
+	{
+		State.setServoEnabled(false);
+		_dtrEnable = false;
+		return;
+	}
+
+	auto dtr = Serial.dtr();
 	if (!dtr && _dtrEnable)
 	{
 		SendStartupInfo();
 		SendStatusAction.execute(NULL);
 		SendStatusAction.execute("VECTOR");
+		State.setServoEnabled(true);
 	}
+
 	_dtrEnable = dtr;
 }
 
 bool HostConnectionServiceClass::IsAvailable()
 {
-	return Serial;
+	return Serial.available() != 0;
 }
 
 void HostConnectionServiceClass::SendStartupInfo()

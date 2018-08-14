@@ -27,7 +27,8 @@ namespace Eyedrivomatic.Setup
 
             var eyedrivomaticTargetDir = $@"..\Eyedrivomatic\bin\{build}\";
             var resourcesTargetDir = $@"..\Eyedrivomatic.Resources\bin\{build}\";
-            var firmwareTargetDir = $@"..\Eyedrivomatic.Firmware\{build}\";
+            var deltaFirmwareTargetDir = $@"..\Eyedrivomatic.Firmware.Delta\{build}\";
+            var mk1FirmwareTargetDir = $@"..\Eyedrivomatic.Firmware.Mk1\{build}\";
 
             var iconfile = $@"{resourcesTargetDir}Images\Logo.ico";
             var libdir = @"..\..\lib\";
@@ -74,33 +75,37 @@ namespace Eyedrivomatic.Setup
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.exe.config"),
                 new File($@"{eyedrivomaticTargetDir}Macros.config"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Configuration.dll"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Configuration.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.pdb"),
-                new File($@"{eyedrivomaticTargetDir}GrayscaleEffect.fx"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Infrastructure.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Infrastructure.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Device.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Device.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.UI.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.UI.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Configuration.dll"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Configuration.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Controls.dll"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Controls.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.Macros.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.ButtonDriver.pdb"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.dll"),
-                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Camera.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.UI.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Common.UI.pdb"),
+                new File($@"{eyedrivomaticTargetDir}GrayscaleEffect.fx"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Configuration.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Configuration.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Delta.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Delta.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Mk1.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Mk1.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Serial.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Device.Serial.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Configuration.dll"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Configuration.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Mouse.dll"),
@@ -109,6 +114,10 @@ namespace Eyedrivomatic.Setup
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.pdb"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.dll"),
                 new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Eyegaze.Interfaces.Tobii.Dynavox.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Logging.pdb"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.dll"),
+                new File($@"{eyedrivomaticTargetDir}Eyedrivomatic.Resources.pdb"),
 
                 //Third party components
                 new File($@"{eyedrivomaticTargetDir}Accord.dll"),
@@ -181,11 +190,15 @@ namespace Eyedrivomatic.Setup
 
                 //Firmware
                 new Dir(@"Firmware",
-                    new File($@"{firmwareTargetDir}Eyedrivomatic.Firmware.{firmwareVersion}.hex")
+                    new File($@"{deltaFirmwareTargetDir}Eyedrivomatic.Firmware.Delta.{firmwareVersion}.hex")
                     {
-                        AttributesDefinition = $@"Source={firmwareTargetDir}Eyedrivomatic.Firmware.hex;Name=Eyedrivomatic.Firmware.{firmwareVersion}.hex"
-                    })
-            ));
+                        AttributesDefinition = $@"Source={deltaFirmwareTargetDir}Eyedrivomatic.Firmware.Delta.hex;Name=Eyedrivomatic.Firmware.Delta.{firmwareVersion}.hex"
+                    })//,
+                    //new File($@"{mk1FirmwareTargetDir}Eyedrivomatic.Firmware.Mk1.{firmwareVersion}.hex")
+                    //{
+                    //    AttributesDefinition = $@"Source={mk1FirmwareTargetDir}Eyedrivomatic.Firmware.Mk.hex;Name=Eyedrivomatic.Firmware.Mk1.{firmwareVersion}.hex"
+                    //})
+                ));
 
             project.SetVersionFromFileId(@"Eyedrivomatic_exe");
             project.Feature = completeFeature;

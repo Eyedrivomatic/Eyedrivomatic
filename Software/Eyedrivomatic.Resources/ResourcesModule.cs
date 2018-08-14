@@ -12,16 +12,16 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using Eyedrivomatic.Common.UI;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
-using Eyedrivomatic.Infrastructure;
 using Eyedrivomatic.Logging;
 
 namespace Eyedrivomatic.Resources
 {
     [ModuleExport(typeof(ResourcesModule),
         InitializationMode = InitializationMode.WhenAvailable,
-        DependsOnModuleNames = new[] { nameof(InfrastructureModule) })]
+        DependsOnModuleNames = new[] { nameof(CommonUiModule) })]
     public class ResourcesModule : IModule
     {
         [ImportingConstructor]

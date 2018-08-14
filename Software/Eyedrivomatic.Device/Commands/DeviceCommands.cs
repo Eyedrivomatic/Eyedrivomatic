@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 
 namespace Eyedrivomatic.Device.Commands
 {
-    [Export(typeof(IBrainBoxCommands))]
+    [Export(typeof(IDeviceCommands))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    internal class DeviceCommands : IBrainBoxCommands
+    internal class DeviceCommands : IDeviceCommands
     {
         private readonly Func<IDeviceCommand, Task<bool>> _executeCommand;
 
@@ -28,56 +28,56 @@ namespace Eyedrivomatic.Device.Commands
             _executeCommand = executeCommand;
         }
 
-        [Export(nameof(IBrainBoxCommands.Move))]
+        [Export(nameof(IDeviceCommands.Move))]
         public Task<bool> Move(Point position, TimeSpan duration)
         {
             var command = new MoveCommand(position, duration);
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.Go))]
+        [Export(nameof(IDeviceCommands.Go))]
         public Task<bool> Go(Vector vector, TimeSpan duration)
         {
             var command = new GoCommand(vector, duration);
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.ToggleRelay))]
-        public Task<bool> ToggleRelay(uint relay, TimeSpan duration)
+        [Export(nameof(IDeviceCommands.ToggleSwitch))]
+        public Task<bool> ToggleSwitch(uint relay, TimeSpan duration)
         {
-            var command = new ToggleRelayCommand(relay, duration);
+            var command = new ToggleSwitchCommand(relay, duration);
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.GetStatus))]
+        [Export(nameof(IDeviceCommands.GetStatus))]
         public Task<bool> GetStatus()
         {
             var command = new GetStatusCommand();
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.GetConfiguration))]
+        [Export(nameof(IDeviceCommands.GetConfiguration))]
         public Task<bool> GetConfiguration(string name)
         {
             var command = new GetConfigurationCommand(name);
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.SetConfiguration))]
+        [Export(nameof(IDeviceCommands.SetConfiguration))]
         public Task<bool> SetConfiguration(string name, string value)
         {
             var command = new SetConfigurationCommand(name, value);
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.SaveConfiguration))]
+        [Export(nameof(IDeviceCommands.SaveConfiguration))]
         public Task<bool> SaveConfiguration()
         {
             var command = new SaveConfigurationCommand();
             return _executeCommand(command);
         }
 
-        [Export(nameof(IBrainBoxCommands.Stop))]
+        [Export(nameof(IDeviceCommands.Stop))]
         public Task<bool> Stop()
         {
             var command = new StopCommand();

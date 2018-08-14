@@ -18,17 +18,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:infrastructure="clr-namespace:Eyedrivomatic.Infrastructure;assembly=Eyedrivomatic.Infrastructure"
-        xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.Views;assembly=Eyedrivomatic.ButtonDriver"
+        xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
+        xmlns:buttonDriverViews="clr-namespace:Eyedrivomatic.ButtonDriver.UI.Views;assembly=Eyedrivomatic.ButtonDriver.UI"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:eyedrivomatic="clr-namespace:Eyedrivomatic"
-        xmlns:buttonDriver="clr-namespace:Eyedrivomatic.ButtonDriver;assembly=Eyedrivomatic.ButtonDriver"
+        xmlns:configuration="clr-namespace:Eyedrivomatic.Device.Configuration;assembly=Eyedrivomatic.Device.Configuration"
         mc:Ignorable="d"
         Title="Eyedrivomatic" Height="800" Width="1280" WindowState="Maximized"
         KeyDown="Window_KeyDown"
         prism:ViewModelLocator.AutoWireViewModel="True">
-    <buttonDriver:DeviceConnectionDecoratorControl Name="ConnectionDecorator">
+    <configuration:DeviceConnectionDecoratorControl Name="ConnectionDecorator">
         <Grid Background="{DynamicResource WindowBackgroundBrush}" Name="LayoutRoot">
             <Grid.Resources>
                 <Storyboard x:Key="ShowConfigurationAnimation">
@@ -203,7 +203,7 @@
                 <ColumnDefinition Width="*" x:Name="MainContentColumn" />
             </Grid.ColumnDefinitions>
 
-            <ContentControl prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.StatusRegion}"
+            <ContentControl prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.StatusRegion}"
                             Grid.Row="0" Grid.Column="1"
                             d:DataContext="{d:DesignInstance buttonDriverViews:StatusView}"
                             HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
@@ -230,7 +230,7 @@
                 </Grid.RowDefinitions>
 
                 <ItemsControl x:Name="DriveProfileSelection"
-                              prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.DriveProfileSelectionRegion}"
+                              prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.DriveProfileSelectionRegion}"
                               Grid.Row="0"
                               ItemContainerStyle="{DynamicResource RegionNavigationButtonStyle}"
                               HorizontalAlignment="Right">
@@ -245,7 +245,7 @@
                 </ItemsControl>
 
                 <ItemsControl x:Name="ConfigurationNavigation"
-                              prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationNavigationRegion}"
+                              prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.ConfigurationNavigationRegion}"
                               Grid.Row="0"
                               ItemContainerStyle="{DynamicResource RegionNavigationButtonStyle}"
                               HorizontalAlignment="Right" Opacity="0" Visibility="Collapsed">
@@ -263,19 +263,19 @@
                 </ItemsControl>
 
                 <ContentControl x:Name="SleepButtonRegion"
-                                prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.SleepButtonRegion}"
+                                prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.SleepButtonRegion}"
                                 Grid.Column="0" Grid.Row="1" Height="175" />
             </Grid>
 
             <ContentControl x:Name="MainContent" Grid.Column="1" Grid.Row="1"
-                            prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.MainContentRegion}">
+                            prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.MainContentRegion}">
                 <!--<buttonDriverViews:DrivingView />-->
             </ContentControl>
 
             <ContentControl x:Name="ConfigurationContent" Grid.Column="1" Grid.Row="1"
-                            prism:RegionManager.RegionName="{x:Static infrastructure:RegionNames.ConfigurationRegion}"
+                            prism:RegionManager.RegionName="{x:Static commonUi:RegionNames.ConfigurationRegion}"
                             Opacity="0" Visibility="Collapsed" />
 
         </Grid>
-    </buttonDriver:DeviceConnectionDecoratorControl>
+    </configuration:DeviceConnectionDecoratorControl>
 </Window>

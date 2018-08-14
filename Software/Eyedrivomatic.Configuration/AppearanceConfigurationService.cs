@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Linq;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using Gu.Localization;

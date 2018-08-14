@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Windows.Input;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Resources;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -16,7 +16,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Xml.Serialization;
-using Eyedrivomatic.ButtonDriver.Device.Services;
+using Eyedrivomatic.ButtonDriver.Services;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 
@@ -34,7 +34,7 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         [XmlIgnore]
         public bool IsExecuting { get; private set; }
 
-        [XmlArrayItem(Type = typeof(CycleRelayTask), ElementName = "CycleRelay")]
+        [XmlArrayItem(Type = typeof(CycleSwitchTask), ElementName = "CycleRelay")]
         [XmlArrayItem(Type = typeof(DelayTask), ElementName = "Delay")]
         public ObservableCollection<MacroTask> Tasks { get; internal set; } = new ObservableCollection<MacroTask>();
 
@@ -84,8 +84,8 @@ namespace Eyedrivomatic.ButtonDriver.Macros.Models
         /// </summary>
         public bool Equals(IMacro other)
         {
-            return DisplayName == other.DisplayName &&
-                Tasks.SequenceEqual<MacroTask>(other.Tasks);
+            return other != null && DisplayName == other.DisplayName &&
+                Tasks.SequenceEqual(other.Tasks);
         }
         #endregion IEquatable
 

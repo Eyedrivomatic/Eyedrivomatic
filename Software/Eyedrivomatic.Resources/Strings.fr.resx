@@ -284,7 +284,7 @@ Pour assurer un fonctionnement sûr, les directives suivantes DOIVENT être resp
   <data name="DriveProfile_Default" xml:space="preserve">
     <value>Conduite</value>
   </data>
-  <data name="SettingsGroupName_DeviceLimits" xml:space="preserve">
+  <data name="SettingsGroupName_Mk1DeviceLimits" xml:space="preserve">
     <value>Limitations</value>
   </data>
   <data name="SettingsGroupName_Trim" xml:space="preserve">
@@ -404,7 +404,7 @@ Pour assurer un fonctionnement sûr, les directives suivantes DOIVENT être resp
   <data name="ViewName_EyegazeConfig" xml:space="preserve">
     <value>Regard</value>
   </data>
-  <data name="SettingDescription_DeviceLimits" xml:space="preserve">
+  <data name="SettingDescription_Mk1DeviceLimits" xml:space="preserve">
     <value>Ces paramètres contrôlent la distance maximale que la «main électronique de l'eyedrive» déplacera (mesurée en degrés à partir du centre). Le mouvement maximum de la main électronique est de 22 degrés dans chaque direction. Faites très attention à ne pas les dépasser.</value>
   </data>
   <data name="SettingDescription_DeviceTrim" xml:space="preserve">

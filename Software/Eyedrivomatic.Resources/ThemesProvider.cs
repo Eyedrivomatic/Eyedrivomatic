@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Markup;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 
 namespace Eyedrivomatic.Resources
 {

@@ -14,23 +14,22 @@ using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Windows;
-
-
+using Eyedrivomatic.ButtonDriver;
 using Prism.Logging;
 using Prism.Mef;
 using Prism.Modularity;
 
-using Eyedrivomatic.ButtonDriver;
-using Eyedrivomatic.ButtonDriver.Device;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Macros;
+using Eyedrivomatic.ButtonDriver.UI;
 using Eyedrivomatic.Camera;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Eyegaze;
 using Eyedrivomatic.Eyegaze.Configuration;
 using Eyedrivomatic.Device.Communications;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Device.Configuration;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 
@@ -61,17 +60,18 @@ namespace Eyedrivomatic.Startup
             base.ConfigureAggregateCatalog();
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(InfrastructureModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CommonUiModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ResourcesModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ControlsModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverDeviceModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DeviceConfigurationModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CameraModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverUiModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
         }
 

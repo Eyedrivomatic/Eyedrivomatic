@@ -40,6 +40,12 @@
     <Reference Include="IntelHexFormatReader, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IntelHexFormatReader.2.2.3\lib\net46\IntelHexFormatReader.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
@@ -50,6 +56,9 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=7.0.0.396, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="RJCP.SerialPortStream, Version=2.1.4.0, Culture=neutral, PublicKeyToken=5f5e7b70c6a74deb, processorArchitecture=MSIL">
       <HintPath>..\packages\SerialPortStream.2.1.4\lib\net45\RJCP.SerialPortStream.dll</HintPath>
@@ -122,6 +131,9 @@
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -133,43 +145,42 @@
     <Compile Include="Commands\GetConfigurationCommand.cs" />
     <Compile Include="Commands\GetStatusCommand.cs" />
     <Compile Include="Commands\IDeviceCommand.cs" />
-    <Compile Include="Commands\IBrainBoxCommands.cs" />
+    <Compile Include="Commands\IDeviceCommands.cs" />
     <Compile Include="Commands\GoCommand.cs" />
     <Compile Include="Commands\MoveCommand.cs" />
     <Compile Include="Commands\Point.cs" />
     <Compile Include="Commands\SaveConfigurationCommand.cs" />
     <Compile Include="Commands\SetConfigurationCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
-    <Compile Include="Commands\ToggleRelayCommand.cs" />
+    <Compile Include="Commands\ToggleSwitchCommand.cs" />
     <Compile Include="Commands\Vector.cs" />
-    <Compile Include="Communications\ElectronicHandInfo.cs" />
-    <Compile Include="Communications\ElectronicHandConnection.cs" />
-    <Compile Include="Communications\ChecksumProcessor.cs" />
-    <Compile Include="Communications\ElectronicHandConnectionFactory.cs" />
-    <Compile Include="Communications\IElectronicHandConnectionFactory.cs" />
-    <Compile Include="Communications\IElectronicHandDeviceInfo.cs" />
+    <Compile Include="Communications\DeviceIdFilter.cs" />
+    <Compile Include="ISwitchStatus.cs" />
+    <Compile Include="Services\DeviceService.cs" />
+    <Compile Include="Services\IDeviceConnectionFactory.cs" />
+    <Compile Include="Services\IDeviceFactory.cs" />
+    <Compile Include="Communications\IDeviceInfo.cs" />
     <Compile Include="Communications\IDeviceCommandHandler.cs" />
     <Compile Include="Communications\IDeviceConnection.cs" />
-    <Compile Include="Communications\SettingNames.cs" />
+    <Compile Include="Communications\VersionInfo.cs" />
+    <Compile Include="ConnectionFailedException.cs" />
     <Compile Include="DeviceConnectionEvent.cs" />
+    <Compile Include="IDevice.cs" />
+    <Compile Include="IDeviceSettings.cs" />
+    <Compile Include="IDeviceStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArduinoUploadLogger.cs" />
-    <Compile Include="Services\DeviceCommandQueue.cs" />
     <Compile Include="Services\DeviceDescriptor.cs" />
-    <Compile Include="Services\ElectronicHandEnumerationService.cs" />
-    <Compile Include="Services\ElectronicHandFirmwareUpdateService.cs" />
+    <Compile Include="Services\ConnectionEnumerationService.cs" />
+    <Compile Include="Services\FirmwareUpdateService.cs" />
     <Compile Include="Services\IDeviceCommandQueue.cs" />
-    <Compile Include="Services\IBrainBoxMessageProcessor.cs" />
-    <Compile Include="Services\IDeviceEnumerationService.cs" />
+    <Compile Include="Services\IConnectionEnumerationService.cs" />
+    <Compile Include="Services\IDeviceService.cs" />
+    <Compile Include="Services\IFirmwareUpdateInteractionService.cs" />
     <Compile Include="Services\IFirmwareUpdateService.cs" />
     <Compile Include="Services\ISettingsMessageSource.cs" />
     <Compile Include="Services\IStatusMessageSource.cs" />
-    <Compile Include="Services\LineMessageProcessor.cs" />
-    <Compile Include="Services\LogMessageProcessor.cs" />
-    <Compile Include="Services\MessageProcessorExportAttribute.cs" />
-    <Compile Include="Services\SettingMessageProcessor.cs" />
-    <Compile Include="Services\StatusMessageProcessor.cs" />
-    <Compile Include="UsbSerialDeviceEnumerator.cs" />
+    <Compile Include="Services\UsbSerialDeviceEnumerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -186,6 +197,10 @@
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
       <Name>Eyedrivomatic.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Resources\Eyedrivomatic.Resources.csproj">
+      <Project>{1C00CCD6-A19C-4B9E-A203-F053CE0871FF}</Project>
+      <Name>Eyedrivomatic.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

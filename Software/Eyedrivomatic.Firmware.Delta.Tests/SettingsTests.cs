@@ -10,7 +10,6 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
-using System.Windows;
 using NUnit.Framework;
 
 namespace Eyedrivomatic.Firmware.Delta.Tests

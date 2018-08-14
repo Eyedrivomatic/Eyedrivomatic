@@ -40,6 +40,9 @@
     <Reference Include="Gu.Wpf.Localization, Version=6.4.2.0, Culture=neutral, PublicKeyToken=63b557f19697202e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gu.Wpf.Localization.6.4.2.0\lib\net45\Gu.Wpf.Localization.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -79,7 +82,7 @@
     <Compile Include="Models\IMacroSerializationService.cs" />
     <Compile Include="Models\MacroService.cs" />
     <Compile Include="Models\MacroTask.cs" />
-    <Compile Include="Models\CycleRelayTask.cs" />
+    <Compile Include="Models\CycleSwitchTask.cs" />
     <Compile Include="Models\UserMacro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreateNewTaskViewModel.cs" />
@@ -88,29 +91,37 @@
     <Compile Include="ViewModels\EditMacroTaskViewModel.cs" />
     <Compile Include="Models\IMacroService.cs" />
     <Compile Include="ViewModels\ExecuteMacrosViewModel.cs" />
-    <Compile Include="ViewModels\ToggleRelayTaskViewModel.cs" />
+    <Compile Include="ViewModels\ToggleSwitchTaskViewModel.cs" />
     <Compile Include="Views\ExecuteMacrosView.xaml.cs">
       <DependentUpon>ExecuteMacrosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditMacrosView.xaml.cs">
       <DependentUpon>EditMacrosView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CycleRelayTaskView.xaml.cs">
-      <DependentUpon>CycleRelayTaskView.xaml</DependentUpon>
+    <Compile Include="Views\CycleSwitchTaskView.xaml.cs">
+      <DependentUpon>CycleSwitchTaskView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver.Hardware\Eyedrivomatic.ButtonDriver.Device.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.ButtonDriver\Eyedrivomatic.ButtonDriver.csproj">
       <Project>{9985222b-9bb5-4b68-9342-764c295d7fa9}</Project>
-      <Name>Eyedrivomatic.ButtonDriver.Device</Name>
+      <Name>Eyedrivomatic.ButtonDriver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Common\Eyedrivomatic.Common.csproj">
+      <Project>{FABE3103-3B06-420F-84C7-62B148F60AE9}</Project>
+      <Name>Eyedrivomatic.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Controls\Eyedrivomatic.Controls.csproj">
       <Project>{7b85def1-07a1-4ea8-a5fc-269fad82dd38}</Project>
       <Name>Eyedrivomatic.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Eyedrivomatic.Infrastructure\Eyedrivomatic.Infrastructure.csproj">
+    <ProjectReference Include="..\Eyedrivomatic.Device\Eyedrivomatic.Device.csproj">
+      <Project>{CAAD25FE-1FB3-4B50-9D6F-DD1681E1BEA1}</Project>
+      <Name>Eyedrivomatic.Device</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eyedrivomatic.Common.UI\Eyedrivomatic.Common.UI.csproj">
       <Project>{e579ff61-caab-4da3-8f05-cf21197df5d4}</Project>
-      <Name>Eyedrivomatic.Infrastructure</Name>
+      <Name>Eyedrivomatic.Common.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eyedrivomatic.Logging\Eyedrivomatic.Logging.csproj">
       <Project>{785ab166-fd30-487d-a963-9ad39d9979a5}</Project>
@@ -130,7 +141,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CycleRelayTaskView.xaml">
+    <Page Include="Views\CycleSwitchTaskView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

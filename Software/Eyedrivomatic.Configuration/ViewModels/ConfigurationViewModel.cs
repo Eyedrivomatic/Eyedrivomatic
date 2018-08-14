@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Resources;
 using Prism.Commands;
 

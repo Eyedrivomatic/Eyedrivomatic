@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using Eyedrivomatic.Infrastructure;
+using Eyedrivomatic.Common.UI;
 
 namespace Eyedrivomatic.Configuration
 {
