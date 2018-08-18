@@ -25,11 +25,9 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
     public class StatusViewModel : ButtonDriverViewModelBase, IStatusViewModel
     {
         [ImportingConstructor]
-        public StatusViewModel(IButtonDriverService buttonDriverService)
-            : base(buttonDriverService)
-        {
-
-        }
+        public StatusViewModel(IButtonDriver driver)
+            : base(driver)
+        {}
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         protected override void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
@@ -41,6 +39,7 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
                 RaisePropertyChanged(nameof(Switch1));
                 RaisePropertyChanged(nameof(Switch2));
                 RaisePropertyChanged(nameof(Switch3));
+                RaisePropertyChanged(nameof(Switch4));
             }
 
             if (e.PropertyName == nameof(Driver.Profile))
@@ -56,8 +55,8 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
             }
         }
 
-        public ConnectionState ConnectionState => Driver?.ConnectionState ?? ConnectionState.Disconnected;
-        public bool SafetyBypassStatus => Driver?.Profile?.SafetyBypass ?? false;
+        public ConnectionState ConnectionState => Driver.ConnectionState;
+        public bool SafetyBypassStatus => Driver.Profile?.SafetyBypass ?? false;
 
         public Direction CurrentDirection => Driver?.CurrentDirection ?? Direction.None;
         public Vector JoystickVector => Driver?.DeviceStatus.Vector ?? new Vector(0,0);
@@ -66,9 +65,9 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
         public bool Switch3 => Driver?.DeviceStatus.Switches[3] ?? false;
         public bool Switch4 => Driver?.DeviceStatus.Switches[4] ?? false;
 
-        public string Profile => Driver?.Profile.Name;
+        public string Profile => Driver.Profile.Name;
 
-        public string Speed => Driver?.Profile.CurrentSpeed?.Name ?? Strings.StatusView_Speed_None;
-        public ReadyState ReadyState => Driver?.ReadyState ?? ReadyState.None;
+        public string Speed => Driver.Profile.CurrentSpeed?.Name ?? Strings.StatusView_Speed_None;
+        public ReadyState ReadyState => Driver.ReadyState;
     }
 }

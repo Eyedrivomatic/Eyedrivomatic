@@ -21,32 +21,12 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
 {
     public abstract class ButtonDriverViewModelBase : BindableBase, IDisposable
     {
-        private IButtonDriver _driver;
+        protected readonly IButtonDriver Driver;
 
-        protected IButtonDriverService InitializationService { get; }
-
-        protected IButtonDriver Driver
+        protected ButtonDriverViewModelBase(IButtonDriver driver)
         {
-            get => _driver;
-            private set
-            {
-                if (_driver != null)
-                {
-                    _driver.PropertyChanged -= OnDriverStateChanged;
-                }
-                SetProperty(ref _driver, value);
-                if (_driver != null)
-                {
-                    _driver.PropertyChanged += OnDriverStateChanged;
-                }
-            }
-        }
-
-        protected ButtonDriverViewModelBase(IButtonDriverService driverService)
-        {
-            InitializationService = driverService;
-            InitializationService.LoadedButtonDriverChanged += (sender, args) => Driver = driverService.LoadedButtonDriver;
-            Driver = InitializationService.LoadedButtonDriver;
+            Driver = driver;
+            Driver.PropertyChanged += OnDriverStateChanged;
         }
 
         protected virtual void OnDriverStateChanged(object sender, PropertyChangedEventArgs e)
@@ -61,12 +41,7 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
         }
 
         protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Driver = null;
-            }
-        }
+        {}
 
         public void Dispose()
         {

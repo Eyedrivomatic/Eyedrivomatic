@@ -21,7 +21,7 @@ using Prism.Mvvm;
 namespace Eyedrivomatic.Device.Mk1.Models
 {
     [Export("Mk1", typeof(IDeviceStatus))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     internal class Mk1DeviceStatus : BindableBase, IDeviceStatus
     {
         private readonly IStatusMessageSource _statusMessageSource;

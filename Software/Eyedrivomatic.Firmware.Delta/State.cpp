@@ -74,7 +74,7 @@ void StateClass::getServoEnabled(bool & enable)
 
 void StateClass::setServoEnabled(bool enable)
 {
-	digitalWrite(SERVO_ENABLE, enable ? HIGH : LOW);
+	//digitalWrite(SERVO_ENABLE, enable ? HIGH : LOW);
 }
 
 

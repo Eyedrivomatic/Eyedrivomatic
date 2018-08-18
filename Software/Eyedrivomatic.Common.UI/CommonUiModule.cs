@@ -11,6 +11,7 @@
 
 
 using System.ComponentModel.Composition;
+using System.Threading.Tasks;
 using Eyedrivomatic.Logging;
 using Prism.Mef.Modularity;
 using Prism.Modularity;
@@ -30,6 +31,7 @@ namespace Eyedrivomatic.Common.UI
         public void Initialize()
         {
             Log.Debug(this, $"Initializing Module {nameof(CommonUiModule)}.");
+
         }
     }
 }

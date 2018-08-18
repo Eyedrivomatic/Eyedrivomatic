@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.Device.Communications;
+using NullGuard;
 
 namespace Eyedrivomatic.Device.Services
 {
@@ -23,13 +24,30 @@ namespace Eyedrivomatic.Device.Services
         Task InitializeAsync();
 
         ConnectionState ConnectionState { get; }
-        IDevice ConnectedDevice { get; set; }
+
+        [AllowNull]
+        IDevice ConnectedDevice { get; }
         IList<DeviceDescriptor> AvailableDevices { get; }
 
-        event EventHandler ConnectedDeviceChanged;
+        event EventHandler<ConnectedDeviceChangedArgs> ConnectedDeviceChanged;
         event EventHandler<ConnectionState> ConnectionStateChanged;
 
         Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken none);
         Task AutoConnectAsync(bool autoUpdateFirmware, CancellationToken none);
+    }
+
+    public class ConnectedDeviceChangedArgs : EventArgs
+    {
+        public ConnectedDeviceChangedArgs([AllowNull]IDevice prevDevice, [AllowNull]IDevice newDevice)
+        {
+            PrevDevice = prevDevice;
+            NewDevice = newDevice;
+        }
+
+        [AllowNull]
+        public IDevice PrevDevice { get; }
+
+        [AllowNull]
+        public IDevice NewDevice { get; }
     }
 }

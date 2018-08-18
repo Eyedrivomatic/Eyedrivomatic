@@ -20,6 +20,7 @@ using Eyedrivomatic.ButtonDriver.Services;
 using Eyedrivomatic.ButtonDriver.UI.Views;
 using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Device.Configuration;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
@@ -34,7 +35,7 @@ namespace Eyedrivomatic.ButtonDriver.UI
         DependsOnModuleNames = new[] { nameof(DeviceConfigurationModule), nameof(ButtonDriverModule), nameof(ButtonDriverConfigurationModule), nameof(CommonUiModule), nameof(MacrosModule) })]
     public class ButtonDriverUiModule : IModule, IDisposable
     {
-        private readonly IButtonDriverService _driverService;
+        private readonly IButtonDriver _driver;
 
         private readonly IButtonDriverConfigurationService _configurationService;
         private readonly IRegionManager _regionManager;
@@ -46,16 +47,16 @@ namespace Eyedrivomatic.ButtonDriver.UI
         public ICommand ShowDisclaimerCommand { get; set; }
 
         [ImportingConstructor]
-        public ButtonDriverUiModule(IRegionManager regionManager, IButtonDriverService driverService, IButtonDriverConfigurationService configurationService)
+        public ButtonDriverUiModule(IRegionManager regionManager, IButtonDriver driver, IButtonDriverConfigurationService configurationService)
         {
             Log.Debug(this, $"Creating Module {nameof(ButtonDriverUiModule)}.");
 
             _regionManager = regionManager;
-            _driverService = driverService;
+            _driver = driver;
             _configurationService = configurationService;
         }
 
-        public async void Initialize()
+        public void Initialize()
         {
             Log.Debug(this, $"Initializing Module {nameof(ButtonDriverUiModule)}.");
 
@@ -67,18 +68,7 @@ namespace Eyedrivomatic.ButtonDriver.UI
 
             ShowDisclaimerCommand.Execute(null);
 
-            try
-            {
-                await _driverService.InitializeAsync();
-                Log.Debug(this, "ButtonDriverService Initialized");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(this, $"Driver initialization failed! [{ex}]");
-                return;
-            }
-
-            if(_driverService.LoadedButtonDriver != null)
+            if(_driver.ConnectionState == ConnectionState.Connected)
                 NavigateToCurrentProfile();
         }
 
@@ -110,7 +100,7 @@ namespace Eyedrivomatic.ButtonDriver.UI
                 Translate.TranslationFor($"DriveProfile_{profile.Name.Replace(" ", "")}", profile.Name),
                 RegionNames.MainContentRegion,
                 GetNavigationUri(profile), 1);
-            button.CanNavigate = () => _driverService?.LoadedButtonDriver?.DeviceReady ?? false;
+            button.CanNavigate = () => _driver.DeviceReady;
 
             return button;
         }
@@ -133,7 +123,6 @@ namespace Eyedrivomatic.ButtonDriver.UI
 
         public void Dispose()
         {
-            _driverService?.Dispose();
         }
     }
 }

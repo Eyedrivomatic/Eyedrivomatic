@@ -28,7 +28,7 @@ namespace Eyedrivomatic.Device.Serial.Services
     internal class StatusMessageProcessor : LineMessageProcessor, IStatusMessageSource
     {
         public const string MessagePrefix = "STATUS:";
-        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix}: [(POS=(?<Pos>-?\d{{1,3}}\.\d{{1,3}},-?\d{{1,3}}\.\d{{1,3}}))|(VECTOR=(?<Vector>-?\d{{1,3}}\.\d{{1,3}},-?\d{{1,3}}\.\d{{1,3}}))],(?<SwitchState>SWITCH (?<SwitchNumber>\d+)=(?<State>ON|OFF))+$");
+        private readonly Regex _messageFormat = new Regex($@"^{MessagePrefix} ((POS=(?<Pos>-?\d{{1,3}}\.\d{{1,3}},-?\d{{1,3}}\.\d{{1,3}}))|(VECTOR=(?<Vector>-?\d{{1,3}}\.\d{{1,3}},-?\d{{1,3}}\.\d{{1,3}})))(,(?<SwitchState>SWITCH (?<SwitchNumber>\d+)=(?<State>ON|OFF)))+$");
 
         internal void Process(string message)
         {
@@ -47,10 +47,12 @@ namespace Eyedrivomatic.Device.Serial.Services
                 return;
             }
 
-            var switchStates = new List<bool>();
-            for (var iSwitchState = 1; iSwitchState < match.Groups.Count; iSwitchState+=3)
+            var switchStates = new List<bool?>();
+            for (var iSwitchState = 0; iSwitchState < match.Groups["SwitchState"].Captures.Count; iSwitchState++)
             {
-                switchStates[int.Parse(match.Groups[iSwitchState+1].Value)-1] = match.Groups[iSwitchState+2].Value == "ON";
+                var switchNum = int.Parse(match.Groups["SwitchNumber"].Captures[iSwitchState].Value);
+                while (switchStates.Count < switchNum) switchStates.Add(null);
+                switchStates[switchNum-1] = match.Groups["State"].Captures[iSwitchState].Value == "ON";
             }
 
             if (match.Groups["Pos"].Success)

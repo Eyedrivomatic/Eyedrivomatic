@@ -17,6 +17,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Logging;
+using NullGuard;
+using Prism.Events;
 
 namespace Eyedrivomatic.Device.Services
 {
@@ -24,18 +26,18 @@ namespace Eyedrivomatic.Device.Services
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class DeviceService : IDeviceService
     {
-        private readonly IConnectionEnumerationService _connectionEnumerationService;
-        private readonly IDeviceFactory _deviceFactory;        
+        private readonly IDeviceFactory _deviceFactory;
+        private readonly IEventAggregator _eventAggregator;
 
 
         [ImportingConstructor]
-        public DeviceService(IConnectionEnumerationService connectionEnumerationService, IDeviceFactory deviceFactory)
+        public DeviceService(IDeviceFactory deviceFactory, IEventAggregator eventAggregator)
         {
-            _connectionEnumerationService = connectionEnumerationService;
             _deviceFactory = deviceFactory;
+            _eventAggregator = eventAggregator;
         }
 
-        public IList<DeviceDescriptor> AvailableDevices => _connectionEnumerationService.GetAvailableDevices(true);
+        public IList<DeviceDescriptor> AvailableDevices => _deviceFactory.GetAvailableDevices();
 
         public ConnectionState ConnectionState
         {
@@ -45,22 +47,24 @@ namespace Eyedrivomatic.Device.Services
                 if (_connectionState == value) return;
                 _connectionState = value;
                 ConnectionStateChanged?.Invoke(this, value);
+                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(_connectionState);
             }
         }
 
         private IDevice _connectedDevice;
         private ConnectionState _connectionState;
 
-        public event EventHandler ConnectedDeviceChanged;
+        public event EventHandler<ConnectedDeviceChangedArgs> ConnectedDeviceChanged;
         public event EventHandler<ConnectionState> ConnectionStateChanged; 
 
         public async Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken)
         {
             try
             {
+                ConnectedDevice?.Connection.Disconnect();
+                ConnectedDevice = null;
                 ConnectionState = ConnectionState.Connecting;
                 ConnectedDevice = await _deviceFactory.ConnectAsync(connectionString, autoUpdateFirmware, cancellationToken);
-                ConnectionState = ConnectedDevice?.Connection.State ?? ConnectionState.Disconnected;
             }
             catch (Exception ex)
             {
@@ -74,9 +78,10 @@ namespace Eyedrivomatic.Device.Services
         {
             try
             {
+                ConnectedDevice?.Connection.Disconnect();
+                ConnectedDevice = null;
                 ConnectionState = ConnectionState.Connecting;
                 ConnectedDevice = await _deviceFactory.AutoConnectAsync(autoUpdateFirmware, cancellationToken);
-                ConnectionState = ConnectedDevice?.Connection.State ?? ConnectionState.Disconnected;
             }
             catch (Exception ex)
             {
@@ -86,29 +91,45 @@ namespace Eyedrivomatic.Device.Services
             }
         }
 
+        [AllowNull]
         public IDevice ConnectedDevice
         {
             get => _connectedDevice;
-            set
+            private set
             {
-                if (_connectedDevice != null)
+                if (ReferenceEquals(_connectedDevice, value)) return;
+
+                var currentDevice = _connectedDevice;
+                if (currentDevice != null)
                 {
-                    (_connectedDevice as IDisposable)?.Dispose();
-                    _connectedDevice.Connection.ConnectionStateChanged -= ConnectionOnConnectionStateChanged;
+                    (currentDevice as IDisposable)?.Dispose();
+                    currentDevice.Connection.ConnectionStateChanged -= ConnectionOnConnectionStateChanged;
                 }
                 _connectedDevice = value;
+                ConnectedDeviceChanged?.Invoke(this, new ConnectedDeviceChangedArgs(currentDevice, _connectedDevice));
 
                 if (_connectedDevice != null)
                 {
                     _connectedDevice.Connection.ConnectionStateChanged += ConnectionOnConnectionStateChanged;
+                    ConnectionState = _connectedDevice.Connection.State;
                 }
-                ConnectedDeviceChanged?.Invoke(this, EventArgs.Empty);
+                else
+                {
+                    ConnectionState = ConnectionState.Disconnected;
+                }
             }
         }
 
         private void ConnectionOnConnectionStateChanged(object sender, EventArgs eventArgs)
         {
-            ConnectionStateChanged?.Invoke(this, ConnectionState);
+
+            if (ConnectedDevice != null && ConnectedDevice.Connection.State == ConnectionState.Disconnected)
+            {
+                ConnectedDevice = null;
+                return;
+            }
+
+            ConnectionState = ConnectedDevice?.Connection.State ?? ConnectionState.Disconnected;
         }
 
         public Task InitializeAsync()
@@ -120,6 +141,7 @@ namespace Eyedrivomatic.Device.Services
         public void Dispose()
         {
             ConnectedDevice = null;
+            ConnectionState = ConnectionState.Disconnected;
         }
     }
 }

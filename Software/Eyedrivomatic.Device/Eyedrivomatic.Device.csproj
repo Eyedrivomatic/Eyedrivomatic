@@ -155,7 +155,9 @@
     <Compile Include="Commands\ToggleSwitchCommand.cs" />
     <Compile Include="Commands\Vector.cs" />
     <Compile Include="Communications\DeviceIdFilter.cs" />
+    <Compile Include="IDeviceFactoryExportMetadata.cs" />
     <Compile Include="ISwitchStatus.cs" />
+    <Compile Include="Services\DeviceFactory.cs" />
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="Services\IDeviceConnectionFactory.cs" />
     <Compile Include="Services\IDeviceFactory.cs" />

@@ -40,11 +40,11 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
         private readonly InteractionRequest<IConfirmationWithCustomButtons> _confirmationRequest;
 
         [ImportingConstructor]
-        public ProfileConfigurationViewModel(IButtonDriverService driverService,
+        public ProfileConfigurationViewModel(IButtonDriver driver,
             IButtonDriverConfigurationService configurationService, ExportFactory<Profile> profileFactory,
             [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand, 
             InteractionRequest<IConfirmationWithCustomButtons> confirmationRequest)
-            : base(driverService)
+            : base(driver)
         {
             _configurationService = configurationService;
             _profileFactory = profileFactory;

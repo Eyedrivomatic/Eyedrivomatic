@@ -4,7 +4,7 @@
     xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
     xmlns:l="http://gu.se/Localization"
     xmlns:resources="clr-namespace:Eyedrivomatic.Resources;assembly=Eyedrivomatic.Resources"
-    xmlns:configuration="clr-namespace:Eyedrivomatic.Device.Configuration;assembly=Eyedrivomatic.Device.Configuration">
+    xmlns:configuration="clr-namespace:Eyedrivomatic.Device.Configuration">
 
 
     <Style TargetType="{x:Type configuration:DeviceConnectionDecoratorControl}">

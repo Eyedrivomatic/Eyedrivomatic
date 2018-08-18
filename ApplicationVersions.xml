@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<item>
+  <version>2.0.0.0</version>
+  <url>https://eyedrivomatic.org/Downloads/Eyedrivomatic2.0.0.0/Eyedrivomatic.Setup.msi</url>
+  <!--<changelog>https://github.com/ravibpatel/AutoUpdater.NET/releases</changelog>-->
+  <mandatory>false</mandatory>
+</item>

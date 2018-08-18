@@ -21,7 +21,7 @@ using Prism.Mvvm;
 namespace Eyedrivomatic.Device.Delta.Models
 {
     [Export("Delta", typeof(IDeviceStatus))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     internal class DeltaDeviceStatus : BindableBase, IDeviceStatus
     {
         private readonly IStatusMessageSource _statusMessageSource;

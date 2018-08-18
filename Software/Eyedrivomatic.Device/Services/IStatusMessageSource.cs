@@ -26,15 +26,15 @@ namespace Eyedrivomatic.Device.Services
     public class StatusMessageEventArgs : EventArgs
     {
         public Vector Vector { get; }
-        public bool[] Switches { get; }
+        public bool?[] Switches { get; }
 
-        public StatusMessageEventArgs(Vector vector, bool[] switches)
+        public StatusMessageEventArgs(Vector vector, bool?[] switches)
         {
             Vector = vector;
             Switches = switches;
         }
 
-        public StatusMessageEventArgs(Point position, bool[] switches)
+        public StatusMessageEventArgs(Point position, bool?[] switches)
         {
             Vector = position;
             Switches = switches;
@@ -50,7 +50,7 @@ namespace Eyedrivomatic.Device.Services
             foreach (var switchState in Switches)
             {
                 if (switchNumber > 1) sb.Append(",");
-                sb.Append($" Switch{switchNumber++} {(switchState ? "on" : "off")}");
+                sb.Append($" Switch{switchNumber++} {(switchState == null ? "unknown" : switchState.Value  ? "on" : "off")}");
             }
 
             return sb.ToString();

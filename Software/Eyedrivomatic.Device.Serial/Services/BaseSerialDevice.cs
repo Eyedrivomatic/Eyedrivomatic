@@ -1,69 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Device.Serial.Communications;
-using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
-using Eyedrivomatic.Resources;
-using NullGuard;
-using Prism.Events;
 using Prism.Mvvm;
 
 namespace Eyedrivomatic.Device.Serial.Services
 {
-    public abstract class BaseSerialDevice : BindableBase, IDevice
+    public abstract class BaseSerialDevice : BindableBase, IDevice, IDisposable
     {
-        private readonly IConnectionEnumerationService _connectionEnumerationService;
-        private readonly IDeviceConnectionFactory _connectionFactory;
-        private readonly IFirmwareUpdateService _firmwareUpdateService;
-        private IDeviceConnection _connection;
-        private ConnectionState _connectionState;
-
         private readonly IList<Lazy<IDeviceSerialMessageProcessor, IMessageProcessorMetadata>> _messageProcessors;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly string _variant;
 
         private IDisposable _connectionDatastream;
 
         protected readonly IDeviceCommands Commands;
 
         public static uint SwitchCount = 4;
-        public static Version MinFirmwareVersion = new Version(2, 1, 0);
 
-        public BaseSerialDevice(
+        protected BaseSerialDevice(
+            IDeviceConnection connection,
             IDeviceCommands commandFactory,
-            [ImportMany] IEnumerable<Lazy<IDeviceSerialMessageProcessor, IMessageProcessorMetadata>> messageProcessors,
+            IEnumerable<Lazy<IDeviceSerialMessageProcessor, IMessageProcessorMetadata>> messageProcessors,
             IDeviceStatus deviceStatus,
-            IDeviceSettings deviceSettings,
-            IConnectionEnumerationService connectionEnumerationService,
-            IDeviceConnectionFactory connectionFactory,
-            [Import("FirmwareUpdateWithConfirmation")] IFirmwareUpdateService firmwareUpdateService,
-            IEventAggregator eventAggregator,
-            [Import("DeviceVariant")] string variant)
+            IDeviceSettings deviceSettings)
         {
             Commands = commandFactory;
             _messageProcessors = new List<Lazy<IDeviceSerialMessageProcessor, IMessageProcessorMetadata>>(messageProcessors);
             DeviceStatus = deviceStatus;
             DeviceSettings = deviceSettings;
-            _connectionEnumerationService = connectionEnumerationService;
-            _connectionFactory = connectionFactory;
-            _firmwareUpdateService = firmwareUpdateService;
-            _eventAggregator = eventAggregator;
-            _variant = variant;
 
             deviceStatus.PropertyChanged += OnDeviceStatusChanged;
+
+            Connection = connection;
+            Connection.ConnectionStateChanged += OnConnectionStateChanged;
+            Connection.DataStream.Subscribe(AttachToDataStream);
         }
 
         public bool DeviceReady => Connection?.State == ConnectionState.Connected && DeviceStatus.IsKnown;
 
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         private void OnDeviceStatusChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DeviceStatus.IsKnown))
@@ -91,142 +72,15 @@ namespace Eyedrivomatic.Device.Serial.Services
             Commands.GetStatus();
         }
 
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
         private void OnConnectionStateChanged(object sender, EventArgs eventArgs)
         {
-            ConnectionState = Connection?.State ?? ConnectionState.Disconnected;
+            RaisePropertyChanged(nameof(ConnectionState));
+            RaisePropertyChanged(nameof(DeviceReady));
         }
 
         #region Connection
-
-        public IList<DeviceDescriptor> GetAvailableDevices(bool includeAllSerialDevices)
-        {
-            return _connectionEnumerationService.GetAvailableDevices(includeAllSerialDevices);
-        }
-
-        public async Task AutoConnectAsync(bool autoUpdateFirmware, CancellationToken cancellationToken)
-        {
-            try
-            {
-                ConnectionState = ConnectionState.Connecting;
-
-                Connection = null;
-                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Connecting);
-
-                var connection = await _connectionEnumerationService.DetectDeviceAsync(MinFirmwareVersion, cancellationToken);
-                if (connection == null)
-                {
-                    Log.Error(this, "Device not found!");
-                    throw new ConnectionFailedException(Strings.DeviceConnection_Error_Auto_NotFound);
-                }
-
-                await CheckFirmwareVersion(connection, autoUpdateFirmware);
-                Connection = connection;
-            }
-            catch (Exception)
-            {
-                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Error);
-                ConnectionState = ConnectionState.Disconnected;
-                throw;
-            }
-        }
-
-        public async Task ConnectAsync(string connectionString, bool autoUpdateFirmware, CancellationToken cancellationToken)
-        {
-            Connection = null;
-            ConnectionState = ConnectionState.Connecting;
-            try
-            {
-                var device = GetAvailableDevices(true).FirstOrDefault(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) == 0);
-                if (device == null)
-                {
-                    Log.Error(this, $"Device [{connectionString}] not found!");
-                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_Manual_NotFound, connectionString));
-                }
-
-                var connection = _connectionFactory.CreateConnection(device);
-                await connection.ConnectAsync(cancellationToken);
-
-                if (connection.State != ConnectionState.Connected)
-                {
-                    if (GetAvailableDevices(false)
-                        .All(d => StringComparer.OrdinalIgnoreCase.Compare(d.ConnectionString, connectionString) != 0))
-                    {
-                        Log.Error(this, $"Connection to device [{connectionString}] failed!");
-
-                        throw new ConnectionFailedException(
-                            string.Format(Strings.DeviceConnection_Error_Manual, connectionString));
-                    }
-                }
-
-                await CheckFirmwareVersion(connection, autoUpdateFirmware);
-                Connection = connection;
-            }
-            catch (Exception)
-            {
-                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(ConnectionState.Error);
-                throw;
-            }
-        }
-
-        private async Task CheckFirmwareVersion(IDeviceConnection connection, bool autoUpdateFirmware)
-        {
-            var latestVersion = _firmwareUpdateService.GetLatestVersion(connection.VersionInfo.Model, _variant);
-
-            //Required update.
-            if (!string.IsNullOrEmpty(_variant) && string.CompareOrdinal(connection.VersionInfo.Variant, _variant) != 0)
-            {
-                if (latestVersion == null || latestVersion.Version < MinFirmwareVersion)
-                {
-                    Log.Error(this, $"A device was detected with firmware for [{(string.IsNullOrEmpty(connection.VersionInfo.Variant) ? "standard" : connection.VersionInfo.Variant)}] hardware, however firmware for [{_variant}] is required. Unfortunately the firmware file cannot be found.");
-                    throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
-                }
-
-                if (!autoUpdateFirmware || !await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true))
-                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString));
-            }
-
-            if (connection.VersionInfo.Version < MinFirmwareVersion)
-            {
-                if (latestVersion == null || latestVersion.Version < MinFirmwareVersion)
-                {
-                    Log.Error(this, $"A device was detected with firmware version [{connection.VersionInfo.Version}], However a minimum version [{MinFirmwareVersion}] is required. However the firmware file cannot be found.");
-                    throw new ConnectionFailedException(Strings.DeviceConnection_MinFirmwareNotAvailable);
-                }
-
-                if (!autoUpdateFirmware || !await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, true))
-                    throw new ConnectionFailedException(string.Format(Strings.DeviceConnection_Error_FirmwareCheck, connection.ConnectionString));
-            }
-
-            if (autoUpdateFirmware && latestVersion != null && latestVersion.Version > connection.VersionInfo.Version)
-            {
-                await _firmwareUpdateService.UpdateFirmwareAsync(connection, latestVersion, false);
-            }
-        }
-
-        [Export]
-        [AllowNull]
-        public IDeviceConnection Connection
-        {
-            get => _connection;
-            private set
-            {
-                if (value == _connection) return;
-
-                _connectionDatastream?.Dispose();
-                _connectionDatastream = null;
-
-                if (_connection != null) _connection.ConnectionStateChanged -= OnConnectionStateChanged;
-                _connection = value;
-
-                if (_connection != null)
-                {
-                    _connection.ConnectionStateChanged += OnConnectionStateChanged;
-                    _connection.DataStream.Subscribe(AttachToDataStream);
-                }
-
-                OnConnectionStateChanged(this, EventArgs.Empty);
-            }
-        }
+        public IDeviceConnection Connection { get; }
 
         #endregion Connection
 
@@ -234,17 +88,7 @@ namespace Eyedrivomatic.Device.Serial.Services
 
         public IDeviceStatus DeviceStatus { get; }
 
-        public virtual ConnectionState ConnectionState
-        {
-            get => _connectionState;
-            protected set
-            {
-                if (!SetProperty(ref _connectionState, value)) return;
-
-                RaisePropertyChanged(nameof(DeviceStatus));
-                _eventAggregator.GetEvent<DeviceConnectionEvent>().Publish(value);
-            }
-        }
+        public virtual ConnectionState ConnectionState => Connection.State;
 
         public Task<bool> Move(Point point, TimeSpan duration)
         {
@@ -288,7 +132,7 @@ namespace Eyedrivomatic.Device.Serial.Services
         #region IDisposable
         public void Dispose()
         {
-            _connection?.Dispose();
+            Connection?.Dispose();
             _connectionDatastream?.Dispose();
             _connectionDatastream = null;
         }

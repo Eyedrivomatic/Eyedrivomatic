@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Eyedrivomatic.Device.Communications;
 using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 using Prism.Mvvm;
@@ -32,11 +34,22 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
             }
         }
 
+        public ConnectionState ConnectionState => DeviceService.ConnectionState; //Only the device service really knows about connecting.
+        public bool Ready => Device?.DeviceReady ?? false;
+
         protected DeviceViewModelBase(IDeviceService deviceService)
         {
             DeviceService = deviceService;
+            DeviceService.ConnectionStateChanged += OnConnectionStateChanged;
             DeviceService.ConnectedDeviceChanged += (sender, args) => Device = deviceService.ConnectedDevice;
             Device = DeviceService.ConnectedDevice;
+        }
+
+        [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+        protected virtual void OnConnectionStateChanged(object o, ConnectionState connectionState)
+        {
+            RaisePropertyChanged(nameof(ConnectionState));
+            RaisePropertyChanged(nameof(Ready));
         }
 
         protected virtual void OnDeviceStateChanged(object sender, PropertyChangedEventArgs e)

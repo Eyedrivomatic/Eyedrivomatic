@@ -21,6 +21,7 @@ using Eyedrivomatic.Common;
 using Eyedrivomatic.Device;
 using Eyedrivomatic.Device.Commands;
 using Eyedrivomatic.Device.Communications;
+using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 using Prism.Mvvm;
 
@@ -35,25 +36,44 @@ namespace Eyedrivomatic.ButtonDriver.Services
         private ContinueState _continueState;
         private int _nudge;
         private Profile _profile;
-        private readonly IDevice _device;
+        private readonly IDeviceService _deviceService;
 
         [ImportingConstructor]
-        internal ButtonDriver(IDevice device)
+        internal ButtonDriver(IDeviceService deviceService)
         {
-            _device = device;
-            _device.DeviceStatus.PropertyChanged += OnDeviceStatusChanged;
-            _device.Connection.ConnectionStateChanged += OnDeviceConnectionStateChanged;
+            _deviceService = deviceService;
+            _deviceService.ConnectionStateChanged += OnDeviceConnectionStateChanged;
+            _deviceService.ConnectedDeviceChanged += OnConnectedDeviceChanged;
+            if (_deviceService.ConnectedDevice != null)
+            {
+                _deviceService.ConnectedDevice.PropertyChanged += OnDeviceStatusChanged;
+            }
         }
 
         #region Status
+        private void OnConnectedDeviceChanged(object sender, ConnectedDeviceChangedArgs eventArgs)
+        {
+            if (eventArgs.PrevDevice != null)
+            {
+                eventArgs.PrevDevice.PropertyChanged -= OnDeviceStatusChanged;
+            }
+            if (_deviceService.ConnectedDevice != null)
+            {
+                _deviceService.ConnectedDevice.PropertyChanged += OnDeviceStatusChanged;
+            }
+
+            RaisePropertyChanged(string.Empty);
+        }
+
         private void OnDeviceStatusChanged(object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(CurrentDirection));
             RaisePropertyChanged(nameof(ReadyState));
         }
 
-        private void OnDeviceConnectionStateChanged(object sender, EventArgs eventArgs)
+        private void OnDeviceConnectionStateChanged(object sender, ConnectionState connectionState)
         {
+            RaisePropertyChanged(nameof(ConnectionState));
             RaisePropertyChanged(nameof(CurrentDirection));
             RaisePropertyChanged(nameof(ReadyState));
         }
@@ -71,15 +91,14 @@ namespace Eyedrivomatic.ButtonDriver.Services
             }
         }
 
-        public ConnectionState ConnectionState => _device.Connection.State;
+        
+        public ConnectionState ConnectionState => _deviceService.ConnectionState;
 
         public Direction CurrentDirection
         {
             get
             {
-                if (!DeviceReady) return Direction.None;
-
-                if (DeviceStatus.Vector.Speed < 0.1m) return Direction.None;
+                if (!DeviceReady || DeviceStatus.Vector.Speed < 0.1m) return Direction.None;
                 return _lastDirection;
             }
         }
@@ -104,10 +123,11 @@ namespace Eyedrivomatic.ButtonDriver.Services
             }
         }
 
-        public uint SwitchCount => _device.DeviceSettings.SwitchCount;
+        public uint SwitchCount => (uint)(_deviceService.ConnectedDevice?.DeviceStatus.Switches.Count ?? 0);
         #endregion Status
 
         #region Settings
+        [Import("CurrentProfile")]
         public Profile Profile
         {
             get => _profile;
@@ -127,18 +147,19 @@ namespace Eyedrivomatic.ButtonDriver.Services
 
         #region Control
 
-        public bool DeviceReady => _device.DeviceReady;
+        public bool DeviceReady => _deviceService.ConnectedDevice?.DeviceReady ?? false;
 
-        public IDeviceStatus DeviceStatus => _device.DeviceStatus;
+        [Export(typeof(IDeviceStatus))]
+        public IDeviceStatus DeviceStatus => _deviceService.ConnectedDevice?.DeviceStatus;
 
         public Task CycleSwitchAsync(uint relay, uint repeat = 1, uint toggleDelayMs = 500, uint repeatDelayMs = 1000)
         {
-            return _device.CycleSwitchAsync(relay, repeat, toggleDelayMs, repeatDelayMs);
+            return _deviceService.ConnectedDevice?.CycleSwitchAsync(relay, repeat, toggleDelayMs, repeatDelayMs) ?? throw new InvalidOperationException("Not Connected");
         }
 
         public void Stop()
         {
-            _device.Stop();
+            _deviceService.ConnectedDevice?.Stop();
             _nudge = 0;
             ContinueState = ContinueState.Continued;
         }
@@ -153,6 +174,8 @@ namespace Eyedrivomatic.ButtonDriver.Services
         {
             Log.Info(this, $"Nudge {direction}.");
 
+            if (!DeviceReady) throw new InvalidOperationException("Not connected");
+
             if (LastDirection != Direction.Forward || CurrentDirection == Direction.None)
             {
                 Log.Warn(this, "Nudge only available while moving forward.");
@@ -164,7 +187,7 @@ namespace Eyedrivomatic.ButtonDriver.Services
             try
             {
                 _nudge += direction == XDirection.Right ? Profile.CurrentSpeed.Nudge : -Profile.CurrentSpeed.Nudge;
-                if (!await _device.Move(new Point(_nudge, Profile.CurrentSpeed.YForward), duration))
+                if (!await _deviceService.ConnectedDevice.Move(new Point(_nudge, Profile.CurrentSpeed.YForward), duration))
                 {
                     Log.Error(this, $"Failed to send nudge [{direction}] command.");
                 }
@@ -187,6 +210,8 @@ namespace Eyedrivomatic.ButtonDriver.Services
         {
             Log.Info(this, $"Move {direction}.");
 
+            if (!DeviceReady) throw new InvalidOperationException("Not connected");
+
             ContinueState = ContinueState.NotContinuedRecently;
 
             if (CurrentDirection != Direction.Forward && CurrentDirection != Direction.Backward) _nudge = 0;
@@ -195,14 +220,14 @@ namespace Eyedrivomatic.ButtonDriver.Services
 
             var directionCommands = new Dictionary<Direction, Func<Task<bool>>>
                 {
-                    {Direction.Forward,       () => _device.Move(new Point(_nudge, speed.YForward), duration)},
-                    {Direction.ForwardRight,  () => _device.Move(new Point(speed.XDiag, speed.YForwardDiag), duration)},
-                    {Direction.Right,         () => _device.Move(new Point(speed.X, 0), duration)},
-                    {Direction.BackwardRight, () => _device.Move(new Point(speed.XDiag,  -speed.YBackwardDiag), duration)},
-                    {Direction.Backward,      () => _device.Move(new Point(0, -speed.YBackward), duration)},
-                    {Direction.BackwardLeft,  () => _device.Move(new Point(-speed.XDiag, -speed.YBackwardDiag), duration)},
-                    {Direction.Left,          () => _device.Move(new Point(-speed.X, 0), duration)},
-                    {Direction.ForwardLeft,   () => _device.Move(new Point(-speed.XDiag, speed.YForwardDiag), duration)},
+                    {Direction.Forward,       () => _deviceService.ConnectedDevice.Move(new Point(_nudge, speed.YForward), duration)},
+                    {Direction.ForwardRight,  () => _deviceService.ConnectedDevice.Move(new Point(speed.XDiag, speed.YForwardDiag), duration)},
+                    {Direction.Right,         () => _deviceService.ConnectedDevice.Move(new Point(speed.X, 0), duration)},
+                    {Direction.BackwardRight, () => _deviceService.ConnectedDevice.Move(new Point(speed.XDiag,  -speed.YBackwardDiag), duration)},
+                    {Direction.Backward,      () => _deviceService.ConnectedDevice.Move(new Point(0, -speed.YBackward), duration)},
+                    {Direction.BackwardLeft,  () => _deviceService.ConnectedDevice.Move(new Point(-speed.XDiag, -speed.YBackwardDiag), duration)},
+                    {Direction.Left,          () => _deviceService.ConnectedDevice.Move(new Point(-speed.X, 0), duration)},
+                    {Direction.ForwardLeft,   () => _deviceService.ConnectedDevice.Move(new Point(-speed.XDiag, speed.YForwardDiag), duration)},
                 };
 
             if (!directionCommands.ContainsKey(direction)) throw new InvalidEnumArgumentException(nameof(direction), (int)direction, typeof(Direction));

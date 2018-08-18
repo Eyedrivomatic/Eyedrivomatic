@@ -26,7 +26,6 @@ using Eyedrivomatic.Device.Services;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
 using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.Device.Configuration.ViewModels
 {
@@ -40,8 +39,7 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
         public Mk1DeviceConfigruationViewModel(
             IDeviceService deviceService,
             IDeviceConfigurationService configurationService,
-            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand,
-            InteractionRequest<INotification> connectionFailureNotification)
+            [Import(ConfigurationModule.SaveAllConfigurationCommandName)] CompositeCommand saveAllCommand)
             :base(deviceService)
         {
             _configurationService = configurationService;

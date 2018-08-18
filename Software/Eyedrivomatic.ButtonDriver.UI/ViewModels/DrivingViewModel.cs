@@ -39,12 +39,12 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
         private double _duration;
 
         [ImportingConstructor]
-        public DrivingViewModel(IButtonDriverService driverService,
+        public DrivingViewModel(IButtonDriver driver,
             [Import("ExecuteMacroCommand")]ICommand executeMacroCommand,
             IMacroSerializationService macroSerializationService,
             IEnumerable<Profile> profiles,
             ICamera camera)
-            : base (driverService)
+            : base (driver)
         {
             _profiles = profiles;
             _camera = camera;
@@ -56,7 +56,7 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
 
         public string HeaderInfo { get; } = Strings.DriveProfile_Default;
 
-        public bool IsOnline => Driver?.DeviceReady ?? false;
+        public bool IsOnline => Driver.DeviceReady;
 
         public bool ShowForwardView => _camera.IsCapturing;
 
@@ -71,7 +71,7 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
             }
         }
 
-        public IEnumerable<ProfileSpeed> Speeds => InitializationService.LoadedButtonDriver?.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
+        public IEnumerable<ProfileSpeed> Speeds => Driver.Profile?.Speeds ?? Enumerable.Empty<ProfileSpeed>();
 
         [AllowNull]
         public ProfileSpeed CurrentSpeed
@@ -79,6 +79,8 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
             get => IsOnline ? Driver.Profile.CurrentSpeed : null;
             set
             {
+                if (Driver.Profile == null) return;
+
                 Driver.Profile.CurrentSpeed = value;
                 LogSettingChange(Driver.Profile.CurrentSpeed?.Name);
                 RaisePropertyChanged();
@@ -125,7 +127,6 @@ namespace Eyedrivomatic.ButtonDriver.UI.ViewModels
             speed => IsOnline && speed != null);
 
         public ObservableCollection<IMacro> Macros { get; }
-
 
         void INavigationAware.OnNavigatedTo(NavigationContext navigationContext)
         {

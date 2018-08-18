@@ -15,6 +15,7 @@ using System.ComponentModel.Composition;
 using System.Threading;
 using System.Windows.Input;
 using Eyedrivomatic.Common.UI;
+using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
 using Eyedrivomatic.Device.Configuration.Services;
 using Eyedrivomatic.Device.Configuration.Views;
@@ -29,10 +30,11 @@ using Prism.Regions;
 
 namespace Eyedrivomatic.Device.Configuration
 {
-    [ModuleExport(typeof(DeviceConfigurationModule), InitializationMode = InitializationMode.WhenAvailable)]
+    [ModuleExport(typeof(DeviceConfigurationModule), 
+        InitializationMode = InitializationMode.WhenAvailable,
+        DependsOnModuleNames = new[] { nameof(ConfigurationModule), nameof(CommonUiModule), nameof(ControlsModule)})]
     public class DeviceConfigurationModule : IModule
     {
-        [ImportingConstructor]
         public DeviceConfigurationModule()
         {
             Log.Debug(this, $"Creating Module {nameof(DeviceConfigurationModule)}.");
@@ -73,7 +75,7 @@ namespace Eyedrivomatic.Device.Configuration
             try
             {
                 await _deviceService.InitializeAsync();
-                Log.Debug(this, $"ButtonDriverService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
+                Log.Debug(this, $"DeviceService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
 
                 if (_deviceService.ConnectedDevice == null)
                 {

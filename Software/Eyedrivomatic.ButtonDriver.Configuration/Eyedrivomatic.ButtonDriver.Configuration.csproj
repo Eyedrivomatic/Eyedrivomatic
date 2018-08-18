@@ -82,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>ButtonDriverConfiguration.settings</DependentUpon>
     </Compile>
+    <None Include="app.config" />
     <None Include="ButtonDriverConfiguration.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>ButtonDriverConfiguration.Designer.cs</LastGenOutput>
@@ -96,7 +97,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

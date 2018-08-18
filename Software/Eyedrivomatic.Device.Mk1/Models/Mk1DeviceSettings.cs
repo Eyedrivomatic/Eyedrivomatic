@@ -35,7 +35,7 @@ namespace Eyedrivomatic.Device.Mk1.Models
     }
 
     [Export("Mk1", typeof(IDeviceSettings))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     internal class Mk1DeviceSettings : BindableBase, IDeviceSettings
     {
         private readonly Func<string, string, Task<bool>> _setConfigurationCommand;

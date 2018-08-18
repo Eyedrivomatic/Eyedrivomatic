@@ -14,11 +14,8 @@ using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Windows;
-using Eyedrivomatic.ButtonDriver;
-using Prism.Logging;
-using Prism.Mef;
-using Prism.Modularity;
 
+using Eyedrivomatic.ButtonDriver;
 using Eyedrivomatic.ButtonDriver.Configuration;
 using Eyedrivomatic.ButtonDriver.Macros;
 using Eyedrivomatic.ButtonDriver.UI;
@@ -26,12 +23,18 @@ using Eyedrivomatic.Camera;
 using Eyedrivomatic.Common.UI;
 using Eyedrivomatic.Configuration;
 using Eyedrivomatic.Controls;
+using Eyedrivomatic.Device;
+using Eyedrivomatic.Device.Configuration;
+using Eyedrivomatic.Device.Delta;
+using Eyedrivomatic.Device.Serial.Services;
 using Eyedrivomatic.Eyegaze;
 using Eyedrivomatic.Eyegaze.Configuration;
-using Eyedrivomatic.Device.Communications;
-using Eyedrivomatic.Device.Configuration;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Resources;
+
+using Prism.Logging;
+using Prism.Mef;
+using Prism.Modularity;
 
 namespace Eyedrivomatic.Startup
 {
@@ -67,12 +70,15 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(EyegazeConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverConfigurationModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DeviceConfigurationModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(MacrosModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(CameraModule).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ButtonDriverUiModule).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDeviceConnection).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IDevice).Assembly));
+            //AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Mk1Device).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(BaseSerialDevice).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DeltaDevice).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DeviceConfigurationModule).Assembly));
         }
 
         #region IDisposable Support

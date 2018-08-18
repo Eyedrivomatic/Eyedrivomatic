@@ -161,6 +161,7 @@ namespace Eyedrivomatic.ButtonDriver.Configuration
         public ObservableCollection<Profile> DrivingProfiles => _configuration.DrivingProfiles;
 
         [AllowNull]
+        [Export(nameof(CurrentProfile))]
         public Profile CurrentProfile
         {
             get => _configuration.DrivingProfiles.CurrentProfile;

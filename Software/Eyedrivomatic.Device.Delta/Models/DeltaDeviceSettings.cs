@@ -35,7 +35,7 @@ namespace Eyedrivomatic.Device.Delta.Models
     }
 
     [Export("Delta", typeof(IDeviceSettings))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     internal class DeltaDeviceSettings : BindableBase, IDeviceSettings
     {
         private readonly Func<string, string, Task<bool>> _setConfigurationCommand;

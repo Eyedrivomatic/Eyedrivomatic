@@ -13,5 +13,5 @@ namespace Eyedrivomatic.Device.Serial.Communications
         {
             return new DeviceCommandHandler(s => sendFunc(ChecksumProcessor.ApplyChecksum(s)), command);
         }
-    }
+    }   
 }

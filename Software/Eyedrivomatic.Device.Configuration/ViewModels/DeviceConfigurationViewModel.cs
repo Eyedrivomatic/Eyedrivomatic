@@ -32,12 +32,14 @@ using Prism.Interactivity.InteractionRequest;
 
 namespace Eyedrivomatic.Device.Configuration.ViewModels
 {
-    public abstract class DeviceConfigurationViewModel : DeviceViewModelBase, IHeaderInfoProvider<string>
+    [Export]
+    public class DeviceConfigurationViewModel : DeviceViewModelBase, IHeaderInfoProvider<string>
     {
         private readonly IDeviceConfigurationService _configurationService;
         private readonly IDisposable _saveCommandRegistration;
         private readonly InteractionRequest<INotification> _connectionFailureNotification;
 
+        [ImportingConstructor]
         public DeviceConfigurationViewModel(
             IDeviceService deviceService, 
             IDeviceConfigurationService configurationService,
@@ -49,9 +51,15 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
             _connectionFailureNotification = connectionFailureNotification;
             _configurationService.PropertyChanged += ConfigurationService_PropertyChanged;
 
-            AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, CanAutoDetectDevice);
-            ConnectCommand = new DelegateCommand(Connect, CanConnect);
-            DisconnectCommand = new DelegateCommand(Disconnect, CanDisconnect);
+            AutoDetectDeviceCommand = new DelegateCommand(AutoDetectDevice, () => ConnectionState == ConnectionState.Disconnected)
+                .ObservesProperty(() => ConnectionState);
+
+            ConnectCommand = new DelegateCommand(Connect, () => SelectedDevice != null && ConnectionState == ConnectionState.Disconnected)
+                .ObservesProperty(() => SelectedDevice)
+                .ObservesProperty(() => ConnectionState);
+
+            DisconnectCommand = new DelegateCommand(Disconnect, () => ConnectionState == ConnectionState.Connected)
+                .ObservesProperty(() => ConnectionState);
 
             _saveCommandRegistration = saveAllCommand.DisposableRegisterCommand(SaveCommand);
         }
@@ -61,10 +69,6 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
         public DelegateCommand AutoDetectDeviceCommand { get; }
         public DelegateCommand ConnectCommand { get; }
         public DelegateCommand DisconnectCommand { get; }
-
-        public bool Connecting => DeviceService.ConnectionState == ConnectionState.Connecting; //Only the device service really knows about connecting.
-        public bool Connected => DeviceService.ConnectionState == ConnectionState.Connected;
-        public bool Ready => Device?.DeviceReady ?? false;
 
         public IList<DeviceDescriptor> AvailableDevices => DeviceService.AvailableDevices;
 
@@ -109,8 +113,6 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
             }
         }
 
-        protected bool CanAutoDetectDevice() { return !Connected && !Connecting; }
-
         protected async void Connect()
         {
             if (SelectedDevice == null) return;
@@ -141,19 +143,9 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
             }
         }
 
-        protected bool CanConnect()
-        {
-            return SelectedDevice != null && !Connected && !Connecting;
-        }
-
         protected void Disconnect()
         {
             Device.Connection.Disconnect();
-        }
-
-        protected bool CanDisconnect()
-        {
-            return Connected;
         }
 
         private bool _deviceHasChanges;
@@ -174,18 +166,7 @@ namespace Eyedrivomatic.Device.Configuration.ViewModels
         protected override void OnDeviceStateChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnDeviceStateChanged(sender, e);
-
             if (e.PropertyName == nameof(Device.DeviceReady)) RaisePropertyChanged(nameof(Ready));
-
-            if (e.PropertyName == nameof(Device.Connection))
-            {
-                ConnectCommand.RaiseCanExecuteChanged();
-                DisconnectCommand.RaiseCanExecuteChanged();
-                AutoDetectDeviceCommand.RaiseCanExecuteChanged();
-
-                RaisePropertyChanged(nameof(Connecting));
-                RaisePropertyChanged(nameof(Connected));
-            }
         }
 
         private static readonly Dictionary<string, string[]> ConfigurationPropertyDependencies = new Dictionary<string, string[]>

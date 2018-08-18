@@ -15,8 +15,21 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:commonUi="clr-namespace:Eyedrivomatic.Common.UI;assembly=Eyedrivomatic.Common.UI"
-                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Device.Services;assembly=Eyedrivomatic.ButtonDriver.Device"
-                    xmlns:common="clr-namespace:Eyedrivomatic.Common;assembly=Eyedrivomatic.Common">
+                    xmlns:common="clr-namespace:Eyedrivomatic.Common;assembly=Eyedrivomatic.Common"
+                    xmlns:services="clr-namespace:Eyedrivomatic.ButtonDriver.Services;assembly=Eyedrivomatic.ButtonDriver"
+                    xmlns:gif="http://wpfanimatedgif.codeplex.com"
+                    xmlns:communications="clr-namespace:Eyedrivomatic.Device.Communications;assembly=Eyedrivomatic.Device">
+
+    <commonUi:ValueToImageConverter x:Key="ConnectionStateToImageConverter">
+        <Image x:Key="{x:Static communications:ConnectionState.Disconnected}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Disconnected.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Connecting}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connecting.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Connected}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Connected.Content}"/>
+        <Image x:Key="{x:Static communications:ConnectionState.Error}"
+               gif:ImageBehavior.AnimatedSource="{DynamicResource Status.Connection.Error.Content}"/>
+    </commonUi:ValueToImageConverter>
 
     <commonUi:ValueToImageConverter x:Key="DirectionToImageConverter">
         <Image x:Key="{x:Static common:Direction.Backward}" Source="{DynamicResource Status.Direction.Backward.Content}"/>

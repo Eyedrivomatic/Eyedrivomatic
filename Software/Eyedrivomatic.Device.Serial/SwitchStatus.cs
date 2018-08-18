@@ -6,16 +6,17 @@ using Eyedrivomatic.Device.Services;
 
 namespace Eyedrivomatic.Device.Serial
 {
-    [Export(typeof(ISwitchStatus))]
+    [Export(typeof(ISwitchStatus)),
+     PartCreationPolicy(CreationPolicy.NonShared)]
     public class SwitchStatus : ISwitchStatus, IDisposable
     {
         private readonly List<bool?> _switches;
         private readonly IStatusMessageSource _statusMessageSource;
 
         [ImportingConstructor]
-        public SwitchStatus(IStatusMessageSource statusMessageSource, int switchCount)
+        public SwitchStatus(IStatusMessageSource statusMessageSource)
         {
-            _switches = new List<bool?>(switchCount);
+            _switches = new List<bool?>();
             _statusMessageSource = statusMessageSource;
             _statusMessageSource.StatusMessageReceived += OnStatusMessageReceived;
             _statusMessageSource.Disconnected += StatusMessageSourceOnDisconnected;
@@ -31,6 +32,8 @@ namespace Eyedrivomatic.Device.Serial
 
         private void OnStatusMessageReceived(object sender, StatusMessageEventArgs e)
         {
+            while (_switches.Count < e.Switches.Length) _switches.Add(null);
+
             for (var iSwitch = 0; iSwitch < Math.Min(e.Switches.Length, _switches.Count); iSwitch++)
             {
                 _switches[iSwitch] = e.Switches[iSwitch];
@@ -50,6 +53,7 @@ namespace Eyedrivomatic.Device.Serial
 
         public int Count => _switches.Count;
 
+        //1 based
         public bool? this[int index] =>  index < _switches.Count ? _switches[index-1] : null;
 
         public event EventHandler<uint> SwitchStateChanged;

@@ -68,6 +68,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeltaDevice.cs" />
     <Compile Include="Models\DeviceInfoDeltaV10.cs" />
     <Compile Include="Models\DeltaDeviceSettings.cs" />
     <Compile Include="Models\DeltaDeviceStatus.cs" />
