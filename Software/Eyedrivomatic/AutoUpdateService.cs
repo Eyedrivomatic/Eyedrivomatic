@@ -17,9 +17,10 @@ namespace Eyedrivomatic
         public AutoUpdateService(Application application)
         {
             _application = application;
-            _timer.Interval = TimeSpan.FromMinutes(10);
+            _timer.Interval = TimeSpan.FromHours(1);
             _timer.Tick += TimerOnTick;
             AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+            TimerOnTick(this, EventArgs.Empty); //check once now.
             _timer.Start();
         }
 
