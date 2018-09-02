@@ -43,10 +43,10 @@ const int switchPins[] =
 
 void StateClass::init()
 {
-	pinMode(SERVO_ENABLE, OUTPUT);
+	pinMode(SERVO_ENABLE, INPUT_DISABLE);
 	pinMode(SERVO_LEFT, OUTPUT);
 	pinMode(SERVO_RIGHT, OUTPUT);
-	digitalWrite(SERVO_ENABLE, LOW);
+	//digitalWrite(SERVO_ENABLE, LOW);
 	digitalWrite(SERVO_LEFT, LOW);
 	digitalWrite(SERVO_RIGHT, LOW);
 
@@ -63,13 +63,13 @@ void StateClass::reset()
 	digitalWrite(switchPins[HardwareSwitch::Switch3], LOW);
 	digitalWrite(switchPins[HardwareSwitch::Switch4], LOW);
 	resetServoPositions(); //queues a status message.
-	digitalWrite(SERVO_ENABLE, LOW);
+	//digitalWrite(SERVO_ENABLE, LOW);
 	SendStatus(true);
 }
 
 void StateClass::getServoEnabled(bool & enable)
 {
-	enable = digitalRead(SERVO_ENABLE);
+	enable = true; // digitalRead(SERVO_ENABLE);
 }
 
 void StateClass::setServoEnabled(bool enable)
