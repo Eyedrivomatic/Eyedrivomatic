@@ -10,6 +10,7 @@
 //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -48,7 +49,6 @@ namespace Eyedrivomatic.Configuration
             _configuration.WriteToLog();
 
             InitializeCulture(configuration);
-            Translator.CurrentCultureChanged += TranslatorOnCurrentCultureChanged;
 
             HasChanges = false;
 
@@ -130,11 +130,13 @@ namespace Eyedrivomatic.Configuration
 
         private void InitializeCulture(AppearanceConfiguration configuration)
         {
-            if (string.IsNullOrWhiteSpace(configuration.CurrentCulture)) return;
 
             try
             {
-                var culture = CultureInfo.GetCultureInfoByIetfLanguageTag(configuration.CurrentCulture);
+                var culture = string.IsNullOrWhiteSpace(configuration.CurrentCulture)
+                    ? CultureInfo.CurrentUICulture
+                    : CultureInfo.GetCultureInfoByIetfLanguageTag(configuration.CurrentCulture);
+
                 if (Translator.ContainsCulture(culture))
                 {
                     Translator.Culture = culture;
@@ -144,11 +146,17 @@ namespace Eyedrivomatic.Configuration
                     Log.Warn(this, $"Culture [{configuration.CurrentCulture}] not available.");
                     configuration.CurrentCulture = CurrentCulture.IetfLanguageTag;
                 }
+
+                Translator.CurrentCultureChanged += TranslatorOnCurrentCultureChanged;
             }
             catch (CultureNotFoundException)
             {
                 Log.Warn(this, $"Invalid culture [{configuration.CurrentCulture}].");
-                configuration.CurrentCulture = CurrentCulture.IetfLanguageTag;
+                configuration.CurrentCulture = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(this, $"Failed to initalize culture - [{ex.GetBaseException()} -- {ex}]");
             }
         }
 

@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Eyedrivomatic.Logging;
 using Eyedrivomatic.Startup;
+using Gu.Localization;
 
 namespace Eyedrivomatic
 {
