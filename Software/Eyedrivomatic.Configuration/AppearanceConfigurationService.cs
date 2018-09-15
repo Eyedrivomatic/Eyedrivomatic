@@ -133,6 +133,8 @@ namespace Eyedrivomatic.Configuration
 
             try
             {
+                LogInstalledCultures();
+
                 var culture = string.IsNullOrWhiteSpace(configuration.CurrentCulture)
                     ? CultureInfo.CurrentUICulture
                     : CultureInfo.GetCultureInfoByIetfLanguageTag(configuration.CurrentCulture);
@@ -157,6 +159,54 @@ namespace Eyedrivomatic.Configuration
             catch (Exception ex)
             {
                 Log.Error(this, $"Failed to initalize culture - [{ex.GetBaseException()} -- {ex}]");
+            }
+        }
+
+        private void LogInstalledCultures()
+        {
+            var allCultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToArray();
+
+            foreach (var culture in allCultures)
+            {
+
+                try
+                {
+                    Log.Info(this, $"Installed Culture: [{culture.TwoLetterISOLanguageName}-{culture.Name}]");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(this, $"Failed to get culture name! - [{ex}].");
+                }
+
+                try
+                {
+                    var isInvariant = StringComparer.InvariantCulture.Equals(culture.Name, CultureInfo.InvariantCulture.Name);
+                    Log.Info(this, $"  Is Invariant: [{isInvariant}]");
+                    if (isInvariant) continue;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(this, $"Failed to determine if culture is the invariant culture - [{ex}].");                    
+                }
+
+                try
+                {
+                    Log.Info(this, $"  Is Neutral: [{culture.IsNeutralCulture}]");
+                    if (culture.IsNeutralCulture)
+                    {
+                        var specific = CultureInfo.CreateSpecificCulture(culture.Name);
+                        Log.Info(this, $" Specific Culture: [{specific.TwoLetterISOLanguageName}-{specific.Name}]");
+
+                        if (!allCultures.Any(c => StringComparer.InvariantCulture.Equals(c.Name, specific.Name)))
+                        {
+                            Log.Error(this, $"SPECIFIC NEUTRAL CULTURE NOT FOUND!! Neutral Culture: [{culture.Name}], SpecificCulture: [{specific.Name}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(this, $"Failed to determineif culture is a neutral culture - [{ex}].");
+                }
             }
         }
 
