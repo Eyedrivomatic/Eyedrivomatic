@@ -227,6 +227,7 @@
     </Compile>
     <Compile Include="DisclaimerNotification.cs" />
     <Compile Include="IMouseVisibility.cs" />
+    <Compile Include="LocalizationTroubleshooter.cs" />
     <Compile Include="MouseVisibility.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Page Include="CustomConfirmationView.xaml">
