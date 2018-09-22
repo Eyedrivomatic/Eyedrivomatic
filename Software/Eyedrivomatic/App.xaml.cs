@@ -37,8 +37,6 @@ namespace Eyedrivomatic
             Log.Initialize();
             Log.Info(this, $"Application Startup - Version: {Assembly.GetExecutingAssembly().GetName().Version}");
 
-            LocalizationTroubleshooter.TestAndLogInstalledCultures();
-
             var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += OnUnhandledException;
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
