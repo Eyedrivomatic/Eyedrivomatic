@@ -142,8 +142,15 @@ namespace Eyedrivomatic.Device.Configuration
 
         private void NavigateToConfiguration()
         {
-            Log.Debug(this, $@"Navigating to [/{nameof(DeviceConfigurationView)}].");
-            _regionManager.RequestNavigate(RegionNames.ConfigurationContentRegion, $"/{nameof(DeviceConfigurationView)}");
+            try
+            {
+                Log.Debug(this, $@"Navigating to [/{nameof(DeviceConfigurationView)}].");
+                _regionManager.RequestNavigate(RegionNames.ConfigurationContentRegion, $"/{nameof(DeviceConfigurationView)}");
+            }
+            catch (Exception ex)
+            {
+                Log.Warn(this, $"Failed to navigate to configuration [{ex}].");
+            }
         }
 
         public void Dispose()

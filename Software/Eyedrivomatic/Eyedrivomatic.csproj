@@ -215,6 +215,7 @@
       <DependentUpon>CustomNotificationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DisclaimerNotification.cs" />
+    <Compile Include="IAutoUpdateService.cs" />
     <Compile Include="IMouseVisibility.cs" />
     <Compile Include="MouseVisibility.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
