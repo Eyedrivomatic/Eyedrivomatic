@@ -81,6 +81,14 @@ namespace Eyedrivomatic.Startup
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(DeviceConfigurationModule).Assembly));
         }
 
+        public override void Run(bool runWithDefaultConfiguration)
+        {
+            base.Run(runWithDefaultConfiguration);
+
+            var updateService = Container.GetExportedValue<IAutoUpdateService>();
+            updateService.Start(TimeSpan.FromMinutes(10));
+        }
+
         #region IDisposable Support
         private bool _disposed;
         private void Dispose(bool disposing)

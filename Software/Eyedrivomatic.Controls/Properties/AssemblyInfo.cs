@@ -33,6 +33,6 @@ using System.Windows;
     ResourceDictionaryLocation.SourceAssembly
 )]
 
-[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyVersion("2.1.*")]
 
 [assembly: InternalsVisibleTo("Eyedrivomatic.Controls.UnitTests")]

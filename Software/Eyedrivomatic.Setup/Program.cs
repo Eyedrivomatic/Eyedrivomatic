@@ -16,7 +16,7 @@ namespace Eyedrivomatic.Setup
             var setupDir = @"..\..\Setup\Debug";
 #else
             var build = @"Release";
-            var firmwareVersion = @"2.0.4";
+            var firmwareVersion = @"2.1.0";
             var setupDir = @"..\..\Setup\";
 #endif
 
