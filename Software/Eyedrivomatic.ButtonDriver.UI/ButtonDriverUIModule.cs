@@ -43,9 +43,6 @@ namespace Eyedrivomatic.ButtonDriver.UI
         [Import]
         public RegionNavigationButtonFactory RegionNavigationButtonFactory { get; set; }
 
-        [Import(nameof(ShowDisclaimerCommand))]
-        public ICommand ShowDisclaimerCommand { get; set; }
-
         [ImportingConstructor]
         public ButtonDriverUiModule(IRegionManager regionManager, IButtonDriver driver, IButtonDriverConfigurationService configurationService)
         {
@@ -65,8 +62,6 @@ namespace Eyedrivomatic.ButtonDriver.UI
 
             RegisterConfigurationViews();
             RegisterDriveProfiles();
-
-            ShowDisclaimerCommand.Execute(null);
 
             if(_driver.ConnectionState == ConnectionState.Connected)
                 NavigateToCurrentProfile();
