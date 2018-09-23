@@ -77,13 +77,6 @@ namespace Eyedrivomatic.Device.Configuration
                 await _deviceService.InitializeAsync();
                 Log.Debug(this, $"DeviceService Initialized. AutoConnect: [{_configurationService.AutoConnect}]");
 
-                if (_deviceService.ConnectedDevice == null)
-                {
-                    Log.Error(this, "Failed to initialize hardware. No device selected.");
-                    NavigateToConfiguration();
-                    return;
-                }
-
                 if (_configurationService.AutoConnect)
                 {
                     var connectionString = _configurationService.ConnectionString;
@@ -104,6 +97,11 @@ namespace Eyedrivomatic.Device.Configuration
                             _configurationService.Save();
                         }
                     }
+                }
+
+                if (_deviceService.ConnectedDevice == null)
+                {
+                    NavigateToConfiguration();
                 }
             }
             catch (ConnectionFailedException cfe)
