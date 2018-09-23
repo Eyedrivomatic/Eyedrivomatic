@@ -31,7 +31,6 @@ namespace Eyedrivomatic
 
         private void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
         {
-
             if (args == null)
             {
                 Log.Warn(this, "Failed to check for update");
@@ -41,7 +40,7 @@ namespace Eyedrivomatic
             if (args.IsUpdateAvailable)
             {
                 Log.Info(this, $"An update is available! This Version: [{args.InstalledVersion}], Available Version: [{args.CurrentVersion}], Manditory: [{args.Mandatory}], URI: [{args.DownloadURL}]");
-                AutoUpdater.ShowUpdateForm();
+                _application.Dispatcher.BeginInvoke(new Action(AutoUpdater.ShowUpdateForm));
             }
             else
             {
@@ -63,7 +62,7 @@ namespace Eyedrivomatic
         private void AutoUpdater_ApplicationExitEvent()
         {
             Log.Info(this, "Auto update starting. Closing application...");
-            _application.Shutdown(1);
+            _application.Dispatcher.BeginInvoke(new Action(() => _application.Shutdown(1)));
         }
 
         private void TimerOnTick(object sender, EventArgs eventArgs)

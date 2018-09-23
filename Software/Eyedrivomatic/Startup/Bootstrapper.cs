@@ -86,7 +86,7 @@ namespace Eyedrivomatic.Startup
             base.Run(runWithDefaultConfiguration);
 
             var updateService = Container.GetExportedValue<IAutoUpdateService>();
-            updateService.Start(TimeSpan.FromMinutes(10));
+            updateService.Start(TimeSpan.FromDays(1));
         }
 
         #region IDisposable Support
