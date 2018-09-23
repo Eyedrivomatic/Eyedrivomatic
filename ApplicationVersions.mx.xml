@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <item>
-  <version>2.1.6838.9999</version>
-  <url>https://eyedrivomatic.org/Download/Eyedrivomatic2.1/2.1.6838/en/Eyedrivomatic.Setup.msi</url>
+  <version>2.1.6839</version>
+  <url>https://eyedrivomatic.org/Download/Eyedrivomatic2.1/2.1.6839/en/Eyedrivomatic.Setup.msi</url>
   <!--<changelog>https://github.com/ravibpatel/AutoUpdater.NET/releases</changelog>-->
   <mandatory>false</mandatory>
 </item>
